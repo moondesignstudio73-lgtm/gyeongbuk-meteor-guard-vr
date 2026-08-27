@@ -67,7 +67,7 @@ namespace MeteorDefenseVR.Combat
             bool accepted = meteor.ReceiveDamage(damagePerShot);
             if (!accepted) return false;
             Hit?.Invoke(meteor, destination);
-            if (meteor.State == MeteorLifecycleState.Destroyed)
+            if (meteor.State == MeteorLifecycleState.Destroyed && meteor.Score > 0)
                 ScorePopupRequested?.Invoke(destination, meteor.Score);
             else
                 target.UnlockAfterAttack();

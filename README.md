@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 6 - Automatic Laser Combat
+- 현재 개발 단계: STEP 7 - Action Tutorial
 
 ## 주요 Scene
 
@@ -67,3 +67,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - `LaserBeamView`와 Muzzle/Hit/Audio/Camera Feedback 연결점
 - 파괴 위치에 `+100` 형태의 World Space 점수 Popup
 - `MeteorDefense` Scene에 CombatSystem, 양쪽 Cannon, Beam, Popup 구성
+
+## STEP 7 행동형 튜토리얼
+
+- Tutorial 상태에서 피해·점수·이동이 없는 전용 운석 1개 생성
+- 실제 Gaze Lock-On과 Laser 공격으로만 완료
+- 기본 안내 `운석을 바라보세요.` 및 5초 후 재안내·Pulse
+- 성공 시 `좋아요! 이런 방식으로 운석을 파괴하세요.` 표시
+- 약 1.5초 후 Practice 상태로 자동 전환
+- 실패나 시간 초과로 Game Over가 발생하지 않는 체험형 흐름

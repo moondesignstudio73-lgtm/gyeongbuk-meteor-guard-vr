@@ -2,6 +2,7 @@ using System.IO;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.Combat;
+using MeteorDefenseVR.Tutorial;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -91,9 +92,46 @@ namespace MeteorDefenseVR.Editor
 
             EnsureCalibrationSystem(provider);
             EnsureCombatSystem(raycaster);
+            EnsureTutorialSystem();
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureTutorialSystem()
+        {
+            GameObject root = GameObject.Find("TutorialSystem");
+            if (root == null) root = new GameObject("TutorialSystem");
+            TutorialController controller = root.GetComponent<TutorialController>();
+            if (controller == null) controller = root.AddComponent<TutorialController>();
+
+            Transform spawnPoint = root.transform.Find("TutorialMeteorSpawn");
+            if (spawnPoint == null)
+            {
+                GameObject spawnObject = new GameObject("TutorialMeteorSpawn");
+                spawnPoint = spawnObject.transform;
+                spawnPoint.SetParent(root.transform);
+            }
+            spawnPoint.position = new Vector3(0f, 1.6f, 6f);
+
+            GameObject tutorialPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Meteor/Prefabs/Meteor_Tutorial.prefab");
+            controller.Configure(tutorialPrefab, spawnPoint);
+            controller.ResetTutorial();
+
+            Transform textTransform = root.transform.Find("InstructionText");
+            GameObject textObject = textTransform != null ? textTransform.gameObject : new GameObject("InstructionText");
+            textObject.transform.SetParent(root.transform);
+            textObject.transform.position = new Vector3(0f, 2.7f, 4f);
+            TextMesh text = textObject.GetComponent<TextMesh>();
+            if (text == null) text = textObject.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleCenter;
+            text.alignment = TextAlignment.Center;
+            text.fontSize = 48;
+            text.characterSize = 0.035f;
+            text.color = new Color(0.7f, 1f, 0.75f);
+            TutorialStatusView view = textObject.GetComponent<TutorialStatusView>();
+            if (view == null) view = textObject.AddComponent<TutorialStatusView>();
+            view.Configure(controller, text);
         }
 
         private static void EnsureCombatSystem(GazeRaycaster raycaster)
