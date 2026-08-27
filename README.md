@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 14 - Mission Complete
+- 현재 개발 단계: STEP 15 - Result System
 
 ## 주요 Scene
 
@@ -138,3 +138,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - 지구 Focus Light와 미세한 Scale Pulse로 시선을 유도하며 VR 카메라는 고정
 - Victory BGM/SFX용 AudioSource 연결점 제공
 - 기본 4초 표시 후 Result 상태로 자동 전환
+
+## STEP 15 결과 통계와 Rank
+
+- `GameSessionStats`가 Score, 파괴/전체, Shots/Locks, Hit, Accuracy, Damage, Combo, Play Time 기록
+- Result 진입 시 불변 `GameSessionSnapshot`을 생성해 결과값 고정
+- `MISSION RESULT`, SCORE, DESTROYED, ACCURACY, RANK, 성공 문구 표시
+- `SessionRankSettings.asset`에서 S/A/B/C 점수 기준 수정 가능
+- 기본 Rank 기준 S 3000, A 2400, B 1500, 나머지 C
+- Result 표시 시간은 Inspector에서 7~10초 범위로 설정

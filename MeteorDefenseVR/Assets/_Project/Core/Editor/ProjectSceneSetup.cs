@@ -104,9 +104,59 @@ namespace MeteorDefenseVR.Editor
             EnsurePlayerSystem(camera);
             EnsureBossClimaxSystem(camera);
             EnsureMissionCompleteSystem(camera);
+            EnsureResultSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureResultSystem(Camera camera)
+        {
+            GameObject root = GameObject.Find("ResultSystem");
+            if (root == null) root = new GameObject("ResultSystem");
+
+            MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
+            BossClimaxController boss = GameObject.Find("BossClimaxSystem")?.GetComponent<BossClimaxController>();
+            LaserWeapon weapon = GameObject.Find("CombatSystem")?.GetComponent<LaserWeapon>();
+            PlayerHealth health = GameObject.Find("PlayerSystem")?.GetComponent<PlayerHealth>();
+            MissionHudController hud = GameObject.Find("MissionHUD")?.GetComponent<MissionHudController>();
+
+            GameSessionStats stats = root.GetComponent<GameSessionStats>();
+            if (stats == null) stats = root.AddComponent<GameSessionStats>();
+            stats.Configure(spawner, boss, weapon, health, hud);
+
+            SessionRankSettings rankSettings = GetOrCreateRankSettings();
+            ResultController controller = root.GetComponent<ResultController>();
+            if (controller == null) controller = root.AddComponent<ResultController>();
+            controller.Configure(stats, rankSettings);
+
+            Transform textTransform = camera.transform.Find("ResultText");
+            GameObject textObject = textTransform != null ? textTransform.gameObject : new GameObject("ResultText");
+            textObject.transform.SetParent(camera.transform, false);
+            textObject.transform.localPosition = new Vector3(0f, 0.05f, 3.75f);
+            textObject.transform.localRotation = Quaternion.identity;
+            TextMesh text = textObject.GetComponent<TextMesh>();
+            if (text == null) text = textObject.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleCenter;
+            text.alignment = TextAlignment.Center;
+            text.fontSize = 64;
+            text.characterSize = 0.038f;
+            text.color = new Color(0.45f, 0.95f, 1f);
+
+            ResultView view = root.GetComponent<ResultView>();
+            if (view == null) view = root.AddComponent<ResultView>();
+            view.Configure(controller, text);
+        }
+
+        private static SessionRankSettings GetOrCreateRankSettings()
+        {
+            const string path = "Assets/_Project/GameFlow/SessionRankSettings.asset";
+            SessionRankSettings settings = AssetDatabase.LoadAssetAtPath<SessionRankSettings>(path);
+            if (settings != null) return settings;
+            settings = ScriptableObject.CreateInstance<SessionRankSettings>();
+            settings.Configure(3000, 2400, 1500);
+            AssetDatabase.CreateAsset(settings, path);
+            return settings;
         }
 
         private static void EnsureMissionCompleteSystem(Camera camera)
