@@ -39,6 +39,7 @@ namespace MeteorDefenseVR.Meteor
         public IReadOnlyList<MeteorController> ActiveMeteors => activeMeteors;
 
         public event Action<int, MeteorWaveData> WaveStarted;
+        public event Action<int> SpawningStarted;
         public event Action<MeteorController, int, int> MeteorSpawned;
         public event Action<MeteorController> MeteorCompleted;
         public event Action AllSpawnsCompleted;
@@ -97,6 +98,7 @@ namespace MeteorDefenseVR.Meteor
 
             AllWavesSpawned = TotalScheduled == 0;
             IsSpawning = !AllWavesSpawned;
+            SpawningStarted?.Invoke(TotalScheduled);
             if (AllWavesSpawned)
             {
                 AllSpawnsCompleted?.Invoke();

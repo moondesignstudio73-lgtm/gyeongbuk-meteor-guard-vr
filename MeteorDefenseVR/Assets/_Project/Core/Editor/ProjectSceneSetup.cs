@@ -5,6 +5,7 @@ using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Tutorial;
 using MeteorDefenseVR.Launch;
 using MeteorDefenseVR.Meteor;
+using MeteorDefenseVR.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -98,9 +99,87 @@ namespace MeteorDefenseVR.Editor
             EnsurePracticeSystem();
             EnsureLaunchSystem();
             EnsureMainGameSpawner(camera);
+            EnsureMissionHud(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureMissionHud(Camera camera)
+        {
+            GameObject root = GameObject.Find("MissionHUD");
+            if (root == null) root = new GameObject("MissionHUD");
+            root.transform.SetParent(camera.transform, false);
+            root.transform.localPosition = Vector3.zero;
+            root.transform.localRotation = Quaternion.identity;
+
+            MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
+            LaserWeapon weapon = GameObject.Find("CombatSystem")?.GetComponent<LaserWeapon>();
+            MissionHudController controller = root.GetComponent<MissionHudController>();
+            if (controller == null) controller = root.AddComponent<MissionHudController>();
+            controller.Configure(spawner, weapon, 100f);
+
+            Material panelMaterial = GetOrCreateHudPanelMaterial();
+            CreateHudPanel(root.transform, "Panel_HP", new Vector3(-1.25f, 0.75f, 4f), panelMaterial);
+            CreateHudPanel(root.transform, "Panel_Remaining", new Vector3(0f, 0.82f, 4f), panelMaterial);
+            CreateHudPanel(root.transform, "Panel_Score", new Vector3(1.25f, 0.75f, 4f), panelMaterial);
+
+            TextMesh health = EnsureHudText(root.transform, "HudHealth", new Vector3(-1.25f, 0.75f, 3.94f),
+                new Color(0.35f, 1f, 0.45f), 0.026f);
+            TextMesh remaining = EnsureHudText(root.transform, "HudRemaining", new Vector3(0f, 0.82f, 3.94f),
+                new Color(0.35f, 0.95f, 1f), 0.027f);
+            TextMesh score = EnsureHudText(root.transform, "HudScore", new Vector3(1.25f, 0.75f, 3.94f),
+                new Color(0.45f, 0.95f, 1f), 0.028f);
+            TextMesh feedback = EnsureHudText(root.transform, "HudFeedback", new Vector3(0f, 0.2f, 3.85f),
+                new Color(0.45f, 1f, 0.5f), 0.04f);
+
+            MissionHudView view = root.GetComponent<MissionHudView>();
+            if (view == null) view = root.AddComponent<MissionHudView>();
+            view.Configure(controller, health, remaining, score, feedback);
+        }
+
+        private static void CreateHudPanel(Transform parent, string name, Vector3 localPosition, Material material)
+        {
+            Transform panel = EnsurePrimitive(parent, name, PrimitiveType.Cube, localPosition, new Vector3(1.05f, 0.48f, 0.025f));
+            Renderer renderer = panel.GetComponent<Renderer>();
+            if (renderer != null) renderer.sharedMaterial = material;
+        }
+
+        private static TextMesh EnsureHudText(
+            Transform parent,
+            string name,
+            Vector3 localPosition,
+            Color color,
+            float characterSize)
+        {
+            Transform existing = parent.Find(name);
+            GameObject textObject = existing != null ? existing.gameObject : new GameObject(name);
+            textObject.transform.SetParent(parent, false);
+            textObject.transform.localPosition = localPosition;
+            textObject.transform.localRotation = Quaternion.identity;
+            TextMesh text = textObject.GetComponent<TextMesh>();
+            if (text == null) text = textObject.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleCenter;
+            text.alignment = TextAlignment.Center;
+            text.fontSize = 64;
+            text.characterSize = characterSize;
+            text.color = color;
+            return text;
+        }
+
+        private static Material GetOrCreateHudPanelMaterial()
+        {
+            const string directory = "Assets/_Project/UI/Materials";
+            const string path = directory + "/HudPanelDark.mat";
+            Directory.CreateDirectory(directory);
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material != null) return material;
+            Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
+            if (shader == null) shader = Shader.Find("Unlit/Color");
+            material = new Material(shader) { name = "HudPanelDark" };
+            material.color = new Color(0.008f, 0.035f, 0.055f, 1f);
+            AssetDatabase.CreateAsset(material, path);
+            return material;
         }
 
         private static void EnsureMainGameSpawner(Camera camera)

@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 10 - Main Game Spawn
+- 현재 개발 단계: STEP 11 - VR Mission HUD
 
 ## 주요 Scene
 
@@ -102,3 +102,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - Normal → Normal/Fast → Normal/Fast/Large 순서로 단계적 구성
 - HMD 정면 기준 수평 ±35°, 수직 ±25° 안에서만 생성하며 Inspector에서 축소 조절 가능
 - Playing 상태에서 자동 시작하고 파괴·방어선 도달 운석의 활성/완료 수를 추적
+
+## STEP 11 VR 미션 HUD
+
+- 카메라 기준 약 4m 앞 상단 가장자리에 배치한 World Space HUD
+- 좌측 HP 8칸 Bar, 상단 중앙 남은 운석, 우측 SCORE 구성
+- Dark/Cyan/Green의 최소한 Sci-Fi 패널로 중앙 플레이 시야를 비우는 배치
+- Spawn 시작·운석 완료·ScoreAwarded 이벤트를 통해 수치 자동 갱신
+- `+점수 GOOD!`, 고득점 `NICE!`, 발사 시 `LOCK ON` 피드백 제공
+- 다음 단계의 PlayerHealth가 직접 연결할 수 있는 HP 갱신 API 포함
