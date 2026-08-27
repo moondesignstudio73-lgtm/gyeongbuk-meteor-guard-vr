@@ -88,8 +88,60 @@ namespace MeteorDefenseVR.Editor
             if (raycaster == null) raycaster = gazeSystem.AddComponent<GazeRaycaster>();
             raycaster.SetProvider(provider);
 
+            EnsureCalibrationSystem(provider);
+
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureCalibrationSystem(EditorGazeProvider gazeProvider)
+        {
+            GameObject root = GameObject.Find("CalibrationSystem");
+            if (root == null) root = new GameObject("CalibrationSystem");
+            CalibrationSequenceController controller = root.GetComponent<CalibrationSequenceController>();
+            if (controller == null) controller = root.AddComponent<CalibrationSequenceController>();
+
+            Vector3[] positions =
+            {
+                new Vector3(0f, 1.6f, 4f),
+                new Vector3(-1.35f, 1.6f, 4f),
+                new Vector3(1.35f, 1.6f, 4f),
+                new Vector3(0f, 2.45f, 4f),
+                new Vector3(0f, 0.75f, 4f)
+            };
+            string[] names = { "Center", "Left", "Right", "Top", "Bottom" };
+            CalibrationPoint[] points = new CalibrationPoint[positions.Length];
+
+            for (int i = 0; i < positions.Length; i++)
+            {
+                Transform existing = root.transform.Find("Point_" + names[i]);
+                GameObject pointObject = existing != null ? existing.gameObject : GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                pointObject.name = "Point_" + names[i];
+                pointObject.transform.SetParent(root.transform);
+                pointObject.transform.position = positions[i];
+                pointObject.transform.localScale = Vector3.one * 0.18f;
+                points[i] = pointObject.GetComponent<CalibrationPoint>();
+                if (points[i] == null) points[i] = pointObject.AddComponent<CalibrationPoint>();
+            }
+
+            Transform textTransform = root.transform.Find("StatusText");
+            GameObject textObject = textTransform != null ? textTransform.gameObject : new GameObject("StatusText");
+            textObject.transform.SetParent(root.transform);
+            textObject.transform.position = new Vector3(0f, 2.9f, 4f);
+            textObject.transform.rotation = Quaternion.identity;
+            TextMesh text = textObject.GetComponent<TextMesh>();
+            if (text == null) text = textObject.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleCenter;
+            text.alignment = TextAlignment.Center;
+            text.fontSize = 48;
+            text.characterSize = 0.035f;
+            text.color = new Color(0.75f, 0.95f, 1f);
+
+            CalibrationStatusView view = textObject.GetComponent<CalibrationStatusView>();
+            if (view == null) view = textObject.AddComponent<CalibrationStatusView>();
+            view.Configure(controller, text);
+            controller.Configure(points, gazeProvider);
+            controller.ResetSequence();
         }
     }
 }

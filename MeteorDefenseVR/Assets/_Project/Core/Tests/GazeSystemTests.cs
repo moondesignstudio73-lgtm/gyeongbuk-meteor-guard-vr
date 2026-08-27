@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Collections;
 using MeteorDefenseVR.EyeTracking;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace MeteorDefenseVR.Tests
 {
@@ -83,6 +85,58 @@ namespace MeteorDefenseVR.Tests
             Assert.That(raycaster.HasHit, Is.False);
             Assert.That(raycaster.CurrentTarget, Is.Null);
             Assert.That(target.IsGazedAt, Is.False);
+        }
+
+        [Test]
+        public void CalibrationPoint_RequiresConfiguredDwellAndCompletesOnce()
+        {
+            root = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            CalibrationPoint point = root.AddComponent<CalibrationPoint>();
+            point.DwellDuration = 0.6f;
+            int completedCount = 0;
+            point.Completed += _ => completedCount++;
+            point.Activate();
+
+            point.Advance(0.3f);
+            Assert.That(point.Progress, Is.EqualTo(0.5f).Within(0.001f));
+            Assert.That(point.IsComplete, Is.False);
+
+            point.Advance(0.3f);
+            point.Advance(1f);
+            Assert.That(point.IsComplete, Is.True);
+            Assert.That(completedCount, Is.EqualTo(1));
+        }
+
+        [UnityTest]
+        public IEnumerator CalibrationSequence_ActivatesPointsInOrderAndCompletes()
+        {
+            root = new GameObject("CalibrationTestRoot");
+            CalibrationSequenceController sequence = root.AddComponent<CalibrationSequenceController>();
+            sequence.PointSuccessDelay = 0f;
+            sequence.CompletionDisplayDuration = 0f;
+
+            CalibrationPoint first = CreateCalibrationPoint("First");
+            CalibrationPoint second = CreateCalibrationPoint("Second");
+            sequence.Configure(new[] { first, second }, new TestGazeProvider());
+            sequence.BeginCalibration();
+
+            Assert.That(sequence.CurrentPointIndex, Is.EqualTo(0));
+            first.Advance(1f);
+            yield return null;
+            Assert.That(sequence.CurrentPointIndex, Is.EqualTo(1));
+
+            second.Advance(1f);
+            yield return null;
+            Assert.That(sequence.IsComplete, Is.True);
+            Assert.That(sequence.StatusMessage, Is.EqualTo("시선 인식 완료!"));
+        }
+
+        private CalibrationPoint CreateCalibrationPoint(string name)
+        {
+            GameObject pointObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            pointObject.name = name;
+            pointObject.transform.SetParent(root.transform);
+            return pointObject.AddComponent<CalibrationPoint>();
         }
 
         private sealed class TestGazeProvider : IGazeProvider

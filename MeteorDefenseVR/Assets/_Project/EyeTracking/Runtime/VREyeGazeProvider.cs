@@ -15,9 +15,10 @@ namespace MeteorDefenseVR.EyeTracking
         private InputDevice activeDevice;
         private Ray latestRay;
         private bool hasEyeRay;
+        private bool forceHeadGaze;
 
-        public bool IsTrackingValid => hasEyeRay || (allowHeadGazeFallback && ResolveCamera() != null);
-        public bool IsUsingEyeTracking => hasEyeRay;
+        public bool IsTrackingValid => (!forceHeadGaze && hasEyeRay) || (allowHeadGazeFallback && ResolveCamera() != null);
+        public bool IsUsingEyeTracking => !forceHeadGaze && hasEyeRay;
 
         private void OnEnable()
         {
@@ -38,7 +39,7 @@ namespace MeteorDefenseVR.EyeTracking
 
         public Ray GetGazeRay()
         {
-            if (hasEyeRay) return latestRay;
+            if (!forceHeadGaze && hasEyeRay) return latestRay;
             Camera camera = ResolveCamera();
             return camera != null
                 ? new Ray(camera.transform.position, camera.transform.forward)
@@ -47,6 +48,18 @@ namespace MeteorDefenseVR.EyeTracking
 
         public Vector3 GetGazeOrigin() => GetGazeRay().origin;
         public Vector3 GetGazeDirection() => GetGazeRay().direction;
+
+        public void ForceHeadGazeMode()
+        {
+            forceHeadGaze = true;
+            allowHeadGazeFallback = true;
+        }
+
+        public void RetryEyeTracking()
+        {
+            forceHeadGaze = false;
+            FindEyeTrackingDevice();
+        }
 
         private void UpdateEyeRay()
         {

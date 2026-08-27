@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 2 - Gaze Input Abstraction
+- 현재 개발 단계: STEP 3 - Eye Calibration
 
 ## 주요 Scene
 
@@ -33,3 +33,11 @@
 
 Meta XR SDK는 아직 설치되지 않았습니다. 현재 VR 공급자는 Unity XR 표준 Eyes 기능을 사용하며,
 Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계에서 실기기 검증이 필요합니다.
+
+## STEP 3 시선 초기 설정
+
+- 중앙 → 좌측 → 우측 → 상단 → 하단 순서의 5개 Calibration Point
+- 기본 응시 시간 0.65초 및 이탈 시 진행도 감쇠
+- Tracking 실패 시 재시도 또는 Head Gaze Mode fallback
+- 완료 문구 표시 후 `Tutorial` 상태로 자동 전환
+- `MeteorDefense` Scene에 실제 3D 포인트와 안내 TextMesh 구성
