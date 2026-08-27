@@ -191,6 +191,14 @@ namespace MeteorDefenseVR.Editor
             if (view == null) view = reticle.AddComponent<LockOnReticleView>();
             view.Configure(lockTarget, ring, text);
 
+            Renderer[] renderers = root.GetComponentsInChildren<Renderer>(true);
+            foreach (Renderer targetRenderer in renderers)
+            {
+                if (targetRenderer == null) continue;
+                targetRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                targetRenderer.receiveShadows = false;
+            }
+
             PrefabUtility.SaveAsPrefabAsset(root, basePath);
             PrefabUtility.UnloadPrefabContents(root);
         }

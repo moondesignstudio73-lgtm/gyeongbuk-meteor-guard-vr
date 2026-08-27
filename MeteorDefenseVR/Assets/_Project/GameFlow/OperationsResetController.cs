@@ -152,7 +152,11 @@ namespace MeteorDefenseVR.GameFlow
         private static void DestroyRuntimeEffects()
         {
             MeteorController[] meteors = FindObjectsByType<MeteorController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            foreach (MeteorController meteor in meteors) DestroySceneObject(meteor != null ? meteor.gameObject : null);
+            foreach (MeteorController meteor in meteors)
+            {
+                if (meteor != null && meteor.GetComponentInParent<MeteorSpawner>(true) != null) continue;
+                DestroySceneObject(meteor != null ? meteor.gameObject : null);
+            }
             BossExplosionEffect[] explosions = FindObjectsByType<BossExplosionEffect>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (BossExplosionEffect effect in explosions) DestroySceneObject(effect != null ? effect.gameObject : null);
         }

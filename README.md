@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 19 - VR UX Optimization
+- 현재 개발 단계: STEP 20 - Performance Optimization
 
 ## 주요 Scene
 
@@ -188,3 +188,16 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 
 한글 Font Glyph와 최종 가독성은 Quest Pro Runtime에 설치·포함되는 한국어 폰트가 결정하므로
 Android 빌드에 Noto Sans KR 계열 폰트를 포함한 뒤 실제 HMD에서 최종 검증해야 합니다.
+
+## STEP 20 성능 최적화
+
+- 운석 종류별 2개를 사전 생성하는 Object Pool을 적용해 Wave 중 Instantiate/Destroy Spike 최소화
+- 파괴·방어 실패·Reset 시 운석을 Pool로 반환하고 다음 Session에서 동일 인스턴스 재사용
+- Hit/Explosion/Boss VFX는 STEP 18의 고정 오브젝트를 재사용하며 Reset 시 즉시 정리
+- Gaze Collider→Target과 Pool GameObject→Controller/LockTarget을 캐시해 반복 Component 검색 제거
+- Runtime 목표 90fps, Physics Collision Callback 재사용, VSync 비활성 정책 구성
+- Meteor·VFX·Light Shadow를 비활성화하고 Post Processing을 사용하지 않는 경량 Scene 유지
+- Unity 생성 폴더 `Library`, `Temp`, `Logs`, `Build` 등은 `.gitignore`에서 제외
+
+실제 Draw Call, GPU/CPU Frame Time, Thermal Throttling과 90fps 지속 여부는 Quest Pro에서
+OVR Metrics Tool 또는 Unity Profiler를 연결해 최종 측정해야 합니다.

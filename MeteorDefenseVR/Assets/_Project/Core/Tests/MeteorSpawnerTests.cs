@@ -80,5 +80,39 @@ namespace MeteorDefenseVR.Tests
             Assert.That(wave.TotalMeteors, Is.EqualTo(2));
             Assert.That(wave.EstimatedDuration, Is.EqualTo(3f).Within(0.001f));
         }
+
+        [Test]
+        public void CompletedMeteor_IsReturnedToPoolAndReused()
+        {
+            spawner.BeginSpawning();
+            spawner.Tick(2f);
+            MeteorController first = spawner.ActiveMeteors[0];
+            int instantiatedAfterPrewarm = spawner.InstantiatedCount;
+            first.DestroyMeteor();
+            spawner.Tick(0f);
+
+            spawner.BeginSpawning();
+            spawner.Tick(2f);
+            MeteorController reused = spawner.ActiveMeteors[0];
+
+            Assert.That(reused, Is.SameAs(first));
+            Assert.That(spawner.InstantiatedCount, Is.EqualTo(instantiatedAfterPrewarm));
+            Assert.That(spawner.ReusedCount, Is.GreaterThanOrEqualTo(2));
+        }
+
+        [Test]
+        public void StopSpawning_CleansActiveMeteorsIntoPoolWithoutDestroyingThem()
+        {
+            spawner.BeginSpawning();
+            spawner.Tick(2f);
+            MeteorController meteor = spawner.ActiveMeteors[0];
+
+            spawner.StopSpawning(true);
+
+            Assert.That(spawner.ActiveCount, Is.Zero);
+            Assert.That(spawner.PoolCount, Is.GreaterThanOrEqualTo(2));
+            Assert.That(meteor, Is.Not.Null);
+            Assert.That(meteor.gameObject.activeSelf, Is.False);
+        }
     }
 }

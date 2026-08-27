@@ -1,4 +1,5 @@
 using System.IO;
+using MeteorDefenseVR.Core;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.Combat;
@@ -112,6 +113,7 @@ namespace MeteorDefenseVR.Editor
             EnsureResultSystem(camera);
             EnsureAudioSystem();
             EnsureVrUxSystem(camera, raycaster);
+            EnsurePerformanceSystem();
             EnsureOperationsSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
@@ -167,6 +169,22 @@ namespace MeteorDefenseVR.Editor
             MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
             TextMesh[] texts = Object.FindObjectsByType<TextMesh>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             controller.Configure(settings, camera, raycaster, spawner, texts);
+        }
+
+        private static void EnsurePerformanceSystem()
+        {
+            GameObject root = GameObject.Find("VrPerformanceSystem");
+            if (root == null) root = new GameObject("VrPerformanceSystem");
+            VrPerformanceController controller = root.GetComponent<VrPerformanceController>();
+            if (controller == null) controller = root.AddComponent<VrPerformanceController>();
+            controller.Configure(
+                GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>(),
+                GameObject.Find("CombatVFX")?.GetComponent<CombatVfxController>(),
+                90);
+
+            Light[] lights = Object.FindObjectsByType<Light>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            foreach (Light light in lights)
+                if (light != null) light.shadows = LightShadows.None;
         }
 
         private static VrUxSettings GetOrCreateVrUxSettings()
@@ -231,7 +249,10 @@ namespace MeteorDefenseVR.Editor
         private static void ApplyVfxMaterial(Transform target, Material material)
         {
             Renderer renderer = target != null ? target.GetComponent<Renderer>() : null;
-            if (renderer != null) renderer.sharedMaterial = material;
+            if (renderer == null) return;
+            renderer.sharedMaterial = material;
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
         }
 
         private static AudioSource EnsureAudioSource(Transform parent, string name)

@@ -22,7 +22,17 @@ namespace MeteorDefenseVR.Meteor
         [SerializeField, Min(1f)] private float minSpawnDistance = 10f;
         [SerializeField, Min(1f)] private float maxSpawnDistance = 14f;
 
+        [Header("Pooling")]
+        [SerializeField, Range(0, 5)] private int prewarmPerMeteorKind = 2;
+
         private readonly List<MeteorController> activeMeteors = new List<MeteorController>();
+        private readonly List<MeteorController> pendingRelease = new List<MeteorController>();
+        private readonly Dictionary<GameObject, Stack<GameObject>> prefabPools = new Dictionary<GameObject, Stack<GameObject>>();
+        private readonly Dictionary<MeteorType, Stack<GameObject>> fallbackPools = new Dictionary<MeteorType, Stack<GameObject>>();
+        private readonly Dictionary<MeteorController, GameObject> sourcePrefabs = new Dictionary<MeteorController, GameObject>();
+        private readonly Dictionary<MeteorController, MeteorType> sourceFallbackTypes = new Dictionary<MeteorController, MeteorType>();
+        private readonly Dictionary<GameObject, MeteorController> controllerCache = new Dictionary<GameObject, MeteorController>();
+        private readonly Dictionary<GameObject, GazeLockOnTarget> lockTargetCache = new Dictionary<GameObject, GazeLockOnTarget>();
         private GameFlowManager gameFlow;
         private int waveIndex;
         private int entryIndex;
@@ -38,6 +48,18 @@ namespace MeteorDefenseVR.Meteor
         public float EstimatedGameDuration { get; private set; }
         public float MaxHorizontalAngle => maxHorizontalAngle;
         public float MaxVerticalAngle => maxVerticalAngle;
+        public int InstantiatedCount { get; private set; }
+        public int ReusedCount { get; private set; }
+        public int PoolCount
+        {
+            get
+            {
+                int count = 0;
+                foreach (Stack<GameObject> pool in prefabPools.Values) count += pool.Count;
+                foreach (Stack<GameObject> pool in fallbackPools.Values) count += pool.Count;
+                return count;
+            }
+        }
         public IReadOnlyList<MeteorController> ActiveMeteors => activeMeteors;
 
         public event Action<int, MeteorWaveData> WaveStarted;
@@ -58,6 +80,7 @@ namespace MeteorDefenseVR.Meteor
 
         private void Update()
         {
+            FlushPendingReleases();
             if (IsSpawning) Tick(Time.deltaTime);
         }
 
@@ -89,7 +112,9 @@ namespace MeteorDefenseVR.Meteor
 
         public void BeginSpawning()
         {
-            ClearTrackedMeteors(false);
+            ClearTrackedMeteors(true);
+            FlushPendingReleases();
+            PrewarmPools();
             waveIndex = 0;
             entryIndex = 0;
             spawnedInEntry = 0;
@@ -117,6 +142,7 @@ namespace MeteorDefenseVR.Meteor
 
         public void Tick(float deltaTime)
         {
+            FlushPendingReleases();
             if (!IsSpawning) return;
             delayRemaining -= Mathf.Max(0f, deltaTime);
             if (delayRemaining > 0f) return;
@@ -157,6 +183,7 @@ namespace MeteorDefenseVR.Meteor
         {
             IsSpawning = false;
             if (cleanupActiveMeteors) ClearTrackedMeteors(true);
+            FlushPendingReleases();
         }
 
         public MeteorController[] DetachActiveMeteorsForCleanup()
@@ -169,6 +196,12 @@ namespace MeteorDefenseVR.Meteor
                 meteor.ReachedPlayerEvent -= HandleMeteorReachedPlayer;
             }
             activeMeteors.Clear();
+            foreach (MeteorController meteor in detached)
+            {
+                sourcePrefabs.Remove(meteor);
+                sourceFallbackTypes.Remove(meteor);
+                pendingRelease.Remove(meteor);
+            }
             return detached;
         }
 
@@ -218,25 +251,17 @@ namespace MeteorDefenseVR.Meteor
                 UnityEngine.Random.value,
                 area);
 
-            GameObject meteorObject;
-            if (data.Prefab != null) meteorObject = Instantiate(data.Prefab, position, Quaternion.identity, transform);
-            else
-            {
-                meteorObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                meteorObject.name = "Meteor_Fallback";
-                meteorObject.transform.SetParent(transform);
-                meteorObject.transform.position = position;
-            }
+            FlushPendingReleases();
+            GameObject meteorObject = AcquireMeteor(data);
+            meteorObject.transform.SetParent(transform, true);
+            meteorObject.transform.SetPositionAndRotation(position, Quaternion.identity);
+            meteorObject.SetActive(true);
 
-            MeteorController meteor = meteorObject.GetComponent<MeteorController>();
-            if (meteor == null) meteor = meteorObject.AddComponent<MeteorController>();
+            MeteorController meteor = GetMeteorController(meteorObject);
             meteor.Configure(data.MeteorType, data.Health, data.Speed, data.Damage, data.Score, data.Size);
             meteor.SetMovementTarget(movementTarget);
-            if (meteorObject.GetComponent<GazeLockOnTarget>() == null)
-            {
-                GazeLockOnTarget lockTarget = meteorObject.AddComponent<GazeLockOnTarget>();
-                lockTarget.Configure(meteor);
-            }
+            GazeLockOnTarget lockTarget = GetLockTarget(meteorObject);
+            lockTarget.Configure(meteor);
             meteor.Destroyed += HandleMeteorDestroyed;
             meteor.ReachedPlayerEvent += HandleMeteorReachedPlayer;
             activeMeteors.Add(meteor);
@@ -255,6 +280,7 @@ namespace MeteorDefenseVR.Meteor
             meteor.ReachedPlayerEvent -= HandleMeteorReachedPlayer;
             CompletedCount++;
             MeteorCompleted?.Invoke(meteor);
+            if (!pendingRelease.Contains(meteor)) pendingRelease.Add(meteor);
         }
 
         private void ClearTrackedMeteors(bool destroyObjects)
@@ -264,11 +290,143 @@ namespace MeteorDefenseVR.Meteor
                 if (meteor == null) continue;
                 meteor.Destroyed -= HandleMeteorDestroyed;
                 meteor.ReachedPlayerEvent -= HandleMeteorReachedPlayer;
-                if (!destroyObjects) continue;
-                if (Application.isPlaying) Destroy(meteor.gameObject);
-                else DestroyImmediate(meteor.gameObject);
+                if (destroyObjects) ReleaseMeteor(meteor);
             }
             activeMeteors.Clear();
+        }
+
+        private void PrewarmPools()
+        {
+            if (prewarmPerMeteorKind <= 0 || waves == null) return;
+            var visitedPrefabs = new HashSet<GameObject>();
+            var visitedFallbacks = new HashSet<MeteorType>();
+            foreach (MeteorWaveData wave in waves)
+            {
+                if (wave == null) continue;
+                foreach (MeteorSpawnData data in wave.Spawns)
+                {
+                    if (data == null) continue;
+                    bool first = data.Prefab != null ? visitedPrefabs.Add(data.Prefab) : visitedFallbacks.Add(data.MeteorType);
+                    if (!first) continue;
+                    Stack<GameObject> pool = GetPool(data);
+                    while (pool.Count < prewarmPerMeteorKind)
+                    {
+                        GameObject instance = CreateMeteorObject(data);
+                        instance.SetActive(false);
+                        pool.Push(instance);
+                    }
+                }
+            }
+        }
+
+        private GameObject AcquireMeteor(MeteorSpawnData data)
+        {
+            Stack<GameObject> pool = GetPool(data);
+            while (pool.Count > 0)
+            {
+                GameObject instance = pool.Pop();
+                if (instance == null) continue;
+                ReusedCount++;
+                return instance;
+            }
+            return CreateMeteorObject(data);
+        }
+
+        private GameObject CreateMeteorObject(MeteorSpawnData data)
+        {
+            GameObject instance;
+            if (data.Prefab != null) instance = Instantiate(data.Prefab, transform);
+            else
+            {
+                instance = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                instance.name = "Meteor_Fallback_" + data.MeteorType;
+                instance.transform.SetParent(transform);
+            }
+            MeteorController meteor = instance.GetComponent<MeteorController>();
+            if (meteor == null) meteor = instance.AddComponent<MeteorController>();
+            controllerCache[instance] = meteor;
+            GazeLockOnTarget lockTarget = instance.GetComponent<GazeLockOnTarget>();
+            if (lockTarget == null) lockTarget = instance.AddComponent<GazeLockOnTarget>();
+            lockTargetCache[instance] = lockTarget;
+            if (data.Prefab != null) sourcePrefabs[meteor] = data.Prefab;
+            else sourceFallbackTypes[meteor] = data.MeteorType;
+            InstantiatedCount++;
+            return instance;
+        }
+
+        private MeteorController GetMeteorController(GameObject instance)
+        {
+            if (controllerCache.TryGetValue(instance, out MeteorController cached) && cached != null) return cached;
+            MeteorController meteor = instance.GetComponent<MeteorController>();
+            if (meteor == null) meteor = instance.AddComponent<MeteorController>();
+            controllerCache[instance] = meteor;
+            return meteor;
+        }
+
+        private GazeLockOnTarget GetLockTarget(GameObject instance)
+        {
+            if (lockTargetCache.TryGetValue(instance, out GazeLockOnTarget cached) && cached != null) return cached;
+            GazeLockOnTarget target = instance.GetComponent<GazeLockOnTarget>();
+            if (target == null) target = instance.AddComponent<GazeLockOnTarget>();
+            lockTargetCache[instance] = target;
+            return target;
+        }
+
+        private Stack<GameObject> GetPool(MeteorSpawnData data)
+        {
+            if (data.Prefab != null)
+            {
+                if (!prefabPools.TryGetValue(data.Prefab, out Stack<GameObject> pool))
+                {
+                    pool = new Stack<GameObject>();
+                    prefabPools.Add(data.Prefab, pool);
+                }
+                return pool;
+            }
+            if (!fallbackPools.TryGetValue(data.MeteorType, out Stack<GameObject> fallbackPool))
+            {
+                fallbackPool = new Stack<GameObject>();
+                fallbackPools.Add(data.MeteorType, fallbackPool);
+            }
+            return fallbackPool;
+        }
+
+        private void FlushPendingReleases()
+        {
+            for (int i = pendingRelease.Count - 1; i >= 0; i--)
+            {
+                MeteorController meteor = pendingRelease[i];
+                pendingRelease.RemoveAt(i);
+                ReleaseMeteor(meteor);
+            }
+        }
+
+        private void ReleaseMeteor(MeteorController meteor)
+        {
+            if (meteor == null) return;
+            meteor.Destroyed -= HandleMeteorDestroyed;
+            meteor.ReachedPlayerEvent -= HandleMeteorReachedPlayer;
+            meteor.ResetMeteor(true);
+            meteor.transform.SetParent(transform, true);
+            if (sourcePrefabs.TryGetValue(meteor, out GameObject prefab))
+            {
+                if (!prefabPools.TryGetValue(prefab, out Stack<GameObject> pool))
+                {
+                    pool = new Stack<GameObject>();
+                    prefabPools.Add(prefab, pool);
+                }
+                if (!pool.Contains(meteor.gameObject)) pool.Push(meteor.gameObject);
+                return;
+            }
+            if (sourceFallbackTypes.TryGetValue(meteor, out MeteorType type))
+            {
+                if (!fallbackPools.TryGetValue(type, out Stack<GameObject> pool))
+                {
+                    pool = new Stack<GameObject>();
+                    fallbackPools.Add(type, pool);
+                }
+                if (!pool.Contains(meteor.gameObject)) pool.Push(meteor.gameObject);
+            }
         }
 
         private void HandleStateChanged(GameState state)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace MeteorDefenseVR.EyeTracking
 {
@@ -16,6 +17,7 @@ namespace MeteorDefenseVR.EyeTracking
 
         private IGazeProvider gazeProvider;
         private IGazeTarget currentTarget;
+        private readonly Dictionary<Collider, IGazeTarget> targetCache = new Dictionary<Collider, IGazeTarget>();
 
         public IGazeProvider Provider => gazeProvider;
         public IGazeTarget CurrentTarget => currentTarget;
@@ -57,7 +59,7 @@ namespace MeteorDefenseVR.EyeTracking
             if (!HasHit && gazeMagnetismRadius > 0f)
                 HasHit = Physics.SphereCast(ray, gazeMagnetismRadius, out hit, maximumDistance, targetLayers, triggerInteraction);
             CurrentHit = hit;
-            IGazeTarget nextTarget = HasHit ? FindTarget(hit.collider) : null;
+            IGazeTarget nextTarget = HasHit ? FindTargetCached(hit.collider) : null;
 
             if (!ReferenceEquals(nextTarget, currentTarget))
             {
@@ -91,12 +93,18 @@ namespace MeteorDefenseVR.EyeTracking
             }
         }
 
-        private static IGazeTarget FindTarget(Collider collider)
+        private IGazeTarget FindTargetCached(Collider collider)
         {
             if (collider == null) return null;
+            if (targetCache.TryGetValue(collider, out IGazeTarget cached)) return cached;
             MonoBehaviour[] behaviours = collider.GetComponentsInParent<MonoBehaviour>();
             for (int i = 0; i < behaviours.Length; i++)
-                if (behaviours[i] is IGazeTarget target) return target;
+            {
+                if (!(behaviours[i] is IGazeTarget target)) continue;
+                targetCache[collider] = target;
+                return target;
+            }
+            targetCache[collider] = null;
             return null;
         }
 
@@ -104,6 +112,7 @@ namespace MeteorDefenseVR.EyeTracking
         {
             currentTarget?.OnGazeExit();
             currentTarget = null;
+            targetCache.Clear();
         }
     }
 }
