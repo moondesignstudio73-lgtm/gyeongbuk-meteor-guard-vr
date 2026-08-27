@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 8 - Practice
+- 현재 개발 단계: STEP 9 - Launch Sequence
 
 ## 주요 Scene
 
@@ -84,3 +84,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - 놓친 운석은 피해나 실패 처리 없이 다시 생성해 끝까지 연습 가능
 - 연습 점수는 기본적으로 본 게임 점수에서 제외하며 설정으로 포함 가능
 - 모든 운석 파괴 시 `준비 완료!`를 표시한 뒤 Launch 상태로 자동 전환
+
+## STEP 9 우주선 출격 연출
+
+- `HANGAR → DOOR OPEN → ENGINE START → 3 → 2 → 1 → LAUNCH → SPACE → MISSION START` 순서
+- 시간 주입이 가능한 상태 머신으로 구성해 연출 속도와 단계 전환을 Inspector에서 조절 가능
+- 격납고 양문, 엔진 조명, 전진하는 별 배경, 조종석 지오메트리 진동 플레이스홀더 구성
+- 카메라는 고정하고 조종석 진동도 최대 6mm로 제한해 VR 멀미를 최소화
+- Door/Engine/Countdown/Launch/Mission Start별 AudioClip 연결 지점 제공
+- 완료 시 `Launch → Countdown → Playing` GameFlow 전환

@@ -3,6 +3,7 @@ using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Tutorial;
+using MeteorDefenseVR.Launch;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -94,9 +95,95 @@ namespace MeteorDefenseVR.Editor
             EnsureCombatSystem(raycaster);
             EnsureTutorialSystem();
             EnsurePracticeSystem();
+            EnsureLaunchSystem();
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureLaunchSystem()
+        {
+            GameObject root = GameObject.Find("LaunchSystem");
+            if (root == null) root = new GameObject("LaunchSystem");
+            LaunchSequenceController controller = root.GetComponent<LaunchSequenceController>();
+            if (controller == null) controller = root.AddComponent<LaunchSequenceController>();
+
+            Transform leftDoor = EnsurePrimitive(root.transform, "HangarDoor_Left", PrimitiveType.Cube,
+                new Vector3(-1.25f, 1.6f, 5.5f), new Vector3(2.5f, 3.2f, 0.2f));
+            Transform rightDoor = EnsurePrimitive(root.transform, "HangarDoor_Right", PrimitiveType.Cube,
+                new Vector3(1.25f, 1.6f, 5.5f), new Vector3(2.5f, 3.2f, 0.2f));
+
+            Transform cockpit = root.transform.Find("CockpitGeometry");
+            if (cockpit == null)
+            {
+                cockpit = new GameObject("CockpitGeometry").transform;
+                cockpit.SetParent(root.transform);
+            }
+            EnsurePrimitive(cockpit, "Console_Left", PrimitiveType.Cube,
+                new Vector3(-1.15f, -0.35f, 1.3f), new Vector3(1.2f, 0.45f, 2f));
+            EnsurePrimitive(cockpit, "Console_Right", PrimitiveType.Cube,
+                new Vector3(1.15f, -0.35f, 1.3f), new Vector3(1.2f, 0.45f, 2f));
+
+            Transform stars = root.transform.Find("Starfield");
+            if (stars == null)
+            {
+                stars = new GameObject("Starfield").transform;
+                stars.SetParent(root.transform);
+            }
+            for (int i = 0; i < 12; i++)
+            {
+                float x = ((i * 37) % 9 - 4) * 0.75f;
+                float y = ((i * 19) % 7 - 3) * 0.45f + 1.6f;
+                float z = 3f + i;
+                EnsurePrimitive(stars, "Star_" + (i + 1), PrimitiveType.Sphere,
+                    new Vector3(x, y, z), Vector3.one * 0.035f);
+            }
+
+            Light[] engineLights = new Light[2];
+            for (int i = 0; i < engineLights.Length; i++)
+            {
+                string name = i == 0 ? "EngineGlow_Left" : "EngineGlow_Right";
+                Transform existing = root.transform.Find(name);
+                GameObject lightObject = existing != null ? existing.gameObject : new GameObject(name);
+                lightObject.transform.SetParent(root.transform);
+                lightObject.transform.localPosition = new Vector3(i == 0 ? -0.55f : 0.55f, -0.3f, 0.4f);
+                Light light = lightObject.GetComponent<Light>();
+                if (light == null) light = lightObject.AddComponent<Light>();
+                light.type = LightType.Point;
+                light.color = new Color(0.15f, 0.75f, 1f);
+                light.range = 3f;
+                light.enabled = false;
+                engineLights[i] = light;
+            }
+
+            TextMesh status = EnsureTextMesh(root.transform, "LaunchStatus", new Vector3(0f, 2.55f, 4f), 0.055f);
+            AudioSource audioSource = root.GetComponent<AudioSource>();
+            if (audioSource == null) audioSource = root.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+
+            LaunchEnvironmentView view = root.GetComponent<LaunchEnvironmentView>();
+            if (view == null) view = root.AddComponent<LaunchEnvironmentView>();
+            view.Configure(controller, status, leftDoor, rightDoor, cockpit, stars, engineLights, audioSource);
+            controller.ResetLaunch();
+        }
+
+        private static Transform EnsurePrimitive(
+            Transform parent,
+            string name,
+            PrimitiveType primitiveType,
+            Vector3 localPosition,
+            Vector3 localScale)
+        {
+            Transform existing = parent.Find(name);
+            GameObject primitive = existing != null ? existing.gameObject : GameObject.CreatePrimitive(primitiveType);
+            primitive.name = name;
+            primitive.transform.SetParent(parent);
+            primitive.transform.localPosition = localPosition;
+            primitive.transform.localRotation = Quaternion.identity;
+            primitive.transform.localScale = localScale;
+            Collider collider = primitive.GetComponent<Collider>();
+            if (collider != null) Object.DestroyImmediate(collider);
+            return primitive.transform;
         }
 
         private static void EnsurePracticeSystem()
