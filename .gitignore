@@ -1,0 +1,8 @@
+tmp/
+*.pdf
+*.docx
+*.mp4
+*.txt
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#160d25" />
+  <title>경북 건강수호대: 혈관 속 세균을 잡아라</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="game-header" aria-label="게임 정보">
+      <div class="brand-lockup">
+        <span class="brand-seal" aria-hidden="true">守</span>
+        <div>
+          <p class="eyebrow">GYEONGBUK HEALTH GUARD</p>
+          <h1>경북 건강수호대 <span>혈관 속 세균을 잡아라</span></h1>
+        </div>
+      </div>
+      <div class="tracking-pill"><i></i><span>웹 시선 입력</span></div>
+    </header>
+
+    <section class="game-stage" id="gameStage">
+      <canvas id="gameCanvas" aria-label="혈관 속 세균 제거 게임"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <div class="hud" id="hud" hidden>
+        <div class="hud-stat"><span>점수</span><strong id="score">000</strong></div>
+        <div class="timer"><span>남은 시간</span><strong id="time">45</strong><i id="timeArc"></i></div>
+        <div class="hud-stat align-right"><span>콤보</span><strong id="combo">× 0</strong></div>
+      </div>
+
+      <div class="screen active" id="startScreen">
+        <p class="mission-label">혈관 탐사 임무 01</p>
+        <h2>눈으로 찾고,<br><em>한 번에 제거!</em></h2>
+        <p class="lead">마우스로 세균을 응시하고 클릭하거나 Space 키를 눌러 공격하세요. 적혈구는 우리 몸의 소중한 운반대입니다.</p>
+        <div class="target-legend">
+          <span><i class="dot germ"></i>세균 +10</span>
+          <span><i class="dot fast"></i>빠른 세균 +20</span>
+          <span><i class="dot redcell"></i>적혈구 보호</span>
+        </div>
+        <button class="primary-button" id="startButton">체험 시작 <kbd>Enter</kbd></button>
+      </div>
+
+      <div class="screen tutorial" id="tutorialScreen" hidden>
+        <p class="mission-label">입력 연습</p>
+        <h2>세균을 <em>응시</em>하세요</h2>
+        <p class="lead" id="tutorialText">커서를 연습 세균 위에 잠시 올려 조준을 완료하세요.</p>
+        <div class="practice-germ" id="practiceGerm" aria-label="연습 세균">
+          <i></i><i></i><b></b>
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" /></svg>
+        </div>
+        <div class="lock-status" id="lockStatus">GAZE SEARCHING</div>
+      </div>
+
+      <div class="screen countdown" id="countdownScreen" hidden>
+        <p>건강수호대 출동</p><strong id="countdownValue">3</strong>
+      </div>
+
+      <div class="screen result" id="resultScreen" hidden>
+        <p class="mission-label">임무 완료</p>
+        <h2 id="rankTitle">건강수호대 대원</h2>
+        <div class="result-score"><span>최종 점수</span><strong id="finalScore">0</strong><small>점</small></div>
+        <div class="result-grid">
+          <div><span>제거한 세균</span><b id="germsKilled">0</b></div>
+          <div><span>최대 콤보</span><b id="maxCombo">0</b></div>
+          <div><span>보호 실패</span><b id="mistakes">0</b></div>
+        </div>
+        <button class="primary-button" id="restartButton">다시 도전 <kbd>R</kbd></button>
+      </div>
+
+      <div class="gaze-cursor" id="gazeCursor" aria-hidden="true"><i></i></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <div class="stage-help" id="stageHelp"><span>마우스 이동 = 시선</span><span>클릭 / Space = 깜빡임</span></div>
+    </section>
+
+    <footer class="operator-bar">
+      <span><b>WEB PROTOTYPE</b> · 실제 VR 입력 연결 전 핵심 게임 루프 검증판</span>
+      <button id="soundButton" aria-pressed="true">사운드 ON</button>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
+
