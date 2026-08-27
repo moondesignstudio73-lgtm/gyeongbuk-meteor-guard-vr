@@ -1,6 +1,7 @@
 using System.IO;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.EyeTracking;
+using MeteorDefenseVR.Combat;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -89,9 +90,63 @@ namespace MeteorDefenseVR.Editor
             raycaster.SetProvider(provider);
 
             EnsureCalibrationSystem(provider);
+            EnsureCombatSystem(raycaster);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureCombatSystem(GazeRaycaster raycaster)
+        {
+            GameObject root = GameObject.Find("CombatSystem");
+            if (root == null) root = new GameObject("CombatSystem");
+            LaserWeapon weapon = root.GetComponent<LaserWeapon>();
+            if (weapon == null) weapon = root.AddComponent<LaserWeapon>();
+
+            Transform[] muzzles = new Transform[2];
+            LaserBeamView[] beams = new LaserBeamView[2];
+            Material laserMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Meteor/LockOnReticleMaterial.mat");
+            for (int i = 0; i < 2; i++)
+            {
+                string suffix = i == 0 ? "Left" : "Right";
+                Transform muzzle = root.transform.Find("Cannon_" + suffix);
+                if (muzzle == null)
+                {
+                    GameObject muzzleObject = new GameObject("Cannon_" + suffix);
+                    muzzle = muzzleObject.transform;
+                    muzzle.SetParent(root.transform);
+                }
+                muzzle.localPosition = new Vector3(i == 0 ? -0.35f : 0.35f, -0.3f, 0.5f);
+                muzzles[i] = muzzle;
+
+                Transform beamTransform = root.transform.Find("LaserBeam_" + suffix);
+                GameObject beamObject = beamTransform != null ? beamTransform.gameObject : new GameObject("LaserBeam_" + suffix);
+                beamObject.transform.SetParent(root.transform);
+                LineRenderer line = beamObject.GetComponent<LineRenderer>();
+                if (line == null) line = beamObject.AddComponent<LineRenderer>();
+                line.sharedMaterial = laserMaterial;
+                line.widthMultiplier = 0.04f;
+                line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                line.receiveShadows = false;
+                LaserBeamView beam = beamObject.GetComponent<LaserBeamView>();
+                if (beam == null) beam = beamObject.AddComponent<LaserBeamView>();
+                beam.Configure(line);
+                beams[i] = beam;
+            }
+            weapon.Configure(raycaster, muzzles, beams);
+
+            Transform popupTransform = root.transform.Find("ScorePopup");
+            GameObject popupObject = popupTransform != null ? popupTransform.gameObject : new GameObject("ScorePopup");
+            popupObject.transform.SetParent(root.transform);
+            TextMesh popupText = popupObject.GetComponent<TextMesh>();
+            if (popupText == null) popupText = popupObject.AddComponent<TextMesh>();
+            popupText.anchor = TextAnchor.MiddleCenter;
+            popupText.fontSize = 48;
+            popupText.characterSize = 0.04f;
+            popupText.color = new Color(0.6f, 0.95f, 1f);
+            ScorePopupView popup = popupObject.GetComponent<ScorePopupView>();
+            if (popup == null) popup = popupObject.AddComponent<ScorePopupView>();
+            popup.Configure(weapon, popupText);
         }
 
         private static void EnsureCalibrationSystem(EditorGazeProvider gazeProvider)

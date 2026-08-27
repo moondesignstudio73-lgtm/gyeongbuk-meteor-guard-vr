@@ -39,6 +39,7 @@ namespace MeteorDefenseVR.Combat
         public float Progress { get; private set; }
         public bool IsLocked => State == LockOnState.Locked;
         public bool IsAvailable => meteor == null || meteor.IsTargetable;
+        public MeteorController Meteor => meteor;
         public float LockOnDuration { get => lockOnDuration; set => lockOnDuration = Mathf.Max(0.1f, value); }
         public float LockDecaySpeed { get => lockDecaySpeed; set => lockDecaySpeed = Mathf.Max(0f, value); }
         public float GracePeriod { get => gracePeriod; set => gracePeriod = Mathf.Max(0f, value); }

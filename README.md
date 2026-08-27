@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 5 - Gaze Lock-On
+- 현재 개발 단계: STEP 6 - Automatic Laser Combat
 
 ## 주요 Scene
 
@@ -58,3 +58,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - Collider Expansion 및 `GazeRaycaster` SphereCast Magnetism 옵션
 - Cyan/Green 진행 링과 `LOCKING`/`LOCK ON` World Space 표시
 - Lock-On Reticle Material과 MeteorBase Prefab 연결
+
+## STEP 6 자동 레이저 공격
+
+- Lock 완료 시 `LaserWeapon`이 자동으로 Ray/Beam 기반 즉시 공격
+- 좌우 Cannon을 교대로 사용하고 0.08초 중복 발사 방지
+- 일반 운석 즉시 파괴, 대형·Boss 운석은 공격 후 다음 Lock을 요구
+- `LaserBeamView`와 Muzzle/Hit/Audio/Camera Feedback 연결점
+- 파괴 위치에 `+100` 형태의 World Space 점수 Popup
+- `MeteorDefense` Scene에 CombatSystem, 양쪽 Cannon, Beam, Popup 구성
