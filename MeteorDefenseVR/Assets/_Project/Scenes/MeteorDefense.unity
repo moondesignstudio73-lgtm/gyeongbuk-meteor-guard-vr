@@ -1216,6 +1216,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   maximumDistance: 100
+  gazeMagnetismRadius: 0.08
   triggerInteraction: 2
   drawDebugRay: 1
   validRayColor: {r: 0, g: 1, b: 1, a: 1}

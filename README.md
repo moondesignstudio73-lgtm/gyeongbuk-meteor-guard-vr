@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 4 - Meteor Base System
+- 현재 개발 단계: STEP 5 - Gaze Lock-On
 
 ## 주요 Scene
 
@@ -49,3 +49,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - `MeteorDefenseLine`: 방어선 Trigger 통과 처리
 - Normal/Fast/Large/Boss/Tutorial ScriptableObject 정의
 - 공통 `MeteorBase`와 5종 Prefab Variant 플레이스홀더
+
+## STEP 5 Gaze Lock-On
+
+- `Idle → Focusing → Locked → Destroyed` 상태 모델
+- 기본 Lock 시간 0.7초, 이탈 감쇠 및 0.15초 Grace Period
+- 단일 활성 타깃 보장과 새 운석 주시 시 이전 Lock 즉시 해제
+- Collider Expansion 및 `GazeRaycaster` SphereCast Magnetism 옵션
+- Cyan/Green 진행 링과 `LOCKING`/`LOCK ON` World Space 표시
+- Lock-On Reticle Material과 MeteorBase Prefab 연결

@@ -8,6 +8,7 @@ namespace MeteorDefenseVR.EyeTracking
         [SerializeField] private MonoBehaviour gazeProviderComponent;
         [SerializeField] private LayerMask targetLayers = ~0;
         [SerializeField, Min(0.1f)] private float maximumDistance = 100f;
+        [SerializeField, Range(0f, 0.5f)] private float gazeMagnetismRadius = 0.08f;
         [SerializeField] private QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Collide;
         [SerializeField] private bool drawDebugRay = true;
         [SerializeField] private Color validRayColor = Color.cyan;
@@ -20,6 +21,7 @@ namespace MeteorDefenseVR.EyeTracking
         public IGazeTarget CurrentTarget => currentTarget;
         public bool HasHit { get; private set; }
         public RaycastHit CurrentHit { get; private set; }
+        public float GazeMagnetismRadius { get => gazeMagnetismRadius; set => gazeMagnetismRadius = Mathf.Clamp(value, 0f, 0.5f); }
 
         private void Awake() => ResolveProvider();
 
@@ -52,6 +54,8 @@ namespace MeteorDefenseVR.EyeTracking
 
             Ray ray = gazeProvider.GetGazeRay();
             HasHit = Physics.Raycast(ray, out RaycastHit hit, maximumDistance, targetLayers, triggerInteraction);
+            if (!HasHit && gazeMagnetismRadius > 0f)
+                HasHit = Physics.SphereCast(ray, gazeMagnetismRadius, out hit, maximumDistance, targetLayers, triggerInteraction);
             CurrentHit = hit;
             IGazeTarget nextTarget = HasHit ? FindTarget(hit.collider) : null;
 

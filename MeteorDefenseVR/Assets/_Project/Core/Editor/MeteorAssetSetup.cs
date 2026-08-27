@@ -1,4 +1,5 @@
 using System.IO;
+using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Meteor;
 using UnityEditor;
 using UnityEngine;
@@ -37,6 +38,9 @@ namespace MeteorDefenseVR.Editor
                 Object.DestroyImmediate(source);
             }
 
+            UpdateBasePrefab(basePath);
+            basePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(basePath);
+
             CreateVariant(basePrefab, normal, "Meteor_Normal");
             CreateVariant(basePrefab, fast, "Meteor_Fast");
             CreateVariant(basePrefab, large, "Meteor_Large");
@@ -45,6 +49,61 @@ namespace MeteorDefenseVR.Editor
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log("[MeteorAssetSetup] Placeholder definitions and prefab variants are ready.");
+        }
+
+        private static void UpdateBasePrefab(string basePath)
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(basePath);
+            MeteorController meteor = root.GetComponent<MeteorController>();
+            if (meteor == null) meteor = root.AddComponent<MeteorController>();
+            GazeLockOnTarget lockTarget = root.GetComponent<GazeLockOnTarget>();
+            if (lockTarget == null) lockTarget = root.AddComponent<GazeLockOnTarget>();
+            lockTarget.Configure(meteor);
+
+            Transform existing = root.transform.Find("LockOnReticle");
+            GameObject reticle = existing != null ? existing.gameObject : new GameObject("LockOnReticle");
+            reticle.transform.SetParent(root.transform);
+            reticle.transform.localPosition = new Vector3(0f, 0f, -0.65f);
+            reticle.transform.localRotation = Quaternion.identity;
+            reticle.transform.localScale = Vector3.one;
+
+            LineRenderer ring = reticle.GetComponent<LineRenderer>();
+            if (ring == null) ring = reticle.AddComponent<LineRenderer>();
+            ring.sharedMaterial = GetOrCreateReticleMaterial();
+            ring.widthMultiplier = 0.035f;
+            ring.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            ring.receiveShadows = false;
+
+            Transform textTransform = reticle.transform.Find("StatusText");
+            GameObject textObject = textTransform != null ? textTransform.gameObject : new GameObject("StatusText");
+            textObject.transform.SetParent(reticle.transform);
+            textObject.transform.localPosition = new Vector3(0.85f, 0f, 0f);
+            textObject.transform.localRotation = Quaternion.identity;
+            TextMesh text = textObject.GetComponent<TextMesh>();
+            if (text == null) text = textObject.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleLeft;
+            text.fontSize = 40;
+            text.characterSize = 0.035f;
+
+            LockOnReticleView view = reticle.GetComponent<LockOnReticleView>();
+            if (view == null) view = reticle.AddComponent<LockOnReticleView>();
+            view.Configure(lockTarget, ring, text);
+
+            PrefabUtility.SaveAsPrefabAsset(root, basePath);
+            PrefabUtility.UnloadPrefabContents(root);
+        }
+
+        private static Material GetOrCreateReticleMaterial()
+        {
+            string path = Root + "/LockOnReticleMaterial.mat";
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material != null) return material;
+            Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
+            if (shader == null) shader = Shader.Find("Sprites/Default");
+            material = new Material(shader) { name = "LockOnReticleMaterial" };
+            material.color = new Color(0.1f, 0.95f, 1f, 1f);
+            AssetDatabase.CreateAsset(material, path);
+            return material;
         }
 
         private static MeteorDefinition CreateDefinition(string name, MeteorType type, float health, float speed, int damage, int score, float size)
