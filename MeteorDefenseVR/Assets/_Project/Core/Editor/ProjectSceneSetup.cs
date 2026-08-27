@@ -168,7 +168,23 @@ namespace MeteorDefenseVR.Editor
             VrUxSettings settings = GetOrCreateVrUxSettings();
             MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
             TextMesh[] texts = Object.FindObjectsByType<TextMesh>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            System.Array.Sort(texts, (left, right) => string.CompareOrdinal(
+                GetHierarchySortKey(left != null ? left.transform : null),
+                GetHierarchySortKey(right != null ? right.transform : null)));
             controller.Configure(settings, camera, raycaster, spawner, texts);
+        }
+
+        private static string GetHierarchySortKey(Transform target)
+        {
+            if (target == null) return string.Empty;
+            string key = target.GetSiblingIndex().ToString("D4") + ":" + target.name;
+            Transform parent = target.parent;
+            while (parent != null)
+            {
+                key = parent.GetSiblingIndex().ToString("D4") + ":" + parent.name + "/" + key;
+                parent = parent.parent;
+            }
+            return key;
         }
 
         private static void EnsurePerformanceSystem()

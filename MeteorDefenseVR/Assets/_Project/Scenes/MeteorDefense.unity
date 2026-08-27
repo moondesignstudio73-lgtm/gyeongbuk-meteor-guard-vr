@@ -7300,19 +7300,19 @@ MonoBehaviour:
   gazeRaycaster: {fileID: 2064682939}
   meteorSpawner: {fileID: 206919103}
   readableTexts:
-  - {fileID: 1167672000}
+  - {fileID: 829086554}
+  - {fileID: 1195251527}
   - {fileID: 2067841178}
   - {fileID: 151931165}
-  - {fileID: 1195251527}
-  - {fileID: 672329505}
-  - {fileID: 487841622}
-  - {fileID: 829086554}
-  - {fileID: 766100055}
-  - {fileID: 721749033}
   - {fileID: 84098084}
+  - {fileID: 721749033}
+  - {fileID: 487841622}
+  - {fileID: 766100055}
+  - {fileID: 672329505}
+  - {fileID: 1167672000}
+  - {fileID: 889095462}
   - {fileID: 1118263960}
   - {fileID: 175799988}
-  - {fileID: 889095462}
 --- !u!4 &1900038302
 Transform:
   m_ObjectHideFlags: 0

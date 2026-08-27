@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 20 - Performance Optimization
+- 현재 개발 단계: STEP 21 - Full QA
 
 ## 주요 Scene
 
@@ -201,3 +201,13 @@ Android 빌드에 Noto Sans KR 계열 폰트를 포함한 뒤 실제 HMD에서 �
 
 실제 Draw Call, GPU/CPU Frame Time, Thermal Throttling과 90fps 지속 여부는 Quest Pro에서
 OVR Metrics Tool 또는 Unity Profiler를 연결해 최종 측정해야 합니다.
+
+## STEP 21 전체 QA
+
+- Start부터 Result와 Reset까지 전체 상태 흐름을 10회 연속 자동 반복
+- 동일 상태 중복 전환 거부, Transition Event 횟수, Session 데이터 초기화 검증
+- Score, Shot, Hit, HP, Result Snapshot의 이전 Session 잔존 여부 검사
+- Build Settings의 Bootstrap/MeteorDefense 순서·활성 상태 확인
+- Build Scene 및 `_Project` Prefab의 Missing Mono Script 검사
+- 전체 EditMode 테스트 83개 통과 및 Compile/NullReference/MissingReference Console 오류 없음
+- 세부 결과와 Quest Pro 실기기 항목: `MeteorDefenseVR/Docs/STEP21_QA.md`
