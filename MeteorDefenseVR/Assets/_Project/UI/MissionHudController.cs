@@ -16,6 +16,8 @@ namespace MeteorDefenseVR.UI
 
         private readonly HashSet<MeteorController> trackedMeteors = new HashSet<MeteorController>();
         private float feedbackRemaining;
+        private int extraMeteors;
+        private int extraCompleted;
 
         public float CurrentHealth { get; private set; }
         public float MaxHealth { get; private set; }
@@ -67,6 +69,8 @@ namespace MeteorDefenseVR.UI
             Score = 0;
             TotalMeteors = spawner != null ? spawner.TotalScheduled : 0;
             RemainingMeteors = TotalMeteors;
+            extraMeteors = 0;
+            extraCompleted = 0;
             SetFeedback(string.Empty, 0f);
             HealthChanged?.Invoke(CurrentHealth, MaxHealth);
             MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
@@ -97,6 +101,18 @@ namespace MeteorDefenseVR.UI
         public void ShowWarning(string message, float duration = 0.8f)
         {
             SetFeedback(message, Mathf.Max(0f, duration));
+        }
+
+        public void RegisterExtraMeteor()
+        {
+            extraMeteors++;
+            RecalculateMeteorProgress();
+        }
+
+        public void CompleteExtraMeteor()
+        {
+            extraCompleted = Mathf.Min(extraMeteors, extraCompleted + 1);
+            RecalculateMeteorProgress();
         }
 
         public void Tick(float unscaledDeltaTime)
@@ -140,22 +156,22 @@ namespace MeteorDefenseVR.UI
         {
             ResetSession();
             TotalMeteors = Mathf.Max(0, total);
+            extraMeteors = 0;
+            extraCompleted = 0;
             RemainingMeteors = TotalMeteors;
             MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
         }
 
         private void HandleMeteorSpawned(MeteorController meteor, int _, int total)
         {
-            TotalMeteors = Mathf.Max(TotalMeteors, total);
-            RemainingMeteors = Mathf.Max(0, TotalMeteors - (spawner != null ? spawner.CompletedCount : 0));
+            TotalMeteors = Mathf.Max(TotalMeteors, total + extraMeteors);
+            RecalculateMeteorProgress();
             TrackMeteor(meteor);
-            MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
         }
 
         private void HandleMeteorCompleted(MeteorController meteor)
         {
-            RemainingMeteors = Mathf.Max(0, TotalMeteors - (spawner != null ? spawner.CompletedCount : 0));
-            MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
+            RecalculateMeteorProgress();
             if (meteor != null && meteor.State != MeteorLifecycleState.Destroyed) UntrackMeteor(meteor);
         }
 
@@ -191,6 +207,15 @@ namespace MeteorDefenseVR.UI
             FeedbackMessage = message ?? string.Empty;
             feedbackRemaining = Mathf.Max(0f, duration);
             FeedbackChanged?.Invoke(FeedbackMessage);
+        }
+
+        private void RecalculateMeteorProgress()
+        {
+            int baseTotal = spawner != null ? spawner.TotalScheduled : Mathf.Max(0, TotalMeteors - extraMeteors);
+            int baseCompleted = spawner != null ? spawner.CompletedCount : 0;
+            TotalMeteors = baseTotal + extraMeteors;
+            RemainingMeteors = Mathf.Max(0, TotalMeteors - baseCompleted - extraCompleted);
+            MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
         }
     }
 }

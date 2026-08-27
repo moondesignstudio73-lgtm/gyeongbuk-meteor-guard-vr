@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 12 - Player Health & Failure Policy
+- 현재 개발 단계: STEP 13 - Boss Meteor Climax
 
 ## 주요 Scene
 
@@ -120,3 +120,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - `Normal Mode`: HP 0에서 `MISSION FAILED`, Spawn 중단, Result 전환
 - `No Fail Experience Mode`: HP 0에서도 체험을 계속하며 결과 계산용 누적 피해 보존
 - 이동과학차 어린이 체험을 고려해 Scene 기본 정책은 No Fail Mode
+
+## STEP 13 대형 운석 클라이맥스
+
+- 일반 Wave 출현 완료 후 `WARNING / LARGE METEOR DETECTED` 경고와 마지막 운석 자막 표시
+- Boss HP 3, Damage 30, Score 500, 느린 속도와 큰 크기 구성
+- Laser Damage 1 기준으로 세 번의 독립 Gaze Lock-On 공격 필요
+- 붉은 균열 Emission Material과 피해 비례 Crack Light 강화
+- 최종 파괴 시 강한 팽창 폭발·Flash Light·Explosion Audio 연결점 제공
+- 방어선을 통과하면 PlayerHealth 피해 후 Boss 재등장, 최종 파괴 시 MissionComplete 전환

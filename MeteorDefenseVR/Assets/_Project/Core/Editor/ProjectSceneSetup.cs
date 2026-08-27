@@ -102,9 +102,26 @@ namespace MeteorDefenseVR.Editor
             EnsureMainGameSpawner(camera);
             EnsureMissionHud(camera);
             EnsurePlayerSystem(camera);
+            EnsureBossClimaxSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureBossClimaxSystem(Camera camera)
+        {
+            MeteorAssetSetup.UpdateBossAssets();
+            GameObject root = GameObject.Find("BossClimaxSystem");
+            if (root == null) root = new GameObject("BossClimaxSystem");
+            BossClimaxController controller = root.GetComponent<BossClimaxController>();
+            if (controller == null) controller = root.AddComponent<BossClimaxController>();
+
+            MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
+            Transform target = GameObject.Find("MainGameSpawner")?.transform.Find("PlayerDefenseTarget");
+            MissionHudController hud = GameObject.Find("MissionHUD")?.GetComponent<MissionHudController>();
+            PlayerHealth health = GameObject.Find("PlayerSystem")?.GetComponent<PlayerHealth>();
+            GameObject bossPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Meteor/Prefabs/Meteor_Boss.prefab");
+            controller.Configure(spawner, bossPrefab, camera.transform, target, hud, health);
         }
 
         private static void EnsurePlayerSystem(Camera camera)

@@ -47,10 +47,59 @@ namespace MeteorDefenseVR.Editor
             CreateVariant(basePrefab, large, "Meteor_Large");
             CreateVariant(basePrefab, boss, "Meteor_Boss");
             CreateVariant(basePrefab, tutorial, "Meteor_Tutorial");
+            UpdateBossAssets(true);
             CreateWaveAssets();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log("[MeteorAssetSetup] Placeholder definitions and prefab variants are ready.");
+        }
+
+        public static void UpdateBossAssets(bool force = false)
+        {
+            string bossPath = PrefabDirectory + "/Meteor_Boss.prefab";
+            GameObject bossAsset = AssetDatabase.LoadAssetAtPath<GameObject>(bossPath);
+            if (bossAsset == null) return;
+            if (!force && bossAsset.GetComponent<BossMeteorView>() != null &&
+                AssetDatabase.LoadAssetAtPath<Material>(Root + "/BossCrackedMaterial.mat") != null) return;
+            GameObject root = PrefabUtility.LoadPrefabContents(bossPath);
+            MeteorController controller = root.GetComponent<MeteorController>();
+            Renderer bodyRenderer = root.GetComponent<Renderer>();
+            if (bodyRenderer != null) bodyRenderer.sharedMaterial = GetOrCreateBossCrackMaterial();
+
+            Transform lightTransform = root.transform.Find("CrackEmissionLight");
+            GameObject lightObject = lightTransform != null ? lightTransform.gameObject : new GameObject("CrackEmissionLight");
+            lightObject.transform.SetParent(root.transform, false);
+            Light crackLight = lightObject.GetComponent<Light>();
+            if (crackLight == null) crackLight = lightObject.AddComponent<Light>();
+            crackLight.type = LightType.Point;
+            crackLight.color = new Color(1f, 0.04f, 0.01f);
+            crackLight.range = 5f;
+            crackLight.intensity = 0.35f;
+
+            AudioSource audioSource = root.GetComponent<AudioSource>();
+            if (audioSource == null) audioSource = root.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            BossMeteorView view = root.GetComponent<BossMeteorView>();
+            if (view == null) view = root.AddComponent<BossMeteorView>();
+            view.Configure(controller, bodyRenderer != null ? new[] { bodyRenderer } : System.Array.Empty<Renderer>(), crackLight, audioSource);
+            PrefabUtility.SaveAsPrefabAsset(root, bossPath);
+            PrefabUtility.UnloadPrefabContents(root);
+            AssetDatabase.SaveAssets();
+        }
+
+        private static Material GetOrCreateBossCrackMaterial()
+        {
+            string path = Root + "/BossCrackedMaterial.mat";
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material != null) return material;
+            Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null) shader = Shader.Find("Standard");
+            material = new Material(shader) { name = "BossCrackedMaterial" };
+            material.color = new Color(0.09f, 0.035f, 0.025f, 1f);
+            material.EnableKeyword("_EMISSION");
+            material.SetColor("_EmissionColor", new Color(0.8f, 0.015f, 0.002f));
+            AssetDatabase.CreateAsset(material, path);
+            return material;
         }
 
         public static void CreateWaveAssets()

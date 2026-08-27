@@ -2289,7 +2289,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829086552}
-  m_Text: "HP\n\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588"
+  m_Text: "HP\n\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1"
   m_OffsetZ: 0
   m_CharacterSize: 0.026
   m_LineSpacing: 1
@@ -3052,6 +3052,65 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109341328}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1110451870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1110451872}
+  - component: {fileID: 1110451871}
+  m_Layer: 0
+  m_Name: BossClimaxSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1110451871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110451870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6399f65d1a668b7418ee728b6927d211, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Meteor.BossClimaxController
+  mainSpawner: {fileID: 206919103}
+  bossPrefab: {fileID: 342185623296328296, guid: ae044358b5cc4904b9eee2ea387c71cb, type: 3}
+  spawnOrigin: {fileID: 103985003}
+  movementTarget: {fileID: 1472276822}
+  missionHud: {fileID: 1737118181}
+  playerHealth: {fileID: 497783506}
+  warningDuration: 1.4
+  narrationDuration: 1.2
+  retryDelay: 0.8
+  bossHealth: 3
+  bossSpeed: 0.8
+  bossDamage: 30
+  bossScore: 500
+  bossSize: 3
+  spawnDistance: 12
+--- !u!4 &1110451872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110451870}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1117162210
 GameObject:
   m_ObjectHideFlags: 0
@@ -5565,3 +5624,4 @@ SceneRoots:
   - {fileID: 1902853443}
   - {fileID: 206919104}
   - {fileID: 497783507}
+  - {fileID: 1110451872}
