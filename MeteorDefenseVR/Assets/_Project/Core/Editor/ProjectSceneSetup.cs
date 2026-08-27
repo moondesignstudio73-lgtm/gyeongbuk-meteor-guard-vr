@@ -7,6 +7,7 @@ using MeteorDefenseVR.Launch;
 using MeteorDefenseVR.Meteor;
 using MeteorDefenseVR.UI;
 using MeteorDefenseVR.Player;
+using MeteorDefenseVR.Audio;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -107,6 +108,7 @@ namespace MeteorDefenseVR.Editor
             EnsureBossClimaxSystem(camera);
             EnsureMissionCompleteSystem(camera);
             EnsureResultSystem(camera);
+            EnsureAudioSystem();
             EnsureOperationsSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
@@ -122,6 +124,81 @@ namespace MeteorDefenseVR.Editor
             if (root.GetComponent<BootstrapSceneLoader>() == null) root.AddComponent<BootstrapSceneLoader>();
             EditorSceneManager.MarkSceneDirty(bootstrap);
             EditorSceneManager.SaveScene(bootstrap);
+        }
+
+        private static void EnsureAudioSystem()
+        {
+            GameObject root = GameObject.Find("AudioSystem");
+            if (root == null) root = new GameObject("AudioSystem");
+            AudioManager manager = root.GetComponent<AudioManager>();
+            if (manager == null) manager = root.AddComponent<AudioManager>();
+
+            AudioCueLibrary library = GetOrCreateAudioCueLibrary();
+            AudioSource bgm = EnsureAudioSource(root.transform, "BGM");
+            AudioSource ui = EnsureAudioSource(root.transform, "UI");
+            AudioSource sfx = EnsureAudioSource(root.transform, "SFX");
+            AudioSource voice = EnsureAudioSource(root.transform, "Voice");
+            AudioSource ambient = EnsureAudioSource(root.transform, "Ambient");
+            manager.Configure(library, bgm, ui, sfx, voice, ambient);
+
+            GameAudioEventRouter router = root.GetComponent<GameAudioEventRouter>();
+            if (router == null) router = root.AddComponent<GameAudioEventRouter>();
+            router.Configure(
+                manager,
+                GameObject.Find("CalibrationSystem")?.GetComponent<CalibrationSequenceController>(),
+                GameObject.Find("CombatSystem")?.GetComponent<LaserWeapon>(),
+                GameObject.Find("PlayerSystem")?.GetComponent<PlayerHealth>(),
+                GameObject.Find("BossClimaxSystem")?.GetComponent<BossClimaxController>(),
+                GameObject.Find("LaunchSystem")?.GetComponent<LaunchSequenceController>(),
+                GameObject.Find("MissionCompleteSystem")?.GetComponent<MissionCompleteController>(),
+                GameObject.Find("ResultSystem")?.GetComponent<ResultController>());
+        }
+
+        private static AudioSource EnsureAudioSource(Transform parent, string name)
+        {
+            Transform existing = parent.Find(name);
+            GameObject child = existing != null ? existing.gameObject : new GameObject(name);
+            child.transform.SetParent(parent, false);
+            AudioSource source = child.GetComponent<AudioSource>();
+            if (source == null) source = child.AddComponent<AudioSource>();
+            source.playOnAwake = false;
+            source.spatialBlend = 0f;
+            source.dopplerLevel = 0f;
+            return source;
+        }
+
+        private static AudioCueLibrary GetOrCreateAudioCueLibrary()
+        {
+            const string path = "Assets/_Project/Audio/AudioCueLibrary.asset";
+            AudioCueLibrary library = AssetDatabase.LoadAssetAtPath<AudioCueLibrary>(path);
+            if (library == null)
+            {
+                library = ScriptableObject.CreateInstance<AudioCueLibrary>();
+                AssetDatabase.CreateAsset(library, path);
+            }
+
+            library.Configure(new[]
+            {
+                new AudioCueEntry(AudioCue.IntroSpaceAmbient, AudioCategory.Ambient, 0.28f, 1f, true),
+                new AudioCueEntry(AudioCue.Warning, AudioCategory.UI, 0.45f, 0.7f),
+                new AudioCueEntry(AudioCue.CalibrationPoint, AudioCategory.UI, 0.38f, 0.12f),
+                new AudioCueEntry(AudioCue.CalibrationComplete, AudioCategory.UI, 0.5f, 0.5f),
+                new AudioCueEntry(AudioCue.TargetFocus, AudioCategory.UI, 0.24f, 0.18f),
+                new AudioCueEntry(AudioCue.LockOn, AudioCategory.UI, 0.48f, 0.2f),
+                new AudioCueEntry(AudioCue.Laser, AudioCategory.Sfx, 0.42f, 0.08f),
+                new AudioCueEntry(AudioCue.MeteorHit, AudioCategory.Sfx, 0.4f, 0.08f),
+                new AudioCueEntry(AudioCue.MeteorExplosion, AudioCategory.Sfx, 0.52f, 0.14f),
+                new AudioCueEntry(AudioCue.Score, AudioCategory.UI, 0.34f, 0.1f),
+                new AudioCueEntry(AudioCue.Countdown, AudioCategory.Voice, 0.5f, 0.35f),
+                new AudioCueEntry(AudioCue.Launch, AudioCategory.Sfx, 0.55f, 0.8f),
+                new AudioCueEntry(AudioCue.PlayerDamage, AudioCategory.Sfx, 0.48f, 0.35f),
+                new AudioCueEntry(AudioCue.BossWarning, AudioCategory.Voice, 0.58f, 1f),
+                new AudioCueEntry(AudioCue.BossExplosion, AudioCategory.Sfx, 0.6f, 1f),
+                new AudioCueEntry(AudioCue.MissionComplete, AudioCategory.Bgm, 0.48f, 1f),
+                new AudioCueEntry(AudioCue.Result, AudioCategory.UI, 0.4f, 1f)
+            });
+            EditorUtility.SetDirty(library);
+            return library;
         }
 
         private static void EnsureOperationsSystem(Camera camera)

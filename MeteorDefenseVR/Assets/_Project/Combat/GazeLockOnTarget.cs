@@ -49,8 +49,16 @@ namespace MeteorDefenseVR.Combat
         public event Action<GazeLockOnTarget> Locked;
         public event Action<GazeLockOnTarget> LockLost;
 
+        public static event Action<GazeLockOnTarget> GlobalFocusStarted;
+        public static event Action<GazeLockOnTarget> GlobalLocked;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void ResetStatics() => activeTarget = null;
+        private static void ResetStatics()
+        {
+            activeTarget = null;
+            GlobalFocusStarted = null;
+            GlobalLocked = null;
+        }
 
         private void Awake()
         {
@@ -95,6 +103,7 @@ namespace MeteorDefenseVR.Combat
             {
                 SetState(LockOnState.Focusing);
                 FocusStarted?.Invoke(this);
+                GlobalFocusStarted?.Invoke(this);
             }
         }
 
@@ -123,11 +132,13 @@ namespace MeteorDefenseVR.Combat
                 AcquireExclusiveFocus();
                 SetState(LockOnState.Focusing);
                 FocusStarted?.Invoke(this);
+                GlobalFocusStarted?.Invoke(this);
             }
             SetProgress(Progress + deltaTime / lockOnDuration);
             if (Progress < 1f) return;
             SetState(LockOnState.Locked);
             Locked?.Invoke(this);
+            GlobalLocked?.Invoke(this);
         }
 
         public void TickWithoutGaze(float deltaTime)

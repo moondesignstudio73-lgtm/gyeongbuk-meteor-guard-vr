@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 16 - Operations Reset
+- 현재 개발 단계: STEP 17 - Sound System
 
 ## 주요 Scene
 
@@ -157,3 +157,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - 운영자 키 `R`, `1`~`6`으로 Reset 및 주요 단계 즉시 이동
 - Release 빌드에서 운영자 키를 끌 수 있는 Inspector 토글 제공
 - Bootstrap Scene이 MeteorDefense Scene을 Additive 방식으로 자동 로드
+
+## STEP 17 Sound 시스템
+
+- `AudioManager`에서 BGM, UI, SFX, Voice, Ambient 5개 카테고리를 중앙 관리
+- Intro부터 Result까지 17개 필수 Audio Cue와 교체 가능한 AudioClip 슬롯 구성
+- 시선 Focus/Lock, Calibration, Laser/Hit/Explosion/Score, 피해, Boss, Launch, Mission Complete 이벤트 자동 연결
+- Cue별 Cooldown으로 짧은 효과음의 과도한 중첩 방지
+- Master 및 Cue 볼륨을 최대 0.7로 제한하고 2D 재생·Doppler 비활성화로 VR 급격한 음량 변화를 완화
+- 실제 최종 음원은 `Assets/_Project/Audio/AudioCueLibrary.asset`의 비어 있는 Clip 슬롯에 연결
