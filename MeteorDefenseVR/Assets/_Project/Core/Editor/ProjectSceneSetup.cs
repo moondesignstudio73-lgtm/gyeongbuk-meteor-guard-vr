@@ -41,6 +41,8 @@ namespace MeteorDefenseVR.Editor
                 EditorSceneManager.SaveScene(bootstrap, BootstrapScenePath);
             }
 
+            EnsureBootstrapScene();
+
             if (!File.Exists(GameScenePath))
             {
                 Scene game = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -105,9 +107,72 @@ namespace MeteorDefenseVR.Editor
             EnsureBossClimaxSystem(camera);
             EnsureMissionCompleteSystem(camera);
             EnsureResultSystem(camera);
+            EnsureOperationsSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureBootstrapScene()
+        {
+            Scene bootstrap = EditorSceneManager.OpenScene(BootstrapScenePath, OpenSceneMode.Single);
+            GameObject root = GameObject.Find("Bootstrap");
+            if (root == null) root = new GameObject("Bootstrap");
+            if (root.GetComponent<GameFlowManager>() == null) root.AddComponent<GameFlowManager>();
+            if (root.GetComponent<BootstrapSceneLoader>() == null) root.AddComponent<BootstrapSceneLoader>();
+            EditorSceneManager.MarkSceneDirty(bootstrap);
+            EditorSceneManager.SaveScene(bootstrap);
+        }
+
+        private static void EnsureOperationsSystem(Camera camera)
+        {
+            GameObject root = GameObject.Find("OperationsSystem");
+            if (root == null) root = new GameObject("OperationsSystem");
+            OperationsResetController operations = root.GetComponent<OperationsResetController>();
+            if (operations == null) operations = root.AddComponent<OperationsResetController>();
+
+            MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
+            BossClimaxController boss = GameObject.Find("BossClimaxSystem")?.GetComponent<BossClimaxController>();
+            LaserWeapon weapon = GameObject.Find("CombatSystem")?.GetComponent<LaserWeapon>();
+            PlayerHealth health = GameObject.Find("PlayerSystem")?.GetComponent<PlayerHealth>();
+            GameObject resultRoot = GameObject.Find("ResultSystem");
+            GameSessionStats stats = resultRoot?.GetComponent<GameSessionStats>();
+            ResultController result = resultRoot?.GetComponent<ResultController>();
+            MissionHudController hud = GameObject.Find("MissionHUD")?.GetComponent<MissionHudController>();
+            TutorialController tutorial = GameObject.Find("TutorialSystem")?.GetComponent<TutorialController>();
+            PracticeController practice = GameObject.Find("PracticeSystem")?.GetComponent<PracticeController>();
+            CalibrationSequenceController calibration = GameObject.Find("CalibrationSystem")?.GetComponent<CalibrationSequenceController>();
+            LaunchSequenceController launch = GameObject.Find("LaunchSystem")?.GetComponent<LaunchSequenceController>();
+            MissionCompleteController complete = GameObject.Find("MissionCompleteSystem")?.GetComponent<MissionCompleteController>();
+            operations.Configure(spawner, boss, weapon, health, stats, hud, result, tutorial, practice, calibration, launch, complete);
+            if (result != null) operations.SetResultDuration(result.DisplayDuration);
+
+            GameObject readyRoot = GameObject.Find("ReadyScreen");
+            if (readyRoot == null) readyRoot = new GameObject("ReadyScreen");
+            readyRoot.transform.SetParent(camera.transform, false);
+            readyRoot.transform.localPosition = Vector3.zero;
+            ReadyScreenController ready = readyRoot.GetComponent<ReadyScreenController>();
+            if (ready == null) ready = readyRoot.AddComponent<ReadyScreenController>();
+
+            TextMesh title = EnsureHudText(readyRoot.transform, "ReadyTitle", new Vector3(0f, 0.25f, 3.8f),
+                new Color(0.5f, 0.95f, 1f), 0.045f);
+            Transform buttonTransform = readyRoot.transform.Find("ReadyStartButton");
+            GameObject button = buttonTransform != null ? buttonTransform.gameObject : GameObject.CreatePrimitive(PrimitiveType.Cube);
+            button.name = "ReadyStartButton";
+            button.transform.SetParent(readyRoot.transform, false);
+            button.transform.localPosition = new Vector3(0f, -0.48f, 3.95f);
+            button.transform.localRotation = Quaternion.identity;
+            button.transform.localScale = new Vector3(1.15f, 0.36f, 0.035f);
+            Renderer renderer = button.GetComponent<Renderer>();
+            if (renderer != null) renderer.sharedMaterial = GetOrCreateHudPanelMaterial();
+            if (button.GetComponent<Collider>() == null) button.AddComponent<BoxCollider>();
+            ReadyStartGazeTarget gazeTarget = button.GetComponent<ReadyStartGazeTarget>();
+            if (gazeTarget == null) gazeTarget = button.AddComponent<ReadyStartGazeTarget>();
+            gazeTarget.Configure(ready);
+
+            ReadyScreenView view = readyRoot.GetComponent<ReadyScreenView>();
+            if (view == null) view = readyRoot.AddComponent<ReadyScreenView>();
+            view.Configure(ready, title, button);
         }
 
         private static void EnsureResultSystem(Camera camera)

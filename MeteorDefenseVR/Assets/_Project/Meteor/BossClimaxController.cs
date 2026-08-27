@@ -95,8 +95,14 @@ namespace MeteorDefenseVR.Meteor
 
         public void ResetClimax()
         {
+            GameObject bossObject = ActiveBoss != null ? ActiveBoss.gameObject : null;
             UnsubscribeBoss();
             ActiveBoss = null;
+            if (bossObject != null)
+            {
+                if (Application.isPlaying) Destroy(bossObject);
+                else DestroyImmediate(bossObject);
+            }
             IsRunning = false;
             IsComplete = false;
             hudBossRegistered = false;

@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 15 - Result System
+- 현재 개발 단계: STEP 16 - Operations Reset
 
 ## 주요 Scene
 
@@ -147,3 +147,13 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - `SessionRankSettings.asset`에서 S/A/B/C 점수 기준 수정 가능
 - 기본 Rank 기준 S 3000, A 2400, B 1500, 나머지 C
 - Result 표시 시간은 Inspector에서 7~10초 범위로 설정
+
+## STEP 16 자동 초기화와 운영 모드
+
+- Result 화면을 기본 8초간 표시한 뒤 모든 런타임 상태를 초기화하고 Boot로 복귀
+- 점수, HP, 통계, 운석, VFX, Wave, Boss, 튜토리얼, 연습, Calibration, HUD, Audio를 일괄 정리
+- Boot 상태에서 `METEOR DEFENSE / START` Ready 화면 표시
+- START 버튼 시선 응시 0.8초 또는 `Space`/`Enter`로 체험 시작
+- 운영자 키 `R`, `1`~`6`으로 Reset 및 주요 단계 즉시 이동
+- Release 빌드에서 운영자 키를 끌 수 있는 Inspector 토글 제공
+- Bootstrap Scene이 MeteorDefense Scene을 Additive 방식으로 자동 로드

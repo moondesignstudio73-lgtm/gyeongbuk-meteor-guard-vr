@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 202975643}
   - component: {fileID: 202975642}
+  - component: {fileID: 202975644}
   m_Layer: 0
   m_Name: Bootstrap
   m_TagString: Untagged
@@ -146,7 +147,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5680203644157a74faa0050f36f47002, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.GameFlow.GameFlowManager
   persistBetweenScenes: 1
   debugMode: 0
@@ -167,6 +168,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &202975644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202975641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1740ea16f6d6e114e87fb182a5d5db9c, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.GameFlow.BootstrapSceneLoader
+  gameplaySceneName: MeteorDefense
+  loadAdditively: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
