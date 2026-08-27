@@ -16,6 +16,11 @@ MeteorDefenseVR/*.slnx
 MeteorDefenseVR/*.unityproj
 MeteorDefenseVR/.vs/
 MeteorDefenseVR/.idea/
+MeteorDefenseVR/.vscode/
+MeteorDefenseVR/.dotnet-cli/
+
+# Source planning/reference material kept locally
+MeteorDefenseVR/자료/
 
 # OS files
 .DS_Store

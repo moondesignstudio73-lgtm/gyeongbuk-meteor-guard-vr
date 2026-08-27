@@ -1,5 +1,6 @@
 using System.IO;
 using MeteorDefenseVR.GameFlow;
+using MeteorDefenseVR.EyeTracking;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -54,6 +55,8 @@ namespace MeteorDefenseVR.Editor
                 EditorSceneManager.SaveScene(game, GameScenePath);
             }
 
+            EnsureGazeSystem();
+
             EditorBuildSettings.scenes = new[]
             {
                 new EditorBuildSettingsScene(BootstrapScenePath, true),
@@ -62,6 +65,31 @@ namespace MeteorDefenseVR.Editor
 
             AssetDatabase.SaveAssets();
             Debug.Log("[ProjectSetup] Bootstrap and MeteorDefense scenes are ready.");
+        }
+
+        private static void EnsureGazeSystem()
+        {
+            Scene game = EditorSceneManager.OpenScene(GameScenePath, OpenSceneMode.Single);
+            Camera camera = Camera.main;
+            if (camera == null)
+            {
+                Debug.LogWarning("[ProjectSetup] Main Camera was not found; gaze setup was skipped.");
+                return;
+            }
+
+            GameObject gazeSystem = GameObject.Find("GazeSystem");
+            if (gazeSystem == null) gazeSystem = new GameObject("GazeSystem");
+
+            EditorGazeProvider provider = gazeSystem.GetComponent<EditorGazeProvider>();
+            if (provider == null) provider = gazeSystem.AddComponent<EditorGazeProvider>();
+            provider.SetCamera(camera);
+
+            GazeRaycaster raycaster = gazeSystem.GetComponent<GazeRaycaster>();
+            if (raycaster == null) raycaster = gazeSystem.AddComponent<GazeRaycaster>();
+            raycaster.SetProvider(provider);
+
+            EditorSceneManager.MarkSceneDirty(game);
+            EditorSceneManager.SaveScene(game);
         }
     }
 }
