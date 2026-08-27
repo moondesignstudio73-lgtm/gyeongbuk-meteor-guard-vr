@@ -8,6 +8,7 @@ namespace MeteorDefenseVR.Combat
         [SerializeField] private GazeLockOnTarget target;
         [SerializeField] private LineRenderer progressRing;
         [SerializeField] private TextMesh statusText;
+        [SerializeField] private Renderer[] tacticalBrackets;
         [SerializeField, Min(8)] private int ringSegments = 48;
         [SerializeField, Min(0.05f)] private float ringRadius = 0.75f;
         [SerializeField] private Color focusingColor = new Color(0.1f, 0.95f, 1f);
@@ -53,6 +54,12 @@ namespace MeteorDefenseVR.Combat
             Refresh(target != null ? target.Progress : 0f, target != null ? target.State : LockOnState.Idle);
         }
 
+        public void Configure(GazeLockOnTarget lockTarget, LineRenderer ring, TextMesh text, Renderer[] brackets)
+        {
+            tacticalBrackets = brackets;
+            Configure(lockTarget, ring, text);
+        }
+
         private void HandleFocusStarted(GazeLockOnTarget _) => Refresh(target.Progress, LockOnState.Focusing);
         private void HandleProgressChanged(GazeLockOnTarget _, float progress) => Refresh(progress, target.State);
         private void HandleLocked(GazeLockOnTarget _) => Refresh(1f, LockOnState.Locked);
@@ -87,6 +94,22 @@ namespace MeteorDefenseVR.Combat
                 statusText.gameObject.SetActive(visible);
                 statusText.text = state == LockOnState.Locked ? "LOCK ON" : "LOCKING";
                 statusText.color = state == LockOnState.Locked ? lockedColor : focusingColor;
+            }
+
+
+            if (tacticalBrackets != null)
+            {
+                Color color = state == LockOnState.Locked ? lockedColor : focusingColor;
+                foreach (Renderer bracket in tacticalBrackets)
+                {
+                    if (bracket == null) continue;
+                    bracket.enabled = visible;
+                    if (bracket is LineRenderer line)
+                    {
+                        line.startColor = color;
+                        line.endColor = color;
+                    }
+                }
             }
         }
     }

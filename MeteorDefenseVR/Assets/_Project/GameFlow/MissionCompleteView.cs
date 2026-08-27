@@ -10,6 +10,7 @@ namespace MeteorDefenseVR.GameFlow
         [SerializeField] private Transform earth;
         [SerializeField] private Light earthFocusLight;
         [SerializeField] private AudioSource victoryAudioSource;
+        [SerializeField] private GameObject visualFrame;
         private Vector3 earthBaseScale;
 
         private void Awake()
@@ -45,6 +46,13 @@ namespace MeteorDefenseVR.GameFlow
             SetStatus(controller != null ? controller.StatusMessage : string.Empty);
         }
 
+        public void SetVisualFrame(GameObject frame)
+        {
+            visualFrame = frame;
+            if (visualFrame != null)
+                visualFrame.SetActive(controller != null && !string.IsNullOrEmpty(controller.StatusMessage));
+        }
+
         private void Subscribe()
         {
             if (!isActiveAndEnabled || controller == null) return;
@@ -66,6 +74,7 @@ namespace MeteorDefenseVR.GameFlow
             if (statusText != null) statusText.text = message ?? string.Empty;
             bool visible = !string.IsNullOrEmpty(message);
             if (earthFocusLight != null) earthFocusLight.enabled = visible;
+            if (visualFrame != null) visualFrame.SetActive(visible);
         }
 
         private void PlayVictoryFeedback()

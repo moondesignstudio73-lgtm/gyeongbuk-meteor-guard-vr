@@ -76,17 +76,21 @@ namespace MeteorDefenseVR.UI
 
         private void SetHealth(float current, float maximum)
         {
-            if (healthText != null) healthText.text = FormatHealth(current, maximum);
+            if (healthText != null)
+            {
+                float normalized = maximum > 0f ? Mathf.Clamp01(current / maximum) : 0f;
+                healthText.text = $"HP  {Mathf.RoundToInt(normalized * 100f):D3}%";
+            }
         }
 
         private void SetMeteorProgress(int remaining, int total)
         {
-            if (remainingText != null) remainingText.text = FormatMeteorProgress(remaining, total);
+            if (remainingText != null) remainingText.text = $"METEORS  {Mathf.Max(0, remaining):D2} / {Mathf.Max(0, total):D2}";
         }
 
         private void SetScore(int score)
         {
-            if (scoreText != null) scoreText.text = FormatScore(score);
+            if (scoreText != null) scoreText.text = $"SCORE  {Mathf.Max(0, score):N0}";
         }
 
         private void SetFeedback(string message)

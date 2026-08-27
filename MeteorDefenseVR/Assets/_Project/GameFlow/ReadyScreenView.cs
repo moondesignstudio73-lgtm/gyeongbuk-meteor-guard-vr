@@ -8,6 +8,7 @@ namespace MeteorDefenseVR.GameFlow
         [SerializeField] private ReadyScreenController controller;
         [SerializeField] private TextMesh titleText;
         [SerializeField] private GameObject startButton;
+        [SerializeField] private GameObject decorationRoot;
 
         private void OnEnable() => Subscribe();
         private void OnDisable() => Unsubscribe();
@@ -20,6 +21,13 @@ namespace MeteorDefenseVR.GameFlow
             startButton = button;
             Subscribe();
             SetVisible(controller == null || controller.IsReadyVisible);
+        }
+
+        public void SetDecorationRoot(GameObject root)
+        {
+            decorationRoot = root;
+            if (decorationRoot != null)
+                decorationRoot.SetActive(controller == null || controller.IsReadyVisible);
         }
 
         private void Subscribe()
@@ -39,9 +47,10 @@ namespace MeteorDefenseVR.GameFlow
             if (titleText != null)
             {
                 titleText.gameObject.SetActive(visible);
-                titleText.text = visible ? "METEOR DEFENSE\n\nSTART" : string.Empty;
+                titleText.text = visible ? "METEOR\nDEFENSE" : string.Empty;
             }
             if (startButton != null) startButton.SetActive(visible);
+            if (decorationRoot != null) decorationRoot.SetActive(visible);
         }
     }
 }

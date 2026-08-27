@@ -12,6 +12,7 @@ namespace MeteorDefenseVR.Editor
         private const string DefinitionDirectory = Root + "/Definitions";
         private const string PrefabDirectory = Root + "/Prefabs";
         private const string WaveDirectory = Root + "/Waves";
+        private const string MeteorTexturePath = "Assets/Art/VisualIntegration/Textures/MeteorSurface.png";
 
         [MenuItem("Meteor Defense/Create Meteor Placeholder Assets")]
         public static void CreateMeteorAssets()
@@ -59,12 +60,14 @@ namespace MeteorDefenseVR.Editor
             string bossPath = PrefabDirectory + "/Meteor_Boss.prefab";
             GameObject bossAsset = AssetDatabase.LoadAssetAtPath<GameObject>(bossPath);
             if (bossAsset == null) return;
-            if (!force && bossAsset.GetComponent<BossMeteorView>() != null &&
-                AssetDatabase.LoadAssetAtPath<Material>(Root + "/BossCrackedMaterial.mat") != null) return;
             GameObject root = PrefabUtility.LoadPrefabContents(bossPath);
             MeteorController controller = root.GetComponent<MeteorController>();
-            Renderer bodyRenderer = root.GetComponent<Renderer>();
-            if (bodyRenderer != null) bodyRenderer.sharedMaterial = GetOrCreateBossCrackMaterial();
+            Renderer[] bodyRenderers = root.GetComponentsInChildren<Renderer>(true);
+            Renderer[] crackRenderers = System.Array.FindAll(bodyRenderers,
+                renderer => renderer != null && renderer.GetComponentInParent<LockOnReticleView>() == null);
+            Material bossMaterial = GetOrCreateBossCrackMaterial();
+            foreach (Renderer bodyRenderer in crackRenderers)
+                bodyRenderer.sharedMaterial = bossMaterial;
 
             Transform lightTransform = root.transform.Find("CrackEmissionLight");
             GameObject lightObject = lightTransform != null ? lightTransform.gameObject : new GameObject("CrackEmissionLight");
@@ -81,7 +84,7 @@ namespace MeteorDefenseVR.Editor
             audioSource.playOnAwake = false;
             BossMeteorView view = root.GetComponent<BossMeteorView>();
             if (view == null) view = root.AddComponent<BossMeteorView>();
-            view.Configure(controller, bodyRenderer != null ? new[] { bodyRenderer } : System.Array.Empty<Renderer>(), crackLight, audioSource);
+            view.Configure(controller, crackRenderers, crackLight, audioSource);
             PrefabUtility.SaveAsPrefabAsset(root, bossPath);
             PrefabUtility.UnloadPrefabContents(root);
             AssetDatabase.SaveAssets();
@@ -91,14 +94,49 @@ namespace MeteorDefenseVR.Editor
         {
             string path = Root + "/BossCrackedMaterial.mat";
             Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-            if (material != null) return material;
-            Shader shader = Shader.Find("Universal Render Pipeline/Lit");
-            if (shader == null) shader = Shader.Find("Standard");
-            material = new Material(shader) { name = "BossCrackedMaterial" };
-            material.color = new Color(0.09f, 0.035f, 0.025f, 1f);
+            if (material == null)
+            {
+                Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+                if (shader == null) shader = Shader.Find("Standard");
+                material = new Material(shader) { name = "BossCrackedMaterial" };
+                AssetDatabase.CreateAsset(material, path);
+            }
+            material.color = new Color(0.58f, 0.42f, 0.34f, 1f);
+            Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(MeteorTexturePath);
+            if (texture != null)
+            {
+                material.mainTexture = texture;
+                material.SetTexture("_EmissionMap", texture);
+            }
+            material.SetFloat("_Smoothness", 0.08f);
+            material.SetFloat("_Metallic", 0.05f);
             material.EnableKeyword("_EMISSION");
-            material.SetColor("_EmissionColor", new Color(0.8f, 0.015f, 0.002f));
-            AssetDatabase.CreateAsset(material, path);
+            material.SetColor("_EmissionColor", new Color(1.5f, 0.12f, 0.015f));
+            EditorUtility.SetDirty(material);
+            return material;
+        }
+
+        private static Material GetOrCreateMeteorSurfaceMaterial()
+        {
+            string path = Root + "/MeteorSurfaceMaterial.mat";
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material == null)
+            {
+                Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+                if (shader == null) shader = Shader.Find("Standard");
+                material = new Material(shader) { name = "MeteorSurfaceMaterial" };
+                AssetDatabase.CreateAsset(material, path);
+            }
+            Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(MeteorTexturePath);
+            material.color = Color.white;
+            if (texture != null)
+                material.mainTexture = texture;
+            material.SetTexture("_EmissionMap", null);
+            material.SetFloat("_Smoothness", 0.06f);
+            material.SetFloat("_Metallic", 0.02f);
+            material.EnableKeyword("_EMISSION");
+            material.SetColor("_EmissionColor", new Color(0.2f, 0.085f, 0.032f));
+            EditorUtility.SetDirty(material);
             return material;
         }
 
@@ -162,6 +200,13 @@ namespace MeteorDefenseVR.Editor
             lockTarget.Configure(meteor, 0.62f, 1.5f, 0.18f);
             lockTarget.ConfigureComfortTolerance(1.25f);
 
+            Material meteorMaterial = GetOrCreateMeteorSurfaceMaterial();
+            Renderer rootRenderer = root.GetComponent<Renderer>();
+            if (rootRenderer != null) rootRenderer.sharedMaterial = meteorMaterial;
+            EnsureRockLobe(root.transform, "RockLobe_A", new Vector3(-0.32f, 0.18f, 0.08f), new Vector3(0.78f, 0.58f, 0.7f), new Vector3(18f, 26f, -12f), meteorMaterial);
+            EnsureRockLobe(root.transform, "RockLobe_B", new Vector3(0.3f, -0.18f, 0.05f), new Vector3(0.62f, 0.72f, 0.55f), new Vector3(-22f, 8f, 31f), meteorMaterial);
+            EnsureRockLobe(root.transform, "RockLobe_C", new Vector3(0.05f, 0.3f, -0.12f), new Vector3(0.48f, 0.42f, 0.62f), new Vector3(35f, -19f, 8f), meteorMaterial);
+
             Transform existing = root.transform.Find("LockOnReticle");
             GameObject reticle = existing != null ? existing.gameObject : new GameObject("LockOnReticle");
             reticle.transform.SetParent(root.transform);
@@ -176,6 +221,26 @@ namespace MeteorDefenseVR.Editor
             ring.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             ring.receiveShadows = false;
 
+            LineRenderer outerRing = EnsureRing(reticle.transform, "OuterTacticalRing", 0.9f, 64, 0.012f);
+            Renderer[] brackets = new Renderer[5];
+            brackets[0] = outerRing;
+            Vector3[] bracketPositions =
+            {
+                new Vector3(0f, 0.98f, 0f),
+                new Vector3(0f, -0.98f, 0f),
+                new Vector3(-0.98f, 0f, 0f),
+                new Vector3(0.98f, 0f, 0f)
+            };
+            Vector3[] bracketScales =
+            {
+                new Vector3(0.18f, 0.025f, 0.015f),
+                new Vector3(0.18f, 0.025f, 0.015f),
+                new Vector3(0.025f, 0.18f, 0.015f),
+                new Vector3(0.025f, 0.18f, 0.015f)
+            };
+            for (int i = 0; i < 4; i++)
+                brackets[i + 1] = EnsureReticleBracket(reticle.transform, "TacticalBracket_" + (i + 1), bracketPositions[i], bracketScales[i]);
+
             Transform textTransform = reticle.transform.Find("StatusText");
             GameObject textObject = textTransform != null ? textTransform.gameObject : new GameObject("StatusText");
             textObject.transform.SetParent(reticle.transform);
@@ -189,7 +254,7 @@ namespace MeteorDefenseVR.Editor
 
             LockOnReticleView view = reticle.GetComponent<LockOnReticleView>();
             if (view == null) view = reticle.AddComponent<LockOnReticleView>();
-            view.Configure(lockTarget, ring, text);
+            view.Configure(lockTarget, ring, text, brackets);
 
             Renderer[] renderers = root.GetComponentsInChildren<Renderer>(true);
             foreach (Renderer targetRenderer in renderers)
@@ -203,16 +268,85 @@ namespace MeteorDefenseVR.Editor
             PrefabUtility.UnloadPrefabContents(root);
         }
 
+        private static void EnsureRockLobe(
+            Transform parent,
+            string name,
+            Vector3 position,
+            Vector3 scale,
+            Vector3 rotation,
+            Material material)
+        {
+            Transform existing = parent.Find(name);
+            GameObject lobe = existing != null ? existing.gameObject : GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            lobe.name = name;
+            lobe.transform.SetParent(parent, false);
+            lobe.transform.localPosition = position;
+            lobe.transform.localScale = scale;
+            lobe.transform.localRotation = Quaternion.Euler(rotation);
+            Collider collider = lobe.GetComponent<Collider>();
+            if (collider != null) Object.DestroyImmediate(collider);
+            Renderer renderer = lobe.GetComponent<Renderer>();
+            if (renderer != null) renderer.sharedMaterial = material;
+        }
+
+        private static LineRenderer EnsureRing(Transform parent, string name, float radius, int segments, float width)
+        {
+            Transform existing = parent.Find(name);
+            GameObject ringObject = existing != null ? existing.gameObject : new GameObject(name);
+            ringObject.transform.SetParent(parent, false);
+            LineRenderer line = ringObject.GetComponent<LineRenderer>();
+            if (line == null) line = ringObject.AddComponent<LineRenderer>();
+            line.sharedMaterial = GetOrCreateReticleMaterial();
+            line.useWorldSpace = false;
+            line.loop = true;
+            line.widthMultiplier = width;
+            line.positionCount = segments;
+            for (int i = 0; i < segments; i++)
+            {
+                float angle = Mathf.PI * 2f * i / segments;
+                float modulation = i % 8 < 5 ? 1f : 0.992f;
+                line.SetPosition(i, new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius * modulation);
+            }
+            line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            line.receiveShadows = false;
+            return line;
+        }
+
+        private static Renderer EnsureReticleBracket(Transform parent, string name, Vector3 position, Vector3 scale)
+        {
+            Transform existing = parent.Find(name);
+            GameObject bracket = existing != null ? existing.gameObject : GameObject.CreatePrimitive(PrimitiveType.Cube);
+            bracket.name = name;
+            bracket.transform.SetParent(parent, false);
+            bracket.transform.localPosition = position;
+            bracket.transform.localScale = scale;
+            Collider collider = bracket.GetComponent<Collider>();
+            if (collider != null) Object.DestroyImmediate(collider);
+            Renderer renderer = bracket.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.sharedMaterial = GetOrCreateReticleMaterial();
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.receiveShadows = false;
+            }
+            return renderer;
+        }
+
         private static Material GetOrCreateReticleMaterial()
         {
             string path = Root + "/LockOnReticleMaterial.mat";
             Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
-            if (material != null) return material;
-            Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
-            if (shader == null) shader = Shader.Find("Sprites/Default");
-            material = new Material(shader) { name = "LockOnReticleMaterial" };
-            material.color = new Color(0.1f, 0.95f, 1f, 1f);
-            AssetDatabase.CreateAsset(material, path);
+            if (material == null)
+            {
+                Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
+                if (shader == null) shader = Shader.Find("Sprites/Default");
+                material = new Material(shader) { name = "LockOnReticleMaterial" };
+                AssetDatabase.CreateAsset(material, path);
+            }
+            material.color = new Color(0.08f, 0.9f, 1f, 1f);
+            material.EnableKeyword("_EMISSION");
+            material.SetColor("_EmissionColor", new Color(0.08f, 1.2f, 1.6f));
+            EditorUtility.SetDirty(material);
             return material;
         }
 

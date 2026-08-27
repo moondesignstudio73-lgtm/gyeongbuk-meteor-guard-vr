@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5680203644157a74faa0050f36f47002, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.GameFlow.GameFlowManager
   persistBetweenScenes: 1
   debugMode: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1740ea16f6d6e114e87fb182a5d5db9c, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.GameFlow.BootstrapSceneLoader
   gameplaySceneName: MeteorDefense
   loadAdditively: 1

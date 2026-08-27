@@ -7,6 +7,7 @@ namespace MeteorDefenseVR.Combat
     public sealed class LaserBeamView : MonoBehaviour
     {
         [SerializeField] private LineRenderer lineRenderer;
+        [SerializeField] private LineRenderer glowRenderer;
         [SerializeField, Min(0.01f)] private float visibleDuration = 0.12f;
         [SerializeField] private AnimationCurve widthOverLifetime = AnimationCurve.Linear(0f, 1f, 1f, 0f);
 
@@ -20,6 +21,7 @@ namespace MeteorDefenseVR.Combat
         {
             if (lineRenderer == null) lineRenderer = GetComponent<LineRenderer>();
             if (lineRenderer != null) lineRenderer.enabled = false;
+            if (glowRenderer != null) glowRenderer.enabled = false;
         }
 
         private void Update() => Tick(Time.deltaTime);
@@ -32,6 +34,13 @@ namespace MeteorDefenseVR.Combat
             if (lineRenderer != null) lineRenderer.enabled = false;
         }
 
+        public void Configure(LineRenderer line, LineRenderer glow, float duration = 0.12f)
+        {
+            Configure(line, duration);
+            glowRenderer = glow;
+            if (glowRenderer != null) glowRenderer.enabled = false;
+        }
+
         public void Play(Vector3 origin, Vector3 destination)
         {
             if (lineRenderer == null) lineRenderer = GetComponent<LineRenderer>();
@@ -42,6 +51,14 @@ namespace MeteorDefenseVR.Combat
             lineRenderer.SetPosition(1, destination);
             lineRenderer.widthMultiplier = baseWidth;
             lineRenderer.enabled = true;
+            if (glowRenderer != null)
+            {
+                glowRenderer.useWorldSpace = true;
+                glowRenderer.positionCount = 2;
+                glowRenderer.SetPosition(0, origin);
+                glowRenderer.SetPosition(1, destination);
+                glowRenderer.enabled = true;
+            }
             remainingTime = visibleDuration;
             elapsedTime = 0f;
         }
@@ -55,6 +72,8 @@ namespace MeteorDefenseVR.Combat
             float normalized = Mathf.Clamp01(elapsedTime / visibleDuration);
             float pulse = 1f + Mathf.Sin(normalized * Mathf.PI) * 0.35f;
             lineRenderer.widthMultiplier = baseWidth * Mathf.Max(0f, widthOverLifetime.Evaluate(normalized)) * pulse;
+            if (glowRenderer != null)
+                glowRenderer.widthMultiplier = baseWidth * 3.4f * Mathf.Max(0f, widthOverLifetime.Evaluate(normalized));
             if (remainingTime <= 0f) Stop();
         }
 
@@ -63,6 +82,7 @@ namespace MeteorDefenseVR.Combat
             remainingTime = 0f;
             elapsedTime = 0f;
             if (lineRenderer != null) lineRenderer.enabled = false;
+            if (glowRenderer != null) glowRenderer.enabled = false;
         }
     }
 }

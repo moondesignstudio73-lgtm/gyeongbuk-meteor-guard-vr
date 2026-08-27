@@ -112,9 +112,10 @@ namespace MeteorDefenseVR.Editor
             EnsureMissionCompleteSystem(camera);
             EnsureResultSystem(camera);
             EnsureAudioSystem();
+            EnsureOperationsSystem(camera);
+            ProjectVisualIntegration.Ensure(camera);
             EnsureVrUxSystem(camera, raycaster);
             EnsurePerformanceSystem();
-            EnsureOperationsSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
@@ -341,8 +342,8 @@ namespace MeteorDefenseVR.Editor
             operations.Configure(spawner, boss, weapon, health, stats, hud, result, tutorial, practice, calibration, launch, complete);
             if (result != null) operations.SetResultDuration(result.DisplayDuration);
 
-            GameObject readyRoot = GameObject.Find("ReadyScreen");
-            if (readyRoot == null) readyRoot = new GameObject("ReadyScreen");
+            GameObject readyRoot = EnsureUniqueChild(camera.transform, "ReadyScreen");
+            readyRoot.SetActive(true);
             readyRoot.transform.SetParent(camera.transform, false);
             readyRoot.transform.localPosition = Vector3.zero;
             ReadyScreenController ready = readyRoot.GetComponent<ReadyScreenController>();
@@ -533,8 +534,8 @@ namespace MeteorDefenseVR.Editor
 
         private static void EnsureMissionHud(Camera camera)
         {
-            GameObject root = GameObject.Find("MissionHUD");
-            if (root == null) root = new GameObject("MissionHUD");
+            GameObject root = EnsureUniqueChild(camera.transform, "MissionHUD");
+            root.SetActive(true);
             root.transform.SetParent(camera.transform, false);
             root.transform.localPosition = Vector3.zero;
             root.transform.localRotation = Quaternion.identity;
@@ -591,6 +592,24 @@ namespace MeteorDefenseVR.Editor
             text.characterSize = characterSize;
             text.color = color;
             return text;
+        }
+
+        private static GameObject EnsureUniqueChild(Transform parent, string name)
+        {
+            GameObject result = null;
+            for (int i = parent.childCount - 1; i >= 0; i--)
+            {
+                Transform child = parent.GetChild(i);
+                if (child.name != name) continue;
+                if (result == null) result = child.gameObject;
+                else Object.DestroyImmediate(child.gameObject);
+            }
+            if (result == null)
+            {
+                result = new GameObject(name);
+                result.transform.SetParent(parent, false);
+            }
+            return result;
         }
 
         private static Material GetOrCreateHudPanelMaterial()

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &18267292044921153
+--- !u!1 &2771501921071991340
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1847360678217815916}
-  - component: {fileID: 4811270631206062781}
+  - component: {fileID: 8719929807190628485}
+  - component: {fileID: 810777614507413727}
   m_Layer: 0
   m_Name: CrackEmissionLight
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1847360678217815916
+--- !u!4 &8719929807190628485
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18267292044921153}
+  m_GameObject: {fileID: 2771501921071991340}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,13 +32,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 293521868549758089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &4811270631206062781
+--- !u!108 &810777614507413727
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18267292044921153}
+  m_GameObject: {fileID: 2771501921071991340}
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 2
@@ -127,7 +127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 244819404777901198, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       propertyPath: definition
-      value:
+      value: 
       objectReference: {fileID: 11400000, guid: dbcae5c883587694aa4ad8bc754130a7, type: 2}
     - target: {fileID: 244819404777901198, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       propertyPath: meteorType
@@ -135,7 +135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2678411458453089137, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
-      value:
+      value: 
+      objectReference: {fileID: 2100000, guid: 1fdbdb1641e6e834f8c85811d6bcc54b, type: 2}
+    - target: {fileID: 5525309000304148637, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
       objectReference: {fileID: 2100000, guid: 1fdbdb1641e6e834f8c85811d6bcc54b, type: 2}
     - target: {fileID: 5933343942966270977, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -181,19 +185,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: Meteor_Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 7395656347285311078, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1fdbdb1641e6e834f8c85811d6bcc54b, type: 2}
+    - target: {fileID: 9146044190759889811, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1fdbdb1641e6e834f8c85811d6bcc54b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5933343942966270977, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1847360678217815916}
+      addedObject: {fileID: 8719929807190628485}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5979096361178301152, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3295251167366490866}
+      addedObject: {fileID: 6506547026387427522}
     - targetCorrespondingSourceObject: {fileID: 5979096361178301152, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8031458881922477338}
+      addedObject: {fileID: 1718326496290448299}
   m_SourcePrefab: {fileID: 100100000, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
 --- !u!4 &293521868549758089 stripped
 Transform:
@@ -205,7 +217,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5979096361178301152, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
   m_PrefabInstance: {fileID: 6216573274555400328}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &3295251167366490866
+--- !u!82 &6506547026387427522
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,7 +314,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8031458881922477338
+--- !u!114 &1718326496290448299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,16 +324,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e01673018d0184d4384e06f3c6fdf00f, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Meteor.BossMeteorView
   meteor: {fileID: 6134027518218800134}
   crackRenderers:
   - {fileID: 8317609145488468985}
-  crackLight: {fileID: 4811270631206062781}
-  destructionAudioSource: {fileID: 3295251167366490866}
+  - {fileID: 1938908724159184917}
+  - {fileID: 3523805261993217774}
+  - {fileID: 2929858528548711195}
+  crackLight: {fileID: 810777614507413727}
+  destructionAudioSource: {fileID: 6506547026387427522}
   onStrongExplosion:
     m_PersistentCalls:
       m_Calls: []
+--- !u!23 &1938908724159184917 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5525309000304148637, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
+  m_PrefabInstance: {fileID: 6216573274555400328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2929858528548711195 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9146044190759889811, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
+  m_PrefabInstance: {fileID: 6216573274555400328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3523805261993217774 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7395656347285311078, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
+  m_PrefabInstance: {fileID: 6216573274555400328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6134027518218800134 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 244819404777901198, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
@@ -331,7 +361,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d51c32cef006564c8c0b6c0eefb09e2, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Meteor.MeteorController
 --- !u!23 &8317609145488468985 stripped
 MeshRenderer:

@@ -7,6 +7,7 @@ namespace MeteorDefenseVR.GameFlow
     {
         [SerializeField] private ResultController controller;
         [SerializeField] private TextMesh resultText;
+        [SerializeField] private GameObject visualFrame;
 
         private void OnEnable() => Subscribe();
         private void OnDisable() => Unsubscribe();
@@ -19,6 +20,12 @@ namespace MeteorDefenseVR.GameFlow
             Subscribe();
             if (controller != null && controller.IsVisible) Show(controller.Snapshot, controller.Rank);
             else Hide();
+        }
+
+        public void Configure(ResultController resultController, TextMesh text, GameObject frame)
+        {
+            visualFrame = frame;
+            Configure(resultController, text);
         }
 
         public static string Format(GameSessionSnapshot snapshot, string rank)
@@ -46,11 +53,13 @@ namespace MeteorDefenseVR.GameFlow
         private void Show(GameSessionSnapshot snapshot, string rank)
         {
             if (resultText != null) resultText.text = Format(snapshot, rank);
+            if (visualFrame != null) visualFrame.SetActive(true);
         }
 
         private void Hide()
         {
             if (resultText != null) resultText.text = string.Empty;
+            if (visualFrame != null) visualFrame.SetActive(false);
         }
     }
 }
