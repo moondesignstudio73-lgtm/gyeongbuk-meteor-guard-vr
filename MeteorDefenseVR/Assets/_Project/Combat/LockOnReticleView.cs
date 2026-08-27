@@ -31,6 +31,18 @@ namespace MeteorDefenseVR.Combat
             target.ProgressChanged -= HandleProgressChanged;
             target.Locked -= HandleLocked;
             target.LockLost -= HandleLockLost;
+            transform.localScale = Vector3.one;
+        }
+
+        private void Update()
+        {
+            if (target == null || progressRing == null || !progressRing.enabled) return;
+            float direction = target.State == LockOnState.Locked ? -1f : 1f;
+            progressRing.transform.Rotate(0f, 0f, direction * 55f * Time.unscaledDeltaTime, Space.Self);
+            float pulse = target.State == LockOnState.Locked
+                ? 1f + Mathf.Sin(Time.unscaledTime * 10f) * 0.055f
+                : 1f + target.Progress * 0.035f;
+            progressRing.transform.localScale = Vector3.one * pulse;
         }
 
         public void Configure(GazeLockOnTarget lockTarget, LineRenderer ring, TextMesh text)
@@ -67,6 +79,7 @@ namespace MeteorDefenseVR.Combat
                 Color color = state == LockOnState.Locked ? lockedColor : focusingColor;
                 progressRing.startColor = color;
                 progressRing.endColor = color;
+                if (!visible) progressRing.transform.localScale = Vector3.one;
             }
 
             if (statusText != null)

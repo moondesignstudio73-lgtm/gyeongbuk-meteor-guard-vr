@@ -6,6 +6,7 @@ using MeteorDefenseVR.Player;
 using MeteorDefenseVR.Tutorial;
 using MeteorDefenseVR.UI;
 using MeteorDefenseVR.Combat;
+using MeteorDefenseVR.VFX;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -105,6 +106,8 @@ namespace MeteorDefenseVR.GameFlow
             calibration?.ResetSequence();
             launch?.ResetLaunch();
             missionComplete?.ResetSequence();
+            CombatVfxController vfx = FindFirstObjectByType<CombatVfxController>(FindObjectsInactive.Include);
+            vfx?.ResetEffects();
             StopAllAudio();
             gameFlow?.ResetGame();
         }

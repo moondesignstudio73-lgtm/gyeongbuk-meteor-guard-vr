@@ -12,6 +12,7 @@ namespace MeteorDefenseVR.Combat
 
         private float remainingTime;
         private float elapsedTime;
+        private float baseWidth = 0.04f;
 
         public bool IsPlaying => remainingTime > 0f;
 
@@ -27,6 +28,7 @@ namespace MeteorDefenseVR.Combat
         {
             lineRenderer = line;
             visibleDuration = Mathf.Max(0.01f, duration);
+            if (lineRenderer != null) baseWidth = Mathf.Max(0.005f, lineRenderer.widthMultiplier);
             if (lineRenderer != null) lineRenderer.enabled = false;
         }
 
@@ -38,7 +40,7 @@ namespace MeteorDefenseVR.Combat
             lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, origin);
             lineRenderer.SetPosition(1, destination);
-            lineRenderer.widthMultiplier = 1f;
+            lineRenderer.widthMultiplier = baseWidth;
             lineRenderer.enabled = true;
             remainingTime = visibleDuration;
             elapsedTime = 0f;
@@ -51,7 +53,8 @@ namespace MeteorDefenseVR.Combat
             remainingTime -= step;
             elapsedTime += step;
             float normalized = Mathf.Clamp01(elapsedTime / visibleDuration);
-            lineRenderer.widthMultiplier = Mathf.Max(0f, widthOverLifetime.Evaluate(normalized));
+            float pulse = 1f + Mathf.Sin(normalized * Mathf.PI) * 0.35f;
+            lineRenderer.widthMultiplier = baseWidth * Mathf.Max(0f, widthOverLifetime.Evaluate(normalized)) * pulse;
             if (remainingTime <= 0f) Stop();
         }
 

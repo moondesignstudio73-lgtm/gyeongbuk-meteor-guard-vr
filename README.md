@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 17 - Sound System
+- 현재 개발 단계: STEP 18 - VFX & Game Feel
 
 ## 주요 Scene
 
@@ -166,3 +166,13 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - Cue별 Cooldown으로 짧은 효과음의 과도한 중첩 방지
 - Master 및 Cue 볼륨을 최대 0.7로 제한하고 2D 재생·Doppler 비활성화로 VR 급격한 음량 변화를 완화
 - 실제 최종 음원은 `Assets/_Project/Audio/AudioCueLibrary.asset`의 비어 있는 Clip 슬롯에 연결
+
+## STEP 18 VFX 및 Game Feel
+
+- Lock Progress Ring 회전과 Lock 완료 Pulse로 응시 진행 상태를 명확하게 표현
+- Laser Beam 두께를 4cm 기준으로 보정하고 짧은 수명 동안 폭 Pulse 후 자연스럽게 소멸
+- 재사용형 `CombatVfxController`로 Hit Flash → Meteor Explosion → Debris 순서 구성
+- Boss 전용 대형 Burst와 기존 Crack/Flash 연출을 함께 재생
+- Score Popup에 등장 Scale과 상승·Fade Out 적용
+- Cockpit Geometry만 최대 6mm 진동시키며 VR 카메라는 고정
+- Reset 시 모든 전투 VFX를 즉시 정리해 다음 체험에 잔상이 남지 않도록 처리

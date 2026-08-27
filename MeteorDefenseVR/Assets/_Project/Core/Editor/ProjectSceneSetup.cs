@@ -8,6 +8,7 @@ using MeteorDefenseVR.Meteor;
 using MeteorDefenseVR.UI;
 using MeteorDefenseVR.Player;
 using MeteorDefenseVR.Audio;
+using MeteorDefenseVR.VFX;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -106,6 +107,7 @@ namespace MeteorDefenseVR.Editor
             EnsureMissionHud(camera);
             EnsurePlayerSystem(camera);
             EnsureBossClimaxSystem(camera);
+            EnsureCombatVfxSystem();
             EnsureMissionCompleteSystem(camera);
             EnsureResultSystem(camera);
             EnsureAudioSystem();
@@ -152,6 +154,57 @@ namespace MeteorDefenseVR.Editor
                 GameObject.Find("LaunchSystem")?.GetComponent<LaunchSequenceController>(),
                 GameObject.Find("MissionCompleteSystem")?.GetComponent<MissionCompleteController>(),
                 GameObject.Find("ResultSystem")?.GetComponent<ResultController>());
+        }
+
+        private static void EnsureCombatVfxSystem()
+        {
+            GameObject root = GameObject.Find("CombatVFX");
+            if (root == null) root = new GameObject("CombatVFX");
+            CombatVfxController controller = root.GetComponent<CombatVfxController>();
+            if (controller == null) controller = root.AddComponent<CombatVfxController>();
+
+            Transform hit = EnsurePrimitive(root.transform, "HitSpark", PrimitiveType.Sphere,
+                Vector3.zero, Vector3.one * 0.04f);
+            Transform explosion = EnsurePrimitive(root.transform, "MeteorExplosion", PrimitiveType.Sphere,
+                Vector3.zero, Vector3.one * 0.08f);
+            Transform bossExplosion = EnsurePrimitive(root.transform, "BossExplosion", PrimitiveType.Sphere,
+                Vector3.zero, Vector3.one * 0.12f);
+
+            ApplyVfxMaterial(hit, GetOrCreateVfxMaterial("HitSpark", new Color(0.35f, 0.95f, 1f, 1f)));
+            ApplyVfxMaterial(explosion, GetOrCreateVfxMaterial("MeteorExplosion", new Color(1f, 0.24f, 0.025f, 1f)));
+            ApplyVfxMaterial(bossExplosion, GetOrCreateVfxMaterial("BossExplosion", new Color(1f, 0.08f, 0.015f, 1f)));
+
+            for (int i = 0; i < 6; i++)
+            {
+                float angle = Mathf.PI * 2f * i / 6f;
+                Transform debris = EnsurePrimitive(explosion, "Debris_" + (i + 1), PrimitiveType.Cube,
+                    new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * 0.65f,
+                    new Vector3(0.18f, 0.08f, 0.08f));
+                ApplyVfxMaterial(debris, GetOrCreateVfxMaterial("MeteorExplosion", new Color(1f, 0.24f, 0.025f, 1f)));
+            }
+
+            controller.Configure(
+                GameObject.Find("CombatSystem")?.GetComponent<LaserWeapon>(),
+                GameObject.Find("BossClimaxSystem")?.GetComponent<BossClimaxController>(),
+                hit, explosion, bossExplosion);
+        }
+
+        private static Material GetOrCreateVfxMaterial(string name, Color color)
+        {
+            string path = "Assets/_Project/VFX/" + name + ".mat";
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material != null) return material;
+            Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
+            if (shader == null) shader = Shader.Find("Unlit/Color");
+            material = new Material(shader) { name = name, color = color };
+            AssetDatabase.CreateAsset(material, path);
+            return material;
+        }
+
+        private static void ApplyVfxMaterial(Transform target, Material material)
+        {
+            Renderer renderer = target != null ? target.GetComponent<Renderer>() : null;
+            if (renderer != null) renderer.sharedMaterial = material;
         }
 
         private static AudioSource EnsureAudioSource(Transform parent, string name)
