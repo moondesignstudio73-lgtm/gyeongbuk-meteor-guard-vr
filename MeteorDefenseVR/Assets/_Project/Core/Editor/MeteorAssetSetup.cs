@@ -159,7 +159,8 @@ namespace MeteorDefenseVR.Editor
             if (meteor == null) meteor = root.AddComponent<MeteorController>();
             GazeLockOnTarget lockTarget = root.GetComponent<GazeLockOnTarget>();
             if (lockTarget == null) lockTarget = root.AddComponent<GazeLockOnTarget>();
-            lockTarget.Configure(meteor);
+            lockTarget.Configure(meteor, 0.62f, 1.5f, 0.18f);
+            lockTarget.ConfigureComfortTolerance(1.25f);
 
             Transform existing = root.transform.Find("LockOnReticle");
             GameObject reticle = existing != null ? existing.gameObject : new GameObject("LockOnReticle");

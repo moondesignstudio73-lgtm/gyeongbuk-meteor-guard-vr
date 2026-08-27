@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 18 - VFX & Game Feel
+- 현재 개발 단계: STEP 19 - VR UX Optimization
 
 ## 주요 Scene
 
@@ -176,3 +176,15 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - Score Popup에 등장 Scale과 상승·Fade Out 적용
 - Cockpit Geometry만 최대 6mm 진동시키며 VR 카메라는 고정
 - Reset 시 모든 전투 VFX를 즉시 정리해 다음 체험에 잔상이 남지 않도록 처리
+
+## STEP 19 VR UX 최적화
+
+- 어린이·VR 초보자 기준 시선 Magnetism 반경을 0.15로 확대하고 타깃 Collider 허용 범위를 1.25배로 적용
+- 일반 Lock 0.62초, Boss Lock 0.78초와 0.18초 이탈 Grace Period 적용
+- 운석 Spawn을 정면 기준 수평 ±32°, 수직 ±20° 안으로 축소
+- 튜토리얼 시작 즉시 `바라보기 → LOCK ON → 자동 공격` 조작 원리를 안내
+- World Space Text의 Character Size를 최소 0.032로 보정
+- VR Camera는 고정하며 Near Clip 0.05 이하, Far Clip 60 이상을 보장
+
+한글 Font Glyph와 최종 가독성은 Quest Pro Runtime에 설치·포함되는 한국어 폰트가 결정하므로
+Android 빌드에 Noto Sans KR 계열 폰트를 포함한 뒤 실제 HMD에서 최종 검증해야 합니다.

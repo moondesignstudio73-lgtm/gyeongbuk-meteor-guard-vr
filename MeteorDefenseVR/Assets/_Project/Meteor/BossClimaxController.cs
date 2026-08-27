@@ -149,7 +149,8 @@ namespace MeteorDefenseVR.Meteor
             ActiveBoss.SetMovementTarget(movementTarget);
             GazeLockOnTarget lockTarget = bossObject.GetComponent<GazeLockOnTarget>();
             if (lockTarget == null) lockTarget = bossObject.AddComponent<GazeLockOnTarget>();
-            lockTarget.Configure(ActiveBoss, 0.85f);
+            lockTarget.Configure(ActiveBoss, 0.78f, 1.5f, 0.18f);
+            lockTarget.ConfigureComfortTolerance(1.3f);
             ActiveBoss.Damaged += HandleBossDamaged;
             ActiveBoss.Destroyed += HandleBossDestroyed;
             ActiveBoss.ReachedPlayerEvent += HandleBossReachedPlayer;

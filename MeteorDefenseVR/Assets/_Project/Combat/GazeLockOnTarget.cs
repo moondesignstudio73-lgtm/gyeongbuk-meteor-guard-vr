@@ -18,12 +18,12 @@ namespace MeteorDefenseVR.Combat
     public sealed class GazeLockOnTarget : MonoBehaviour, IGazeTarget
     {
         [Header("Lock On")]
-        [SerializeField, Min(0.1f)] private float lockOnDuration = 0.7f;
+        [SerializeField, Min(0.1f)] private float lockOnDuration = 0.62f;
         [SerializeField, Min(0f)] private float lockDecaySpeed = 1.5f;
         [SerializeField, Min(0.1f)] private float maximumTargetDistance = 50f;
 
         [Header("Assist")]
-        [SerializeField, Range(1f, 2f)] private float targetColliderExpansion = 1.15f;
+        [SerializeField, Range(1f, 2f)] private float targetColliderExpansion = 1.25f;
         [SerializeField, Min(0f)] private float gracePeriod = 0.15f;
 
         [Header("Dependencies")]
@@ -83,7 +83,7 @@ namespace MeteorDefenseVR.Combat
             hasGaze = false;
         }
 
-        public void Configure(MeteorController meteorController, float duration = 0.7f, float decay = 1.5f, float grace = 0.15f)
+        public void Configure(MeteorController meteorController, float duration = 0.62f, float decay = 1.5f, float grace = 0.18f)
         {
             UnsubscribeMeteor();
             meteor = meteorController;
@@ -91,6 +91,12 @@ namespace MeteorDefenseVR.Combat
             LockDecaySpeed = decay;
             GracePeriod = grace;
             if (isActiveAndEnabled) SubscribeMeteor();
+        }
+
+        public void ConfigureComfortTolerance(float colliderExpansion, float maxDistance = 50f)
+        {
+            targetColliderExpansion = Mathf.Clamp(colliderExpansion, 1f, 2f);
+            maximumTargetDistance = Mathf.Max(0.1f, maxDistance);
         }
 
         public void OnGazeEnter(RaycastHit hit)

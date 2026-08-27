@@ -73,7 +73,7 @@ namespace MeteorDefenseVR.Tutorial
             reminderShown = false;
             IsComplete = false;
             IsRunning = true;
-            SetInstruction("운석을 바라보세요.");
+            SetInstruction("운석을 바라보세요.\nLOCK ON 되면 자동으로 공격합니다.");
 
             GameObject meteorObject = CreateTutorialMeteor();
             ActiveMeteor = meteorObject.GetComponent<MeteorController>();
@@ -95,7 +95,7 @@ namespace MeteorDefenseVR.Tutorial
             elapsedWithoutSuccess += Mathf.Max(0f, deltaTime);
             if (elapsedWithoutSuccess < reminderDelay) return;
             reminderShown = true;
-            SetInstruction("운석을 바라봐 주세요.");
+            SetInstruction("운석을 계속 바라봐 주세요.\n초록색 LOCK ON 후 자동 발사됩니다.");
             pulseView?.SetPulsing(true);
             ReminderActivated?.Invoke();
         }

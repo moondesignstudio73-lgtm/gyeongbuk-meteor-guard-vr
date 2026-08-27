@@ -8,7 +8,7 @@ namespace MeteorDefenseVR.EyeTracking
         [SerializeField] private MonoBehaviour gazeProviderComponent;
         [SerializeField] private LayerMask targetLayers = ~0;
         [SerializeField, Min(0.1f)] private float maximumDistance = 100f;
-        [SerializeField, Range(0f, 0.5f)] private float gazeMagnetismRadius = 0.08f;
+        [SerializeField, Range(0f, 0.5f)] private float gazeMagnetismRadius = 0.15f;
         [SerializeField] private QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Collide;
         [SerializeField] private bool drawDebugRay = true;
         [SerializeField] private Color validRayColor = Color.cyan;

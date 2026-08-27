@@ -36,6 +36,8 @@ namespace MeteorDefenseVR.Meteor
         public bool IsSpawning { get; private set; }
         public bool AllWavesSpawned { get; private set; }
         public float EstimatedGameDuration { get; private set; }
+        public float MaxHorizontalAngle => maxHorizontalAngle;
+        public float MaxVerticalAngle => maxVerticalAngle;
         public IReadOnlyList<MeteorController> ActiveMeteors => activeMeteors;
 
         public event Action<int, MeteorWaveData> WaveStarted;
@@ -70,6 +72,12 @@ namespace MeteorDefenseVR.Meteor
             waves = waveData ?? Array.Empty<MeteorWaveData>();
             spawnOrigin = origin;
             movementTarget = target;
+        }
+
+        public void SetSpawnLimits(float horizontalDegrees, float verticalDegrees)
+        {
+            maxHorizontalAngle = Mathf.Clamp(horizontalDegrees, 1f, 60f);
+            maxVerticalAngle = Mathf.Clamp(verticalDegrees, 1f, 45f);
         }
 
         public void BindGameFlow(GameFlowManager flow)

@@ -111,6 +111,7 @@ namespace MeteorDefenseVR.Editor
             EnsureMissionCompleteSystem(camera);
             EnsureResultSystem(camera);
             EnsureAudioSystem();
+            EnsureVrUxSystem(camera, raycaster);
             EnsureOperationsSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
@@ -154,6 +155,32 @@ namespace MeteorDefenseVR.Editor
                 GameObject.Find("LaunchSystem")?.GetComponent<LaunchSequenceController>(),
                 GameObject.Find("MissionCompleteSystem")?.GetComponent<MissionCompleteController>(),
                 GameObject.Find("ResultSystem")?.GetComponent<ResultController>());
+        }
+
+        private static void EnsureVrUxSystem(Camera camera, GazeRaycaster raycaster)
+        {
+            GameObject root = GameObject.Find("VrUxComfortSystem");
+            if (root == null) root = new GameObject("VrUxComfortSystem");
+            VrUxComfortController controller = root.GetComponent<VrUxComfortController>();
+            if (controller == null) controller = root.AddComponent<VrUxComfortController>();
+            VrUxSettings settings = GetOrCreateVrUxSettings();
+            MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
+            TextMesh[] texts = Object.FindObjectsByType<TextMesh>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            controller.Configure(settings, camera, raycaster, spawner, texts);
+        }
+
+        private static VrUxSettings GetOrCreateVrUxSettings()
+        {
+            const string path = "Assets/_Project/EyeTracking/VrUxSettings.asset";
+            VrUxSettings settings = AssetDatabase.LoadAssetAtPath<VrUxSettings>(path);
+            if (settings == null)
+            {
+                settings = ScriptableObject.CreateInstance<VrUxSettings>();
+                AssetDatabase.CreateAsset(settings, path);
+            }
+            settings.Configure(0.15f, 0.62f, 0.78f, 32f, 20f, 0.032f);
+            EditorUtility.SetDirty(settings);
+            return settings;
         }
 
         private static void EnsureCombatVfxSystem()
