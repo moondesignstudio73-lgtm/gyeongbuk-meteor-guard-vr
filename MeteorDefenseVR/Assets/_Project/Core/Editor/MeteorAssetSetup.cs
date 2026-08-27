@@ -11,6 +11,7 @@ namespace MeteorDefenseVR.Editor
         private const string Root = "Assets/_Project/Meteor";
         private const string DefinitionDirectory = Root + "/Definitions";
         private const string PrefabDirectory = Root + "/Prefabs";
+        private const string WaveDirectory = Root + "/Waves";
 
         [MenuItem("Meteor Defense/Create Meteor Placeholder Assets")]
         public static void CreateMeteorAssets()
@@ -46,9 +47,60 @@ namespace MeteorDefenseVR.Editor
             CreateVariant(basePrefab, large, "Meteor_Large");
             CreateVariant(basePrefab, boss, "Meteor_Boss");
             CreateVariant(basePrefab, tutorial, "Meteor_Tutorial");
+            CreateWaveAssets();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log("[MeteorAssetSetup] Placeholder definitions and prefab variants are ready.");
+        }
+
+        public static void CreateWaveAssets()
+        {
+            Directory.CreateDirectory(WaveDirectory);
+            GameObject normal = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabDirectory + "/Meteor_Normal.prefab");
+            GameObject fast = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabDirectory + "/Meteor_Fast.prefab");
+            GameObject large = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabDirectory + "/Meteor_Large.prefab");
+            if (normal == null || fast == null || large == null) return;
+
+            CreateWave("Wave_01", "WAVE 1", 1f,
+                CreateSpawn(MeteorType.Normal, normal, 5, 2.5f, 0.5f, 2.2f, 1f, 10, 100, 1f));
+            CreateWave("Wave_02", "WAVE 2", 1.5f,
+                CreateSpawn(MeteorType.Normal, normal, 4, 2.2f, 0.5f, 2.4f, 1f, 10, 100, 1f),
+                CreateSpawn(MeteorType.Fast, fast, 3, 2f, 0.8f, 3.8f, 1f, 10, 150, 0.75f));
+            CreateWave("Wave_03", "WAVE 3", 1.5f,
+                CreateSpawn(MeteorType.Normal, normal, 4, 2f, 0.4f, 2.6f, 1f, 10, 100, 1f),
+                CreateSpawn(MeteorType.Fast, fast, 3, 1.8f, 0.6f, 4f, 1f, 10, 150, 0.75f),
+                CreateSpawn(MeteorType.Large, large, 2, 3f, 1f, 1.6f, 2f, 20, 300, 1.6f));
+            AssetDatabase.SaveAssets();
+        }
+
+        private static MeteorSpawnData CreateSpawn(
+            MeteorType type,
+            GameObject prefab,
+            int count,
+            float interval,
+            float delay,
+            float speed,
+            float health,
+            int damage,
+            int score,
+            float size)
+        {
+            var data = new MeteorSpawnData();
+            data.Configure(type, prefab, count, interval, delay, speed, health, damage, score, size, new Vector2(35f, 25f));
+            return data;
+        }
+
+        private static void CreateWave(string assetName, string displayName, float delay, params MeteorSpawnData[] entries)
+        {
+            string path = WaveDirectory + "/" + assetName + ".asset";
+            MeteorWaveData wave = AssetDatabase.LoadAssetAtPath<MeteorWaveData>(path);
+            if (wave == null)
+            {
+                wave = ScriptableObject.CreateInstance<MeteorWaveData>();
+                AssetDatabase.CreateAsset(wave, path);
+            }
+            wave.Configure(displayName, delay, entries);
+            EditorUtility.SetDirty(wave);
         }
 
         private static void UpdateBasePrefab(string basePath)

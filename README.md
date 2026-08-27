@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 9 - Launch Sequence
+- 현재 개발 단계: STEP 10 - Main Game Spawn
 
 ## 주요 Scene
 
@@ -93,3 +93,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - 카메라는 고정하고 조종석 진동도 최대 6mm로 제한해 VR 멀미를 최소화
 - Door/Engine/Countdown/Launch/Mission Start별 AudioClip 연결 지점 제공
 - 완료 시 `Launch → Countdown → Playing` GameFlow 전환
+
+## STEP 10 본게임 운석 Spawn
+
+- `MeteorWaveData`와 `MeteorSpawnData` ScriptableObject 기반 Wave 편집 구조
+- Type, Prefab, Count, Interval, Delay, Speed, HP, Damage, Score, Size, Spawn Area 설정
+- 기본 3개 Wave, 총 25개 운석, 예상 약 41초의 본게임 스케줄 구성
+- Normal → Normal/Fast → Normal/Fast/Large 순서로 단계적 구성
+- HMD 정면 기준 수평 ±35°, 수직 ±25° 안에서만 생성하며 Inspector에서 축소 조절 가능
+- Playing 상태에서 자동 시작하고 파괴·방어선 도달 운석의 활성/완료 수를 추적

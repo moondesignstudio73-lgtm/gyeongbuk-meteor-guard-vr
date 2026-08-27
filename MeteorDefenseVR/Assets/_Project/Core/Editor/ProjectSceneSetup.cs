@@ -4,6 +4,7 @@ using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Tutorial;
 using MeteorDefenseVR.Launch;
+using MeteorDefenseVR.Meteor;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -96,9 +97,35 @@ namespace MeteorDefenseVR.Editor
             EnsureTutorialSystem();
             EnsurePracticeSystem();
             EnsureLaunchSystem();
+            EnsureMainGameSpawner(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureMainGameSpawner(Camera camera)
+        {
+            MeteorAssetSetup.CreateWaveAssets();
+            GameObject root = GameObject.Find("MainGameSpawner");
+            if (root == null) root = new GameObject("MainGameSpawner");
+            MeteorSpawner spawner = root.GetComponent<MeteorSpawner>();
+            if (spawner == null) spawner = root.AddComponent<MeteorSpawner>();
+
+            Transform target = root.transform.Find("PlayerDefenseTarget");
+            if (target == null)
+            {
+                target = new GameObject("PlayerDefenseTarget").transform;
+                target.SetParent(root.transform);
+            }
+            target.position = camera.transform.position;
+
+            MeteorWaveData[] waves =
+            {
+                AssetDatabase.LoadAssetAtPath<MeteorWaveData>("Assets/_Project/Meteor/Waves/Wave_01.asset"),
+                AssetDatabase.LoadAssetAtPath<MeteorWaveData>("Assets/_Project/Meteor/Waves/Wave_02.asset"),
+                AssetDatabase.LoadAssetAtPath<MeteorWaveData>("Assets/_Project/Meteor/Waves/Wave_03.asset")
+            };
+            spawner.Configure(waves, camera.transform, target);
         }
 
         private static void EnsureLaunchSystem()

@@ -447,6 +447,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 548289443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &206919102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 206919104}
+  - component: {fileID: 206919103}
+  m_Layer: 0
+  m_Name: MainGameSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &206919103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206919102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a83a539c07b7b4da80034d246b0c73, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Meteor.MeteorSpawner
+  waves:
+  - {fileID: 11400000, guid: 0dad1be6d63de1942a00b429bf65d002, type: 2}
+  - {fileID: 11400000, guid: 73340ab75609eae488c4457fbaaa5a7f, type: 2}
+  - {fileID: 11400000, guid: f768b3e1abeda4d43959769c32bc828e, type: 2}
+  autoStartFromGameFlow: 1
+  spawnOrigin: {fileID: 103985003}
+  movementTarget: {fileID: 1472276822}
+  maxHorizontalAngle: 35
+  maxVerticalAngle: 25
+  minSpawnDistance: 10
+  maxSpawnDistance: 14
+--- !u!4 &206919104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206919102}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1472276822}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258115457
 GameObject:
   m_ObjectHideFlags: 0
@@ -3276,6 +3332,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 662738900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1472276821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1472276822}
+  m_Layer: 0
+  m_Name: PlayerDefenseTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1472276822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472276821}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 206919104}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1511049257
 GameObject:
   m_ObjectHideFlags: 0
@@ -4449,3 +4536,4 @@ SceneRoots:
   - {fileID: 357206783}
   - {fileID: 619523249}
   - {fileID: 1902853443}
+  - {fileID: 206919104}
