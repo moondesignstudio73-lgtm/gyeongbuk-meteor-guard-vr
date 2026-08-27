@@ -94,6 +94,11 @@ namespace MeteorDefenseVR.UI
             SetFeedback("LOCK ON", Mathf.Min(0.6f, feedbackDuration));
         }
 
+        public void ShowWarning(string message, float duration = 0.8f)
+        {
+            SetFeedback(message, Mathf.Max(0f, duration));
+        }
+
         public void Tick(float unscaledDeltaTime)
         {
             if (feedbackRemaining <= 0f || string.IsNullOrEmpty(FeedbackMessage)) return;

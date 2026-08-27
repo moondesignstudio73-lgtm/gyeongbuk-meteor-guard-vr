@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 11 - VR Mission HUD
+- 현재 개발 단계: STEP 12 - Player Health & Failure Policy
 
 ## 주요 Scene
 
@@ -111,3 +111,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - Spawn 시작·운석 완료·ScoreAwarded 이벤트를 통해 수치 자동 갱신
 - `+점수 GOOD!`, 고득점 `NICE!`, 발사 시 `LOCK ON` 피드백 제공
 - 다음 단계의 PlayerHealth가 직접 연결할 수 있는 HP 갱신 API 포함
+
+## STEP 12 HP 및 실패 조건
+
+- `PlayerHealth`: Max HP, 운석별 Damage, 기본 Damage, 무적시간 설정
+- 운석 방어 실패 시 HP/HUD 감소와 `WARNING`, 붉은 조종석 Light, Impact Audio 연결점
+- 기본 0.35초 무적시간으로 짧은 시간에 겹친 충돌의 중복 피해 방지
+- `Normal Mode`: HP 0에서 `MISSION FAILED`, Spawn 중단, Result 전환
+- `No Fail Experience Mode`: HP 0에서도 체험을 계속하며 결과 계산용 누적 피해 보존
+- 이동과학차 어린이 체험을 고려해 Scene 기본 정책은 No Fail Mode

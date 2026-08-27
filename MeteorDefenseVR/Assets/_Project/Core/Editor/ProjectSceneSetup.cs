@@ -6,6 +6,7 @@ using MeteorDefenseVR.Tutorial;
 using MeteorDefenseVR.Launch;
 using MeteorDefenseVR.Meteor;
 using MeteorDefenseVR.UI;
+using MeteorDefenseVR.Player;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -100,9 +101,45 @@ namespace MeteorDefenseVR.Editor
             EnsureLaunchSystem();
             EnsureMainGameSpawner(camera);
             EnsureMissionHud(camera);
+            EnsurePlayerSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsurePlayerSystem(Camera camera)
+        {
+            GameObject root = GameObject.Find("PlayerSystem");
+            if (root == null) root = new GameObject("PlayerSystem");
+            MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
+            MissionHudController hud = GameObject.Find("MissionHUD")?.GetComponent<MissionHudController>();
+
+            PlayerHealth health = root.GetComponent<PlayerHealth>();
+            bool isNew = health == null;
+            if (health == null) health = root.AddComponent<PlayerHealth>();
+            if (isNew)
+                health.Configure(spawner, hud, 100f, 10, 0.35f, GameOverPolicy.NoFailExperienceMode);
+            else
+                health.Connect(spawner, hud);
+
+            Transform lightTransform = camera.transform.Find("CockpitDamageLight");
+            GameObject lightObject = lightTransform != null ? lightTransform.gameObject : new GameObject("CockpitDamageLight");
+            lightObject.transform.SetParent(camera.transform, false);
+            lightObject.transform.localPosition = new Vector3(0f, -0.2f, 0.6f);
+            Light damageLight = lightObject.GetComponent<Light>();
+            if (damageLight == null) damageLight = lightObject.AddComponent<Light>();
+            damageLight.type = LightType.Point;
+            damageLight.color = new Color(1f, 0.08f, 0.03f);
+            damageLight.range = 4f;
+            damageLight.intensity = 0f;
+            damageLight.enabled = false;
+
+            AudioSource impactAudio = root.GetComponent<AudioSource>();
+            if (impactAudio == null) impactAudio = root.AddComponent<AudioSource>();
+            impactAudio.playOnAwake = false;
+            PlayerDamageFeedbackView view = root.GetComponent<PlayerDamageFeedbackView>();
+            if (view == null) view = root.AddComponent<PlayerDamageFeedbackView>();
+            view.Configure(health, damageLight, impactAudio);
         }
 
         private static void EnsureMissionHud(Camera camera)
