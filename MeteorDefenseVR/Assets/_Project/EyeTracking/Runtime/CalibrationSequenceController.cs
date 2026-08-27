@@ -167,7 +167,7 @@ namespace MeteorDefenseVR.EyeTracking
             gazeProvider = gazeProviderComponent as IGazeProvider;
             if (gazeProvider == null)
             {
-                MonoBehaviour[] behaviours = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None);
+                MonoBehaviour[] behaviours = FindObjectsByType<MonoBehaviour>();
                 for (int i = 0; i < behaviours.Length; i++)
                     if (behaviours[i] is IGazeProvider provider) { gazeProvider = provider; gazeProviderComponent = behaviours[i]; break; }
             }

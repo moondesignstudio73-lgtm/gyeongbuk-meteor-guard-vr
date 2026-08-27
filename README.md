@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 3 - Eye Calibration
+- 현재 개발 단계: STEP 4 - Meteor Base System
 
 ## 주요 Scene
 
@@ -41,3 +41,11 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - Tracking 실패 시 재시도 또는 Head Gaze Mode fallback
 - 완료 문구 표시 후 `Tutorial` 상태로 자동 전환
 - `MeteorDefense` Scene에 실제 3D 포인트와 안내 TextMesh 구성
+
+## STEP 4 운석 시스템
+
+- `MeteorController`: Spawn, Move, ReceiveDamage, Destroy, ReachPlayer, Reset
+- `MeteorDefinition`: Type, HP, Speed, Damage, Score, Size, Targetable 설정
+- `MeteorDefenseLine`: 방어선 Trigger 통과 처리
+- Normal/Fast/Large/Boss/Tutorial ScriptableObject 정의
+- 공통 `MeteorBase`와 5종 Prefab Variant 플레이스홀더
