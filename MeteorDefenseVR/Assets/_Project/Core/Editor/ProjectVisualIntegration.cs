@@ -1,6 +1,7 @@
 using System.IO;
 using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Core;
+using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Meteor;
 using MeteorDefenseVR.UI;
@@ -109,7 +110,7 @@ namespace MeteorDefenseVR.Editor
                 AssetDatabase.CreateAsset(skybox, skyboxPath);
             }
             if (panorama != null) skybox.SetTexture("_MainTex", panorama);
-            skybox.SetFloat("_Exposure", 0.92f);
+            skybox.SetFloat("_Exposure", 0.38f);
             skybox.SetFloat("_Rotation", 8f);
             skybox.SetColor("_Tint", new Color(0.68f, 0.82f, 1f, 1f));
             EditorUtility.SetDirty(skybox);
@@ -165,7 +166,7 @@ namespace MeteorDefenseVR.Editor
             Renderer renderer = earth.GetComponent<Renderer>();
             if (renderer != null)
             {
-                Material material = GetOrCreateLit("EarthSurface", Color.white, 0.03f, 0.7f);
+                Material material = GetOrCreateLit("EarthSurface", Color.white, 0f, 0.12f);
                 Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(TextureRoot + "/EarthAlbedo.png");
                 if (texture != null) material.mainTexture = texture;
                 material.EnableKeyword("_EMISSION");
@@ -174,7 +175,18 @@ namespace MeteorDefenseVR.Editor
                 renderer.sharedMaterial = material;
             }
 
-            Material atmosphere = GetOrCreateTransparent("EarthAtmosphere", new Color(0.08f, 0.48f, 1f, 0.085f), 0.92f);
+            Shader rimShader = Shader.Find("MeteorDefense/AtmosphereRim");
+            string atmospherePath = MaterialRoot + "/EarthAtmosphere.mat";
+            Material atmosphere = AssetDatabase.LoadAssetAtPath<Material>(atmospherePath);
+            if (atmosphere == null)
+            {
+                atmosphere = new Material(rimShader) { name = "EarthAtmosphere" };
+                AssetDatabase.CreateAsset(atmosphere, atmospherePath);
+            }
+            atmosphere.shader = rimShader;
+            atmosphere.renderQueue = (int)RenderQueue.Transparent;
+            atmosphere.SetColor("_BaseColor", new Color(0.08f, 0.48f, 1f, 0.45f));
+            EditorUtility.SetDirty(atmosphere);
             Transform glow = EnsurePrimitive(earth, "AtmosphereGlow", PrimitiveType.Sphere, Vector3.zero, Vector3.one * 1.035f, Vector3.zero, atmosphere);
             glow.SetAsFirstSibling();
 
@@ -239,7 +251,7 @@ namespace MeteorDefenseVR.Editor
             EnsurePrimitive(cockpit, "Console_Left", PrimitiveType.Cube, new Vector3(-1.08f, -0.62f, 1.45f), new Vector3(1.25f, 0.18f, 1.45f), new Vector3(8f, -11f, -7f), hull);
             EnsurePrimitive(cockpit, "Console_Right", PrimitiveType.Cube, new Vector3(1.08f, -0.62f, 1.45f), new Vector3(1.25f, 0.18f, 1.45f), new Vector3(8f, 11f, 7f), hull);
             EnsurePrimitive(cockpit, "CenterCommandDeck", PrimitiveType.Cube, new Vector3(0f, -0.72f, 1.28f), new Vector3(0.64f, 0.18f, 1.05f), new Vector3(9f, 0f, 0f), hullDark);
-            EnsurePrimitive(cockpit, "FrontDefenseLip", PrimitiveType.Cube, new Vector3(0f, -0.39f, 0.82f), new Vector3(1.62f, 0.11f, 0.26f), new Vector3(4f, 0f, 0f), hullDark);
+            EnsurePrimitive(cockpit, "FrontDefenseLip", PrimitiveType.Cube, new Vector3(0f, -0.66f, 1.05f), new Vector3(1.62f, 0.065f, 0.12f), new Vector3(4f, 0f, 0f), hullDark);
             EnsurePrimitive(cockpit, "Canopy_Left", PrimitiveType.Cube, new Vector3(-1.33f, 0.47f, 1.9f), new Vector3(0.09f, 2.35f, 0.11f), new Vector3(0f, -4f, -24f), hull);
             EnsurePrimitive(cockpit, "Canopy_Right", PrimitiveType.Cube, new Vector3(1.33f, 0.47f, 1.9f), new Vector3(0.09f, 2.35f, 0.11f), new Vector3(0f, 4f, 24f), hull);
             EnsurePrimitive(cockpit, "Canopy_Top", PrimitiveType.Cube, new Vector3(0f, 1.52f, 2.05f), new Vector3(2.35f, 0.085f, 0.11f), Vector3.zero, hullDark);
@@ -254,6 +266,7 @@ namespace MeteorDefenseVR.Editor
             EnsurePrimitive(cockpit, "WarningRail_Right", PrimitiveType.Cube, new Vector3(1.12f, -0.52f, 1.1f), new Vector3(0.22f, 0.018f, 0.04f), new Vector3(0f, 11f, 6f), orange);
 
             AddPanelDetails(cockpit, hullDark, cyan);
+            AddFlightDisplays(cockpit, hullDark, cyan, orange);
             Light left = EnsurePointLight(cockpit, "CockpitAccent_Left", new Vector3(-1.05f, -0.3f, 1f), Cyan, 2.1f, 3.2f);
             Light right = EnsurePointLight(cockpit, "CockpitAccent_Right", new Vector3(1.05f, -0.3f, 1f), Cyan, 2.1f, 3.2f);
             left.shadows = LightShadows.None;
@@ -266,11 +279,46 @@ namespace MeteorDefenseVR.Editor
             for (int side = -1; side <= 1; side += 2)
             {
                 Transform bank = EnsurePrimitive(cockpit, side < 0 ? "TelemetryBank_Left" : "TelemetryBank_Right", PrimitiveType.Cube,
-                    new Vector3(side * 1.05f, -0.42f, 1.62f), new Vector3(0.48f, 0.18f, 0.52f), new Vector3(18f, side * 14f, side * 5f), hullDark);
+                    new Vector3(side * 1.2f, -0.64f, 1.85f), new Vector3(0.48f, 0.18f, 0.52f), new Vector3(18f, side * 14f, side * 5f), hullDark);
                 for (int i = 0; i < 3; i++)
                     EnsurePrimitive(bank, "TelemetryLine_" + (i + 1), PrimitiveType.Cube,
                         new Vector3(0f, 0.54f, -0.28f + i * 0.25f), new Vector3(0.65f - i * 0.08f, 0.018f, 0.035f), Vector3.zero, cyan);
             }
+        }
+
+        private static void AddFlightDisplays(Transform cockpit, Material hullDark, Material cyan, Material orange)
+        {
+            Material screen = GetOrCreateEmission("DisplayBlack", new Color(0.003f, 0.016f, 0.025f), 1f);
+            for (int side = -1; side <= 1; side += 2)
+            {
+                Transform monitor = EnsurePrimitive(cockpit, side < 0 ? "FlightDisplay_Left" : "FlightDisplay_Right", PrimitiveType.Cube,
+                    new Vector3(side * 0.78f, -0.38f, 1.52f), new Vector3(0.56f, 0.29f, 0.055f), new Vector3(-10f, side * -12f, 0f), hullDark);
+                EnsurePrimitive(monitor, "Screen", PrimitiveType.Cube, new Vector3(0f, 0f, -0.54f), new Vector3(0.91f, 0.82f, 0.12f), Vector3.zero, screen);
+                EnsurePrimitive(monitor, "Header", PrimitiveType.Cube, new Vector3(0f, 0.35f, -0.63f), new Vector3(0.8f, 0.014f, 0.02f), Vector3.zero, cyan);
+                for (int i = 0; i < 7; i++)
+                {
+                    EnsurePrimitive(monitor, "Telemetry_" + i, PrimitiveType.Cube,
+                        new Vector3(-0.2f, 0.23f - i * 0.075f, -0.63f), new Vector3(0.29f - (i % 3) * 0.04f, 0.018f, 0.02f), Vector3.zero, cyan);
+                    EnsurePrimitive(monitor, "Signal_" + i, PrimitiveType.Cube,
+                        new Vector3(0.04f + i * 0.045f, -0.19f, -0.63f), new Vector3(0.021f, 0.12f + (i % 4) * 0.065f, 0.02f), Vector3.zero, i == 6 ? orange : cyan);
+                }
+                for (int i = 0; i < 6; i++)
+                    EnsurePrimitive(cockpit, "HullRib_" + side + "_" + i, PrimitiveType.Cube,
+                        new Vector3(side * (1.15f + i * 0.045f), -0.48f - i * 0.014f, 1.05f + i * 0.12f),
+                        new Vector3(0.15f, 0.018f, 0.027f), new Vector3(0f, side * 12f, 0f), hullDark);
+            }
+            Transform center = EnsurePrimitive(cockpit, "NavigationDisplay", PrimitiveType.Cube,
+                new Vector3(0f, -0.45f, 1.25f), new Vector3(0.46f, 0.29f, 0.04f), new Vector3(-14f, 0f, 0f), hullDark);
+            EnsurePrimitive(center, "Screen", PrimitiveType.Cube, new Vector3(0f, 0f, -0.55f), new Vector3(0.9f, 0.82f, 0.1f), Vector3.zero, screen);
+            for (int i = 0; i < 24; i++)
+            {
+                float angle = i * Mathf.PI * 2f / 24f;
+                EnsurePrimitive(center, "RadarTick_" + i, PrimitiveType.Cube,
+                    new Vector3(Mathf.Cos(angle) * 0.2f, Mathf.Sin(angle) * 0.3f, -0.65f),
+                    new Vector3(0.018f, 0.035f, 0.02f), new Vector3(0f, 0f, angle * Mathf.Rad2Deg - 90f), cyan);
+            }
+            EnsurePrimitive(center, "RadarCross_X", PrimitiveType.Cube, new Vector3(0f, 0f, -0.65f), new Vector3(0.12f, 0.012f, 0.02f), Vector3.zero, cyan);
+            EnsurePrimitive(center, "RadarCross_Y", PrimitiveType.Cube, new Vector3(0f, 0f, -0.65f), new Vector3(0.009f, 0.17f, 0.02f), Vector3.zero, cyan);
         }
 
         private static GameObject ConfigureHangar(Material hull, Material hullDark, Material cyan, Material warning)
@@ -311,29 +359,33 @@ namespace MeteorDefenseVR.Editor
         {
             GameObject root = camera.transform.Find("MissionHUD")?.gameObject;
             if (root == null) return;
-            ConfigureHudPanel(root.transform.Find("Panel_HP"), new Vector3(-1.28f, 1.22f, 4.03f), new Vector3(1.35f, 0.38f, 0.025f), panel);
-            ConfigureHudPanel(root.transform.Find("Panel_Remaining"), new Vector3(0f, 1.24f, 4.03f), new Vector3(1.05f, 0.35f, 0.025f), panel);
-            ConfigureHudPanel(root.transform.Find("Panel_Score"), new Vector3(1.28f, 1.22f, 4.03f), new Vector3(1.15f, 0.38f, 0.025f), panel);
+            ConfigureHudPanel(root.transform.Find("Panel_HP"), new Vector3(-1.68f, 1.22f, 4.03f), new Vector3(1.35f, 0.38f, 0.025f), panel);
+            ConfigureHudPanel(root.transform.Find("Panel_Remaining"), new Vector3(0f, 1.24f, 4.03f), new Vector3(1.6f, 0.35f, 0.025f), panel);
+            ConfigureHudPanel(root.transform.Find("Panel_Score"), new Vector3(1.68f, 1.22f, 4.03f), new Vector3(1.4f, 0.38f, 0.025f), panel);
 
             TextMesh health = root.transform.Find("HudHealth")?.GetComponent<TextMesh>();
             TextMesh remaining = root.transform.Find("HudRemaining")?.GetComponent<TextMesh>();
             TextMesh score = root.transform.Find("HudScore")?.GetComponent<TextMesh>();
             TextMesh feedback = root.transform.Find("HudFeedback")?.GetComponent<TextMesh>();
-            StyleHudText(health, new Vector3(-1.28f, 1.27f, 3.98f), Green, 0.022f);
-            StyleHudText(remaining, new Vector3(0f, 1.24f, 3.98f), Cyan, 0.021f);
-            StyleHudText(score, new Vector3(1.28f, 1.24f, 3.98f), new Color(1f, 0.72f, 0.28f), 0.022f);
+            StyleHudText(health, new Vector3(-1.68f, 1.27f, 3.98f), Green, 0.032f);
+            StyleHudText(remaining, new Vector3(0f, 1.24f, 3.98f), Cyan, 0.032f);
+            StyleHudText(score, new Vector3(1.68f, 1.24f, 3.98f), new Color(1f, 0.72f, 0.28f), 0.032f);
             StyleHudText(feedback, new Vector3(0f, 0.18f, 3.9f), new Color(0.45f, 1f, 0.6f), 0.038f);
+            // Reserve the larger font for alerts; telemetry must fit after VR minimum-size enforcement.
+            if (health != null) health.fontSize = 48;
+            if (remaining != null) remaining.fontSize = 48;
+            if (score != null) score.fontSize = 48;
 
             Transform frames = EnsureChild(root.transform, "TacticalHudFrames");
-            EnsureAngularFrame(frames, "HpFrame", new Vector3(-1.28f, 1.22f, 4f), new Vector2(1.44f, 0.47f), cyan);
-            EnsureAngularFrame(frames, "MeteorFrame", new Vector3(0f, 1.24f, 4f), new Vector2(1.14f, 0.44f), cyan);
-            EnsureAngularFrame(frames, "ScoreFrame", new Vector3(1.28f, 1.22f, 4f), new Vector2(1.24f, 0.47f), cyan);
+            EnsureAngularFrame(frames, "HpFrame", new Vector3(-1.68f, 1.22f, 4f), new Vector2(1.44f, 0.47f), cyan);
+            EnsureAngularFrame(frames, "MeteorFrame", new Vector3(0f, 1.24f, 4f), new Vector2(1.68f, 0.44f), cyan);
+            EnsureAngularFrame(frames, "ScoreFrame", new Vector3(1.68f, 1.22f, 4f), new Vector2(1.48f, 0.47f), cyan);
 
             Renderer[] segments = new Renderer[8];
             for (int i = 0; i < segments.Length; i++)
             {
                 Transform segment = EnsurePrimitive(frames, "HealthSegment_" + (i + 1), PrimitiveType.Cube,
-                    new Vector3(-1.72f + i * 0.126f, 1.1f, 3.94f), new Vector3(0.105f, 0.035f, 0.018f), Vector3.zero, green);
+                    new Vector3(-2.12f + i * 0.126f, 1.1f, 3.94f), new Vector3(0.105f, 0.035f, 0.018f), Vector3.zero, green);
                 segments[i] = segment.GetComponent<Renderer>();
             }
             Transform feedbackPanel = EnsurePrimitive(frames, "FeedbackPanel", PrimitiveType.Cube,
@@ -536,6 +588,8 @@ namespace MeteorDefenseVR.Editor
                 profile = ScriptableObject.CreateInstance<VolumeProfile>();
                 AssetDatabase.CreateAsset(profile, profilePath);
             }
+            // Volume components must be sub-assets to survive an editor restart.
+            profile.components.RemoveAll(component => component == null);
             Bloom bloom;
             if (!profile.TryGet(out bloom)) bloom = profile.Add<Bloom>(true);
             bloom.active = true;
@@ -554,6 +608,11 @@ namespace MeteorDefenseVR.Editor
             color.contrast.Override(12f);
             color.saturation.Override(-4f);
             color.colorFilter.Override(new Color(0.93f, 0.98f, 1f));
+            foreach (VolumeComponent component in profile.components)
+            {
+                if (!AssetDatabase.Contains(component)) AssetDatabase.AddObjectToAsset(component, profile);
+                EditorUtility.SetDirty(component);
+            }
             EditorUtility.SetDirty(profile);
 
             GameObject volumeObject = GameObject.Find("GlobalVisualVolume");
@@ -606,7 +665,9 @@ namespace MeteorDefenseVR.Editor
                 material = new Material(shader) { name = name };
                 AssetDatabase.CreateAsset(material, path);
             }
-            material.color = color;
+            Color hdrColor = color * intensity;
+            hdrColor.a = color.a;
+            material.color = hdrColor;
             material.EnableKeyword("_EMISSION");
             material.SetColor("_EmissionColor", color * intensity);
             EditorUtility.SetDirty(material);
@@ -759,12 +820,20 @@ namespace MeteorDefenseVR.Editor
             Camera camera = Camera.main;
             if (camera == null) return;
             Ensure(camera);
+            Object.FindAnyObjectByType<VrUxComfortController>()?.ApplySettings();
+            // Persist only the ready-state composition, never the staged preview below.
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+            AssetDatabase.SaveAssets();
             CinematicEnvironmentView view = Object.FindFirstObjectByType<CinematicEnvironmentView>();
             if (view != null) view.ApplyState(GameState.Playing);
             GameObject ready = GameObject.Find("ReadyScreen");
             if (ready != null) ready.SetActive(false);
             GameObject alert = GameObject.Find("CinematicAlert");
             if (alert != null) alert.SetActive(false);
+            MissionHudController previewHud = Object.FindAnyObjectByType<MissionHudController>();
+            previewHud?.ResetSession();
+            previewHud?.GetComponent<MissionHudView>()?.RefreshAll();
 
             GameObject meteorPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Meteor/Prefabs/Meteor_Normal.prefab");
             GameObject previewMeteor = meteorPrefab != null ? PrefabUtility.InstantiatePrefab(meteorPrefab) as GameObject : null;

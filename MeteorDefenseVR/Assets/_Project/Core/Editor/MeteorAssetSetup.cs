@@ -203,6 +203,7 @@ namespace MeteorDefenseVR.Editor
             Material meteorMaterial = GetOrCreateMeteorSurfaceMaterial();
             Renderer rootRenderer = root.GetComponent<Renderer>();
             if (rootRenderer != null) rootRenderer.sharedMaterial = meteorMaterial;
+            root.GetComponent<MeshFilter>().sharedMesh = GetOrCreateRockMesh();
             EnsureRockLobe(root.transform, "RockLobe_A", new Vector3(-0.32f, 0.18f, 0.08f), new Vector3(0.78f, 0.58f, 0.7f), new Vector3(18f, 26f, -12f), meteorMaterial);
             EnsureRockLobe(root.transform, "RockLobe_B", new Vector3(0.3f, -0.18f, 0.05f), new Vector3(0.62f, 0.72f, 0.55f), new Vector3(-22f, 8f, 31f), meteorMaterial);
             EnsureRockLobe(root.transform, "RockLobe_C", new Vector3(0.05f, 0.3f, -0.12f), new Vector3(0.48f, 0.42f, 0.62f), new Vector3(35f, -19f, 8f), meteorMaterial);
@@ -287,6 +288,39 @@ namespace MeteorDefenseVR.Editor
             if (collider != null) Object.DestroyImmediate(collider);
             Renderer renderer = lobe.GetComponent<Renderer>();
             if (renderer != null) renderer.sharedMaterial = material;
+            lobe.GetComponent<MeshFilter>().sharedMesh = GetOrCreateRockMesh();
+        }
+
+        private static Mesh GetOrCreateRockMesh()
+        {
+            const string path = Root + "/MeteorRockMesh.asset";
+            Mesh mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            if (mesh != null) return mesh;
+
+            GameObject sourceObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            Mesh source = sourceObject.GetComponent<MeshFilter>().sharedMesh;
+            Vector3[] sourceVertices = source.vertices;
+            Vector2[] sourceUv = source.uv;
+            int[] triangles = source.triangles;
+            Vector3[] vertices = new Vector3[triangles.Length];
+            Vector2[] uv = new Vector2[triangles.Length];
+            int[] indices = new int[triangles.Length];
+            for (int i = 0; i < triangles.Length; i++)
+            {
+                int index = triangles[i];
+                Vector3 p = sourceVertices[index].normalized;
+                float relief = 0.86f + 0.10f * Mathf.Sin(p.x * 7f + p.y * 3f) * Mathf.Cos(p.z * 9f)
+                    + 0.055f * Mathf.Sin(p.y * 19f - p.z * 5f) * Mathf.Cos(p.x * 13f);
+                vertices[i] = sourceVertices[index] * relief;
+                uv[i] = sourceUv[index];
+                indices[i] = i;
+            }
+            mesh = new Mesh { name = "MeteorRockMesh", vertices = vertices, uv = uv, triangles = indices };
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            AssetDatabase.CreateAsset(mesh, path);
+            Object.DestroyImmediate(sourceObject);
+            return mesh;
         }
 
         private static LineRenderer EnsureRing(Transform parent, string name, float radius, int segments, float width)

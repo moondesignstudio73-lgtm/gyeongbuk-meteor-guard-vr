@@ -100,6 +100,7 @@ namespace MeteorDefenseVR.Editor
             raycaster.SetProvider(provider);
 
             EnsureCalibrationSystem(provider);
+            EnsureDirectPlayBootstrap();
             EnsureCombatSystem(raycaster);
             EnsureTutorialSystem();
             EnsurePracticeSystem();
@@ -119,6 +120,14 @@ namespace MeteorDefenseVR.Editor
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureDirectPlayBootstrap()
+        {
+            GameObject root = GameObject.Find("MeteorDefense");
+            if (root == null) root = new GameObject("MeteorDefense");
+            GameplaySceneBootstrap bootstrap = root.GetComponent<GameplaySceneBootstrap>();
+            if (bootstrap == null) root.AddComponent<GameplaySceneBootstrap>();
         }
 
         private static void EnsureBootstrapScene()

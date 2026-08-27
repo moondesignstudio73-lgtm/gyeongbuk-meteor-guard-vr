@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2771501921071991340
+--- !u!1 &5627332127557770157
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8719929807190628485}
-  - component: {fileID: 810777614507413727}
+  - component: {fileID: 6017726396054101228}
+  - component: {fileID: 3186827116344193145}
   m_Layer: 0
   m_Name: CrackEmissionLight
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8719929807190628485
+--- !u!4 &6017726396054101228
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2771501921071991340}
+  m_GameObject: {fileID: 5627332127557770157}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,13 +32,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 293521868549758089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &810777614507413727
+--- !u!108 &3186827116344193145
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2771501921071991340}
+  m_GameObject: {fileID: 5627332127557770157}
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 2
@@ -198,14 +198,14 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5933343942966270977, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8719929807190628485}
+      addedObject: {fileID: 6017726396054101228}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5979096361178301152, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6506547026387427522}
+      addedObject: {fileID: 4503850522796048670}
     - targetCorrespondingSourceObject: {fileID: 5979096361178301152, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1718326496290448299}
+      addedObject: {fileID: 8930386027957229413}
   m_SourcePrefab: {fileID: 100100000, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
 --- !u!4 &293521868549758089 stripped
 Transform:
@@ -217,7 +217,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5979096361178301152, guid: da4a99d272657b84588446bc7bb70cbb, type: 3}
   m_PrefabInstance: {fileID: 6216573274555400328}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &6506547026387427522
+--- !u!82 &4503850522796048670
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -314,7 +314,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1718326496290448299
+--- !u!114 &8930386027957229413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,8 +332,8 @@ MonoBehaviour:
   - {fileID: 1938908724159184917}
   - {fileID: 3523805261993217774}
   - {fileID: 2929858528548711195}
-  crackLight: {fileID: 810777614507413727}
-  destructionAudioSource: {fileID: 6506547026387427522}
+  crackLight: {fileID: 3186827116344193145}
+  destructionAudioSource: {fileID: 4503850522796048670}
   onStrongExplosion:
     m_PersistentCalls:
       m_Calls: []

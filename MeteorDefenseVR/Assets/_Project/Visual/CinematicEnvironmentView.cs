@@ -25,11 +25,14 @@ namespace MeteorDefenseVR.Visual
         [SerializeField] private Color warningColor = new Color(1f, 0.12f, 0.045f, 1f);
         [SerializeField] private Color missionColor = new Color(0.25f, 1f, 0.42f, 1f);
         [SerializeField] private Color cyanColor = new Color(0.18f, 0.9f, 1f, 1f);
+        [SerializeField, Min(0.1f)] private float introDuration = 3f;
+        [SerializeField, Min(0.1f)] private float briefingDuration = 4f;
 
         private GameFlowManager flow;
         private MaterialPropertyBlock propertyBlock;
         private Color activeAlertColor;
         private bool alertVisible;
+        private float stateElapsed;
 
         private void Start()
         {
@@ -48,6 +51,14 @@ namespace MeteorDefenseVR.Visual
         private void Update()
         {
             if (flow == null) BindFlow();
+            if (flow != null)
+            {
+                stateElapsed += Time.unscaledDeltaTime;
+                if (flow.CurrentState == GameState.Intro && stateElapsed >= introDuration)
+                    flow.StartMissionBriefing();
+                else if (flow.CurrentState == GameState.MissionBriefing && stateElapsed >= briefingDuration)
+                    flow.StartCalibration();
+            }
             if (earth != null) earth.Rotate(0f, 1.45f * Time.unscaledDeltaTime, 0f, Space.Self);
             if (starDust != null) starDust.Rotate(0f, 0.12f * Time.unscaledDeltaTime, 0f, Space.World);
 
@@ -86,6 +97,7 @@ namespace MeteorDefenseVR.Visual
 
         public void ApplyState(GameState state)
         {
+            stateElapsed = 0f;
             bool hangarVisible = state == GameState.Launch || state == GameState.Countdown;
             bool cockpitVisible = state != GameState.Boot && state != GameState.Intro;
             bool hudVisible = state == GameState.Practice || state == GameState.Playing || state == GameState.BossMeteor;
