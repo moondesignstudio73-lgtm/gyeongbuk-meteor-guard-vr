@@ -93,9 +93,64 @@ namespace MeteorDefenseVR.Editor
             EnsureCalibrationSystem(provider);
             EnsureCombatSystem(raycaster);
             EnsureTutorialSystem();
+            EnsurePracticeSystem();
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsurePracticeSystem()
+        {
+            GameObject root = GameObject.Find("PracticeSystem");
+            if (root == null) root = new GameObject("PracticeSystem");
+            PracticeController controller = root.GetComponent<PracticeController>();
+            if (controller == null) controller = root.AddComponent<PracticeController>();
+
+            Vector3[] positions =
+            {
+                new Vector3(0f, 1.6f, 6f),
+                new Vector3(-1.1f, 1.8f, 6.5f),
+                new Vector3(1.1f, 1.35f, 6.2f)
+            };
+            Transform[] points = new Transform[positions.Length];
+            for (int i = 0; i < positions.Length; i++)
+            {
+                Transform point = root.transform.Find("PracticeSpawn_" + (i + 1));
+                if (point == null)
+                {
+                    GameObject pointObject = new GameObject("PracticeSpawn_" + (i + 1));
+                    point = pointObject.transform;
+                    point.SetParent(root.transform);
+                }
+                point.position = positions[i];
+                points[i] = point;
+            }
+
+            GameObject normalPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Meteor/Prefabs/Meteor_Normal.prefab");
+            controller.Configure(normalPrefab, points);
+            controller.ResetPractice();
+
+            TextMesh hud = EnsureTextMesh(root.transform, "PracticeHud", new Vector3(0f, 2.8f, 4f), 0.03f);
+            TextMesh status = EnsureTextMesh(root.transform, "PracticeStatus", new Vector3(0f, 2.3f, 4f), 0.035f);
+            PracticeHudView view = hud.GetComponent<PracticeHudView>();
+            if (view == null) view = hud.gameObject.AddComponent<PracticeHudView>();
+            view.Configure(controller, hud, status);
+        }
+
+        private static TextMesh EnsureTextMesh(Transform parent, string name, Vector3 position, float characterSize)
+        {
+            Transform existing = parent.Find(name);
+            GameObject textObject = existing != null ? existing.gameObject : new GameObject(name);
+            textObject.transform.SetParent(parent);
+            textObject.transform.position = position;
+            TextMesh text = textObject.GetComponent<TextMesh>();
+            if (text == null) text = textObject.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleCenter;
+            text.alignment = TextAlignment.Center;
+            text.fontSize = 48;
+            text.characterSize = characterSize;
+            text.color = new Color(0.65f, 0.95f, 1f);
+            return text;
         }
 
         private static void EnsureTutorialSystem()

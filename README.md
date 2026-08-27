@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 7 - Action Tutorial
+- 현재 개발 단계: STEP 8 - Practice
 
 ## 주요 Scene
 
@@ -76,3 +76,11 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - 성공 시 `좋아요! 이런 방식으로 운석을 파괴하세요.` 표시
 - 약 1.5초 후 Practice 상태로 자동 전환
 - 실패나 시간 초과로 Game Over가 발생하지 않는 체험형 흐름
+
+## STEP 8 출격 전 연습
+
+- Practice 상태에서 1~3개의 연습 운석을 순서대로 생성
+- 실제 Gaze Lock-On과 레이저 공격으로 파괴하며 남은 운석과 연습 점수를 HUD에 표시
+- 놓친 운석은 피해나 실패 처리 없이 다시 생성해 끝까지 연습 가능
+- 연습 점수는 기본적으로 본 게임 점수에서 제외하며 설정으로 포함 가능
+- 모든 운석 파괴 시 `준비 완료!`를 표시한 뒤 Launch 상태로 자동 전환
