@@ -1,8 +1,23 @@
-tmp/
-*.pdf
-*.docx
-*.mp4
-*.txt
+# Unity generated directories
+MeteorDefenseVR/[Ll]ibrary/
+MeteorDefenseVR/[Tt]emp/
+MeteorDefenseVR/[Oo]bj/
+MeteorDefenseVR/[Bb]uild/
+MeteorDefenseVR/[Bb]uilds/
+MeteorDefenseVR/[Ll]ogs/
+MeteorDefenseVR/[Uu]ser[Ss]ettings/
+MeteorDefenseVR/[Mm]emoryCaptures/
+MeteorDefenseVR/[Rr]ecordings/
+
+# IDE / generated project files
+MeteorDefenseVR/*.csproj
+MeteorDefenseVR/*.sln
+MeteorDefenseVR/*.slnx
+MeteorDefenseVR/*.unityproj
+MeteorDefenseVR/.vs/
+MeteorDefenseVR/.idea/
+
+# OS files
 .DS_Store
 Thumbs.db
 

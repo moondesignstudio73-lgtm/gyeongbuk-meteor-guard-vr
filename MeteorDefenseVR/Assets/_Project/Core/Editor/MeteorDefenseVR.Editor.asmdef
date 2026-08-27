@@ -1,0 +1,14 @@
+{
+  "name": "MeteorDefenseVR.Editor",
+  "rootNamespace": "MeteorDefenseVR.Editor",
+  "references": ["MeteorDefenseVR.Runtime"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
