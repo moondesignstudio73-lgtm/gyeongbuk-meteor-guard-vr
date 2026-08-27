@@ -7,7 +7,7 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 13 - Boss Meteor Climax
+- 현재 개발 단계: STEP 14 - Mission Complete
 
 ## 주요 Scene
 
@@ -129,3 +129,12 @@ Quest Pro의 실제 시선 권한과 Meta XR 연동은 공식 SDK 도입 단계�
 - 붉은 균열 Emission Material과 피해 비례 Crack Light 강화
 - 최종 파괴 시 강한 팽창 폭발·Flash Light·Explosion Audio 연결점 제공
 - 방어선을 통과하면 PlayerHealth 피해 후 Boss 재등장, 최종 파괴 시 MissionComplete 전환
+
+## STEP 14 미션 완료 연출
+
+- MissionComplete 진입 즉시 일반 Spawn을 중단하고 활성 운석을 분리
+- 잔여 운석은 이동을 멈춘 뒤 0.65초 동안 축소 소거
+- 지구 플레이스홀더 방향에 `MISSION COMPLETE`와 성공 자막 표시
+- 지구 Focus Light와 미세한 Scale Pulse로 시선을 유도하며 VR 카메라는 고정
+- Victory BGM/SFX용 AudioSource 연결점 제공
+- 기본 4초 표시 후 Result 상태로 자동 전환

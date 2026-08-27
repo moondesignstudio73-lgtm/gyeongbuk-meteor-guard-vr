@@ -103,9 +103,72 @@ namespace MeteorDefenseVR.Editor
             EnsureMissionHud(camera);
             EnsurePlayerSystem(camera);
             EnsureBossClimaxSystem(camera);
+            EnsureMissionCompleteSystem(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
+        }
+
+        private static void EnsureMissionCompleteSystem(Camera camera)
+        {
+            GameObject root = GameObject.Find("MissionCompleteSystem");
+            if (root == null) root = new GameObject("MissionCompleteSystem");
+            MissionCompleteController controller = root.GetComponent<MissionCompleteController>();
+            if (controller == null) controller = root.AddComponent<MissionCompleteController>();
+            MeteorSpawner spawner = GameObject.Find("MainGameSpawner")?.GetComponent<MeteorSpawner>();
+            MissionHudController hud = GameObject.Find("MissionHUD")?.GetComponent<MissionHudController>();
+            controller.Configure(spawner, hud);
+
+            Transform earth = EnsurePrimitive(root.transform, "EarthFocus", PrimitiveType.Sphere,
+                new Vector3(0f, 1.3f, 11f), Vector3.one * 3.4f);
+            Renderer earthRenderer = earth.GetComponent<Renderer>();
+            if (earthRenderer != null) earthRenderer.sharedMaterial = GetOrCreateEarthMaterial();
+
+            Transform lightTransform = earth.Find("EarthFocusLight");
+            GameObject lightObject = lightTransform != null ? lightTransform.gameObject : new GameObject("EarthFocusLight");
+            lightObject.transform.SetParent(earth, false);
+            lightObject.transform.localPosition = new Vector3(-0.4f, 0.5f, -1f);
+            Light focusLight = lightObject.GetComponent<Light>();
+            if (focusLight == null) focusLight = lightObject.AddComponent<Light>();
+            focusLight.type = LightType.Point;
+            focusLight.color = new Color(0.15f, 0.65f, 1f);
+            focusLight.range = 8f;
+            focusLight.intensity = 3f;
+            focusLight.enabled = false;
+
+            Transform textTransform = camera.transform.Find("MissionCompleteText");
+            GameObject textObject = textTransform != null ? textTransform.gameObject : new GameObject("MissionCompleteText");
+            textObject.transform.SetParent(camera.transform, false);
+            textObject.transform.localPosition = new Vector3(0f, 0.15f, 3.8f);
+            textObject.transform.localRotation = Quaternion.identity;
+            TextMesh text = textObject.GetComponent<TextMesh>();
+            if (text == null) text = textObject.AddComponent<TextMesh>();
+            text.anchor = TextAnchor.MiddleCenter;
+            text.alignment = TextAlignment.Center;
+            text.fontSize = 64;
+            text.characterSize = 0.04f;
+            text.color = new Color(0.4f, 1f, 0.48f);
+
+            AudioSource victoryAudio = root.GetComponent<AudioSource>();
+            if (victoryAudio == null) victoryAudio = root.AddComponent<AudioSource>();
+            victoryAudio.playOnAwake = false;
+            MissionCompleteView view = root.GetComponent<MissionCompleteView>();
+            if (view == null) view = root.AddComponent<MissionCompleteView>();
+            view.Configure(controller, text, earth, focusLight, victoryAudio);
+        }
+
+        private static Material GetOrCreateEarthMaterial()
+        {
+            const string path = "Assets/_Project/UI/Materials/EarthPlaceholder.mat";
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material != null) return material;
+            Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null) shader = Shader.Find("Standard");
+            material = new Material(shader) { name = "EarthPlaceholder" };
+            material.color = new Color(0.025f, 0.2f, 0.5f, 1f);
+            material.SetFloat("_Smoothness", 0.65f);
+            AssetDatabase.CreateAsset(material, path);
+            return material;
         }
 
         private static void EnsureBossClimaxSystem(Camera camera)

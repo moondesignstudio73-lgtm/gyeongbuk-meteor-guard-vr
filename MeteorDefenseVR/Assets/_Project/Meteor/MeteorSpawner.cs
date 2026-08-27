@@ -151,6 +151,19 @@ namespace MeteorDefenseVR.Meteor
             if (cleanupActiveMeteors) ClearTrackedMeteors(true);
         }
 
+        public MeteorController[] DetachActiveMeteorsForCleanup()
+        {
+            MeteorController[] detached = activeMeteors.ToArray();
+            foreach (MeteorController meteor in detached)
+            {
+                if (meteor == null) continue;
+                meteor.Destroyed -= HandleMeteorDestroyed;
+                meteor.ReachedPlayerEvent -= HandleMeteorReachedPlayer;
+            }
+            activeMeteors.Clear();
+            return detached;
+        }
+
         private void MoveToNextValidEntry(bool includeWaveDelay)
         {
             while (waveIndex < waves.Length)
