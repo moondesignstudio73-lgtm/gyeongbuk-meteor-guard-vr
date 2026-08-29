@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Meteor;
 using UnityEngine;
+using MeteorDefenseVR.Core;
+using MeteorDefenseVR.Difficulty;
 
 namespace MeteorDefenseVR.UI
 {
@@ -18,6 +20,8 @@ namespace MeteorDefenseVR.UI
         private float feedbackRemaining;
         private int extraMeteors;
         private int extraCompleted;
+        private bool campaignMode;
+        private bool bossReserved;
 
         public float CurrentHealth { get; private set; }
         public float MaxHealth { get; private set; }
@@ -26,6 +30,10 @@ namespace MeteorDefenseVR.UI
         public int TotalMeteors { get; private set; }
         public int Score { get; private set; }
         public string FeedbackMessage { get; private set; } = string.Empty;
+        public int CampaignStage { get; private set; }
+        public DifficultyLevel CampaignDifficulty { get; private set; } = DifficultyLevel.Normal;
+        public bool BossIncoming { get; private set; }
+        public float BossHealthNormalized { get; private set; }
 
         public event Action<float, float> HealthChanged;
         public event Action<int, int> MeteorProgressChanged;
@@ -34,11 +42,17 @@ namespace MeteorDefenseVR.UI
 
         private void Awake()
         {
-            MaxHealth = Mathf.Max(1f, defaultMaxHealth);
+            MaxHealth = RuntimeValueGuard.Clamp(defaultMaxHealth, 1, 10000, 100);
             CurrentHealth = MaxHealth;
         }
 
-        private void OnEnable() => Subscribe();
+        private void OnEnable()
+        {
+            Subscribe();
+            // The display can activate after SpawningStarted in the same state transition.
+            RecalculateMeteorProgress();
+            if (spawner != null) foreach (MeteorController meteor in spawner.ActiveMeteors) TrackMeteor(meteor);
+        }
 
         private void Update() => Tick(Time.unscaledDeltaTime);
 
@@ -54,7 +68,7 @@ namespace MeteorDefenseVR.UI
             UnsubscribeMeteors();
             spawner = meteorSpawner;
             laserWeapon = weapon;
-            defaultMaxHealth = Mathf.Max(1f, maxHealth);
+            defaultMaxHealth = RuntimeValueGuard.Clamp(maxHealth, 1, 10000, 100);
             MaxHealth = defaultMaxHealth;
             CurrentHealth = MaxHealth;
             Subscribe();
@@ -64,7 +78,7 @@ namespace MeteorDefenseVR.UI
         public void ResetSession()
         {
             UnsubscribeMeteors();
-            MaxHealth = Mathf.Max(1f, defaultMaxHealth);
+            MaxHealth = RuntimeValueGuard.Clamp(defaultMaxHealth, 1, 10000, 100);
             CurrentHealth = MaxHealth;
             Score = 0;
             TotalMeteors = spawner != null ? spawner.TotalScheduled : 0;
@@ -79,18 +93,51 @@ namespace MeteorDefenseVR.UI
 
         public void SetHealth(float current, float maximum)
         {
-            MaxHealth = Mathf.Max(1f, maximum);
-            CurrentHealth = Mathf.Clamp(current, 0f, MaxHealth);
+            MaxHealth = RuntimeValueGuard.Clamp(maximum, 1, 10000, 100);
+            CurrentHealth = RuntimeValueGuard.Clamp(current, 0, MaxHealth, MaxHealth);
             HealthChanged?.Invoke(CurrentHealth, MaxHealth);
         }
 
         public void AddScore(int amount)
         {
             if (amount <= 0) return;
-            Score += amount;
+            Score = RuntimeValueGuard.Add(Score, amount);
             ScoreChanged?.Invoke(Score);
             string praise = amount >= 150 ? "NICE!" : "GOOD!";
             SetFeedback($"+{amount:N0}  {praise}", feedbackDuration);
+        }
+
+        public void RestoreScore(int value)
+        {
+            Score = Mathf.Max(0, value);
+            ScoreChanged?.Invoke(Score);
+        }
+
+        public void SetCampaignStage(DifficultyLevel difficulty, int stage, int regularMeteorCount)
+        {
+            campaignMode = true;
+            CampaignDifficulty = difficulty;
+            CampaignStage = Mathf.Max(1, stage);
+            bossReserved = true;
+            BossIncoming = false;
+            BossHealthNormalized = 1f;
+            extraMeteors = 1;
+            extraCompleted = 0;
+            TotalMeteors = Mathf.Max(1, regularMeteorCount) + 1;
+            RemainingMeteors = TotalMeteors;
+            MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
+        }
+
+        public void ClearCampaignStage()
+        {
+            campaignMode = false; bossReserved = false; CampaignStage = 0; BossIncoming = false; BossHealthNormalized = 0f;
+        }
+
+        public void SetBossIncoming(bool active, float normalizedHealth = 1f)
+        {
+            BossIncoming = active;
+            BossHealthNormalized = Mathf.Clamp01(normalizedHealth);
+            MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
         }
 
         public void ShowLockOn()
@@ -105,13 +152,16 @@ namespace MeteorDefenseVR.UI
 
         public void RegisterExtraMeteor()
         {
-            extraMeteors++;
+            if (!bossReserved) extraMeteors++;
+            bossReserved = false;
+            BossIncoming = true;
             RecalculateMeteorProgress();
         }
 
         public void CompleteExtraMeteor()
         {
             extraCompleted = Mathf.Min(extraMeteors, extraCompleted + 1);
+            BossIncoming = false;
             RecalculateMeteorProgress();
         }
 
@@ -133,6 +183,8 @@ namespace MeteorDefenseVR.UI
                 spawner.SpawningStarted += HandleSpawningStarted;
                 spawner.MeteorSpawned += HandleMeteorSpawned;
                 spawner.MeteorCompleted += HandleMeteorCompleted;
+                spawner.StageSpawningStarted -= HandleStageSpawningStarted;
+                spawner.StageSpawningStarted += HandleStageSpawningStarted;
             }
             if (laserWeapon != null)
             {
@@ -148,6 +200,7 @@ namespace MeteorDefenseVR.UI
                 spawner.SpawningStarted -= HandleSpawningStarted;
                 spawner.MeteorSpawned -= HandleMeteorSpawned;
                 spawner.MeteorCompleted -= HandleMeteorCompleted;
+                spawner.StageSpawningStarted -= HandleStageSpawningStarted;
             }
             if (laserWeapon != null) laserWeapon.Fired -= HandleWeaponFired;
         }
@@ -156,8 +209,22 @@ namespace MeteorDefenseVR.UI
         {
             ResetSession();
             TotalMeteors = Mathf.Max(0, total);
-            extraMeteors = 0;
+            extraMeteors = campaignMode ? 1 : 0;
+            bossReserved = campaignMode;
             extraCompleted = 0;
+            TotalMeteors += extraMeteors;
+            RemainingMeteors = TotalMeteors;
+            MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
+        }
+
+        private void HandleStageSpawningStarted(int _, int total)
+        {
+            UnsubscribeMeteors();
+            extraMeteors = campaignMode ? 1 : 0;
+            bossReserved = campaignMode;
+            extraCompleted = 0;
+            BossIncoming = false;
+            TotalMeteors = Mathf.Max(0, total) + extraMeteors;
             RemainingMeteors = TotalMeteors;
             MeteorProgressChanged?.Invoke(RemainingMeteors, TotalMeteors);
         }

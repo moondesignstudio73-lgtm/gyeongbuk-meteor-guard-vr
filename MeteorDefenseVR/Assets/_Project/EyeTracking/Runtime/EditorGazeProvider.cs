@@ -23,10 +23,8 @@ namespace MeteorDefenseVR.EyeTracking
             Camera camera = ResolveCamera();
             if (camera == null) return new Ray(transform.position, transform.forward);
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (mode == EditorGazeMode.MousePosition && Mouse.current != null)
                 return camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-#endif
             return camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         }
 

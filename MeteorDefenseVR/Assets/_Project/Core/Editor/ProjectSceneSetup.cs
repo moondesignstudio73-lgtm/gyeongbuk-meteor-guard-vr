@@ -27,13 +27,17 @@ namespace MeteorDefenseVR.Editor
 
         static ProjectSceneSetup()
         {
-            if (!SessionState.GetBool(SetupSessionKey, false))
+            // Existing scenes are user-owned. Do not regenerate them on each Editor/domain
+            // startup or race EnterPlayMode; setup/build menus remain explicit and repeatable.
+            if (!SessionState.GetBool(SetupSessionKey, false)
+                && (!File.Exists(BootstrapScenePath) || !File.Exists(GameScenePath)))
                 EditorApplication.delayCall += EnsureProjectScenes;
         }
 
         [MenuItem("Meteor Defense/Setup Project Scenes")]
         public static void EnsureProjectScenes()
         {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) return;
             SessionState.SetBool(SetupSessionKey, true);
             Directory.CreateDirectory(SceneDirectory);
 
@@ -117,6 +121,7 @@ namespace MeteorDefenseVR.Editor
             ProjectVisualIntegration.Ensure(camera);
             EnsureVrUxSystem(camera, raycaster);
             EnsurePerformanceSystem();
+            PcTestSetup.Ensure(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
@@ -298,6 +303,8 @@ namespace MeteorDefenseVR.Editor
         {
             const string path = "Assets/_Project/Audio/AudioCueLibrary.asset";
             AudioCueLibrary library = AssetDatabase.LoadAssetAtPath<AudioCueLibrary>(path);
+            // Preserve assigned clips, category gains and BGM when rebuilding the scene.
+            if (library != null && library.Entries.Length > 0) return library;
             if (library == null)
             {
                 library = ScriptableObject.CreateInstance<AudioCueLibrary>();
@@ -321,7 +328,7 @@ namespace MeteorDefenseVR.Editor
                 new AudioCueEntry(AudioCue.PlayerDamage, AudioCategory.Sfx, 0.48f, 0.35f),
                 new AudioCueEntry(AudioCue.BossWarning, AudioCategory.Voice, 0.58f, 1f),
                 new AudioCueEntry(AudioCue.BossExplosion, AudioCategory.Sfx, 0.6f, 1f),
-                new AudioCueEntry(AudioCue.MissionComplete, AudioCategory.Bgm, 0.48f, 1f),
+                new AudioCueEntry(AudioCue.MissionComplete, AudioCategory.Sfx, 0.48f, 1f),
                 new AudioCueEntry(AudioCue.Result, AudioCategory.UI, 0.4f, 1f)
             });
             EditorUtility.SetDirty(library);

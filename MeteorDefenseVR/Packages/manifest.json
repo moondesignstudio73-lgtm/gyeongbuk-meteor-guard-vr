@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.github.homuler.mediapipe": "file:../DependencyCache/com.github.homuler.mediapipe-0.16.3.tgz",
     "com.unity.ai.assistant": "2.18.0-pre.2",
     "com.unity.ai.inference": "2.6.1",
     "com.unity.ai.navigation": "2.0.14",

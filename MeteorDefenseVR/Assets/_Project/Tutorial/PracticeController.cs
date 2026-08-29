@@ -23,6 +23,16 @@ namespace MeteorDefenseVR.Tutorial
 
         private GameFlowManager gameFlow;
         private Coroutine sequenceRoutine;
+        // Two slots preserve zero-delay respawn: the dying meteor finishes its callbacks
+        // after the next meteor is spawned, so it must not deactivate that next meteor.
+        private readonly ReusableMeteorSlot[] meteorSlots = { new ReusableMeteorSlot(), new ReusableMeteorSlot() };
+        private ReusableMeteorSlot activeSlot;
+        private int nextSlot;
+        public int PreparedMeteorCount => meteorSlots[0].CreatedCount + meteorSlots[1].CreatedCount;
+        public void PrewarmMeteor()
+        {
+            foreach (var slot in meteorSlots) slot.Prewarm(practiceMeteorPrefab, this, "PracticeMeteor_Fallback");
+        }
 
         public MeteorController ActiveMeteor { get; private set; }
         public int TotalMeteors { get; private set; }
@@ -86,6 +96,7 @@ namespace MeteorDefenseVR.Tutorial
         {
             CancelRoutine();
             CleanupActiveMeteor();
+            nextSlot = 0;
             TotalMeteors = 0;
             DestroyedMeteors = 0;
             PracticeScore = 0;
@@ -102,15 +113,8 @@ namespace MeteorDefenseVR.Tutorial
             Vector3 position = point != null ? point.position : new Vector3(0f, 1.6f, 6f);
             Quaternion rotation = point != null ? point.rotation : Quaternion.identity;
 
-            GameObject meteorObject;
-            if (practiceMeteorPrefab != null) meteorObject = Instantiate(practiceMeteorPrefab, position, rotation, transform);
-            else
-            {
-                meteorObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                meteorObject.name = "PracticeMeteor_Fallback";
-                meteorObject.transform.SetParent(transform);
-                meteorObject.transform.SetPositionAndRotation(position, rotation);
-            }
+            activeSlot = meteorSlots[nextSlot++ % meteorSlots.Length];
+            GameObject meteorObject = activeSlot.Borrow(practiceMeteorPrefab, this, position, rotation, "PracticeMeteor_Fallback");
 
             ActiveMeteor = meteorObject.GetComponent<MeteorController>();
             if (ActiveMeteor == null) ActiveMeteor = meteorObject.AddComponent<MeteorController>();
@@ -148,7 +152,7 @@ namespace MeteorDefenseVR.Tutorial
         {
             if (DestroyedMeteors < TotalMeteors)
             {
-                if (interMeteorDelay > 0f) yield return new WaitForSecondsRealtime(interMeteorDelay);
+                if (interMeteorDelay > 0f) yield return new MeteorDefenseVR.Core.PauseAwareDelay(interMeteorDelay);
                 SpawnNextMeteor();
                 sequenceRoutine = null;
                 yield break;
@@ -158,14 +162,14 @@ namespace MeteorDefenseVR.Tutorial
             IsComplete = true;
             SetStatus("준비 완료!");
             PracticeCompleted?.Invoke();
-            if (readyDisplayDuration > 0f) yield return new WaitForSecondsRealtime(readyDisplayDuration);
+            if (readyDisplayDuration > 0f) yield return new MeteorDefenseVR.Core.PauseAwareDelay(readyDisplayDuration);
             gameFlow?.StartLaunch();
             sequenceRoutine = null;
         }
 
         private IEnumerator RespawnMissedMeteor()
         {
-            if (interMeteorDelay > 0f) yield return new WaitForSecondsRealtime(interMeteorDelay);
+            if (interMeteorDelay > 0f) yield return new MeteorDefenseVR.Core.PauseAwareDelay(interMeteorDelay);
             SpawnNextMeteor();
             sequenceRoutine = null;
         }
@@ -190,10 +194,8 @@ namespace MeteorDefenseVR.Tutorial
             if (ActiveMeteor == null) return;
             ActiveMeteor.Destroyed -= HandleMeteorDestroyed;
             ActiveMeteor.ReachedPlayerEvent -= HandleMeteorReachedPlayer;
-            GameObject meteorObject = ActiveMeteor.gameObject;
             ActiveMeteor = null;
-            if (Application.isPlaying) Destroy(meteorObject);
-            else DestroyImmediate(meteorObject);
+            activeSlot?.Release();
         }
 
         private void CancelRoutine()

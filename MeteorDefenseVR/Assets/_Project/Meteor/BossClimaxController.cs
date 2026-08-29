@@ -1,8 +1,10 @@
 using System;
 using MeteorDefenseVR.Combat;
+using MeteorDefenseVR.Difficulty;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Player;
 using MeteorDefenseVR.UI;
+using MeteorDefenseVR.Progression;
 using UnityEngine;
 
 namespace MeteorDefenseVR.Meteor
@@ -15,6 +17,8 @@ namespace MeteorDefenseVR.Meteor
         [SerializeField] private GameObject bossPrefab;
         [SerializeField] private Transform spawnOrigin;
         [SerializeField] private Transform movementTarget;
+        [SerializeField] private ShipCollisionBoundary impactBoundary;
+        public void SetImpactBoundary(ShipCollisionBoundary boundary) => impactBoundary = boundary;
         [SerializeField] private MissionHudController missionHud;
         [SerializeField] private PlayerHealth playerHealth;
 
@@ -34,6 +38,16 @@ namespace MeteorDefenseVR.Meteor
         private GameFlowManager gameFlow;
         private float stageElapsed;
         private bool hudBossRegistered;
+        private DifficultyBalance? difficulty;
+        private StageBalance? campaignStage;
+        public Func<int, bool> CampaignCompletionHandler { get; set; }
+        public void SetDifficulty(DifficultyBalance balance) => difficulty = balance;
+        public void ClearDifficulty() => difficulty = null;
+        public void SetCampaignStage(StageBalance balance) => campaignStage = balance;
+        public void ClearCampaignStage() => campaignStage = null;
+        private readonly ReusableMeteorSlot meteorSlot = new ReusableMeteorSlot();
+        public int PreparedMeteorCount => meteorSlot.CreatedCount;
+        public void PrewarmMeteor() => meteorSlot.Prewarm(bossPrefab, this, "BossMeteor_Fallback");
 
         public BossClimaxStage CurrentStage { get; private set; } = BossClimaxStage.Idle;
         public MeteorController ActiveBoss { get; private set; }
@@ -48,7 +62,7 @@ namespace MeteorDefenseVR.Meteor
 
         private void Awake() => gameFlow = GameFlowManager.Instance;
         private void OnEnable() => SubscribeSpawner();
-        private void Update() => Tick(Time.unscaledDeltaTime);
+        private void Update() { if (Time.timeScale > 0) Tick(Time.unscaledDeltaTime); }
 
         private void OnDisable()
         {
@@ -86,23 +100,19 @@ namespace MeteorDefenseVR.Meteor
 
         public void BeginClimax()
         {
-            if (IsRunning || IsComplete) return;
+            if (IsRunning || IsComplete || (playerHealth != null && playerHealth.IsMissionFailed)) return;
             IsRunning = true;
             IsComplete = false;
             hudBossRegistered = false;
-            SetStage(BossClimaxStage.Warning, "WARNING\nLARGE METEOR DETECTED");
+            gameFlow?.StartBoss();
+            SetStage(BossClimaxStage.Warning, "WARNING\nMASSIVE OBJECT DETECTED\nBOSS ASTEROID APPROACHING");
         }
 
         public void ResetClimax()
         {
-            GameObject bossObject = ActiveBoss != null ? ActiveBoss.gameObject : null;
             UnsubscribeBoss();
             ActiveBoss = null;
-            if (bossObject != null)
-            {
-                if (Application.isPlaying) Destroy(bossObject);
-                else DestroyImmediate(bossObject);
-            }
+            meteorSlot.Release();
             IsRunning = false;
             IsComplete = false;
             hudBossRegistered = false;
@@ -112,6 +122,7 @@ namespace MeteorDefenseVR.Meteor
         public void Tick(float unscaledDeltaTime)
         {
             if (!IsRunning) return;
+            if (playerHealth != null && playerHealth.IsMissionFailed) { ResetClimax(); return; }
             stageElapsed += Mathf.Max(0f, unscaledDeltaTime);
             switch (CurrentStage)
             {
@@ -130,27 +141,31 @@ namespace MeteorDefenseVR.Meteor
 
         private void SpawnBoss(bool isRetry)
         {
-            Vector3 originPosition = spawnOrigin != null ? spawnOrigin.position : transform.position;
-            Vector3 forward = spawnOrigin != null ? spawnOrigin.forward : transform.forward;
+            // Boss remains the deliberate forward climax, independent of the spectator/head direction.
+            Vector3 originPosition = mainSpawner != null ? mainSpawner.ShipCenter : spawnOrigin != null ? spawnOrigin.position : transform.position;
+            Vector3 forward = mainSpawner != null ? mainSpawner.ShipForward : spawnOrigin != null ? spawnOrigin.forward : transform.forward;
             Vector3 position = originPosition + forward * spawnDistance + Vector3.up * 0.35f;
-            GameObject bossObject;
-            if (bossPrefab != null) bossObject = Instantiate(bossPrefab, position, Quaternion.identity, transform);
-            else
-            {
-                bossObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                bossObject.name = "BossMeteor_Fallback";
-                bossObject.transform.SetParent(transform);
-                bossObject.transform.position = position;
-            }
+            GameObject bossObject = meteorSlot.Borrow(bossPrefab, this, position, Quaternion.identity, "BossMeteor_Fallback");
 
             ActiveBoss = bossObject.GetComponent<MeteorController>();
             if (ActiveBoss == null) ActiveBoss = bossObject.AddComponent<MeteorController>();
-            ActiveBoss.Configure(MeteorType.Boss, bossHealth, bossSpeed, bossDamage, bossScore, bossSize);
+            int scaledBossScore = difficulty?.ScaleScore(bossScore) ?? bossScore;
+            if (campaignStage.HasValue) scaledBossScore = campaignStage.Value.ScaleScore(scaledBossScore);
+            ActiveBoss.Configure(MeteorType.Boss,
+                bossHealth * (difficulty?.BossHealth ?? 1f) * (campaignStage?.BossHealth ?? 1f),
+                bossSpeed * (difficulty?.BossSpeed ?? 1f) * (campaignStage?.BossSpeed ?? 1f),
+                difficulty?.ScaleDamage(bossDamage) ?? bossDamage, scaledBossScore,
+                campaignStage?.BossScale ?? bossSize);
             ActiveBoss.SetMovementTarget(movementTarget);
+            ActiveBoss.SetImpactBoundary(impactBoundary);
             GazeLockOnTarget lockTarget = bossObject.GetComponent<GazeLockOnTarget>();
             if (lockTarget == null) lockTarget = bossObject.AddComponent<GazeLockOnTarget>();
             lockTarget.Configure(ActiveBoss, 0.78f, 1.5f, 0.18f);
             lockTarget.ConfigureComfortTolerance(1.3f);
+            if (difficulty.HasValue) lockTarget.ApplyDifficulty(difficulty.Value);
+            var stageMotion = bossObject.GetComponent<BossStageMotion>();
+            if (stageMotion == null) stageMotion = bossObject.AddComponent<BossStageMotion>();
+            stageMotion.Configure(campaignStage?.PatternVariation ?? 0f, campaignStage?.BossFragmentCount ?? 0);
             ActiveBoss.Damaged += HandleBossDamaged;
             ActiveBoss.Destroyed += HandleBossDestroyed;
             ActiveBoss.ReachedPlayerEvent += HandleBossReachedPlayer;
@@ -175,31 +190,33 @@ namespace MeteorDefenseVR.Meteor
             IsRunning = false;
             IsComplete = true;
             missionHud?.CompleteExtraMeteor();
-            missionHud?.AddScore(bossScore);
+            missionHud?.AddScore(boss != null ? boss.Score : (difficulty?.ScaleScore(bossScore) ?? bossScore));
             SetStage(BossClimaxStage.Complete, string.Empty);
             StrongExplosionRequested?.Invoke(position);
             BossDestroyed?.Invoke();
-            gameFlow?.CompleteMission();
+            if (CampaignCompletionHandler == null || !CampaignCompletionHandler.Invoke(campaignStage?.Number ?? 1))
+                gameFlow?.CompleteMission();
         }
 
         private void HandleBossReachedPlayer(MeteorController boss, int damage)
         {
-            playerHealth?.ApplyDamage(damage > 0 ? damage : bossDamage);
+            playerHealth?.ApplyImpactDamage(damage > 0 ? damage : bossDamage, boss.ImpactPosition);
             UnsubscribeBoss();
             ActiveBoss = null;
+            if (playerHealth != null && playerHealth.IsMissionFailed) { ResetClimax(); return; }
             SetStage(BossClimaxStage.RetryDelay, "대형 운석 재접근 중...");
         }
 
         private void SubscribeSpawner()
         {
             if (!isActiveAndEnabled || mainSpawner == null) return;
-            mainSpawner.AllSpawnsCompleted -= BeginClimax;
-            mainSpawner.AllSpawnsCompleted += BeginClimax;
+            mainSpawner.AllMeteorsResolved -= BeginClimax;
+            mainSpawner.AllMeteorsResolved += BeginClimax;
         }
 
         private void UnsubscribeSpawner()
         {
-            if (mainSpawner != null) mainSpawner.AllSpawnsCompleted -= BeginClimax;
+            if (mainSpawner != null) mainSpawner.AllMeteorsResolved -= BeginClimax;
         }
 
         private void UnsubscribeBoss()

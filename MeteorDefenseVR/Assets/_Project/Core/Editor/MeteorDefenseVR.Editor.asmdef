@@ -3,6 +3,9 @@
   "rootNamespace": "MeteorDefenseVR.Editor",
   "references": [
     "MeteorDefenseVR.Runtime",
+    "MeteorDefenseVR.PcInput",
+    "Unity.InputSystem",
+    "Unity.TextMeshPro",
     "Unity.RenderPipelines.Core.Runtime",
     "Unity.RenderPipelines.Universal.Runtime"
   ],

@@ -4,6 +4,7 @@ using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Meteor;
 using MeteorDefenseVR.UI;
 using UnityEngine;
+using MeteorDefenseVR.Core;
 
 namespace MeteorDefenseVR.Player
 {
@@ -26,7 +27,7 @@ namespace MeteorDefenseVR.Player
         private float invincibilityRemaining;
 
         public float CurrentHealth { get; private set; }
-        public float MaxHealth => Mathf.Max(1f, maxHealth);
+        public float MaxHealth => RuntimeValueGuard.Clamp(maxHealth, 1, 10000, 100);
         public float HealthNormalized => Mathf.Clamp01(CurrentHealth / MaxHealth);
         public int TotalDamageTaken { get; private set; }
         public bool IsInvincible => invincibilityRemaining > 0f;
@@ -40,6 +41,11 @@ namespace MeteorDefenseVR.Player
         public event Action ImpactFeedbackRequested;
         public event Action MissionFailed;
         public event Action HealthDepletedInNoFailMode;
+        public event Action<Vector3, bool> ShipImpacted;
+        public event Action HealthReset;
+        public event Action<float, float> HealthRepaired;
+        public Func<bool> MissionFailureHandler { get; set; }
+        public Func<int, Vector3, bool> DamageInterceptor { get; set; }
 
         private void Awake()
         {
@@ -69,9 +75,9 @@ namespace MeteorDefenseVR.Player
             UnsubscribeMeteors();
             spawner = meteorSpawner;
             missionHud = hud;
-            maxHealth = Mathf.Max(1f, maximumHealth);
+            maxHealth = RuntimeValueGuard.Clamp(maximumHealth, 1, 10000, 100);
             defaultMeteorDamage = Mathf.Max(1, fallbackDamage);
-            invincibilityTime = Mathf.Max(0f, invincibilityDuration);
+            invincibilityTime = RuntimeValueGuard.Clamp(invincibilityDuration, 0, 10, .35f);
             gameOverPolicy = policy;
             Subscribe();
             ResetHealth();
@@ -93,29 +99,67 @@ namespace MeteorDefenseVR.Player
 
         public void ResetHealth()
         {
+            UnsubscribeMeteors();
             CurrentHealth = MaxHealth;
             TotalDamageTaken = 0;
             invincibilityRemaining = 0f;
             HealthDepleted = false;
             IsMissionFailed = false;
             NotifyHealthChanged();
+            HealthReset?.Invoke();
         }
 
-        public bool ApplyDamage(int amount)
+        public bool ApplyDamage(int amount) => ApplyDamageInternal(amount, transform.position, false);
+        public bool ApplyImpactDamage(int amount, Vector3 position) => ApplyDamageInternal(amount, position, true);
+
+        public float RepairNormalized(float normalizedAmount)
         {
-            if (amount <= 0 || IsInvincible || IsMissionFailed) return false;
+            if (IsMissionFailed || normalizedAmount <= 0f) return 0f;
+            float previous = CurrentHealth;
+            CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth + MaxHealth * Mathf.Clamp01(normalizedAmount));
+            float restored = CurrentHealth - previous;
+            if (restored <= 0f) return 0f;
+            NotifyHealthChanged();
+            HealthRepaired?.Invoke(restored, CurrentHealth);
+            missionHud?.ShowWarning($"STAGE CLEAR REPAIR  +{Mathf.RoundToInt(restored)}", 1.6f);
+            return restored;
+        }
+
+        public void RestoreCheckpoint(float health)
+        {
+            CurrentHealth = Mathf.Clamp(health, 1f, MaxHealth);
+            invincibilityRemaining = 0f;
+            HealthDepleted = false;
+            IsMissionFailed = false;
+            NotifyHealthChanged();
+        }
+
+        private bool ApplyDamageInternal(int amount, Vector3 position, bool shipImpact)
+        {
+            if (amount <= 0 || IsMissionFailed) return false;
+            if (DamageInterceptor != null && DamageInterceptor.Invoke(amount, position))
+            {
+                if (shipImpact) ShipImpacted?.Invoke(position, false);
+                return false;
+            }
+            if (IsInvincible || (CurrentHealth <= 0f && HealthDepleted))
+            {
+                if (shipImpact) ShipImpacted?.Invoke(position, false);
+                return false;
+            }
             float previous = CurrentHealth;
             CurrentHealth = Mathf.Max(0f, CurrentHealth - amount);
             int applied = Mathf.RoundToInt(previous - CurrentHealth);
             if (applied <= 0 && HealthDepleted) return false;
 
-            TotalDamageTaken += Mathf.Max(0, applied);
-            invincibilityRemaining = invincibilityTime;
+            TotalDamageTaken = RuntimeValueGuard.Add(TotalDamageTaken, applied);
+            invincibilityRemaining = RuntimeValueGuard.Clamp(invincibilityTime, 0, 10, .35f);
             NotifyHealthChanged();
             DamageTaken?.Invoke(applied, CurrentHealth);
             HudFlashRequested?.Invoke();
             ImpactFeedbackRequested?.Invoke();
             missionHud?.ShowWarning("WARNING", 0.75f);
+            if (shipImpact) ShipImpacted?.Invoke(position, true);
 
             if (CurrentHealth <= 0f && !HealthDepleted)
                 HandleHealthDepleted();
@@ -124,7 +168,7 @@ namespace MeteorDefenseVR.Player
 
         public void Tick(float deltaTime)
         {
-            invincibilityRemaining = Mathf.Max(0f, invincibilityRemaining - Mathf.Max(0f, deltaTime));
+            invincibilityRemaining = Mathf.Max(0f, invincibilityRemaining - RuntimeValueGuard.Delta(deltaTime));
         }
 
         private void HandleHealthDepleted()
@@ -139,9 +183,9 @@ namespace MeteorDefenseVR.Player
 
             IsMissionFailed = true;
             missionHud?.ShowWarning("MISSION FAILED", 3f);
-            spawner?.StopSpawning(false);
+            spawner?.StopSpawning(true);
             MissionFailed?.Invoke();
-            gameFlow?.ShowResult();
+            if (MissionFailureHandler == null || !MissionFailureHandler.Invoke()) gameFlow?.ShowResult();
         }
 
         private void Subscribe()
@@ -172,7 +216,7 @@ namespace MeteorDefenseVR.Player
         private void HandleMeteorReachedPlayer(MeteorController meteor, int meteorDamage)
         {
             int damage = useMeteorDamage ? meteorDamage : defaultMeteorDamage;
-            ApplyDamage(damage > 0 ? damage : defaultMeteorDamage);
+            ApplyImpactDamage(damage > 0 ? damage : defaultMeteorDamage, meteor.ImpactPosition);
             UntrackMeteor(meteor);
         }
 

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85c3d82a5f5a984eb921e4666696f8b, type: 3}
+  m_Name: PowerUpSettings
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.PowerUps.PowerUpSettings
+  definitions:
+  - {fileID: 11400000, guid: 26c7aa164a80da9468097c27e119dc9e, type: 2}
+  - {fileID: 11400000, guid: 510fa653f393a4f4fb1325c0f6902fff, type: 2}
+  - {fileID: 11400000, guid: 6913a18ce96a6d349a4688e714ec2f22, type: 2}
+  - {fileID: 11400000, guid: b4b646c3acd2c284e8b5fd2aa8eb7366, type: 2}
+  - {fileID: 11400000, guid: 963b157f439ae444f987aa4d5f8e563f, type: 2}
+  - {fileID: 11400000, guid: af7f86cd9bfe23c408e02f11267b7b85, type: 2}
+  - {fileID: 11400000, guid: 286fb22e77ba2b34bb4faa2ca5344d35, type: 2}
+  - {fileID: 11400000, guid: 1ce95f228c31d4044aab32059f2766a4, type: 2}
+  regularDropChance: 0.09
+  pityStartsAfter: 10
+  pityGuaranteedAt: 15
+  pityChancePerMiss: 0.035
+  bossGuaranteedDrop: 1
+  maximumWorldItems: 3
+  itemLifetime: 7
+  gazeCollectDuration: 0.55
+  driftSpeed: 0.35
+  maximumActiveBuffs: 3
+  shieldMode: 1
+  shieldImpactCount: 3
+  blinkLaserCooldown: 0.42
+  overdriveMaximumTargets: 6
+  overdriveConeDegrees: 10
+  multiLaserAdditionalTargets: 2
+  multiLaserConeDegrees: 15
+  empBossHealthFraction: 0.2
+  enableSpecialGauge: 0

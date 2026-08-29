@@ -16,19 +16,31 @@ namespace MeteorDefenseVR.Visual
 
         private MaterialPropertyBlock block;
         private float feedbackPulse;
+        private float healthNormalized = 1f;
+        private Vector3 feedbackBaseScale;
+        private void Awake() { feedbackBaseScale = feedbackFrame != null ? feedbackFrame.transform.localScale : Vector3.one; }
 
-        private void OnEnable() => Subscribe();
+        private void OnEnable()
+        {
+            Subscribe();
+            if (controller != null) { SetHealth(controller.CurrentHealth, controller.MaxHealth); SetFeedback(controller.FeedbackMessage); }
+        }
         private void OnDisable() => Unsubscribe();
 
         private void Update()
         {
-            if (feedbackPulse <= 0f) return;
-            feedbackPulse = Mathf.Max(0f, feedbackPulse - Time.unscaledDeltaTime);
-            float amount = Mathf.Clamp01(feedbackPulse / 0.55f);
-            if (feedbackFrame != null)
-                feedbackFrame.transform.localScale = Vector3.one * (1f + Mathf.Sin(amount * Mathf.PI) * 0.06f);
-            if (feedbackText != null)
-                feedbackText.color = Color.Lerp(new Color(0.35f, 0.95f, 1f), Color.white, amount);
+            if (feedbackPulse > 0f)
+            {
+                feedbackPulse = Mathf.Max(0f, feedbackPulse - Time.unscaledDeltaTime);
+                float amount = Mathf.Clamp01(feedbackPulse / 0.55f);
+                if (feedbackFrame != null) feedbackFrame.transform.localScale = feedbackBaseScale * (1f + Mathf.Sin(amount * Mathf.PI) * 0.035f);
+                if (feedbackText != null) feedbackText.color = Color.Lerp(new Color(0.35f, 0.95f, 1f), Color.white, amount);
+            }
+            if (healthNormalized > 0f && healthNormalized < .2f && healthSegments != null)
+            {
+                float pulse = .72f + .28f * (.5f + .5f * Mathf.Sin(Time.unscaledTime * 5f));
+                for (int i=0;i<healthSegments.Length;i++) if(healthSegments[i]!=null&&healthSegments[i].enabled) SetRendererColor(healthSegments[i],dangerColor*pulse);
+            }
         }
 
         public void Configure(
@@ -41,6 +53,7 @@ namespace MeteorDefenseVR.Visual
             controller = hudController;
             healthSegments = segments;
             feedbackFrame = frame;
+            feedbackBaseScale = frame != null ? frame.transform.localScale : Vector3.one;
             feedbackText = feedback;
             block ??= new MaterialPropertyBlock();
             Subscribe();
@@ -71,8 +84,9 @@ namespace MeteorDefenseVR.Visual
         {
             if (healthSegments == null || healthSegments.Length == 0) return;
             float normalized = maximum > 0f ? Mathf.Clamp01(current / maximum) : 0f;
+            healthNormalized = normalized;
             int visible = Mathf.CeilToInt(normalized * healthSegments.Length);
-            Color active = Color.Lerp(dangerColor, healthyColor, normalized);
+            Color active = normalized < .2f ? dangerColor : normalized < .4f ? new Color(1f,.32f,.045f,1f) : normalized < .7f ? new Color(1f,.78f,.08f,1f) : healthyColor;
             for (int i = 0; i < healthSegments.Length; i++) SetRendererColor(healthSegments[i], i < visible ? active : emptyColor);
         }
 

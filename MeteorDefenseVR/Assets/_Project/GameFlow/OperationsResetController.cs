@@ -33,6 +33,10 @@ namespace MeteorDefenseVR.GameFlow
         private GameFlowManager gameFlow;
         private float resultElapsed;
         private bool resultTimerRunning;
+        // Optional presentation owner; absent/disabled preserves the original timed Reset.
+        public System.Func<bool> ResultTimeoutHandler { get; set; }
+        public void CancelResultTimer() { resultTimerRunning = false; resultElapsed = 0f; }
+        public void ResumeResultTimer() => HandleStateChanged(gameFlow != null ? gameFlow.CurrentState : GameState.Boot);
 
         public bool ResultTimerRunning => resultTimerRunning;
         public bool OperatorKeysEnabled => enableOperatorKeys;
@@ -41,7 +45,7 @@ namespace MeteorDefenseVR.GameFlow
         private void OnEnable() => BindGameFlow(GameFlowManager.Instance);
         private void Update()
         {
-            Tick(Time.unscaledDeltaTime);
+            if (Time.timeScale > 0) Tick(Time.unscaledDeltaTime);
             PollOperatorKeys();
         }
 
@@ -85,11 +89,18 @@ namespace MeteorDefenseVR.GameFlow
         {
             if (!resultTimerRunning) return;
             resultElapsed += Mathf.Max(0f, unscaledDeltaTime);
-            if (resultElapsed >= resultDisplayDuration) ResetExperience();
+            if (resultElapsed < resultDisplayDuration) return;
+            CancelResultTimer();
+            if (ResultTimeoutHandler == null || !ResultTimeoutHandler()) ResetExperience();
         }
 
+        // Snapshot observers run before HP, score and pooled objects are cleared.
+        public event System.Action BeforeReset;
         public void ResetExperience()
         {
+            BeforeReset?.Invoke();
+            Time.timeScale = 1f;
+            AudioListener.pause = false;
             resultTimerRunning = false;
             resultElapsed = 0f;
             spawner?.StopSpawning(true);
@@ -155,6 +166,8 @@ namespace MeteorDefenseVR.GameFlow
             foreach (MeteorController meteor in meteors)
             {
                 if (meteor != null && meteor.GetComponentInParent<MeteorSpawner>(true) != null) continue;
+                var prepared = meteor != null ? meteor.GetComponent<PreparedMeteorMember>() : null;
+                if (prepared != null && prepared.Owner != null) continue;
                 DestroySceneObject(meteor != null ? meteor.gameObject : null);
             }
             BossExplosionEffect[] explosions = FindObjectsByType<BossExplosionEffect>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -163,8 +176,16 @@ namespace MeteorDefenseVR.GameFlow
 
         private static void StopAllAudio()
         {
+            var managers = FindObjectsByType<MeteorDefenseVR.Audio.AudioManager>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            foreach (var manager in managers) manager.ResetForNewSession();
             AudioSource[] sources = FindObjectsByType<AudioSource>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            foreach (AudioSource source in sources) if (source != null) source.Stop();
+            foreach (AudioSource source in sources)
+            {
+                bool fadingMusic = false;
+                foreach (var manager in managers)
+                    if (manager.isActiveAndEnabled && manager.OwnsBgmSource(source)) { fadingMusic = true; break; }
+                if (source != null && !fadingMusic) source.Stop();
+            }
         }
 
         private static void DestroySceneObject(GameObject target)

@@ -82,7 +82,11 @@ namespace MeteorDefenseVR.Tests
             controller.Tick(0f);
             Assert.That(controller.CurrentStage, Is.EqualTo(BossClimaxStage.Active));
             Assert.That(controller.ActiveBoss, Is.Not.Null);
-            Assert.That(controller.ActiveBoss, Is.Not.SameAs(firstBoss));
+            Assert.That(controller.ActiveBoss, Is.SameAs(firstBoss), "Retries now reuse the prepared boss slot");
+            Assert.That(controller.ActiveBoss.gameObject.activeInHierarchy, Is.True);
+            Assert.That(controller.ActiveBoss.State, Is.EqualTo(MeteorLifecycleState.Active));
+            Assert.That(controller.ActiveBoss.CurrentHealth, Is.EqualTo(controller.ActiveBoss.MaxHealth));
+            Assert.That(controller.PreparedMeteorCount, Is.EqualTo(1));
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.XR;
 namespace MeteorDefenseVR.EyeTracking
 {
     [DisallowMultipleComponent]
-    public sealed class VREyeGazeProvider : MonoBehaviour, IGazeProvider
+    public sealed class VREyeGazeProvider : MonoBehaviour, IGazeProvider, IBlinkSource
     {
         [SerializeField] private Transform trackingOrigin;
         [SerializeField] private Camera headCamera;
@@ -16,9 +16,12 @@ namespace MeteorDefenseVR.EyeTracking
         private Ray latestRay;
         private bool hasEyeRay;
         private bool forceHeadGaze;
+        private float lastBlinkSampleTime = -100f;
 
         public bool IsTrackingValid => (!forceHeadGaze && hasEyeRay) || (allowHeadGazeFallback && ResolveCamera() != null);
         public bool IsUsingEyeTracking => !forceHeadGaze && hasEyeRay;
+        public bool HasReliableBlink => !forceHeadGaze && Time.unscaledTime - lastBlinkSampleTime < .25f;
+        public bool AreEyesClosed { get; private set; }
 
         private void OnEnable()
         {
@@ -33,6 +36,7 @@ namespace MeteorDefenseVR.EyeTracking
             InputDevices.deviceDisconnected -= OnDeviceDisconnected;
             activeDevice = default;
             hasEyeRay = false;
+            AreEyesClosed = false; lastBlinkSampleTime = -100f;
         }
 
         private void Update() => UpdateEyeRay();
@@ -71,6 +75,14 @@ namespace MeteorDefenseVR.EyeTracking
         {
             ray = default;
             if (!device.isValid || !device.TryGetFeatureValue(CommonUsages.eyesData, out Eyes eyes)) return false;
+
+            bool hasLeftOpen = eyes.TryGetLeftEyeOpenAmount(out float leftOpen);
+            bool hasRightOpen = eyes.TryGetRightEyeOpenAmount(out float rightOpen);
+            if (hasLeftOpen && hasRightOpen)
+            {
+                AreEyesClosed = leftOpen < .2f && rightOpen < .2f;
+                lastBlinkSampleTime = Time.unscaledTime;
+            }
 
             bool hasPosition = eyes.TryGetFixationPoint(out Vector3 fixationPoint);
             bool hasLeftPosition = eyes.TryGetLeftEyePosition(out Vector3 leftPosition);

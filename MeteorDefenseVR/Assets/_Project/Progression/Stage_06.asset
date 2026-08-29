@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff41d864f5600db4eb69e66f4b085af6, type: 3}
+  m_Name: Stage_06
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Progression.StageConfig
+  stageNumber: 6
+  regularMeteorCount: 20
+  speedMultiplier: 1.46
+  spawnRateMultiplier: 1.45
+  maxSimultaneousAsteroids: 3
+  sizeVariation: 0.16
+  patternVariation: 0.5555556
+  bossHealthMultiplier: 2.8055556
+  bossScale: 4.2222223
+  bossSpeedMultiplier: 1.1
+  bossFragmentCount: 0
+  scoreMultiplier: 1.5555556
+  stageClearRepair: 0.25

@@ -17,6 +17,9 @@ namespace MeteorDefenseVR.GameFlow
 
         private GameFlowManager gameFlow;
         private float elapsed;
+        private bool presentationStarted;
+        public const float PresentationDelay = 0.9f;
+        public float PresentationProgress => IsRunning ? Mathf.Clamp01((elapsed - PresentationDelay) / .45f) : 0f;
 
         public bool IsRunning { get; private set; }
         public bool IsComplete { get; private set; }
@@ -24,11 +27,12 @@ namespace MeteorDefenseVR.GameFlow
 
         public event Action<string> StatusChanged;
         public event Action SequenceStarted;
+        public event Action PresentationStarted;
         public event Action SequenceCompleted;
 
         private void Awake() => gameFlow = GameFlowManager.Instance;
         private void OnEnable() => BindGameFlow(GameFlowManager.Instance);
-        private void Update() => Tick(Time.unscaledDeltaTime);
+        private void Update() { if (Time.timeScale > 0) Tick(Time.unscaledDeltaTime); }
 
         private void OnDisable()
         {
@@ -57,10 +61,11 @@ namespace MeteorDefenseVR.GameFlow
             IsRunning = true;
             IsComplete = false;
             elapsed = 0f;
+            presentationStarted = false;
             spawner?.StopSpawning(false);
             CleanupRemainingMeteors();
-            SetStatus("MISSION COMPLETE\n미션 성공!\n지구를 지켜냈습니다!");
-            missionHud?.ShowWarning("MISSION COMPLETE", resultDelay);
+            SetStatus("MISSION COMPLETE\n지구 방어 성공!");
+            missionHud?.ShowWarning(string.Empty, 0f);
             SequenceStarted?.Invoke();
         }
 
@@ -68,6 +73,11 @@ namespace MeteorDefenseVR.GameFlow
         {
             if (!IsRunning) return;
             elapsed += Mathf.Max(0f, unscaledDeltaTime);
+            if (!presentationStarted && elapsed >= PresentationDelay)
+            {
+                presentationStarted = true;
+                PresentationStarted?.Invoke();
+            }
             if (elapsed < resultDelay) return;
             IsRunning = false;
             IsComplete = true;

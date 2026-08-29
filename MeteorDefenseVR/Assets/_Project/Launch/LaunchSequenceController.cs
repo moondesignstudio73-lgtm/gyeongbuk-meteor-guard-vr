@@ -49,7 +49,7 @@ namespace MeteorDefenseVR.Launch
 
         private void Update()
         {
-            if (IsRunning) Tick(Time.unscaledDeltaTime);
+            if (IsRunning && Time.timeScale > 0) Tick(Time.unscaledDeltaTime);
         }
 
         private void OnDisable()

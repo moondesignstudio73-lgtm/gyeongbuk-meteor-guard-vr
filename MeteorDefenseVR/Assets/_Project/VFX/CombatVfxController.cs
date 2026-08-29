@@ -55,7 +55,8 @@ namespace MeteorDefenseVR.VFX
             hitRemaining = hitDuration;
             Activate(hitFlash, position, 0.04f);
             HitVfxPlayed?.Invoke(position);
-            if (meteor == null || meteor.State != MeteorLifecycleState.Destroyed) return;
+            // Boss destruction already raises StrongExplosionRequested; don't stack a second normal blast.
+            if (meteor == null || meteor.State != MeteorLifecycleState.Destroyed || meteor.MeteorType == MeteorType.Boss) return;
             explosionRemaining = explosionDuration;
             Activate(meteorExplosion, position, 0.08f);
             ExplosionVfxPlayed?.Invoke(position);

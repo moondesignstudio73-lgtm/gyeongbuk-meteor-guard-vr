@@ -52,6 +52,8 @@ namespace MeteorDefenseVR.GameFlow
 
         public void HideResult()
         {
+            Snapshot = null;
+            Rank = "C";
             if (!IsVisible) return;
             IsVisible = false;
             ResultHidden?.Invoke();

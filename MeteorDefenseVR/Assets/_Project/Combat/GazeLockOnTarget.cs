@@ -2,6 +2,8 @@ using System;
 using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.Meteor;
 using UnityEngine;
+using MeteorDefenseVR.Core;
+using MeteorDefenseVR.Difficulty;
 
 namespace MeteorDefenseVR.Combat
 {
@@ -38,11 +40,14 @@ namespace MeteorDefenseVR.Combat
         public LockOnState State { get; private set; } = LockOnState.Idle;
         public float Progress { get; private set; }
         public bool IsLocked => State == LockOnState.Locked;
-        public bool IsAvailable => meteor == null || meteor.IsTargetable;
+        public bool IsAvailable => isActiveAndEnabled && (meteor == null || meteor.IsTargetable);
         public MeteorController Meteor => meteor;
-        public float LockOnDuration { get => lockOnDuration; set => lockOnDuration = Mathf.Max(0.1f, value); }
-        public float LockDecaySpeed { get => lockDecaySpeed; set => lockDecaySpeed = Mathf.Max(0f, value); }
-        public float GracePeriod { get => gracePeriod; set => gracePeriod = Mathf.Max(0f, value); }
+        public float LockOnDuration { get => RuntimeValueGuard.Clamp(lockOnDuration, .1f, 10, .62f); set => lockOnDuration = RuntimeValueGuard.Clamp(value, .1f, 10, .62f); }
+        public float LockDecaySpeed { get => RuntimeValueGuard.Clamp(lockDecaySpeed, 0, 100, 1.5f); set => lockDecaySpeed = RuntimeValueGuard.Clamp(value, 0, 100, 1.5f); }
+        public float GracePeriod { get => RuntimeValueGuard.Clamp(gracePeriod, 0, 10, .15f); set => gracePeriod = RuntimeValueGuard.Clamp(value, 0, 10, .15f); }
+        public float ColliderExpansion => targetColliderExpansion;
+        public bool HasDifficultyTuning { get; private set; }
+        public static GazeLockOnTarget ActiveTarget => activeTarget != null && activeTarget.IsAvailable ? activeTarget : null;
 
         public event Action<GazeLockOnTarget> FocusStarted;
         public event Action<GazeLockOnTarget, float> ProgressChanged;
@@ -63,6 +68,7 @@ namespace MeteorDefenseVR.Combat
         private void Awake()
         {
             if (meteor == null) meteor = GetComponentInParent<MeteorController>();
+            targetColliderExpansion = RuntimeValueGuard.Clamp(targetColliderExpansion, 1, 2, 1.25f);
             ExpandTargetCollider();
         }
 
@@ -79,12 +85,12 @@ namespace MeteorDefenseVR.Combat
         private void OnDisable()
         {
             UnsubscribeMeteor();
-            if (activeTarget == this) activeTarget = null;
-            hasGaze = false;
+            ForceRelease();
         }
 
         public void Configure(MeteorController meteorController, float duration = 0.62f, float decay = 1.5f, float grace = 0.18f)
         {
+            HasDifficultyTuning = false;
             UnsubscribeMeteor();
             meteor = meteorController;
             LockOnDuration = duration;
@@ -93,10 +99,27 @@ namespace MeteorDefenseVR.Combat
             if (isActiveAndEnabled) SubscribeMeteor();
         }
 
+        public void ApplyDifficulty(DifficultyBalance balance)
+        {
+            HasDifficultyTuning = true;
+            LockOnDuration = balance.LockSeconds; GracePeriod = balance.Grace; LockDecaySpeed = balance.Decay;
+            ConfigureComfortTolerance(balance.ColliderExpansion);
+        }
+
         public void ConfigureComfortTolerance(float colliderExpansion, float maxDistance = 50f)
         {
-            targetColliderExpansion = Mathf.Clamp(colliderExpansion, 1f, 2f);
-            maximumTargetDistance = Mathf.Max(0.1f, maxDistance);
+            float nextExpansion = RuntimeValueGuard.Clamp(colliderExpansion, 1, 2, 1.25f);
+            if (colliderExpanded && !Mathf.Approximately(nextExpansion, targetColliderExpansion))
+            {
+                float ratio = nextExpansion / Mathf.Max(1f, targetColliderExpansion);
+                Collider collider = GetComponent<Collider>();
+                if (collider is SphereCollider sphere) sphere.radius *= ratio;
+                else if (collider is BoxCollider box) box.size *= ratio;
+                else if (collider is CapsuleCollider capsule) { capsule.radius *= ratio; capsule.height *= ratio; }
+            }
+            targetColliderExpansion = nextExpansion;
+            if (!colliderExpanded) ExpandTargetCollider();
+            maximumTargetDistance = RuntimeValueGuard.Clamp(maxDistance, .1f, 1000, 50);
         }
 
         public void OnGazeEnter(RaycastHit hit)
@@ -132,7 +155,7 @@ namespace MeteorDefenseVR.Combat
 
         public void Advance(float deltaTime)
         {
-            if (!IsAvailable || State == LockOnState.Locked || State == LockOnState.Destroyed || deltaTime <= 0f) return;
+            if (!IsAvailable || State == LockOnState.Locked || State == LockOnState.Destroyed || !RuntimeValueGuard.IsFinite(deltaTime) || deltaTime <= 0f) return;
             if (State == LockOnState.Idle)
             {
                 AcquireExclusiveFocus();
@@ -140,7 +163,7 @@ namespace MeteorDefenseVR.Combat
                 FocusStarted?.Invoke(this);
                 GlobalFocusStarted?.Invoke(this);
             }
-            SetProgress(Progress + deltaTime / lockOnDuration);
+            SetProgress(Progress + deltaTime / LockOnDuration);
             if (Progress < 1f) return;
             SetState(LockOnState.Locked);
             Locked?.Invoke(this);
@@ -149,10 +172,10 @@ namespace MeteorDefenseVR.Combat
 
         public void TickWithoutGaze(float deltaTime)
         {
-            if (State != LockOnState.Focusing || deltaTime <= 0f) return;
+            if (State != LockOnState.Focusing || !RuntimeValueGuard.IsFinite(deltaTime) || deltaTime <= 0f) return;
             timeSinceGazeExit += deltaTime;
-            if (timeSinceGazeExit <= gracePeriod) return;
-            SetProgress(Progress - lockDecaySpeed * deltaTime);
+            if (timeSinceGazeExit <= GracePeriod) return;
+            SetProgress(Progress - LockDecaySpeed * deltaTime);
             if (Progress <= 0f) ForceRelease();
         }
 

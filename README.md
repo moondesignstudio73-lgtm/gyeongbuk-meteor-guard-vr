@@ -7,22 +7,101 @@
 - 경로: `MeteorDefenseVR/`
 - Unity: `6000.5.10f1`
 - Render Pipeline: Universal Render Pipeline 17.5.0
-- 현재 개발 단계: STEP 22 - Development Complete (Editor)
+- 현재 개발 단계: STEP 22 + PC 폴리싱 + 3D 그래픽 업그레이드 (Windows / Webcam / Mouse)
+
+## 그래픽 업그레이드 — 2026-08-28
+
+기존 게임 흐름과 입력을 유지하면서 우주·지구, 금속 조종석/격납고, 암석 운석과 열 균열 보스, 청록 HUD/조준, 레이저·폭발을 교체했습니다. 생성 텍스처는 실제 3D 재질과 효과에 사용하며 배경에 콘셉트 화면을 붙인 방식이 아닙니다.
+
+- 비교·변경 사항·이번 빌드의 성능/회귀·남은 한계: [그래픽 업그레이드 보고서](MeteorDefenseVR/Docs/GraphicsUpgrade/REPORT.md)
+- 실제 Unity 렌더 검수 이미지: [After](MeteorDefenseVR/Docs/GraphicsUpgrade/After) (`fixture-*`는 연출 검수용 배치)
+- 에셋 출처·제작 방식: [ASSETS](MeteorDefenseVR/Docs/GraphicsUpgrade/ASSETS.md)
+
+아래 STEP별 기록과 `Docs/FinalQA`는 이전 단계의 이력입니다. 최신 시각 구성과 검증 결과는 그래픽 업그레이드 보고서를 기준으로 확인하세요. Quest 실기기 성능은 별도 검증이 필요합니다.
 
 ## 주요 Scene
 
 - `Assets/_Project/Scenes/Bootstrap.unity`
 - `Assets/_Project/Scenes/MeteorDefense.unity`
 
-## STEP 1 디버그 입력
+## 지금 바로 PC에서 플레이
+
+### Windows 실행파일
+
+1. `MeteorDefenseVR/Builds/Windows/MeteorDefenseVR.exe`를 더블클릭합니다. Unity는 필요 없습니다.
+2. 기본은 Public Experience + Auto 입력입니다. 화면의 `START`를 바라보거나 마우스를 올려 시작합니다. Enter/Space로도 시작됩니다.
+3. 운석을 바라보거나 마우스를 올려 약 0.65초 유지합니다. 클릭 없이 잠금 → 레이저 → 파괴가 진행됩니다.
+
+Public에서는 개발·운영 버튼을 숨깁니다. `R`은 긴급 초기화, `ESC`는 종료입니다. `Start-Operator.cmd`로 실행하면 INPUT MODE / RESET / EXIT가 표시됩니다. `Start-Mouse.cmd`는 카메라 없이 마우스로 실행합니다. 아직 보정하지 않은 웹캠으로 바꾸면 시작 화면으로 돌아가 보정부터 진행합니다. exe만 옮기지 말고 **Windows 폴더 전체**를 복사하세요.
+
+운영 설정은 실행파일 옆 `MeteorDefense-settings.json`에서 변경합니다. 자세한 모드·설정·VR 체크리스트: [운영 안내](MeteorDefenseVR/Docs/FinalQA/OPERATOR_GUIDE.md).
+
+### Unity Editor
+
+1. Unity Hub에서 `MeteorDefenseVR` 폴더를 Unity `6000.5.10f1`로 엽니다.
+2. `Assets/_Project/Scenes/MeteorDefense.unity`를 열고 상단 ▶ Play를 누릅니다.
+3. 화면의 `START`를 바라보거나 Enter/Space로 시작합니다. 모드는 `PcTestSystem > Experience Configuration`에서 바꿉니다.
+
+이 PC에는 필요한 의존성이 준비되어 있습니다. **새로 clone한 PC**는 Unity를 열기 전에 PowerShell에서 `./MeteorDefenseVR/Tools/Restore-WebcamDependencies.ps1`을 실행해 고정 버전 MediaPipe 패키지를 복원하세요. 다운로드는 개발 환경 준비 때만 하며 게임 실행 중에는 다운로드하지 않습니다. Windows 빌드는 Unity 메뉴 `Meteor Defense > Build Windows PC Test`로 재생성합니다.
+
+### 웹캠 시선 테스트
+
+1. 웹캠을 모니터 위 중앙에 놓고 얼굴 전체와 양쪽 눈이 보이게 합니다. 우선 약 50~70cm 거리에서 시작해 조정하세요. 밝고 고른 정면 조명을 사용하고 역광·안경 반사를 줄입니다.
+2. Windows 카메라 설정에서 데스크톱 앱 접근을 허용하고, 다른 화상회의 앱이 카메라를 점유하지 않게 합니다. Auto 모드에서 `START`로 시작합니다.
+3. 중앙 → 좌측 → 우측 → 상단 → 하단의 표시점을 고개는 가급적 고정하고 눈으로 따라봅니다. 각 점에서 안정적인 홍채 위치 샘플을 모아 5점 보정합니다.
+4. 보정 완료 후 `+` 시선점을 보며 운석을 바라봅니다. `Start-Development.cmd`의 INPUT 메뉴에서만 `시선점 표시`, `얼굴 Debug`, `영상 보기 / 숨기기`를 사용할 수 있습니다. 영상 미리보기는 기본적으로 꺼져 있습니다.
+5. 자리를 옮겼거나 커서가 맞지 않으면 Operator 모드의 INPUT MODE → `웹캠 다시 보정`을 누릅니다. 진행 중인 판은 초기화됩니다. 보정이 불안정하면 같은 메뉴에서 마우스 시선을 선택하세요.
+
+웹캠 영상은 **로컬 메모리에서만 처리**하며 저장·녹화·업로드·네트워크 전송하지 않습니다. 얼굴/홍채 랜드마크에서 눈 내부 상대 위치를 계산하고 5점 affine 보정으로 화면 좌표를 근사합니다. 전용 시선 추적 장비를 대체하지 않으며 조명·눈꺼풀·안경·머리 움직임의 영향을 받습니다. 개인별 실제 응시 정확도는 사용자가 직접 보정 후 확인해야 합니다.
+
+### 마우스 / 화면 중앙 테스트
+
+- `마우스 시선`: 커서를 운석 위에 유지하면 LOCKING → LOCK ON → 자동 공격. 마우스 클릭은 필요 없습니다. UI 위에서는 조준하지 않습니다.
+- `화면 중앙 시선`: 화면 중앙 Ray로 조준합니다. 우클릭 드래그로 좌우/상하를 제한된 범위에서 둘러볼 수 있습니다. 이동은 없습니다.
+- 전체 흐름: Intro → Briefing → Calibration → Tutorial → Practice → Launch → Countdown → Main Game → Boss → Mission Complete → Result → Reset.
+
+### 입력 구조 및 실패 대응
+
+`GazeInputRouter : IGazeProvider`가 기존 `GazeRaycaster`에 연결됩니다. Combat, Meteor, Tutorial은 웹캠 API를 직접 참조하지 않습니다.
+
+- Auto 우선순위: 실제 VR Eyes 데이터 → Webcam → Mouse → Camera Center.
+- 웹캠 없음/권한 실패/모델 오류/시작 지연: 마우스로 자동 전환합니다.
+- 얼굴 추적이 순간 끊기면 기본 0.18초 유지, 게임 중 4초간 회복하지 못하면 마우스로 전환합니다. 사유는 운영·개발 메뉴에서 확인합니다. 초기 화면에서는 다음 체험자를 기다리며 웹캠을 유지하고, 오류가 난 카메라는 다음 Reset 때 재시도합니다.
+- 보정 점당 15초 제한, 흔들리거나 눈 이동 범위가 구분되지 않는 보정은 거부하고 마우스로 진행합니다.
+- Mouse/Camera Center는 PC 안내만 표시하고 기기 보정을 생략합니다. VR의 기존 보정 경로는 유지됩니다. 기존 VR 보정 UI는 SDK 자체 보정을 대신하지 않습니다.
+
+Inspector 조정:
+
+- `PcTestSystem > Experience Configuration`: 체험/운영/개발 모드, 기본 입력, 잠금 시간, 본게임 시간, 난이도, 보조, 음량, Debug UI, Operator Controls. 다른 세부 컴포넌트보다 이 운영 설정이 우선합니다.
+- `GazeSystem > WebcamGazeProvider`: Smoothing, Sensitivity, Deadzone, Minimum Tracking Confidence, Tracking Grace Period, 추론 FPS, Preferred Camera Name, Preview/Face Debug.
+- `PcTestSystem > PcTestControls`: Lock Duration(0.5~0.8초), Target Grace, Collider Expansion(최대1.5배), Magnetism(최대0.3m), Show Gaze Cursor, Show PC UI, Hide UI In VR, Enable Debug Keys, Allow Right Drag Look.
+- `PcTestSystem > PcCalibrationController`: 점별 안정 샘플 시간, 전환 대기, 보정 제한 시간.
+- `GazeSystem > GazeInputRouter`: Requested Mode. 명령행 `--gaze=mouse`, `--gaze=webcam`, `--gaze=center`, `--no-webcam`도 지원합니다.
+
+PC 보조값은 VR Eye Tracking으로 돌아갈 때 복원합니다. 단계 이동·Tab은 Development에서만 허용되며, `Enable Debug Keys`로 추가 제한할 수 있습니다. R/ESC는 독립적인 `Operator Controls` 설정을 따르므로 Public에서도 사용할 수 있습니다. `Show PC UI`를 끄면 보정 안내까지 숨겨지므로 일반 운영에서는 켜 두세요.
+
+## PC 디버그 입력 (Development 전용, R/ESC 제외)
 
 - `F1`: Intro
 - `F2`: Eye Calibration
 - `F3`: Tutorial
-- `F4`: Playing
-- `F5`: Boss Meteor
-- `F6`: Result
+- `F4`: Practice
+- `F5`: Playing
+- `F6`: Boss Meteor
+- `F7`: Result
 - `R`: Reset 후 Boot
+- `ESC`: 종료 (일시정지 아님)
+- `Tab`: 입력 패널 열기/닫기
+
+### 검증 범위 / VR 실기기 필요 항목
+
+이전 PC 입력 단계의 회귀 테스트는 102개 성공이었으며, 이번 최종 폴리싱에서 새 테스트와 20회 연속 실행을 추가했습니다. 최신 결과는 [최종 QA 보고](MeteorDefenseVR/Docs/FinalQA/REPORT.md)를 확인하세요. 실제 웹캠 보정·전체 플레이는 사용자가 정상 작동을 직접 확인했습니다. 자동 마우스 연속 시험과 실제 사용자 웹캠/HMD 장시간 검증은 구분합니다. 이전 단계 기록은 `MeteorDefenseVR/Docs/PcInputQA/README.md`에 보존합니다.
+
+PC에서는 전체 GameFlow, 마우스 Ray, 잠금, 레이저, 운석 Wave, 점수/HP, 보스, 결과/초기화, HUD/Audio/VFX와 웹캠 근사 입력을 테스트할 수 있습니다. Quest Pro 실제 Eyes 권한·정확도·SDK 보정, HMD 입체 렌더링/성능/멀미/착용 UX는 실기기가 있어야 확인할 수 있습니다. Meta XR SDK는 아직 설치되지 않았으며 이번 PC 입력 추가가 실기기 통합 완료를 의미하지 않습니다.
+
+개발자 QA: `--pc-smoke --gaze=mouse --no-webcam`은 출시 빌드에서 실제 Input System 마우스 이벤트로 전체 흐름을 자동 플레이하고 `Windows/QA/pc-player-smoke.txt`에 결과를 남깁니다. 일반 실행에는 자동 플레이가 없습니다. 숨긴 Windows 창에서는 화면 캡처가 실패하거나 검은 PNG가 될 수 있으므로 UI 검증에는 Editor의 `MeteorDefenseVR.Editor.PcVisualQaCapture.Run`을 사용합니다. 이 도구는 게임 카메라와 PC Canvas만 오프스크린 렌더링하며 바탕화면/웹캠을 촬영하지 않습니다. `--pc-camera-check`는 12초 후 카메라/추적 상태 수치만 로그에 기록하고 종료하며 영상은 저장하지 않습니다. 자동 Unity 테스트에서는 웹캠을 열지 않습니다.
+
+로컬 추론 구현: [MediaPipeUnityPlugin v0.16.3](https://github.com/homuler/MediaPipeUnityPlugin/releases/tag/v0.16.3), [공식 Task API 문서](https://github.com/homuler/MediaPipeUnityPlugin/blob/v0.16.3/docs/Tutorial-Task-API.md). 폰트: Noto Sans KR (OFL, `PcInput/Fonts/OFL.txt`). 상세 의존성은 `MeteorDefenseVR/THIRD_PARTY_PC_INPUT.md`를 참고하세요.
 
 ## STEP 2 시선 입력
 

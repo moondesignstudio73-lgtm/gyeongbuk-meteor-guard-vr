@@ -23,6 +23,7 @@ namespace MeteorDefenseVR.EyeTracking
         public IGazeTarget CurrentTarget => currentTarget;
         public bool HasHit { get; private set; }
         public RaycastHit CurrentHit { get; private set; }
+        public float MaximumDistance { get => maximumDistance; set => maximumDistance = Mathf.Clamp(value, .1f, 1000); }
         public float GazeMagnetismRadius { get => gazeMagnetismRadius; set => gazeMagnetismRadius = Mathf.Clamp(value, 0f, 0.5f); }
 
         private void Awake() => ResolveProvider();
@@ -46,6 +47,9 @@ namespace MeteorDefenseVR.EyeTracking
 
         public void Tick(float deltaTime)
         {
+            // Interfaces bypass UnityEngine.Object's destroyed-object null operator.
+            if (!ReferenceEquals(currentTarget, null) && !TargetExists(currentTarget))
+            { currentTarget = null; targetCache.Clear(); }
             if (gazeProvider == null) ResolveProvider();
             if (gazeProvider == null || !gazeProvider.IsTrackingValid)
             {
@@ -63,7 +67,7 @@ namespace MeteorDefenseVR.EyeTracking
 
             if (!ReferenceEquals(nextTarget, currentTarget))
             {
-                currentTarget?.OnGazeExit();
+                if (TargetExists(currentTarget)) currentTarget.OnGazeExit();
                 currentTarget = nextTarget;
                 currentTarget?.OnGazeEnter(hit);
             }
@@ -96,13 +100,18 @@ namespace MeteorDefenseVR.EyeTracking
         private IGazeTarget FindTargetCached(Collider collider)
         {
             if (collider == null) return null;
-            if (targetCache.TryGetValue(collider, out IGazeTarget cached)) return cached;
+            if (targetCache.TryGetValue(collider, out IGazeTarget cached))
+            {
+                // Preserve negative caching for cockpit/environment colliders as well.
+                if (ReferenceEquals(cached, null)) return null;
+                if (TargetExists(cached)) return TargetEnabled(cached) ? cached : null;
+            }
             MonoBehaviour[] behaviours = collider.GetComponentsInParent<MonoBehaviour>();
             for (int i = 0; i < behaviours.Length; i++)
             {
                 if (!(behaviours[i] is IGazeTarget target)) continue;
                 targetCache[collider] = target;
-                return target;
+                return TargetEnabled(target) ? target : null;
             }
             targetCache[collider] = null;
             return null;
@@ -110,9 +119,15 @@ namespace MeteorDefenseVR.EyeTracking
 
         private void ClearCurrentTarget()
         {
-            currentTarget?.OnGazeExit();
+            if (TargetExists(currentTarget)) currentTarget.OnGazeExit();
             currentTarget = null;
+            HasHit = false; CurrentHit = default;
             targetCache.Clear();
         }
+
+        private static bool TargetExists(IGazeTarget target)
+            => target != null && (!(target is Object unityObject) || unityObject != null);
+        private static bool TargetEnabled(IGazeTarget target)
+            => TargetExists(target) && (!(target is Behaviour behaviour) || behaviour.isActiveAndEnabled);
     }
 }

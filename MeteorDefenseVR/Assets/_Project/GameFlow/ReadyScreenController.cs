@@ -12,6 +12,7 @@ namespace MeteorDefenseVR.GameFlow
         private GameFlowManager gameFlow;
 
         public bool IsReadyVisible { get; private set; }
+        public bool InputBlocked { get; set; }
         public event Action<bool> VisibilityChanged;
 
         private void Awake() => gameFlow = GameFlowManager.Instance;
@@ -24,7 +25,7 @@ namespace MeteorDefenseVR.GameFlow
 
         private void Update()
         {
-            if (!allowKeyboardStart || !IsReadyVisible) return;
+            if (InputBlocked || !allowKeyboardStart || !IsReadyVisible || Time.timeScale == 0) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame || keyboard.enterKey.wasPressedThisFrame))
                 StartExperience();
@@ -44,7 +45,7 @@ namespace MeteorDefenseVR.GameFlow
 
         public void StartExperience()
         {
-            if (!IsReadyVisible) return;
+            if (InputBlocked || !IsReadyVisible) return;
             SetVisible(false);
             gameFlow?.StartGame();
         }

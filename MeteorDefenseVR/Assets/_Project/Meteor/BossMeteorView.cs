@@ -75,7 +75,7 @@ namespace MeteorDefenseVR.Meteor
         private void SetCrackIntensity(float intensity)
         {
             if (propertyBlock == null) propertyBlock = new MaterialPropertyBlock();
-            Color emission = new Color(1f, 0.035f, 0.005f) * Mathf.Max(0f, intensity);
+            Color emission = new Color(1f, 0.18f, 0.015f) * Mathf.Max(0f, intensity);
             if (crackRenderers != null)
             {
                 foreach (Renderer targetRenderer in crackRenderers)

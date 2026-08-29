@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5319870e9f53c9a47a5f88c4b9c042fd, type: 3}
+  m_Name: PowerUp_MultiLaser
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.PowerUps.PowerUpDefinition
+  type: 4
+  dropChance: 0.11
+  dropWeight: 0.9
+  duration: 9
+  power: 1
+  stackRule: 1
+  spawnStage: 5
+  maximumDuration: 18
+  displayName: MULTI LASER
+  shortCode: MULTI
+  icon: "\u03A8"
+  itemColor: {r: 0.1, g: 0.9, b: 1, a: 1}
+  iconSprite: {fileID: 0}
+  visualPrefab: {fileID: 0}
+  pickupVfx: {fileID: 0}
+  pickupSfx: {fileID: 0}

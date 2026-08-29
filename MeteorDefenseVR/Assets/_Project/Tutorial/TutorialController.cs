@@ -24,6 +24,9 @@ namespace MeteorDefenseVR.Tutorial
         private Coroutine completionRoutine;
         private float elapsedWithoutSuccess;
         private bool reminderShown;
+        private readonly ReusableMeteorSlot meteorSlot = new ReusableMeteorSlot();
+        public int PreparedMeteorCount => meteorSlot.CreatedCount;
+        public void PrewarmMeteor() => meteorSlot.Prewarm(tutorialMeteorPrefab, this, "TutorialMeteor_Fallback");
 
         public MeteorController ActiveMeteor { get; private set; }
         public bool IsRunning { get; private set; }
@@ -51,7 +54,7 @@ namespace MeteorDefenseVR.Tutorial
                 BeginTutorial();
         }
 
-        private void Update() => Tick(Time.unscaledDeltaTime);
+        private void Update() { if (Time.timeScale > 0) Tick(Time.unscaledDeltaTime); }
 
         private void OnDisable()
         {
@@ -115,13 +118,7 @@ namespace MeteorDefenseVR.Tutorial
         {
             Vector3 position = spawnPoint != null ? spawnPoint.position : new Vector3(0f, 1.6f, 6f);
             Quaternion rotation = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
-            if (tutorialMeteorPrefab != null) return Instantiate(tutorialMeteorPrefab, position, rotation, transform);
-
-            GameObject fallback = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            fallback.name = "TutorialMeteor_Fallback";
-            fallback.transform.SetParent(transform);
-            fallback.transform.SetPositionAndRotation(position, rotation);
-            return fallback;
+            return meteorSlot.Borrow(tutorialMeteorPrefab, this, position, rotation, "TutorialMeteor_Fallback");
         }
 
         private void HandleMeteorDestroyed(MeteorController meteor)
@@ -137,7 +134,7 @@ namespace MeteorDefenseVR.Tutorial
 
         private IEnumerator CompleteAfterDelay()
         {
-            if (successDisplayDuration > 0f) yield return new WaitForSecondsRealtime(successDisplayDuration);
+            if (successDisplayDuration > 0f) yield return new MeteorDefenseVR.Core.PauseAwareDelay(successDisplayDuration);
             gameFlow?.StartPractice();
             completionRoutine = null;
         }
@@ -153,11 +150,9 @@ namespace MeteorDefenseVR.Tutorial
         {
             if (ActiveMeteor == null) return;
             ActiveMeteor.Destroyed -= HandleMeteorDestroyed;
-            GameObject meteorObject = ActiveMeteor.gameObject;
             ActiveMeteor = null;
             pulseView = null;
-            if (Application.isPlaying) Destroy(meteorObject);
-            else DestroyImmediate(meteorObject);
+            meteorSlot.Release();
         }
 
         private void CancelCompletion()

@@ -23,6 +23,8 @@ namespace MeteorDefenseVR.Audio
 
         private GameFlowManager gameFlow;
 
+        private void Start() => BindGameFlow(GameFlowManager.Instance);
+
         private void OnEnable()
         {
             BindGameFlow(GameFlowManager.Instance);
@@ -61,7 +63,11 @@ namespace MeteorDefenseVR.Audio
         {
             if (gameFlow != null) gameFlow.OnStateChanged -= HandleStateChanged;
             gameFlow = flow;
-            if (isActiveAndEnabled && gameFlow != null) gameFlow.OnStateChanged += HandleStateChanged;
+            if (isActiveAndEnabled && gameFlow != null)
+            {
+                gameFlow.OnStateChanged += HandleStateChanged;
+                HandleStateChanged(gameFlow.CurrentState);
+            }
         }
 
         private void Subscribe()
@@ -105,8 +111,8 @@ namespace MeteorDefenseVR.Audio
             }
             if (missionComplete != null)
             {
-                missionComplete.SequenceStarted -= HandleMissionComplete;
-                missionComplete.SequenceStarted += HandleMissionComplete;
+                missionComplete.PresentationStarted -= HandleMissionComplete;
+                missionComplete.PresentationStarted += HandleMissionComplete;
             }
             if (result != null)
             {
@@ -137,15 +143,26 @@ namespace MeteorDefenseVR.Audio
                 bossClimax.BossDestroyed -= HandleBossDestroyed;
             }
             if (launchSequence != null) launchSequence.AudioCueRequested -= HandleLaunchCue;
-            if (missionComplete != null) missionComplete.SequenceStarted -= HandleMissionComplete;
+            if (missionComplete != null) missionComplete.PresentationStarted -= HandleMissionComplete;
             if (result != null) result.ResultShown -= HandleResultShown;
         }
 
         private void HandleStateChanged(GameState state)
         {
-            if (state == GameState.Intro) audioManager?.TryPlay(AudioCue.IntroSpaceAmbient);
-            else if (state == GameState.Boot || state == GameState.Reset) audioManager?.StopAll();
+            AudioCue? cue = BgmForState(state);
+            if (cue.HasValue) audioManager?.RequestBgm(cue.Value);
+            else audioManager?.ResetForNewSession();
         }
+
+        public static AudioCue? BgmForState(GameState state) => state switch
+        {
+            GameState.Intro or GameState.MissionBriefing => AudioCue.BgmIntro,
+            GameState.EyeCalibration or GameState.Tutorial or GameState.Practice => AudioCue.BgmTutorial,
+            GameState.Launch or GameState.Countdown or GameState.Playing => AudioCue.BgmBattle,
+            GameState.BossMeteor => AudioCue.BgmBoss,
+            GameState.MissionComplete or GameState.Result => AudioCue.BgmResult,
+            _ => null // Boot is the Ready screen in this project's existing flow.
+        };
 
         private void HandleFocusStarted(GazeLockOnTarget _) => audioManager?.TryPlay(AudioCue.TargetFocus);
         private void HandleLocked(GazeLockOnTarget _) => audioManager?.TryPlay(AudioCue.LockOn);
@@ -156,7 +173,7 @@ namespace MeteorDefenseVR.Audio
         private void HandleLaserHit(MeteorController meteor, Vector3 _)
         {
             audioManager?.TryPlay(AudioCue.MeteorHit);
-            if (meteor != null && meteor.State == MeteorLifecycleState.Destroyed)
+            if (meteor != null && meteor.State == MeteorLifecycleState.Destroyed && meteor.MeteorType != MeteorType.Boss)
                 audioManager?.TryPlay(AudioCue.MeteorExplosion);
         }
 
@@ -174,6 +191,7 @@ namespace MeteorDefenseVR.Audio
 
         private void HandleLaunchCue(LaunchAudioCue cue)
         {
+            if (cue == LaunchAudioCue.Engine) audioManager?.TryPlay(AudioCue.EngineStart);
             if (cue == LaunchAudioCue.Countdown) audioManager?.TryPlay(AudioCue.Countdown);
             else if (cue == LaunchAudioCue.Launch || cue == LaunchAudioCue.MissionStart)
                 audioManager?.TryPlay(AudioCue.Launch);

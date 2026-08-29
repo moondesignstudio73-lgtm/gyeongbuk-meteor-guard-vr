@@ -12,6 +12,9 @@ namespace MeteorDefenseVR.Meteor
 
         public static BossExplosionEffect Spawn(Vector3 position)
         {
+            // The integrated scene owns a bounded prewarmed effect pool. Keep this legacy
+            // fallback only for standalone test scenes without that presentation layer.
+            if (MeteorDefenseVR.Visual.PremiumCombatVfx.Available) return null;
             GameObject effectObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             effectObject.name = "BossExplosion_VFX";
             effectObject.transform.position = position;

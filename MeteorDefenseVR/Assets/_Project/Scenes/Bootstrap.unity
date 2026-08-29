@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 202975643}
   - component: {fileID: 202975642}
   - component: {fileID: 202975644}
+  - component: {fileID: 202975645}
   m_Layer: 0
   m_Name: Bootstrap
   m_TagString: Untagged
@@ -182,6 +183,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.GameFlow.BootstrapSceneLoader
   gameplaySceneName: MeteorDefense
   loadAdditively: 1
+--- !u!114 &202975645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202975641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f172f25c6e7db14aaf76c25f07853fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MeteorDefenseVR.PcInput::MeteorDefenseVR.PcInput.SystemBootView
+  font: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
+  loader: {fileID: 202975644}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

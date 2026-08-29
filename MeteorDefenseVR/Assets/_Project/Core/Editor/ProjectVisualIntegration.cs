@@ -554,7 +554,7 @@ namespace MeteorDefenseVR.Editor
             GameObject root = GameObject.Find("VisualIntegration");
             if (root == null) root = new GameObject("VisualIntegration");
             GameObject alert = EnsureMajorPanel(camera.transform, "CinematicAlert", new Vector3(0f, 0.35f, 4.02f), new Vector2(2.45f, 0.82f), panel, warning);
-            TextMesh text = EnsureText(alert.transform, "AlertText", new Vector3(0f, 0f, -0.12f), string.Empty, Warning, 0.036f);
+            TextMesh text = EnsureText(alert.transform, "AlertText", new Vector3(0f, 0.35f, 3.9f), string.Empty, Warning, 0.036f);
             Renderer frame = alert.transform.Find("FrameTop")?.GetComponent<Renderer>();
             Light key = GameObject.Find("Directional Light")?.GetComponent<Light>();
             Transform cockpitTransform = cockpit != null ? cockpit.transform : null;
@@ -593,13 +593,13 @@ namespace MeteorDefenseVR.Editor
             Bloom bloom;
             if (!profile.TryGet(out bloom)) bloom = profile.Add<Bloom>(true);
             bloom.active = true;
-            bloom.intensity.Override(0.72f);
+            bloom.intensity.Override(0.5f);
             bloom.threshold.Override(0.82f);
             bloom.scatter.Override(0.62f);
             Vignette vignette;
             if (!profile.TryGet(out vignette)) vignette = profile.Add<Vignette>(true);
             vignette.active = true;
-            vignette.intensity.Override(0.2f);
+            vignette.intensity.Override(0.16f);
             vignette.smoothness.Override(0.58f);
             ColorAdjustments color;
             if (!profile.TryGet(out color)) color = profile.Add<ColorAdjustments>(true);

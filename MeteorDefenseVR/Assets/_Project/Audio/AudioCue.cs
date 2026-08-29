@@ -18,6 +18,14 @@ namespace MeteorDefenseVR.Audio
         BossWarning,
         BossExplosion,
         MissionComplete,
-        Result
+        Result,
+        BgmIntro,
+        BgmTutorial,
+        BgmBattle,
+        BgmBoss,
+        BgmResult,
+        EngineStart,
+        GlassHit,
+        AirLeak
     }
 }

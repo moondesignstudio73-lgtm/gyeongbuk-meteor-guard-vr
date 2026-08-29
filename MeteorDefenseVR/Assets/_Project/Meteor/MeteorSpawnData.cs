@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using MeteorDefenseVR.Core;
 
 namespace MeteorDefenseVR.Meteor
 {
@@ -20,15 +21,16 @@ namespace MeteorDefenseVR.Meteor
 
         public MeteorType MeteorType => meteorType;
         public GameObject Prefab => prefab;
-        public int Count => Mathf.Max(1, count);
-        public float SpawnInterval => Mathf.Max(0f, spawnInterval);
-        public float Delay => Mathf.Max(0f, delay);
-        public float Speed => Mathf.Max(0f, speed);
-        public float Health => Mathf.Max(1f, health);
+        public const int MaximumCountPerEntry = 64;
+        public int Count => Mathf.Clamp(count, 1, MaximumCountPerEntry);
+        public float SpawnInterval => RuntimeValueGuard.Clamp(spawnInterval, 0, 300, 2);
+        public float Delay => RuntimeValueGuard.Clamp(delay, 0, 300, 0);
+        public float Speed => RuntimeValueGuard.Clamp(speed, 0, 100, 2.2f);
+        public float Health => RuntimeValueGuard.Clamp(health, 1, 10000, 1);
         public int Damage => Mathf.Max(0, damage);
         public int Score => Mathf.Max(0, score);
-        public float Size => Mathf.Max(0.1f, size);
-        public Vector2 SpawnArea => new Vector2(Mathf.Abs(spawnArea.x), Mathf.Abs(spawnArea.y));
+        public float Size => RuntimeValueGuard.Clamp(size, .1f, 20, 1);
+        public Vector2 SpawnArea => new Vector2(RuntimeValueGuard.Clamp(Mathf.Abs(spawnArea.x), 0, 60, 35), RuntimeValueGuard.Clamp(Mathf.Abs(spawnArea.y), 0, 45, 25));
         public float EstimatedDuration => Delay + Mathf.Max(0, Count - 1) * SpawnInterval;
 
         public void Configure(
@@ -46,7 +48,7 @@ namespace MeteorDefenseVR.Meteor
         {
             meteorType = type;
             prefab = meteorPrefab;
-            count = Mathf.Max(1, meteorCount);
+            count = Mathf.Clamp(meteorCount, 1, MaximumCountPerEntry);
             spawnInterval = Mathf.Max(0f, interval);
             delay = Mathf.Max(0f, initialDelay);
             speed = Mathf.Max(0f, movementSpeed);

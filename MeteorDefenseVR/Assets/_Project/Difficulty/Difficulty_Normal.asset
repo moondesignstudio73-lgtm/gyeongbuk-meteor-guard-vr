@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5dd7d3dfe77434f96b72c2730c8389, type: 3}
+  m_Name: Difficulty_Normal
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Difficulty.DifficultyConfig
+  meteorSpeed: 1
+  meteorHealth: 1
+  spawnInterval: 1
+  maxConcurrentMeteors: 5
+  meteorSize: 1
+  spawnSpread: 1
+  centerBias: 0
+  lockDuration: 0.65
+  gracePeriod: 0.25
+  lockDecay: 1.5
+  targetAssist: 0.15
+  colliderExpansion: 1.25
+  meteorDamage: 1
+  bossHealth: 1
+  bossSpeed: 1
+  scoreMultiplier: 1
+  allDirections: 0
+  spawnDirections: 1
+  minimumSpawnDistance: 28
+  maximumSpawnDistance: 42
+  minimumReactionSeconds: 12
+  maximumWarningIndicators: 3
+  showWarningDistance: 1
+  showWarningDirectionText: 0
+  warningTimeHorizon: 30
+  spatialWarningInterval: 3

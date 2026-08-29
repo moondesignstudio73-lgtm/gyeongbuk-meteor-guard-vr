@@ -15,103 +15,151 @@ MonoBehaviour:
   entries:
   - cue: 0
     category: 4
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a2b0b919b6b0ee445abf643dba70eaa3, type: 3}
     volume: 0.28
     cooldown: 1
     loop: 1
   - cue: 1
     category: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: ed6de1c42352d7041a3db35a928ac4e1, type: 3}
     volume: 0.45
     cooldown: 0.7
     loop: 0
   - cue: 2
     category: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 0af92c97b28adf54d9b8364037a55cba, type: 3}
     volume: 0.38
     cooldown: 0.12
     loop: 0
   - cue: 3
     category: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 6fb73f262af04bb439d0c4f49d53ecf5, type: 3}
     volume: 0.5
     cooldown: 0.5
     loop: 0
   - cue: 4
     category: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 3a7a92eb02d509941beb64ca50798a28, type: 3}
     volume: 0.24
     cooldown: 0.18
     loop: 0
   - cue: 5
     category: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: f1206668e7890e246aba55c62a6ca7fc, type: 3}
     volume: 0.48
     cooldown: 0.2
     loop: 0
   - cue: 6
     category: 2
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 12639f4a9972c7d49a3ad2780cac5807, type: 3}
     volume: 0.42
     cooldown: 0.08
     loop: 0
   - cue: 7
     category: 2
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 28fd0521fec203d44a9fdeef0cd0adf8, type: 3}
     volume: 0.4
     cooldown: 0.08
     loop: 0
   - cue: 8
     category: 2
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: c6d066e30a39b1545b7a7d17b2dbfe24, type: 3}
     volume: 0.52
     cooldown: 0.14
     loop: 0
   - cue: 9
     category: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 03ad515ce4a6fda4d8cd31581292a080, type: 3}
     volume: 0.34
     cooldown: 0.1
     loop: 0
   - cue: 10
     category: 3
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 238119f2c178fd84ea81cf103a0b14db, type: 3}
     volume: 0.5
     cooldown: 0.35
     loop: 0
   - cue: 11
     category: 2
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 9a4b804ec6fa3ba46bc7fc2f46632f94, type: 3}
     volume: 0.55
     cooldown: 0.8
     loop: 0
-  - cue: 12
-    category: 2
-    clip: {fileID: 0}
-    volume: 0.48
-    cooldown: 0.35
-    loop: 0
   - cue: 13
     category: 3
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: f04a4e7845901d745938bc9b85e8b4b5, type: 3}
     volume: 0.58
     cooldown: 1
     loop: 0
   - cue: 14
     category: 2
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 222551a7814fe674fa3f6c78182f00a5, type: 3}
     volume: 0.6
     cooldown: 1
     loop: 0
   - cue: 15
-    category: 0
-    clip: {fileID: 0}
+    category: 2
+    clip: {fileID: 8300000, guid: b81c2697135d01d4bbae08e5e0eecc1a, type: 3}
     volume: 0.48
     cooldown: 1
     loop: 0
   - cue: 16
     category: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 6a1040140b16d3a4c9c7ad834c6169b0, type: 3}
     volume: 0.4
     cooldown: 1
     loop: 0
+  - cue: 17
+    category: 0
+    clip: {fileID: 8300000, guid: f9d44a15ddc0c1d458be74cf4f864a17, type: 3}
+    volume: 0.7
+    cooldown: 0
+    loop: 1
+  - cue: 18
+    category: 0
+    clip: {fileID: 8300000, guid: 10133e44b77b59c45ae2786907993371, type: 3}
+    volume: 0.7
+    cooldown: 0
+    loop: 1
+  - cue: 19
+    category: 0
+    clip: {fileID: 8300000, guid: cb942eacc84f08a43bc0dd8c8171f1ec, type: 3}
+    volume: 0.7
+    cooldown: 0
+    loop: 1
+  - cue: 20
+    category: 0
+    clip: {fileID: 8300000, guid: ad69fa7c20c4bbe49a5e9eeee03387b1, type: 3}
+    volume: 0.7
+    cooldown: 0
+    loop: 1
+  - cue: 21
+    category: 0
+    clip: {fileID: 8300000, guid: d3e811a493ffe2f45b3f4338fdc64a53, type: 3}
+    volume: 0.7
+    cooldown: 0
+    loop: 0
+  - cue: 22
+    category: 2
+    clip: {fileID: 8300000, guid: 27d56c21de3d2db4986e84ef620b213f, type: 3}
+    volume: 0.45
+    cooldown: 0.5
+    loop: 0
+  - cue: 23
+    category: 2
+    clip: {fileID: 8300000, guid: e6087cd1d0f57ea40aa1120d0c09c0f3, type: 3}
+    volume: 0.56
+    cooldown: 0.16
+    loop: 0
+  - cue: 12
+    category: 2
+    clip: {fileID: 8300000, guid: 613efca2c67028a46bac7f60de3477a5, type: 3}
+    volume: 0.68
+    cooldown: 0.12
+    loop: 0
+  - cue: 24
+    category: 2
+    clip: {fileID: 8300000, guid: d5fe8af96bdb15b4885d54883f9b2677, type: 3}
+    volume: 0.12
+    cooldown: 1
+    loop: 1

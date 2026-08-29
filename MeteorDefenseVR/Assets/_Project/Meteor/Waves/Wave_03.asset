@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe3af0096bd5a74b8bf216f189589e4, type: 3}
   m_Name: Wave_03
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Meteor.MeteorWaveData
-  displayName: WAVE 3
-  waveDelay: 1.5
+  displayName: WAVE 03 / FINAL SURGE
+  waveDelay: 1.3
   spawns:
   - meteorType: 0
     prefab: {fileID: 8156347824958883224, guid: 8bff4fdba07bcb54f95de62128abe2c3, type: 3}
-    count: 4
+    count: 1
     spawnInterval: 2
     delay: 0.4
     speed: 2.6
@@ -28,23 +28,56 @@ MonoBehaviour:
     spawnArea: {x: 35, y: 25}
   - meteorType: 1
     prefab: {fileID: 2235389933375521234, guid: 15f7f5dde75212049a1e7e0aa9881f23, type: 3}
-    count: 3
+    count: 2
     spawnInterval: 1.8
-    delay: 0.6
+    delay: 1.8
     speed: 4
     health: 1
     damage: 10
     score: 150
-    size: 0.75
+    size: 0.8
     spawnArea: {x: 35, y: 25}
   - meteorType: 2
     prefab: {fileID: 4447869008418018391, guid: d175baff2622a3043badb136d22ffe5f, type: 3}
-    count: 2
-    spawnInterval: 3
-    delay: 1
+    count: 1
+    spawnInterval: 2
+    delay: 1.8
     speed: 1.6
     health: 2
     damage: 20
     score: 300
     size: 1.6
+    spawnArea: {x: 28, y: 20}
+  - meteorType: 0
+    prefab: {fileID: 8156347824958883224, guid: 8bff4fdba07bcb54f95de62128abe2c3, type: 3}
+    count: 2
+    spawnInterval: 2
+    delay: 1.8
+    speed: 2.6
+    health: 1
+    damage: 10
+    score: 100
+    size: 1
     spawnArea: {x: 35, y: 25}
+  - meteorType: 1
+    prefab: {fileID: 2235389933375521234, guid: 15f7f5dde75212049a1e7e0aa9881f23, type: 3}
+    count: 2
+    spawnInterval: 1.8
+    delay: 1.8
+    speed: 4
+    health: 1
+    damage: 10
+    score: 150
+    size: 0.8
+    spawnArea: {x: 35, y: 25}
+  - meteorType: 2
+    prefab: {fileID: 4447869008418018391, guid: d175baff2622a3043badb136d22ffe5f, type: 3}
+    count: 1
+    spawnInterval: 2
+    delay: 2
+    speed: 1.6
+    health: 2
+    damage: 20
+    score: 300
+    size: 1.6
+    spawnArea: {x: 28, y: 20}

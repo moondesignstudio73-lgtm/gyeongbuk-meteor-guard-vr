@@ -11,7 +11,8 @@ namespace MeteorDefenseVR.UI
         [SerializeField] private TextMesh scoreText;
         [SerializeField] private TextMesh feedbackText;
 
-        private void OnEnable() => Subscribe();
+        private void OnEnable() { Subscribe(); RefreshAll(); }
+        private void Start() => RefreshAll();
         private void OnDisable() => Unsubscribe();
 
         public void Configure(
@@ -85,7 +86,15 @@ namespace MeteorDefenseVR.UI
 
         private void SetMeteorProgress(int remaining, int total)
         {
-            if (remainingText != null) remainingText.text = $"METEORS  {Mathf.Max(0, remaining):D2} / {Mathf.Max(0, total):D2}";
+            if (remainingText == null) return;
+            if (controller != null && controller.CampaignStage > 0)
+            {
+                string code = Difficulty.DifficultyConfig.Code(controller.CampaignDifficulty);
+                remainingText.text = controller.BossIncoming
+                    ? $"{code} · STAGE {controller.CampaignStage:D2}\nBOSS  {Mathf.RoundToInt(controller.BossHealthNormalized * 100f):D3}%"
+                    : $"{code} · STAGE {controller.CampaignStage:D2}\nASTEROIDS  {Mathf.Max(0, remaining):D2} / {Mathf.Max(0, total):D2}";
+            }
+            else remainingText.text = $"METEORS  {Mathf.Max(0, remaining):D2} / {Mathf.Max(0, total):D2}";
         }
 
         private void SetScore(int score)

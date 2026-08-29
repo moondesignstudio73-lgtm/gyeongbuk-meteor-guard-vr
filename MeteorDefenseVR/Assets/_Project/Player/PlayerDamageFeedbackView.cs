@@ -19,6 +19,7 @@ namespace MeteorDefenseVR.Player
         private void OnDisable()
         {
             Unsubscribe();
+            flashRemaining = 0f;
             SetLight(false, 0f);
         }
 
@@ -45,12 +46,16 @@ namespace MeteorDefenseVR.Player
             if (!isActiveAndEnabled || playerHealth == null) return;
             playerHealth.ImpactFeedbackRequested -= PlayImpact;
             playerHealth.ImpactFeedbackRequested += PlayImpact;
+            playerHealth.HealthReset -= Clear;
+            playerHealth.HealthReset += Clear;
         }
 
         private void Unsubscribe()
         {
-            if (playerHealth != null) playerHealth.ImpactFeedbackRequested -= PlayImpact;
+            if (playerHealth != null) { playerHealth.ImpactFeedbackRequested -= PlayImpact; playerHealth.HealthReset -= Clear; }
         }
+
+        private void Clear() { flashRemaining = 0f; SetLight(false, 0f); impactAudioSource?.Stop(); }
 
         private void PlayImpact()
         {

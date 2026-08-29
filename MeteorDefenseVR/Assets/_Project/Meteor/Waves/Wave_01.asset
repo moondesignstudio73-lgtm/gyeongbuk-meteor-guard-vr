@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe3af0096bd5a74b8bf216f189589e4, type: 3}
   m_Name: Wave_01
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Meteor.MeteorWaveData
-  displayName: WAVE 1
+  displayName: WAVE 01 / APPROACH
   waveDelay: 1
   spawns:
   - meteorType: 0
     prefab: {fileID: 8156347824958883224, guid: 8bff4fdba07bcb54f95de62128abe2c3, type: 3}
     count: 5
-    spawnInterval: 2.5
+    spawnInterval: 2.6
     delay: 0.5
-    speed: 2.2
+    speed: 1.8
     health: 1
     damage: 10
     score: 100
-    size: 1
-    spawnArea: {x: 35, y: 25}
+    size: 1.2
+    spawnArea: {x: 22, y: 15}

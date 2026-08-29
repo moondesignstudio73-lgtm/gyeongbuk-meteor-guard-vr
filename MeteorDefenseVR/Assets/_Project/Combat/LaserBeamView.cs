@@ -17,9 +17,17 @@ namespace MeteorDefenseVR.Combat
 
         public bool IsPlaying => remainingTime > 0f;
 
+        public void PrewarmGeometry()
+        {
+            if (IsPlaying) return;
+            if (lineRenderer != null) lineRenderer.positionCount = 2;
+            if (glowRenderer != null) glowRenderer.positionCount = 2;
+        }
+
         private void Awake()
         {
             if (lineRenderer == null) lineRenderer = GetComponent<LineRenderer>();
+            if (lineRenderer != null) baseWidth = Mathf.Max(0.005f, lineRenderer.widthMultiplier);
             if (lineRenderer != null) lineRenderer.enabled = false;
             if (glowRenderer != null) glowRenderer.enabled = false;
         }

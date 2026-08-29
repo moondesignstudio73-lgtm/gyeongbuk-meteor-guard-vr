@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced62eb6cda41aa498d4f194eca819b3, type: 3}
+  m_Name: EducationSettings
+  m_EditorClassIdentifier: MeteorDefenseVR.PcInput::MeteorDefenseVR.Education.EducationSettings
+  enabledForExperience: 1
+  stageSeconds:
+  - 150
+  - 180
+  - 150
+  - 180
+  detectionDwell: 0.4
+  detectionConeDegrees: 5
+  observationDeadline: 18
+  questionDeadline: 22
+  feedbackSeconds: 3
+  maximumStoredSessions: 200
+  retentionDays: 30
+  weights:
+    Detection: 30
+    Judgment: 25
+    Defense: 20
+    Emergency: 25
+    WeaknessReactionWeight: 0.2
+    ReactionBenchmark: 6
+  risk:
+    horizonSeconds: 90
+    timeWeight: 0.85
+    impactWeight: 0.15
+  emergency:
+    immediateCollisionSeconds: 4
+    criticalPressure: 65
+    criticalOxygen: 65
+    deteriorationPerSecond: 0.8
+    wrongActionDelay: 2
+  interfaceFont: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
+  participantFont: {fileID: 11400000, guid: 56f9e876b5fa19341a1d92ea1c44b880, type: 2}

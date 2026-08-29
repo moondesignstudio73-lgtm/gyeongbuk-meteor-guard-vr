@@ -1,0 +1,7 @@
+{
+  "name": "MeteorDefenseVR.PcInput",
+  "rootNamespace": "MeteorDefenseVR.PcInput",
+  "references": ["MeteorDefenseVR.Runtime", "Unity.InputSystem", "Unity.ugui", "Unity.TextMeshPro", "Mediapipe.Runtime", "Unity.RenderPipelines.Core.Runtime", "Unity.RenderPipelines.Universal.Runtime"],
+  "autoReferenced": true,
+  "allowUnsafeCode": false
+}

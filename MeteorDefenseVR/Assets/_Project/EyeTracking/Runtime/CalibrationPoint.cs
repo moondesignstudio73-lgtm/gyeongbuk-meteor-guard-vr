@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using MeteorDefenseVR.Core;
 
 namespace MeteorDefenseVR.EyeTracking
 {
@@ -18,8 +19,8 @@ namespace MeteorDefenseVR.EyeTracking
         [SerializeField, Min(0f)] private float decaySpeed = 1.5f;
         [SerializeField] private bool resetProgressOnExit;
         [SerializeField] private Renderer targetRenderer;
-        [SerializeField] private Color waitingColor = new Color(0.1f, 0.85f, 1f);
-        [SerializeField] private Color focusingColor = new Color(0.3f, 1f, 0.65f);
+        [SerializeField] private Color waitingColor = new Color(1f, 0.05f, 0.04f);
+        [SerializeField] private Color focusingColor = new Color(1f, 0.05f, 0.04f);
         [SerializeField] private Color completeColor = Color.green;
 
         private MaterialPropertyBlock propertyBlock;
@@ -28,8 +29,8 @@ namespace MeteorDefenseVR.EyeTracking
         public CalibrationPointState State { get; private set; } = CalibrationPointState.Inactive;
         public float Progress { get; private set; }
         public bool IsComplete => State == CalibrationPointState.Complete;
-        public float DwellDuration { get => dwellDuration; set => dwellDuration = Mathf.Max(0.1f, value); }
-        public float DecaySpeed { get => decaySpeed; set => decaySpeed = Mathf.Max(0f, value); }
+        public float DwellDuration { get => RuntimeValueGuard.Clamp(dwellDuration, .1f, 10, .65f); set => dwellDuration = RuntimeValueGuard.Clamp(value, .1f, 10, .65f); }
+        public float DecaySpeed { get => RuntimeValueGuard.Clamp(decaySpeed, 0, 100, 1.5f); set => decaySpeed = RuntimeValueGuard.Clamp(value, 0, 100, 1.5f); }
 
         public event Action<CalibrationPoint, float> ProgressChanged;
         public event Action<CalibrationPoint> Completed;
@@ -44,8 +45,8 @@ namespace MeteorDefenseVR.EyeTracking
         private void Update()
         {
             if (State == CalibrationPointState.Inactive || State == CalibrationPointState.Complete || isGazedAt) return;
-            if (Progress <= 0f || decaySpeed <= 0f) return;
-            SetProgress(Progress - decaySpeed * Time.deltaTime / dwellDuration);
+            if (Progress <= 0f || DecaySpeed <= 0f) return;
+            SetProgress(Progress - DecaySpeed * Time.deltaTime / DwellDuration);
             if (Progress <= 0f) SetState(CalibrationPointState.Waiting);
         }
 
@@ -68,9 +69,9 @@ namespace MeteorDefenseVR.EyeTracking
 
         public void Advance(float deltaTime)
         {
-            if (State == CalibrationPointState.Inactive || State == CalibrationPointState.Complete) return;
+            if (State == CalibrationPointState.Inactive || State == CalibrationPointState.Complete || !RuntimeValueGuard.IsFinite(deltaTime) || deltaTime < 0) return;
             SetState(CalibrationPointState.Focusing);
-            SetProgress(Progress + Mathf.Max(0f, deltaTime) / dwellDuration);
+            SetProgress(Progress + deltaTime / DwellDuration);
             if (Progress < 1f) return;
             SetState(CalibrationPointState.Complete);
             Completed?.Invoke(this);

@@ -21,6 +21,7 @@ namespace MeteorDefenseVR.GameFlow
         public GameState CurrentState { get; private set; } = GameState.Boot;
         public GameState PreviousState { get; private set; } = GameState.Boot;
         public bool IsTransitioning { get; private set; }
+        private GameState calibrationDestination = GameState.Tutorial;
 
         public event Action<GameState> OnStateChanged;
         public event Action<GameState, GameState> OnStateTransitioned;
@@ -97,7 +98,19 @@ namespace MeteorDefenseVR.GameFlow
 
         public void StartGame() => ChangeState(GameState.Intro);
         public void StartMissionBriefing() => ChangeState(GameState.MissionBriefing);
-        public void StartCalibration() => ChangeState(GameState.EyeCalibration);
+        public void StartCalibration() => StartCalibration(GameState.Tutorial);
+        public void StartCalibration(GameState completionDestination)
+        {
+            calibrationDestination = completionDestination == GameState.Result ? GameState.Result : GameState.Tutorial;
+            ChangeState(GameState.EyeCalibration);
+        }
+        public void CompleteCalibration()
+        {
+            if (CurrentState != GameState.EyeCalibration) return;
+            var destination = calibrationDestination;
+            calibrationDestination = GameState.Tutorial;
+            ChangeState(destination);
+        }
         public void StartTutorial() => ChangeState(GameState.Tutorial);
         public void StartPractice() => ChangeState(GameState.Practice);
         public void StartLaunch() => ChangeState(GameState.Launch);
@@ -109,6 +122,7 @@ namespace MeteorDefenseVR.GameFlow
 
         public void ResetGame()
         {
+            calibrationDestination = GameState.Tutorial;
             if (CurrentState != GameState.Reset) ChangeState(GameState.Reset);
             ChangeState(GameState.Boot);
         }

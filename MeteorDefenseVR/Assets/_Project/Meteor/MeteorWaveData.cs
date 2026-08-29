@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using MeteorDefenseVR.Core;
 
 namespace MeteorDefenseVR.Meteor
 {
@@ -11,7 +12,7 @@ namespace MeteorDefenseVR.Meteor
         [SerializeField] private MeteorSpawnData[] spawns = Array.Empty<MeteorSpawnData>();
 
         public string DisplayName => displayName;
-        public float WaveDelay => Mathf.Max(0f, waveDelay);
+        public float WaveDelay => RuntimeValueGuard.Clamp(waveDelay, 0, 300, 1);
         public MeteorSpawnData[] Spawns => spawns ?? Array.Empty<MeteorSpawnData>();
         public int TotalMeteors
         {
@@ -19,7 +20,7 @@ namespace MeteorDefenseVR.Meteor
             {
                 int total = 0;
                 foreach (MeteorSpawnData spawn in Spawns)
-                    if (spawn != null) total += spawn.Count;
+                    if (spawn != null) total = RuntimeValueGuard.Add(total, spawn.Count);
                 return total;
             }
         }

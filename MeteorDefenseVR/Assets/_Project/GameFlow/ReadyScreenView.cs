@@ -47,7 +47,7 @@ namespace MeteorDefenseVR.GameFlow
             if (titleText != null)
             {
                 titleText.gameObject.SetActive(visible);
-                titleText.text = visible ? "METEOR\nDEFENSE" : string.Empty;
+                titleText.text = visible ? "METEOR DEFENSE" : string.Empty;
             }
             if (startButton != null) startButton.SetActive(visible);
             if (decorationRoot != null) decorationRoot.SetActive(visible);

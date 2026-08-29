@@ -9,6 +9,13 @@ namespace MeteorDefenseVR.Tutorial
         [SerializeField] private TextMesh hudText;
         [SerializeField] private TextMesh statusText;
 
+        private void LateUpdate()
+        {
+            bool visible = controller != null && (controller.IsRunning || controller.IsComplete);
+            if (hudText != null && hudText.TryGetComponent<Renderer>(out var hudRenderer)) hudRenderer.enabled = visible;
+            if (statusText != null && statusText.TryGetComponent<Renderer>(out var statusRenderer)) statusRenderer.enabled = visible;
+        }
+
         private void OnEnable()
         {
             if (controller == null) controller = GetComponentInParent<PracticeController>();

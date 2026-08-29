@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45d054e256f43c41ad2651e56558bec, type: 3}
+  m_Name: DifficultySettings
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Difficulty.DifficultySettings
+  easy: {fileID: 11400000, guid: 6bd88d0bcd2faa440aa9c4fcbeb4b2bc, type: 2}
+  normal: {fileID: 11400000, guid: baf26c66d613a4c4daf9ea5e10b87910, type: 2}
+  hard: {fileID: 11400000, guid: c140518b62ed1a14da35bc228dfa9688, type: 2}
+  extreme: {fileID: 11400000, guid: ec687ded2e6030d40ac72cb39a296931, type: 2}
+  defaultDifficulty: 1
+  resetDifficultyAfterSession: 1
+  lockDifficultySelection: 0

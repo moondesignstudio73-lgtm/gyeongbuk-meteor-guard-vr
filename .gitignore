@@ -9,6 +9,7 @@ MeteorDefenseVR/[Uu]ser[Ss]ettings/
 MeteorDefenseVR/[Mm]emoryCaptures/
 MeteorDefenseVR/[Rr]ecordings/
 MeteorDefenseVR/[Tt]estResults/
+MeteorDefenseVR/DependencyCache/
 
 # IDE / generated project files
 MeteorDefenseVR/*.csproj
@@ -26,4 +27,7 @@ MeteorDefenseVR/자료/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Large local CPU Profiler recordings; summaries and reproduction scripts remain reviewable.
+MeteorDefenseVR/Docs/StartupHitchQA/**/*.data
 

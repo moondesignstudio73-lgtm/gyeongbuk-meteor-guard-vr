@@ -1,7 +1,7 @@
 {
   "name": "MeteorDefenseVR.Tests",
   "rootNamespace": "MeteorDefenseVR.Tests",
-  "references": ["MeteorDefenseVR.Runtime"],
+  "references": ["MeteorDefenseVR.Runtime", "MeteorDefenseVR.PcInput", "Mediapipe.Runtime", "Unity.InputSystem", "Unity.ugui", "Unity.TextMeshPro"],
   "includePlatforms": ["Editor"],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

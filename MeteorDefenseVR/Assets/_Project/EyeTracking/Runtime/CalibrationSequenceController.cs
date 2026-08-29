@@ -148,7 +148,7 @@ namespace MeteorDefenseVR.EyeTracking
             SetStatus("시선 인식 완료!");
             CalibrationCompleted?.Invoke();
             if (completionDisplayDuration > 0f) yield return new WaitForSecondsRealtime(completionDisplayDuration);
-            gameFlow?.StartTutorial();
+            gameFlow?.CompleteCalibration();
             sequenceRoutine = null;
         }
 

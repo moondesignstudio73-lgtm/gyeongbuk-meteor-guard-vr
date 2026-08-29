@@ -88,7 +88,7 @@ namespace MeteorDefenseVR.Tests
             Assert.That(text, Does.Contain("MISSION RESULT"));
             Assert.That(text, Does.Contain("2,500"));
             Assert.That(text, Does.Contain("100%"));
-            Assert.That(text, Does.Contain("RANK      A"));
+            Assert.That(text, Does.Contain("FINAL RANK  A"));
         }
     }
 }
