@@ -18,6 +18,7 @@ namespace MeteorDefenseVR.Editor
     {
         private const string ScenePath="Assets/_Project/Scenes/MeteorDefense.unity";
         private const string Root="Assets/Art/Premium";
+        private const string CockpitVisualPrefab=Root+"/Prefabs/CockpitVisual.prefab";
         private static Material metal,dark,edge,cyan,amber,red,canopy,radarGlass,trail;
         private static TMP_FontAsset font;
 
@@ -51,8 +52,9 @@ namespace MeteorDefenseVR.Editor
                     child.gameObject.SetActive(keep);
                 }
             }
+            SaveCockpitVisual(geometry?.Find("PremiumCockpit"));
             EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
-            Debug.Log("[ClassicCockpit] Premium five-monitor cockpit restored; panoramic metal cage/rear overlays disabled, transparent 360 glass retained.");
+            Debug.Log("[ClassicCockpit] Five-monitor visual restored, closed rear cockpit rebuilt, live radar retained, and status data moved to side holograms.");
         }
 
         private static void LoadMaterials()
@@ -73,7 +75,8 @@ namespace MeteorDefenseVR.Editor
         {
             Transform cockpit=GameObject.Find("LaunchSystem")?.transform.Find("CockpitGeometry/PremiumCockpit");
             if(cockpit==null) throw new InvalidOperationException("PremiumCockpit was not found. Run the established visual integration first.");
-            Remove(cockpit,"CommercialMilitaryDetail"); Remove(cockpit,"CommercialCanopy"); Remove(cockpit,"LiveAvionics");
+            Remove(cockpit,"CommercialMilitaryDetail"); Remove(cockpit,"CommercialCanopy"); Remove(cockpit,"LiveAvionics"); Remove(cockpit,"RestoredRearCockpit");
+            Transform oldSystems=cockpit.parent.Find("CockpitSystems");if(oldSystems!=null)UnityEngine.Object.DestroyImmediate(oldSystems.gameObject);
             Transform detail=Child(cockpit,"CommercialMilitaryDetail");
 
             // Dense peripheral silhouette; the central 38-degree gaze cone stays open.
@@ -109,31 +112,73 @@ namespace MeteorDefenseVR.Editor
             Transform left=MeshObject(glassRoot,"CanopyGlass_Port",pane,canopy,Vector3.zero); left.localScale=new Vector3(1,1,1);
             Transform right=MeshObject(glassRoot,"CanopyGlass_Starboard",pane,canopy,Vector3.zero); right.localScale=new Vector3(-1,1,1);
 
+            CreateRearCockpit(cockpit);
             CreateLiveAvionics(cockpit);
+            SaveCockpitVisual(cockpit);
+        }
+
+        private static void CreateRearCockpit(Transform cockpit)
+        {
+            Transform rear=Child(cockpit,"RestoredRearCockpit");
+
+            // A mostly-metal pressure shell with deliberately bounded observation glass.
+            Panel(rear,"Floor_Port",new Vector3(-1.38f,-1.13f,-.72f),new Vector3(1.45f,.16f,3.1f),metal,default,.035f);
+            Panel(rear,"Floor_Starboard",new Vector3(1.38f,-1.13f,-.72f),new Vector3(1.45f,.16f,3.1f),metal,default,.035f);
+            Panel(rear,"Floor_AftBridge",new Vector3(0,-1.13f,-2.12f),new Vector3(1.35f,.16f,.42f),dark,default,.028f);
+            Panel(rear,"Floor_ForwardBridge",new Vector3(0,-1.13f,.62f),new Vector3(1.35f,.16f,.42f),dark,default,.028f);
+            Panel(rear,"FloorObservationGlass",new Vector3(0,-1.055f,-.74f),new Vector3(1.28f,.018f,2.35f),canopy,default,.006f);
+
+            Panel(rear,"RearBulkhead_Port",new Vector3(-1.62f,.06f,-2.47f),new Vector3(1.05f,2.35f,.22f),metal,default,.045f);
+            Panel(rear,"RearBulkhead_Starboard",new Vector3(1.62f,.06f,-2.47f),new Vector3(1.05f,2.35f,.22f),metal,default,.045f);
+            Panel(rear,"RearBulkhead_Lower",new Vector3(0,-.78f,-2.47f),new Vector3(2.35f,.68f,.22f),dark,default,.045f);
+            Panel(rear,"RearBulkhead_Upper",new Vector3(0,1.28f,-2.47f),new Vector3(2.35f,.62f,.22f),dark,default,.045f);
+            Panel(rear,"RearObservationGlass",new Vector3(0,.30f,-2.355f),new Vector3(2.12f,1.25f,.018f),canopy,default,.008f);
+            Panel(rear,"RearWindowFrame_Top",new Vector3(0,.99f,-2.34f),new Vector3(2.34f,.12f,.12f),edge,default,.012f);
+            Panel(rear,"RearWindowFrame_Bottom",new Vector3(0,-.39f,-2.34f),new Vector3(2.34f,.12f,.12f),edge,default,.012f);
+            Panel(rear,"RearWindowFrame_Port",new Vector3(-1.11f,.30f,-2.34f),new Vector3(.12f,1.50f,.12f),edge,default,.012f);
+            Panel(rear,"RearWindowFrame_Starboard",new Vector3(1.11f,.30f,-2.34f),new Vector3(.12f,1.50f,.12f),edge,default,.012f);
+
+            for(int side=-1;side<=1;side+=2)
+            {
+                string s=side<0?"Port":"Starboard";
+                Panel(rear,s+"SideLowerArmor",new Vector3(side*2.38f,-.52f,-.42f),new Vector3(.20f,1.02f,2.85f),metal,default,.04f);
+                Panel(rear,s+"SideUpperArmor",new Vector3(side*2.38f,1.30f,-.42f),new Vector3(.20f,.50f,2.85f),dark,default,.04f);
+                Panel(rear,s+"ObservationGlass",new Vector3(side*2.27f,.38f,-.42f),new Vector3(.018f,1.20f,2.55f),canopy,default,.006f);
+                Beam(rear,s+"AftFrame",new Vector3(side*2.13f,-1.02f,-1.98f),new Vector3(side*2.13f,1.48f,-1.98f),.16f,.20f,metal);
+                for(int i=0;i<3;i++)
+                {
+                    float z=-1.64f+i*1.20f;
+                    Beam(rear,s+"ObservationRib_"+i,new Vector3(side*2.22f,-1.02f,z),new Vector3(side*2.22f,1.52f,z),.10f,.14f,edge);
+                }
+                Beam(rear,s+"CeilingRail",new Vector3(side*2.10f,1.52f,-2.05f),new Vector3(side*2.65f,2.30f,1.65f),.13f,.18f,dark);
+                Beam(rear,s+"FloorRail",new Vector3(side*2.04f,-1.04f,-2.05f),new Vector3(side*2.44f,-.94f,1.35f),.13f,.20f,metal);
+                Panel(rear,s+"MechanicalPanel",new Vector3(side*1.63f,-.52f,-2.32f),new Vector3(.56f,.38f,.08f),dark,default,.018f);
+                for(int i=0;i<5;i++)Panel(rear,s+"MechanicalVent"+i,new Vector3(side*(1.45f+i*.09f),-.52f,-2.267f),new Vector3(.04f,.22f,.012f),edge,default,.002f);
+                Panel(rear,s+"GuideHousing",new Vector3(side*1.15f,-.92f,-2.31f),new Vector3(.62f,.08f,.055f),dark,default,.008f);
+                Panel(rear,s+"GuideLight",new Vector3(side*1.15f,-.915f,-2.275f),new Vector3(.48f,.022f,.01f),cyan,default,.001f);
+            }
+            Panel(rear,"CeilingSpine",new Vector3(0,1.76f,-.40f),new Vector3(.42f,.20f,3.75f),dark,default,.035f);
+            for(int i=0;i<4;i++)
+            {
+                float z=-1.92f+i*1.03f;
+                Beam(rear,"CeilingRib_Port_"+i,new Vector3(-2.03f,1.50f,z),new Vector3(-.22f,1.80f,z),.10f,.16f,metal);
+                Beam(rear,"CeilingRib_Starboard_"+i,new Vector3(.22f,1.80f,z),new Vector3(2.03f,1.50f,z),.10f,.16f,metal);
+                Panel(rear,"CeilingGuide_"+i,new Vector3(0,1.655f,z),new Vector3(.34f,.035f,.18f),i==0?amber:cyan,default,.004f);
+            }
+            Combine(rear,"RestoredRearCockpit_");
         }
 
         private static void CreateLiveAvionics(Transform cockpit)
         {
-            Transform root=Child(cockpit,"LiveAvionics");
+            Transform systems=Child(cockpit.parent,"CockpitSystems");
+            Transform root=Child(systems,"LiveAvionics");
             Transform leftHousing=cockpit.Find("PortPrimary"),rightHousing=cockpit.Find("StarboardPrimary"),nav=cockpit.Find("Navigation");
             Transform leftSecondary=cockpit.Find("PortSecondary"),rightSecondary=cockpit.Find("StarboardSecondary");
             if(leftHousing==null||rightHousing==null||nav==null||leftSecondary==null||rightSecondary==null)throw new InvalidOperationException("Premium avionics housings are missing.");
             Remove(leftHousing,"LiveShipStatus"); Remove(leftHousing,"LiveShipBacking"); Remove(rightHousing,"LiveThreatAnalysis"); Remove(rightHousing,"LiveThreatBacking"); Remove(nav,"LiveRadar"); Remove(nav,"LiveRadarText");
             Remove(leftSecondary,"LiveWeaponStatus");Remove(leftSecondary,"LiveWeaponBacking");Remove(rightSecondary,"LiveSystemsStatus");Remove(rightSecondary,"LiveSystemsBacking");
-            DisableReadout(leftHousing); DisableReadout(rightHousing); DisableReadout(nav);
-            DisableReadout(leftSecondary);DisableReadout(rightSecondary);
-            Mesh liveBacking=PremiumMeshBuilder.Panel("LiveSideDisplayBacking",.515f,.335f,.004f,.018f,.001f);
-            MeshObject(leftHousing,"LiveShipBacking",liveBacking,radarGlass,new Vector3(0,0,-.067f));
-            MeshObject(rightHousing,"LiveThreatBacking",liveBacking,radarGlass,new Vector3(0,0,-.067f));
-            TMP_Text left=Text(leftHousing,"LiveShipStatus",.275f,new Vector2(.47f,.30f),new Vector3(0,0,-.072f),TextAlignmentOptions.TopLeft);
-            TMP_Text right=Text(rightHousing,"LiveThreatAnalysis",.245f,new Vector2(.47f,.30f),new Vector3(0,0,-.072f),TextAlignmentOptions.TopLeft);
-            left.color=new Color(.18f,.92f,1); right.color=new Color(.18f,.92f,1);
-            Mesh secondaryBacking=PremiumMeshBuilder.Panel("LiveSecondaryDisplayBacking",.435f,.325f,.004f,.018f,.001f);
-            MeshObject(leftSecondary,"LiveWeaponBacking",secondaryBacking,radarGlass,new Vector3(0,0,-.067f));
-            MeshObject(rightSecondary,"LiveSystemsBacking",secondaryBacking,radarGlass,new Vector3(0,0,-.067f));
-            TMP_Text weapon=Text(leftSecondary,"LiveWeaponStatus",.195f,new Vector2(.40f,.29f),new Vector3(0,0,-.072f),TextAlignmentOptions.TopLeft);
-            TMP_Text systems=Text(rightSecondary,"LiveSystemsStatus",.205f,new Vector2(.40f,.29f),new Vector3(0,0,-.072f),TextAlignmentOptions.TopLeft);
-            weapon.color=new Color(.18f,.92f,1);systems.color=new Color(.18f,.92f,1);
+            EnableReadout(leftHousing); EnableReadout(rightHousing); EnableReadout(leftSecondary); EnableReadout(rightSecondary); DisableReadout(nav);
+            var holograms=CreateHologramHud(systems);
             Transform radar=Child(nav,"LiveRadar"); radar.localPosition=new Vector3(0,0,-.069f);
             MeshObject(radar,"RadarBacking",PremiumMeshBuilder.Panel("LiveRadarBacking",.62f,.36f,.006f,.03f,.002f),radarGlass,Vector3.zero);
             Material line=AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/HudHairline.mat");
@@ -153,7 +198,51 @@ namespace MeteorDefenseVR.Editor
             var spawner=UnityEngine.Object.FindAnyObjectByType<MeteorSpawner>(FindObjectsInactive.Include);
             presentation.Configure(spawner,UnityEngine.Object.FindAnyObjectByType<PlayerHealth>(FindObjectsInactive.Include),
                 UnityEngine.Object.FindAnyObjectByType<GameSessionStats>(FindObjectsInactive.Include),UnityEngine.Object.FindAnyObjectByType<DifficultyManager>(FindObjectsInactive.Include),
-                spawner!=null?GameObject.Find("PlayerRig")?.transform:null,left,right,radarText,sweep,blips,weapon,systems);
+                spawner!=null?GameObject.Find("PlayerRig")?.transform:null,holograms.shipText,holograms.threatText,radarText,sweep,blips,holograms.weaponText,holograms.systemsText,holograms.shipGroup,holograms.threatGroup);
+        }
+
+        private static (TMP_Text shipText,TMP_Text threatText,TMP_Text weaponText,TMP_Text systemsText,CanvasGroup shipGroup,CanvasGroup threatGroup) CreateHologramHud(Transform systems)
+        {
+            Transform existing=systems.Find("CockpitHologramHUD");if(existing!=null)UnityEngine.Object.DestroyImmediate(existing.gameObject);
+            var go=new GameObject("CockpitHologramHUD",typeof(RectTransform),typeof(Canvas),typeof(UnityEngine.UI.CanvasScaler));go.transform.SetParent(systems,false);
+            var canvas=go.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=Camera.main;canvas.planeDistance=1.25f;canvas.sortingOrder=32;
+            var scaler=go.GetComponent<UnityEngine.UI.CanvasScaler>();scaler.uiScaleMode=UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1920,1080);scaler.matchWidthOrHeight=.5f;
+            var left=CreateHologramPanel(go.transform,"ShipStatusHologram",new Vector2(.115f,.47f));
+            var right=CreateHologramPanel(go.transform,"ThreatStatusHologram",new Vector2(.885f,.47f));
+            TMP_Text ship=HudText(left.root,"LiveShipStatus",new Vector2(-122,78),new Vector2(250,118),17,TextAlignmentOptions.TopLeft);
+            TMP_Text threat=HudText(right.root,"LiveThreatAnalysis",new Vector2(-122,78),new Vector2(250,102),17,TextAlignmentOptions.TopLeft);
+            TMP_Text weapon=HudText(right.root,"LiveWeaponStatus",new Vector2(-122,-34),new Vector2(250,80),14,TextAlignmentOptions.TopLeft);
+            TMP_Text sensor=HudText(left.root,"LiveSystemsStatus",new Vector2(-122,-51),new Vector2(250,52),13,TextAlignmentOptions.TopLeft);
+            return(ship,threat,weapon,sensor,left.group,right.group);
+        }
+
+        private static (RectTransform root,CanvasGroup group) CreateHologramPanel(Transform parent,string name,Vector2 anchor)
+        {
+            var go=new GameObject(name,typeof(RectTransform),typeof(CanvasGroup),typeof(UnityEngine.UI.Image),typeof(UnityEngine.UI.Outline));go.transform.SetParent(parent,false);
+            var rect=(RectTransform)go.transform;rect.anchorMin=rect.anchorMax=anchor;rect.pivot=new Vector2(.5f,.5f);rect.sizeDelta=new Vector2(286,228);rect.anchoredPosition=Vector2.zero;
+            var image=go.GetComponent<UnityEngine.UI.Image>();image.color=new Color(.005f,.055f,.075f,.22f);image.raycastTarget=false;
+            var outline=go.GetComponent<UnityEngine.UI.Outline>();outline.effectColor=new Color(.08f,.88f,1f,.42f);outline.effectDistance=new Vector2(1.5f,-1.5f);outline.useGraphicAlpha=true;
+            var group=go.GetComponent<CanvasGroup>();group.alpha=.46f;group.interactable=false;group.blocksRaycasts=false;
+            HudLine(rect,"TopLine",new Vector2(0,106),new Vector2(250,2));HudLine(rect,"BottomLine",new Vector2(0,-106),new Vector2(250,2));
+            return(rect,group);
+        }
+
+        private static void HudLine(RectTransform parent,string name,Vector2 position,Vector2 size)
+        {
+            var go=new GameObject(name,typeof(RectTransform),typeof(UnityEngine.UI.Image));go.transform.SetParent(parent,false);var rect=(RectTransform)go.transform;rect.sizeDelta=size;rect.anchoredPosition=position;
+            var image=go.GetComponent<UnityEngine.UI.Image>();image.color=new Color(.08f,.88f,1f,.58f);image.raycastTarget=false;
+        }
+
+        private static TMP_Text HudText(RectTransform parent,string name,Vector2 position,Vector2 size,float fontSize,TextAlignmentOptions alignment)
+        {
+            var go=new GameObject(name,typeof(RectTransform));go.transform.SetParent(parent,false);var rect=(RectTransform)go.transform;rect.pivot=new Vector2(0,1);rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.anchoredPosition=position;rect.sizeDelta=size;
+            var text=go.AddComponent<TextMeshProUGUI>();text.font=font;text.fontSize=fontSize;text.alignment=alignment;text.textWrappingMode=TextWrappingModes.NoWrap;text.raycastTarget=false;text.color=new Color(.2f,.95f,1f);text.overflowMode=TextOverflowModes.Overflow;return text;
+        }
+
+        private static void SaveCockpitVisual(Transform cockpit)
+        {
+            if(cockpit==null)return;Directory.CreateDirectory(Root+"/Prefabs");
+            PrefabUtility.SaveAsPrefabAsset(cockpit.gameObject,CockpitVisualPrefab);
         }
 
         private static void UpgradeEarth()
@@ -201,6 +290,7 @@ namespace MeteorDefenseVR.Editor
             Transform t=Child(parent,name);t.localPosition=position;var text=t.gameObject.AddComponent<TextMeshPro>();text.font=font;text.fontSize=size;text.alignment=alignment;text.textWrappingMode=TextWrappingModes.NoWrap;text.raycastTarget=false;text.rectTransform.sizeDelta=bounds;text.fontStyle=FontStyles.Normal;text.lineSpacing=-18;text.overflowMode=TextOverflowModes.Truncate;return text;
         }
         private static void DisableReadout(Transform housing){var readout=housing.Find("Readout");if(readout!=null&&readout.TryGetComponent(out Renderer r))r.enabled=false;}
+        private static void EnableReadout(Transform housing){var readout=housing.Find("Readout");if(readout!=null&&readout.TryGetComponent(out Renderer r))r.enabled=true;}
         private static void Cross(Transform root,string name,Material material)
         {
             Transform t=Child(root,name);var line=t.gameObject.AddComponent<LineRenderer>();ConfigureLine(line,material,.0015f,false);line.positionCount=5;

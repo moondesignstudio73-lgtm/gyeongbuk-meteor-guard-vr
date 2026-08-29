@@ -1,5 +1,6 @@
 using System;
 using MeteorDefenseVR.Combat;
+using MeteorDefenseVR.Core;
 using MeteorDefenseVR.Difficulty;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Meteor;
@@ -18,6 +19,7 @@ namespace MeteorDefenseVR.Visual
         [SerializeField] private PlayerHealth health;
         [SerializeField] private GameSessionStats stats;
         [SerializeField] private DifficultyManager difficulty;
+        [SerializeField] private GameFlowManager flow;
         [SerializeField] private CockpitDamagePresentation damagePresentation;
         [SerializeField] private LaserWeapon weapon;
         [SerializeField] private TurretAimingSystem turrets;
@@ -27,6 +29,8 @@ namespace MeteorDefenseVR.Visual
         [SerializeField] private TMP_Text radarReadout;
         [SerializeField] private TMP_Text weaponStatus;
         [SerializeField] private TMP_Text systemsStatus;
+        [SerializeField] private CanvasGroup shipHologram;
+        [SerializeField] private CanvasGroup threatHologram;
         [SerializeField] private Transform radarSweep;
         [SerializeField] private Transform[] radarBlips = Array.Empty<Transform>();
         [SerializeField, Range(8, 16)] private int maximumBlips = 16;
@@ -54,6 +58,7 @@ namespace MeteorDefenseVR.Visual
         private bool firedTop;
         private bool firedBottom;
         private float lastTargetRange;
+        private float threatEmphasis;
 
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
         private static readonly int Color = Shader.PropertyToID("_Color");
@@ -72,11 +77,13 @@ namespace MeteorDefenseVR.Visual
 
         public void Configure(MeteorSpawner meteorSpawner, PlayerHealth playerHealth, GameSessionStats sessionStats,
             DifficultyManager manager, Transform reference, TMP_Text left, TMP_Text right, TMP_Text radar,
-            Transform sweep, Transform[] blips, TMP_Text weaponReadout=null, TMP_Text systemsReadout=null)
+            Transform sweep, Transform[] blips, TMP_Text weaponReadout=null, TMP_Text systemsReadout=null,
+            CanvasGroup shipGroup=null,CanvasGroup threatGroup=null)
         {
             spawner=meteorSpawner; health=playerHealth; stats=sessionStats; difficulty=manager; shipFrame=reference;
             shipStatus=left; threatAnalysis=right; radarReadout=radar; radarSweep=sweep; radarBlips=blips ?? Array.Empty<Transform>();
             weaponStatus=weaponReadout;systemsStatus=systemsReadout;
+            shipHologram=shipGroup;threatHologram=threatGroup;
             damagePresentation=FindAnyObjectByType<CockpitDamagePresentation>(FindObjectsInactive.Include);
             weapon=FindAnyObjectByType<LaserWeapon>(FindObjectsInactive.Include);turrets=FindAnyObjectByType<TurretAimingSystem>(FindObjectsInactive.Include);
         }
@@ -88,6 +95,7 @@ namespace MeteorDefenseVR.Visual
             float targetHealth=health!=null?health.HealthNormalized:1f;
             displayedHealth=Mathf.MoveTowards(displayedHealth,targetHealth,Time.unscaledDeltaTime*2.8f);
             UpdateMonitorDamage();
+            UpdateHolograms(targetHealth);
             UpdateLookPresentation();
             if (radarSweep != null) radarSweep.localRotation=Quaternion.Euler(0,0,-Time.unscaledTime*32f);
             if (Time.unscaledTime < nextRefresh) return;
@@ -99,9 +107,26 @@ namespace MeteorDefenseVR.Visual
             int level=damagePresentation!=null?damagePresentation.DamageLevel:0;
             int cadence=level>=3?11:19;bool flicker=level>=2&&((int)(Time.unscaledTime*24f)%cadence==0);
             float alpha=flicker?.48f:1f;
-            if(shipStatus!=null)shipStatus.alpha=alpha;if(threatAnalysis!=null)threatAnalysis.alpha=alpha;
             if(radarReadout!=null)radarReadout.alpha=alpha;if(weaponStatus!=null)weaponStatus.alpha=alpha;
             if(systemsStatus!=null)systemsStatus.alpha=alpha;
+        }
+
+        private void UpdateHolograms(float hp)
+        {
+            GameState state=flow!=null?flow.CurrentState:GameState.Boot;
+            bool combatVisible=state==GameState.Launch||state==GameState.Countdown||state==GameState.Playing||state==GameState.BossMeteor;
+            if(shipHologram!=null)
+            {
+                float damagePulse=Time.unscaledTime<statusPulseUntil ? Mathf.Lerp(.72f,1f,.5f+.5f*Mathf.Sin(Time.unscaledTime*24f)) : 0f;
+                float target=combatVisible?Mathf.Max(hp<.2f ? .84f : hp<.4f ? .66f : .46f,damagePulse):0f;
+                shipHologram.alpha=Mathf.MoveTowards(shipHologram.alpha,target,Time.unscaledDeltaTime*3.5f);
+            }
+            if(threatHologram!=null)
+            {
+                float target=combatVisible?Mathf.Lerp(.44f,.86f,threatEmphasis):0f;
+                if(threatEmphasis>.75f)target*=.92f+.08f*Mathf.Sin(Time.unscaledTime*10f);
+                threatHologram.alpha=Mathf.MoveTowards(threatHologram.alpha,target,Time.unscaledDeltaTime*3f);
+            }
         }
 
         private void ResolveReferences()
@@ -110,6 +135,7 @@ namespace MeteorDefenseVR.Visual
             if (boss == null) boss = FindAnyObjectByType<BossClimaxController>(FindObjectsInactive.Include);
             if (health == null) health = FindAnyObjectByType<PlayerHealth>(FindObjectsInactive.Include);
             if (difficulty == null) difficulty = FindAnyObjectByType<DifficultyManager>(FindObjectsInactive.Include);
+            if (flow == null) flow=GameFlowManager.Instance ?? FindAnyObjectByType<GameFlowManager>(FindObjectsInactive.Include);
             if (damagePresentation == null) damagePresentation=FindAnyObjectByType<CockpitDamagePresentation>(FindObjectsInactive.Include);
             if (weapon == null) weapon=FindAnyObjectByType<LaserWeapon>(FindObjectsInactive.Include);
             if (turrets == null) turrets=FindAnyObjectByType<TurretAimingSystem>(FindObjectsInactive.Include);
@@ -155,6 +181,7 @@ namespace MeteorDefenseVR.Visual
                 if(time<closestTime){closest=meteor;closestTime=time;closestDistance=distance;}
             }
             string risk=closest==null?"CLEAR":closestTime<5?"CRITICAL":"WARNING";
+            threatEmphasis=closest==null ? 0f : closestTime<5f ? 1f : closestTime<10f ? .65f : .32f;
             string vector=closest==null?"STABLE":Direction(closest.transform.position);
             if(threatAnalysis!=null) threatAnalysis.text=closest==null
                 ? $"THREAT // <color=#35F4FF>CLEAR</color>\nCONTACTS  00\nVECTOR    STABLE\nRANGE     ---m\nSCORE     {(stats!=null?stats.Score:0):N0}"

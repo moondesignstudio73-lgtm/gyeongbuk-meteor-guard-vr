@@ -20,7 +20,7 @@ namespace MeteorDefenseVR.Tests
         public IEnumerator Cleanup(){if(Application.isPlaying)yield return new ExitPlayMode();}
 
         [Test]
-        public void ClassicFiveMonitorPhysicalLayoutIsPreservedAndPanoramicCageIsHidden()
+        public void ClassicFiveMonitorPhysicalLayoutAndClosedRearShellArePreserved()
         {
             EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
             Transform geometry=GameObject.Find("LaunchSystem").transform.Find("CockpitGeometry");
@@ -32,10 +32,14 @@ namespace MeteorDefenseVR.Tests
             Assert.That(panoramic.Find("CanopyStructure").gameObject.activeSelf,Is.False);
             Assert.That(panoramic.Find("CanopyNavigationLights").gameObject.activeSelf,Is.False);
             for(int i=0;i<3;i++)Assert.That(panoramic.Find("RearTelemetry"+i).gameObject.activeSelf,Is.False);
+            Transform rear=cockpit.Find("RestoredRearCockpit");Assert.That(rear,Is.Not.Null);Assert.That(rear.gameObject.activeSelf,Is.True);
+            foreach(string part in new[]{"RearBulkhead_Port","RearBulkhead_Starboard","RearObservationGlass","CeilingSpine","FloorObservationGlass"})
+                Assert.That(rear.Find(part),Is.Not.Null,part);
+            Assert.That(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/Premium/Prefabs/CockpitVisual.prefab"),Is.Not.Null);
         }
 
         [Test]
-        public void EveryPhysicalMonitorHasARealRuntimeReadoutBinding()
+        public void CenterRadarIsLiveAndSideStatusUsesSeparateHolograms()
         {
             EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
             var telemetry=Object.FindAnyObjectByType<CockpitTelemetryPresentation>(FindObjectsInactive.Include);
@@ -49,6 +53,12 @@ namespace MeteorDefenseVR.Tests
             Assert.That(serialized.FindProperty("damagePresentation").objectReferenceValue,Is.Not.Null);
             Assert.That(serialized.FindProperty("weapon").objectReferenceValue,Is.Not.Null);
             Assert.That(serialized.FindProperty("turrets").objectReferenceValue,Is.Not.Null);
+            Assert.That(serialized.FindProperty("shipHologram").objectReferenceValue,Is.Not.Null);
+            Assert.That(serialized.FindProperty("threatHologram").objectReferenceValue,Is.Not.Null);
+            Transform cockpit=GameObject.Find("LaunchSystem").transform.Find("CockpitGeometry/PremiumCockpit");
+            foreach(string monitor in new[]{"PortSecondary","PortPrimary","StarboardPrimary","StarboardSecondary"})
+                Assert.That(cockpit.Find(monitor+"/Readout").GetComponent<Renderer>().enabled,Is.True,monitor);
+            Assert.That(cockpit.Find("Navigation/Readout").GetComponent<Renderer>().enabled,Is.False);
         }
 
         [UnityTest]

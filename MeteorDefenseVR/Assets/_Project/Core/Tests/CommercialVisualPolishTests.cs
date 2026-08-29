@@ -19,7 +19,7 @@ namespace MeteorDefenseVR.Tests
             Assert.That(cockpit.Find("CommercialMilitaryDetail"),Is.Not.Null);
             var glass=cockpit.Find("CommercialCanopy/CanopyGlass_Port").GetComponent<Renderer>();
             Assert.That(glass.sharedMaterial.shader.name,Is.EqualTo("MeteorDefense/Cockpit Canopy"));
-            var telemetry=cockpit.GetComponentInChildren<CockpitTelemetryPresentation>(true);
+            var telemetry=Object.FindAnyObjectByType<CockpitTelemetryPresentation>(FindObjectsInactive.Include);
             Assert.That(telemetry,Is.Not.Null);Assert.That(telemetry.RefreshRate,Is.InRange(2,10));
         }
 
