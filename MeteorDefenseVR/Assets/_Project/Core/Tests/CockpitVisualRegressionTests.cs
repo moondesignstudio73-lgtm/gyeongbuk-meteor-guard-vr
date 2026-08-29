@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Core;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.PcInput;
@@ -17,7 +18,7 @@ namespace MeteorDefenseVR.Tests
         public IEnumerator Cleanup(){if(Application.isPlaying)yield return new ExitPlayMode();}
 
         [UnityTest,Timeout(90000)]
-        public IEnumerator CaptureClosedCockpitAtFourHeadings()
+        public IEnumerator CaptureClosedCockpitAndTurretClearanceAtSixHeadings()
         {
             EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity",OpenSceneMode.Single);
             yield return new EnterPlayMode();
@@ -28,17 +29,21 @@ namespace MeteorDefenseVR.Tests
             while(flow.CurrentState!=GameState.Playing&&Time.realtimeSinceStartup<deadline)yield return null;
             Assert.That(flow.CurrentState,Is.EqualTo(GameState.Playing));
             using var probe=new PcStabilityProbe(Camera.main);
-            yield return Capture(probe,router,simulation,0f,"Front");
-            yield return Capture(probe,router,simulation,90f,"Right");
-            yield return Capture(probe,router,simulation,180f,"Rear");
-            yield return Capture(probe,router,simulation,-90f,"Left");
+            yield return Capture(probe,router,simulation,0f,0f,"Front");
+            yield return Capture(probe,router,simulation,90f,0f,"Right");
+            yield return Capture(probe,router,simulation,180f,0f,"Rear");
+            yield return Capture(probe,router,simulation,-90f,0f,"Left");
+            yield return Capture(probe,router,simulation,0f,65f,"Above");
+            yield return Capture(probe,router,simulation,0f,-65f,"Below");
         }
 
-        private static IEnumerator Capture(PcStabilityProbe probe,GazeInputRouter router,WindowsVRSimulation simulation,float yaw,string name)
+        private static IEnumerator Capture(PcStabilityProbe probe,GazeInputRouter router,WindowsVRSimulation simulation,float yaw,float pitch,string name)
         {
-            simulation.Recenter();simulation.ApplyLook(new Vector2(yaw/.1f,0),1f);
+            simulation.Recenter();simulation.ApplyLook(new Vector2(yaw/.1f,-pitch/.09f),1f);
             yield return new WaitForSecondsRealtime(.3f);
-            string directory=Path.Combine("Docs/CockpitRestoreQA","After",name);Directory.CreateDirectory(directory);
+            int layer=LayerMask.NameToLayer(TurretAimingSystem.PlayerHiddenLayerName);
+            Assert.That(Camera.main.cullingMask&(1<<layer),Is.Zero,name+" player camera turret layer");
+            string directory=Path.Combine("Docs/TurretClearanceQA","After",name);Directory.CreateDirectory(directory);
             probe.SaveGameOnlyProof(directory,router);
         }
     }

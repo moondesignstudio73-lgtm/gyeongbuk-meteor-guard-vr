@@ -7656,8 +7656,8 @@ Transform:
   m_GameObject: {fileID: 253413978}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.34}
-  m_LocalScale: {x: 0.095, y: 0.26, z: 0.095}
+  m_LocalPosition: {x: 0, y: 0, z: 0.23}
+  m_LocalScale: {x: 0.085, y: 0.16, z: 0.085}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 613912858}
@@ -16719,8 +16719,8 @@ Transform:
   m_GameObject: {fileID: 342803157}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.18}
-  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
+  m_LocalPosition: {x: 0, y: 0, z: 0.13}
+  m_LocalScale: {x: 0.105, y: 0.105, z: 0.105}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1512631928}
@@ -18874,6 +18874,34 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409270545}
   m_Mesh: {fileID: 4300000, guid: b620b128a4dacf7489ae302b487242b9, type: 2}
+--- !u!83 &419335902
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TurretCharge
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 22050
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source:
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source:
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &420055017
 GameObject:
   m_ObjectHideFlags: 0
@@ -24276,7 +24304,7 @@ Transform:
   m_GameObject: {fileID: 441220937}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.74}
+  m_LocalPosition: {x: 0, y: 0, z: 0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24969,7 +24997,7 @@ Transform:
   m_GameObject: {fileID: 458480321}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.74}
+  m_LocalPosition: {x: 0, y: 0, z: 0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39551,8 +39579,8 @@ Transform:
   m_GameObject: {fileID: 615227557}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.34}
-  m_LocalScale: {x: 0.095, y: 0.26, z: 0.095}
+  m_LocalPosition: {x: 0, y: 0, z: 0.23}
+  m_LocalScale: {x: 0.085, y: 0.16, z: 0.085}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1512631928}
@@ -39880,8 +39908,8 @@ Transform:
   m_GameObject: {fileID: 628833319}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.135, y: 0, z: 0.34}
-  m_LocalScale: {x: 0.045, y: 0.045, z: 0.5}
+  m_LocalPosition: {x: 0.12, y: 0, z: 0.23}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 613912858}
@@ -53532,6 +53560,7 @@ MonoBehaviour:
   health: {fileID: 497783506}
   stats: {fileID: 1008454844}
   difficulty: {fileID: 0}
+  flow: {fileID: 0}
   damagePresentation: {fileID: 497783508}
   weapon: {fileID: 662738899}
   turrets: {fileID: 959863294}
@@ -57234,8 +57263,8 @@ Transform:
   m_GameObject: {fileID: 836617168}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.135, y: 0, z: 0.34}
-  m_LocalScale: {x: 0.045, y: 0.045, z: 0.5}
+  m_LocalPosition: {x: -0.12, y: 0, z: 0.23}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 613912858}
@@ -60222,6 +60251,34 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926987354}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!83 &927871155
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TurretServo
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 22050
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source:
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source:
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &930524578
 GameObject:
   m_ObjectHideFlags: 0
@@ -60396,8 +60453,8 @@ Transform:
   m_GameObject: {fileID: 931055308}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.63}
-  m_LocalScale: {x: 0.15, y: 0.055, z: 0.15}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4}
+  m_LocalScale: {x: 0.13, y: 0.05, z: 0.13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1512631928}
@@ -66005,7 +66062,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshPro
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -66780,6 +66837,7 @@ GameObject:
   m_Component:
   - component: {fileID: 959863295}
   - component: {fileID: 959863294}
+  - component: {fileID: 959863296}
   m_Layer: 0
   m_Name: ExternalTurretSystem
   m_TagString: Untagged
@@ -66857,6 +66915,21 @@ Transform:
   - {fileID: 1572870012}
   m_Father: {fileID: 647596244}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &959863296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959863293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54a0ebef0ca7e8439db4f43d749d183, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Combat.TurretPlayerVisibilityGuard
+  visualRoot: {fileID: 959863295}
+  playerCamera: {fileID: 103985005}
+  hiddenLayerName: TurretPlayerHidden
 --- !u!1 &961955396
 GameObject:
   m_ObjectHideFlags: 0
@@ -77503,7 +77576,7 @@ Transform:
   m_GameObject: {fileID: 1226677223}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7, y: 1.55, z: -1.1}
+  m_LocalPosition: {x: -3.2, y: 1.95, z: -2.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -80135,8 +80208,8 @@ Transform:
   m_GameObject: {fileID: 1282022907}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.135, y: 0, z: 0.34}
-  m_LocalScale: {x: 0.045, y: 0.045, z: 0.5}
+  m_LocalPosition: {x: 0.12, y: 0, z: 0.23}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1512631928}
@@ -82705,7 +82778,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 2021609067}
+  m_Resource: {fileID: 927871155}
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
@@ -88396,34 +88469,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378370146}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!83 &1378436108
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: TurretCharge
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 22050
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &1379312750
 GameObject:
   m_ObjectHideFlags: 0
@@ -92867,7 +92912,7 @@ Transform:
   m_GameObject: {fileID: 1500671113}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7, y: -1.45, z: -1.1}
+  m_LocalPosition: {x: 3.2, y: -1.85, z: -2.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -94905,7 +94950,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 1378436108}
+  m_Resource: {fileID: 419335902}
   m_PlayOnAwake: 0
   m_Volume: 0.11
   m_Pitch: 1
@@ -100837,8 +100882,8 @@ Transform:
   m_GameObject: {fileID: 1619775047}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.63}
-  m_LocalScale: {x: 0.15, y: 0.055, z: 0.15}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4}
+  m_LocalScale: {x: 0.13, y: 0.05, z: 0.13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 613912858}
@@ -108511,8 +108556,8 @@ Transform:
   m_GameObject: {fileID: 1705132667}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.135, y: 0, z: 0.34}
-  m_LocalScale: {x: 0.045, y: 0.045, z: 0.5}
+  m_LocalPosition: {x: -0.12, y: 0, z: 0.23}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1512631928}
@@ -124290,8 +124335,8 @@ Transform:
   m_GameObject: {fileID: 1873220478}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.18}
-  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
+  m_LocalPosition: {x: 0, y: 0, z: 0.13}
+  m_LocalScale: {x: 0.105, y: 0.105, z: 0.105}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 613912858}
@@ -134231,34 +134276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MeteorDefenseVR.PcInput::MeteorDefenseVR.PcInput.LocalRankingController
   maximumRecords: 100
---- !u!83 &2021609067
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: TurretServo
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 22050
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &2026273773
 GameObject:
   m_ObjectHideFlags: 0

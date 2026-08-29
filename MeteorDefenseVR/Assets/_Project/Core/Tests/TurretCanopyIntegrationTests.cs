@@ -91,6 +91,7 @@ namespace MeteorDefenseVR.Tests
             TurretAimingSystem sceneAiming=Object.FindAnyObjectByType<TurretAimingSystem>();
             Assert.That(sceneAiming,Is.Not.Null);Assert.That(sceneAiming.TopMuzzle,Is.Not.Null);Assert.That(sceneAiming.BottomMuzzle,Is.Not.Null);
             Assert.That(sceneAiming.TopMuzzle.IsChildOf(sceneAiming.transform),Is.True);Assert.That(sceneAiming.BottomMuzzle.IsChildOf(sceneAiming.transform),Is.True);
+            Assert.That(sceneAiming.GetComponent<TurretPlayerVisibilityGuard>(),Is.Not.Null);
             var glass=GameObject.Find("LaunchSystem").transform.Find("CockpitGeometry/PanoramicCanopy/CanopyGlass360");
             Assert.That(glass,Is.Not.Null);Assert.That(glass.GetComponent<MeshRenderer>().sharedMaterial.shader.name,Is.EqualTo("MeteorDefense/Cockpit Canopy"));
             Assert.That(glass.GetComponentsInChildren<Renderer>(true).Length,Is.EqualTo(1),"Panoramic glass must remain one batched transparent renderer");
@@ -107,16 +108,29 @@ namespace MeteorDefenseVR.Tests
             var sceneAiming=Object.FindAnyObjectByType<TurretAimingSystem>();var camera=Camera.main;
             int layer=LayerMask.NameToLayer(TurretAimingSystem.PlayerHiddenLayerName);
             Assert.That(layer,Is.GreaterThanOrEqualTo(8));Assert.That(camera.cullingMask&(1<<layer),Is.Zero);
-            Assert.That(Mathf.Abs(sceneAiming.TopRoot.localPosition.x),Is.GreaterThanOrEqualTo(2.5f));
-            Assert.That(Mathf.Abs(sceneAiming.BottomRoot.localPosition.x),Is.GreaterThanOrEqualTo(2.5f));
-            Assert.That(sceneAiming.TopRoot.localPosition.z,Is.LessThanOrEqualTo(-.8f));
-            Assert.That(sceneAiming.BottomRoot.localPosition.z,Is.LessThanOrEqualTo(-.8f));
-            Assert.That(sceneAiming.TopMuzzle.localPosition.z,Is.LessThanOrEqualTo(.8f));
-            Assert.That(sceneAiming.BottomMuzzle.localPosition.z,Is.LessThanOrEqualTo(.8f));
+            Assert.That(Mathf.Abs(sceneAiming.TopRoot.localPosition.x),Is.GreaterThanOrEqualTo(3f));
+            Assert.That(Mathf.Abs(sceneAiming.BottomRoot.localPosition.x),Is.GreaterThanOrEqualTo(3f));
+            Assert.That(sceneAiming.TopRoot.localPosition.z,Is.LessThanOrEqualTo(-2f));
+            Assert.That(sceneAiming.BottomRoot.localPosition.z,Is.LessThanOrEqualTo(-2f));
+            Assert.That(sceneAiming.TopMuzzle.localPosition.z,Is.LessThanOrEqualTo(.5f));
+            Assert.That(sceneAiming.BottomMuzzle.localPosition.z,Is.LessThanOrEqualTo(.5f));
             foreach(Renderer renderer in sceneAiming.GetComponentsInChildren<Renderer>(true))
                 Assert.That(renderer.gameObject.layer,Is.EqualTo(layer),renderer.name+" must be player-hidden exterior geometry");
             var spectator=Object.FindAnyObjectByType<DesktopSpectatorController>(FindObjectsInactive.Include);
             Assert.That(spectator.SpectatorIncludedMask&(1<<layer),Is.Not.Zero);
+        }
+
+        [Test]
+        public void RuntimeVisibilityGuardRepairsOverwrittenPlayerMaskAndRendererLayer()
+        {
+            EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity",OpenSceneMode.Single);
+            var guard=Object.FindAnyObjectByType<TurretPlayerVisibilityGuard>(FindObjectsInactive.Include);
+            var camera=Camera.main;int layer=LayerMask.NameToLayer(TurretAimingSystem.PlayerHiddenLayerName);int mask=1<<layer;
+            Assert.That(guard,Is.Not.Null);camera.cullingMask|=mask;
+            Renderer renderer=guard.GetComponentInChildren<Renderer>(true);renderer.gameObject.layer=0;
+            guard.ApplyNow();
+            Assert.That(camera.cullingMask&mask,Is.Zero,"Runtime guard must recover from a camera mask overwrite");
+            Assert.That(renderer.gameObject.layer,Is.EqualTo(layer),"Runtime guard must recover a misplaced turret renderer");
         }
 
         [Test]

@@ -167,10 +167,13 @@ namespace MeteorDefenseVR.Editor
             Material dark=AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/Premium/Materials/AnodizedCarbon.mat");
             Material edge=AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/Premium/Materials/MachinedEdges.mat");
             Material cyan=AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/Premium/Materials/InstrumentCyan.mat");
-            // Off-axis, aft exterior mounts keep the entire central and bottom observation view clear.
-            var top=BuildTurret(systemRoot,"LaserTurret_Top",new Vector3(-2.7f,1.55f,-1.1f),metal,dark,edge,cyan,false);
-            var bottom=BuildTurret(systemRoot,"LaserTurret_Bottom",new Vector3(2.7f,-1.45f,-1.1f),metal,dark,edge,cyan,true);
+            // Exterior/aft mounts keep the central +/-30 x +/-25 degree observation cone clear.
+            // The runtime visibility guard is the final safety net for HMD/player cameras; the
+            // spectator camera deliberately includes this layer so the moving hardware is visible.
+            var top=BuildTurret(systemRoot,"LaserTurret_Top",new Vector3(-3.2f,1.95f,-2.15f),metal,dark,edge,cyan,false);
+            var bottom=BuildTurret(systemRoot,"LaserTurret_Bottom",new Vector3(3.2f,-1.85f,-2.15f),metal,dark,edge,cyan,true);
             foreach(Renderer renderer in systemRoot.GetComponentsInChildren<Renderer>(true))renderer.gameObject.layer=playerHiddenLayer;
+            var visibility=Get<TurretPlayerVisibilityGuard>(systemRoot.gameObject);visibility.Configure(systemRoot,playerCamera);
             AudioSource servo=Get<AudioSource>(Child(systemRoot,"TurretServoAudio").gameObject);ConfigureTurretAudio(servo,true,.55f);
             AudioSource charge=Get<AudioSource>(Child(systemRoot,"TurretChargeAudio").gameObject);ConfigureTurretAudio(charge,false,.45f);
             var weapon=GameObject.Find("CombatSystem")?.GetComponent<LaserWeapon>();if(weapon==null)throw new System.InvalidOperationException("Laser weapon missing");
@@ -189,12 +192,12 @@ namespace MeteorDefenseVR.Editor
             Part(yaw,"YawHousing",cylinder,metal,new Vector3(0,inverted?-.02f:.15f,0),new Vector3(.26f,.15f,.26f),Quaternion.identity);
             Transform pitch=Child(yaw,"PitchPivot");pitch.localPosition=new Vector3(0,inverted?-.11f:.23f,0);pitch.localRotation=Quaternion.identity;pitch.localScale=Vector3.one;
             Part(pitch,"Trunnion",cylinder,edge,Vector3.zero,new Vector3(.16f,.24f,.16f),Quaternion.Euler(0,0,90));
-            Part(pitch,"Barrel",cylinder,dark,new Vector3(0,0,.34f),new Vector3(.095f,.26f,.095f),Quaternion.Euler(90,0,0));
-            Part(pitch,"BarrelRail_L",cube,metal,new Vector3(-.135f,0,.34f),new Vector3(.045f,.045f,.50f),Quaternion.identity);
-            Part(pitch,"BarrelRail_R",cube,metal,new Vector3(.135f,0,.34f),new Vector3(.045f,.045f,.50f),Quaternion.identity);
-            Renderer core=Part(pitch,"EnergyCore",sphere,cyan,new Vector3(0,0,.18f),Vector3.one*.12f,Quaternion.identity);
-            Renderer ring=Part(pitch,"MuzzleRing",cylinder,cyan,new Vector3(0,0,.63f),new Vector3(.15f,.055f,.15f),Quaternion.Euler(90,0,0));
-            Transform muzzle=Child(pitch,"Muzzle");muzzle.localPosition=new Vector3(0,0,.74f);muzzle.localRotation=Quaternion.identity;muzzle.localScale=Vector3.one;
+            Part(pitch,"Barrel",cylinder,dark,new Vector3(0,0,.23f),new Vector3(.085f,.16f,.085f),Quaternion.Euler(90,0,0));
+            Part(pitch,"BarrelRail_L",cube,metal,new Vector3(-.12f,0,.23f),new Vector3(.04f,.04f,.30f),Quaternion.identity);
+            Part(pitch,"BarrelRail_R",cube,metal,new Vector3(.12f,0,.23f),new Vector3(.04f,.04f,.30f),Quaternion.identity);
+            Renderer core=Part(pitch,"EnergyCore",sphere,cyan,new Vector3(0,0,.13f),Vector3.one*.105f,Quaternion.identity);
+            Renderer ring=Part(pitch,"MuzzleRing",cylinder,cyan,new Vector3(0,0,.40f),new Vector3(.13f,.05f,.13f),Quaternion.Euler(90,0,0));
+            Transform muzzle=Child(pitch,"Muzzle");muzzle.localPosition=new Vector3(0,0,.48f);muzzle.localRotation=Quaternion.identity;muzzle.localScale=Vector3.one;
             Light light=Get<Light>(Child(muzzle,"MuzzleLight").gameObject);light.type=LightType.Point;light.range=2.8f;light.color=new Color(.2f,.72f,1);light.shadows=LightShadows.None;light.enabled=false;
             return new TurretAimingSystem.TurretMount{label=inverted?"BOTTOM":"TOP",root=root,yawPivot=yaw,pitchPivot=pitch,muzzle=muzzle,energyRenderers=new[]{core,ring},muzzleLight=light};
         }
