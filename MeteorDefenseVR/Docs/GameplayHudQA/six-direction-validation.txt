@@ -1,0 +1,6 @@
+Windows VR Simulation: six-direction Gameplay HUD validation
+Front, Left, Right, Rear, Above, Below: fixed Screen Space Camera layout passed
+Safe area: horizontal 4-5%, top 2-4%
+Stress values: EXTREME / STAGE 99 / ASTEROIDS 99 / 100 / SCORE 999,999
+Top panels and internal rows: no overlap; TMP preferred bounds fit their RectTransforms
+Legacy depth-tested HUD, LaunchStatus and MissionCompleteText renderers: hidden

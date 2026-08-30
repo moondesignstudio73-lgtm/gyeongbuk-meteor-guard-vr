@@ -122,6 +122,7 @@ namespace MeteorDefenseVR.Editor
             EnsureVrUxSystem(camera, raycaster);
             EnsurePerformanceSystem();
             PcTestSetup.Ensure(camera);
+            GameplayHudOverlaySetup.Ensure(camera);
 
             EditorSceneManager.MarkSceneDirty(game);
             EditorSceneManager.SaveScene(game);
