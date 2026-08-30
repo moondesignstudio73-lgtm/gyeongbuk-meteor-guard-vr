@@ -94,6 +94,7 @@ namespace MeteorDefenseVR.Editor
                 if(state=="boot")
                 {
                     var router=Object.FindAnyObjectByType<GazeInputRouter>();router.SetMode(PcGazeMode.WindowsVRSimulation);
+                    var experience=Object.FindAnyObjectByType<ExperienceConfiguration>();experience.Settings.experienceMode=ExperienceMode.Development;experience.Apply();
                     Object.FindAnyObjectByType<DifficultyManager>().Select(DifficultyLevel.Extreme);
                     GameFlowManager.Instance.StartMainGame();
                     SessionState.SetFloat(DeadlineKey,(float)EditorApplication.timeSinceStartup+8);SessionState.SetString(StateKey,"launch");return;

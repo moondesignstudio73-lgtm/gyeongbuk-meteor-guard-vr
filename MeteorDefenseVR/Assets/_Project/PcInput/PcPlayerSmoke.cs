@@ -20,7 +20,7 @@ namespace MeteorDefenseVR.PcInput
         private static void StartIfRequested()
         {
             string[] args = Environment.GetCommandLineArgs();
-            if (!args.Contains("--pc-smoke") && !args.Contains("--pc-camera-check") && !args.Contains("--pc-soak") && !args.Contains("--pc-webcam-stability")) return;
+            if (!args.Contains("--pc-smoke") && !args.Contains("--pc-camera-check") && !args.Contains("--pc-soak") && !args.Contains("--pc-webcam-stability") && !args.Contains("--pc-eight-direction")) return;
             if (Object.FindAnyObjectByType<PcPlayerSmoke>() != null) return;
             var root = new GameObject("OptInPcPlayerQA");
             DontDestroyOnLoad(root);
@@ -33,6 +33,11 @@ namespace MeteorDefenseVR.PcInput
             while (router == null && Time.realtimeSinceStartup - began < 25f)
             { router = Object.FindAnyObjectByType<GazeInputRouter>(); yield return null; }
             if (router == null) { Debug.LogError("[PCPlayerQA] Input router missing"); Application.Quit(2); yield break; }
+            if (Environment.GetCommandLineArgs().Contains("--pc-eight-direction"))
+            {
+                yield return PcEightDirectionPlayerQa.Run(router);
+                yield break;
+            }
             if (Environment.GetCommandLineArgs().Contains("--pc-webcam-stability"))
             {
                 yield return PcWebcamStabilityRunner.Run(router);
