@@ -42,13 +42,14 @@ namespace MeteorDefenseVR.Editor
             var boundary=Get<ShipCollisionBoundary>(boundaryTransform.gameObject);
             Object.FindAnyObjectByType<MeteorSpawner>().SetImpactBoundary(boundary);
             Object.FindAnyObjectByType<BossClimaxController>().SetImpactBoundary(boundary);
-            var points=new CockpitDamagePresentation.DamagePoint[5];
-            string[] labels={"Left","Center","Right","Upper","Bottom"};
+            var points=new CockpitDamagePresentation.DamagePoint[8];
+            string[] labels={"Left","Center","Right","Upper","Bottom","RearLeft","Rear","RearRight"};
+            Vector3[] anchorPositions={new Vector3(-1.13f,.10f,2.30f),new Vector3(0,-.51f,2.30f),new Vector3(1.13f,.10f,2.30f),new Vector3(0,1.9f,2.3f),new Vector3(0,-1.015f,.24f),new Vector3(-2.275f,.25f,-.95f),new Vector3(0,.22f,-2.35f),new Vector3(2.275f,.25f,-.95f)};
+            Quaternion[] anchorRotations={Quaternion.identity,Quaternion.identity,Quaternion.identity,Quaternion.identity,Quaternion.Euler(90,0,0),Quaternion.Euler(0,90,0),Quaternion.Euler(0,180,0),Quaternion.Euler(0,-90,0)};
             for(int i=0;i<points.Length;i++)
             {
                 var point=Child(root,"GlassImpact_"+labels[i]);
-                point.localPosition=i==3?new Vector3(0,1.9f,2.3f):i==4?new Vector3(0,-1.015f,.24f):new Vector3((i-1)*1.13f,i==1?-.51f:.10f,2.30f);
-                point.localRotation=i==4?Quaternion.Euler(90,0,0):Quaternion.identity;
+                point.localPosition=anchorPositions[i];point.localRotation=anchorRotations[i];
                 var cracks=new Renderer[4];
                 for(int level=0;level<4;level++)
                 {
@@ -57,12 +58,14 @@ namespace MeteorDefenseVR.Editor
                     if(i==1)cracks[level].transform.localScale=Vector3.one*.60f;
                     if(i==3)cracks[level].transform.localScale=Vector3.one*.72f;
                     if(i==4)cracks[level].transform.localScale=Vector3.one*.68f;
+                    if(i>=5)cracks[level].transform.localScale=Vector3.one*.70f;
                 }
                 var flash=MeshObject(point,"ImpactFlash",Quad("ImpactFlashStrong",.9f,.9f),soft);
                 flash.transform.localPosition=new Vector3(0,0,-.008f);
-                var spark=Particle(root,"SparkPoint_"+labels[i],sparkMaterial,64,.65f,2.8f,.040f);
-                spark.transform.localPosition=i==3?new Vector3(0,1.97f,2.12f):i==4?new Vector3(.48f,-.91f,.72f):new Vector3((i-1)*1.03f,i==1?-.42f:-.48f,1.58f);
-                spark.transform.localRotation=Quaternion.LookRotation(i==3?new Vector3(.2f,-1f,.1f):i==4?new Vector3(-.2f,1f,-.2f):new Vector3((i-1)*.28f,1f,.12f));
+                var spark=Particle(root,"SparkPoint_"+labels[i],sparkMaterial,i>=5?48:64,.65f,2.8f,.040f);
+                Vector3 sparkPosition=i==3?new Vector3(0,1.97f,2.12f):i==4?new Vector3(.48f,-.91f,.72f):i==5?new Vector3(-2.14f,-.62f,-1.00f):i==6?new Vector3(-.68f,-.80f,-2.28f):i==7?new Vector3(2.14f,-.62f,-1.00f):new Vector3((i-1)*1.03f,i==1?-.42f:-.48f,1.58f);
+                Vector3 sparkDirection=i==3?new Vector3(.2f,-1f,.1f):i==4?new Vector3(-.2f,1f,-.2f):i==5?new Vector3(1f,.7f,.2f):i==6?new Vector3(.2f,.8f,1f):i==7?new Vector3(-1f,.7f,.2f):new Vector3((i-1)*.28f,1f,.12f);
+                spark.transform.localPosition=sparkPosition;spark.transform.localRotation=Quaternion.LookRotation(sparkDirection);
                 var main=spark.main;main.gravityModifier=.32f;main.startColor=Color.white;
                 var scorch=MeshObject(root,"Scorch_"+labels[i],Quad("ScorchPatch",.30f,.19f),scorchMaterial);
                 var housing=premium.Find(i==0?"PortPrimary":i==1?"Navigation":i==2?"StarboardPrimary":"Navigation");
@@ -71,16 +74,20 @@ namespace MeteorDefenseVR.Editor
                     scorch.transform.SetPositionAndRotation(housing.TransformPoint(new Vector3(i==1?.14f:-.12f,.10f,-.076f)),housing.rotation);
                 }
                 else if(i==3) {scorch.transform.localPosition=new Vector3(0,2.03f,2.168f);scorch.transform.localScale=new Vector3(1.4f,.40f,1);}
-                else {scorch.transform.localPosition=new Vector3(.68f,-1.005f,.72f);scorch.transform.localRotation=Quaternion.Euler(90,0,0);scorch.transform.localScale=new Vector3(1.1f,.55f,1);}
+                else if(i==4) {scorch.transform.localPosition=new Vector3(.68f,-1.005f,.72f);scorch.transform.localRotation=Quaternion.Euler(90,0,0);scorch.transform.localScale=new Vector3(1.1f,.55f,1);}
+                else if(i==5) {scorch.transform.localPosition=new Vector3(-2.18f,-.70f,-1.03f);scorch.transform.localRotation=Quaternion.Euler(0,90,0);}
+                else if(i==6) {scorch.transform.localPosition=new Vector3(-.69f,-.77f,-2.28f);scorch.transform.localRotation=Quaternion.Euler(0,180,0);}
+                else {scorch.transform.localPosition=new Vector3(2.18f,-.70f,-1.03f);scorch.transform.localRotation=Quaternion.Euler(0,-90,0);}
                 ParticleSystem vapor=null,dust=null;
                 if(i!=1)
                 {
-                    vapor=Particle(root,"AirLeak_"+labels[i],vaporMaterial,12,.85f,1.7f,.12f);
-                    dust=Particle(root,"LeakDust_"+labels[i],soft,8,.65f,1.9f,.009f);
+                    vapor=Particle(root,"AirLeak_"+labels[i],vaporMaterial,i>=5?10:12,.85f,1.7f,.12f);
+                    dust=Particle(root,"LeakDust_"+labels[i],soft,i>=5?6:8,.65f,1.9f,.009f);
                     foreach(var ps in new[]{vapor,dust})
                     {
-                        ps.transform.localPosition=point.localPosition+(i==4?new Vector3(.22f,.02f,.18f):new Vector3(i==0?-.17f:i==2?.17f:0,0,-.12f));
-                        ps.transform.localRotation=Quaternion.LookRotation(i==4?new Vector3(.08f,-1f,.12f):new Vector3((i-1)*.16f,i==3?.15f:0,1));
+                        Vector3 leakOffset=i==4?new Vector3(.22f,.02f,.18f):i==5?new Vector3(.02f,.08f,.18f):i==6?new Vector3(.18f,.05f,.02f):i==7?new Vector3(-.02f,.08f,.18f):new Vector3(i==0?-.17f:i==2?.17f:0,0,-.12f);
+                        Vector3 leakDirection=i==4?new Vector3(.08f,-1f,.12f):i==5?new Vector3(-1f,.05f,-.25f):i==6?new Vector3(0,.05f,-1f):i==7?new Vector3(1f,.05f,-.25f):new Vector3((i-1)*.16f,i==3?.15f:0,1);
+                        ps.transform.localPosition=point.localPosition+leakOffset;ps.transform.localRotation=Quaternion.LookRotation(leakDirection);
                         var shape=ps.shape;shape.angle=6;shape.radius=.018f;
                         var m=ps.main;m.startColor=Color.white;
                         var c=ps.colorOverLifetime;var g=new Gradient();g.SetKeys(new[]{new GradientColorKey(Color.white,0),new GradientColorKey(new Color(.7f,.85f,1),1)},new[]{new GradientAlphaKey(.5f,0),new GradientAlphaKey(0,1)});c.color=g;
@@ -99,7 +106,7 @@ namespace MeteorDefenseVR.Editor
             for(int i=0;i<panels.Length;i++)
             {
                 var readout=premium.Find(panels[i]+"/Readout");
-                var display=readout.GetComponent<Renderer>();display.enabled=true;monitors.Add(display);
+                var display=readout.GetComponent<Renderer>();display.enabled=panels[i]!="Navigation";monitors.Add(display);
                 var staticRenderer=MeshObject(readout,"DamageStatic",NoiseMesh(panels[i]),glass);
                 staticRenderer.transform.localPosition=new Vector3(0,0,-.002f);noise.Add(staticRenderer);
             }

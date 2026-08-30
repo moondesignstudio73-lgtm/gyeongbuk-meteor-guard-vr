@@ -57,6 +57,22 @@ namespace MeteorDefenseVR.Editor
             Debug.Log("[ClassicCockpit] Five-monitor visual restored, closed rear cockpit rebuilt, live radar retained, and status data moved to side holograms.");
         }
 
+        public static void UpgradeRearPanoramaOnly()
+        {
+            var scene=EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
+            Directory.CreateDirectory(Root+"/Materials");Directory.CreateDirectory(Root+"/Meshes");
+            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/_Project/PcInput/Fonts/PcTestKorean.asset");
+            LoadMaterials();
+            Transform cockpit=GameObject.Find("LaunchSystem")?.transform.Find("CockpitGeometry/PremiumCockpit");
+            if(cockpit==null)throw new InvalidOperationException("PremiumCockpit was not found.");
+            Remove(cockpit,"RestoredRearCockpit");
+            CreateRearCockpit(cockpit);
+            SaveCockpitVisual(cockpit);
+            EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
+            CockpitDamageSetup.ApplyAndBake();
+            Debug.Log("[RearPanorama] Existing cockpit preserved; rear/side solid walls reduced, observation glass expanded, and directional rear damage anchors baked.");
+        }
+
         private static void LoadMaterials()
         {
             metal=AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/Titanium.mat");
@@ -121,49 +137,62 @@ namespace MeteorDefenseVR.Editor
         {
             Transform rear=Child(cockpit,"RestoredRearCockpit");
 
-            // A mostly-metal pressure shell with deliberately bounded observation glass.
-            Panel(rear,"Floor_Port",new Vector3(-1.38f,-1.13f,-.72f),new Vector3(1.45f,.16f,3.1f),metal,default,.035f);
-            Panel(rear,"Floor_Starboard",new Vector3(1.38f,-1.13f,-.72f),new Vector3(1.45f,.16f,3.1f),metal,default,.035f);
-            Panel(rear,"Floor_AftBridge",new Vector3(0,-1.13f,-2.12f),new Vector3(1.35f,.16f,.42f),dark,default,.028f);
-            Panel(rear,"Floor_ForwardBridge",new Vector3(0,-1.13f,.62f),new Vector3(1.35f,.16f,.42f),dark,default,.028f);
-            Panel(rear,"FloorObservationGlass",new Vector3(0,-1.055f,-.74f),new Vector3(1.28f,.018f,2.35f),canopy,default,.006f);
+            // Preserve the pressure-shell skeleton while turning its solid infill into a
+            // panoramic canopy. The narrow metal bands remain readable from every heading.
+            Panel(rear,"Floor_Port",new Vector3(-1.62f,-1.13f,-.72f),new Vector3(1.02f,.13f,3.25f),metal,default,.030f);
+            Panel(rear,"Floor_Starboard",new Vector3(1.62f,-1.13f,-.72f),new Vector3(1.02f,.13f,3.25f),metal,default,.030f);
+            Panel(rear,"Floor_AftBridge",new Vector3(0,-1.13f,-2.22f),new Vector3(2.22f,.13f,.28f),dark,default,.022f);
+            Panel(rear,"Floor_ForwardBridge",new Vector3(0,-1.13f,.76f),new Vector3(2.22f,.13f,.28f),dark,default,.022f);
+            Panel(rear,"FloorObservationGlass",new Vector3(0,-1.058f,-.74f),new Vector3(2.15f,.018f,2.84f),canopy,default,.006f);
 
-            Panel(rear,"RearBulkhead_Port",new Vector3(-1.62f,.06f,-2.47f),new Vector3(1.05f,2.35f,.22f),metal,default,.045f);
-            Panel(rear,"RearBulkhead_Starboard",new Vector3(1.62f,.06f,-2.47f),new Vector3(1.05f,2.35f,.22f),metal,default,.045f);
-            Panel(rear,"RearBulkhead_Lower",new Vector3(0,-.78f,-2.47f),new Vector3(2.35f,.68f,.22f),dark,default,.045f);
-            Panel(rear,"RearBulkhead_Upper",new Vector3(0,1.28f,-2.47f),new Vector3(2.35f,.62f,.22f),dark,default,.045f);
-            Panel(rear,"RearObservationGlass",new Vector3(0,.30f,-2.355f),new Vector3(2.12f,1.25f,.018f),canopy,default,.008f);
-            Panel(rear,"RearWindowFrame_Top",new Vector3(0,.99f,-2.34f),new Vector3(2.34f,.12f,.12f),edge,default,.012f);
-            Panel(rear,"RearWindowFrame_Bottom",new Vector3(0,-.39f,-2.34f),new Vector3(2.34f,.12f,.12f),edge,default,.012f);
-            Panel(rear,"RearWindowFrame_Port",new Vector3(-1.11f,.30f,-2.34f),new Vector3(.12f,1.50f,.12f),edge,default,.012f);
-            Panel(rear,"RearWindowFrame_Starboard",new Vector3(1.11f,.30f,-2.34f),new Vector3(.12f,1.50f,.12f),edge,default,.012f);
+            Panel(rear,"RearBulkhead_Port",new Vector3(-2.12f,-.69f,-2.47f),new Vector3(.26f,.55f,.20f),metal,default,.030f);
+            Panel(rear,"RearBulkhead_Port_Upper",new Vector3(-2.12f,1.17f,-2.47f),new Vector3(.26f,.70f,.20f),metal,default,.030f);
+            Panel(rear,"RearBulkhead_Starboard",new Vector3(2.12f,-.69f,-2.47f),new Vector3(.26f,.55f,.20f),metal,default,.030f);
+            Panel(rear,"RearBulkhead_Starboard_Upper",new Vector3(2.12f,1.17f,-2.47f),new Vector3(.26f,.70f,.20f),metal,default,.030f);
+            Panel(rear,"RearBulkhead_Lower",new Vector3(0,-.96f,-2.47f),new Vector3(4.42f,.30f,.20f),dark,default,.030f);
+            Panel(rear,"RearBulkhead_Upper",new Vector3(0,1.55f,-2.47f),new Vector3(4.42f,.28f,.20f),dark,default,.030f);
+            Panel(rear,"RearObservationGlass",new Vector3(0,.29f,-2.365f),new Vector3(4.02f,2.10f,.018f),canopy,default,.008f);
+            Panel(rear,"RearWindowFrame_Top",new Vector3(0,1.39f,-2.34f),new Vector3(4.18f,.075f,.105f),edge,default,.008f);
+            Panel(rear,"RearWindowFrame_Bottom",new Vector3(0,-.82f,-2.34f),new Vector3(4.18f,.075f,.105f),edge,default,.008f);
+            // Corner uprights are split around eye level so a threat at exactly +/-135 degrees
+            // cannot hide behind the structural seam. The upper/lower nodes remain connected.
+            TaperedBeam(rear,"RearWindowFrame_Port_Lower",new Vector3(-2.02f,-.83f,-2.34f),new Vector3(-2.02f,-.24f,-2.34f),.050f,.030f,.052f,metal);
+            TaperedBeam(rear,"RearWindowFrame_Port_Upper",new Vector3(-2.02f,.88f,-2.34f),new Vector3(-2.02f,1.41f,-2.34f),.030f,.050f,.052f,metal);
+            TaperedBeam(rear,"RearWindowFrame_Starboard_Lower",new Vector3(2.02f,-.83f,-2.34f),new Vector3(2.02f,-.24f,-2.34f),.050f,.030f,.052f,metal);
+            TaperedBeam(rear,"RearWindowFrame_Starboard_Upper",new Vector3(2.02f,.88f,-2.34f),new Vector3(2.02f,1.41f,-2.34f),.030f,.050f,.052f,metal);
+            TaperedBeam(rear,"RearWindowSplitter_Port",new Vector3(-.73f,-.81f,-2.33f),new Vector3(-.62f,1.38f,-2.33f),.045f,.026f,.046f,edge);
+            TaperedBeam(rear,"RearWindowSplitter_Starboard",new Vector3(.73f,-.81f,-2.33f),new Vector3(.62f,1.38f,-2.33f),.045f,.026f,.046f,edge);
 
             for(int side=-1;side<=1;side+=2)
             {
                 string s=side<0?"Port":"Starboard";
-                Panel(rear,s+"SideLowerArmor",new Vector3(side*2.38f,-.52f,-.42f),new Vector3(.20f,1.02f,2.85f),metal,default,.04f);
-                Panel(rear,s+"SideUpperArmor",new Vector3(side*2.38f,1.30f,-.42f),new Vector3(.20f,.50f,2.85f),dark,default,.04f);
-                Panel(rear,s+"ObservationGlass",new Vector3(side*2.27f,.38f,-.42f),new Vector3(.018f,1.20f,2.55f),canopy,default,.006f);
-                Beam(rear,s+"AftFrame",new Vector3(side*2.13f,-1.02f,-1.98f),new Vector3(side*2.13f,1.48f,-1.98f),.16f,.20f,metal);
-                for(int i=0;i<3;i++)
+                Panel(rear,s+"SideLowerArmor",new Vector3(side*2.39f,-.96f,-.36f),new Vector3(.17f,.30f,3.55f),metal,default,.028f);
+                Panel(rear,s+"SideUpperArmor",new Vector3(side*2.39f,1.52f,-.36f),new Vector3(.17f,.26f,3.55f),dark,default,.028f);
+                Panel(rear,s+"ObservationGlass",new Vector3(side*2.295f,.28f,-.36f),new Vector3(.018f,2.12f,3.45f),canopy,default,.006f);
+                TaperedBeam(rear,s+"AftFrameLower",new Vector3(side*2.24f,-1.03f,-2.12f),new Vector3(side*2.24f,-.28f,-2.12f),.048f,.028f,.052f,metal);
+                TaperedBeam(rear,s+"AftFrameUpper",new Vector3(side*2.24f,.90f,-2.12f),new Vector3(side*2.24f,1.55f,-2.12f),.028f,.048f,.052f,metal);
+                TaperedBeam(rear,s+"ForwardFrame",new Vector3(side*2.43f,-1.02f,1.43f),new Vector3(side*2.61f,1.68f,1.43f),.070f,.040f,.080f,metal);
+                for(int i=0;i<2;i++)
                 {
-                    float z=-1.64f+i*1.20f;
-                    Beam(rear,s+"ObservationRib_"+i,new Vector3(side*2.22f,-1.02f,z),new Vector3(side*2.22f,1.52f,z),.10f,.14f,edge);
+                    float z=-1.03f+i*1.43f;
+                    TaperedBeam(rear,s+"ObservationRib_"+i,new Vector3(side*2.27f,-1.00f,z),new Vector3(side*2.32f,1.50f,z+.13f),.050f,.030f,.052f,edge);
                 }
-                Beam(rear,s+"CeilingRail",new Vector3(side*2.10f,1.52f,-2.05f),new Vector3(side*2.65f,2.30f,1.65f),.13f,.18f,dark);
-                Beam(rear,s+"FloorRail",new Vector3(side*2.04f,-1.04f,-2.05f),new Vector3(side*2.44f,-.94f,1.35f),.13f,.20f,metal);
-                Panel(rear,s+"MechanicalPanel",new Vector3(side*1.63f,-.52f,-2.32f),new Vector3(.56f,.38f,.08f),dark,default,.018f);
+                TaperedBeam(rear,s+"CeilingRail",new Vector3(side*2.09f,1.47f,-2.17f),new Vector3(side*2.63f,2.27f,1.58f),.078f,.045f,.090f,dark);
+                TaperedBeam(rear,s+"FloorRail",new Vector3(side*2.05f,-1.06f,-2.17f),new Vector3(side*2.45f,-.96f,1.43f),.078f,.045f,.090f,metal);
+                Panel(rear,s+"MechanicalPanel",new Vector3(side*1.73f,-.74f,-2.32f),new Vector3(.46f,.24f,.07f),dark,default,.014f);
                 for(int i=0;i<5;i++)Panel(rear,s+"MechanicalVent"+i,new Vector3(side*(1.45f+i*.09f),-.52f,-2.267f),new Vector3(.04f,.22f,.012f),edge,default,.002f);
-                Panel(rear,s+"GuideHousing",new Vector3(side*1.15f,-.92f,-2.31f),new Vector3(.62f,.08f,.055f),dark,default,.008f);
-                Panel(rear,s+"GuideLight",new Vector3(side*1.15f,-.915f,-2.275f),new Vector3(.48f,.022f,.01f),cyan,default,.001f);
+                Panel(rear,s+"GuideHousing",new Vector3(side*1.35f,-.91f,-2.31f),new Vector3(.70f,.065f,.052f),dark,default,.007f);
+                Panel(rear,s+"GuideLight",new Vector3(side*1.35f,-.905f,-2.275f),new Vector3(.56f,.018f,.01f),cyan,default,.001f);
             }
-            Panel(rear,"CeilingSpine",new Vector3(0,1.76f,-.40f),new Vector3(.42f,.20f,3.75f),dark,default,.035f);
-            for(int i=0;i<4;i++)
+            Panel(rear,"CeilingSpine",new Vector3(0,1.76f,-.40f),new Vector3(.20f,.14f,3.78f),dark,default,.024f);
+            Panel(rear,"CeilingObservationGlass_Port",new Vector3(-1.08f,1.67f,-.40f),new Vector3(1.91f,.018f,3.50f),canopy,default,.006f);
+            Panel(rear,"CeilingObservationGlass_Starboard",new Vector3(1.08f,1.67f,-.40f),new Vector3(1.91f,.018f,3.50f),canopy,default,.006f);
+            for(int i=0;i<3;i++)
             {
-                float z=-1.92f+i*1.03f;
-                Beam(rear,"CeilingRib_Port_"+i,new Vector3(-2.03f,1.50f,z),new Vector3(-.22f,1.80f,z),.10f,.16f,metal);
-                Beam(rear,"CeilingRib_Starboard_"+i,new Vector3(.22f,1.80f,z),new Vector3(2.03f,1.50f,z),.10f,.16f,metal);
-                Panel(rear,"CeilingGuide_"+i,new Vector3(0,1.655f,z),new Vector3(.34f,.035f,.18f),i==0?amber:cyan,default,.004f);
+                float z=-1.83f+i*1.43f;
+                TaperedBeam(rear,"CeilingRib_Port_"+i,new Vector3(-2.05f,1.49f,z),new Vector3(-.12f,1.79f,z),.082f,.045f,.10f,metal);
+                TaperedBeam(rear,"CeilingRib_Starboard_"+i,new Vector3(.12f,1.79f,z),new Vector3(2.05f,1.49f,z),.045f,.082f,.10f,metal);
+                Panel(rear,"CeilingGuide_"+i,new Vector3(0,1.665f,z),new Vector3(.19f,.026f,.14f),i==0?amber:cyan,default,.003f);
             }
             Combine(rear,"RestoredRearCockpit_");
         }
@@ -306,6 +335,17 @@ namespace MeteorDefenseVR.Editor
         private static Transform MeshObject(Transform parent,string name,Mesh mesh,Material material,Vector3 position){Transform t=Child(parent,name);t.localPosition=position;var f=t.gameObject.AddComponent<MeshFilter>();f.sharedMesh=mesh;var r=t.gameObject.AddComponent<MeshRenderer>();r.sharedMaterial=material;r.shadowCastingMode=ShadowCastingMode.Off;r.receiveShadows=false;return t;}
         private static Transform Panel(Transform parent,string name,Vector3 pos,Vector3 size,Material mat,Vector3 rot=default,float bevel=.015f){string key="Commercial_"+name+"_"+size.x.ToString("F3",System.Globalization.CultureInfo.InvariantCulture)+"_"+size.y.ToString("F3",System.Globalization.CultureInfo.InvariantCulture)+"_"+size.z.ToString("F3",System.Globalization.CultureInfo.InvariantCulture);Transform t=MeshObject(parent,name,PremiumMeshBuilder.Panel(key,size.x,size.y,size.z,Mathf.Min(size.x,size.y)*.12f,Mathf.Min(bevel,Mathf.Min(size.x,size.y)*.06f)),mat,pos);t.localRotation=Quaternion.Euler(rot);return t;}
         private static void Beam(Transform root,string name,Vector3 a,Vector3 b,float w,float d,Material mat){var t=Panel(root,name,(a+b)*.5f,new Vector3(w,(b-a).magnitude,d),mat);t.localRotation=Quaternion.FromToRotation(Vector3.up,b-a);}
+        private static void TaperedBeam(Transform root,string name,Vector3 a,Vector3 b,float startWidth,float endWidth,float depth,Material mat)
+        {
+            float length=(b-a).magnitude,sa=startWidth*.5f,sb=endWidth*.5f,sd=depth*.5f;
+            string key="Tapered_"+name+"_"+startWidth.ToString("F3",System.Globalization.CultureInfo.InvariantCulture)+"_"+endWidth.ToString("F3",System.Globalization.CultureInfo.InvariantCulture)+"_"+length.ToString("F3",System.Globalization.CultureInfo.InvariantCulture);
+            var mesh=new Mesh{name=key};
+            mesh.vertices=new[]{new Vector3(-sa,-length*.5f,-sd),new Vector3(sa,-length*.5f,-sd),new Vector3(sa,-length*.5f,sd),new Vector3(-sa,-length*.5f,sd),new Vector3(-sb,length*.5f,-sd),new Vector3(sb,length*.5f,-sd),new Vector3(sb,length*.5f,sd),new Vector3(-sb,length*.5f,sd)};
+            mesh.triangles=new[]{0,4,5,0,5,1,1,5,6,1,6,2,2,6,7,2,7,3,3,7,4,3,4,0,4,7,6,4,6,5,0,1,2,0,2,3};
+            mesh.RecalculateNormals();mesh.RecalculateBounds();
+            Transform t=MeshObject(root,name,PremiumMeshBuilder.Save(key,mesh),mat,(a+b)*.5f);
+            t.localRotation=Quaternion.FromToRotation(Vector3.up,b-a);
+        }
         private static void Combine(Transform root,string prefix)
         {
             Transform combined=Child(root,"CombinedMeshes");var renderers=root.GetComponentsInChildren<MeshRenderer>(true).Where(r=>r.enabled&&!r.transform.IsChildOf(combined)).ToArray();

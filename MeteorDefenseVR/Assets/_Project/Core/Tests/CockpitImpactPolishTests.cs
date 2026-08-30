@@ -26,11 +26,11 @@ namespace MeteorDefenseVR.Tests
         {EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity",OpenSceneMode.Single);return Object.FindAnyObjectByType<CockpitDamagePresentation>();}
         [Test] public void AuthoredEffectsAreFiniteSharedAndIncludeBottomDirectionalAnchor()
         {
-            var damage=Open();Assert.That(damage.PointCount,Is.EqualTo(5));Assert.That(damage.ParticleCapacity,Is.LessThanOrEqualTo(470));
+            var damage=Open();Assert.That(damage.PointCount,Is.EqualTo(8));Assert.That(damage.ParticleCapacity,Is.LessThanOrEqualTo(650));
             var rail=GameObject.Find("LaunchSystem").transform.Find("CockpitGeometry/CockpitDamage/OverheadDamageRail");
             Assert.That(rail.localScale.x,Is.GreaterThanOrEqualTo(5.4f),"Overhead rail must meet the authored canopy struts");
             using var s=new SerializedObject(damage);var points=s.FindProperty("points");
-            for(int i=0;i<5;i++)
+            for(int i=0;i<8;i++)
             {
                 var p=points.GetArrayElementAtIndex(i);var anchor=(Transform)p.FindPropertyRelative("anchor").objectReferenceValue;
                 Assert.That(damage.FindNearestPoint(anchor.position),Is.EqualTo(i));

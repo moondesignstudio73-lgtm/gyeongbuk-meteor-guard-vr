@@ -96,7 +96,7 @@ namespace MeteorDefenseVR.Tests
             Assert.That(glass,Is.Not.Null);Assert.That(glass.GetComponent<MeshRenderer>().sharedMaterial.shader.name,Is.EqualTo("MeteorDefense/Cockpit Canopy"));
             Assert.That(glass.GetComponentsInChildren<Renderer>(true).Length,Is.EqualTo(1),"Panoramic glass must remain one batched transparent renderer");
             var damage=Object.FindAnyObjectByType<CockpitDamagePresentation>();
-            Assert.That(damage.PointCount,Is.EqualTo(5));
+            Assert.That(damage.PointCount,Is.EqualTo(8));
             var bottom=GameObject.Find("LaunchSystem").transform.Find("CockpitGeometry/CockpitDamage/GlassImpact_Bottom");
             Assert.That(bottom,Is.Not.Null);Assert.That(damage.FindNearestPoint(bottom.position),Is.EqualTo(4));
         }

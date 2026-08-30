@@ -1,0 +1,5 @@
+Windows VR Simulation: HARD / 8 directional target captures
+Front, Left, RearLeft, Rear, RearRight, Right, Above, Below: viewport center validation passed
+Target acquisition criterion: spawned meteor remained inside x=0.40..0.60, y=0.38..0.62 after camera rotation
+Rear structure criterion: side bulkheads <= 0.55m, rear/side glass >= 1.95m, ceiling spine <= 0.25m
+Damage anchors: Front 5 + RearLeft/Rear/RearRight 3
