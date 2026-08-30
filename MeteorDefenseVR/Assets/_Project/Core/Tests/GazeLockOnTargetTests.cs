@@ -80,10 +80,13 @@ namespace MeteorDefenseVR.Tests
         [Test]
         public void DestroyedMeteor_DisablesFurtherLockProgress()
         {
+            target.Advance(1f);
             meteor.ReceiveDamage(1f);
             target.Advance(1f);
 
             Assert.That(target.State, Is.EqualTo(LockOnState.Destroyed));
+            Assert.That(target.Progress, Is.Zero);
+            Assert.That(GazeLockOnTarget.ActiveTarget, Is.Null);
             Assert.That(target.IsLocked, Is.False);
         }
     }

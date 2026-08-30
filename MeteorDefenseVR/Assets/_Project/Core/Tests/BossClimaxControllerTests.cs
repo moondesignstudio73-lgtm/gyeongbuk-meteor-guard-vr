@@ -1,4 +1,5 @@
 using MeteorDefenseVR.Core;
+using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Meteor;
 using NUnit.Framework;
@@ -58,6 +59,9 @@ namespace MeteorDefenseVR.Tests
             controller.Tick(0f);
             controller.Tick(0f);
             MeteorController boss = controller.ActiveBoss;
+            GazeLockOnTarget targetLock = boss.GetComponent<GazeLockOnTarget>();
+            targetLock.Advance(1f);
+            Assert.That(GazeLockOnTarget.ActiveTarget, Is.SameAs(targetLock));
 
             boss.ReceiveDamage(1f);
             Assert.That(boss.State, Is.EqualTo(MeteorLifecycleState.Active));
@@ -66,6 +70,10 @@ namespace MeteorDefenseVR.Tests
             boss.ReceiveDamage(1f);
 
             Assert.That(controller.IsComplete, Is.True);
+            Assert.That(controller.ActiveBoss, Is.Null);
+            Assert.That(targetLock.State, Is.EqualTo(LockOnState.Destroyed));
+            Assert.That(targetLock.Progress, Is.Zero);
+            Assert.That(GazeLockOnTarget.ActiveTarget, Is.Null);
             Assert.That(gameFlow.CurrentState, Is.EqualTo(GameState.MissionComplete));
         }
 

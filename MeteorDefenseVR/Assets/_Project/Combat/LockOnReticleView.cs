@@ -16,25 +16,24 @@ namespace MeteorDefenseVR.Combat
         private LockOnState? previousLabelState;
         private float focusAge;
         private bool previousAimReady;
+        private GazeLockOnTarget subscribedTarget;
 
         private void OnEnable()
         {
             if (target == null) target = GetComponentInParent<GazeLockOnTarget>();
-            if (target == null) return;
-            target.FocusStarted += HandleFocusStarted;
-            target.ProgressChanged += HandleProgressChanged;
-            target.Locked += HandleLocked;
-            target.LockLost += HandleLockLost;
+            if (target == null)
+            {
+                ClearPresentation();
+                return;
+            }
+            SubscribeTarget();
             Refresh(target.Progress, target.State);
         }
 
         private void OnDisable()
         {
-            if (target == null) return;
-            target.FocusStarted -= HandleFocusStarted;
-            target.ProgressChanged -= HandleProgressChanged;
-            target.Locked -= HandleLocked;
-            target.LockLost -= HandleLockLost;
+            UnsubscribeTarget();
+            ClearPresentation();
             transform.localScale = Vector3.one;
             previousLabelState = null;
         }
@@ -55,9 +54,11 @@ namespace MeteorDefenseVR.Combat
 
         public void Configure(GazeLockOnTarget lockTarget, LineRenderer ring, TextMesh text)
         {
+            UnsubscribeTarget();
             target = lockTarget;
             progressRing = ring;
             statusText = text;
+            if (isActiveAndEnabled) SubscribeTarget();
             Refresh(target != null ? target.Progress : 0f, target != null ? target.State : LockOnState.Idle);
         }
 
@@ -70,7 +71,34 @@ namespace MeteorDefenseVR.Combat
         private void HandleFocusStarted(GazeLockOnTarget _) { focusAge = 0f; Refresh(target.Progress, LockOnState.Focusing); }
         private void HandleProgressChanged(GazeLockOnTarget _, float progress) => Refresh(progress, target.State);
         private void HandleLocked(GazeLockOnTarget _) => Refresh(1f, LockOnState.Locked);
-        private void HandleLockLost(GazeLockOnTarget _) => Refresh(0f, LockOnState.Idle);
+        private void HandleLockLost(GazeLockOnTarget _) => Refresh(0f, target != null ? target.State : LockOnState.Idle);
+
+        public void ClearPresentation()
+        {
+            Refresh(0f, LockOnState.Destroyed);
+            focusAge = 0f;
+            previousAimReady = false;
+        }
+
+        private void SubscribeTarget()
+        {
+            if (target == null || subscribedTarget == target) return;
+            subscribedTarget = target;
+            subscribedTarget.FocusStarted += HandleFocusStarted;
+            subscribedTarget.ProgressChanged += HandleProgressChanged;
+            subscribedTarget.Locked += HandleLocked;
+            subscribedTarget.LockLost += HandleLockLost;
+        }
+
+        private void UnsubscribeTarget()
+        {
+            if (subscribedTarget == null) return;
+            subscribedTarget.FocusStarted -= HandleFocusStarted;
+            subscribedTarget.ProgressChanged -= HandleProgressChanged;
+            subscribedTarget.Locked -= HandleLocked;
+            subscribedTarget.LockLost -= HandleLockLost;
+            subscribedTarget = null;
+        }
 
         private void Refresh(float progress, LockOnState state)
         {

@@ -84,6 +84,7 @@ namespace MeteorDefenseVR.Combat
 
         public void Configure(MeteorSpawner meteorSpawner,LaserWeapon laserWeapon,Transform frame,TurretMount topMount,TurretMount bottomMount,AudioSource servo,AudioSource charge,Transform view=null)
         {
+            Instance=this;
             spawner=meteorSpawner;weapon=laserWeapon;shipFrame=frame;top=topMount;bottom=bottomMount;servoSource=servo;chargeSource=charge;playerView=view;
             glowBlock??=new MaterialPropertyBlock();
             InitializeAudio();weapon?.SetTurretAiming(this);
@@ -99,8 +100,8 @@ namespace MeteorDefenseVR.Combat
             if(playerView==null&&Camera.main!=null)playerView=Camera.main.transform;
             InitializeAudio();weapon?.SetTurretAiming(this);
         }
-        private void OnEnable(){Instance=this;}
-        private void OnDisable(){if(Instance==this)Instance=null;StopAudio();ResetTurrets();}
+        private void OnEnable(){Instance=this;GazeLockOnTarget.GlobalReleased-=HandleTargetReleased;GazeLockOnTarget.GlobalReleased+=HandleTargetReleased;}
+        private void OnDisable(){GazeLockOnTarget.GlobalReleased-=HandleTargetReleased;if(Instance==this)Instance=null;StopAudio();ResetTurrets();}
         private void Update()=>Tick(Time.deltaTime);
 
         public void Tick(float deltaTime)
@@ -151,6 +152,13 @@ namespace MeteorDefenseVR.Combat
             candidate=null;selectedIndex=-1;trackedTime=0;chargePlayed=false;
             ResetMount(top,topNeutral);ResetMount(bottom,bottomNeutral);StopAudio();
         }
+
+        public void ReleaseTarget(GazeLockOnTarget released)
+        {
+            if(released != null && ReferenceEquals(candidate, released)) ResetTurrets();
+        }
+
+        private void HandleTargetReleased(GazeLockOnTarget released) => ReleaseTarget(released);
 
         public bool IsFiringPathSafe(int turretIndex,Vector3 targetPosition)
         {

@@ -109,7 +109,7 @@ namespace MeteorDefenseVR.Tests
             hud.AddScore(1); // Deliberately overwrite LOCK ON with score feedback in the SAME frame.
             Assert.That(hud.FeedbackMessage, Is.Not.EqualTo("LOCK ON"));
             yield return new WaitForSecondsRealtime(.15f);
-            Assert.That(controller.View.LockText, Is.EqualTo("LOCK ON"), "Monitor must retain the fired event despite score feedback");
+            Assert.That(controller.View.LockText, Is.EqualTo("TARGET SEARCH"), "Destroyed targets must cancel the spectator lock latch immediately");
             weapon.AutoFireOnLock = true;
             SaveMonitor(controller, router, "spectator");
             for (int i = 0; i < 30; i++)

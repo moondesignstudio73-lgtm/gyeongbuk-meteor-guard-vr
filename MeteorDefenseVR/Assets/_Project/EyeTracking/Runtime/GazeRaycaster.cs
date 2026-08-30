@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using MeteorDefenseVR.Combat;
 
 namespace MeteorDefenseVR.EyeTracking
 {
@@ -18,6 +19,7 @@ namespace MeteorDefenseVR.EyeTracking
         private IGazeProvider gazeProvider;
         private IGazeTarget currentTarget;
         private readonly Dictionary<Collider, IGazeTarget> targetCache = new Dictionary<Collider, IGazeTarget>();
+        private static readonly HashSet<GazeRaycaster> activeRaycasters = new HashSet<GazeRaycaster>();
 
         public IGazeProvider Provider => gazeProvider;
         public IGazeTarget CurrentTarget => currentTarget;
@@ -26,7 +28,16 @@ namespace MeteorDefenseVR.EyeTracking
         public float MaximumDistance { get => maximumDistance; set => maximumDistance = Mathf.Clamp(value, .1f, 1000); }
         public float GazeMagnetismRadius { get => gazeMagnetismRadius; set => gazeMagnetismRadius = Mathf.Clamp(value, 0f, 0.5f); }
 
-        private void Awake() => ResolveProvider();
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics() => activeRaycasters.Clear();
+
+        private void Awake() { activeRaycasters.Add(this); ResolveProvider(); }
+
+        private void OnEnable()
+        {
+            activeRaycasters.Add(this);
+            GazeLockOnTarget.GlobalReleased += HandleTargetReleased;
+        }
 
         private void OnValidate()
         {
@@ -36,13 +47,37 @@ namespace MeteorDefenseVR.EyeTracking
 
         private void Update() => Tick(Time.deltaTime);
 
-        private void OnDisable() => ClearCurrentTarget();
+        private void OnDisable()
+        {
+            GazeLockOnTarget.GlobalReleased -= HandleTargetReleased;
+            activeRaycasters.Remove(this);
+            ClearCurrentTarget();
+        }
 
         public void SetProvider(IGazeProvider provider)
         {
+            activeRaycasters.Add(this);
             ClearCurrentTarget();
             gazeProvider = provider;
             gazeProviderComponent = provider as MonoBehaviour;
+        }
+
+        public bool ReleaseTarget(IGazeTarget target)
+        {
+            if (ReferenceEquals(target, null) || !ReferenceEquals(currentTarget, target)) return false;
+            if (TargetExists(currentTarget)) currentTarget.OnGazeExit();
+            currentTarget = null;
+            HasHit = false;
+            CurrentHit = default;
+            targetCache.Clear();
+            return true;
+        }
+
+        public static void ReleaseGlobally(IGazeTarget target)
+        {
+            if (ReferenceEquals(target, null)) return;
+            foreach (GazeRaycaster raycaster in activeRaycasters)
+                if (raycaster != null) raycaster.ReleaseTarget(target);
         }
 
         public void Tick(float deltaTime)
@@ -124,6 +159,8 @@ namespace MeteorDefenseVR.EyeTracking
             HasHit = false; CurrentHit = default;
             targetCache.Clear();
         }
+
+        private void HandleTargetReleased(GazeLockOnTarget target) => ReleaseTarget(target);
 
         private static bool TargetExists(IGazeTarget target)
             => target != null && (!(target is Object unityObject) || unityObject != null);

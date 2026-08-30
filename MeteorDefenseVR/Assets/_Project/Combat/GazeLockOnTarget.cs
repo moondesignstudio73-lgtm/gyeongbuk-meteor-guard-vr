@@ -35,6 +35,7 @@ namespace MeteorDefenseVR.Combat
         private bool hasGaze;
         private float timeSinceGazeExit;
         private bool colliderExpanded;
+        private bool invalidationPublished;
         private MeteorController subscribedMeteor;
 
         public LockOnState State { get; private set; } = LockOnState.Idle;
@@ -56,6 +57,7 @@ namespace MeteorDefenseVR.Combat
 
         public static event Action<GazeLockOnTarget> GlobalFocusStarted;
         public static event Action<GazeLockOnTarget> GlobalLocked;
+        public static event Action<GazeLockOnTarget> GlobalReleased;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStatics()
@@ -63,6 +65,7 @@ namespace MeteorDefenseVR.Combat
             activeTarget = null;
             GlobalFocusStarted = null;
             GlobalLocked = null;
+            GlobalReleased = null;
         }
 
         private void Awake()
@@ -203,8 +206,25 @@ namespace MeteorDefenseVR.Combat
             Progress = 0f;
             hasGaze = false;
             timeSinceGazeExit = 0f;
+            invalidationPublished = false;
             if (activeTarget == this) activeTarget = null;
             ProgressChanged?.Invoke(this, Progress);
+        }
+
+        public void InvalidateTarget()
+        {
+            if (invalidationPublished) return;
+            invalidationPublished = true;
+            bool hadPresentation = State == LockOnState.Focusing || State == LockOnState.Locked || Progress > 0f || activeTarget == this;
+            hasGaze = false;
+            timeSinceGazeExit = 0f;
+            SetState(LockOnState.Destroyed);
+            SetProgress(0f);
+            if (activeTarget == this) activeTarget = null;
+            GazeRaycaster.ReleaseGlobally(this);
+            TurretAimingSystem.Instance?.ReleaseTarget(this);
+            if (hadPresentation) LockLost?.Invoke(this);
+            GlobalReleased?.Invoke(this);
         }
 
         private bool CanFocus(float hitDistance) => IsAvailable && hitDistance <= maximumTargetDistance && State != LockOnState.Destroyed;
@@ -222,12 +242,8 @@ namespace MeteorDefenseVR.Combat
         private void HandleMeteorSpawned(MeteorController _) => ResetLock();
         private void HandleMeteorReset(MeteorController _) => ResetLock();
 
-        private void HandleMeteorDestroyed(MeteorController _)
-        {
-            hasGaze = false;
-            SetState(LockOnState.Destroyed);
-            if (activeTarget == this) activeTarget = null;
-        }
+        private void HandleTargetingInvalidated(MeteorController _) => InvalidateTarget();
+        private void HandleMeteorDestroyed(MeteorController _) => InvalidateTarget();
 
         private void ExpandTargetCollider()
         {
@@ -254,6 +270,7 @@ namespace MeteorDefenseVR.Combat
             if (meteor == null || subscribedMeteor == meteor) return;
             subscribedMeteor = meteor;
             subscribedMeteor.Spawned += HandleMeteorSpawned;
+            subscribedMeteor.TargetingInvalidated += HandleTargetingInvalidated;
             subscribedMeteor.Destroyed += HandleMeteorDestroyed;
             subscribedMeteor.ResetPerformed += HandleMeteorReset;
         }
@@ -262,6 +279,7 @@ namespace MeteorDefenseVR.Combat
         {
             if (subscribedMeteor == null) return;
             subscribedMeteor.Spawned -= HandleMeteorSpawned;
+            subscribedMeteor.TargetingInvalidated -= HandleTargetingInvalidated;
             subscribedMeteor.Destroyed -= HandleMeteorDestroyed;
             subscribedMeteor.ResetPerformed -= HandleMeteorReset;
             subscribedMeteor = null;

@@ -64,6 +64,11 @@ namespace MeteorDefenseVR.PcInput
         public int RearWarnings { get; private set; }
         public void Configure(ViewDirectionProvider direction, MeteorSpawner meteors, BossClimaxController climax, AudioManager audio, AudioSource warning, TMP_FontAsset hudFont)
         { view = direction; spawner = meteors; boss = climax; audioManager = audio; rearWarning = warning; font = hudFont; }
+        private void OnEnable()
+        {
+            MeteorController.GlobalTargetingInvalidated -= HandleTargetingInvalidated;
+            MeteorController.GlobalTargetingInvalidated += HandleTargetingInvalidated;
+        }
         private void Start()
         {
             difficulty = FindAnyObjectByType<DifficultyManager>(); flow = GameFlowManager.Instance;
@@ -154,7 +159,33 @@ namespace MeteorDefenseVR.PcInput
                 candidates[i] = meteor; arrival[i] = time; distances[i] = distance; return;
             }
         }
-        private void OnDisable() { if (rearWarning != null) rearWarning.Stop(); if (root != null) root.gameObject.SetActive(false); }
+        private void HandleTargetingInvalidated(MeteorController meteor)
+        {
+            if (meteor == null) return;
+            for (int i = 0; i < candidates.Length; i++)
+            {
+                if (!ReferenceEquals(candidates[i], meteor)) continue;
+                candidates[i] = null; arrival[i] = distances[i] = float.PositiveInfinity;
+                if (i < labels.Length && labels[i] != null) labels[i].gameObject.SetActive(false);
+            }
+            if (ReferenceEquals(audioThreat, meteor)) audioThreat = null;
+            if (ReferenceEquals(playingThreat, meteor))
+            {
+                playingThreat = null;
+                if (rearWarning != null) rearWarning.Stop();
+            }
+            VisibleCount = 0;
+            for (int i = 0; i < labels.Length; i++) if (labels[i] != null && labels[i].gameObject.activeSelf) VisibleCount++;
+        }
+        private void OnDisable()
+        {
+            MeteorController.GlobalTargetingInvalidated -= HandleTargetingInvalidated;
+            if (rearWarning != null) rearWarning.Stop();
+            playingThreat = audioThreat = null;
+            VisibleCount = 0;
+            for (int i = 0; i < labels.Length; i++) if (labels[i] != null) labels[i].gameObject.SetActive(false);
+            if (root != null) root.gameObject.SetActive(false);
+        }
         private void OnDestroy() { if (root != null) Destroy(root.gameObject); }
         private void OnValidate() { maximumIndicators = Mathf.Clamp(maximumIndicators,3,5); redDistance = Mathf.Max(1, redDistance); orangeDistance = Mathf.Max(redDistance, orangeDistance); yellowDistance = Mathf.Max(orangeDistance, yellowDistance); }
     }

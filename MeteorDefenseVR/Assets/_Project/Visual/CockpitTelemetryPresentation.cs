@@ -147,11 +147,14 @@ namespace MeteorDefenseVR.Visual
         {
             if(health!=null){health.HealthChanged-=HandleHealthChanged;health.HealthChanged+=HandleHealthChanged;}
             if(weapon!=null){weapon.Fired-=HandleFired;weapon.Fired+=HandleFired;}
+            MeteorController.GlobalTargetingInvalidated-=HandleTargetingInvalidated;
+            MeteorController.GlobalTargetingInvalidated+=HandleTargetingInvalidated;
         }
         private void Unsubscribe()
         {
             if(health!=null)health.HealthChanged-=HandleHealthChanged;
             if(weapon!=null)weapon.Fired-=HandleFired;
+            MeteorController.GlobalTargetingInvalidated-=HandleTargetingInvalidated;
         }
         private void HandleHealthChanged(float current,float maximum){statusPulseUntil=Time.unscaledTime+.22f;}
         private void HandleFired(GazeLockOnTarget target,MeteorController meteor)
@@ -159,6 +162,19 @@ namespace MeteorDefenseVR.Visual
             firingUntil=Time.unscaledTime+.2f;firedTop=turrets!=null&&(turrets.SelectedTurretIndex==0||turrets.DualActive);
             firedBottom=turrets!=null&&(turrets.SelectedTurretIndex==1||turrets.DualActive);
             if(meteor!=null&&spawner!=null)lastTargetRange=Vector3.Distance(spawner.ShipCenter,meteor.transform.position);
+        }
+
+        private void HandleTargetingInvalidated(MeteorController meteor)
+        {
+            if(meteor==null)return;
+            for(int i=0;i<displayedSamples.Length;i++)
+            {
+                if(!ReferenceEquals(displayedSamples[i].Meteor,meteor))continue;
+                if(i<liveBlips.Length&&liveBlips[i]!=null)liveBlips[i].gameObject.SetActive(false);
+                displayedSamples[i]=default;
+            }
+            nextRefresh=0f;
+            Refresh();
         }
 
         public void Refresh()

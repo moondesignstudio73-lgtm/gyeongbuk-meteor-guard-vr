@@ -38,6 +38,7 @@ namespace MeteorDefenseVR.Meteor
         [SerializeField] private bool disableOnComplete = true;
 
         private bool completionEventSent;
+        private bool targetingInvalidatedEventSent;
         private float runtimeSpeedMultiplier = 1f;
         private ShipCollisionBoundary impactBoundary;
         private MeshFilter[] visualMeshes;
@@ -57,11 +58,16 @@ namespace MeteorDefenseVR.Meteor
         public bool IsTargetable => isTargetable && State == MeteorLifecycleState.Active;
 
         public event Action<MeteorController> Spawned;
+        public event Action<MeteorController> TargetingInvalidated;
         public event Action<MeteorController, float> Damaged;
         public event Action<MeteorController> Destroyed;
         public event Action<MeteorController, int> ScoreAwarded;
         public event Action<MeteorController, int> ReachedPlayerEvent;
         public event Action<MeteorController> ResetPerformed;
+        public static event Action<MeteorController> GlobalTargetingInvalidated;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics() => GlobalTargetingInvalidated = null;
 
         private void Awake() => ApplyDefinition();
 
@@ -120,6 +126,7 @@ namespace MeteorDefenseVR.Meteor
         {
             ApplyDefinition();
             completionEventSent = false;
+            targetingInvalidatedEventSent = false;
             CurrentHealth = maxHealth;
             State = MeteorLifecycleState.Active;
             transform.localScale = Vector3.one * size;
@@ -183,6 +190,7 @@ namespace MeteorDefenseVR.Meteor
             if (State != MeteorLifecycleState.Active || completionEventSent) return false;
             completionEventSent = true;
             State = MeteorLifecycleState.Destroyed;
+            InvalidateTargeting();
             Destroyed?.Invoke(this);
             ScoreAwarded?.Invoke(this, score);
             CompleteLifecycle();
@@ -194,6 +202,7 @@ namespace MeteorDefenseVR.Meteor
             if (State != MeteorLifecycleState.Active || completionEventSent) return false;
             completionEventSent = true;
             State = MeteorLifecycleState.ReachedPlayer;
+            InvalidateTargeting();
             if (!HasBoundaryImpact) ImpactPosition = transform.position;
             ReachedPlayerEvent?.Invoke(this, damage);
             CompleteLifecycle();
@@ -202,13 +211,23 @@ namespace MeteorDefenseVR.Meteor
 
         public void ResetMeteor(bool deactivate = true)
         {
+            bool wasActive = State == MeteorLifecycleState.Active;
             completionEventSent = false;
             CurrentHealth = maxHealth;
             State = MeteorLifecycleState.Inactive;
+            if (wasActive) InvalidateTargeting();
             HasBoundaryImpact = false;
             runtimeSpeedMultiplier = 1f;
             ResetPerformed?.Invoke(this);
             if (deactivate) gameObject.SetActive(false);
+        }
+
+        public void InvalidateTargeting()
+        {
+            if (targetingInvalidatedEventSent) return;
+            targetingInvalidatedEventSent = true;
+            TargetingInvalidated?.Invoke(this);
+            GlobalTargetingInvalidated?.Invoke(this);
         }
 
         private void CompleteLifecycle()

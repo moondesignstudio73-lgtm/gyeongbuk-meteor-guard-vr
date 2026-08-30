@@ -100,6 +100,8 @@ namespace MeteorDefenseVR.PcInput
             mirrorSource ??= new DesktopMirrorSource();
             mirrorSource.Refresh();
             if (hud != null) { hud.FeedbackChanged -= HandleFeedback; hud.FeedbackChanged += HandleFeedback; }
+            GazeLockOnTarget.GlobalReleased -= HandleTargetReleased;
+            GazeLockOnTarget.GlobalReleased += HandleTargetReleased;
             view = new DesktopSpectatorView(transform, font, ToggleFromOperator);
             initialized = true;
         }
@@ -130,6 +132,7 @@ namespace MeteorDefenseVR.PcInput
             // Latch only the monitor presentation, without delaying the weapon or changing its state.
             if (message == "LOCK ON") lockFlashUntil = Time.realtimeSinceStartupAsDouble + .35;
         }
+        private void HandleTargetReleased(GazeLockOnTarget _) => lockFlashUntil = 0;
 
         public bool SelectFromOperator(DesktopViewMode mode)
         {
@@ -220,6 +223,7 @@ namespace MeteorDefenseVR.PcInput
         private void OnDisable()
         {
             if (owner == this) owner = null;
+            GazeLockOnTarget.GlobalReleased -= HandleTargetReleased;
             if (hud != null) hud.FeedbackChanged -= HandleFeedback;
             view?.Dispose(); view = null; mirrorSource?.Dispose(); mirrorSource = null;
             ReleaseTexture(); if (observer != null) DestroyOwned(observer.gameObject); observer = null;

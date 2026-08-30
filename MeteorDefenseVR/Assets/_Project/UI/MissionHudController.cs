@@ -175,6 +175,8 @@ namespace MeteorDefenseVR.UI
         private void Subscribe()
         {
             if (!isActiveAndEnabled) return;
+            GazeLockOnTarget.GlobalReleased -= HandleTargetReleased;
+            GazeLockOnTarget.GlobalReleased += HandleTargetReleased;
             if (spawner != null)
             {
                 spawner.SpawningStarted -= HandleSpawningStarted;
@@ -195,6 +197,7 @@ namespace MeteorDefenseVR.UI
 
         private void Unsubscribe()
         {
+            GazeLockOnTarget.GlobalReleased -= HandleTargetReleased;
             if (spawner != null)
             {
                 spawner.SpawningStarted -= HandleSpawningStarted;
@@ -249,6 +252,10 @@ namespace MeteorDefenseVR.UI
         }
 
         private void HandleWeaponFired(GazeLockOnTarget _, MeteorController __) => ShowLockOn();
+        private void HandleTargetReleased(GazeLockOnTarget _)
+        {
+            if (FeedbackMessage == "LOCK ON") SetFeedback(string.Empty, 0f);
+        }
 
         private void TrackMeteor(MeteorController meteor)
         {
