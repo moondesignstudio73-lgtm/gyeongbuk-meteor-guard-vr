@@ -79,8 +79,10 @@ namespace MeteorDefenseVR.Editor
             var scene=EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
             TMP_Text ship=FindSceneText("LiveShipStatus");
             TMP_Text systems=FindSceneText("LiveSystemsStatus");
-            if(ship==null||systems==null)throw new InvalidOperationException("Cockpit hologram text was not found. Rebuild the classic cockpit visual first.");
-            ConfigureShipHologramText(ship);ConfigureSystemsHologramText(systems);
+            TMP_Text threat=FindSceneText("LiveThreatAnalysis");
+            TMP_Text weapon=FindSceneText("LiveWeaponStatus");
+            if(ship==null||systems==null||threat==null||weapon==null)throw new InvalidOperationException("Cockpit hologram text was not found. Rebuild the classic cockpit visual first.");
+            ConfigureShipHologramText(ship);ConfigureSystemsHologramText(systems);ConfigureThreatHologramText(threat);ConfigureWeaponHologramText(weapon);
             EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
             Debug.Log("[CockpitHologram] Ship and sensor readouts now stay inside the left hologram panel.");
         }
@@ -254,7 +256,7 @@ namespace MeteorDefenseVR.Editor
             TMP_Text threat=HudText(right.root,"LiveThreatAnalysis",new Vector2(-122,78),new Vector2(250,102),17,TextAlignmentOptions.TopLeft);
             TMP_Text weapon=HudText(right.root,"LiveWeaponStatus",new Vector2(-122,-34),new Vector2(250,80),14,TextAlignmentOptions.TopLeft);
             TMP_Text sensor=HudText(left.root,"LiveSystemsStatus",new Vector2(-122,-18),new Vector2(250,82),12,TextAlignmentOptions.TopLeft);
-            ConfigureShipHologramText(ship);ConfigureSystemsHologramText(sensor);
+            ConfigureShipHologramText(ship);ConfigureSystemsHologramText(sensor);ConfigureThreatHologramText(threat);ConfigureWeaponHologramText(weapon);
             return(ship,threat,weapon,sensor,left.group,right.group);
         }
 
@@ -295,6 +297,20 @@ namespace MeteorDefenseVR.Editor
             RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
             rect.anchoredPosition=new Vector2(-122,-18);rect.sizeDelta=new Vector2(250,82);
             text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=-4;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
+        }
+
+        private static void ConfigureThreatHologramText(TMP_Text text)
+        {
+            RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
+            rect.anchoredPosition=new Vector2(-122,88);rect.sizeDelta=new Vector2(250,104);
+            text.fontSize=14;text.enableAutoSizing=false;text.lineSpacing=-5;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
+        }
+
+        private static void ConfigureWeaponHologramText(TMP_Text text)
+        {
+            RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
+            rect.anchoredPosition=new Vector2(-122,-22);rect.sizeDelta=new Vector2(250,78);
+            text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=-5;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 
         private static void SaveCockpitVisual(Transform cockpit)

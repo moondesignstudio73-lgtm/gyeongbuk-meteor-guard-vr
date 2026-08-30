@@ -87,6 +87,28 @@ namespace MeteorDefenseVR.Tests
             Assert.That(systemsBottom,Is.GreaterThan(panel.rect.yMin+8),"Sensor block crosses the hologram bottom border.");
         }
 
+        [Test]
+        public void RightHologramWorstCaseReadoutsStayInsideTheirPanel()
+        {
+            EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
+            var telemetry=Object.FindAnyObjectByType<CockpitTelemetryPresentation>(FindObjectsInactive.Include);
+            using var serialized=new SerializedObject(telemetry);
+            var threat=serialized.FindProperty("threatAnalysis").objectReferenceValue as TMP_Text;
+            var weapon=serialized.FindProperty("weaponStatus").objectReferenceValue as TMP_Text;
+            var panel=threat.rectTransform.parent as RectTransform;
+            Assert.That(panel,Is.Not.Null);Assert.That(weapon.rectTransform.parent,Is.EqualTo(panel));
+            threat.text="THREAT // WARNING\nCONTACTS 12\nVECTOR REAR RIGHT\nRANGE 018m\nSCORE 99,999";
+            weapon.text="WEAPON SYSTEM\nTOP TURRET READY\nBOTTOM TURRET AIMING\nTARGET LOCKING\nRANGE 018m";
+            Canvas.ForceUpdateCanvases();threat.ForceMeshUpdate(true,true);weapon.ForceMeshUpdate(true,true);
+            Assert.That(threat.preferredHeight,Is.LessThanOrEqualTo(threat.rectTransform.rect.height+.5f));
+            Assert.That(weapon.preferredHeight,Is.LessThanOrEqualTo(weapon.rectTransform.rect.height+.5f));
+            float threatBottom=threat.rectTransform.anchoredPosition.y-threat.rectTransform.rect.height;
+            float weaponTop=weapon.rectTransform.anchoredPosition.y;
+            float weaponBottom=weaponTop-weapon.rectTransform.rect.height;
+            Assert.That(threatBottom,Is.GreaterThanOrEqualTo(weaponTop),"Threat and weapon blocks overlap.");
+            Assert.That(weaponBottom,Is.GreaterThan(panel.rect.yMin+8),"Weapon block crosses the hologram bottom border.");
+        }
+
         [UnityTest]
         public IEnumerator ShipAndScoreReadoutsFollowRuntimeValues()
         {

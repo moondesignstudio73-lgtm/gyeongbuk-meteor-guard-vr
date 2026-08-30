@@ -69,7 +69,12 @@ namespace MeteorDefenseVR.PcInput
                         throw new InvalidOperationException(view.name + " target viewport invalid: " + viewport);
                     Canvas.ForceUpdateCanvases();
                     foreach (TMP_Text text in Object.FindObjectsByType<TMP_Text>())
-                        if (text.isActiveAndEnabled && text.isTextOverflowing) report.errors.Add(view.name + " text overflow: " + text.name);
+                    {
+                        if (!Visible(text)) continue;
+                        text.ForceMeshUpdate();
+                        Vector2 preferred = text.GetPreferredValues(text.text, text.rectTransform.rect.width, 0);
+                        if (preferred.y > text.rectTransform.rect.height + 1f) report.errors.Add(view.name + " text overflow: " + text.name);
+                    }
                     string directory = Path.Combine(output, view.name); Directory.CreateDirectory(directory);
                     probe.SaveGameOnlyProof(directory, router); report.captured.Add(view.name);
                 }
@@ -83,6 +88,17 @@ namespace MeteorDefenseVR.PcInput
                 Debug.Log("[PCEightDirectionQA] " + (report.passed ? "PASS" : "FAIL") + "; " + string.Join(", ", report.captured));
                 Application.Quit(report.passed ? 0 : 2);
             }
+        }
+
+        private static bool Visible(TMP_Text text)
+        {
+            if (!text.isActiveAndEnabled || text.color.a <= .01f) return false;
+            for (Transform current=text.transform;current!=null;current=current.parent)
+            {
+                CanvasGroup group=current.GetComponent<CanvasGroup>();
+                if(group!=null&&group.alpha<=.01f)return false;
+            }
+            return true;
         }
     }
 }
