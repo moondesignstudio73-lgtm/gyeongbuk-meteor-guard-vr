@@ -126,7 +126,7 @@ namespace MeteorDefenseVR.Editor
             => WithResources(BuildWindowsReady);
         // Targeted UI/code releases must not regenerate or overwrite the authored scene.
         public static void BuildWindowsCurrentScene()
-            => WithResources(() => { EnsureFont(); FinalAudioSetup.Ensure(); AssetDatabase.SaveAssets(); BuildWindowsReady(false); });
+            => WithResources(() => { AssetDatabase.SaveAssets(); BuildWindowsReady(false); });
         public static void BuildWindowsAndCapture()
         {
             BuildWindowsReady();
