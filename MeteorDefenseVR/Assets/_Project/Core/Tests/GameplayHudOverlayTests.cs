@@ -153,6 +153,24 @@ namespace MeteorDefenseVR.Tests
         }
 
         [Test]
+        public void RestoredTopCardsStayCompactAndVisuallyConsistent()
+        {
+            GameplayHudOverlayView view = Object.FindAnyObjectByType<GameplayHudOverlayView>(FindObjectsInactive.Include);
+            foreach (string name in new[] { "HealthPanel", "StagePanel", "ScorePanel" })
+            {
+                RectTransform panel = (RectTransform)view.TelemetryRoot.transform.Find(name);
+                Assert.That(panel.sizeDelta.y / 1080f, Is.LessThanOrEqualTo(.10f), name + " height");
+                UnityEngine.UI.Image image = panel.GetComponent<UnityEngine.UI.Image>();
+                Assert.That(image.color.a, Is.InRange(.65f, .78f), name + " background alpha");
+                UnityEngine.UI.Outline outline = panel.GetComponent<UnityEngine.UI.Outline>();
+                Assert.That(outline.effectDistance.magnitude, Is.LessThanOrEqualTo(1.5f), name + " border thickness");
+            }
+            Assert.That(((RectTransform)view.TelemetryRoot.transform.Find("HealthPanel")).sizeDelta.x, Is.LessThan(320f));
+            Assert.That(((RectTransform)view.TelemetryRoot.transform.Find("StagePanel")).sizeDelta.x, Is.LessThan(420f));
+            Assert.That(((RectTransform)view.TelemetryRoot.transform.Find("ScorePanel")).sizeDelta.x, Is.LessThan(260f));
+        }
+
+        [Test]
         public void LaunchAndMissionCompleteMessagesUseTheSameAlwaysOnTopCanvas()
         {
             GameplayHudOverlayView view = Object.FindAnyObjectByType<GameplayHudOverlayView>(FindObjectsInactive.Include);
