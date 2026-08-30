@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem;
+using Object = UnityEngine.Object;
 
 namespace MeteorDefenseVR.PcInput
 {
@@ -28,6 +29,7 @@ namespace MeteorDefenseVR.PcInput
         private GameObject developerMenuButton;
         private TextMeshProUGUI developerMenuLabel;
         private TextMeshProUGUI compactStatus;
+        private TextMeshProUGUI buildIdentity;
         private TextMeshProUGUI fallbackNotice;
         private GameObject inputButton, fallbackButton, resetButton, exitButton, keyLegend;
         private GameObject previewButton, cursorButton, faceButton;
@@ -80,6 +82,10 @@ namespace MeteorDefenseVR.PcInput
             Label(panel.transform, "Privacy", "영상 저장·업로드 없음 / 근사 시선 테스트", new Vector2(16, -413), new Vector2(328, 24), 15);
             debug = Label(canvasObject.transform, "DebugStatus", "", new Vector2(25, -480), new Vector2(580, 130), 17);
             compactStatus = Label(canvasObject.transform, "CompactInputStatus", "", new Vector2(24, -20), new Vector2(480, 58), 18);
+            buildIdentity = Label(canvasObject.transform, "BuildIdentity", LoadBuildIdentity(), Vector2.zero, new Vector2(260, 42), 13);
+            buildIdentity.alignment = TextAlignmentOptions.BottomLeft;
+            buildIdentity.color = new Color(.48f, .72f, .78f, .72f);
+            DockBottom(buildIdentity.gameObject, false, 20, 8);
             fallbackNotice = Label(canvasObject.transform, "InputHelp", "", Vector2.zero, new Vector2(680, 34), 22);
             var helpRect = fallbackNotice.rectTransform;
             helpRect.anchorMin = helpRect.anchorMax = new Vector2(.5f, 0f); helpRect.pivot = new Vector2(.5f, 0f);
@@ -188,6 +194,7 @@ namespace MeteorDefenseVR.PcInput
             panel.SetActive(!settingsOpen && !calibrating && (operatorUi || development) && (menuOpen || paused));
             router.UiModalOpen = panel.activeSelf || lookSettingsPanel.activeSelf;
             compactStatus.gameObject.SetActive(development && !panel.activeSelf && !calibrating);
+            buildIdentity.gameObject.SetActive((development || operatorUi) && !calibrating);
             developerMenuButton.SetActive(development && isBoot && !calibrating);
             developerMenuLabel.text = menuOpen ? "개발자 UI 닫기" : "개발자 테스트 UI";
             inputButton.SetActive((operatorUi || development) && !(development && isBoot));
@@ -241,6 +248,32 @@ namespace MeteorDefenseVR.PcInput
             menuOpen = !menuOpen;
         }
 
+        private static string LoadBuildIdentity()
+        {
+            if (Application.isEditor) return $"BUILD {Application.version}\nEDITOR";
+            try
+            {
+                string path = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "BUILD_IDENTITY.json"));
+                if (!File.Exists(path)) return $"BUILD {Application.version}\nUNKNOWN";
+                var identity = JsonUtility.FromJson<RuntimeBuildIdentity>(File.ReadAllText(path));
+                string version = string.IsNullOrWhiteSpace(identity.buildVersion) ? Application.version : identity.buildVersion;
+                string commit = string.IsNullOrWhiteSpace(identity.gitCommitShort) ? "UNKNOWN" : identity.gitCommitShort;
+                return $"BUILD {version}\n{commit}";
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning("[BuildIdentity] Could not read BUILD_IDENTITY.json: " + exception.GetType().Name);
+                return $"BUILD {Application.version}\nUNKNOWN";
+            }
+        }
+
+        [Serializable]
+        private sealed class RuntimeBuildIdentity
+        {
+            public string buildVersion;
+            public string gitCommitShort;
+        }
+
         private void OnDisable() { menuOpen = settingsOpen = wasBoot = wasPaused = false; if (router != null) router.UiModalOpen = false; }
         private void AddModeButton(string text, PcGazeMode mode, float y) => Button(panel.transform, mode.ToString(), text, new Vector2(16, -y), new Vector2(328, 38), () =>
         {
@@ -286,3 +319,5 @@ namespace MeteorDefenseVR.PcInput
         private static void Background(GameObject target, Color color, bool raycast = true) { var image = target.AddComponent<UnityEngine.UI.Image>(); image.color = color; image.raycastTarget = raycast; }
     }
 }
+using System;
+using System.IO;

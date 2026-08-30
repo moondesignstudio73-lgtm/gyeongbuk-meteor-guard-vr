@@ -54,7 +54,7 @@ namespace MeteorDefenseVR.PcInput
         {
             if(canvas==null||playerCamera==null||worldMode==stereo)return;worldMode=stereo;
             RectTransform root=(RectTransform)canvas.transform;
-            canvas.worldCamera=playerCamera;canvas.overrideSorting=true;canvas.sortingOrder=140;
+            canvas.worldCamera=playerCamera;canvas.overrideSorting=true;canvas.sortingOrder=230;
             if(stereo)
             {
                 root.SetParent(playerCamera.transform,false);
@@ -68,7 +68,7 @@ namespace MeteorDefenseVR.PcInput
                 // geometry for one frame. Keep desktop HUD roots transform-independent.
                 root.SetParent(null,false);root.anchorMin=Vector2.zero;root.anchorMax=Vector2.one;
                 root.offsetMin=root.offsetMax=Vector2.zero;
-                canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.planeDistance=1.15f;
+                canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.planeDistance=.45f;
                 root.localPosition=Vector3.zero;root.localRotation=Quaternion.identity;root.localScale=Vector3.one;
             }
             RefreshTextGeometry();

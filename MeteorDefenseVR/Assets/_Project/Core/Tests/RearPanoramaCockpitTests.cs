@@ -68,10 +68,10 @@ namespace MeteorDefenseVR.Tests
             var router = Object.FindAnyObjectByType<GazeInputRouter>();
             var simulation = router.Simulation;
             router.SetMode(PcGazeMode.WindowsVRSimulation);
-            Object.FindAnyObjectByType<DifficultyManager>().Select(DifficultyLevel.Hard);
+            Object.FindAnyObjectByType<DifficultyManager>().Select(DifficultyLevel.Extreme);
             var flow = GameFlowManager.Instance;
-            flow.StartLaunch();
-            float deadline = Time.realtimeSinceStartup + 20f;
+            flow.StartMainGame();
+            float deadline = Time.realtimeSinceStartup + 8f;
             while (flow.CurrentState != GameState.Playing && Time.realtimeSinceStartup < deadline) yield return null;
             Assert.That(flow.CurrentState, Is.EqualTo(GameState.Playing));
 

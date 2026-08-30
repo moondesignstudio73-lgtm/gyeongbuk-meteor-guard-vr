@@ -10,6 +10,21 @@ MeteorDefenseVR/[Mm]emoryCaptures/
 MeteorDefenseVR/[Rr]ecordings/
 MeteorDefenseVR/[Tt]estResults/
 MeteorDefenseVR/DependencyCache/
+MeteorDefenseVR/Backups/
+
+# Local QA output. Selected evidence already tracked by Git remains tracked.
+MeteorDefenseVR/Docs/**/*.log
+MeteorDefenseVR/Docs/**/*.xml
+MeteorDefenseVR/Docs/**/*.json
+MeteorDefenseVR/Docs/**/*.csv
+MeteorDefenseVR/Docs/**/*.png
+MeteorDefenseVR/Docs/**/*.jpg
+# Entire untracked QA/report trees are local evidence; files already tracked remain tracked.
+MeteorDefenseVR/Docs/*/
+
+# Local source/reference artifacts outside the Unity project.
+/*.png
+/*.pptx
 
 # IDE / generated project files
 MeteorDefenseVR/*.csproj

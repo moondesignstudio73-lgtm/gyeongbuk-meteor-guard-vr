@@ -23,13 +23,16 @@ namespace MeteorDefenseVR.Tests
             var view=Object.FindAnyObjectByType<TutorialSafeZoneView>(FindObjectsInactive.Include);var camera=Camera.main;
             Assert.That(view,Is.Not.Null);Assert.That(view.HudCanvas.renderMode,Is.EqualTo(RenderMode.ScreenSpaceCamera));
             Assert.That(view.HudCanvas.transform.parent,Is.Null,"Desktop Screen Space HUD must not inherit rapid camera rotations");
-            Assert.That(view.HudCanvas.worldCamera,Is.SameAs(camera));Assert.That(view.HudCanvas.planeDistance,Is.InRange(.9f,1.3f));
-            Assert.That(view.HudCanvas.sortingOrder,Is.GreaterThanOrEqualTo(120));
+            Assert.That(view.HudCanvas.worldCamera,Is.SameAs(camera));Assert.That(view.HudCanvas.planeDistance,Is.InRange(.4f,.5f));
+            Assert.That(view.HudCanvas.sortingOrder,Is.GreaterThanOrEqualTo(220));
             RectTransform panel=view.SafePanel;Assert.That(panel.anchorMin.x,Is.EqualTo(.19f).Within(.001));Assert.That(panel.anchorMax.x,Is.EqualTo(.81f).Within(.001));
             Assert.That(panel.anchorMin.y,Is.GreaterThanOrEqualTo(.45f));Assert.That(panel.anchorMax.y,Is.LessThanOrEqualTo(.80f));
             Assert.That(panel.anchorMin.y,Is.GreaterThan(.55f),"Main tutorial copy must clear the center reticle/meteor zone");
             int hudLayer=LayerMask.NameToLayer("Player HUD");Assert.That(view.gameObject.layer,Is.EqualTo(hudLayer));Assert.That(camera.cullingMask&(1<<hudLayer),Is.Not.Zero);
             Assert.That(view.InstructionText.font,Is.Not.Null);Assert.That(view.InstructionText.font.name,Does.Contain("PcTestKorean"));
+            Assert.That(view.SafePanel.GetComponent<UnityEngine.UI.Image>().material.name,Is.EqualTo("GameplayHudAlwaysOnTop"));
+            Assert.That(view.InstructionText.fontSharedMaterial.name,Is.EqualTo("GameplayHudFontAlwaysOnTop"));
+            Assert.That(view.InstructionText.fontSharedMaterial.renderQueue,Is.GreaterThanOrEqualTo(4000));
             Assert.That(view.InstructionText.canvasRenderer.cullTransparentMesh,Is.False);
             var legacy=Object.FindAnyObjectByType<TutorialStatusView>(FindObjectsInactive.Include).GetComponent<MeshRenderer>();Assert.That(legacy.enabled,Is.False);
             view.ApplyCanvasMode(true);Assert.That(view.HudCanvas.renderMode,Is.EqualTo(RenderMode.WorldSpace));

@@ -1,5 +1,9 @@
 using System.IO;
 using System.Linq;
+using System;
+using Process = System.Diagnostics.Process;
+using ProcessStartInfo = System.Diagnostics.ProcessStartInfo;
+using Object = UnityEngine.Object;
 using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.PcInput;
 using TMPro;
@@ -132,30 +136,90 @@ namespace MeteorDefenseVR.Editor
         private static void BuildWindowsReady(bool regenerateScene)
         {
             if (regenerateScene) ProjectSceneSetup.EnsureProjectScenes();
+            AssetDatabase.SaveAssets();
+            GitBuildIdentity identity = GitBuildIdentity.Read();
+            if (!identity.worktreeClean)
+                throw new InvalidOperationException("Release/QA build refused: Git worktree is dirty. Commit or remove all non-ignored changes first.");
             PlayerSettings.defaultScreenWidth = 1280;
             PlayerSettings.defaultScreenHeight = 720;
             PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
             PlayerSettings.resizableWindow = true;
-            Directory.CreateDirectory("Builds/Windows");
-            string configPath = "Builds/Windows/" + ExperienceConfiguration.FileName;
+            string buildVersion = PlayerSettings.bundleVersion;
+            string output = $"Builds/Windows/QA_{DateTime.Now:yyyyMMdd}_{buildVersion}";
+            if (Directory.Exists(output))
+                throw new IOException("Versioned build output already exists: " + Path.GetFullPath(output));
+            Directory.CreateDirectory(output);
+            string configPath = output + "/" + ExperienceConfiguration.FileName;
             if (!File.Exists(configPath)) File.WriteAllText(configPath, JsonUtility.ToJson(new ExperienceSettings(), true));
             BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
                 scenes = new[] { "Assets/_Project/Scenes/Bootstrap.unity", "Assets/_Project/Scenes/MeteorDefense.unity" },
-                locationPathName = "Builds/Windows/MeteorDefenseVR.exe",
+                locationPathName = output + "/MeteorDefenseVR.exe",
                 target = BuildTarget.StandaloneWindows64,
                 options = BuildOptions.None
             });
             if (report.summary.result != BuildResult.Succeeded) throw new System.Exception("Windows build failed: " + report.summary.totalErrors);
-            File.Copy("THIRD_PARTY_PC_INPUT.md", "Builds/Windows/THIRD_PARTY_PC_INPUT.md", true);
-            File.Copy("Assets/_Project/PcInput/Fonts/OFL.txt", "Builds/Windows/NotoSansKR-OFL.txt", true);
-            Directory.CreateDirectory("Builds/Windows/ThirdPartyNotices");
+            identity.buildVersion = buildVersion;
+            identity.buildTimeKST = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+            identity.unityVersion = Application.unityVersion;
+            identity.scene = "Assets/_Project/Scenes/MeteorDefense.unity";
+            identity.developmentBuild = false;
+            File.WriteAllText(output + "/BUILD_IDENTITY.json", JsonUtility.ToJson(identity, true));
+            File.Copy("THIRD_PARTY_PC_INPUT.md", output + "/THIRD_PARTY_PC_INPUT.md", true);
+            File.Copy("Assets/_Project/PcInput/Fonts/OFL.txt", output + "/NotoSansKR-OFL.txt", true);
+            Directory.CreateDirectory(output + "/ThirdPartyNotices");
             foreach (string notice in Directory.GetFiles("ThirdPartyNotices"))
-                File.Copy(notice, Path.Combine("Builds/Windows/ThirdPartyNotices", Path.GetFileName(notice)), true);
+                File.Copy(notice, Path.Combine(output, "ThirdPartyNotices", Path.GetFileName(notice)), true);
             foreach (string launcher in Directory.GetFiles("Tools/Launchers", "*.cmd"))
-                File.Copy(launcher, Path.Combine("Builds/Windows", Path.GetFileName(launcher)), true);
-            File.Copy("Docs/FinalQA/OPERATOR_GUIDE.md", "Builds/Windows/OPERATOR_GUIDE.md", true);
-            Debug.Log("[PCBuild] Windows executable ready: " + Path.GetFullPath("Builds/Windows/MeteorDefenseVR.exe"));
+                File.Copy(launcher, Path.Combine(output, Path.GetFileName(launcher)), true);
+            File.Copy("Docs/FinalQA/OPERATOR_GUIDE.md", output + "/OPERATOR_GUIDE.md", true);
+            Debug.Log("[PCBuild] Windows executable ready: " + Path.GetFullPath(output + "/MeteorDefenseVR.exe"));
+        }
+
+        [Serializable]
+        private sealed class GitBuildIdentity
+        {
+            public string buildVersion;
+            public string gitBranch;
+            public string gitCommit;
+            public string gitCommitShort;
+            public string buildTimeKST;
+            public string unityVersion;
+            public string scene;
+            public bool developmentBuild;
+            public bool worktreeClean;
+
+            public static GitBuildIdentity Read()
+            {
+                string branch = Git("branch --show-current");
+                string commit = Git("rev-parse HEAD");
+                string status = Git("status --porcelain=v1 --untracked-files=normal");
+                return new GitBuildIdentity
+                {
+                    gitBranch = branch,
+                    gitCommit = commit,
+                    gitCommitShort = commit.Length >= 7 ? commit.Substring(0, 7) : commit,
+                    worktreeClean = string.IsNullOrWhiteSpace(status)
+                };
+            }
+
+            private static string Git(string arguments)
+            {
+                var start = new ProcessStartInfo("git", arguments)
+                {
+                    WorkingDirectory = Path.GetFullPath(".."),
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+                using Process process = Process.Start(start);
+                string output = process.StandardOutput.ReadToEnd().Trim();
+                string error = process.StandardError.ReadToEnd().Trim();
+                process.WaitForExit();
+                if (process.ExitCode != 0) throw new InvalidOperationException("Git identity failed: " + error);
+                return output;
+            }
         }
     }
 }

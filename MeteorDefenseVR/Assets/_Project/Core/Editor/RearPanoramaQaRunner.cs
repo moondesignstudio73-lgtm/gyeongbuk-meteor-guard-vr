@@ -94,9 +94,9 @@ namespace MeteorDefenseVR.Editor
                 if(state=="boot")
                 {
                     var router=Object.FindAnyObjectByType<GazeInputRouter>();router.SetMode(PcGazeMode.WindowsVRSimulation);
-                    Object.FindAnyObjectByType<DifficultyManager>().Select(DifficultyLevel.Hard);
-                    GameFlowManager.Instance.StartLaunch();
-                    SessionState.SetFloat(DeadlineKey,(float)EditorApplication.timeSinceStartup+24);SessionState.SetString(StateKey,"launch");return;
+                    Object.FindAnyObjectByType<DifficultyManager>().Select(DifficultyLevel.Extreme);
+                    GameFlowManager.Instance.StartMainGame();
+                    SessionState.SetFloat(DeadlineKey,(float)EditorApplication.timeSinceStartup+8);SessionState.SetString(StateKey,"launch");return;
                 }
                 if(state=="launch")
                 {
@@ -141,7 +141,7 @@ namespace MeteorDefenseVR.Editor
             Object.FindAnyObjectByType<MeteorSpawner>().EndScenario();probe?.Dispose();probe=null;
             Directory.CreateDirectory("Docs/RearPanoramaQA");
             File.WriteAllLines("Docs/RearPanoramaQA/visibility-validation.txt",new[]{
-                "Windows VR Simulation: HARD / 8 directional target captures",
+                "Windows VR Simulation: EXTREME / 8 directional target captures",
                 "Front, Left, RearLeft, Rear, RearRight, Right, Above, Below: viewport center validation passed",
                 "Target acquisition criterion: spawned meteor remained inside x=0.40..0.60, y=0.38..0.62 after camera rotation",
                 "Rear structure criterion: side bulkheads <= 0.55m, rear/side glass >= 1.95m, ceiling spine <= 0.25m",
