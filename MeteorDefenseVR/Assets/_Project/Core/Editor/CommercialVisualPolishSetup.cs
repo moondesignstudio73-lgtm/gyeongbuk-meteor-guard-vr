@@ -73,6 +73,18 @@ namespace MeteorDefenseVR.Editor
             Debug.Log("[RearPanorama] Existing cockpit preserved; rear/side solid walls reduced, observation glass expanded, and directional rear damage anchors baked.");
         }
 
+        [MenuItem("Meteor Defense/Fix Cockpit Hologram Text Layout")]
+        public static void FixCockpitHologramTextLayout()
+        {
+            var scene=EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
+            TMP_Text ship=FindSceneText("LiveShipStatus");
+            TMP_Text systems=FindSceneText("LiveSystemsStatus");
+            if(ship==null||systems==null)throw new InvalidOperationException("Cockpit hologram text was not found. Rebuild the classic cockpit visual first.");
+            ConfigureShipHologramText(ship);ConfigureSystemsHologramText(systems);
+            EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
+            Debug.Log("[CockpitHologram] Ship and sensor readouts now stay inside the left hologram panel.");
+        }
+
         private static void LoadMaterials()
         {
             metal=AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/Titanium.mat");
@@ -238,10 +250,11 @@ namespace MeteorDefenseVR.Editor
             var scaler=go.GetComponent<UnityEngine.UI.CanvasScaler>();scaler.uiScaleMode=UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1920,1080);scaler.matchWidthOrHeight=.5f;
             var left=CreateHologramPanel(go.transform,"ShipStatusHologram",new Vector2(.115f,.47f));
             var right=CreateHologramPanel(go.transform,"ThreatStatusHologram",new Vector2(.885f,.47f));
-            TMP_Text ship=HudText(left.root,"LiveShipStatus",new Vector2(-122,78),new Vector2(250,118),17,TextAlignmentOptions.TopLeft);
+            TMP_Text ship=HudText(left.root,"LiveShipStatus",new Vector2(-122,88),new Vector2(250,100),16,TextAlignmentOptions.TopLeft);
             TMP_Text threat=HudText(right.root,"LiveThreatAnalysis",new Vector2(-122,78),new Vector2(250,102),17,TextAlignmentOptions.TopLeft);
             TMP_Text weapon=HudText(right.root,"LiveWeaponStatus",new Vector2(-122,-34),new Vector2(250,80),14,TextAlignmentOptions.TopLeft);
-            TMP_Text sensor=HudText(left.root,"LiveSystemsStatus",new Vector2(-122,-51),new Vector2(250,52),13,TextAlignmentOptions.TopLeft);
+            TMP_Text sensor=HudText(left.root,"LiveSystemsStatus",new Vector2(-122,-18),new Vector2(250,82),12,TextAlignmentOptions.TopLeft);
+            ConfigureShipHologramText(ship);ConfigureSystemsHologramText(sensor);
             return(ship,threat,weapon,sensor,left.group,right.group);
         }
 
@@ -265,7 +278,23 @@ namespace MeteorDefenseVR.Editor
         private static TMP_Text HudText(RectTransform parent,string name,Vector2 position,Vector2 size,float fontSize,TextAlignmentOptions alignment)
         {
             var go=new GameObject(name,typeof(RectTransform));go.transform.SetParent(parent,false);var rect=(RectTransform)go.transform;rect.pivot=new Vector2(0,1);rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.anchoredPosition=position;rect.sizeDelta=size;
-            var text=go.AddComponent<TextMeshProUGUI>();text.font=font;text.fontSize=fontSize;text.alignment=alignment;text.textWrappingMode=TextWrappingModes.NoWrap;text.raycastTarget=false;text.color=new Color(.2f,.95f,1f);text.overflowMode=TextOverflowModes.Overflow;return text;
+            var text=go.AddComponent<TextMeshProUGUI>();text.font=font;text.fontSize=fontSize;text.enableAutoSizing=false;text.alignment=alignment;text.textWrappingMode=TextWrappingModes.NoWrap;text.raycastTarget=false;text.color=new Color(.2f,.95f,1f);text.overflowMode=TextOverflowModes.Truncate;return text;
+        }
+
+        private static TMP_Text FindSceneText(string name) => Resources.FindObjectsOfTypeAll<TMP_Text>().FirstOrDefault(item=>item.gameObject.scene.IsValid()&&item.name==name);
+
+        private static void ConfigureShipHologramText(TMP_Text text)
+        {
+            RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
+            rect.anchoredPosition=new Vector2(-122,88);rect.sizeDelta=new Vector2(250,100);
+            text.fontSize=16;text.enableAutoSizing=false;text.lineSpacing=-4;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
+        }
+
+        private static void ConfigureSystemsHologramText(TMP_Text text)
+        {
+            RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
+            rect.anchoredPosition=new Vector2(-122,-18);rect.sizeDelta=new Vector2(250,82);
+            text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=-4;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 
         private static void SaveCockpitVisual(Transform cockpit)

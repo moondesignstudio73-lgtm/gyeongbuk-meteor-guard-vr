@@ -61,6 +61,32 @@ namespace MeteorDefenseVR.Tests
             Assert.That(cockpit.Find("Navigation/Readout").GetComponent<Renderer>().enabled,Is.False);
         }
 
+        [Test]
+        public void LeftHologramWorstCaseReadoutsStayInsideTheirPanel()
+        {
+            EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
+            var telemetry=Object.FindAnyObjectByType<CockpitTelemetryPresentation>(FindObjectsInactive.Include);
+            using var serialized=new SerializedObject(telemetry);
+            var ship=serialized.FindProperty("shipStatus").objectReferenceValue as TMP_Text;
+            var systems=serialized.FindProperty("systemsStatus").objectReferenceValue as TMP_Text;
+            var panel=ship.rectTransform.parent as RectTransform;
+            Assert.That(panel,Is.Not.Null);Assert.That(systems.rectTransform.parent,Is.EqualTo(panel));
+            ship.text="SHIP // CRITICAL\nSHIELD    100%\nHULL      100%\nENGINE    WARNING\nDAMAGE    100";
+            systems.text="SENSOR ARRAY\nGAZE       TRACKING\nENGINE     WARNING\nRADAR      99 CONTACTS\nPOWER      UNSTABLE";
+            Canvas.ForceUpdateCanvases();ship.ForceMeshUpdate(true,true);systems.ForceMeshUpdate(true,true);
+            Assert.That(ship.enableAutoSizing,Is.False);Assert.That(systems.enableAutoSizing,Is.False);
+            Assert.That(ship.overflowMode,Is.EqualTo(TextOverflowModes.Truncate));Assert.That(systems.overflowMode,Is.EqualTo(TextOverflowModes.Truncate));
+            Assert.That(ship.preferredWidth,Is.LessThanOrEqualTo(ship.rectTransform.rect.width+.5f),"Ship text width exceeds its slot.");
+            Assert.That(ship.preferredHeight,Is.LessThanOrEqualTo(ship.rectTransform.rect.height+.5f),"Ship text height exceeds its slot.");
+            Assert.That(systems.preferredWidth,Is.LessThanOrEqualTo(systems.rectTransform.rect.width+.5f),"Systems text width exceeds its slot.");
+            Assert.That(systems.preferredHeight,Is.LessThanOrEqualTo(systems.rectTransform.rect.height+.5f),"Systems text height exceeds its slot.");
+            float shipBottom=ship.rectTransform.anchoredPosition.y-ship.rectTransform.rect.height;
+            float systemsTop=systems.rectTransform.anchoredPosition.y;
+            float systemsBottom=systemsTop-systems.rectTransform.rect.height;
+            Assert.That(shipBottom,Is.GreaterThanOrEqualTo(systemsTop),"Ship and sensor blocks overlap.");
+            Assert.That(systemsBottom,Is.GreaterThan(panel.rect.yMin+8),"Sensor block crosses the hologram bottom border.");
+        }
+
         [UnityTest]
         public IEnumerator ShipAndScoreReadoutsFollowRuntimeValues()
         {
