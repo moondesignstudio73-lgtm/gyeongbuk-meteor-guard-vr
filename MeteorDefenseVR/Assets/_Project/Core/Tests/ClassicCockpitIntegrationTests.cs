@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Player;
 using MeteorDefenseVR.Visual;
@@ -107,6 +108,24 @@ namespace MeteorDefenseVR.Tests
             float weaponBottom=weaponTop-weapon.rectTransform.rect.height;
             Assert.That(threatBottom,Is.GreaterThanOrEqualTo(weaponTop),"Threat and weapon blocks overlap.");
             Assert.That(weaponBottom,Is.GreaterThan(panel.rect.yMin+8),"Weapon block crosses the hologram bottom border.");
+        }
+
+        [Test]
+        public void HologramsUseSubtleTransparentPanelsAndOneBoundedScanLine()
+        {
+            EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
+            foreach(string name in new[]{"ShipStatusHologram","ThreatStatusHologram"})
+            {
+                GameObject panel=Object.FindObjectsByType<Transform>(FindObjectsInactive.Include,FindObjectsSortMode.None)
+                    .FirstOrDefault(item=>item.name==name)?.gameObject;Assert.That(panel,Is.Not.Null,name);
+                var image=panel.GetComponent<UnityEngine.UI.Image>();
+                Assert.That(image.color.a,Is.LessThanOrEqualTo(.15f),name+" background alpha");
+                var outline=panel.GetComponent<UnityEngine.UI.Outline>();
+                Assert.That(outline.effectDistance.magnitude,Is.LessThanOrEqualTo(1.5f),name+" border thickness");
+                var scan=panel.GetComponent<CockpitHologramScan>();Assert.That(scan,Is.Not.Null,name);
+                Assert.That(scan.ScanLine,Is.Not.Null);Assert.That(scan.ScanLine.parent,Is.EqualTo(panel.transform));
+                Assert.That(scan.Period,Is.InRange(2.5f,4.5f));
+            }
         }
 
         [UnityTest]

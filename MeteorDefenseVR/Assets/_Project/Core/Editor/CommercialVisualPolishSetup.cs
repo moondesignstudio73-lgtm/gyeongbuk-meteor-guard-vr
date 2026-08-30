@@ -87,6 +87,24 @@ namespace MeteorDefenseVR.Editor
             Debug.Log("[CockpitHologram] Ship and sensor readouts now stay inside the left hologram panel.");
         }
 
+        public static void PolishHologramPanelsOnly()
+        {
+            var scene=EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
+            foreach(string name in new[]{"ShipStatusHologram","ThreatStatusHologram"})
+            {
+                Transform target=Resources.FindObjectsOfTypeAll<Transform>().FirstOrDefault(item=>item.gameObject.scene.IsValid()&&item.name==name);
+                GameObject panel=target!=null?target.gameObject:null;if(panel==null)throw new InvalidOperationException(name+" was not found.");
+                var image=panel.GetComponent<UnityEngine.UI.Image>();image.color=new Color(.004f,.038f,.052f,.12f);
+                var outline=panel.GetComponent<UnityEngine.UI.Outline>();outline.effectColor=new Color(.08f,.88f,1f,.32f);outline.effectDistance=new Vector2(1f,-1f);
+                var group=panel.GetComponent<CanvasGroup>();group.alpha=.42f;
+                RectTransform root=(RectTransform)panel.transform;Transform old=root.Find("ScanLine");if(old!=null)UnityEngine.Object.DestroyImmediate(old.gameObject);
+                RectTransform scan=HudLine(root,"ScanLine",Vector2.zero,new Vector2(250,1));scan.GetComponent<UnityEngine.UI.Image>().color=new Color(.08f,.88f,1f,.14f);
+                var animator=panel.GetComponent<CockpitHologramScan>();if(animator==null)animator=panel.AddComponent<CockpitHologramScan>();animator.Configure(scan,3.2f,96f);
+            }
+            EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
+            Debug.Log("[CockpitHologram] Transparent panels and bounded scan lines polished without changing layout or telemetry logic.");
+        }
+
         private static void LoadMaterials()
         {
             metal=AssetDatabase.LoadAssetAtPath<Material>(Root+"/Materials/Titanium.mat");
@@ -264,17 +282,21 @@ namespace MeteorDefenseVR.Editor
         {
             var go=new GameObject(name,typeof(RectTransform),typeof(CanvasGroup),typeof(UnityEngine.UI.Image),typeof(UnityEngine.UI.Outline));go.transform.SetParent(parent,false);
             var rect=(RectTransform)go.transform;rect.anchorMin=rect.anchorMax=anchor;rect.pivot=new Vector2(.5f,.5f);rect.sizeDelta=new Vector2(286,228);rect.anchoredPosition=Vector2.zero;
-            var image=go.GetComponent<UnityEngine.UI.Image>();image.color=new Color(.005f,.055f,.075f,.22f);image.raycastTarget=false;
-            var outline=go.GetComponent<UnityEngine.UI.Outline>();outline.effectColor=new Color(.08f,.88f,1f,.42f);outline.effectDistance=new Vector2(1.5f,-1.5f);outline.useGraphicAlpha=true;
-            var group=go.GetComponent<CanvasGroup>();group.alpha=.46f;group.interactable=false;group.blocksRaycasts=false;
+            var image=go.GetComponent<UnityEngine.UI.Image>();image.color=new Color(.004f,.038f,.052f,.12f);image.raycastTarget=false;
+            var outline=go.GetComponent<UnityEngine.UI.Outline>();outline.effectColor=new Color(.08f,.88f,1f,.32f);outline.effectDistance=new Vector2(1f,-1f);outline.useGraphicAlpha=true;
+            var group=go.GetComponent<CanvasGroup>();group.alpha=.42f;group.interactable=false;group.blocksRaycasts=false;
             HudLine(rect,"TopLine",new Vector2(0,106),new Vector2(250,2));HudLine(rect,"BottomLine",new Vector2(0,-106),new Vector2(250,2));
+            RectTransform scan=HudLine(rect,"ScanLine",Vector2.zero,new Vector2(250,1));
+            scan.GetComponent<UnityEngine.UI.Image>().color=new Color(.08f,.88f,1f,.14f);
+            go.AddComponent<CockpitHologramScan>().Configure(scan,3.2f,96f);
             return(rect,group);
         }
 
-        private static void HudLine(RectTransform parent,string name,Vector2 position,Vector2 size)
+        private static RectTransform HudLine(RectTransform parent,string name,Vector2 position,Vector2 size)
         {
             var go=new GameObject(name,typeof(RectTransform),typeof(UnityEngine.UI.Image));go.transform.SetParent(parent,false);var rect=(RectTransform)go.transform;rect.sizeDelta=size;rect.anchoredPosition=position;
             var image=go.GetComponent<UnityEngine.UI.Image>();image.color=new Color(.08f,.88f,1f,.58f);image.raycastTarget=false;
+            return rect;
         }
 
         private static TMP_Text HudText(RectTransform parent,string name,Vector2 position,Vector2 size,float fontSize,TextAlignmentOptions alignment)
