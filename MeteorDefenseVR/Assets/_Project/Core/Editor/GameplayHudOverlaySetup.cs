@@ -108,6 +108,7 @@ namespace MeteorDefenseVR.Editor
             var suppressed = new List<Renderer>();
             DisableLegacyHud(controller.transform, suppressed);
             DisableLegacyMessage(camera.transform.Find("MissionCompleteText"), suppressed);
+            DisableLegacyMessage(camera.transform.Find("CinematicAlert"), suppressed);
             LaunchSequenceController launch = Object.FindAnyObjectByType<LaunchSequenceController>(FindObjectsInactive.Include);
             DisableLegacyMessage(launch != null ? launch.transform.Find("LaunchStatus") : null, suppressed);
             MissionCompleteController complete = Object.FindAnyObjectByType<MissionCompleteController>(FindObjectsInactive.Include);

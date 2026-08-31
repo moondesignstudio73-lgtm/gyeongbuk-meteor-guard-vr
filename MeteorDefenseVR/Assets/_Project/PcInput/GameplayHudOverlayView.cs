@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MeteorDefenseVR.Core;
 using MeteorDefenseVR.Difficulty;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Launch;
@@ -244,6 +245,14 @@ namespace MeteorDefenseVR.PcInput
                 return missionComplete.StatusMessage;
             if (launch != null && launch.IsRunning && IsLaunchMessageStage(launch.CurrentStage))
                 return launch.StatusMessage;
+            GameFlowManager flow = GameFlowManager.Instance;
+            if (flow != null)
+            {
+                if (flow.CurrentState == GameState.Intro)
+                    return "WARNING\n운석이 지구로 접근합니다";
+                if (flow.CurrentState == GameState.MissionBriefing)
+                    return "MISSION\n운석을 파괴하고 지구를 지키세요";
+            }
             return telemetryVisible && controller != null ? controller.FeedbackMessage : string.Empty;
         }
 
@@ -259,7 +268,7 @@ namespace MeteorDefenseVR.PcInput
             presentedMessage = message;
             if (feedbackValue == null) return;
             feedbackValue.color = message.Contains("WARNING") || message.Contains("FAILED") || message.Contains("BOSS")
-                ? Warning : message.Contains("COMPLETE") || message.Contains("CLEAR") ? Green : Cyan;
+                ? Warning : message.Contains("COMPLETE") || message.Contains("CLEAR") || message.Contains("지키세요") ? Green : Cyan;
             SetText(feedbackValue, message);
         }
 

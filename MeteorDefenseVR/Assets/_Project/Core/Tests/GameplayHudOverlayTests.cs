@@ -95,8 +95,9 @@ namespace MeteorDefenseVR.Tests
             }
 
             Transform complete = Camera.main.transform.Find("MissionCompleteText");
+            Transform cinematicAlert = Camera.main.transform.Find("CinematicAlert");
             Transform launch = Object.FindAnyObjectByType<LaunchSequenceController>(FindObjectsInactive.Include).transform.Find("LaunchStatus");
-            foreach (Transform item in new[] { complete, launch })
+            foreach (Transform item in new[] { complete, cinematicAlert, launch })
             {
                 Assert.That(item, Is.Not.Null);
                 foreach (Renderer renderer in item.GetComponentsInChildren<Renderer>(true))
