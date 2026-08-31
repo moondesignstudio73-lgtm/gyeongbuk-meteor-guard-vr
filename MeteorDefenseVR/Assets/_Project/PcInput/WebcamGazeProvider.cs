@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if !UNITY_WEBGL
 using Mediapipe.Tasks.Core;
 using Mediapipe.Tasks.Vision.Core;
 using Mediapipe.Tasks.Vision.FaceLandmarker;
+#endif
 using MeteorDefenseVR.EyeTracking;
 using UnityEngine;
 
@@ -26,8 +28,10 @@ namespace MeteorDefenseVR.PcInput
         private WebCamTexture webcam;
         private Texture2D cpuTexture;
         private Color32[] pixels, uprightPixels;
+#if !UNITY_WEBGL
         private FaceLandmarker landmarker;
         private FaceLandmarkerResult result;
+#endif
         private Coroutine startup;
         private float lastValidTime = -100f, nextInference, lastInference;
         private float lastFrameTime;
@@ -47,7 +51,11 @@ namespace MeteorDefenseVR.PcInput
         public int SampleNumber { get; private set; }
         public bool HasFreshTracking => IsStreaming && Confidence >= minimumTrackingConfidence && Time.unscaledTime - lastValidTime < .25f;
         public bool IsTrackingValid => IsStreaming && Time.unscaledTime - lastValidTime <= trackingGracePeriod;
+#if UNITY_WEBGL
+        public bool IsStreaming => false;
+#else
         public bool IsStreaming => webcam != null && webcam.isPlaying && webcam.width > 16 && landmarker != null;
+#endif
         public bool IsStarting => startup != null;
         public bool Failed { get; private set; }
         public string Status { get; private set; } = "Webcam off";
@@ -69,7 +77,7 @@ namespace MeteorDefenseVR.PcInput
             yield return null;
             // Batch regression tests must never activate the user's camera.
             if (Application.isBatchMode) { Fail("Webcam disabled in automated tests"); yield break; }
-#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+#if (UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN) && !UNITY_WEBGL
             if (!Application.HasUserAuthorization(UserAuthorization.WebCam))
             {
                 AsyncOperation permission = Application.RequestUserAuthorization(UserAuthorization.WebCam);
@@ -108,13 +116,19 @@ namespace MeteorDefenseVR.PcInput
 #endif
         }
 
+#if !UNITY_WEBGL
         public static FaceLandmarker CreateLocalLandmarker(byte[] model, float confidence = .55f) => FaceLandmarker.CreateFromOptions(
             new FaceLandmarkerOptions(new BaseOptions(BaseOptions.Delegate.CPU, modelAssetBuffer: model),
                 RunningMode.VIDEO, numFaces: 1, minFaceDetectionConfidence: confidence,
                 minFacePresenceConfidence: confidence, minTrackingConfidence: confidence, outputFaceTransformationMatrixes: true));
+#endif
 
         private void Update()
         {
+#if UNITY_WEBGL
+            if (captureRequested) Fail("Webcam gaze is unavailable in the web build; using mouse input");
+            return;
+#else
             // A disconnected/stalled device can keep isPlaying=true. Do not wait forever at Boot.
             if (captureRequested && startup == null && webcam != null)
             {
@@ -175,6 +189,7 @@ namespace MeteorDefenseVR.PcInput
                 lastInference = Time.unscaledTime;
             }
             catch (Exception exception) { Fail("Webcam inference unavailable: " + exception.GetType().Name); }
+#endif
         }
 
         public Ray GetGazeRay() => gazeCamera != null ? gazeCamera.ViewportPointToRay(GazeViewport) : new Ray(transform.position, transform.forward);
@@ -189,13 +204,17 @@ namespace MeteorDefenseVR.PcInput
             if (startup != null) StopCoroutine(startup);
             startup = null;
             if (webcam != null) { webcam.Stop(); Destroy(webcam); webcam = null; }
+#if !UNITY_WEBGL
             if (landmarker != null) { ((IDisposable)landmarker).Dispose(); landmarker = null; }
+#endif
             if (cpuTexture != null) { Destroy(cpuTexture); cpuTexture = null; }
             if (pixels != null) Array.Clear(pixels, 0, pixels.Length);
             if (uprightPixels != null) Array.Clear(uprightPixels, 0, uprightPixels.Length);
             pixels = uprightPixels = null;
             Array.Clear(landmarkBuffer, 0, landmarkBuffer.Length);
+#if !UNITY_WEBGL
             result = default;
+#endif
             RawFeatures = GazeViewport = new Vector2(.5f, .5f);
             SampleNumber = 0;
             nextInference = lastInference = 0;

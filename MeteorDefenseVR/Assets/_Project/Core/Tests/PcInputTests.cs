@@ -97,6 +97,7 @@ namespace MeteorDefenseVR.Tests
             }
             finally { Object.DestroyImmediate(root); }
         }
+#if !UNITY_WEBGL
         [Test]
         public void NativeLocalFaceModel_LoadsAndProcessesBlankImageWithoutCamera()
         {
@@ -115,6 +116,7 @@ namespace MeteorDefenseVR.Tests
             }
             finally { Object.DestroyImmediate(texture); }
         }
+#endif
 
         [UnityTearDown]
         public IEnumerator Cleanup() { if (Application.isPlaying) yield return new ExitPlayMode(); }
