@@ -85,13 +85,17 @@ namespace MeteorDefenseVR.Tests
         public void MainHudAndSystemMessagesNoLongerUseDepthTestedLegacyRenderers()
         {
             GameplayHudOverlayView view = Object.FindAnyObjectByType<GameplayHudOverlayView>(FindObjectsInactive.Include);
+            view.RefreshPresentation();
             Transform legacy = Object.FindAnyObjectByType<MeteorDefenseVR.UI.MissionHudController>(FindObjectsInactive.Include).transform;
             foreach (string name in new[] { "Panel_HP", "Panel_Remaining", "Panel_Score", "HudHealth", "HudRemaining", "HudScore", "HudFeedback", "TacticalHudFrames" })
             {
                 Transform item = legacy.Find(name);
                 Assert.That(item, Is.Not.Null, name);
                 foreach (Renderer renderer in item.GetComponentsInChildren<Renderer>(true))
+                {
                     Assert.That(renderer.enabled, Is.False, name);
+                    Assert.That(renderer.gameObject.activeSelf, Is.False, name + " renderer object");
+                }
             }
 
             Transform complete = Camera.main.transform.Find("MissionCompleteText");
@@ -101,7 +105,10 @@ namespace MeteorDefenseVR.Tests
             {
                 Assert.That(item, Is.Not.Null);
                 foreach (Renderer renderer in item.GetComponentsInChildren<Renderer>(true))
+                {
                     Assert.That(renderer.enabled, Is.False, item.name);
+                    Assert.That(renderer.gameObject.activeSelf, Is.False, item.name + " renderer object");
+                }
             }
 
             Material fontMaterial = view.ScoreValue.fontSharedMaterial;

@@ -288,6 +288,10 @@ namespace MeteorDefenseVR.PcInput
                 if (renderer == null) continue;
                 renderer.enabled = false;
                 renderer.forceRenderingOff = true;
+                // State transitions and legacy presentation bridges can restore Renderer flags.
+                // Keep the data-bearing TextMesh/component references alive, but make the
+                // renderer GameObject itself impossible for any player/spectator camera to draw.
+                if (renderer.gameObject.activeSelf) renderer.gameObject.SetActive(false);
             }
         }
 

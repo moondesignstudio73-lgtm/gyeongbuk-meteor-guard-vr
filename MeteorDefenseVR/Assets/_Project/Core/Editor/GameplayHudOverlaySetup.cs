@@ -137,6 +137,7 @@ namespace MeteorDefenseVR.Editor
             {
                 renderer.enabled = false;
                 renderer.forceRenderingOff = true;
+                renderer.gameObject.SetActive(false);
                 if (!suppressed.Contains(renderer)) suppressed.Add(renderer);
             }
             foreach (TextMeshPro text in root.GetComponentsInChildren<TextMeshPro>(true)) text.enabled = false;
