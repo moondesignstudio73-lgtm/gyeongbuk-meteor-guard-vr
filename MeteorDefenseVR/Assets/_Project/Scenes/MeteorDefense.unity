@@ -84802,7 +84802,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 238, y: 94}
+  m_SizeDelta: {x: 282, y: 94}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &766296363
 MonoBehaviour:
@@ -120084,7 +120084,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 3}
-  m_SizeDelta: {x: 214, y: 48}
+  m_SizeDelta: {x: 258, y: 48}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1388237482
 CanvasRenderer:
@@ -120114,7 +120114,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 / 0
+  m_text: "\uB0A8\uC740 \uC6B4\uC11D  0 / 0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8b0c1a570528f92448b232cd480a2832, type: 2}
@@ -120141,8 +120141,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 21
+  m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -120800,7 +120800,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -6}
-  m_SizeDelta: {x: 214, y: 32}
+  m_SizeDelta: {x: 258, y: 32}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1395685461
 CanvasRenderer:
@@ -120830,7 +120830,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB0A8\uC740 \uC6B4\uC11D"
+  m_text: "NORMAL  \xB7  STAGE 01"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8b0c1a570528f92448b232cd480a2832, type: 2}
@@ -120857,8 +120857,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0

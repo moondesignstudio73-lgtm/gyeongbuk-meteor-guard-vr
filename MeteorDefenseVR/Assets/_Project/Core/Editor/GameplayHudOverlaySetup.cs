@@ -77,14 +77,14 @@ namespace MeteorDefenseVR.Editor
                 new Vector2(.5f, 0f), new Vector2(0f, 3f), new Vector2(214f, 48f), new Color32(47, 231, 246, 255));
 
             RectTransform center = Panel(telemetry, "StagePanel", imageMaterial);
-            Place(center, new Vector2(.5f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(238f, 94f));
-            TextMeshProUGUI stage = Text(center, "DifficultyStageValue", "남은 운석", font, fontMaterial, 16f,
-                new Vector2(.5f, 1f), new Vector2(0f, -6f), new Vector2(214f, 32f), new Color32(153, 226, 235, 255));
+            Place(center, new Vector2(.5f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(282f, 94f));
+            TextMeshProUGUI stage = Text(center, "DifficultyStageValue", "NORMAL  ·  STAGE 01", font, fontMaterial, 15f,
+                new Vector2(.5f, 1f), new Vector2(0f, -6f), new Vector2(258f, 32f), new Color32(153, 226, 235, 255));
             TextMeshProUGUI asteroidLabel = Text(center, "AsteroidLabel", string.Empty, font, fontMaterial, 1f,
                 new Vector2(.5f, .5f), Vector2.zero, Vector2.one, Color.clear);
             asteroidLabel.gameObject.SetActive(false);
-            TextMeshProUGUI asteroids = Text(center, "AsteroidValue", "18 / 21", font, fontMaterial, 25f,
-                new Vector2(.5f, 0f), new Vector2(0f, 3f), new Vector2(214f, 48f), new Color32(47, 231, 246, 255));
+            TextMeshProUGUI asteroids = Text(center, "AsteroidValue", "남은 운석  18 / 21", font, fontMaterial, 21f,
+                new Vector2(.5f, 0f), new Vector2(0f, 3f), new Vector2(258f, 48f), new Color32(47, 231, 246, 255));
 
             RectTransform right = Panel(telemetry, "ScorePanel", imageMaterial);
             Place(right, new Vector2(.76f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(210f, 94f));

@@ -220,15 +220,15 @@ namespace MeteorDefenseVR.PcInput
         {
             if (controller != null && controller.CampaignStage > 0)
             {
-                SetText(difficultyStageValue, controller.BossIncoming ? "보스 운석" : "남은 운석");
+                SetText(difficultyStageValue, FormatDifficultyStage(controller.CampaignDifficulty, controller.CampaignStage));
                 SetText(asteroidValue, controller.BossIncoming
-                    ? $"{Mathf.RoundToInt(controller.BossHealthNormalized * 100f):D3}%"
-                    : FormatAsteroidValue(remaining, total));
+                    ? $"보스 운석  {Mathf.RoundToInt(controller.BossHealthNormalized * 100f):D3}%"
+                    : $"남은 운석  {FormatAsteroidValue(remaining, total)}");
             }
             else
             {
-                SetText(difficultyStageValue, "남은 운석");
-                SetText(asteroidValue, FormatAsteroidValue(remaining, total));
+                SetText(difficultyStageValue, FormatDifficultyStage(DifficultyLevel.Normal, 1));
+                SetText(asteroidValue, $"남은 운석  {FormatAsteroidValue(remaining, total)}");
             }
         }
 
@@ -296,8 +296,8 @@ namespace MeteorDefenseVR.PcInput
 #if UNITY_EDITOR
         public void PresentLayoutProbe(DifficultyLevel difficulty, int stage, int remaining, int total, int score)
         {
-            SetText(difficultyStageValue, "남은 운석");
-            SetText(asteroidValue, FormatAsteroidValue(remaining, total));
+            SetText(difficultyStageValue, FormatDifficultyStage(difficulty, stage));
+            SetText(asteroidValue, $"남은 운석  {FormatAsteroidValue(remaining, total)}");
             SetText(scoreValue, FormatScoreValue(score));
             SetText(healthValue, FormatHealthValue(100f, 100f));
             Canvas.ForceUpdateCanvases();
@@ -305,8 +305,8 @@ namespace MeteorDefenseVR.PcInput
 
         public void PresentRawLayoutProbe(string difficultyCode, int stage, int remaining, int total, int score)
         {
-            SetText(difficultyStageValue, "남은 운석");
-            SetText(asteroidValue, FormatAsteroidValue(remaining, total));
+            SetText(difficultyStageValue, $"{difficultyCode}  ·  STAGE {Mathf.Max(0, stage):D2}");
+            SetText(asteroidValue, $"남은 운석  {FormatAsteroidValue(remaining, total)}");
             SetText(scoreValue, FormatScoreValue(score));
             SetText(healthValue, FormatHealthValue(100f, 100f));
             Canvas.ForceUpdateCanvases();

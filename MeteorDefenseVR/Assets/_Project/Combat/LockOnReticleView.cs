@@ -20,6 +20,8 @@ namespace MeteorDefenseVR.Combat
 
         private void OnEnable()
         {
+            GazeLockOnTarget.GlobalReleased -= HandleGlobalReleased;
+            GazeLockOnTarget.GlobalReleased += HandleGlobalReleased;
             if (target == null) target = GetComponentInParent<GazeLockOnTarget>();
             if (target == null)
             {
@@ -32,6 +34,7 @@ namespace MeteorDefenseVR.Combat
 
         private void OnDisable()
         {
+            GazeLockOnTarget.GlobalReleased -= HandleGlobalReleased;
             UnsubscribeTarget();
             ClearPresentation();
             transform.localScale = Vector3.one;
@@ -72,6 +75,10 @@ namespace MeteorDefenseVR.Combat
         private void HandleProgressChanged(GazeLockOnTarget _, float progress) => Refresh(progress, target.State);
         private void HandleLocked(GazeLockOnTarget _) => Refresh(1f, LockOnState.Locked);
         private void HandleLockLost(GazeLockOnTarget _) => Refresh(0f, target != null ? target.State : LockOnState.Idle);
+        private void HandleGlobalReleased(GazeLockOnTarget released)
+        {
+            if (released == target) ClearPresentation();
+        }
 
         public void ClearPresentation()
         {
@@ -107,22 +114,31 @@ namespace MeteorDefenseVR.Combat
             if (progressRing != null)
             {
                 progressRing.enabled = visible;
-                progressRing.loop = locked;
-                progressRing.useWorldSpace = false;
-                int count = locked
-                    ? ringSegments + 1
-                    : Mathf.Max(2, Mathf.CeilToInt(ringSegments * Mathf.Clamp01(progress)) + 1);
-                progressRing.positionCount = count;
-                float arc = locked ? 1f : Mathf.Clamp01(progress);
-                for (int i = 0; i < count; i++)
+                if (!visible)
                 {
-                    float angle = Mathf.PI * 2f * arc * i / Mathf.Max(1, count - 1);
-                    progressRing.SetPosition(i, new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * ringRadius);
+                    // Do not leave the last locked (green) geometry resident in the renderer.
+                    // Some graphics drivers can present that buffer for one more frame.
+                    progressRing.positionCount = 0;
+                    progressRing.transform.localScale = Vector3.one;
                 }
-                Color color = locked ? lockedColor : focusingColor;
-                progressRing.startColor = color;
-                progressRing.endColor = color;
-                if (!visible) progressRing.transform.localScale = Vector3.one;
+                else
+                {
+                    progressRing.loop = locked;
+                    progressRing.useWorldSpace = false;
+                    int count = locked
+                        ? ringSegments + 1
+                        : Mathf.Max(2, Mathf.CeilToInt(ringSegments * Mathf.Clamp01(progress)) + 1);
+                    progressRing.positionCount = count;
+                    float arc = locked ? 1f : Mathf.Clamp01(progress);
+                    for (int i = 0; i < count; i++)
+                    {
+                        float angle = Mathf.PI * 2f * arc * i / Mathf.Max(1, count - 1);
+                        progressRing.SetPosition(i, new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * ringRadius);
+                    }
+                    Color color = locked ? lockedColor : focusingColor;
+                    progressRing.startColor = color;
+                    progressRing.endColor = color;
+                }
             }
 
             if (statusText != null)

@@ -72,8 +72,8 @@ namespace MeteorDefenseVR.Tests
             }
 
             Assert.That(view.ScoreValue.text, Is.EqualTo("999,999"));
-            Assert.That(view.DifficultyStageValue.text, Is.EqualTo("남은 운석"));
-            Assert.That(view.AsteroidValue.text, Is.EqualTo("99 / 100"));
+            Assert.That(view.DifficultyStageValue.text, Is.EqualTo("EXTREME  ·  STAGE 99"));
+            Assert.That(view.AsteroidValue.text, Is.EqualTo("남은 운석  99 / 100"));
             AssertRowsSeparated((RectTransform)view.TelemetryRoot.transform.Find("HealthPanel"), "HealthLabel", "HealthValue");
             AssertRowsSeparated((RectTransform)view.TelemetryRoot.transform.Find("StagePanel"), "DifficultyStageValue", "AsteroidValue");
             AssertRowsSeparated((RectTransform)view.TelemetryRoot.transform.Find("ScorePanel"), "ScoreLabel", "ScoreValue");

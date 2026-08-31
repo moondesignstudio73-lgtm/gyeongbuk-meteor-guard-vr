@@ -54,6 +54,7 @@ namespace MeteorDefenseVR.Tests
             Assert.That(turrets.CurrentCandidate, Is.Null);
             Assert.That(turrets.SelectedTurretIndex, Is.EqualTo(-1));
             Assert.That(ring.enabled, Is.False);
+            Assert.That(ring.positionCount, Is.Zero, "Released green lock geometry must not remain resident for a later frame");
             Assert.That(text.gameObject.activeSelf, Is.False);
             Assert.That(bracket.enabled, Is.False);
         }
