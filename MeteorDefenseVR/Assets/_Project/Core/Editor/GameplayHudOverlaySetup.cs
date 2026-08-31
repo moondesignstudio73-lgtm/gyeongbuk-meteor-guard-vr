@@ -70,29 +70,28 @@ namespace MeteorDefenseVR.Editor
             Stretch(telemetry, Vector2.zero, Vector2.zero);
 
             RectTransform left = Panel(telemetry, "HealthPanel", imageMaterial);
-            Place(left, new Vector2(0f, 1f), new Vector2(0f, 1f), Vector2.zero, new Vector2(286f, 98f));
+            Place(left, new Vector2(.24f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(238f, 94f));
             Text(left, "HealthLabel", "HP / SHIELD", font, fontMaterial, 16f,
-                new Vector2(.5f, 1f), new Vector2(0f, -8f), new Vector2(252f, 28f), new Color32(153, 226, 235, 255));
-            TextMeshProUGUI health = Text(left, "HealthValue", "■■■■■■■■  100%", font, fontMaterial, 21f,
-                new Vector2(.5f, 0f), new Vector2(0f, 5f), new Vector2(256f, 48f), new Color32(47, 231, 246, 255));
+                new Vector2(.5f, 1f), new Vector2(0f, -6f), new Vector2(214f, 32f), new Color32(153, 226, 235, 255));
+            TextMeshProUGUI health = Text(left, "HealthValue", "■■■■■■■■", font, fontMaterial, 22f,
+                new Vector2(.5f, 0f), new Vector2(0f, 3f), new Vector2(214f, 48f), new Color32(47, 231, 246, 255));
 
             RectTransform center = Panel(telemetry, "StagePanel", imageMaterial);
-            Place(center, new Vector2(.5f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(392f, 98f));
-            TextMeshProUGUI stage = Text(center, "DifficultyStageValue", "NORMAL  ·  STAGE 01", font, fontMaterial, 19f,
-                new Vector2(.5f, 1f), new Vector2(0f, -7f), new Vector2(356f, 38f), new Color32(47, 231, 246, 255));
-            TextMeshProUGUI asteroidLabel = Text(center, "AsteroidLabel", "ASTEROIDS", font, fontMaterial, 13f,
-                new Vector2(.5f, 0f), new Vector2(-65f, 4f), new Vector2(138f, 48f), new Color32(153, 226, 235, 255));
-            asteroidLabel.alignment = TextAlignmentOptions.Right;
-            TextMeshProUGUI asteroids = Text(center, "AsteroidValue", "18 / 21", font, fontMaterial, 22f,
-                new Vector2(.5f, 0f), new Vector2(82f, 4f), new Vector2(152f, 48f), new Color32(47, 231, 246, 255));
-            asteroids.alignment = TextAlignmentOptions.Left;
+            Place(center, new Vector2(.5f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(238f, 94f));
+            TextMeshProUGUI stage = Text(center, "DifficultyStageValue", "남은 운석", font, fontMaterial, 16f,
+                new Vector2(.5f, 1f), new Vector2(0f, -6f), new Vector2(214f, 32f), new Color32(153, 226, 235, 255));
+            TextMeshProUGUI asteroidLabel = Text(center, "AsteroidLabel", string.Empty, font, fontMaterial, 1f,
+                new Vector2(.5f, .5f), Vector2.zero, Vector2.one, Color.clear);
+            asteroidLabel.gameObject.SetActive(false);
+            TextMeshProUGUI asteroids = Text(center, "AsteroidValue", "18 / 21", font, fontMaterial, 25f,
+                new Vector2(.5f, 0f), new Vector2(0f, 3f), new Vector2(214f, 48f), new Color32(47, 231, 246, 255));
 
             RectTransform right = Panel(telemetry, "ScorePanel", imageMaterial);
-            Place(right, new Vector2(1f, 1f), new Vector2(1f, 1f), Vector2.zero, new Vector2(232f, 98f));
+            Place(right, new Vector2(.76f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(210f, 94f));
             Text(right, "ScoreLabel", "SCORE", font, fontMaterial, 16f,
-                new Vector2(.5f, 1f), new Vector2(0f, -8f), new Vector2(202f, 28f), new Color32(153, 226, 235, 255));
-            TextMeshProUGUI score = Text(right, "ScoreValue", "999,999", font, fontMaterial, 30f,
-                new Vector2(.5f, 0f), new Vector2(0f, 5f), new Vector2(206f, 52f), new Color32(47, 231, 246, 255));
+                new Vector2(.5f, 1f), new Vector2(0f, -6f), new Vector2(186f, 32f), new Color32(153, 226, 235, 255));
+            TextMeshProUGUI score = Text(right, "ScoreValue", "999,999", font, fontMaterial, 26f,
+                new Vector2(.5f, 0f), new Vector2(0f, 3f), new Vector2(186f, 48f), new Color32(47, 231, 246, 255));
             score.characterSpacing = 1f;
 
             RectTransform feedbackPanel = Panel(safe, "SystemMessagePanel", imageMaterial);
@@ -137,7 +136,6 @@ namespace MeteorDefenseVR.Editor
             {
                 renderer.enabled = false;
                 renderer.forceRenderingOff = true;
-                renderer.gameObject.SetActive(false);
                 if (!suppressed.Contains(renderer)) suppressed.Add(renderer);
             }
             foreach (TextMeshPro text in root.GetComponentsInChildren<TextMeshPro>(true)) text.enabled = false;
@@ -147,13 +145,17 @@ namespace MeteorDefenseVR.Editor
         {
             RectTransform rect = Rect(parent, name);
             UnityEngine.UI.Image image = Get<UnityEngine.UI.Image>(rect.gameObject);
-            image.color = new Color(.006f, .025f, .038f, .72f);
+            image.enabled = true;
+            image.color = Color.white;
             image.material = material;
             image.raycastTarget = false;
             UnityEngine.UI.Outline outline = Get<UnityEngine.UI.Outline>(rect.gameObject);
+            outline.enabled = false;
             outline.effectColor = new Color(.08f, .72f, .82f, .82f);
             outline.effectDistance = new Vector2(1f, -1f);
             outline.useGraphicAlpha = true;
+            ChamferedHudPanel frame = Get<ChamferedHudPanel>(rect.gameObject);
+            frame.Configure(new Color(.003f, .018f, .028f, .82f), new Color(.08f, .72f, .82f, .72f), 12f, 1.5f);
             RectTransform line = Rect(rect, "AccentLine");
             line.anchorMin = new Vector2(.08f, 0f);
             line.anchorMax = new Vector2(.92f, 0f);

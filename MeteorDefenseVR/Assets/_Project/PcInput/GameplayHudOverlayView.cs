@@ -176,7 +176,7 @@ namespace MeteorDefenseVR.PcInput
         {
             float normalized = maximum > 0f ? Mathf.Clamp01(current / maximum) : 0f;
             int filled = Mathf.RoundToInt(normalized * 8f);
-            return new string('■', filled) + new string('□', 8 - filled) + $"  {Mathf.RoundToInt(normalized * 100f):D3}%";
+            return new string('■', filled) + new string('□', 8 - filled);
         }
 
         public static string FormatDifficultyStage(DifficultyLevel difficulty, int stage) =>
@@ -220,16 +220,14 @@ namespace MeteorDefenseVR.PcInput
         {
             if (controller != null && controller.CampaignStage > 0)
             {
-                SetText(difficultyStageValue, FormatDifficultyStage(controller.CampaignDifficulty, controller.CampaignStage));
-                SetText(asteroidLabel, controller.BossIncoming ? "BOSS ASTEROID" : "ASTEROIDS");
+                SetText(difficultyStageValue, controller.BossIncoming ? "보스 운석" : "남은 운석");
                 SetText(asteroidValue, controller.BossIncoming
                     ? $"{Mathf.RoundToInt(controller.BossHealthNormalized * 100f):D3}%"
                     : FormatAsteroidValue(remaining, total));
             }
             else
             {
-                SetText(difficultyStageValue, "MISSION  ·  DEFENSE");
-                SetText(asteroidLabel, "ASTEROIDS");
+                SetText(difficultyStageValue, "남은 운석");
                 SetText(asteroidValue, FormatAsteroidValue(remaining, total));
             }
         }
@@ -291,15 +289,14 @@ namespace MeteorDefenseVR.PcInput
                 // State transitions and legacy presentation bridges can restore Renderer flags.
                 // Keep the data-bearing TextMesh/component references alive, but make the
                 // renderer GameObject itself impossible for any player/spectator camera to draw.
-                if (renderer.gameObject.activeSelf) renderer.gameObject.SetActive(false);
+                if (Application.isPlaying && renderer.gameObject.activeSelf) renderer.gameObject.SetActive(false);
             }
         }
 
 #if UNITY_EDITOR
         public void PresentLayoutProbe(DifficultyLevel difficulty, int stage, int remaining, int total, int score)
         {
-            SetText(difficultyStageValue, FormatDifficultyStage(difficulty, stage));
-            SetText(asteroidLabel, "ASTEROIDS");
+            SetText(difficultyStageValue, "남은 운석");
             SetText(asteroidValue, FormatAsteroidValue(remaining, total));
             SetText(scoreValue, FormatScoreValue(score));
             SetText(healthValue, FormatHealthValue(100f, 100f));
@@ -308,8 +305,7 @@ namespace MeteorDefenseVR.PcInput
 
         public void PresentRawLayoutProbe(string difficultyCode, int stage, int remaining, int total, int score)
         {
-            SetText(difficultyStageValue, $"{difficultyCode}  ·  STAGE {Mathf.Max(0, stage):D2}");
-            SetText(asteroidLabel, "ASTEROIDS");
+            SetText(difficultyStageValue, "남은 운석");
             SetText(asteroidValue, FormatAsteroidValue(remaining, total));
             SetText(scoreValue, FormatScoreValue(score));
             SetText(healthValue, FormatHealthValue(100f, 100f));

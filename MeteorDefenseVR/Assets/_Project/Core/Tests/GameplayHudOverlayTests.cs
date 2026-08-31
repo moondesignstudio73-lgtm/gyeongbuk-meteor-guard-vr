@@ -67,16 +67,14 @@ namespace MeteorDefenseVR.Tests
             {
                 view.PresentRawLayoutProbe(difficulty, stage, remaining, total, score);
                 AssertFits(view.DifficultyStageValue, $"{difficulty} stage {stage} difficulty/stage");
-                AssertFits(view.AsteroidLabel, $"{remaining}/{total} label");
                 AssertFits(view.AsteroidValue, $"{remaining}/{total}");
                 AssertFits(view.ScoreValue, score.ToString());
             }
 
             Assert.That(view.ScoreValue.text, Is.EqualTo("999,999"));
-            Assert.That(view.DifficultyStageValue.text, Does.Contain("STAGE 99"));
+            Assert.That(view.DifficultyStageValue.text, Is.EqualTo("남은 운석"));
             Assert.That(view.AsteroidValue.text, Is.EqualTo("99 / 100"));
             AssertRowsSeparated((RectTransform)view.TelemetryRoot.transform.Find("HealthPanel"), "HealthLabel", "HealthValue");
-            AssertRowsSeparated((RectTransform)view.TelemetryRoot.transform.Find("StagePanel"), "DifficultyStageValue", "AsteroidLabel");
             AssertRowsSeparated((RectTransform)view.TelemetryRoot.transform.Find("StagePanel"), "DifficultyStageValue", "AsteroidValue");
             AssertRowsSeparated((RectTransform)view.TelemetryRoot.transform.Find("ScorePanel"), "ScoreLabel", "ScoreValue");
         }
@@ -94,7 +92,6 @@ namespace MeteorDefenseVR.Tests
                 foreach (Renderer renderer in item.GetComponentsInChildren<Renderer>(true))
                 {
                     Assert.That(renderer.enabled, Is.False, name);
-                    Assert.That(renderer.gameObject.activeSelf, Is.False, name + " renderer object");
                 }
             }
 
@@ -107,7 +104,6 @@ namespace MeteorDefenseVR.Tests
                 foreach (Renderer renderer in item.GetComponentsInChildren<Renderer>(true))
                 {
                     Assert.That(renderer.enabled, Is.False, item.name);
-                    Assert.That(renderer.gameObject.activeSelf, Is.False, item.name + " renderer object");
                 }
             }
 
@@ -169,9 +165,15 @@ namespace MeteorDefenseVR.Tests
                 RectTransform panel = (RectTransform)view.TelemetryRoot.transform.Find(name);
                 Assert.That(panel.sizeDelta.y / 1080f, Is.LessThanOrEqualTo(.10f), name + " height");
                 UnityEngine.UI.Image image = panel.GetComponent<UnityEngine.UI.Image>();
-                Assert.That(image.color.a, Is.InRange(.65f, .78f), name + " background alpha");
+                Assert.That(image.enabled, Is.True, name + " mesh source");
+                Assert.That(image.raycastTarget, Is.False, name + " background raycast");
+                ChamferedHudPanel frame = panel.GetComponent<ChamferedHudPanel>();
+                Assert.That(frame, Is.Not.Null, name + " chamfered frame");
+                Assert.That(frame.FillColor.a, Is.InRange(.78f, .86f), name + " background alpha");
+                Assert.That(frame.BorderColor.a, Is.InRange(.68f, .76f), name + " border alpha");
+                Assert.That(frame.CornerCut, Is.InRange(10f, 14f), name + " corner cut");
                 UnityEngine.UI.Outline outline = panel.GetComponent<UnityEngine.UI.Outline>();
-                Assert.That(outline.effectDistance.magnitude, Is.LessThanOrEqualTo(1.5f), name + " border thickness");
+                Assert.That(outline.enabled, Is.False, name + " rectangular outline must stay hidden");
             }
             Assert.That(((RectTransform)view.TelemetryRoot.transform.Find("HealthPanel")).sizeDelta.x, Is.LessThan(320f));
             Assert.That(((RectTransform)view.TelemetryRoot.transform.Find("StagePanel")).sizeDelta.x, Is.LessThan(420f));

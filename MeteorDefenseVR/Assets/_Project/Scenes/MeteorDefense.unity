@@ -6805,7 +6805,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c15529629614bb9b4028d35ee09e9e4, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Visual.CockpitHologramScan
   scanLine: {fileID: 2029890723}
   period: 3.2
@@ -9237,6 +9237,7 @@ GameObject:
   - component: {fileID: 143110280}
   - component: {fileID: 143110279}
   - component: {fileID: 143110278}
+  - component: {fileID: 143110281}
   m_Layer: 8
   m_Name: SystemMessagePanel
   m_TagString: Untagged
@@ -9272,7 +9273,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143110276}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
@@ -9293,7 +9294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: c860748d14265294ea85fb980351cfc5, type: 2}
-  m_Color: {r: 0.006, g: 0.025, b: 0.038, a: 0.72}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9318,6 +9319,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143110276}
   m_CullTransparentMesh: 1
+--- !u!114 &143110281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143110276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2933468051550b4c8ba85225bdcd0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MeteorDefenseVR.PcInput::MeteorDefenseVR.PcInput.ChamferedHudPanel
+  cornerCut: 12
+  borderWidth: 1.5
+  fillColor: {r: 0.003, g: 0.018, b: 0.028, a: 0.82}
+  borderColor: {r: 0.08, g: 0.72, b: 0.82, a: 0.72}
 --- !u!1 &146102017
 GameObject:
   m_ObjectHideFlags: 0
@@ -53014,6 +53031,7 @@ GameObject:
   - component: {fileID: 543118036}
   - component: {fileID: 543118035}
   - component: {fileID: 543118034}
+  - component: {fileID: 543118037}
   m_Layer: 8
   m_Name: ScorePanel
   m_TagString: Untagged
@@ -53038,11 +53056,11 @@ RectTransform:
   - {fileID: 858273637}
   m_Father: {fileID: 238705255}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.76, y: 1}
+  m_AnchorMax: {x: 0.76, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 232, y: 98}
-  m_Pivot: {x: 1, y: 1}
+  m_SizeDelta: {x: 210, y: 94}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &543118034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53050,7 +53068,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 543118032}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
@@ -53071,7 +53089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: c860748d14265294ea85fb980351cfc5, type: 2}
-  m_Color: {r: 0.006, g: 0.025, b: 0.038, a: 0.72}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -53096,6 +53114,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 543118032}
   m_CullTransparentMesh: 1
+--- !u!114 &543118037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543118032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2933468051550b4c8ba85225bdcd0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MeteorDefenseVR.PcInput::MeteorDefenseVR.PcInput.ChamferedHudPanel
+  cornerCut: 12
+  borderWidth: 1.5
+  fillColor: {r: 0.003, g: 0.018, b: 0.028, a: 0.82}
+  borderColor: {r: 0.08, g: 0.72, b: 0.82, a: 0.72}
 --- !u!1 &544694144
 GameObject:
   m_ObjectHideFlags: 0
@@ -84505,8 +84539,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -8}
-  m_SizeDelta: {x: 252, y: 28}
+  m_AnchoredPosition: {x: 0, y: -6}
+  m_SizeDelta: {x: 214, y: 32}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &766035389
 MonoBehaviour:
@@ -84739,6 +84773,7 @@ GameObject:
   - component: {fileID: 766296365}
   - component: {fileID: 766296364}
   - component: {fileID: 766296363}
+  - component: {fileID: 766296366}
   m_Layer: 8
   m_Name: StagePanel
   m_TagString: Untagged
@@ -84767,7 +84802,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 392, y: 98}
+  m_SizeDelta: {x: 238, y: 94}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &766296363
 MonoBehaviour:
@@ -84776,7 +84811,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766296361}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
@@ -84797,7 +84832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: c860748d14265294ea85fb980351cfc5, type: 2}
-  m_Color: {r: 0.006, g: 0.025, b: 0.038, a: 0.72}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -84822,6 +84857,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766296361}
   m_CullTransparentMesh: 1
+--- !u!114 &766296366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766296361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2933468051550b4c8ba85225bdcd0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MeteorDefenseVR.PcInput::MeteorDefenseVR.PcInput.ChamferedHudPanel
+  cornerCut: 12
+  borderWidth: 1.5
+  fillColor: {r: 0.003, g: 0.018, b: 0.028, a: 0.82}
+  borderColor: {r: 0.08, g: 0.72, b: 0.82, a: 0.72}
 --- !u!1 &770625235
 GameObject:
   m_ObjectHideFlags: 0
@@ -87991,8 +88042,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 5}
-  m_SizeDelta: {x: 206, y: 52}
+  m_AnchoredPosition: {x: 0, y: 3}
+  m_SizeDelta: {x: 186, y: 48}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &858273638
 CanvasRenderer:
@@ -88049,8 +88100,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 26
+  m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -88485,7 +88536,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c15529629614bb9b4028d35ee09e9e4, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: MeteorDefenseVR.Runtime::MeteorDefenseVR.Visual.CockpitHologramScan
   scanLine: {fileID: 1980079077}
   period: 3.2
@@ -88802,7 +88853,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: c860748d14265294ea85fb980351cfc5, type: 2}
   m_Color: {r: 0.18431373, g: 0.90588236, b: 0.9647059, a: 0.8627451}
@@ -100304,7 +100355,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: c860748d14265294ea85fb980351cfc5, type: 2}
   m_Color: {r: 0.18431373, g: 0.90588236, b: 0.9647059, a: 0.8627451}
@@ -113725,7 +113776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1356858080
 RectTransform:
   m_ObjectHideFlags: 0
@@ -113740,11 +113791,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 766296362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -65, y: 4}
-  m_SizeDelta: {x: 138, y: 48}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1356858081
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -113773,7 +113824,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ASTEROIDS
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8b0c1a570528f92448b232cd480a2832, type: 2}
@@ -113783,7 +113834,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4293649049
-  m_fontColor: {r: 0.6, g: 0.8862745, b: 0.92156863, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -113800,14 +113851,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
-  m_fontSizeBase: 13
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
   m_fontStyle: 1
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -120032,8 +120083,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 82, y: 4}
-  m_SizeDelta: {x: 152, y: 48}
+  m_AnchoredPosition: {x: 0, y: 3}
+  m_SizeDelta: {x: 214, y: 48}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1388237482
 CanvasRenderer:
@@ -120090,14 +120141,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
-  m_fontSizeBase: 22
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -120748,8 +120799,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -7}
-  m_SizeDelta: {x: 356, y: 38}
+  m_AnchoredPosition: {x: 0, y: -6}
+  m_SizeDelta: {x: 214, y: 32}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1395685461
 CanvasRenderer:
@@ -120779,7 +120830,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "MISSION  \xB7  DEFENSE"
+  m_text: "\uB0A8\uC740 \uC6B4\uC11D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8b0c1a570528f92448b232cd480a2832, type: 2}
@@ -120788,8 +120839,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294371119
-  m_fontColor: {r: 0.18431373, g: 0.90588236, b: 0.9647059, a: 1}
+    rgba: 4293649049
+  m_fontColor: {r: 0.6, g: 0.8862745, b: 0.92156863, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -120806,8 +120857,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
-  m_fontSizeBase: 19
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -158951,8 +159002,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -8}
-  m_SizeDelta: {x: 202, y: 28}
+  m_AnchoredPosition: {x: 0, y: -6}
+  m_SizeDelta: {x: 186, y: 32}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1802319400
 MonoBehaviour:
@@ -170351,6 +170402,7 @@ GameObject:
   - component: {fileID: 1958625446}
   - component: {fileID: 1958625445}
   - component: {fileID: 1958625444}
+  - component: {fileID: 1958625447}
   m_Layer: 8
   m_Name: HealthPanel
   m_TagString: Untagged
@@ -170375,11 +170427,11 @@ RectTransform:
   - {fileID: 2106247354}
   m_Father: {fileID: 238705255}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.24, y: 1}
+  m_AnchorMax: {x: 0.24, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 286, y: 98}
-  m_Pivot: {x: 0, y: 1}
+  m_SizeDelta: {x: 238, y: 94}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1958625444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170387,7 +170439,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958625442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
@@ -170408,7 +170460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: c860748d14265294ea85fb980351cfc5, type: 2}
-  m_Color: {r: 0.006, g: 0.025, b: 0.038, a: 0.72}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -170433,6 +170485,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958625442}
   m_CullTransparentMesh: 1
+--- !u!114 &1958625447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958625442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2933468051550b4c8ba85225bdcd0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MeteorDefenseVR.PcInput::MeteorDefenseVR.PcInput.ChamferedHudPanel
+  cornerCut: 12
+  borderWidth: 1.5
+  fillColor: {r: 0.003, g: 0.018, b: 0.028, a: 0.82}
+  borderColor: {r: 0.08, g: 0.72, b: 0.82, a: 0.72}
 --- !u!1 &1958849543
 GameObject:
   m_ObjectHideFlags: 0
@@ -176185,7 +176253,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.08, g: 0.88, b: 1, a: 0.14}
@@ -182626,7 +182694,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.08, g: 0.88, b: 1, a: 0.14}
@@ -204890,8 +204958,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 5}
-  m_SizeDelta: {x: 256, y: 48}
+  m_AnchoredPosition: {x: 0, y: 3}
+  m_SizeDelta: {x: 214, y: 48}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2106247355
 CanvasRenderer:
@@ -204921,7 +204989,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1  000%"
+  m_text: "\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1\u25A1"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8b0c1a570528f92448b232cd480a2832, type: 2}
@@ -204948,8 +205016,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21
-  m_fontSizeBase: 21
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0

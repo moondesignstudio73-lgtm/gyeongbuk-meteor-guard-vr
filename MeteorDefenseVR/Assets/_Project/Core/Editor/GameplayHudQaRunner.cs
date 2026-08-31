@@ -170,7 +170,7 @@ namespace MeteorDefenseVR.Editor
             ValidateRows(view.TelemetryRoot.transform.Find("StagePanel"), "DifficultyStageValue", "AsteroidLabel", direction);
             ValidateRows(view.TelemetryRoot.transform.Find("StagePanel"), "DifficultyStageValue", "AsteroidValue", direction);
             ValidateRows(view.TelemetryRoot.transform.Find("ScorePanel"), "ScoreLabel", "ScoreValue", direction);
-            if (view.ScoreValue.text != "999,999" || view.AsteroidValue.text != "99 / 100" || !view.DifficultyStageValue.text.Contains("STAGE 99"))
+            if (view.ScoreValue.text != "999,999" || view.AsteroidValue.text != "99 / 100" || view.DifficultyStageValue.text != "남은 운석")
                 throw new InvalidOperationException(direction + " stress values were not rendered");
         }
 
@@ -212,7 +212,7 @@ namespace MeteorDefenseVR.Editor
                 "Windows VR Simulation: six-direction Gameplay HUD validation",
                 "Front, Left, Right, Rear, Above, Below: fixed Screen Space Camera layout passed",
                 "Safe area: horizontal 4-5%, top 2-4%",
-                "Stress values: EXTREME / STAGE 99 / ASTEROIDS 99 / 100 / SCORE 999,999",
+                "Stress values: 남은 운석 99 / 100 / SCORE 999,999",
                 "Top panels and internal rows: no overlap; TMP preferred bounds fit their RectTransforms",
                 "Legacy depth-tested HUD, LaunchStatus and MissionCompleteText renderers: hidden"
             });
