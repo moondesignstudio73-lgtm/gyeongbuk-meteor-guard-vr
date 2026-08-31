@@ -132,6 +132,46 @@ namespace MeteorDefenseVR.Editor
             BuildWindowsReady();
             PcVisualQaCapture.RunGraphics();
         }
+        [MenuItem("Meteor Defense/Build WebGL for GitHub Pages")]
+        public static void BuildWebGlCurrentScene()
+            => WithResources(BuildWebGlReady);
+
+        private static void BuildWebGlReady()
+        {
+            AssetDatabase.SaveAssets();
+            GitBuildIdentity identity = GitBuildIdentity.Read();
+            if (!identity.worktreeClean)
+                throw new InvalidOperationException("WebGL build refused: Git worktree is dirty. Commit or remove all non-ignored changes first.");
+
+            string buildVersion = PlayerSettings.bundleVersion;
+            string output = $"Builds/WebGL/QA_{DateTime.Now:yyyyMMdd}_{buildVersion}";
+            if (Directory.Exists(output))
+                throw new IOException("Versioned WebGL output already exists: " + Path.GetFullPath(output));
+
+            // GitHub Pages does not add Unity's Content-Encoding response headers.
+            // An uncompressed build works on Pages without a custom web server.
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
+            PlayerSettings.WebGL.decompressionFallback = false;
+            Directory.CreateDirectory(output);
+            BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
+            {
+                scenes = new[] { "Assets/_Project/Scenes/Bootstrap.unity", "Assets/_Project/Scenes/MeteorDefense.unity" },
+                locationPathName = output,
+                target = BuildTarget.WebGL,
+                options = BuildOptions.None
+            });
+            if (report.summary.result != BuildResult.Succeeded)
+                throw new Exception("WebGL build failed: " + report.summary.totalErrors);
+
+            identity.buildVersion = buildVersion;
+            identity.buildTimeKST = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+            identity.unityVersion = Application.unityVersion;
+            identity.scene = "Assets/_Project/Scenes/MeteorDefense.unity";
+            identity.developmentBuild = false;
+            File.WriteAllText(Path.Combine(output, "BUILD_IDENTITY.json"), JsonUtility.ToJson(identity, true));
+            File.WriteAllText(Path.Combine(output, ".nojekyll"), string.Empty);
+            Debug.Log("[WebGLBuild] GitHub Pages files ready: " + Path.GetFullPath(output));
+        }
         private static void BuildWindowsReady() => BuildWindowsReady(true);
         private static void BuildWindowsReady(bool regenerateScene)
         {
