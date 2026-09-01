@@ -47,6 +47,15 @@ namespace MeteorDefenseVR.Tests
         }
 
         [Test]
+        public void RuntimePowerUpLabelsUseDynamicFontsWithoutStaticFontWarnings()
+        {
+            TextMesh[] labels = manager.GetComponentsInChildren<TextMesh>(true);
+            Assert.That(labels.Length, Is.GreaterThanOrEqualTo(Resources.Load<PowerUpSettings>("PowerUpSettings").maximumWorldItems));
+            foreach (TextMesh label in labels)
+            {Assert.That(label.font,Is.Not.Null,label.name);Assert.That(label.font.dynamic,Is.True,label.name);}
+        }
+
+        [Test]
         public void ShieldBlocksExactlyOneDamageEventAndHealNeverExceedsMaximum()
         {
             manager.Activate(PowerUpType.Shield);

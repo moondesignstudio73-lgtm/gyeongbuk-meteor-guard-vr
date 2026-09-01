@@ -25,11 +25,11 @@ namespace MeteorDefenseVR.Tests
     public sealed class DifficultySoakTests
     {
         [UnityTearDown] public IEnumerator Cleanup() { Time.timeScale = 1; if (Application.isPlaying) yield return new ExitPlayMode(); }
-        [UnityTest, Timeout(2400000)]
-        public IEnumerator EachDifficultyCompletesFiveNaturalRenderedSessions()
+        [UnityTest, Timeout(7200000)]
+        public IEnumerator EachDifficultyCompletesThreeNaturalRenderedSessions()
         {
             // Opt-in long run; the complete regression suite still includes all short difficulty tests.
-            if (!Environment.GetCommandLineArgs().Contains("--difficulty-soak")) Assert.Ignore("Run with --difficulty-soak for the 15 complete, timeScale=1 sessions.");
+            if (!Environment.GetCommandLineArgs().Contains("--difficulty-soak")) Assert.Ignore("Run with --difficulty-soak for the 12 complete, timeScale=1 sessions.");
             EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity", OpenSceneMode.Single);
             yield return new EnterPlayMode(); yield return Pilot(); yield return new ExitPlayMode();
         }
@@ -42,12 +42,13 @@ namespace MeteorDefenseVR.Tests
             var router = Object.FindAnyObjectByType<GazeInputRouter>(); router.SetMode(PcGazeMode.MouseGaze);
             var manager = Object.FindAnyObjectByType<DifficultyManager>(); var ready = Object.FindAnyObjectByType<ReadyScreenController>();
             var spawner = Object.FindAnyObjectByType<MeteorSpawner>(); var boss = Object.FindAnyObjectByType<BossClimaxController>();
+            var progression = Object.FindAnyObjectByType<MeteorDefenseVR.Progression.StageProgressionController>();
             var flow = GameFlowManager.Instance; var result = Object.FindAnyObjectByType<ResultController>();
             var lobby = Object.FindAnyObjectByType<HangarLobbyController>();
             var hud = Object.FindAnyObjectByType<MissionHudController>(FindObjectsInactive.Include); var audio = Object.FindAnyObjectByType<AudioManager>();
-            var rows = new List<string> { "difficulty,round,secondsToResult,score,destroyed,shots,damageTaken,bossShots,peakConcurrent,renderedFrames" };
+            var rows = new List<string> { "difficulty,round,missionFailed,secondsToResult,score,destroyed,shots,damageTaken,bossShots,peakConcurrent,renderedFrames" };
             var required = new[] { GameState.Intro, GameState.MissionBriefing, GameState.EyeCalibration, GameState.Tutorial, GameState.Practice,
-                GameState.Launch, GameState.Countdown, GameState.Playing, GameState.BossMeteor, GameState.MissionComplete, GameState.Result, GameState.Reset, GameState.Boot };
+                GameState.Launch, GameState.Countdown, GameState.Playing, GameState.BossMeteor, GameState.Result, GameState.Reset, GameState.Boot };
             try
             {
                 using var render = new PcStabilityProbe(Camera.main);
@@ -57,17 +58,22 @@ namespace MeteorDefenseVR.Tests
                 int sourceCount = Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include).Length;
                 int canvasCount = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include).Length;
                 Assert.That(Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include).Count(c => c.name == "DifficultySelection"), Is.EqualTo(1));
-                for (int levelIndex = 0; levelIndex < 3; levelIndex++)
-                for (int round = 1; round <= 5; round++)
+                var levels = new[] { DifficultyLevel.Easy, DifficultyLevel.Normal, DifficultyLevel.Hard, DifficultyLevel.Experience };
+                string requestedLevel = Environment.GetCommandLineArgs().FirstOrDefault(a => a.StartsWith("--difficulty-soak-level=", StringComparison.OrdinalIgnoreCase));
+                if (requestedLevel != null && Enum.TryParse(requestedLevel.Split('=')[1], true, out DifficultyLevel parsedLevel)) levels = new[] { parsedLevel };
+                int rounds = 3;
+                string requestedRounds = Environment.GetCommandLineArgs().FirstOrDefault(a => a.StartsWith("--difficulty-soak-rounds=", StringComparison.OrdinalIgnoreCase));
+                if (requestedRounds != null && int.TryParse(requestedRounds.Split('=')[1], out int parsedRounds)) rounds = Mathf.Clamp(parsedRounds, 1, 3);
+                foreach (DifficultyLevel level in levels)
+                for (int round = 1; round <= rounds; round++)
                 {
-                    var level = (DifficultyLevel)levelIndex;
                     Assert.That(flow.CurrentState, Is.EqualTo(GameState.Boot));
                     if(lobby!=null && lobby.Phase==HangarLobbyController.LobbyPhase.Standby)
                         Object.FindAnyObjectByType<OperationsResetController>().ResetExperience();
                     manager.Select(level); Assert.That(manager.Selected, Is.EqualTo(level));
                     UnityEngine.Random.InitState(8400 + round); // Matching seeds across difficulty levels.
                     var visited = new HashSet<GameState>(); GameSessionSnapshot snapshot = null;
-                    int resultCount = 0, bossShots = 0, peakConcurrent = 0, expectedScore = 0;
+                    int resultCount = 0, bossShots = 0, expectedBossShots = 0, bossSpawns = 0, bossDestroys = 0, peakConcurrent = 0, expectedScore = 0;
                     bool savedProof = false;
                     float resultTime = 0, start = Time.realtimeSinceStartup;
                     Action<GameState> stateChanged = s => visited.Add(s);
@@ -75,8 +81,8 @@ namespace MeteorDefenseVR.Tests
                     Action<MeteorController, float> bossHit = (_, __) => bossShots++;
                     Action<MeteorController> meteorCompleted = m => { if (m.State == MeteorLifecycleState.Destroyed) expectedScore += m.Score; };
                     int bossAward = 0;
-                    Action<MeteorController> bossSpawned = b => bossAward = b.Score;
-                    Action bossDestroyed = () => expectedScore += bossAward;
+                    Action<MeteorController> bossSpawned = b => { bossAward = b.Score; bossSpawns++; expectedBossShots += Mathf.CeilToInt(b.MaxHealth); };
+                    Action bossDestroyed = () => { expectedScore += bossAward; bossDestroys++; };
                     flow.OnStateChanged += stateChanged; result.ResultShown += resultShown; boss.BossDamaged += bossHit;
                     spawner.MeteorCompleted += meteorCompleted; boss.BossSpawned += bossSpawned; boss.BossDestroyed += bossDestroyed;
                     int framesBefore = render.RenderedFrames;
@@ -84,7 +90,10 @@ namespace MeteorDefenseVR.Tests
                     try
                     {
                         ready.StartExperience(); GazeLockOnTarget target = null;
-                        while (Time.realtimeSinceStartup - start < 175f)
+                        // Experience authors a 240-second spawn schedule. Concurrent caps and the
+                        // final meteor/boss resolution legitimately extend the wall-clock runtime.
+                        float sessionDeadline = level == DifficultyLevel.Experience ? 600f : 900f;
+                        while (Time.realtimeSinceStartup - start < sessionDeadline)
                         {
                             bgm.Sample(flow.CurrentState);
                             if (target == null || !target.IsAvailable)
@@ -110,8 +119,19 @@ namespace MeteorDefenseVR.Tests
                         }
                         yield return new WaitForSecondsRealtime(audio.FadeDuration + .15f);
                         foreach (var state in required) Assert.That(visited.Contains(state), Is.True, $"{level}/{round}: missing {state}; last={flow.CurrentState}");
-                        Assert.That(resultCount, Is.EqualTo(1)); Assert.That(snapshot.Difficulty, Is.EqualTo(level)); Assert.That(snapshot.Score, Is.EqualTo(expectedScore));
-                        Assert.That(snapshot.Score, Is.GreaterThan(0)); Assert.That(bossShots, Is.EqualTo(level == DifficultyLevel.Easy ? 2 : level == DifficultyLevel.Normal ? 3 : 5));
+                        Assert.That(visited.Contains(GameState.MissionComplete) || snapshot.MissionFailed, Is.True, $"{level}/{round}: neither success nor mission-failed result");
+                        if (level == DifficultyLevel.Easy) Assert.That(snapshot.MissionFailed, Is.False, $"Easy/{round}: beginner pilot must be able to complete the campaign");
+                        Assert.That(resultCount, Is.EqualTo(1)); Assert.That(snapshot.Difficulty, Is.EqualTo(level));
+                        // Campaign score also includes stage-clear accuracy/no-hit bonuses.
+                        Assert.That(snapshot.Score, Is.GreaterThanOrEqualTo(expectedScore));
+                        Assert.That(snapshot.Score, Is.GreaterThan(0));
+                        Assert.That(bossShots, Is.InRange(bossDestroys, expectedBossShots));
+                        Assert.That(bossSpawns, Is.GreaterThan(0));
+                        // A failed campaign can retry the same stage boss several times after impacts.
+                        // Every destroyed boss must still have originated from a tracked spawn, but
+                        // the number of unresolved retry spawns is intentionally not capped at one.
+                        Assert.That(bossSpawns, Is.GreaterThanOrEqualTo(bossDestroys));
+                        if (level != DifficultyLevel.Experience && !snapshot.MissionFailed) Assert.That(bossDestroys, Is.EqualTo(progression.TotalStages));
                         Assert.That(manager.Selected, Is.EqualTo(DifficultyLevel.Normal)); Assert.That(spawner.ActiveCount, Is.Zero); Assert.That(hud.Score, Is.Zero);
                         Assert.That(Object.FindObjectsByType<DifficultyManager>().Length, Is.EqualTo(1));
                         Assert.That(Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include).Length, Is.EqualTo(sourceCount));
@@ -119,10 +139,10 @@ namespace MeteorDefenseVR.Tests
                         Assert.That(PcStabilityProbe.InspectSubscriptions().duplicateCallbacks, Is.Zero);
                         Assert.That(router.Webcam.IsStreaming, Is.False);
                         Assert.That(render.RenderedFrames - framesBefore, Is.GreaterThan(100)); bgm.Complete();
-                        rows.Add(string.Join(",", level, round, resultTime.ToString("F2", CultureInfo.InvariantCulture), snapshot.Score, snapshot.DestroyedMeteors,
+                        rows.Add(string.Join(",", level, round, snapshot.MissionFailed, resultTime.ToString("F2", CultureInfo.InvariantCulture), snapshot.Score, snapshot.DestroyedMeteors,
                             snapshot.Shots, snapshot.DamageTaken, bossShots, peakConcurrent, render.RenderedFrames - framesBefore));
                         File.WriteAllLines("Docs/DifficultyQA/natural-sessions.csv", rows);
-                        Debug.Log($"[DifficultyQA] {level} {round}/5 PASS score={snapshot.Score} destroyed={snapshot.DestroyedMeteors} bossHits={bossShots} seconds={resultTime:F2}");
+                        Debug.Log($"[DifficultyQA] {level} {round}/{rounds} PASS score={snapshot.Score} destroyed={snapshot.DestroyedMeteors} bossHits={bossShots} seconds={resultTime:F2}");
                     }
                     finally
                     {

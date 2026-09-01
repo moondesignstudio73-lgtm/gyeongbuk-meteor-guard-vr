@@ -378,14 +378,14 @@ namespace MeteorDefenseVR.PowerUps
             Shader shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color") ?? Shader.Find("Sprites/Default");
             Material shared = shader != null ? new Material(shader) { name = "PowerUp_Hologram_Runtime" } : null;
             if (shared != null) { shared.enableInstancing = true; if (shared.HasProperty("_Surface")) shared.SetFloat("_Surface", 1f); }
-            TextMesh fontTemplate = FindAnyObjectByType<TextMesh>(FindObjectsInactive.Include);
+            Font runtimeFont = FindDynamicRuntimeFont();
             for (int i = 0; i < settings.maximumWorldItems; i++)
             {
                 GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere); go.name = $"PowerUpItem_{i:D2}"; go.transform.SetParent(root, false); go.transform.localScale = Vector3.one * .65f;
                 Renderer renderer = go.GetComponent<Renderer>(); if (renderer != null && shared != null) renderer.sharedMaterial = shared;
                 GameObject labelObject = new GameObject("HologramLabel"); labelObject.transform.SetParent(go.transform, false); labelObject.transform.localPosition = new Vector3(0, 1.2f, 0);
                 TextMesh text = labelObject.AddComponent<TextMesh>(); text.anchor = TextAnchor.MiddleCenter; text.alignment = TextAlignment.Center; text.characterSize = .12f; text.fontSize = 42;
-                if (fontTemplate != null && fontTemplate.font != null) text.font = fontTemplate.font;
+                if (runtimeFont != null) text.font = runtimeFont;
                 PowerUpItem item = go.AddComponent<PowerUpItem>(); item.Prepare(this, new[] { renderer }, text); itemPool.Add(item);
             }
         }
@@ -442,9 +442,14 @@ namespace MeteorDefenseVR.PowerUps
             Transform child = root.Find(name); if (child == null) { child = new GameObject(name).transform; child.SetParent(root, false); }
             child.localPosition = position; TextMesh text = child.GetComponent<TextMesh>();
             if (text == null) text = child.gameObject.AddComponent<TextMesh>();
-            TextMesh template = root.parent != null ? root.parent.GetComponentInChildren<TextMesh>(true) : null;
-            if (template != null && template != text && template.font != null) text.font = template.font;
+            Font runtimeFont = FindDynamicRuntimeFont(); if (runtimeFont != null) text.font = runtimeFont;
             text.anchor = anchor; text.alignment = anchor == TextAnchor.MiddleLeft ? TextAlignment.Left : TextAlignment.Center; text.characterSize = size; text.fontSize = 0; text.color = new Color(.2f, .92f, 1f); return text;
+        }
+        private static Font FindDynamicRuntimeFont()
+        {
+            foreach (TextMesh candidate in FindObjectsByType<TextMesh>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                if (candidate != null && candidate.font != null && candidate.font.dynamic) return candidate.font;
+            return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         }
     }
 }

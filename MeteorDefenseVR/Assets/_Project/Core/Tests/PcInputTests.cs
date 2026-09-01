@@ -166,7 +166,7 @@ namespace MeteorDefenseVR.Tests
                     target = Object.FindObjectsByType<GazeLockOnTarget>().Where(t => t.IsAvailable)
                         .OrderBy(t => Vector3.Distance(Camera.main.transform.position, t.transform.position)).FirstOrDefault();
                 Vector2 mousePosition = target != null ? (Vector2)Camera.main.WorldToScreenPoint(target.transform.position) : new Vector2(Screen.width * .5f, Screen.height * .45f);
-                UnifiedLookTests.QueueAim(simulatedMouse, router.Simulation, target != null ? target.transform : null, mousePosition);
+                PcPlayerSmoke.QueueAim(simulatedMouse, router.Simulation, target != null ? target.transform : null, mousePosition);
                 if (Time.realtimeSinceStartup >= nextLookTrace)
                 {
                     nextLookTrace = Time.realtimeSinceStartup + 1;

@@ -84,6 +84,25 @@ namespace MeteorDefenseVR.Tests
         }
 
         [Test]
+        public void OperationDurationRemainsAuthoritativeWhenExperienceSessionStarts()
+        {
+            var root = new GameObject("ExperienceDurationFixture");
+            var wave = ScriptableObject.CreateInstance<MeteorWaveData>();
+            try
+            {
+                var data = new MeteorSpawnData(); data.Configure(MeteorType.Normal, null, 2, 5, 0, 2, 1, 10, 100, 1, Vector2.one);
+                wave.Configure("experience", 0, data);
+                var spawner = root.AddComponent<MeteorSpawner>();
+                spawner.Configure(new[] { wave }, root.transform, root.transform);
+                spawner.SetOperationTuning(46f, 1f, 1f);
+                spawner.SetExperienceSession(20, 240f);
+                spawner.BeginSpawning();
+                Assert.That(spawner.EstimatedGameDuration, Is.EqualTo(46f).Within(.01f));
+            }
+            finally { Object.DestroyImmediate(root); Object.DestroyImmediate(wave); }
+        }
+
+        [Test]
         public void TenBossCompletionsAdvanceToDistinctFinalCampaignSuccess()
         {
             var root = new GameObject("TenStageFixture");

@@ -10,8 +10,18 @@ namespace MeteorDefenseVR.PcInput
         public Camera GameCamera;
         public event Action RenderCompleted;
         private long previousAllocation;
+        public bool AllocationCounterAvailable { get; private set; }
         public long LastFrameMainThreadAllocation { get; private set; }
-        private void Awake() => previousAllocation = GC.GetAllocatedBytesForCurrentThread();
+        private void Awake()
+        {
+            long before = GC.GetAllocatedBytesForCurrentThread();
+            byte[] proof = new byte[64 * 1024];
+            proof[0] = 1; proof[proof.Length - 1] = 1;
+            long after = GC.GetAllocatedBytesForCurrentThread();
+            AllocationCounterAvailable = after > before;
+            previousAllocation = after;
+            GC.KeepAlive(proof);
+        }
         private void LateUpdate()
         {
             if (GameCamera != null && GameCamera.targetTexture != null)
@@ -19,9 +29,13 @@ namespace MeteorDefenseVR.PcInput
                 GameCamera.Render();
                 RenderCompleted?.Invoke();
             }
-            long current = GC.GetAllocatedBytesForCurrentThread();
-            LastFrameMainThreadAllocation = Math.Max(0, current - previousAllocation);
-            previousAllocation = current;
+            if (AllocationCounterAvailable)
+            {
+                long current = GC.GetAllocatedBytesForCurrentThread();
+                LastFrameMainThreadAllocation = Math.Max(0, current - previousAllocation);
+                previousAllocation = current;
+            }
+            else LastFrameMainThreadAllocation = -1;
         }
     }
 }

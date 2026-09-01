@@ -23,10 +23,12 @@ namespace MeteorDefenseVR.PcInput
         private ProfilerRecorder allocation;
         private readonly PcStabilityRenderDriver driver;
         public int RenderedFrames { get; private set; }
-        public bool AllocationCounterAvailable => allocation.Valid || driver != null;
+        public bool AllocationCounterAvailable => allocation.Valid || (driver != null && driver.AllocationCounterAvailable);
         public bool ProfilerAllocationCounterAvailable => allocation.Valid;
-        public string AllocationMeasurement => allocation.Valid ? "ProfilerRecorder GC Allocated In Frame" : "GC.GetAllocatedBytesForCurrentThread delta per LateUpdate; main thread only, includes QA; not all-thread allocation";
-        public long LastFrameAllocation => allocation.Valid ? allocation.LastValue : driver != null ? driver.LastFrameMainThreadAllocation : -1;
+        public string AllocationMeasurement => allocation.Valid ? "ProfilerRecorder GC Allocated In Frame"
+            : driver != null && driver.AllocationCounterAvailable ? "GC.GetAllocatedBytesForCurrentThread delta per LateUpdate; main thread only, includes QA; not all-thread allocation"
+            : "Per-frame allocation counter unavailable; total/managed heap and GC collections remain recorded";
+        public long LastFrameAllocation => allocation.Valid ? allocation.LastValue : driver != null && driver.AllocationCounterAvailable ? driver.LastFrameMainThreadAllocation : -1;
 
         public PcStabilityProbe(Camera gameCamera)
         {

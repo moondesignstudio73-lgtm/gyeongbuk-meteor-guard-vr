@@ -80,8 +80,10 @@ namespace MeteorDefenseVR.PcInput
             if (cockpitDamage != null) yield return cockpitDamage.PrewarmParticles();
             foreach (GameObject root in gameObject.scene.GetRootGameObjects())
             {
+                if (root == null) continue;
                 foreach (LaserBeamView beam in root.GetComponentsInChildren<LaserBeamView>(true))
                 {
+                    if (beam == null) continue;
                     beam.PrewarmGeometry();
                     yield return null;
                 }
@@ -90,6 +92,9 @@ namespace MeteorDefenseVR.PcInput
             Stage = "HUD / FONT CACHE";
             foreach (GameObject root in gameObject.scene.GetRootGameObjects())
             {
+                // A QA scene switch can unload a root between GetRootGameObjects and
+                // this incremental pass. Treat that as cancellation, not an exception.
+                if (root == null) continue;
                 // Never enable state roots: that would fire OnEnable/gameplay events.
                 foreach (TMP_Text text in root.GetComponentsInChildren<TMP_Text>(true))
                 {

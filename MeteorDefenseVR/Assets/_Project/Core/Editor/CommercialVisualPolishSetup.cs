@@ -270,10 +270,10 @@ namespace MeteorDefenseVR.Editor
             var scaler=go.GetComponent<UnityEngine.UI.CanvasScaler>();scaler.uiScaleMode=UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1920,1080);scaler.matchWidthOrHeight=.5f;
             var left=CreateHologramPanel(go.transform,"ShipStatusHologram",new Vector2(.115f,.47f));
             var right=CreateHologramPanel(go.transform,"ThreatStatusHologram",new Vector2(.885f,.47f));
-            TMP_Text ship=HudText(left.root,"LiveShipStatus",new Vector2(-122,88),new Vector2(250,100),16,TextAlignmentOptions.TopLeft);
+            TMP_Text ship=HudText(left.root,"LiveShipStatus",new Vector2(-122,88),new Vector2(250,106),15,TextAlignmentOptions.TopLeft);
             TMP_Text threat=HudText(right.root,"LiveThreatAnalysis",new Vector2(-122,78),new Vector2(250,102),17,TextAlignmentOptions.TopLeft);
-            TMP_Text weapon=HudText(right.root,"LiveWeaponStatus",new Vector2(-122,-34),new Vector2(250,80),14,TextAlignmentOptions.TopLeft);
-            TMP_Text sensor=HudText(left.root,"LiveSystemsStatus",new Vector2(-122,-18),new Vector2(250,82),12,TextAlignmentOptions.TopLeft);
+            TMP_Text weapon=HudText(right.root,"LiveWeaponStatus",new Vector2(-122,-22),new Vector2(250,84),12,TextAlignmentOptions.TopLeft);
+            TMP_Text sensor=HudText(left.root,"LiveSystemsStatus",new Vector2(-122,-18),new Vector2(250,88),12,TextAlignmentOptions.TopLeft);
             ConfigureShipHologramText(ship);ConfigureSystemsHologramText(sensor);ConfigureThreatHologramText(threat);ConfigureWeaponHologramText(weapon);
             return(ship,threat,weapon,sensor,left.group,right.group);
         }
@@ -281,7 +281,7 @@ namespace MeteorDefenseVR.Editor
         private static (RectTransform root,CanvasGroup group) CreateHologramPanel(Transform parent,string name,Vector2 anchor)
         {
             var go=new GameObject(name,typeof(RectTransform),typeof(CanvasGroup),typeof(UnityEngine.UI.Image),typeof(UnityEngine.UI.Outline));go.transform.SetParent(parent,false);
-            var rect=(RectTransform)go.transform;rect.anchorMin=rect.anchorMax=anchor;rect.pivot=new Vector2(.5f,.5f);rect.sizeDelta=new Vector2(286,228);rect.anchoredPosition=Vector2.zero;
+            var rect=(RectTransform)go.transform;rect.anchorMin=rect.anchorMax=anchor;rect.pivot=new Vector2(.5f,.5f);rect.sizeDelta=new Vector2(286,232);rect.anchoredPosition=Vector2.zero;
             var image=go.GetComponent<UnityEngine.UI.Image>();image.color=new Color(.004f,.038f,.052f,.12f);image.raycastTarget=false;
             var outline=go.GetComponent<UnityEngine.UI.Outline>();outline.effectColor=new Color(.08f,.88f,1f,.32f);outline.effectDistance=new Vector2(1f,-1f);outline.useGraphicAlpha=true;
             var group=go.GetComponent<CanvasGroup>();group.alpha=.42f;group.interactable=false;group.blocksRaycasts=false;
@@ -310,14 +310,14 @@ namespace MeteorDefenseVR.Editor
         private static void ConfigureShipHologramText(TMP_Text text)
         {
             RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
-            rect.anchoredPosition=new Vector2(-122,88);rect.sizeDelta=new Vector2(250,100);
-            text.fontSize=16;text.enableAutoSizing=false;text.lineSpacing=-4;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
+            rect.anchoredPosition=new Vector2(-122,88);rect.sizeDelta=new Vector2(250,106);
+            text.fontSize=15;text.enableAutoSizing=false;text.lineSpacing=-4;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 
         private static void ConfigureSystemsHologramText(TMP_Text text)
         {
             RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
-            rect.anchoredPosition=new Vector2(-122,-18);rect.sizeDelta=new Vector2(250,82);
+            rect.anchoredPosition=new Vector2(-122,-18);rect.sizeDelta=new Vector2(250,88);
             text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=-4;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 
@@ -331,7 +331,7 @@ namespace MeteorDefenseVR.Editor
         private static void ConfigureWeaponHologramText(TMP_Text text)
         {
             RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
-            rect.anchoredPosition=new Vector2(-122,-22);rect.sizeDelta=new Vector2(250,78);
+            rect.anchoredPosition=new Vector2(-122,-22);rect.sizeDelta=new Vector2(250,84);
             text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=-5;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 

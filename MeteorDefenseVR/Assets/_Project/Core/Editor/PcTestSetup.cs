@@ -127,6 +127,9 @@ namespace MeteorDefenseVR.Editor
         // Targeted UI/code releases must not regenerate or overwrite the authored scene.
         public static void BuildWindowsCurrentScene()
             => WithResources(() => { AssetDatabase.SaveAssets(); BuildWindowsReady(false); });
+        // Final release-candidate output is commit-addressed and never overwrites QA builds.
+        public static void BuildWindowsReleaseCandidateCurrentScene()
+            => WithResources(() => { AssetDatabase.SaveAssets(); BuildWindowsReady(false, true); });
         public static void BuildWindowsAndCapture()
         {
             BuildWindowsReady();
@@ -172,8 +175,9 @@ namespace MeteorDefenseVR.Editor
             File.WriteAllText(Path.Combine(output, ".nojekyll"), string.Empty);
             Debug.Log("[WebGLBuild] GitHub Pages files ready: " + Path.GetFullPath(output));
         }
-        private static void BuildWindowsReady() => BuildWindowsReady(true);
-        private static void BuildWindowsReady(bool regenerateScene)
+        private static void BuildWindowsReady() => BuildWindowsReady(true, false);
+        private static void BuildWindowsReady(bool regenerateScene) => BuildWindowsReady(regenerateScene, false);
+        private static void BuildWindowsReady(bool regenerateScene, bool releaseCandidate)
         {
             if (regenerateScene) ProjectSceneSetup.EnsureProjectScenes();
             AssetDatabase.SaveAssets();
@@ -185,7 +189,9 @@ namespace MeteorDefenseVR.Editor
             PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
             PlayerSettings.resizableWindow = true;
             string buildVersion = PlayerSettings.bundleVersion;
-            string output = $"Builds/Windows/QA_{DateTime.Now:yyyyMMdd}_{buildVersion}";
+            string output = releaseCandidate
+                ? $"Builds/Windows/RC_{buildVersion}_{identity.gitCommitShort}"
+                : $"Builds/Windows/QA_{DateTime.Now:yyyyMMdd}_{buildVersion}";
             if (Directory.Exists(output))
                 throw new IOException("Versioned build output already exists: " + Path.GetFullPath(output));
             Directory.CreateDirectory(output);

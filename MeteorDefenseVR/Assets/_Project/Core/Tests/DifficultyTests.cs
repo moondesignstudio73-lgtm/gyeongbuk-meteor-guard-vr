@@ -60,7 +60,7 @@ namespace MeteorDefenseVR.Tests
             }
             finally { Object.DestroyImmediate(copy); }
         }
-        [TestCase(DifficultyLevel.Easy, 3)] [TestCase(DifficultyLevel.Normal, 3)] [TestCase(DifficultyLevel.Hard, 3)]
+        [TestCase(DifficultyLevel.Easy, 2)] [TestCase(DifficultyLevel.Normal, 3)] [TestCase(DifficultyLevel.Hard, 3)]
         public void BossHealthAndLockTuningRequireExpectedShots(DifficultyLevel level, int shots)
         {
             var root = new GameObject("DifficultyBossFixture");
@@ -107,9 +107,13 @@ namespace MeteorDefenseVR.Tests
                 }
                 spawner.SetDifficulty(Settings.easy.Capture(DifficultyLevel.Easy)); spawner.BeginSpawning();
                 for (int i = 0; i < 20; i++) spawner.Tick(1);
-                Assert.That(spawner.ActiveCount, Is.EqualTo(3)); Assert.That(spawner.SpawnedCount, Is.EqualTo(3));
-                spawner.ActiveMeteors[0].DestroyMeteor(); spawner.Tick(1);
-                Assert.That(spawner.SpawnedCount, Is.EqualTo(3)); Assert.That(spawner.AllWavesSpawned, Is.True);
+                Assert.That(spawner.ActiveCount, Is.EqualTo(Settings.easy.maxConcurrentMeteors));
+                while (!spawner.AllWavesSpawned)
+                {
+                    Assert.That(spawner.ActiveCount, Is.GreaterThan(0));
+                    spawner.ActiveMeteors[0].DestroyMeteor(); spawner.Tick(1);
+                }
+                Assert.That(spawner.SpawnedCount, Is.EqualTo(3));
             }
             finally { Object.DestroyImmediate(root); Object.DestroyImmediate(wave); }
         }

@@ -52,7 +52,9 @@ namespace MeteorDefenseVR.GameFlow
             }
             else
             {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
                 Debug.Log("[GameFlow] Boot");
+#endif
             }
         }
 
@@ -85,7 +87,9 @@ namespace MeteorDefenseVR.GameFlow
             {
                 PreviousState = fromState;
                 CurrentState = nextState;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
                 Debug.Log($"[GameFlow] {fromState} -> {nextState}");
+#endif
                 OnStateTransitioned?.Invoke(fromState, nextState);
                 OnStateChanged?.Invoke(nextState);
                 return true;

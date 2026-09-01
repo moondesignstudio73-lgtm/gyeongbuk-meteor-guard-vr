@@ -53,6 +53,7 @@ namespace MeteorDefenseVR.Meteor
         private int spawnedInEntry;
         private float delayRemaining;
         private float scheduleScale = 1f, speedScale = 1f, sizeScale = 1f;
+        private float operationDurationSeconds = -1f;
         private float powerUpSpeedScale = 1f, powerUpIntervalScale = 1f;
         private bool poolsPrepared;
         private DifficultyBalance? difficulty;
@@ -64,13 +65,12 @@ namespace MeteorDefenseVR.Meteor
         public bool ScenarioControlled { get; private set; }
         public void SetDifficulty(DifficultyBalance balance) => difficulty = balance;
         public void ClearDifficulty() => difficulty = null;
-        public void SetStage(StageBalance balance) { stage = balance; stageSequenceActive = true; }
+        public void SetStage(StageBalance balance) { stage = balance; stageSequenceActive = true; scheduleScale = 1f; }
         public void ClearStage() { stage = null; stageSequenceActive = false; stageSessionStarted = false; }
         public void SetExperienceSession(int regularMeteorCount, float targetSeconds)
         {
             experienceBudget = Mathf.Clamp(regularMeteorCount, 1, 50);
-            float authored = 0f; foreach (MeteorWaveData wave in waves) if (wave != null) authored += wave.EstimatedDuration;
-            scheduleScale = authored > 0f ? Mathf.Clamp(targetSeconds, 30f, 300f) / authored : 1f;
+            ApplyScheduleDuration(operationDurationSeconds > 0f ? operationDurationSeconds : Mathf.Clamp(targetSeconds, 30f, 300f));
         }
         public void ClearExperienceSession() { experienceBudget = 0; scheduleScale = 1f; }
         public void SetPrewarmCapacity(int count) => prewarmPerMeteorKind = Mathf.Clamp(count, prewarmPerMeteorKind, 5);
@@ -78,11 +78,17 @@ namespace MeteorDefenseVR.Meteor
 
         public void SetOperationTuning(float mainSeconds, float speedMultiplier, float sizeMultiplier)
         {
-            float duration = 0f;
-            foreach (MeteorWaveData wave in waves) if (wave != null) duration += wave.EstimatedDuration;
-            scheduleScale = duration > 0f ? Mathf.Clamp(mainSeconds, 40f, 60f) / duration : 1f;
+            operationDurationSeconds = Mathf.Clamp(mainSeconds, 40f, 60f);
+            ApplyScheduleDuration(operationDurationSeconds);
             speedScale = Mathf.Clamp(speedMultiplier, .7f, 1.2f);
             sizeScale = Mathf.Clamp(sizeMultiplier, 1f, 1.2f);
+        }
+
+        private void ApplyScheduleDuration(float seconds)
+        {
+            float authored = 0f;
+            foreach (MeteorWaveData wave in waves) if (wave != null) authored += wave.EstimatedDuration;
+            scheduleScale = authored > 0f ? seconds / authored : 1f;
         }
 
         public void SetPowerUpTimeScale(float asteroidSpeedMultiplier, float spawnIntervalMultiplier)

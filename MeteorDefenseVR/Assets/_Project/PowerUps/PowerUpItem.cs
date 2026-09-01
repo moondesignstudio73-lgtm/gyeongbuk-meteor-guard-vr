@@ -13,6 +13,8 @@ namespace MeteorDefenseVR.PowerUps
         private TextMesh label;
         private float lifetime, dwell, collectDuration, driftSpeed, phase;
         private bool collecting;
+        private string idleLabel = string.Empty;
+        private int displayedPercent = -1;
 
         public PowerUpType Type => balance.Type;
         public float CollectionProgress => collectDuration > 0f ? Mathf.Clamp01(dwell / collectDuration) : 0f;
@@ -33,7 +35,8 @@ namespace MeteorDefenseVR.PowerUps
             collectDuration = Mathf.Max(.1f, gazeSeconds); driftSpeed = Mathf.Max(0f, movementSpeed);
             dwell = 0f; collecting = false; phase = Random.value * 10f;
             transform.SetPositionAndRotation(position, Quaternion.identity);
-            if (label != null) { label.text = value.Icon + "\n" + value.ShortCode; label.color = value.Color; }
+            idleLabel = value.Icon + "\n" + value.ShortCode; displayedPercent = -1;
+            if (label != null) { label.text = idleLabel; label.color = value.Color; }
             if (renderers != null) foreach (Renderer renderer in renderers)
             {
                 if (renderer == null) continue;
@@ -61,7 +64,20 @@ namespace MeteorDefenseVR.PowerUps
             {
                 Camera camera = Camera.main;
                 if (camera != null) label.transform.rotation = Quaternion.LookRotation(label.transform.position - camera.transform.position, camera.transform.up);
-                label.text = collecting ? $"{balance.Icon}  {Mathf.RoundToInt(CollectionProgress * 100f):D2}%\n{balance.ShortCode}" : $"{balance.Icon}\n{balance.ShortCode}";
+                if (collecting)
+                {
+                    int percent = Mathf.RoundToInt(CollectionProgress * 100f);
+                    if (displayedPercent != percent)
+                    {
+                        displayedPercent = percent;
+                        label.text = $"{balance.Icon}  {percent:D2}%\n{balance.ShortCode}";
+                    }
+                }
+                else if (displayedPercent >= 0)
+                {
+                    displayedPercent = -1;
+                    label.text = idleLabel;
+                }
             }
             if (lifetime <= 0f) owner?.Release(this);
         }
@@ -77,7 +93,7 @@ namespace MeteorDefenseVR.PowerUps
 
         public void Despawn()
         {
-            collecting = false; dwell = lifetime = 0f; driftTarget = null;
+            collecting = false; dwell = lifetime = 0f; driftTarget = null; displayedPercent = -1;
             gameObject.SetActive(false);
         }
     }

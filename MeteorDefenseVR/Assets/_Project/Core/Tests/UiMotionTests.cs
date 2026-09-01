@@ -104,7 +104,9 @@ namespace MeteorDefenseVR.Tests
             Save(render, router, "result-title");
             yield return new WaitForSecondsRealtime(.95f); Save(render, router, "result-full");
             Assert.That(resultMotion.VisibleLines, Is.EqualTo(int.MaxValue));
-            Assert.That(camera.transform.Find("MissionCompleteText").GetComponentInChildren<TextMeshPro>().enabled, Is.False, "Victory must not overlap Result, including direct state jumps");
+            var missionCompleteDisplay = camera.transform.Find("MissionCompleteText")?.GetComponentInChildren<TextMeshPro>(true);
+            Assert.That(missionCompleteDisplay, Is.Not.Null, "Mission-complete presentation must remain authored under Player Camera");
+            Assert.That(missionCompleteDisplay.enabled, Is.False, "Victory must not overlap Result, including direct state jumps");
             Assert.That(resultMotion.GetComponent<WorldTextPresentation>().Display.font.HasCharacters("미션 성공! 지구를 지켜냈습니다! 입력 안내 완료"), Is.True);
             int sources = Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include).Length;
             int canvases = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include).Length;

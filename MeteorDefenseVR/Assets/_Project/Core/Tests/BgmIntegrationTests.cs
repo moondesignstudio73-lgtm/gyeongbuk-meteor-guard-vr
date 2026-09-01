@@ -291,7 +291,13 @@ namespace MeteorDefenseVR.Tests
 
         public void Complete()
         {
-            Assert.That(started, Is.EqualTo(new[] { AudioCue.BgmIntro, AudioCue.BgmTutorial, AudioCue.BgmBattle, AudioCue.BgmBoss, AudioCue.BgmResult }));
+            Assert.That(started.Count, Is.GreaterThanOrEqualTo(5));
+            Assert.That(started[0], Is.EqualTo(AudioCue.BgmIntro));
+            Assert.That(started[1], Is.EqualTo(AudioCue.BgmTutorial));
+            Assert.That(started[2], Is.EqualTo(AudioCue.BgmBattle));
+            Assert.That(started[started.Count - 1], Is.EqualTo(AudioCue.BgmResult));
+            for (int i = 3; i < started.Count - 1; i++)
+                Assert.That(started[i], Is.EqualTo(i % 2 == 1 ? AudioCue.BgmBoss : AudioCue.BgmBattle), "Campaign BGM alternation at index " + i);
             Assert.That(heard.Count, Is.EqualTo(5), "Every selected source must advance its PCM playback position");
             Assert.That(manager.CurrentBgmClip, Is.Null, "Reset fade must clear the clip");
             Assert.That(manager.TargetBgmCue, Is.Null);

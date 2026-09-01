@@ -16,6 +16,7 @@ namespace MeteorDefenseVR.PcInput
     // Opt-in release-player QA only. Never runs on an ordinary double-click launch.
     public sealed class PcPlayerSmoke : MonoBehaviour
     {
+        private static int lastAimFrame = -1, lastAimMouse = -1;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void StartIfRequested()
         {
@@ -68,6 +69,7 @@ namespace MeteorDefenseVR.PcInput
             string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "QA"));
             Directory.CreateDirectory(output);
             var flow = GameFlowManager.Instance;
+            var lobby = Object.FindAnyObjectByType<HangarLobbyController>();
             var visited = new HashSet<GameState> { flow.CurrentState };
             var captured = new HashSet<GameState>();
             flow.OnStateChanged += state => { visited.Add(state); Debug.Log("[PCPlayerQA] State=" + state); };
@@ -75,16 +77,17 @@ namespace MeteorDefenseVR.PcInput
             ScreenCapture.CaptureScreenshot(Path.Combine(output, "pc-ready.png"));
             yield return new WaitForSecondsRealtime(.5f);
             Mouse simulated = InputSystem.AddDevice<Mouse>();
+            Object.FindAnyObjectByType<MeteorDefenseVR.Difficulty.DifficultyManager>()?.Select(MeteorDefenseVR.Difficulty.DifficultyLevel.Experience);
             Object.FindAnyObjectByType<ReadyScreenController>().StartExperience();
             began = Time.realtimeSinceStartup;
             GazeLockOnTarget target = null;
-            while (Time.realtimeSinceStartup - began < 160f)
+            while (Time.realtimeSinceStartup - began < 220f)
             {
                 if (target == null || !target.IsAvailable)
                     target = Object.FindObjectsByType<GazeLockOnTarget>().Where(t => t.IsAvailable)
                         .OrderBy(t => Vector3.Distance(Camera.main.transform.position, t.transform.position)).FirstOrDefault();
                 Vector2 position = target != null ? (Vector2)Camera.main.WorldToScreenPoint(target.transform.position) : new Vector2(Screen.width * .5f, Screen.height * .45f);
-                InputSystem.QueueStateEvent(simulated, new MouseState { position = position });
+                QueueAim(simulated, router.Simulation, target != null ? target.transform : null, position);
                 GameState state = flow.CurrentState;
                 if ((state == GameState.Tutorial || state == GameState.Playing || state == GameState.Result) && !captured.Contains(state))
                 {
@@ -92,6 +95,7 @@ namespace MeteorDefenseVR.PcInput
                     yield return new WaitForEndOfFrame();
                     ScreenCapture.CaptureScreenshot(Path.Combine(output, "pc-" + state + ".png"));
                 }
+                if (lobby != null && lobby.IsMenuReady) lobby.Queue(HangarLobbyController.MenuAction.Standby);
                 if (visited.Contains(GameState.Result) && state == GameState.Boot) break;
                 yield return null;
             }
@@ -102,6 +106,26 @@ namespace MeteorDefenseVR.PcInput
             File.WriteAllText(Path.Combine(output, "pc-player-smoke.txt"), report);
             Debug.Log("[PCPlayerQA] " + report);
             Application.Quit(passed ? 0 : 2);
+        }
+
+        // Automated Windows Player QA must exercise the same relative mouse-look path
+        // as a real desktop player. Absolute cursor position alone cannot turn the
+        // Player Camera while WindowsVRSimulation owns center aim.
+        public static void QueueAim(Mouse mouse, WindowsVRSimulation look, Transform target, Vector2 menuPosition)
+        {
+            if (mouse == null || (lastAimMouse == mouse.deviceId && lastAimFrame == Time.frameCount)) return;
+            lastAimMouse = mouse.deviceId;
+            lastAimFrame = Time.frameCount;
+            Vector2 delta = Vector2.zero;
+            if (look != null && look.IsLooking && target != null)
+            {
+                Vector3 aim = target.position - Camera.main.transform.position;
+                float yaw = Mathf.Atan2(aim.x, aim.z) * Mathf.Rad2Deg;
+                float pitch = -Mathf.Atan2(aim.y, new Vector2(aim.x, aim.z).magnitude) * Mathf.Rad2Deg;
+                delta = new Vector2(Mathf.DeltaAngle(look.RequestedAngles.x, yaw) / (.1f * look.Sensitivity),
+                    (pitch - look.RequestedAngles.y) / (.09f * look.Sensitivity) * (look.InvertY ? 1 : -1));
+            }
+            InputSystem.QueueStateEvent(mouse, new MouseState { position = menuPosition, delta = delta });
         }
     }
 }

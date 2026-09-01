@@ -6,6 +6,7 @@ using System.Linq;
 using MeteorDefenseVR.Audio;
 using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Core;
+using MeteorDefenseVR.Difficulty;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Meteor;
 using MeteorDefenseVR.UI;
@@ -13,7 +14,6 @@ using MeteorDefenseVR.VFX;
 using MeteorDefenseVR.Visual;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Profiling;
 using Object = UnityEngine.Object;
 
@@ -23,7 +23,8 @@ namespace MeteorDefenseVR.PcInput
     {
         [Serializable] public sealed class Round
         {
-            public int number, score, destroyed, shots, hits, spawned, objects, materials, audioSources, playingAudio, canvases, pool, errors, warnings;
+            public int number, score, destroyed, shots, hits, spawned, objects, materials, audioSources, playingAudio, audibleAudio, canvases, pool, errors, warnings;
+            public string[] playingAudioDetails;
             public float startToResult, startToReset, mainSeconds, averageFps, p95FrameMs;
             public float bossAverageFps, bossP95FrameMs;
             public int peakEffectParticles, resetEffectParticles;
@@ -65,6 +66,7 @@ namespace MeteorDefenseVR.PcInput
             Mouse simulated = InputSystem.AddDevice<Mouse>();
             var flow = GameFlowManager.Instance;
             var ready = Object.FindAnyObjectByType<ReadyScreenController>();
+            var lobby = Object.FindAnyObjectByType<HangarLobbyController>();
             var stats = Object.FindAnyObjectByType<GameSessionStats>();
             var results = Object.FindAnyObjectByType<ResultController>();
             var hud = Object.FindAnyObjectByType<MissionHudController>(FindObjectsInactive.Include);
@@ -139,16 +141,23 @@ namespace MeteorDefenseVR.PcInput
                 for (int round = 1; round <= repetitions; round++)
                 {
                     UnityEngine.Random.InitState(7300 + round);
+                    var difficulty = Object.FindAnyObjectByType<DifficultyManager>();
+                    if (difficulty != null && difficulty.Selected != DifficultyLevel.Experience)
+                        difficulty.Select(DifficultyLevel.Experience);
                     counts.Clear(); stageTimes.Clear(); frames.Clear(); bossFrames.Clear(); peakParticles=0; snapshot = null;
                     errors = warnings = resultEvents = completeAudio = resultAudio = 0; statsAgree = true;
                     allFrames.Clear();aliveSpawnEvents.Clear();allocationTotal=allocationMax=0;
                     hitEvents=hitVisuals=destroyedHits=explosions=bossExplosions=fired=laserCues=duplicateSpawns=waveSpawns=0;
                     int renderedBefore=probe.RenderedFrames,gc0=GC.CollectionCount(0),gc1=GC.CollectionCount(1),gc2=GC.CollectionCount(2);
                     roundStart = stateStart = Time.realtimeSinceStartup; reachedResult = 0; lastState = GameState.Boot;
-                    ready.StartExperience();
+                    if (lobby != null && lobby.Phase == HangarLobbyController.LobbyPhase.Standby)
+                        lobby.Queue(HangarLobbyController.MenuAction.StartNewPlayer);
+                    else ready.StartExperience();
+                    float startDeadline = Time.realtimeSinceStartup + 5f;
+                    while (flow.CurrentState == GameState.Boot && Time.realtimeSinceStartup < startDeadline) yield return null;
                     GazeLockOnTarget target = null;
                     float nextTargetSearch=0;
-                    while (Time.realtimeSinceStartup - roundStart < 160f)
+                    while (Time.realtimeSinceStartup - roundStart < 220f)
                     {
                         if ((target == null || !target.IsAvailable) && Time.realtimeSinceStartup>=nextTargetSearch)
                         {
@@ -161,12 +170,13 @@ namespace MeteorDefenseVR.PcInput
                         }
                         Vector2 position = target != null ? (Vector2)camera.WorldToScreenPoint(target.transform.position)
                             : new Vector2(Screen.width * .5f, Screen.height * .45f);
-                        InputSystem.QueueStateEvent(simulated, new MouseState { position = position });
+                        PcPlayerSmoke.QueueAim(simulated, router.Simulation, target != null ? target.transform : null, position);
                         if (flow.CurrentState == GameState.Playing) frames.Add(Time.unscaledDeltaTime);
                         if (flow.CurrentState == GameState.BossMeteor) bossFrames.Add(Time.unscaledDeltaTime);
                         allFrames.Add(Time.unscaledDeltaTime);
                         long allocated=probe.LastFrameAllocation;if(allocated>=0){allocationTotal+=allocated;allocationMax=Math.Max(allocationMax,allocated);}
                         if (premiumVfx != null) peakParticles=Mathf.Max(peakParticles,premiumVfx.ActiveParticleCount);
+                        if (lobby != null && lobby.IsMenuReady) lobby.Queue(HangarLobbyController.MenuAction.Standby);
                         if (reachedResult > 0 && flow.CurrentState == GameState.Boot) break;
                         yield return null;
                     }
@@ -176,6 +186,11 @@ namespace MeteorDefenseVR.PcInput
                     frames.Sort();
                     bossFrames.Sort();
                     var sources = Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include);
+                    var playingSources = sources.Where(source => source != null && source.isPlaying).ToArray();
+                    bool AudioIsAudible(AudioSource source) => source.gameObject.activeInHierarchy && source.enabled && !source.mute && source.volume > .001f;
+                    bool audioResetClean = playingSources.Length <= 1 && playingSources.All(source => audio != null &&
+                        ((audio.OwnsBgmSource(source) && !AudioIsAudible(source)) ||
+                         (audio.OwnsAmbientSource(source) && source.clip != null && source.clip.name == "IntroSpaceAmbient" && source.loop)));
                     var item = new Round
                     {
                         number = round, startToResult = reachedResult > 0 ? reachedResult - roundStart : -1,
@@ -190,7 +205,8 @@ namespace MeteorDefenseVR.PcInput
                         objects = Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include).Length,
                         materials = Resources.FindObjectsOfTypeAll<Material>().Length,
                         canvases = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include).Length,
-                        audioSources = sources.Length, playingAudio = sources.Count(s => s.isPlaying),
+                        audioSources = sources.Length, playingAudio = playingSources.Length, audibleAudio = playingSources.Count(AudioIsAudible),
+                        playingAudioDetails = playingSources.Select(source => $"{source.name}: clip={(source.clip != null ? source.clip.name : "none")}, loop={source.loop}, volume={source.volume:F4}, mute={source.mute}").ToArray(),
                         allocatedBytes = Profiler.GetTotalAllocatedMemoryLong(), managedBytes = GC.GetTotalMemory(false),
                         errors = errors, warnings = warnings,
                         renderedFrames=probe.RenderedFrames-renderedBefore,
@@ -213,9 +229,9 @@ namespace MeteorDefenseVR.PcInput
                     item.passed = required.All(s => counts.TryGetValue(s, out int n) && n == 1) && resultEvents == 1 && statsAgree
                         && completeAudio == 1 && resultAudio == 1 && stats.Score == 0 && hud.Score == 0
                         && stats.Shots == 0 && stats.DestroyedMeteors == 0 && spawner.ActiveCount == 0
-                        && !vfx.HitActive && !vfx.ExplosionActive && !vfx.BossExplosionActive && item.playingAudio == 0
+                        && !vfx.HitActive && !vfx.ExplosionActive && !vfx.BossExplosionActive && audioResetClean
                         && !router.Webcam.IsStreaming && item.errors == 0 && item.startToResult > 0 && item.resetEffectParticles == 0;
-                    item.passed &= item.renderedFrames>item.mainFrames*.9f && hitEvents==hitVisuals && destroyedHits==explosions && bossExplosions==1
+                    item.passed &= item.renderedFrames>item.mainFrames*.9f && hitEvents==hitVisuals && destroyedHits==explosions+bossExplosions && bossExplosions==1
                         && laserCues==fired && duplicateSpawns==0 && item.subscriptions.duplicateCallbacks==0 && item.subscriptions.coroutineHandles==0;
                     if (round > 3)
                     {
@@ -225,7 +241,7 @@ namespace MeteorDefenseVR.PcInput
                             && item.subscriptions.callbacks==baseline.subscriptions.callbacks && item.instantiatedMeteors==baseline.instantiatedMeteors
                             && item.allocatedBytes < baseline.allocatedBytes + 64 * 1024 * 1024;
                     }
-                    if (!item.passed) report.issues.Add($"Round {round}: state/stat/reset/leak assertions failed; resultEvents={resultEvents}, statsAgree={statsAgree}, victoryAudio={completeAudio}, resultAudio={resultAudio}, counts={string.Join(",", counts.Select(kv => kv.Key + "=" + kv.Value))}");
+                    if (!item.passed) report.issues.Add($"Round {round}: state/stat/reset/leak assertions failed; resultEvents={resultEvents}, statsAgree={statsAgree}, victoryAudio={completeAudio}, resultAudio={resultAudio}, playing={string.Join(" | ", item.playingAudioDetails)}, counts={string.Join(",", counts.Select(kv => kv.Key + "=" + kv.Value))}");
                     report.rounds.Add(item);
                     File.WriteAllText(path, JsonUtility.ToJson(report, true));
                     Debug.Log($"[PCSoak] Round {round}/{repetitions} {(item.passed ? "PASS" : "FAIL")} result={item.startToResult:F2}s reset={item.startToReset:F2}s fps={item.averageFps:F1} objects={item.objects} materials={item.materials} memory={item.allocatedBytes / 1048576f:F1}MB");

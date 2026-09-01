@@ -185,6 +185,7 @@ namespace MeteorDefenseVR.Audio
         public void SetVoiceVolume(float value) { voiceVolume = SafeVolume(value); ApplyMix(); }
         public void SetBgmMute(bool value) { bgmMute = value; ApplyMix(); }
         public bool OwnsBgmSource(AudioSource source) => source != null && source == bgmSource;
+        public bool OwnsAmbientSource(AudioSource source) => source != null && source == ambientSource;
 
         public bool RequestBgm(AudioCue cue)
         {
