@@ -56,8 +56,10 @@ namespace MeteorDefenseVR.Editor
             Transform obsoleteBody=panel.Find("TutorialInstruction");if(obsoleteBody!=null)Object.DestroyImmediate(obsoleteBody.gameObject);
 
             foreach(Transform item in root.GetComponentsInChildren<Transform>(true))item.gameObject.layer=layer;
-            var legacyRenderer=legacy.GetComponent<MeshRenderer>();if(legacyRenderer!=null)legacyRenderer.enabled=false;
-            var view=Get<TutorialSafeZoneView>(root.gameObject);view.Configure(controller,camera,canvas,group,panel,instruction);
+            Renderer[] legacyRenderers=legacy.GetComponentsInChildren<Renderer>(true);
+            foreach(Renderer renderer in legacyRenderers){renderer.enabled=false;renderer.forceRenderingOff=true;EditorUtility.SetDirty(renderer);}
+            WorldTextPresentation bridge=legacy.GetComponent<WorldTextPresentation>();if(bridge!=null){bridge.enabled=false;EditorUtility.SetDirty(bridge);}
+            var view=Get<TutorialSafeZoneView>(root.gameObject);view.Configure(controller,camera,canvas,group,panel,instruction,legacyRenderers);
             EditorUtility.SetDirty(view);EditorUtility.SetDirty(canvas);
         }
 

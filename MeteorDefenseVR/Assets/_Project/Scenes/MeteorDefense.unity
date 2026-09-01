@@ -105244,7 +105244,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167671997}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ccb27f7ecc8cf241bc29bfc02716f6a, type: 3}
   m_Name: 
@@ -119643,6 +119643,9 @@ MonoBehaviour:
   group: {fileID: 1386058811}
   safePanel: {fileID: 1845112351}
   instructionText: {fileID: 886279813}
+  suppressedWorldRenderers:
+  - {fileID: 1167672001}
+  - {fileID: 1620727021}
   vrDepth: 1.25
   vrScale: 0.0011
 --- !u!225 &1386058811
@@ -137829,7 +137832,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620727018}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

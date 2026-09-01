@@ -34,7 +34,13 @@ namespace MeteorDefenseVR.Tests
             Assert.That(view.InstructionText.fontSharedMaterial.name,Is.EqualTo("GameplayHudFontAlwaysOnTop"));
             Assert.That(view.InstructionText.fontSharedMaterial.renderQueue,Is.GreaterThanOrEqualTo(4000));
             Assert.That(view.InstructionText.canvasRenderer.cullTransparentMesh,Is.False);
-            var legacy=Object.FindAnyObjectByType<TutorialStatusView>(FindObjectsInactive.Include).GetComponent<MeshRenderer>();Assert.That(legacy.enabled,Is.False);
+            var legacyStatus=Object.FindAnyObjectByType<TutorialStatusView>(FindObjectsInactive.Include);
+            var bridge=legacyStatus.GetComponent<WorldTextPresentation>();
+            Assert.That(bridge.enabled,Is.False,"The world-space TMP bridge must never compete with the safe-zone Canvas");
+            Assert.That(view.SuppressedWorldRenderers.Count,Is.GreaterThanOrEqualTo(2));
+            view.SuppressWorldPresentation();
+            foreach(Renderer legacy in view.SuppressedWorldRenderers)
+            {Assert.That(legacy.enabled,Is.False,legacy.name);Assert.That(legacy.forceRenderingOff,Is.True,legacy.name);}
             view.ApplyCanvasMode(true);Assert.That(view.HudCanvas.renderMode,Is.EqualTo(RenderMode.WorldSpace));
             Assert.That(view.HudCanvas.transform.localPosition.z,Is.EqualTo(view.VrDepth).Within(.001));
             view.ApplyCanvasMode(false);Assert.That(view.HudCanvas.renderMode,Is.EqualTo(RenderMode.ScreenSpaceCamera));
@@ -48,6 +54,10 @@ namespace MeteorDefenseVR.Tests
             var simulation=router.Simulation;var camera=Camera.main;var flow=GameFlowManager.Instance;flow.StartTutorial();yield return new WaitForSecondsRealtime(.25f);
             var view=Object.FindAnyObjectByType<TutorialSafeZoneView>();var tutorial=Object.FindAnyObjectByType<TutorialController>();
             Assert.That(view.IsVisible,Is.True);Assert.That(view.CurrentInstruction,Is.EqualTo(tutorial.Instruction));Assert.That(view.InstructionText.text,Does.Contain("LOCK ON"));
+            foreach(Renderer legacy in view.SuppressedWorldRenderers)legacy.enabled=true;
+            Object.FindAnyObjectByType<TutorialStatusView>(FindObjectsInactive.Include).SetInstruction(tutorial.Instruction);
+            foreach(Renderer legacy in view.SuppressedWorldRenderers)
+            {Assert.That(legacy.enabled,Is.False,"Tutorial text changes must not revive "+legacy.name);Assert.That(legacy.forceRenderingOff,Is.True,legacy.name);}
             TextMeshProUGUI lowerHint=null;foreach(var text in Object.FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include))if(text.name=="InputHelp"){lowerHint=text;break;}
             Assert.That(lowerHint,Is.Not.Null);Assert.That(lowerHint.rectTransform.anchorMax.y,Is.EqualTo(0).Within(.001));
             Assert.That(view.SafePanel.anchorMin.y,Is.GreaterThan(.55f),"Bottom hint and main tutorial panel use separate bands");
