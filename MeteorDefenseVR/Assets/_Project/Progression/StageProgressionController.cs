@@ -18,6 +18,7 @@ namespace MeteorDefenseVR.Progression
         [SerializeField] private MeteorSpawner spawner;
         [SerializeField] private BossClimaxController boss;
         [SerializeField] private PlayerHealth playerHealth;
+        [SerializeField] private CockpitDamagePresentation cockpitDamage;
         [SerializeField] private MissionHudController hud;
         [SerializeField] private GameSessionStats stats;
 
@@ -81,6 +82,7 @@ namespace MeteorDefenseVR.Progression
             spawner ??= FindAnyObjectByType<MeteorSpawner>(FindObjectsInactive.Include);
             boss ??= FindAnyObjectByType<BossClimaxController>(FindObjectsInactive.Include);
             playerHealth ??= FindAnyObjectByType<PlayerHealth>(FindObjectsInactive.Include);
+            cockpitDamage ??= FindAnyObjectByType<CockpitDamagePresentation>(FindObjectsInactive.Include);
             hud ??= FindAnyObjectByType<MissionHudController>(FindObjectsInactive.Include);
             stats ??= FindAnyObjectByType<GameSessionStats>(FindObjectsInactive.Include);
             if (settings == null || spawner == null || boss == null || playerHealth == null)
@@ -204,6 +206,7 @@ namespace MeteorDefenseVR.Progression
             boss.ResetClimax();
             stats?.RestoreStageCheckpoint();
             playerHealth.RestoreCheckpoint(stageStartHealth);
+            cockpitDamage?.ResetDamageState();
             ApplyStage(CurrentStage);
             resumeRequested = true;
             flow?.StartMainGame();

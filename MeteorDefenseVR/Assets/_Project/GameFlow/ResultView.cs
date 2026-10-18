@@ -57,6 +57,14 @@ namespace MeteorDefenseVR.GameFlow
 
         private void Show(GameSessionSnapshot snapshot, string rank)
         {
+            // Transparent cockpit fractures are closer to the camera than this world-space
+            // panel. Draw the result backing, then its legacy/TMP text, over that damage.
+            if (visualFrame != null)
+                foreach (Renderer renderer in visualFrame.GetComponentsInChildren<Renderer>(true))
+                    renderer.sortingOrder = 100;
+            if (resultText != null)
+                foreach (Renderer renderer in resultText.GetComponentsInChildren<Renderer>(true))
+                    renderer.sortingOrder = 101;
             if (resultText != null) resultText.text = Format(snapshot, rank);
             if (visualFrame != null) visualFrame.SetActive(true);
         }

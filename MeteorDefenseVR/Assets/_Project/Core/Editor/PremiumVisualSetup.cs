@@ -24,13 +24,17 @@ namespace MeteorDefenseVR.Editor
             Directory.CreateDirectory(Root+"/Meshes");Directory.CreateDirectory(Root+"/Materials");AssetDatabase.Refresh();
             Import("AvionicsAtlas",2048,TextureWrapMode.Clamp);Import("BasaltAlbedo",2048,TextureWrapMode.Repeat);Import("GunmetalAlbedo",1024,TextureWrapMode.Repeat);
             Import("ExplosionFlipbook",2048,TextureWrapMode.Clamp);
-            metal=Lit("Titanium",new Color(.26f,.31f,.36f),.72f,.37f,"GunmetalAlbedo");
-            dark=Lit("AnodizedCarbon",new Color(.12f,.17f,.21f),.55f,.3f,"GunmetalAlbedo");
-            edge=Lit("MachinedEdges",new Color(.4f,.46f,.52f),.82f,.53f,"GunmetalAlbedo");
+            metal=Lit("Titanium",new Color(.19f,.23f,.28f),.78f,.32f,"GunmetalAlbedo");
+            dark=Lit("AnodizedCarbon",new Color(.075f,.105f,.145f),.62f,.22f,"GunmetalAlbedo");
+            edge=Lit("MachinedEdges",new Color(.32f,.38f,.45f),.9f,.48f,"GunmetalAlbedo");
             string normalPath=Root+"/Textures/GunmetalRelief.png";
             if(!File.Exists(normalPath))AssetDatabase.CopyAsset(Root+"/Textures/GunmetalAlbedo.png",normalPath);
             var normalImporter=(TextureImporter)AssetImporter.GetAtPath(normalPath);normalImporter.textureType=TextureImporterType.NormalMap;normalImporter.convertToNormalmap=true;normalImporter.heightmapScale=.015f;normalImporter.maxTextureSize=1024;normalImporter.SaveAndReimport();
-            foreach(var surface in new[]{metal,dark,edge}){surface.SetTexture("_BumpMap",AssetDatabase.LoadAssetAtPath<Texture2D>(normalPath));surface.SetFloat("_BumpScale",.22f);surface.EnableKeyword("_NORMALMAP");}
+            foreach(var surface in new[]{metal,dark,edge}){surface.SetTexture("_BumpMap",AssetDatabase.LoadAssetAtPath<Texture2D>(normalPath));surface.EnableKeyword("_NORMALMAP");}
+            metal.SetFloat("_BumpScale",.30f);dark.SetFloat("_BumpScale",.32f);edge.SetFloat("_BumpScale",.18f);
+            metal.SetTextureScale("_BaseMap",new Vector2(3.2f,1.15f));metal.SetTextureScale("_BumpMap",new Vector2(3.2f,1.15f));
+            dark.SetTextureScale("_BaseMap",new Vector2(1.35f,2.8f));dark.SetTextureScale("_BumpMap",new Vector2(1.35f,2.8f));
+            edge.SetTextureScale("_BaseMap",new Vector2(5.5f,.65f));edge.SetTextureScale("_BumpMap",new Vector2(5.5f,.65f));
             cyan=Unlit("InstrumentCyan",new Color(.04f,1.1f,1.5f));amber=Unlit("SafetyAmber",new Color(2.2f,.55f,.055f));
             line=Unlit("HudHairline",new Color(.05f,.53f,.63f));glass=Unlit("HudObsidian",new Color(.003f,.018f,.026f));
             glass.SetColor("_BaseColor",new Color(.003f,.018f,.026f,.94f));glass.SetFloat("_Surface",1);glass.SetFloat("_SrcBlend",(float)BlendMode.SrcAlpha);glass.SetFloat("_DstBlend",(float)BlendMode.OneMinusSrcAlpha);glass.SetFloat("_ZWrite",0);glass.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");glass.renderQueue=2990;
@@ -158,10 +162,10 @@ namespace MeteorDefenseVR.Editor
             var em=earth.GetComponent<Renderer>().sharedMaterial;em.SetColor("_BaseColor",Color.white);em.SetColor("_EmissionColor",new Color(.035f,.055f,.08f));EditorUtility.SetDirty(em);
             var key=GameObject.Find("Directional Light").GetComponent<Light>();key.transform.rotation=Quaternion.Euler(28,-32,0);key.color=new Color(.84f,.91f,1);key.intensity=2.2f;
             var profile=AssetDatabase.LoadAssetAtPath<VolumeProfile>("Assets/Art/VisualIntegration/MeteorDefenseVisualProfile.asset");
-            if(profile.TryGet(out Bloom bloom)){bloom.intensity.Override(.28f);bloom.threshold.Override(1.1f);}
-            if(profile.TryGet(out Vignette vignette))vignette.intensity.Override(.07f);
-            if(profile.TryGet(out ColorAdjustments color)){color.contrast.Override(7);color.postExposure.Override(.15f);color.saturation.Override(0);}
-            if(!profile.TryGet(out Tonemapping tone)){tone=profile.Add<Tonemapping>(true);AssetDatabase.AddObjectToAsset(tone,profile);}tone.mode.Override(TonemappingMode.Neutral);
+            if(profile.TryGet(out Bloom bloom)){bloom.intensity.Override(.32f);bloom.threshold.Override(1.05f);bloom.scatter.Override(.58f);}
+            if(profile.TryGet(out Vignette vignette))vignette.intensity.Override(.045f);
+            if(profile.TryGet(out ColorAdjustments color)){color.contrast.Override(10);color.postExposure.Override(.05f);color.saturation.Override(-2);}
+            if(!profile.TryGet(out Tonemapping tone)){tone=profile.Add<Tonemapping>(true);AssetDatabase.AddObjectToAsset(tone,profile);}tone.mode.Override(TonemappingMode.ACES);
             foreach(var c in profile.components)EditorUtility.SetDirty(c);EditorUtility.SetDirty(profile);
             var rendererData=AssetDatabase.LoadAssetAtPath<UniversalRendererData>("Assets/Settings/PC_Renderer.asset");
             var ao=rendererData.rendererFeatures.OfType<ScreenSpaceAmbientOcclusion>().FirstOrDefault();
@@ -192,8 +196,8 @@ namespace MeteorDefenseVR.Editor
                 string path="Assets/_Project/Meteor/Prefabs/Meteor_"+names[i]+".prefab";
                 GameObject root=PrefabUtility.LoadPrefabContents(path);
                 var material=Material("Asteroid"+names[i],"MeteorDefense/Premium Asteroid");material.SetTexture("_BaseMap",Texture("BasaltAlbedo"));
-                material.SetColor("_BaseColor",i==1?new Color(.61f,.7f,.83f):i==2?new Color(.83f,.68f,.49f):new Color(.72f,.65f,.55f));
-                material.SetFloat("_Heat",i==3?1:0);material.SetColor("_EmissionColor",new Color(2.4f,.3f,.035f));
+                material.SetColor("_BaseColor",i==1?new Color(.45f,.56f,.72f):i==2?new Color(.62f,.48f,.34f):i==3?new Color(.35f,.29f,.26f):new Color(.52f,.48f,.42f));
+                material.SetFloat("_Heat",i==3?1:0);material.SetColor("_EmissionColor",new Color(2.8f,.38f,.04f));
                 var mesh=PremiumMeshBuilder.Rock("Asteroid"+names[i],13+i*9,48,28,i==1?new Vector3(.76f,.82f,1.28f):i==2?new Vector3(1.12f,.88f,1):Vector3.one);
                 root.GetComponent<MeshFilter>().sharedMesh=mesh;root.GetComponent<MeshRenderer>().sharedMaterial=material;
                 foreach(Transform child in root.transform)if(child.name.StartsWith("RockLobe"))child.GetComponent<Renderer>().enabled=false;

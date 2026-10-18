@@ -25,7 +25,7 @@ namespace MeteorDefenseVR.Editor
                 view.Configure(AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/_Project/PcInput/Fonts/PcTestKorean.asset"),loader);
                 EditorSceneManager.MarkSceneDirty(boot); EditorSceneManager.SaveScene(boot);
                 var scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity", OpenSceneMode.Single);
-                Object.FindAnyObjectByType<LaunchSequenceController>().SetDurations(.15f,.2f,.2f,.45f,.15f,.1f,.5f);
+                Object.FindAnyObjectByType<LaunchSequenceController>().SetDurations(.35f,.7f,.75f,.45f,2f,.65f,.7f);
                 // Fit the existing Ready panel above the newly visible cockpit instruments.
                 Object.FindAnyObjectByType<ReadyScreenController>().transform.localPosition = new Vector3(0,.85f,0);
                 PrepareLegacyTextDataChannels();
@@ -46,7 +46,7 @@ namespace MeteorDefenseVR.Editor
                 PlayerSettings.SplashScreen.showUnityLogo = false;
                 PlayerSettings.SplashScreen.show = false;
                 FinalAudioSetup.Ensure(); AssetDatabase.SaveAssets();
-                Debug.Log("[GameFeelSetup] Boot UI, 2.65s launch and 21-meteor three-wave progression authored.");
+                Debug.Log("[GameFeelSetup] Boot UI, comfort launch acceleration and 21-meteor three-wave progression authored.");
             }
             finally
             {

@@ -190,9 +190,14 @@ namespace MeteorDefenseVR.Tests
             launch.BeginLaunch();
             launch.Tick(0f); launch.Tick(0f); launch.Tick(0f);
             view.RefreshPresentation();
+            Assert.That(launch.CurrentStage, Is.EqualTo(LaunchStage.Launch));
+            Assert.That(view.FeedbackPanel.activeSelf, Is.False, "Countdown must wait for thrust and space stabilization.");
+            launch.Tick(0f); // Space stabilization.
+            launch.Tick(0f); // Countdown 3.
+            view.RefreshPresentation();
             Assert.That(view.FeedbackPanel.activeSelf, Is.True);
             Assert.That(view.FeedbackValue.text, Is.EqualTo("3"));
-            launch.Tick(0f); launch.Tick(0f); launch.Tick(0f); launch.Tick(0f); launch.Tick(0f);
+            launch.Tick(0f); launch.Tick(0f); launch.Tick(0f);
             view.RefreshPresentation();
             Assert.That(view.FeedbackValue.text, Is.EqualTo("MISSION START"));
             launch.ResetLaunch();

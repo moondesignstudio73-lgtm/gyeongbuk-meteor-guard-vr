@@ -56,6 +56,19 @@ namespace MeteorDefenseVR.Tests
         }
 
         [Test]
+        public void PickupVfxUsesTwoBoundedSharedParticleSystems()
+        {
+            ParticleSystem[] systems=manager.GetComponentsInChildren<ParticleSystem>(true);
+            ParticleSystem burst=System.Array.Find(systems,value=>value.name=="EnergySparkBurst");
+            ParticleSystem ring=System.Array.Find(systems,value=>value.name=="AcquisitionCollapseRing");
+            Assert.That(burst,Is.Not.Null);Assert.That(ring,Is.Not.Null);
+            Assert.That(burst.main.loop,Is.False);Assert.That(ring.main.loop,Is.False);
+            Assert.That(burst.main.maxParticles,Is.LessThanOrEqualTo(36));Assert.That(ring.main.maxParticles,Is.LessThanOrEqualTo(4));
+            Assert.That(burst.emission.rateOverTime.constant,Is.Zero);Assert.That(ring.emission.rateOverTime.constant,Is.Zero);
+            Assert.That(burst.GetComponent<ParticleSystemRenderer>().sharedMaterial,Is.Not.SameAs(ring.GetComponent<ParticleSystemRenderer>().sharedMaterial));
+        }
+
+        [Test]
         public void ShieldBlocksExactlyOneDamageEventAndHealNeverExceedsMaximum()
         {
             manager.Activate(PowerUpType.Shield);
@@ -63,6 +76,18 @@ namespace MeteorDefenseVR.Tests
             manager.ResetSystem(); Assert.That(health.ApplyDamage(50), Is.True); Assert.That(health.CurrentHealth, Is.EqualTo(50));
             Assert.That(manager.Activate(PowerUpType.Heal), Is.True); Assert.That(health.CurrentHealth, Is.EqualTo(70).Within(.01f));
             manager.Activate(PowerUpType.Heal); manager.Activate(PowerUpType.Heal); Assert.That(health.CurrentHealth, Is.LessThanOrEqualTo(100));
+        }
+
+        [Test]
+        public void ShieldVisualUsesTransparentEnergyShaderWithoutGameplayCollider()
+        {
+            GameObject shieldObject=System.Array.Find(Resources.FindObjectsOfTypeAll<GameObject>(),candidate=>candidate.name=="EnergyShield_Pooled");
+            Transform shield=shieldObject!=null?shieldObject.transform:null;
+            Assert.That(shield,Is.Not.Null);Assert.That(shield.GetComponent<Collider>(),Is.Null);
+            Renderer renderer=shield.GetComponent<Renderer>();Assert.That(renderer,Is.Not.Null);
+            Assert.That(renderer.sharedMaterial.shader.name,Is.EqualTo("MeteorDefense/Energy Shield"));
+            Assert.That(renderer.sharedMaterial.renderQueue,Is.GreaterThanOrEqualTo(3000));
+            Assert.That(shield.localScale.z,Is.GreaterThan(3f),"Shield must be a surrounding field, not an opaque flat plate.");
         }
 
         [Test]

@@ -107,7 +107,19 @@ namespace MeteorDefenseVR.Tests
             var missionCompleteDisplay = camera.transform.Find("MissionCompleteText")?.GetComponentInChildren<TextMeshPro>(true);
             Assert.That(missionCompleteDisplay, Is.Not.Null, "Mission-complete presentation must remain authored under Player Camera");
             Assert.That(missionCompleteDisplay.enabled, Is.False, "Victory must not overlap Result, including direct state jumps");
+            var hudOverlay = Object.FindAnyObjectByType<GameplayHudOverlayView>();
+            Assert.That(hudOverlay.FeedbackPanel.activeSelf, Is.False, "Completion feedback must not cover the result score after a direct transition.");
             Assert.That(resultMotion.GetComponent<WorldTextPresentation>().Display.font.HasCharacters("미션 성공! 지구를 지켜냈습니다! 입력 안내 완료"), Is.True);
+            var resultDisplay = resultMotion.GetComponent<WorldTextPresentation>().Display;
+            string normalResultText = resultDisplay.text;
+            foreach (int score in new[] { 138940, int.MaxValue })
+            {
+                resultDisplay.text = WorldTextPresentation.FormatResult(new GameSessionSnapshot { Score = score, MissionFailed = true }, "S");
+                resultDisplay.ForceMeshUpdate();
+                Assert.That(resultDisplay.isTextTruncated, Is.False, "Result must not truncate score " + score);
+                Assert.That(resultDisplay.textBounds.max.x, Is.LessThanOrEqualTo(resultDisplay.rectTransform.rect.xMax + .01f), "Result exceeds right edge for score " + score);
+            }
+            resultDisplay.text = normalResultText;
             int sources = Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include).Length;
             int canvases = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include).Length;
             int motionCount = Object.FindObjectsByType<WorldTextMotion>(FindObjectsInactive.Include).Length;

@@ -32,6 +32,8 @@ namespace MeteorDefenseVR.PcInput
             public int weaponHitEvents, hitVfxEvents, destroyedHitEvents, explosionEvents, bossExplosionEvents, laserAudioEvents, firedEvents;
             public int duplicateSpawnEvents, instantiatedMeteors, reusedMeteors;
             public float p99FrameMs, maxFrameMs, allStagesMaxFrameMs, averageFrameAllocationBytes;
+            public string maxFrameObservedState;
+            public float maxFrameObservedAtSeconds;
             public long maxFrameAllocationBytes;
             public PcStabilityProbe.SubscriptionSnapshot subscriptions;
             public long allocatedBytes, managedBytes, privateBytes;
@@ -92,6 +94,8 @@ namespace MeteorDefenseVR.PcInput
             int peakParticles=0;
             int errors = 0, warnings = 0, resultEvents = 0, completeAudio = 0, resultAudio = 0;
             float roundStart = 0, stateStart = 0, reachedResult = 0;
+            float peakFrame = 0, peakObservedAt = 0;
+            GameState peakObservedState = GameState.Boot;
             GameState lastState = GameState.Boot;
             GameSessionSnapshot snapshot = null;
             bool statsAgree = true;
@@ -147,6 +151,7 @@ namespace MeteorDefenseVR.PcInput
                     counts.Clear(); stageTimes.Clear(); frames.Clear(); bossFrames.Clear(); peakParticles=0; snapshot = null;
                     errors = warnings = resultEvents = completeAudio = resultAudio = 0; statsAgree = true;
                     allFrames.Clear();aliveSpawnEvents.Clear();allocationTotal=allocationMax=0;
+                    peakFrame=0;peakObservedAt=0;peakObservedState=GameState.Boot;
                     hitEvents=hitVisuals=destroyedHits=explosions=bossExplosions=fired=laserCues=duplicateSpawns=waveSpawns=0;
                     int renderedBefore=probe.RenderedFrames,gc0=GC.CollectionCount(0),gc1=GC.CollectionCount(1),gc2=GC.CollectionCount(2);
                     roundStart = stateStart = Time.realtimeSinceStartup; reachedResult = 0; lastState = GameState.Boot;
@@ -174,6 +179,13 @@ namespace MeteorDefenseVR.PcInput
                         if (flow.CurrentState == GameState.Playing) frames.Add(Time.unscaledDeltaTime);
                         if (flow.CurrentState == GameState.BossMeteor) bossFrames.Add(Time.unscaledDeltaTime);
                         allFrames.Add(Time.unscaledDeltaTime);
+                        // The state at observation localizes the sample; it does not attribute the preceding frame's cost.
+                        if(Time.unscaledDeltaTime>peakFrame)
+                        {
+                            peakFrame=Time.unscaledDeltaTime;
+                            peakObservedState=flow.CurrentState;
+                            peakObservedAt=Time.realtimeSinceStartup-roundStart;
+                        }
                         long allocated=probe.LastFrameAllocation;if(allocated>=0){allocationTotal+=allocated;allocationMax=Math.Max(allocationMax,allocated);}
                         if (premiumVfx != null) peakParticles=Mathf.Max(peakParticles,premiumVfx.ActiveParticleCount);
                         if (lobby != null && lobby.IsMenuReady) lobby.Queue(HangarLobbyController.MenuAction.Standby);
@@ -214,6 +226,7 @@ namespace MeteorDefenseVR.PcInput
                         mainFrames=frames.Count,framesOver33Ms=frames.Count(f=>f>.033333f),
                         p99FrameMs=frames.Count>0?frames[Mathf.Min(frames.Count-1,(int)(frames.Count*.99f))]*1000:0,
                         maxFrameMs=frames.Count>0?frames[frames.Count-1]*1000:0,allStagesMaxFrameMs=allFrames.Count>0?allFrames.Max()*1000:0,
+                        maxFrameObservedState=peakObservedState.ToString(),maxFrameObservedAtSeconds=peakObservedAt,
                         maxFrameAllocationBytes=probe.AllocationCounterAvailable?allocationMax:-1,
                         averageFrameAllocationBytes=probe.AllocationCounterAvailable&&allFrames.Count>0?(float)allocationTotal/allFrames.Count:-1,
                         weaponHitEvents=hitEvents,hitVfxEvents=hitVisuals,destroyedHitEvents=destroyedHits,explosionEvents=explosions,bossExplosionEvents=bossExplosions,

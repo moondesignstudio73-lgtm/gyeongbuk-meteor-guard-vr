@@ -84,8 +84,8 @@ namespace MeteorDefenseVR.Tests
             yield return Capture(probe, router, simulation, spawner, 180, 0, "Rear");
             yield return Capture(probe, router, simulation, spawner, 135, 0, "RearRight");
             yield return Capture(probe, router, simulation, spawner, 90, 0, "Right");
-            yield return Capture(probe, router, simulation, spawner, 0, 65, "Above");
-            yield return Capture(probe, router, simulation, spawner, 0, -65, "Below");
+            yield return Capture(probe, router, simulation, spawner, 0, -65, "Above");
+            yield return Capture(probe, router, simulation, spawner, 0, 65, "Below");
             spawner.EndScenario();
         }
 
@@ -98,6 +98,21 @@ namespace MeteorDefenseVR.Tests
             simulation.ApplyLook(new Vector2(yaw / .1f, -pitch / .09f), 1f);
             yield return new WaitForSecondsRealtime(.2f);
             Camera camera = Camera.main;
+            Assert.That(Mathf.Abs(Mathf.DeltaAngle(simulation.Angles.x, yaw)), Is.LessThan(1f), name + " yaw");
+            Assert.That(Mathf.Abs(Mathf.DeltaAngle(simulation.Angles.y, pitch)), Is.LessThan(1f), name + " pitch");
+            if (name == "Above") Assert.That(camera.transform.forward.y, Is.GreaterThan(.8f), "Above must face upward");
+            if (name == "Below") Assert.That(camera.transform.forward.y, Is.LessThan(-.8f), "Below must face downward");
+            if (name == "Above")
+            {
+                var ray = new Ray(camera.transform.position, camera.transform.forward);
+                foreach (var renderer in Object.FindObjectsByType<MeshRenderer>())
+                    if (renderer.bounds.IntersectRay(ray) && CenterTriangleHit(renderer, ray, out float distance))
+                    {
+                        Debug.Log($"[PanoramaQA] Above triangle: {renderer.transform.parent?.name}/{renderer.name}, enabled={renderer.enabled}, distance={distance:F3}, shader={renderer.sharedMaterial?.shader.name}");
+                        if (renderer.enabled && !renderer.forceRenderingOff && renderer.sharedMaterial != null && renderer.sharedMaterial.renderQueue <= 2500)
+                            Assert.Fail($"Above target center is blocked by opaque mesh {renderer.name} at {distance:F3}m.");
+                    }
+            }
             MeteorController meteor = spawner.SpawnScenario(camera.transform.position + camera.transform.forward * 18f,
                 Vector3.zero, 2.3f, 0, 10f);
             Assert.That(meteor, Is.Not.Null);
@@ -114,6 +129,35 @@ namespace MeteorDefenseVR.Tests
             Canvas.ForceUpdateCanvases();
             camera.Render();
             probe.SaveGameOnlyProof(directory, router);
+        }
+
+        private static bool CenterTriangleHit(MeshRenderer renderer, Ray ray, out float distance)
+        {
+            distance = 18f;
+            var filter = renderer.GetComponent<MeshFilter>();
+            if (filter == null) return false;
+            var mesh = filter.sharedMesh;
+            if (mesh == null || !mesh.isReadable) return false;
+            var vertices = mesh.vertices; var triangles = mesh.triangles;
+            bool hit = false;
+            for (int i = 0; i < triangles.Length; i += 3)
+            {
+                Vector3 a = renderer.transform.TransformPoint(vertices[triangles[i]]);
+                Vector3 e1 = renderer.transform.TransformPoint(vertices[triangles[i+1]]) - a;
+                Vector3 e2 = renderer.transform.TransformPoint(vertices[triangles[i+2]]) - a;
+                Vector3 p = Vector3.Cross(ray.direction, e2);
+                float determinant = Vector3.Dot(e1, p);
+                if (Mathf.Abs(determinant) < .000001f) continue;
+                Vector3 s = ray.origin - a;
+                float u = Vector3.Dot(s, p) / determinant;
+                if (u < 0 || u > 1) continue;
+                Vector3 q = Vector3.Cross(s, e1);
+                float v = Vector3.Dot(ray.direction, q) / determinant;
+                if (v < 0 || u + v > 1) continue;
+                float t = Vector3.Dot(e2, q) / determinant;
+                if (t > 0 && t < distance) { distance = t; hit = true; }
+            }
+            return hit;
         }
 
         private static Vector3 WorldSize(Transform transform)

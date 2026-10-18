@@ -24,7 +24,7 @@ namespace MeteorDefenseVR.Tests
         [UnityTearDown] public IEnumerator Cleanup() { if (Application.isPlaying) yield return new ExitPlayMode(); }
 
         [Test]
-        public void AuthoredWavesEscalateWithoutChangingTotalAndLaunchStaysShort()
+        public void AuthoredWavesEscalateWithoutChangingTotalAndRestoredLaunchStaysBounded()
         {
             var waves = Enumerable.Range(1,3).Select(i => AssetDatabase.LoadAssetAtPath<MeteorWaveData>("Assets/_Project/Meteor/Waves/Wave_0"+i+".asset")).ToArray();
             Assert.That(waves.Sum(w => w.TotalMeteors), Is.EqualTo(21));
@@ -36,7 +36,7 @@ namespace MeteorDefenseVR.Tests
             var launch = Object.FindAnyObjectByType<LaunchSequenceController>();
             using var serialized = new SerializedObject(launch);
             float duration = new[]{"hangarDuration","doorDuration","engineDuration","launchDuration","spaceDuration","missionStartDuration"}.Sum(n=>serialized.FindProperty(n).floatValue) + 3*serialized.FindProperty("countdownInterval").floatValue;
-            Assert.That(duration, Is.InRange(2f,3f));
+            Assert.That(duration, Is.EqualTo(6.5f).Within(.01f), "Restored acceleration, space stabilization and countdown must remain authored.");
             var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/_Project/PcInput/Fonts/PcTestKorean.asset");
             Assert.That(font.atlasPopulationMode, Is.EqualTo(AtlasPopulationMode.Static));
             Assert.That(font.HasCharacters("SYSTEM INITIALIZING GAZE SENSOR DEFENSE SYSTEM ONLINE SHIELD LOW 방어막 위험 NICE COMBO GREAT LOCK"), Is.True);
@@ -139,22 +139,33 @@ namespace MeteorDefenseVR.Tests
             float fov = camera.fieldOfView;
             using var probe = new PcStabilityProbe(camera);
             yield return null; Save(probe,router,"ready");
+            // Consume the ready screenshot's stalled frame while launch is still idle.
+            yield return null;
             var flow = GameFlowManager.Instance;
             var audio = Object.FindAnyObjectByType<AudioManager>();
-            flow.StartLaunch();
             var launch = Object.FindAnyObjectByType<LaunchSequenceController>();
             float launchAt = Time.realtimeSinceStartup;
+            System.Action<LaunchStage, string> traceStage = (stage, message) =>
+                Debug.Log($"[GameFeelQA] Launch {stage}: elapsed={Time.realtimeSinceStartup-launchAt:F3}s, frameDelta={Time.unscaledDeltaTime:F3}s");
+            launch.StageChanged += traceStage;
+            flow.StartLaunch();
             float captureTime = 0;
             bool countdownCaptured = false;
-            while (flow.CurrentState != GameState.Playing && Time.realtimeSinceStartup-launchAt < 5)
+            while (flow.CurrentState != GameState.Playing && Time.realtimeSinceStartup-launchAt-captureTime < 10f)
             {
                 if (!countdownCaptured && launch.CurrentStage == LaunchStage.Countdown2)
                 { float captureAt=Time.realtimeSinceStartup; Save(probe,router,"launch-countdown"); captureTime+=Time.realtimeSinceStartup-captureAt; countdownCaptured = true; }
                 yield return null;
             }
+            launch.StageChanged -= traceStage;
             Assert.That(flow.CurrentState, Is.EqualTo(GameState.Playing));
+            Assert.That(countdownCaptured, Is.True, "The restored launch must still present its countdown.");
             StageProgressionController.Instance.ResetProgressionState(); // This presentation test intentionally exercises one legacy-sized combat beat.
-            Assert.That(Time.realtimeSinceStartup-launchAt-captureTime, Is.LessThan(3.5f), "PNG encode/readback excluded; authored sequence is 2.65s");
+            // Synchronous capture contributes to the next unscaledDeltaTime, so subtracting
+            // it would also subtract time consumed by the launch controller.
+            float launchElapsed = Time.realtimeSinceStartup - launchAt;
+            Assert.That(launchElapsed, Is.GreaterThanOrEqualTo(6.4f), "The restored authored sequence must not skip its 6.5s presentation.");
+            Assert.That(launchElapsed, Is.LessThanOrEqualTo(8.5f + captureTime), "Allow capture overhead only in the upper runtime bound.");
             var spawner = Object.FindAnyObjectByType<MeteorSpawner>();
             var weapon = Object.FindAnyObjectByType<LaserWeapon>(); weapon.AutoFireOnLock = false;
             for (int i=0;i<15 && spawner.ActiveCount==0;i++) spawner.Tick(.5f);

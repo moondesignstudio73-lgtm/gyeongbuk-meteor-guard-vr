@@ -1,13 +1,28 @@
 param(
     [ValidateSet('Soak','Webcam')][string]$Mode = 'Soak',
     [ValidateRange(1,100)][int]$Rounds = 30,
-    [ValidatePattern('^[a-z0-9-]+$')][string]$Label = 'soak-30'
+    [ValidatePattern('^[a-z0-9-]+$')][string]$Label = 'soak-30',
+    [string]$BuildDirectory = '',
+    [switch]$BatchMode
 )
 $ErrorActionPreference = 'Stop'
+if ($BatchMode -and $Mode -ne 'Soak') {
+    throw 'BatchMode is only for synthetic Soak QA; physical webcam validation requires a normal player.'
+}
 $projectRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 $buildRoot = Join-Path $projectRoot 'Builds\Windows'
+if (-not [string]::IsNullOrWhiteSpace($BuildDirectory)) {
+    $buildRoot = (Resolve-Path -LiteralPath $BuildDirectory).Path
+}
 $reportRoot = Join-Path $projectRoot 'Docs\StabilityQA'
 $playerPath = Join-Path $buildRoot 'MeteorDefenseVR.exe'
+if (-not (Test-Path -LiteralPath $playerPath -PathType Leaf)) {
+    throw "QA player not found: $playerPath. Pass -BuildDirectory with the exact versioned build folder to test."
+}
+if (Get-Process -Name MeteorDefenseVR -ErrorAction SilentlyContinue) {
+    throw 'A MeteorDefenseVR player is already running. Finish the existing run before starting another QA player.'
+}
+[void](New-Item -ItemType Directory -Path $reportRoot -Force)
 $logPath = Join-Path $reportRoot ($Label + '.log')
 $reportPath = Join-Path $reportRoot ($Label + '-host.json')
 $qaPath = Join-Path $buildRoot 'QA\pc-soak.json'
@@ -26,6 +41,8 @@ function Read-AppFileMetadata {
 $filesBefore = Read-AppFileMetadata
 $runStart = [datetime]::UtcNow
 $arguments = @('-screen-width','1280','-screen-height','720','-logFile',('"' + $logPath + '"'))
+# Keep graphics enabled: this only isolates unattended QA from focus/cursor pause.
+if ($BatchMode) { $arguments += '-batchmode' }
 if ($Mode -eq 'Soak') { $arguments += @('--pc-soak',('--pc-soak-rounds=' + $Rounds),'--no-webcam') }
 else { $arguments += '--pc-webcam-stability' }
 $player = Start-Process -FilePath $playerPath -ArgumentList $arguments -WorkingDirectory $buildRoot -WindowStyle Hidden -PassThru
@@ -78,6 +95,10 @@ $hostReport = [ordered]@{
     exitCode = $player.ExitCode
     mode = $Mode
     requestedRounds = $Rounds
+    batchMode = [bool]$BatchMode
+    focusPauseCoverage = if ($BatchMode) { 'Not covered: unattended batch comparison; graphics remain enabled' } else { 'Normal player focus/cursor pause policy enabled' }
+    buildDirectory = $buildRoot
+    playerSha256 = (Get-FileHash -LiteralPath $playerPath -Algorithm SHA256).Hash
     networkScope = 'Owning-PID TCP snapshots about every 3 seconds, not packet capture or proof against short-lived connections; no image or network payload recorded'
     networkProbeErrors = @($networkErrors | ForEach-Object { $_ })
     observedRemoteEndpoints = @($destinations | ForEach-Object { $_ })

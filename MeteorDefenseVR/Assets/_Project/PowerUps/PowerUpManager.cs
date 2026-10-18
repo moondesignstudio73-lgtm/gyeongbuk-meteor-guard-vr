@@ -47,13 +47,21 @@ namespace MeteorDefenseVR.PowerUps
         private GameFlowManager flow;
         private Transform driftTarget;
         private GameObject shieldVisual;
+        private Renderer shieldRenderer;
         private GameObject empVisual;
         private AudioSource pickupAudio;
+        private ParticleSystem pickupBurst, pickupRing;
         private readonly AudioClip[] pickupClips = new AudioClip[8];
-        private float empVisualRemaining;
+        private Material powerUpCoreMaterial, powerUpHaloMaterial, shieldMaterial, empMaterial, pickupBurstMaterial, pickupRingMaterial;
+        private Mesh powerUpCoreMesh;
+        private MaterialPropertyBlock shieldProperties;
+        private float empVisualRemaining, shieldHitPulse, shieldFadeRemaining;
         private int missesSinceDrop;
         private float blinkCooldown, sourceRefresh;
         private bool blinkArmed = true, initialized, timersPaused;
+        private static readonly Vector3 ShieldBaseScale = new Vector3(7.2f, 4.8f, 6.4f);
+        private static readonly int ShieldHitPulseId = Shader.PropertyToID("_HitPulse");
+        private static readonly int ShieldHitPointId = Shader.PropertyToID("_HitPoint");
 
         public static PowerUpManager Instance { get; private set; }
         public IReadOnlyList<ActiveBuffView> ActiveBuffs => buffViews;
@@ -61,6 +69,7 @@ namespace MeteorDefenseVR.PowerUps
         public int ActiveWorldItems { get { int count = 0; foreach (PowerUpItem item in itemPool) if (item != null && item.gameObject.activeSelf) count++; return count; } }
         public bool TimersPaused => timersPaused;
         public int ActiveBuffCount => buffs.Count;
+        public int ActivePickupParticles => (pickupBurst != null ? pickupBurst.particleCount : 0) + (pickupRing != null ? pickupRing.particleCount : 0);
         public bool IsBuffActive(PowerUpType type) => HasBuff(type);
         public event Action<PowerUpType> PowerUpAcquired;
         public event Action BuffsChanged;
@@ -82,7 +91,14 @@ namespace MeteorDefenseVR.PowerUps
         private void Awake() { if (Instance == null || Instance == this) Instance = this; }
         private void Start() => Initialize();
         private void Update() => Tick(Time.unscaledDeltaTime);
-        private void OnDestroy() { Unbind(); if (Instance == this) Instance = null; }
+        private void OnDestroy()
+        {
+            Unbind();
+            SafeDestroy(shieldVisual);
+            SafeDestroy(powerUpCoreMaterial); SafeDestroy(powerUpHaloMaterial); SafeDestroy(powerUpCoreMesh);
+            SafeDestroy(shieldMaterial); SafeDestroy(empMaterial); SafeDestroy(pickupBurstMaterial); SafeDestroy(pickupRingMaterial);
+            if (Instance == this) Instance = null;
+        }
 
         public void Initialize()
         {
@@ -99,7 +115,7 @@ namespace MeteorDefenseVR.PowerUps
             Camera camera = Camera.main; driftTarget = camera != null ? camera.transform : spawner != null ? spawner.transform : transform;
             if (settings == null || spawner == null || playerHealth == null || weapon == null)
             { enabled = false; Debug.LogWarning("[PowerUp] Settings or gameplay connections missing; power-ups disabled safely."); return; }
-            initialized = true; BuildPool(); BuildShield(); BuildAudio(); BuildHud(); RefreshBlinkSources(); Bind(); ResetSystem();
+            initialized = true; BuildPool(); BuildShield(); BuildPickupVfx(); BuildAudio(); BuildHud(); RefreshBlinkSources(); Bind(); ResetSystem();
         }
 
         public void Configure(PowerUpSettings source, MeteorSpawner meteorSpawner, BossClimaxController bossController,
@@ -206,7 +222,8 @@ namespace MeteorDefenseVR.PowerUps
         internal void Collect(PowerUpItem item)
         {
             if (item == null || !item.IsAvailable) return;
-            PowerUpType type = item.Type; Release(item); PlayPickup(type); Activate(type); PowerUpAcquired?.Invoke(type);
+            PowerUpType type = item.Type; Vector3 position = item.transform.position; Color color = GetDefinition(type).Color;
+            Release(item); PlayPickupVfx(position, color); PlayPickup(type); Activate(type); PowerUpAcquired?.Invoke(type);
         }
         internal void Release(PowerUpItem item) { if (item != null) item.Despawn(); }
 
@@ -244,8 +261,17 @@ namespace MeteorDefenseVR.PowerUps
             sourceRefresh -= dt; if (blinkSources.Count == 0 && sourceRefresh <= 0f) { sourceRefresh = 2f; RefreshBlinkSources(); }
             if (shieldVisual != null && shieldVisual.activeSelf)
             {
-                float pulse = 1f + Mathf.Sin(Time.unscaledTime * 6f) * .025f;
-                shieldVisual.transform.localScale = new Vector3(4.8f, 3.1f, .12f) * pulse;
+                shieldHitPulse = Mathf.MoveTowards(shieldHitPulse, 0f, dt * 1.85f);
+                shieldFadeRemaining = Mathf.Max(0f, shieldFadeRemaining - dt);
+                float pulse = 1f + Mathf.Sin(Time.unscaledTime * 2.4f) * .006f + shieldHitPulse * .018f;
+                shieldVisual.transform.localScale = ShieldBaseScale * pulse;
+                if (shieldRenderer != null)
+                {
+                    shieldRenderer.GetPropertyBlock(shieldProperties);
+                    shieldProperties.SetFloat(ShieldHitPulseId, shieldHitPulse);
+                    shieldRenderer.SetPropertyBlock(shieldProperties);
+                }
+                if (!HasBuff(PowerUpType.Shield) && shieldFadeRemaining <= 0f) shieldVisual.SetActive(false);
             }
             if (empVisual != null && empVisual.activeSelf)
             {
@@ -313,10 +339,18 @@ namespace MeteorDefenseVR.PowerUps
             hud?.ShowWarning("EMP SHOCKWAVE", 1.2f);
         }
 
-        private bool TryBlockDamage(int _, Vector3 __)
+        private bool TryBlockDamage(int _, Vector3 position)
         {
             ActiveBuff shield = buffs.Find(entry => entry.Value.Type == PowerUpType.Shield);
             if (shield == null) return false;
+            shieldHitPulse = 1f; shieldFadeRemaining = .32f;
+            if (shieldRenderer != null)
+            {
+                shieldRenderer.GetPropertyBlock(shieldProperties);
+                shieldProperties.SetVector(ShieldHitPointId, position);
+                shieldProperties.SetFloat(ShieldHitPulseId, 1f);
+                shieldRenderer.SetPropertyBlock(shieldProperties);
+            }
             if (settings.shieldMode == ShieldConsumptionMode.ImpactCount)
             {
                 shield.ShieldHits--;
@@ -334,7 +368,12 @@ namespace MeteorDefenseVR.PowerUps
             float asteroidScale = slow != null ? Mathf.Clamp(slow.Value.Power, .5f, .65f) : 1f;
             spawner.SetPowerUpTimeScale(asteroidScale, slow != null ? 1.45f : 1f);
             boss?.ActiveBoss?.SetRuntimeSpeedMultiplier(asteroidScale);
-            if (shieldVisual != null) shieldVisual.SetActive(HasBuff(PowerUpType.Shield));
+            if (shieldVisual != null)
+            {
+                bool active=HasBuff(PowerUpType.Shield);
+                if(active && !shieldVisual.activeSelf) shieldHitPulse=.24f;
+                shieldVisual.SetActive(active || shieldFadeRemaining>0f);
+            }
             RebuildViews(); BuffsChanged?.Invoke();
         }
 
@@ -354,7 +393,7 @@ namespace MeteorDefenseVR.PowerUps
             foreach (PowerUpItem item in itemPool) item?.Despawn();
             buffs.Clear(); missesSinceDrop = 0; blinkCooldown = 0f; blinkArmed = true; timersPaused = false;
             weapon.SetPowerUpModifiers(1f, 1f); spawner.SetPowerUpTimeScale(1f, 1f);
-            if (shieldVisual != null) shieldVisual.SetActive(false); if (empVisual != null) empVisual.SetActive(false); empVisualRemaining = 0f; RebuildViews();
+            if (shieldVisual != null) shieldVisual.SetActive(false); if (empVisual != null) empVisual.SetActive(false); empVisualRemaining = shieldHitPulse = shieldFadeRemaining = 0f; RebuildViews();
         }
         private void StateChanged(GameState state)
         {
@@ -375,31 +414,82 @@ namespace MeteorDefenseVR.PowerUps
         private void BuildPool()
         {
             Transform root = new GameObject("PowerUpItemPool").transform; root.SetParent(transform, false);
-            Shader shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color") ?? Shader.Find("Sprites/Default");
-            Material shared = shader != null ? new Material(shader) { name = "PowerUp_Hologram_Runtime" } : null;
-            if (shared != null) { shared.enableInstancing = true; if (shared.HasProperty("_Surface")) shared.SetFloat("_Surface", 1f); }
+            Shader coreShader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color") ?? Shader.Find("Sprites/Default");
+            Shader haloShader = Shader.Find("MeteorDefense/Soft Energy") ?? coreShader;
+            powerUpCoreMaterial = coreShader != null ? new Material(coreShader) { name = "PowerUp_Core_Runtime" } : null;
+            powerUpHaloMaterial = haloShader != null ? new Material(haloShader) { name = "PowerUp_Halo_Runtime" } : null;
+            if (powerUpCoreMaterial != null)
+            {
+                powerUpCoreMaterial.enableInstancing = true;
+                if (powerUpCoreMaterial.HasProperty("_Surface")) powerUpCoreMaterial.SetFloat("_Surface", 1f);
+            }
+            if (powerUpHaloMaterial != null)
+            {
+                powerUpHaloMaterial.enableInstancing = true;
+                if (powerUpHaloMaterial.HasProperty("_Ring")) powerUpHaloMaterial.SetFloat("_Ring", 1f);
+            }
+            powerUpCoreMesh = CreatePowerUpCoreMesh();
             Font runtimeFont = FindDynamicRuntimeFont();
             for (int i = 0; i < settings.maximumWorldItems; i++)
             {
-                GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere); go.name = $"PowerUpItem_{i:D2}"; go.transform.SetParent(root, false); go.transform.localScale = Vector3.one * .65f;
-                Renderer renderer = go.GetComponent<Renderer>(); if (renderer != null && shared != null) renderer.sharedMaterial = shared;
-                GameObject labelObject = new GameObject("HologramLabel"); labelObject.transform.SetParent(go.transform, false); labelObject.transform.localPosition = new Vector3(0, 1.2f, 0);
-                TextMesh text = labelObject.AddComponent<TextMesh>(); text.anchor = TextAnchor.MiddleCenter; text.alignment = TextAlignment.Center; text.characterSize = .12f; text.fontSize = 42;
+                GameObject go = new GameObject($"PowerUpItem_{i:D2}"); go.transform.SetParent(root, false); go.transform.localScale = Vector3.one * .65f;
+
+                Transform visualRoot = new GameObject("EnergyCorePivot").transform; visualRoot.SetParent(go.transform, false);
+                GameObject core = new GameObject("FacetedEnergyCore"); core.transform.SetParent(visualRoot, false);
+                core.transform.localScale = new Vector3(.82f, 1f, .82f);
+                core.AddComponent<MeshFilter>().sharedMesh = powerUpCoreMesh;
+                MeshRenderer coreRenderer = core.AddComponent<MeshRenderer>();
+                if (powerUpCoreMaterial != null) coreRenderer.sharedMaterial = powerUpCoreMaterial;
+
+                GameObject halo = GameObject.CreatePrimitive(PrimitiveType.Quad); halo.name = "AcquisitionRing"; halo.transform.SetParent(go.transform, false);
+                halo.transform.localScale = Vector3.one * 2.05f; SafeDestroy(halo.GetComponent<Collider>());
+                MeshRenderer haloRenderer = halo.GetComponent<MeshRenderer>();
+                if (haloRenderer != null && powerUpHaloMaterial != null) haloRenderer.sharedMaterial = powerUpHaloMaterial;
+
+                GameObject labelObject = new GameObject("HologramLabel"); labelObject.transform.SetParent(go.transform, false); labelObject.transform.localPosition = new Vector3(0, 1.28f, 0);
+                TextMesh text = labelObject.AddComponent<TextMesh>(); text.anchor = TextAnchor.MiddleCenter; text.alignment = TextAlignment.Center; text.characterSize = .17f; text.fontSize = 48; text.lineSpacing = .8f;
                 if (runtimeFont != null) text.font = runtimeFont;
-                PowerUpItem item = go.AddComponent<PowerUpItem>(); item.Prepare(this, new[] { renderer }, text); itemPool.Add(item);
+                PowerUpItem item = go.AddComponent<PowerUpItem>();
+                item.Prepare(this, new Renderer[] { coreRenderer, haloRenderer }, text, visualRoot, halo.transform);
+                itemPool.Add(item);
             }
+        }
+
+        private static Mesh CreatePowerUpCoreMesh()
+        {
+            var mesh = new Mesh { name = "PowerUp_FacetedCore_Runtime" };
+            mesh.vertices = new[]
+            {
+                new Vector3(0f, .72f, 0f), new Vector3(0f, -.72f, 0f),
+                new Vector3(.52f, 0f, 0f), new Vector3(0f, 0f, .52f),
+                new Vector3(-.52f, 0f, 0f), new Vector3(0f, 0f, -.52f)
+            };
+            mesh.triangles = new[]
+            {
+                0,3,2, 0,4,3, 0,5,4, 0,2,5,
+                1,2,3, 1,3,4, 1,4,5, 1,5,2
+            };
+            mesh.RecalculateNormals(); mesh.RecalculateBounds(); mesh.UploadMeshData(true);
+            return mesh;
         }
         private void BuildShield()
         {
             shieldVisual = GameObject.CreatePrimitive(PrimitiveType.Sphere); shieldVisual.name = "EnergyShield_Pooled";
-            SafeDestroy(shieldVisual.GetComponent<Collider>()); shieldVisual.transform.SetParent(driftTarget, false); shieldVisual.transform.localPosition = new Vector3(0, 0, 2.7f); shieldVisual.transform.localScale = new Vector3(4.8f, 3.1f, .12f);
-            Renderer renderer = shieldVisual.GetComponent<Renderer>(); Shader shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Sprites/Default");
-            if (renderer != null && shader != null) { var material = new Material(shader) { name = "EnergyShield_Runtime" }; Color color = new Color(.05f, .65f, 1f, .18f); material.color = color; if (material.HasProperty("_BaseColor")) material.SetColor("_BaseColor", color); if (material.HasProperty("_Surface")) material.SetFloat("_Surface", 1f); renderer.sharedMaterial = material; }
+            SafeDestroy(shieldVisual.GetComponent<Collider>()); shieldVisual.transform.SetParent(driftTarget, false); shieldVisual.transform.localPosition = new Vector3(0, 0, 1.4f); shieldVisual.transform.localScale = ShieldBaseScale;
+            shieldRenderer = shieldVisual.GetComponent<Renderer>();
+            Shader shieldShader = Resources.Load<Shader>("Shaders/EnergyShield") ?? Shader.Find("MeteorDefense/Energy Shield") ?? Shader.Find("Universal Render Pipeline/Unlit");
+            if (shieldRenderer != null && shieldShader != null)
+            {
+                shieldMaterial = new Material(shieldShader) { name = "EnergyShield_Runtime" };
+                shieldMaterial.enableInstancing = true;
+                shieldMaterial.SetColor("_BaseColor", new Color(.035f, .58f, 1f, .72f));
+                shieldRenderer.sharedMaterial = shieldMaterial; shieldProperties = new MaterialPropertyBlock();
+            }
             shieldVisual.SetActive(false);
             empVisual = GameObject.CreatePrimitive(PrimitiveType.Sphere); empVisual.name = "EMP_Shockwave_Pooled";
             SafeDestroy(empVisual.GetComponent<Collider>()); empVisual.transform.SetParent(transform, true);
-            Renderer empRenderer = empVisual.GetComponent<Renderer>();
-            if (empRenderer != null && shader != null) { var empMaterial = new Material(shader) { name = "EMP_Shockwave_Runtime" }; Color empColor = new Color(.85f,.95f,1f,.18f); empMaterial.color = empColor; if (empMaterial.HasProperty("_BaseColor")) empMaterial.SetColor("_BaseColor", empColor); if (empMaterial.HasProperty("_Surface")) empMaterial.SetFloat("_Surface",1f); empRenderer.sharedMaterial = empMaterial; }
+            Renderer empRenderer = empVisual.GetComponent<Renderer>(); Shader empShader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Sprites/Default");
+            if (empRenderer != null && empShader != null) { empMaterial = new Material(empShader) { name = "EMP_Shockwave_Runtime" }; Color empColor = new Color(.85f,.95f,1f,.18f); empMaterial.color = empColor; if (empMaterial.HasProperty("_BaseColor")) empMaterial.SetColor("_BaseColor", empColor); if (empMaterial.HasProperty("_Surface")) empMaterial.SetFloat("_Surface",1f); empRenderer.sharedMaterial = empMaterial; }
             empVisual.SetActive(false);
         }
         private void BuildAudio()
@@ -409,6 +499,67 @@ namespace MeteorDefenseVR.PowerUps
             pickupAudio.playOnAwake = false; pickupAudio.spatialBlend = 0f; pickupAudio.volume = .22f;
             float[] frequencies = { 660f, 520f, 780f, 920f, 840f, 1080f, 610f, 1250f };
             for (int i = 0; i < pickupClips.Length; i++) pickupClips[i] = CreateTone("PowerUp_" + ((PowerUpType)i), frequencies[i], i == (int)PowerUpType.Overdrive ? .28f : .16f);
+        }
+        private void BuildPickupVfx()
+        {
+            Transform root = new GameObject("PowerUpPickupVfx_Pooled").transform; root.SetParent(transform, false);
+            Shader shader = Shader.Find("MeteorDefense/Soft Energy") ?? Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Sprites/Default");
+            if (shader == null) return;
+            pickupBurstMaterial = new Material(shader) { name = "PowerUpPickup_Burst_Runtime" };
+            pickupRingMaterial = new Material(shader) { name = "PowerUpPickup_Ring_Runtime" };
+            if (pickupBurstMaterial.HasProperty("_BaseColor")) pickupBurstMaterial.SetColor("_BaseColor", Color.white);
+            if (pickupBurstMaterial.HasProperty("_Ring")) pickupBurstMaterial.SetFloat("_Ring", 0f);
+            if (pickupRingMaterial.HasProperty("_BaseColor")) pickupRingMaterial.SetColor("_BaseColor", Color.white);
+            if (pickupRingMaterial.HasProperty("_Ring")) pickupRingMaterial.SetFloat("_Ring", 1f);
+            pickupBurst = CreatePickupSystem(root, "EnergySparkBurst", pickupBurstMaterial, 36, .42f, 3.1f, .11f, true, false);
+            pickupRing = CreatePickupSystem(root, "AcquisitionCollapseRing", pickupRingMaterial, 4, .46f, 0f, .52f, false, true);
+        }
+        private static ParticleSystem CreatePickupSystem(Transform root, string name, Material material, int capacity,
+            float lifetime, float speed, float size, bool useShape, bool expandingRing)
+        {
+            GameObject go = new GameObject(name); go.transform.SetParent(root, false);
+            ParticleSystem system = go.AddComponent<ParticleSystem>();
+            var main = system.main; main.loop = false; main.playOnAwake = false; main.simulationSpace = ParticleSystemSimulationSpace.World;
+            main.useUnscaledTime = true; main.maxParticles = capacity; main.startLifetime = lifetime; main.startSpeed = speed;
+            main.startSize = size; main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
+            var emission = system.emission; emission.rateOverTime = 0f; emission.rateOverDistance = 0f; emission.enabled = false;
+            var shape = system.shape; shape.enabled = useShape;
+            if (useShape) { shape.shapeType = ParticleSystemShapeType.Sphere; shape.radius = .16f; shape.radiusThickness = 1f; }
+            var fade = system.colorOverLifetime; fade.enabled = true;
+            var gradient = new Gradient();
+            gradient.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
+                new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, .08f), new GradientAlphaKey(0f, 1f) });
+            fade.color = gradient;
+            var scale = system.sizeOverLifetime; scale.enabled = true;
+            AnimationCurve curve = expandingRing
+                ? new AnimationCurve(new Keyframe(0f, .35f), new Keyframe(.22f, 1.35f), new Keyframe(1f, 2.8f))
+                : new AnimationCurve(new Keyframe(0f, .25f), new Keyframe(.12f, 1f), new Keyframe(1f, 0f));
+            scale.size = new ParticleSystem.MinMaxCurve(1f, curve);
+            ParticleSystemRenderer renderer = system.GetComponent<ParticleSystemRenderer>(); renderer.sharedMaterial = material;
+            renderer.renderMode = expandingRing ? ParticleSystemRenderMode.Billboard : ParticleSystemRenderMode.Stretch;
+            renderer.alignment = ParticleSystemRenderSpace.View; renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; renderer.receiveShadows = false;
+            if (!expandingRing) { renderer.lengthScale = 1.65f; renderer.velocityScale = .06f; }
+            system.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            return system;
+        }
+        private void PlayPickupVfx(Vector3 position, Color color)
+        {
+            Color bright = new Color(color.r * 2.1f, color.g * 2.1f, color.b * 2.1f, .9f);
+            if (pickupBurst != null)
+            {
+                pickupBurst.transform.position = position; var main = pickupBurst.main; main.startColor = bright;
+                if (!pickupBurst.isPlaying) pickupBurst.Play(false);
+                var flash = new ParticleSystem.EmitParams { position = position, velocity = Vector3.zero, startColor = bright, startLifetime = .16f, startSize = .72f };
+                pickupBurst.Emit(flash, 1); pickupBurst.Emit(16);
+            }
+            if (pickupRing != null)
+            {
+                pickupRing.transform.position = position; var main = pickupRing.main; main.startColor = bright;
+                if (!pickupRing.isPlaying) pickupRing.Play(false);
+                var outer = new ParticleSystem.EmitParams { startColor = bright, startLifetime = .46f, startSize = 1.2f };
+                var inner = new ParticleSystem.EmitParams { startColor = new Color(bright.r, bright.g, bright.b, .58f), startLifetime = .32f, startSize = .65f };
+                pickupRing.Emit(outer, 1); pickupRing.Emit(inner, 1);
+            }
         }
         private static AudioClip CreateTone(string name, float frequency, float duration)
         {

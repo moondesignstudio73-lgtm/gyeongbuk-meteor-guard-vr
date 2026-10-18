@@ -63,14 +63,27 @@ namespace MeteorDefenseVR.PcInput
             if (RenderedFrames < 1 || router.Webcam.IsStreaming || router.Webcam.ShowWebcamPreview)
                 throw new InvalidOperationException("QA proof requires rendered game camera and webcam disabled");
             RenderTexture previous = RenderTexture.active;
+            bool previousSrgbWrite = GL.sRGBWrite;
+            var displayTarget = RenderTexture.GetTemporary(target.width, target.height, 0,
+                RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
             var image = new Texture2D(target.width, target.height, TextureFormat.RGB24, false);
             try
             {
-                RenderTexture.active = target;
+                // HDR targets contain linear values in a linear-color project. PNG viewers
+                // expect display-encoded RGB; direct readback makes the evidence too dark.
+                GL.sRGBWrite = QualitySettings.activeColorSpace == ColorSpace.Linear;
+                Graphics.Blit(target, displayTarget);
+                RenderTexture.active = displayTarget;
                 image.ReadPixels(new Rect(0, 0, target.width, target.height), 0, 0); image.Apply();
                 File.WriteAllBytes(Path.Combine(directory, "stability-game-render.png"), image.EncodeToPNG());
             }
-            finally { RenderTexture.active = previous; Object.Destroy(image); }
+            finally
+            {
+                GL.sRGBWrite = previousSrgbWrite;
+                RenderTexture.active = previous;
+                RenderTexture.ReleaseTemporary(displayTarget);
+                Object.Destroy(image);
+            }
         }
         public void Dispose()
         {

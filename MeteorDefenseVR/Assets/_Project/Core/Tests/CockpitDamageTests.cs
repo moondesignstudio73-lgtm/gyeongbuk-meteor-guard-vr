@@ -66,6 +66,47 @@ namespace MeteorDefenseVR.Tests
             try {Assert.That(root.AddComponent<CockpitDamagePresentation>().LevelFor(hp),Is.EqualTo(level));}
             finally {Object.DestroyImmediate(root);}
         }
+        [Test] public void HealthRepairRemovesARecentCockpitDamageLayer()
+        {
+            var root=new GameObject("RepairPresentationTest");var anchor=new GameObject("DamageAnchor");anchor.transform.SetParent(root.transform);
+            var crack=new GameObject("Crack").AddComponent<MeshRenderer>();crack.transform.SetParent(anchor.transform);
+            var scorch=new GameObject("Scorch").AddComponent<MeshRenderer>();scorch.transform.SetParent(anchor.transform);
+            try
+            {
+                var health=root.AddComponent<PlayerHealth>();health.Configure(null,null,100,10,0,GameOverPolicy.NoFailExperienceMode);
+                var damage=root.AddComponent<CockpitDamagePresentation>();
+                damage.Configure(health,null,null,new[]{new CockpitDamagePresentation.DamagePoint{anchor=anchor.transform,cracks=new Renderer[]{crack},scorch=scorch}},null,System.Array.Empty<Renderer>(),System.Array.Empty<Renderer>(),System.Array.Empty<Renderer>(),null);
+                Assert.That(health.ApplyImpactDamage(20,anchor.transform.position),Is.True);
+                Assert.That(damage.VisibleCrackCount,Is.EqualTo(1));Assert.That(damage.VisibleScorchCount,Is.EqualTo(1));
+                Assert.That(health.RepairNormalized(.2f),Is.EqualTo(20).Within(.01f));
+                Assert.That(damage.VisibleCrackCount,Is.Zero);Assert.That(damage.VisibleScorchCount,Is.Zero);
+            }
+            finally {Object.DestroyImmediate(root);}
+        }
+        [Test] public void ExplicitDamageResetClearsEveryRuntimeStateAndIsIdempotent()
+        {
+            var root=new GameObject("DamageResetTest");var anchor=new GameObject("DamageAnchor");anchor.transform.SetParent(root.transform);
+            var crack=new GameObject("Crack").AddComponent<MeshRenderer>();crack.transform.SetParent(anchor.transform);
+            var flash=new GameObject("Flash").AddComponent<MeshRenderer>();flash.transform.SetParent(anchor.transform);
+            var scorch=new GameObject("Scorch").AddComponent<MeshRenderer>();scorch.transform.SetParent(anchor.transform);
+            var spark=new GameObject("Spark").AddComponent<ParticleSystem>();spark.transform.SetParent(root.transform);
+            var vapor=new GameObject("Vapor").AddComponent<ParticleSystem>();vapor.transform.SetParent(root.transform);
+            var warning=new GameObject("Warning").AddComponent<MeshRenderer>();warning.transform.SetParent(root.transform);
+            try
+            {
+                var health=root.AddComponent<PlayerHealth>();health.Configure(null,null,100,10,0,GameOverPolicy.NoFailExperienceMode);
+                var damage=root.AddComponent<CockpitDamagePresentation>();
+                damage.Configure(health,null,null,new[]{new CockpitDamagePresentation.DamagePoint{anchor=anchor.transform,cracks=new Renderer[]{crack},flash=flash,spark=spark,scorch=scorch,vapor=vapor}},null,System.Array.Empty<Renderer>(),System.Array.Empty<Renderer>(),new Renderer[]{warning},null);
+                Assert.That(health.ApplyImpactDamage(80,anchor.transform.position),Is.True);
+                Assert.That(damage.VisibleCrackCount,Is.GreaterThan(0));Assert.That(damage.VisibleScorchCount,Is.EqualTo(1));Assert.That(damage.ActiveParticles,Is.GreaterThan(0));
+                int revision=damage.ResetRevision;damage.ResetDamageState();
+                Assert.That(damage.ResetRevision,Is.EqualTo(revision+1));Assert.That(damage.DamageLevel,Is.Zero);Assert.That(damage.GlassDamageLevel,Is.Zero);
+                Assert.That(damage.VisibleCrackCount,Is.Zero);Assert.That(damage.VisibleScorchCount,Is.Zero);Assert.That(damage.ActiveParticles,Is.Zero);
+                Assert.That(damage.AirLeakPlaying,Is.False);Assert.That(damage.HasWarningLight,Is.False);Assert.That(damage.HasImpactFlash,Is.False);
+                damage.ResetDamageState();Assert.That(damage.VisibleCrackCount,Is.Zero);Assert.That(damage.ActiveParticles,Is.Zero);
+            }
+            finally {Object.DestroyImmediate(root);}
+        }
         [Test] public void FailedResultNeverClaimsSuccess()
         {
             var result=new GameSessionSnapshot {MissionFailed=true,RemainingHP=0};
@@ -143,7 +184,8 @@ namespace MeteorDefenseVR.Tests
                 if(cycle==1) {yield return new WaitForSecondsRealtime(1.5f);SaveProof(router,"failed-complete");}
                 boss.Tick(10);boss.BeginClimax();Assert.That(boss.ActiveBoss,Is.Null);Assert.That(boss.IsRunning,Is.False);
                 Assert.That(camera.transform.position,Is.EqualTo(originalPosition));Assert.That(camera.transform.rotation,Is.EqualTo(originalRotation));
-                reset.ResetExperience();yield return new WaitForSecondsRealtime(.15f);
+                int resetRevision=damage.ResetRevision;reset.ResetExperience();yield return new WaitForSecondsRealtime(.15f);
+                Assert.That(damage.ResetRevision,Is.EqualTo(resetRevision+1),"A session reset must enter cockpit cleanup exactly once");
                 Assert.That(damage.VisibleCrackCount,Is.Zero);Assert.That(damage.ActiveParticles,Is.Zero);Assert.That(damage.DamageLevel,Is.Zero);Assert.That(damage.HasWarningLight,Is.False);
                 Assert.That(health.CurrentHealth,Is.EqualTo(health.MaxHealth));Assert.That(flow.CurrentState,Is.EqualTo(GameState.Boot));
                 Assert.That(PcStabilityProbe.InspectSubscriptions().duplicateCallbacks,Is.Zero);

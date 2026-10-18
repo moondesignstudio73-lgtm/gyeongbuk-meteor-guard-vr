@@ -120,10 +120,10 @@ namespace MeteorDefenseVR.PcInput
         {
             snapshot ??= new GameSessionSnapshot();
             return (snapshot.MissionFailed ? "<align=center><color=#FF7952>MISSION FAILED</color></align>\n" : "<align=center><color=#BAFAFF>MISSION RESULT</color></align>\n")
-                + $"<align=left><size=2.3>SCORE<pos=65%><color=#FFD18A>{snapshot.Score:N0}</color>\n"
+                + $"<align=left><size=2.3>SCORE<pos=65%><color=#FFD18A><size=2.6>{snapshot.Score:N0}</size></color>\n"
                 + $"DESTROYED<pos=65%>{snapshot.DestroyedMeteors}\n"
                 + $"ACCURACY<pos=65%>{snapshot.AccuracyPercent}%\n"
-                + $"RANK<pos=65%><color={(rank == "S" || rank == "A" ? "#FFC96B" : "#82FFC1")}>{rank}</color></size></align>\n"
+                + $"RANK<pos=65%><color={(rank == "S" || rank == "A" ? "#FFC96B" : "#82FFC1")}><size=2.6>{rank}</size></color></size></align>\n"
                 + $"<align=center><size=1.5><color=#9CBAC5>난이도 : {Difficulty.DifficultyConfig.Label(snapshot.Difficulty)} / {Difficulty.DifficultyConfig.Code(snapshot.Difficulty)}</color></size>\n"
                 + (snapshot.MissionFailed ? "<size=1.8><color=#FFAA88>기지로 귀환해 다시 도전하세요</color></size></align>" : "<size=1.8><color=#82FFC1>지구 방어 성공!</color></size></align>");
         }

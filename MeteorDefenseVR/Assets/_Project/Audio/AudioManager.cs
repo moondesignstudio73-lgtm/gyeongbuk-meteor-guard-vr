@@ -31,8 +31,10 @@ namespace MeteorDefenseVR.Audio
         private AudioCueEntry playingBgm;
         private float fadeGain, fadeElapsed, phaseDuration, fadeStartGain, incomingDuration;
         private float presentationGain = 1f, presentationTarget = 1f;
+        private float presentationSfxPitch = 1f;
         public float PresentationGain => presentationGain;
         public void SetPresentationBgmGain(float gain) => presentationTarget = SafeVolume(gain);
+        public void SetPresentationSfxPitch(float pitch) => presentationSfxPitch = Mathf.Clamp(pitch, .85f, 1.25f);
         public void StopAmbient() => StopSource(ambientSource);
         private readonly float[] channelTrim = { 1f, 1f, 1f, 1f, 1f };
 
@@ -161,6 +163,7 @@ namespace MeteorDefenseVR.Audio
         public void StopAll()
         {
             presentationGain = presentationTarget = 1f;
+            presentationSfxPitch = 1f;
             requestedBgm = playingBgm = null;
             fadePhase = FadePhase.Idle;
             fadeGain = fadeElapsed = 0f;
@@ -273,6 +276,7 @@ namespace MeteorDefenseVR.Audio
             }
             if (uiSource != null) uiSource.volume = master * channelTrim[(int)AudioCategory.UI];
             if (sfxSource != null) sfxSource.volume = master * SafeVolume(sfxVolume) * channelTrim[(int)AudioCategory.Sfx];
+            if (sfxSource != null) sfxSource.pitch = presentationSfxPitch;
             if (voiceSource != null) voiceSource.volume = master * SafeVolume(voiceVolume) * channelTrim[(int)AudioCategory.Voice];
             if (ambientSource != null) ambientSource.volume = master * channelTrim[(int)AudioCategory.Ambient];
         }

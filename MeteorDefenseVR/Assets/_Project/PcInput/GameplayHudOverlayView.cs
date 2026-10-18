@@ -239,11 +239,14 @@ namespace MeteorDefenseVR.PcInput
 
         private string ResolveSystemMessage(bool telemetryVisible)
         {
+            GameFlowManager flow = GameFlowManager.Instance;
+            // A direct result transition can precede the completion controller's cleanup.
+            // The result panel owns this screen; stale status must not cover its score.
+            if (flow != null && flow.CurrentState == GameState.Result) return string.Empty;
             if (missionComplete != null && missionComplete.IsRunning && missionComplete.PresentationProgress > 0f && !string.IsNullOrWhiteSpace(missionComplete.StatusMessage))
                 return missionComplete.StatusMessage;
             if (launch != null && launch.IsRunning && IsLaunchMessageStage(launch.CurrentStage))
                 return launch.StatusMessage;
-            GameFlowManager flow = GameFlowManager.Instance;
             if (flow != null)
             {
                 if (flow.CurrentState == GameState.Intro)

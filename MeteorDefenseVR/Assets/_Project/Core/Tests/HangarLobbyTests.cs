@@ -6,6 +6,8 @@ using MeteorDefenseVR.Difficulty;
 using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.PcInput;
+using MeteorDefenseVR.Player;
+using MeteorDefenseVR.Progression;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -79,10 +81,17 @@ namespace MeteorDefenseVR.Tests
             lobby.Queue(HangarLobbyController.MenuAction.Replay); yield return new WaitForSecondsRealtime(.3f);
             Save(render,router,"replay-preparing");
             Assert.That(router.Webcam.Calibration.IsCalibrated,Is.True,"Same-player replay preserves calibration");
-            deadline=Time.realtimeSinceStartup+7;
+            deadline=Time.realtimeSinceStartup+12;
             while(flow.CurrentState!=GameState.Playing && Time.realtimeSinceStartup<deadline) yield return null;
             Assert.That(flow.CurrentState,Is.EqualTo(GameState.Playing)); Assert.That(difficulty.Session.Level,Is.EqualTo(DifficultyLevel.Hard));
             Assert.That(lobby.Phase,Is.EqualTo(HangarLobbyController.LobbyPhase.Hidden)); Save(render,router,"replay-playing");
+            var health=Object.FindAnyObjectByType<PlayerHealth>();var damage=Object.FindAnyObjectByType<CockpitDamagePresentation>();
+            var progression=Object.FindAnyObjectByType<StageProgressionController>();
+            Assert.That(health.ApplyImpactDamage(100,health.transform.position),Is.True);
+            Assert.That(flow.CurrentState,Is.EqualTo(GameState.Result));Assert.That(damage.VisibleCrackCount,Is.GreaterThan(0));
+            Assert.That(progression.RetryStage(),Is.True);Assert.That(flow.CurrentState,Is.EqualTo(GameState.Playing));
+            Assert.That(health.CurrentHealth,Is.EqualTo(health.MaxHealth));Assert.That(damage.VisibleCrackCount,Is.Zero);
+            Assert.That(damage.VisibleScorchCount,Is.Zero);Assert.That(damage.ActiveParticles,Is.Zero);Assert.That(damage.AirLeakPlaying,Is.False);
             reset.ResetExperience();
             Assert.That(router.Webcam.Calibration.IsCalibrated,Is.False,"Operator reset clears calibration");
             for(int i=0;i<30;i++){flow.ShowResult();lobby.BeginReturn();reset.ResetExperience();}

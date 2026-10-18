@@ -2,6 +2,12 @@
 
 이동과학차용 아이트래킹 VR 체험 게임입니다. 플레이어는 우주선 조종석에서 지구로 접근하는 운석을 시선으로 조준하고 파괴합니다.
 
+## 최신 공유본 — 2026-10-19
+
+- [Windows 실행본 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-preview-20260918): **2026-09-18 07:50 KST 빌드**의 미리보기입니다. ZIP을 전부 압축 해제한 후 `MeteorDefenseVR.exe`를 실행하세요. 마우스 체험은 `Start-Mouse.cmd`, Windows VR 시뮬레이션은 `Start-VRSimulation.cmd`를 실행합니다.
+- 이 브랜치는 9월 22일까지 저장된 소스 변경사항도 포함합니다. 위 실행본은 9월 18일의 기존 빌드이며, 이후 소스 변경사항을 다시 빌드한 파일은 아닙니다.
+- [공유본 구성과 확인 범위](MeteorDefenseVR/Docs/SHARE_20261019.md). 최신 소스의 큰 점수 결과 화면 경계 검사 실패가 남아 있어 정식 검증 완료본으로 표시하지 않습니다.
+
 ## Unity 프로젝트
 
 - 경로: `MeteorDefenseVR/`
@@ -28,7 +34,7 @@
 
 ### Windows 실행파일
 
-1. `MeteorDefenseVR/Builds/Windows/MeteorDefenseVR.exe`를 더블클릭합니다. Unity는 필요 없습니다.
+1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/LOCAL_20260918_075018_0.2.0-rc.1_82c61c9/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
 2. 기본은 Public Experience + Auto 입력입니다. 화면의 `START`를 바라보거나 마우스를 올려 시작합니다. Enter/Space로도 시작됩니다.
 3. 운석을 바라보거나 마우스를 올려 약 0.65초 유지합니다. 클릭 없이 잠금 → 레이저 → 파괴가 진행됩니다.
 

@@ -127,6 +127,9 @@ namespace MeteorDefenseVR.Editor
         // Targeted UI/code releases must not regenerate or overwrite the authored scene.
         public static void BuildWindowsCurrentScene()
             => WithResources(() => { AssetDatabase.SaveAssets(); BuildWindowsReady(false); });
+        // Explicit local preview: preserves release/QA clean-tree protection and authored scenes.
+        public static void BuildWindowsLocalPreviewCurrentScene()
+            => WithResources(() => BuildWindowsReady(false, false, true));
         // Final release-candidate output is commit-addressed and never overwrites QA builds.
         public static void BuildWindowsReleaseCandidateCurrentScene()
             => WithResources(() => { AssetDatabase.SaveAssets(); BuildWindowsReady(false, true); });
@@ -177,19 +180,21 @@ namespace MeteorDefenseVR.Editor
         }
         private static void BuildWindowsReady() => BuildWindowsReady(true, false);
         private static void BuildWindowsReady(bool regenerateScene) => BuildWindowsReady(regenerateScene, false);
-        private static void BuildWindowsReady(bool regenerateScene, bool releaseCandidate)
+        private static void BuildWindowsReady(bool regenerateScene, bool releaseCandidate, bool localPreview = false)
         {
             if (regenerateScene) ProjectSceneSetup.EnsureProjectScenes();
             AssetDatabase.SaveAssets();
             GitBuildIdentity identity = GitBuildIdentity.Read();
-            if (!identity.worktreeClean)
+            if (!identity.worktreeClean && !localPreview)
                 throw new InvalidOperationException("Release/QA build refused: Git worktree is dirty. Commit or remove all non-ignored changes first.");
             PlayerSettings.defaultScreenWidth = 1280;
             PlayerSettings.defaultScreenHeight = 720;
             PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
             PlayerSettings.resizableWindow = true;
             string buildVersion = PlayerSettings.bundleVersion;
-            string output = releaseCandidate
+            string output = localPreview
+                ? $"Builds/Windows/LOCAL_{DateTime.Now:yyyyMMdd_HHmmss}_{buildVersion}_{identity.gitCommitShort}"
+                : releaseCandidate
                 ? $"Builds/Windows/RC_{buildVersion}_{identity.gitCommitShort}"
                 : $"Builds/Windows/QA_{DateTime.Now:yyyyMMdd}_{buildVersion}";
             if (Directory.Exists(output))
@@ -211,6 +216,8 @@ namespace MeteorDefenseVR.Editor
             identity.scene = "Assets/_Project/Scenes/MeteorDefense.unity";
             identity.developmentBuild = false;
             File.WriteAllText(output + "/BUILD_IDENTITY.json", JsonUtility.ToJson(identity, true));
+            if (localPreview)
+                File.WriteAllText(output + "/LOCAL_PREVIEW.txt", "Local test snapshot, not a release candidate. Includes uncommitted working-tree changes. Use Start-VRSimulation.cmd for Windows VR Simulation.\n");
             File.Copy("THIRD_PARTY_PC_INPUT.md", output + "/THIRD_PARTY_PC_INPUT.md", true);
             File.Copy("Assets/_Project/PcInput/Fonts/OFL.txt", output + "/NotoSansKR-OFL.txt", true);
             Directory.CreateDirectory(output + "/ThirdPartyNotices");

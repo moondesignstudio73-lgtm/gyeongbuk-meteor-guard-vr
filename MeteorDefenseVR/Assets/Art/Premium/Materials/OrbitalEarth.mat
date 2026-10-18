@@ -29,10 +29,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CloudStrength: 0.26
+    - _CloudStrength: 0.21
     m_Colors:
-    - _AtmosphereColor: {r: 0.04, g: 0.42, b: 1, a: 1}
-    - _DayTint: {r: 0.82, g: 0.94, b: 1, a: 1}
-    - _NightColor: {r: 2.1, g: 0.63, b: 0.1, a: 1}
+    - _AtmosphereColor: {r: 0.025, g: 0.3, b: 0.72, a: 1}
+    - _DayTint: {r: 0.66, g: 0.78, b: 0.9, a: 1}
+    - _NightColor: {r: 1.15, g: 0.32, b: 0.06, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -9,6 +9,7 @@ namespace MeteorDefenseVR.PowerUps
         private PowerUpManager owner;
         private PowerUpBalance balance;
         private Transform driftTarget;
+        private Transform visualRoot, halo;
         private Renderer[] renderers;
         private TextMesh label;
         private float lifetime, dwell, collectDuration, driftSpeed, phase;
@@ -21,9 +22,9 @@ namespace MeteorDefenseVR.PowerUps
         public float RemainingLifetime => lifetime;
         public bool IsAvailable => gameObject.activeInHierarchy && lifetime > 0f;
 
-        public void Prepare(PowerUpManager manager, Renderer[] itemRenderers, TextMesh itemLabel)
+        public void Prepare(PowerUpManager manager, Renderer[] itemRenderers, TextMesh itemLabel, Transform itemVisualRoot, Transform itemHalo)
         {
-            owner = manager; renderers = itemRenderers; label = itemLabel;
+            owner = manager; renderers = itemRenderers; label = itemLabel; visualRoot = itemVisualRoot; halo = itemHalo;
             SphereCollider collider = GetComponent<SphereCollider>();
             collider.isTrigger = true; collider.radius = .75f;
             gameObject.SetActive(false);
@@ -35,7 +36,7 @@ namespace MeteorDefenseVR.PowerUps
             collectDuration = Mathf.Max(.1f, gazeSeconds); driftSpeed = Mathf.Max(0f, movementSpeed);
             dwell = 0f; collecting = false; phase = Random.value * 10f;
             transform.SetPositionAndRotation(position, Quaternion.identity);
-            idleLabel = value.Icon + "\n" + value.ShortCode; displayedPercent = -1;
+            idleLabel = $"{value.Icon}  {value.ShortCode}\nLOOK TO ACQUIRE"; displayedPercent = -1;
             if (label != null) { label.text = idleLabel; label.color = value.Color; }
             if (renderers != null) foreach (Renderer renderer in renderers)
             {
@@ -53,7 +54,11 @@ namespace MeteorDefenseVR.PowerUps
             float dt = Time.deltaTime;
             lifetime -= dt;
             phase += dt;
-            transform.Rotate(0f, 75f * dt, 18f * dt, Space.Self);
+            if (visualRoot != null)
+            {
+                visualRoot.Rotate(22f * dt, 78f * dt, 15f * dt, Space.Self);
+                visualRoot.localScale = Vector3.one * (1f + Mathf.Sin(phase * 3.4f) * .055f);
+            }
             transform.position += Vector3.up * (Mathf.Sin(phase * 2.1f) * .035f * dt);
             if (driftTarget != null && driftSpeed > 0f)
             {
@@ -63,14 +68,25 @@ namespace MeteorDefenseVR.PowerUps
             if (label != null)
             {
                 Camera camera = Camera.main;
-                if (camera != null) label.transform.rotation = Quaternion.LookRotation(label.transform.position - camera.transform.position, camera.transform.up);
+                if (camera != null)
+                {
+                    Quaternion facing = Quaternion.LookRotation(label.transform.position - camera.transform.position, camera.transform.up);
+                    label.transform.rotation = facing;
+                    if (halo != null) halo.rotation = facing;
+                }
+                if (halo != null)
+                {
+                    float acquire = collecting ? CollectionProgress : 0f;
+                    float pulse = 2.05f + Mathf.Sin(phase * 2.8f) * .09f + acquire * .22f;
+                    halo.localScale = Vector3.one * pulse;
+                }
                 if (collecting)
                 {
                     int percent = Mathf.RoundToInt(CollectionProgress * 100f);
                     if (displayedPercent != percent)
                     {
                         displayedPercent = percent;
-                        label.text = $"{balance.Icon}  {percent:D2}%\n{balance.ShortCode}";
+                        label.text = $"{balance.Icon}  {balance.ShortCode}\nACQUIRE  {percent:D2}%";
                     }
                 }
                 else if (displayedPercent >= 0)

@@ -33,14 +33,18 @@ namespace MeteorDefenseVR.Tests
             yield return Capture(probe,router,simulation,90f,0f,"Right");
             yield return Capture(probe,router,simulation,180f,0f,"Rear");
             yield return Capture(probe,router,simulation,-90f,0f,"Left");
-            yield return Capture(probe,router,simulation,0f,65f,"Above");
-            yield return Capture(probe,router,simulation,0f,-65f,"Below");
+            yield return Capture(probe,router,simulation,0f,-65f,"Above");
+            yield return Capture(probe,router,simulation,0f,65f,"Below");
         }
 
         private static IEnumerator Capture(PcStabilityProbe probe,GazeInputRouter router,WindowsVRSimulation simulation,float yaw,float pitch,string name)
         {
             simulation.Recenter();simulation.ApplyLook(new Vector2(yaw/.1f,-pitch/.09f),1f);
             yield return new WaitForSecondsRealtime(.3f);
+            Assert.That(Mathf.Abs(Mathf.DeltaAngle(simulation.Angles.x,yaw)),Is.LessThan(1f),name+" yaw");
+            Assert.That(Mathf.Abs(Mathf.DeltaAngle(simulation.Angles.y,pitch)),Is.LessThan(1f),name+" pitch");
+            if(name=="Above") Assert.That(Camera.main.transform.forward.y,Is.GreaterThan(.8f),"Above must face upward");
+            if(name=="Below") Assert.That(Camera.main.transform.forward.y,Is.LessThan(-.8f),"Below must face downward");
             int layer=LayerMask.NameToLayer(TurretAimingSystem.PlayerHiddenLayerName);
             Assert.That(Camera.main.cullingMask&(1<<layer),Is.Zero,name+" player camera turret layer");
             string directory=Path.Combine("Docs/TurretClearanceQA","After",name);Directory.CreateDirectory(directory);

@@ -107,6 +107,8 @@ namespace MeteorDefenseVR.GameFlow
             boss?.ResetClimax();
             DestroyRuntimeEffects();
             laserWeapon?.ResetWeapon();
+            // PlayerHealth owns the new-session reset signal. Cockpit damage consumes it once,
+            // so HP and every visual/audio damage artifact become clean atomically.
             playerHealth?.ResetHealth();
             stats?.ResetSession(0);
             stats?.StopSession();

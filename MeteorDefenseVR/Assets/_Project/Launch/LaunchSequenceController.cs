@@ -34,7 +34,21 @@ namespace MeteorDefenseVR.Launch
         public event Action<LaunchAudioCue> AudioCueRequested;
         public event Action SequenceCompleted;
 
-        private void Awake() => gameFlow = GameFlowManager.Instance;
+        private void Awake()
+        {
+            gameFlow = GameFlowManager.Instance;
+            // A presentation pass accidentally compressed the authored launch burst to 0.15 s.
+            // Promote only that legacy signature; deliberately configured tests/custom scenes remain untouched.
+            if (launchDuration < .25f && hangarDuration < .25f && doorDuration < .3f && engineDuration < .3f)
+            {
+                hangarDuration = .35f;
+                doorDuration = .7f;
+                engineDuration = .75f;
+                launchDuration = 2f;
+                spaceDuration = .65f;
+                missionStartDuration = .7f;
+            }
+        }
 
         private void OnEnable()
         {
@@ -129,6 +143,20 @@ namespace MeteorDefenseVR.Launch
                     if (HasStageFinished(engineDuration))
                     {
                         SetVisuals(DoorOpenAmount, 1f, SpeedAmount);
+                        AdvanceTo(LaunchStage.Launch, "THRUST", LaunchAudioCue.Launch);
+                    }
+                    break;
+                case LaunchStage.Launch:
+                    SetVisuals(DoorOpenAmount, EngineAmount, AccelerationCurve(StageProgress(launchDuration)));
+                    if (HasStageFinished(launchDuration))
+                    {
+                        SetVisuals(DoorOpenAmount, EngineAmount, 1f);
+                        AdvanceTo(LaunchStage.Space, "SPACE");
+                    }
+                    break;
+                case LaunchStage.Space:
+                    if (HasStageFinished(spaceDuration))
+                    {
                         gameFlow?.StartCountdown();
                         AdvanceTo(LaunchStage.Countdown3, "3", LaunchAudioCue.Countdown);
                     }
@@ -143,18 +171,6 @@ namespace MeteorDefenseVR.Launch
                     break;
                 case LaunchStage.Countdown1:
                     if (HasStageFinished(countdownInterval))
-                        AdvanceTo(LaunchStage.Launch, "LAUNCH", LaunchAudioCue.Launch);
-                    break;
-                case LaunchStage.Launch:
-                    SetVisuals(DoorOpenAmount, EngineAmount, StageProgress(launchDuration));
-                    if (HasStageFinished(launchDuration))
-                    {
-                        SetVisuals(DoorOpenAmount, EngineAmount, 1f);
-                        AdvanceTo(LaunchStage.Space, "SPACE");
-                    }
-                    break;
-                case LaunchStage.Space:
-                    if (HasStageFinished(spaceDuration))
                         AdvanceTo(LaunchStage.MissionStart, "MISSION START", LaunchAudioCue.MissionStart);
                     break;
                 case LaunchStage.MissionStart:
@@ -169,6 +185,12 @@ namespace MeteorDefenseVR.Launch
         }
 
         private bool HasStageFinished(float duration) => duration <= 0f || stageElapsed >= duration;
+
+        private static float AccelerationCurve(float t)
+        {
+            t = Mathf.Clamp01(t);
+            return t * t * (3f - 2f * t);
+        }
 
         private void AdvanceTo(LaunchStage stage, string message, LaunchAudioCue? cue = null)
         {

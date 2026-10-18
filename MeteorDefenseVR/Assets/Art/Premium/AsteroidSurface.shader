@@ -24,8 +24,8 @@ Shader "MeteorDefense/Premium Asteroid"
             float4 _BaseColor, _EmissionColor;float _Heat;
             CBUFFER_END
             struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;UNITY_VERTEX_INPUT_INSTANCE_ID};
-            struct V {float4 positionCS:SV_POSITION;float3 local:TEXCOORD0;float3 world:TEXCOORD1;float3 normal:TEXCOORD2;UNITY_VERTEX_OUTPUT_STEREO};
-            V vert(A v){V o;UNITY_SETUP_INSTANCE_ID(v);UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);o.local=v.positionOS.xyz;o.world=TransformObjectToWorld(v.positionOS.xyz);o.positionCS=TransformWorldToHClip(o.world);o.normal=TransformObjectToWorldNormal(v.normalOS);return o;}
+            struct V {float4 positionCS:SV_POSITION;float3 local:TEXCOORD0;float3 world:TEXCOORD1;float3 normal:TEXCOORD2;float3 localNormal:TEXCOORD3;UNITY_VERTEX_OUTPUT_STEREO};
+            V vert(A v){V o;UNITY_SETUP_INSTANCE_ID(v);UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);o.local=v.positionOS.xyz;o.localNormal=v.normalOS;o.world=TransformObjectToWorld(v.positionOS.xyz);o.positionCS=TransformWorldToHClip(o.world);o.normal=TransformObjectToWorldNormal(v.normalOS);return o;}
             float hash(float3 p){return frac(sin(dot(p,float3(17.13,127.1,311.7)))*43758.5453);}
             float fissure(float3 p)
             {
@@ -38,7 +38,8 @@ Shader "MeteorDefense/Premium Asteroid"
             half4 frag(V i):SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
-                float3 n=normalize(i.normal),w=pow(abs(n),4);w/=max(dot(w,1),.001);
+                // Projection coordinates and blend weights must share object space so rock grain stays attached during spin.
+                float3 n=normalize(i.normal),w=pow(abs(normalize(i.localNormal)),4);w/=max(dot(w,1),.001);
                 float3 p=i.local*2.7;
                 half3 tex=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,p.yz).rgb*w.x+SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,p.xz).rgb*w.y+SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,p.xy).rgb*w.z;
                 // Screen-space surface gradient from the actual rock albedo gives fine relief without a second 2K map.
@@ -46,8 +47,16 @@ Shader "MeteorDefense/Premium Asteroid"
                 float3 r1=cross(dpdy,n),r2=cross(n,dpdx);float det=dot(dpdx,r1);
                 n=normalize(abs(det)*n-sign(det)*(ddx(h)*r1+ddy(h)*r2)*.018);
                 Light key=GetMainLight();float lit=saturate(dot(n,key.direction));
-                half3 color=tex*_BaseColor.rgb*(half3(.085,.11,.15)+key.color*(lit*.95+.05));
-                float rim=pow(1-saturate(dot(n,normalize(GetWorldSpaceViewDir(i.world)))),3);
+                float3 view=normalize(GetWorldSpaceViewDir(i.world));
+                // Soft cockpit-side bounce reveals rock relief on the unlit face without washing out the key light.
+                float fill=saturate(dot(n,view))*(1-lit);
+                half3 ambient=half3(.085,.11,.15)+half3(.14,.18,.22)*fill;
+                half3 color=tex*_BaseColor.rgb*(ambient+key.color*(lit*.95+.05));
+                float roughness=lerp(.52,.9,hash(floor(p*7.5)));
+                float3 halfDir=normalize(key.direction+view);
+                float microSpec=pow(saturate(dot(n,halfDir)),lerp(42,12,roughness))*(1-roughness)*.24;
+                color+=key.color*microSpec*lit;
+                float rim=pow(1-saturate(dot(n,view)),3);
                 color+=rim*half3(.025,.055,.075);
                 if(_Heat>.01){float crack=fissure(i.local*6.2);color*=1-crack*.55;color+=crack*_EmissionColor.rgb*3.5*_Heat;}
                 return half4(color,1);

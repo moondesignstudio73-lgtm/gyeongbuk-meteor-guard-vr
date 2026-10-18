@@ -115,7 +115,7 @@ namespace MeteorDefenseVR.Editor
             red=Unlit("WarningRed",new Color(3.4f,.085f,.018f,1));
             radarGlass=Unlit("RadarBlackGlass",new Color(.002f,.016f,.021f,1));
             canopy=Material("CockpitCanopy","MeteorDefense/Cockpit Canopy");
-            canopy.SetColor("_Tint",new Color(.018f,.09f,.12f,.032f));canopy.SetColor("_EdgeColor",new Color(.06f,.62f,.9f,.19f));canopy.SetFloat("_Dust",.055f);canopy.SetFloat("_Scratch",.07f);
+            canopy.SetColor("_Tint",new Color(.026f,.10f,.135f,.045f));canopy.SetColor("_EdgeColor",new Color(.055f,.72f,1f,.24f));canopy.SetFloat("_Dust",.035f);canopy.SetFloat("_Scratch",.10f);
             trail=Material("MeteorIonTrail","MeteorDefense/Soft Energy"); trail.SetColor("_BaseColor",new Color(.16f,.52f,1,.22f)); trail.SetFloat("_Ring",-1);
         }
 
@@ -216,7 +216,8 @@ namespace MeteorDefenseVR.Editor
                 Panel(rear,s+"GuideHousing",new Vector3(side*1.35f,-.91f,-2.31f),new Vector3(.70f,.065f,.052f),dark,default,.007f);
                 Panel(rear,s+"GuideLight",new Vector3(side*1.35f,-.905f,-2.275f),new Vector3(.56f,.018f,.01f),cyan,default,.001f);
             }
-            Panel(rear,"CeilingSpine",new Vector3(0,1.76f,-.40f),new Vector3(.20f,.14f,3.78f),dark,default,.024f);
+            Panel(rear,"CeilingSpine",new Vector3(-.35f,1.76f,-.40f),new Vector3(.08f,.14f,3.78f),dark,default,.024f);
+            Panel(rear,"CeilingSpine_Starboard",new Vector3(.35f,1.76f,-.40f),new Vector3(.08f,.14f,3.78f),dark,default,.024f);
             Panel(rear,"CeilingObservationGlass_Port",new Vector3(-1.08f,1.67f,-.40f),new Vector3(1.91f,.018f,3.50f),canopy,default,.006f);
             Panel(rear,"CeilingObservationGlass_Starboard",new Vector3(1.08f,1.67f,-.40f),new Vector3(1.91f,.018f,3.50f),canopy,default,.006f);
             for(int i=0;i<3;i++)
@@ -311,28 +312,28 @@ namespace MeteorDefenseVR.Editor
         {
             RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
             rect.anchoredPosition=new Vector2(-122,88);rect.sizeDelta=new Vector2(250,106);
-            text.fontSize=15;text.enableAutoSizing=false;text.lineSpacing=-4;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
+            text.fontSize=14;text.enableAutoSizing=false;text.lineSpacing=0;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 
         private static void ConfigureSystemsHologramText(TMP_Text text)
         {
             RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
             rect.anchoredPosition=new Vector2(-122,-18);rect.sizeDelta=new Vector2(250,88);
-            text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=-4;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
+            text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=0;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 
         private static void ConfigureThreatHologramText(TMP_Text text)
         {
             RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
             rect.anchoredPosition=new Vector2(-122,88);rect.sizeDelta=new Vector2(250,104);
-            text.fontSize=14;text.enableAutoSizing=false;text.lineSpacing=-5;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
+            text.fontSize=14;text.enableAutoSizing=false;text.lineSpacing=0;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 
         private static void ConfigureWeaponHologramText(TMP_Text text)
         {
             RectTransform rect=text.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(0,1);
-            rect.anchoredPosition=new Vector2(-122,-22);rect.sizeDelta=new Vector2(250,84);
-            text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=-5;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
+            rect.anchoredPosition=new Vector2(-122,-22);rect.sizeDelta=new Vector2(250,88);
+            text.fontSize=12;text.enableAutoSizing=false;text.lineSpacing=0;text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Truncate;
         }
 
         private static void SaveCockpitVisual(Transform cockpit)
@@ -347,8 +348,8 @@ namespace MeteorDefenseVR.Editor
             Renderer renderer=earth.GetComponent<Renderer>(); if(renderer==null)return;
             Material old=renderer.sharedMaterial; Material material=Material("OrbitalEarth","MeteorDefense/Orbital Earth");
             if(old!=null&&old.HasProperty("_BaseMap"))material.SetTexture("_BaseMap",old.GetTexture("_BaseMap"));
-            material.SetColor("_DayTint",new Color(.82f,.94f,1));material.SetColor("_NightColor",new Color(2.1f,.63f,.1f));
-            material.SetColor("_AtmosphereColor",new Color(.04f,.42f,1));material.SetFloat("_CloudStrength",.26f);renderer.sharedMaterial=material;
+            material.SetColor("_DayTint",new Color(.66f,.78f,.90f));material.SetColor("_NightColor",new Color(1.15f,.32f,.06f));
+            material.SetColor("_AtmosphereColor",new Color(.025f,.30f,.72f));material.SetFloat("_CloudStrength",.21f);renderer.sharedMaterial=material;
         }
 
         private static void UpgradeMeteors()

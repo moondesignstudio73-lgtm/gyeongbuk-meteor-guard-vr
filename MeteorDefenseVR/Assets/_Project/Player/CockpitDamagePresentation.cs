@@ -71,6 +71,9 @@ namespace MeteorDefenseVR.Player
         private int lastImpactFrame = -1;
         private bool prepared;
         private float nonCombatCleanup = -1f;
+        private Vector3 exteriorInitialLocalPosition;
+        private Quaternion exteriorInitialLocalRotation;
+        private Vector3 exteriorInitialLocalScale;
         public int DamageLevel { get; private set; }
         // Preserve the established HP-band contract (0..3); glass has an additional near-failure stage.
         public int GlassDamageLevel { get; private set; }
@@ -84,6 +87,7 @@ namespace MeteorDefenseVR.Player
         public int VisibleCrackCount { get { int n=0; foreach(var p in points) foreach(var r in p.cracks) if(r != null && r.enabled) n++; return n; } }
         public int ActiveParticles { get { int n=Count(exteriorImpact); foreach(var p in points) n+=Count(p.spark)+Count(p.vapor)+Count(p.dust); return n; } }
         public bool HasWarningLight { get { foreach(var r in warningLamps) if(r != null && r.enabled) return true; return false; } }
+        public int ResetRevision { get; private set; }
 
         public void Configure(PlayerHealth player, GameFlowManager gameFlow, AudioManager audio,
             DamagePoint[] damagePoints, ParticleSystem outside, Renderer[] displays, Renderer[] staticLines,
@@ -94,9 +98,9 @@ namespace MeteorDefenseVR.Player
             monitors=displays; monitorStatic=staticLines; warningLamps=lamps; edgeDamage=edges;
             airLeakSource=airLeak; emissionStrips=strips ?? Array.Empty<Renderer>();
             prepared=false;
-            Prepare(); ResetPresentation(); Subscribe();
+            Prepare(); ResetDamageState(); Subscribe();
         }
-        private void Awake() { Prepare(); ResetPresentation(); }
+        private void Awake() { Prepare(); ResetDamageState(); }
         private void OnEnable()
         {
             Prepare();
@@ -105,7 +109,7 @@ namespace MeteorDefenseVR.Player
             Subscribe(); if(health != null) UpdateHealth(health.CurrentHealth,health.MaxHealth);
         }
         private void Start() { if(flow==null) {flow=GameFlowManager.Instance;Subscribe();} }
-        private void OnDisable() { Unsubscribe(); ResetPresentation(); }
+        private void OnDisable() { Unsubscribe(); ResetDamageState(); }
         private void Update() => Tick(Time.unscaledDeltaTime);
         private void Prepare()
         {
@@ -115,6 +119,12 @@ namespace MeteorDefenseVR.Player
             // Authored, finite systems: no Instantiate, material clones, coroutine or catch-up backlog.
             foreach(var point in points) {EnsureFiniteBurst(point.spark);EnsureFiniteBurst(point.vapor);EnsureFiniteBurst(point.dust);}
             EnsureFiniteBurst(exteriorImpact);
+            if(exteriorImpact!=null)
+            {
+                exteriorInitialLocalPosition=exteriorImpact.transform.localPosition;
+                exteriorInitialLocalRotation=exteriorImpact.transform.localRotation;
+                exteriorInitialLocalScale=exteriorImpact.transform.localScale;
+            }
             monitorRest=new MaterialPropertyBlock[monitors.Length]; monitorColors=new Color[monitors.Length];
             monitorGains=new float[monitors.Length];
             for(int i=0;i<monitors.Length;i++)
@@ -136,12 +146,12 @@ namespace MeteorDefenseVR.Player
         {
             if(!isActiveAndEnabled) return;
             Unsubscribe();
-            if(health != null) { health.ShipImpacted+=Impact; health.HealthChanged+=UpdateHealth; health.HealthReset+=ResetPresentation; }
+            if(health != null) { health.ShipImpacted+=Impact; health.HealthChanged+=UpdateHealth; health.HealthRepaired+=RepairDamage; health.HealthReset+=ResetDamageState; }
             if(flow != null) flow.OnStateChanged+=StateChanged;
         }
         private void Unsubscribe()
         {
-            if(health != null) { health.ShipImpacted-=Impact; health.HealthChanged-=UpdateHealth; health.HealthReset-=ResetPresentation; }
+            if(health != null) { health.ShipImpacted-=Impact; health.HealthChanged-=UpdateHealth; health.HealthRepaired-=RepairDamage; health.HealthReset-=ResetDamageState; }
             if(flow != null) flow.OnStateChanged-=StateChanged;
         }
         public int LevelFor(float fraction) => fraction < criticalDamageBelow ? 3 : fraction < heavyDamageBelow ? 2 : fraction < lightDamageBelow ? 1 : 0;
@@ -155,10 +165,38 @@ namespace MeteorDefenseVR.Player
             if(repaired && next<3) StopLeaks();
             RefreshCracks();
         }
+        private void RepairDamage(float restored,float current)
+        {
+            if(restored<=0 || points.Length==0) return;
+            float maximum=health!=null?health.MaxHealth:Mathf.Max(1,current);
+            int layers=Mathf.Max(1,Mathf.RoundToInt(restored/Mathf.Max(1,maximum*.2f)));
+            for(int n=0;n<layers;n++)
+            {
+                int selected=FindRepairCandidate();
+                if(selected<0) break;
+                DamagePoint point=points[selected];point.hits=Mathf.Max(0,point.hits-1);
+                point.flashRemaining=0;point.residualRemaining=0;point.residualTick=0;point.heat=0;point.leakTick=0;
+                Stop(point.spark);Stop(point.vapor);Stop(point.dust);
+            }
+            flickerRemaining=0;
+            if(DamageLevel<3) StopLeaks();
+            RefreshCracks();
+            Tick(0);
+        }
+        private int FindRepairCandidate()
+        {
+            int selected=-1,bestHits=0;
+            for(int offset=0;offset<points.Length;offset++)
+            {
+                int index=(lastPoint-offset+points.Length)%points.Length;
+                int hits=points[index].hits;
+                if(hits>bestHits) {bestHits=hits;selected=index;}
+            }
+            return selected;
+        }
         private void StateChanged(GameState state)
         {
-            if(state==GameState.Reset || state==GameState.Boot) ResetPresentation();
-            else nonCombatCleanup=state==GameState.Playing || state==GameState.BossMeteor ? -1f : .35f;
+            nonCombatCleanup=state==GameState.Playing || state==GameState.BossMeteor ? -1f : .35f;
             if(!InCombat) StopLeaks();
             // A final impact may finish its <= .32s burst in Result. Tick gates all recurring
             // sparks/flicker/audio to combat; Reset/Boot clears particles immediately.
@@ -320,11 +358,13 @@ namespace MeteorDefenseVR.Player
             if(ps==null) return;
             var main=ps.main;main.cullingMode=ParticleSystemCullingMode.AlwaysSimulate;
         }
-        public void ResetPresentation()
+        public void ResetDamageState()
         {
+            ResetRevision++;
             DamageLevel=0;GlassDamageLevel=0; ImpactCount=0;lastPoint=points.Length>1?1:0;lastImpactFrame=-1;
             nonCombatCleanup=-1f;
             sparkCountdown=1f;warningCountdown=1f;flickerCountdown=1f;flickerRemaining=0;presentationTime=0;
+            randomState=0xBA715EED;
             foreach(var p in points)
             {
                 p.hits=0;p.flashRemaining=0;p.residualRemaining=0;p.residualTick=0;p.heat=0;p.leakTick=0;p.impactFrame=-1;
@@ -333,11 +373,18 @@ namespace MeteorDefenseVR.Player
                 if(p.scorch!=null){p.scorch.enabled=false;p.scorch.SetPropertyBlock(null);}
             }
             StopSparks();
-            foreach(var r in warningLamps) if(r!=null) r.enabled=false;
-            foreach(var r in monitorStatic) if(r!=null) r.enabled=false;
-            if(edgeDamage!=null) edgeDamage.enabled=false;
+            if(exteriorImpact!=null)
+            {
+                exteriorImpact.transform.localPosition=exteriorInitialLocalPosition;
+                exteriorImpact.transform.localRotation=exteriorInitialLocalRotation;
+                exteriorImpact.transform.localScale=exteriorInitialLocalScale;
+            }
+            foreach(var r in warningLamps) if(r!=null) {r.enabled=false;r.SetPropertyBlock(null);}
+            foreach(var r in monitorStatic) if(r!=null) {r.enabled=false;r.SetPropertyBlock(null);}
+            if(edgeDamage!=null) {edgeDamage.enabled=false;edgeDamage.SetPropertyBlock(null);}
             if(monitorRest!=null) for(int i=0;i<monitors.Length;i++) {monitorGains[i]=1; if(monitors[i]!=null) monitors[i].SetPropertyBlock(monitorRest[i]);}
             if(stripRest!=null) for(int i=0;i<emissionStrips.Length;i++) if(emissionStrips[i]!=null)emissionStrips[i].SetPropertyBlock(stripRest[i]);
+            properties?.Clear();
         }
         public IEnumerator PrewarmParticles()
         {

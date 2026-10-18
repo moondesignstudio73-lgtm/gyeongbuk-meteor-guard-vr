@@ -167,14 +167,19 @@ namespace MeteorDefenseVR.Tests
             // QA-only game render capture, never desktop/webcam/HMD capture or runtime recording.
             Assert.That(router.Webcam.IsStreaming, Is.False); Assert.That(router.Webcam.ShowWebcamPreview, Is.False);
             var canvas = controller.View.Canvas; var previousCamera = canvas.worldCamera; var previousMode = canvas.renderMode; float plane = canvas.planeDistance;
+            int playerMask = Camera.main.cullingMask;
             using var render = new PcStabilityProbe(Camera.main);
             try
             {
+                // Capturing the overlay with the player camera must not composite its
+                // separate camera-space HUD above the monitor's own presentation.
+                int hudLayer = LayerMask.NameToLayer("Player HUD");
+                if (hudLayer >= 0) Camera.main.cullingMask &= ~(1 << hudLayer);
                 canvas.renderMode = RenderMode.ScreenSpaceCamera; canvas.worldCamera = Camera.main; canvas.planeDistance = .4f;
                 Canvas.ForceUpdateCanvases(); Camera.main.Render(); string folder = "Docs/SpectatorQA/" + stage;
                 Directory.CreateDirectory(folder); render.SaveGameOnlyProof(folder, router);
             }
-            finally { canvas.renderMode = previousMode; canvas.worldCamera = previousCamera; canvas.planeDistance = plane; }
+            finally { Camera.main.cullingMask = playerMask; canvas.renderMode = previousMode; canvas.worldCamera = previousCamera; canvas.planeDistance = plane; }
         }
     }
 }
