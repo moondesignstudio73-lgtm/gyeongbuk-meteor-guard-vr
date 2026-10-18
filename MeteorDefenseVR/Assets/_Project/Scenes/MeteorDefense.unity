@@ -85496,7 +85496,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HP / SHIELD
+  m_text: "\uBC29\uC5B4\uB9C9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8b0c1a570528f92448b232cd480a2832, type: 2}
@@ -112311,7 +112311,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278453622}
-  m_Text: "\uC900\uBE44\uAC00 \uB418\uBA74 START\uB97C \uBC14\uB77C\uBCF4\uC138\uC694."
+  m_Text: "\uC2DC\uC791\uC5D0 \uC870\uC900\uC810\uC744 \uB9DE\uCDB0 \uBCF4\uC138\uC694."
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -122442,7 +122442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "NORMAL  \xB7  STAGE 01"
+  m_text: "\uBCF4\uD1B5  \xB7  \uAD6C\uC5ED 01"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8b0c1a570528f92448b232cd480a2832, type: 2}
@@ -125644,7 +125644,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493851107}
-  m_Text: START
+  m_Text: "\uC2DC\uC791"
   m_OffsetZ: 0
   m_CharacterSize: 0.04
   m_LineSpacing: 1
@@ -161187,7 +161187,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SCORE
+  m_text: "\uC810\uC218"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f1615bba235c7b489a0859f05dfb0ca, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8b0c1a570528f92448b232cd480a2832, type: 2}

@@ -1,12 +1,35 @@
 # VR 운석 맞추기
 
-이동과학차용 아이트래킹 VR 체험 게임입니다. 플레이어는 우주선 조종석에서 지구로 접근하는 운석을 시선으로 조준하고 파괴합니다.
+우주선에 올라 지구로 다가오는 운석을 막아 주세요! 조준점을 운석에 맞추고 잠시 기다리면 레이저가 자동으로 발사돼요.
 
-## 최신 공유본 — 2026-10-19
+## 바로 플레이하기
 
-- [Windows 실행본 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-preview-20260918): **2026-09-18 07:50 KST 빌드**의 미리보기입니다. ZIP을 전부 압축 해제한 후 `MeteorDefenseVR.exe`를 실행하세요. 마우스 체험은 `Start-Mouse.cmd`, Windows VR 시뮬레이션은 `Start-VRSimulation.cmd`를 실행합니다.
-- 이 브랜치는 9월 22일까지 저장된 소스 변경사항도 포함합니다. 위 실행본은 9월 18일의 기존 빌드이며, 이후 소스 변경사항을 다시 빌드한 파일은 아닙니다.
-- [공유본 구성과 확인 범위](MeteorDefenseVR/Docs/SHARE_20261019.md). 최신 소스의 큰 점수 결과 화면 경계 검사 실패가 남아 있어 정식 검증 완료본으로 표시하지 않습니다.
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-player-guide-20261019)**
+
+1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
+2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
+3. 난이도를 고른 뒤 **시작**에 조준점을 맞춰 주세요. 처음이라면 **체험** 또는 **쉬움**이 좋아요.
+
+## 조작 방법
+
+- **둘러보기:** 마우스를 천천히 움직여요.
+- **공격하기:** 가운데 조준점을 운석에 맞추고 기다려요. 클릭하지 않아도 자동으로 발사돼요.
+- **메뉴 선택:** 원하는 메뉴에 조준점을 맞추고 잠시 기다려요.
+- **잠시 쉬기:** PC에서 **Esc**를 누르세요. 다시 누르면 이어서 플레이해요.
+- **편하게 맞추기:** 시작 화면이나 쉬는 화면의 **시점 설정**에서 마우스 감도와 화면 흔들림을 바꿔요.
+
+임무가 끝나면 기지로 돌아와 기록을 확인하고 다시 도전할 수 있어요.
+
+이번 업데이트에는 움직이는 출격 준비 화면과 중앙 스테이지 안내가 추가됐어요. 조작 설명과 결과 안내도 플레이어가 읽기 쉽게 다듬었어요.
+
+[난이도·화면 읽기·도움말 보기](MeteorDefenseVR/Docs/PLAYER_GUIDE.md)
+
+다른 PC로 옮길 때는 실행파일 하나가 아니라 **압축 해제한 폴더 전체**를 복사해 주세요.
+
+<details>
+<summary>개발·운영 참고 및 이전 작업 기록</summary>
+
+아래 내용은 제작과 운영을 위한 기술 자료 및 이전 단계의 기록입니다. 플레이 방법은 위 안내를 확인하세요.
 
 ## Unity 프로젝트
 
@@ -302,3 +325,5 @@ OVR Metrics Tool 또는 Unity Profiler를 연결해 최종 측정해야 합니�
 - 구현 기능, Architecture, Script/Prefab/Scene, Inspector 수치, Placeholder, Known Issue 정리 완료
 - 최종 리포트: `MeteorDefenseVR/Docs/STEP22_FINAL_REPORT.md`
 - 현재 판정: Editor 기능 개발 완료 / Quest Pro·Meta XR·Android 실기기 통합 대기
+
+</details>

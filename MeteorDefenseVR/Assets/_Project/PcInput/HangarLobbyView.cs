@@ -42,11 +42,11 @@ namespace MeteorDefenseVR.PcInput
             Image("Glass",panel,Vector2.zero,new Vector2(646,376),Ink);
             Image("DockStatusRail",panel,new Vector2(-310,0),new Vector2(3,330),new Color(1,.78f,.47f));
             title=Label(panel,"Title","격납고 도착",new Vector2(0,145),310,font);
-            subtitle=Label(panel,"Subtitle","EARTH DEFENSE / BAY 01",new Vector2(0,103),155,font);
+            subtitle=Label(panel,"Subtitle","지구 방어대 · 제1격납고",new Vector2(0,103),155,font);
             menu=Group("Menu",panel); difficulty=Group("DifficultyHud",panel); standby=Group("NextPlayer",panel);
             Buttons=new HangarMenuButton[9];
             string[] names={"Replay","Difficulty","Recalibrate","Standby"};
-            string[] labels={"다시 하기","난이도 변경","시선 재설정","종료 / 대기"};
+            string[] labels={"다시 출격","난이도 바꾸기","눈 위치 맞추기","체험 마치기"};
             for(int i=0;i<4;i++)
             {
                 int index=i;
@@ -55,7 +55,7 @@ namespace MeteorDefenseVR.PcInput
             }
             Buttons[6]=Button(menu.transform,"Ranking","랭킹",new Vector2(147,-31),font,()=>action(HangarLobbyController.MenuAction.Ranking),new Vector2(280,62));
             Buttons[8]=Button(menu.transform,"RetryStage","스테이지 재도전",new Vector2(-147,-108),font,()=>action(HangarLobbyController.MenuAction.RetryStage),new Vector2(280,62));
-            nextMission=Label(menu.transform,"Help","메뉴를 바라보면 선택됩니다",new Vector2(0,-162),150,font);
+            nextMission=Label(menu.transform,"Help","메뉴에 조준점을 맞추고 잠시 기다려 주세요",new Vector2(0,-162),150,font);
             var slot=Group("DifficultyAnchor",panel); slot.transform.localPosition=new Vector3(0,0,-1);
             DifficultyAnchor=slot.transform;
             back=Group("BackToHangar",panel);
@@ -88,7 +88,7 @@ namespace MeteorDefenseVR.PcInput
             subtitle.gameObject.SetActive(phase!=HangarLobbyController.LobbyPhase.Records);
             Buttons[1].SetAvailable(!locked);
             Buttons[8].gameObject.SetActive(snapshot != null && snapshot.MissionFailed);
-            nextMission.text="NEXT: "+MeteorDefenseVR.Difficulty.DifficultyConfig.Label(nextDifficulty)+" / 메뉴를 바라보면 선택됩니다";
+            nextMission.text="다음 난이도: "+MeteorDefenseVR.Difficulty.DifficultyConfig.Label(nextDifficulty)+" · 메뉴에 조준점을 맞추세요";
             title.text=phase switch
             {
                 HangarLobbyController.LobbyPhase.Returning=>"기지로 귀환 중",
@@ -96,12 +96,12 @@ namespace MeteorDefenseVR.PcInput
                 HangarLobbyController.LobbyPhase.ReplayPreparing=>"출격 준비",
                 HangarLobbyController.LobbyPhase.Departing=>"출격 준비",
                 HangarLobbyController.LobbyPhase.Standby=>"다음 대원을 기다립니다",
-                HangarLobbyController.LobbyPhase.Records=>"MISSION RECORD / 임무 기록",
+                HangarLobbyController.LobbyPhase.Records=>"나의 임무 기록",
                 _=>"격납고 도착"
             };
             subtitle.text=phase==HangarLobbyController.LobbyPhase.Menu && snapshot!=null
-                ? $"{(snapshot.MissionFailed ? "MISSION FAILED" : "MISSION SUCCESS")}   /   SCORE {snapshot.Score:N0}   /   {MeteorDefenseVR.Difficulty.DifficultyConfig.Label(snapshot.Difficulty)}"
-                : phase==HangarLobbyController.LobbyPhase.Returning?"DOCKING APPROACH / BAY 01":"EARTH DEFENSE / BAY 01";
+                ? $"{(snapshot.MissionFailed ? "다시 도전해요!" : "임무 성공!")}   ·   {snapshot.Score:N0}점   ·   {MeteorDefenseVR.Difficulty.DifficultyConfig.Label(snapshot.Difficulty)}"
+                : phase==HangarLobbyController.LobbyPhase.Returning?"수고했어요! 곧 기지에 도착해요.":"지구 방어대 · 제1격납고";
             if(phase==HangarLobbyController.LobbyPhase.Departing) panel.gameObject.SetActive(false);
         }
         public void SetRetryAvailable(bool value) { if (Buttons != null && Buttons.Length > 8 && Buttons[8] != null) Buttons[8].SetAvailable(value); }

@@ -18,7 +18,7 @@ namespace MeteorDefenseVR.PcInput
     {
         public bool IsComplete { get; private set; }
         public int PreparedTextCount { get; private set; }
-        public string Stage { get; private set; } = "SYSTEM INITIALIZING";
+        public string Stage { get; private set; } = "출격을 준비하고 있어요";
         public int CompletedSteps { get; private set; }
         public int TotalSteps { get; private set; } = 6;
         private static readonly ProfilerMarker TextMarker = new ProfilerMarker("MD.Prewarm.Text");
@@ -59,10 +59,10 @@ namespace MeteorDefenseVR.PcInput
             yield return null;
             yield return null;
             var audio = InScene<AudioManager>();
-            Stage = "AUDIO BANK";
+            Stage = "출격을 준비하고 있어요";
             if (audio != null) yield return audio.PreloadClips();
             CompletedSteps++;
-            Stage = "DEFENSE SYSTEM";
+            Stage = "우주선을 준비하고 있어요";
             var spawner = InScene<MeteorSpawner>();
             if (spawner != null) yield return spawner.PrewarmIncrementally();
             CompletedSteps++;
@@ -75,7 +75,7 @@ namespace MeteorDefenseVR.PcInput
             CompletedSteps++;
             yield return null;
 
-            Stage = "LASER / IMPACT";
+            Stage = "우주선을 준비하고 있어요";
             var cockpitDamage = InScene<MeteorDefenseVR.Player.CockpitDamagePresentation>();
             if (cockpitDamage != null) yield return cockpitDamage.PrewarmParticles();
             foreach (GameObject root in gameObject.scene.GetRootGameObjects())
@@ -89,7 +89,7 @@ namespace MeteorDefenseVR.PcInput
                 }
             }
             CompletedSteps = 4;
-            Stage = "HUD / FONT CACHE";
+            Stage = "잠시만 기다려 주세요";
             foreach (GameObject root in gameObject.scene.GetRootGameObjects())
             {
                 // A QA scene switch can unload a root between GetRootGameObjects and
@@ -112,7 +112,7 @@ namespace MeteorDefenseVR.PcInput
             CompletedSteps = 5;
             // Warm actual Canvas geometry without activating gameplay roots.
             Canvas.ForceUpdateCanvases();
-            Stage = "DEFENSE SYSTEM ONLINE";
+            Stage = "출격 준비 완료!";
             CompletedSteps = TotalSteps;
             IsComplete = true;
         }

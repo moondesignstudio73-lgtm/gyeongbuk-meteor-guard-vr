@@ -87,7 +87,7 @@ namespace MeteorDefenseVR.Tutorial
             PracticeScore = 0;
             IsRunning = true;
             IsComplete = false;
-            SetStatus("연습 운석을 파괴하세요.");
+            SetStatus("운석 3개를 맞히며 연습해 보세요.");
             NotifyProgress();
             SpawnNextMeteor();
         }
@@ -160,7 +160,7 @@ namespace MeteorDefenseVR.Tutorial
 
             IsRunning = false;
             IsComplete = true;
-            SetStatus("준비 완료!");
+            SetStatus("잘했어요! 이제 출격해요.");
             PracticeCompleted?.Invoke();
             if (readyDisplayDuration > 0f) yield return new MeteorDefenseVR.Core.PauseAwareDelay(readyDisplayDuration);
             gameFlow?.StartLaunch();

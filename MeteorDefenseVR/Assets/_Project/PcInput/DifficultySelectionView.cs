@@ -89,7 +89,7 @@ namespace MeteorDefenseVR.PcInput
             panel = (RectTransform)root.transform; panel.SetParent(ready.transform, false); panel.sizeDelta = new Vector2(752, 106);
             var canvas = root.GetComponent<Canvas>(); canvas.renderMode = RenderMode.WorldSpace; canvas.worldCamera = view; canvas.sortingOrder = 12;
             string[] labels = { "체험", "쉬움", "보통", "어려움" };
-            string[] subtitles = { "짧은 기관·행사 체험", "전방 중심 / 초보자 추천", "전방·좌우 / 방향 인지", "360° 전 방향 / 최종 훈련" };
+            string[] subtitles = { "짧게 즐기는 우주 임무", "앞을 보며 차근차근", "좌우를 살피며 도전", "모든 방향의 운석에 도전" };
             for (int i = 0; i < choices.Length; i++)
             {
                 DifficultyLevel level = DisplayOrder[i];
@@ -117,7 +117,7 @@ namespace MeteorDefenseVR.PcInput
                 var choice = card.gameObject.AddComponent<DifficultyChoiceButton>();
                 choice.Configure(manager, level, animator, card, progress, tickRoot); choices[i] = choice;
             }
-            Label(panel, "ExtremeNotice", "체험 모드는 3~5분의 짧은 운영 세션입니다.", new Vector2(0, 82), 165, font, material);
+            Label(panel, "ExtremeNotice", "체험은 짧은 임무로 조작을 익히기 좋아요.", new Vector2(0, 82), 165, font, material);
             extremeNotice = panel.Find("ExtremeNotice").GetComponent<TextMeshPro>(); extremeNotice.rectTransform.sizeDelta = new Vector2(760, 40);
             extremeNotice.color = new Color(1, .65f, .25f); extremeNotice.gameObject.SetActive(false);
             Layout();

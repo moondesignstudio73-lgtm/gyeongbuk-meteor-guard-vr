@@ -49,9 +49,9 @@ namespace MeteorDefenseVR.Tests
                     Assert.That(manager.Phase,Is.EqualTo(EducationPhase.Registration),"Real mouse gaze must open the education panel.");
                     var panel=view.Root.transform.Find("ParticipantRegistration");
                     var skip=panel.Find("SkipTutorial").GetComponent<UnityEngine.UI.Button>();
-                    skip.onClick.Invoke();Assert.That(skip.GetComponentInChildren<TextMeshProUGUI>().text,Does.EndWith("ON"));
+                    skip.onClick.Invoke();Assert.That(skip.GetComponentInChildren<TextMeshProUGUI>().text,Does.EndWith("바로 임무 시작하기"));
                     manager.CloseMenu();manager.OpenRegistration();
-                    Assert.That(skip.GetComponentInChildren<TextMeshProUGUI>().text,Does.EndWith("OFF"),"New participant must not inherit tutorial skip.");
+                    Assert.That(skip.GetComponentInChildren<TextMeshProUGUI>().text,Does.EndWith("함께 연습하기"),"New participant must not inherit tutorial skip.");
                     var name=panel.Find("ParticipantName").GetComponent<TMP_InputField>();
                     EventSystem.current.SetSelectedGameObject(name.gameObject);name.ActivateInputField();yield return null;yield return null;
                     Assert.That(name.isFocused,Is.True);

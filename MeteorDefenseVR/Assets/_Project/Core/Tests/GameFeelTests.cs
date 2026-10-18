@@ -63,6 +63,9 @@ namespace MeteorDefenseVR.Tests
             var view = loader.GetComponent<SystemBootView>();
             Assert.That(view.IsVisible, Is.True);
             Assert.That(loader.Progress, Is.Zero);
+            var orbit = view.GetComponentInChildren<FlightPreparationGraphic>();
+            Assert.That(orbit, Is.Not.Null);
+            Assert.That(orbit.GetComponent<CanvasRenderer>(), Is.Not.Null, "The animated flight mesh needs a Canvas renderer");
             var canvas = view.GetComponentInChildren<Canvas>();
             var camera = view.GetComponentInChildren<Camera>();
             Assert.That(camera.cullingMask, Is.Zero);

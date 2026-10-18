@@ -89,7 +89,7 @@ namespace MeteorDefenseVR.Education
         private void BuildRegistration()
         {
             registration = Panel("ParticipantRegistration", new Vector2(1030,580));
-            Label(registration.transform,"Title","우주 안전 훈련 / 참가자 등록",new Vector2(0,238),new Vector2(930,45),31);
+            Label(registration.transform,"Title","우주 안전 훈련 · 나를 소개해요",new Vector2(0,238),new Vector2(930,45),31);
             Label(registration.transform,"Privacy","입력한 정보와 훈련 결과만 이 PC에 저장합니다. 영상·얼굴 정보는 저장하지 않습니다.",new Vector2(0,192),new Vector2(940,38),19);
             nameInput = Input(registration.transform,"ParticipantName","이름 *",new Vector2(-220,119),32);
             numberInput = Input(registration.transform,"ParticipantNumber","번호 *",new Vector2(220,119),24);
@@ -97,8 +97,8 @@ namespace MeteorDefenseVR.Education
             groupInput = Input(registration.transform,"ParticipantGroup","그룹 / 반 (선택)",new Vector2(220,38),32);
             difficultyValue = Label(registration.transform,"Difficulty","난이도 : 보통",new Vector2(0,-41),new Vector2(820,36),24);
             for (int i=0;i<4;i++) { int index=i; difficultyFeedback[i]=Button(registration.transform,"Difficulty"+i,DifficultyConfig.Label((DifficultyLevel)i),new Vector2(-315+i*210,-91),new Vector2(196,43),()=> { selected=(DifficultyLevel)index; UpdateRegistration(); }).GetComponent<UIInteractionAnimator>(); }
-            skipValue = Button(registration.transform,"SkipTutorial","재방문: 튜토리얼 건너뛰기 OFF",new Vector2(0,-151),new Vector2(650,38),()=> { skipTutorial=!skipTutorial; UpdateRegistration(); }).GetComponentInChildren<TextMeshProUGUI>();
-            registrationHint = Label(registration.transform,"Validation","이름과 번호는 직접 입력해 주세요. 별도 로그인은 없습니다.",new Vector2(0,-197),new Vector2(900,32),18);
+            skipValue = Button(registration.transform,"SkipTutorial","조작 연습: 함께 연습하기",new Vector2(0,-151),new Vector2(650,38),()=> { skipTutorial=!skipTutorial; UpdateRegistration(); }).GetComponentInChildren<TextMeshProUGUI>();
+            registrationHint = Label(registration.transform,"Validation","이름과 번호를 적은 뒤 훈련 시작을 눌러 주세요.",new Vector2(0,-197),new Vector2(900,32),18);
             Button(registration.transform,"CancelRegistration","돌아가기",new Vector2(-245,-244),new Vector2(220,44),owner.CloseMenu);
             Button(registration.transform,"BeginTraining","훈련 시작",new Vector2(245,-244),new Vector2(300,44),()=>
             {
@@ -109,8 +109,8 @@ namespace MeteorDefenseVR.Education
         private void UpdateRegistration()
         {
             var d=GetComponent<DifficultyManager>(); if(d!=null && d.Settings.lockDifficultySelection) selected=d.Settings.Default;
-            difficultyValue.text="난이도 : "+DifficultyConfig.Label(selected)+(d!=null && d.Settings.lockDifficultySelection?" (운영자 고정)":"");
-            skipValue.text="재방문: 튜토리얼 건너뛰기 "+(skipTutorial?"ON":"OFF");
+            difficultyValue.text="난이도 : "+DifficultyConfig.Label(selected)+(d!=null && d.Settings.lockDifficultySelection?" (정해진 난이도)":"");
+            skipValue.text="조작 연습: "+(skipTutorial?"바로 임무 시작하기":"함께 연습하기");
             for(int i=0;i<4;i++)difficultyFeedback[i].SetSelected(i==(int)selected);
         }
         private void BuildHud()
@@ -208,7 +208,7 @@ namespace MeteorDefenseVR.Education
             reportName.text=(teacher?r.Participant.Name:r.Participant.MaskedName)+" / "+r.Participant.Number+"번\n"+DifficultyConfig.Label(r.Difficulty)+" · "+DateTimeOffset.Parse(r.StartedAt).ToLocalTime().ToString("yyyy-MM-dd HH:mm");reportName.richText=false;
             reportBody.text=details?EducationReportFormatter.Details(r):EducationReportFormatter.Summary(r);reportBody.fontSize=details?21:22;
             reportMetrics.fontSize=details?21:23;
-            reportMetrics.text=(details?EducationReportFormatter.Areas(r):EducationReportFormatter.Metrics(r))+(owner.Phase==EducationPhase.Report&&!owner.Store.Saved?"\n\n로컬 저장 실패 · 교사에게 알려 주세요.":"");
+            reportMetrics.text=(details?EducationReportFormatter.Areas(r):EducationReportFormatter.Metrics(r))+(owner.Phase==EducationPhase.Report&&!owner.Store.Saved?"\n\n기록을 저장하지 못했어요. 선생님에게 알려 주세요.":"");
             var next=report.transform.Find("NextParticipant");if(next!=null)next.gameObject.SetActive(!teacher);
         }
         private void UpdateDashboard()
@@ -244,7 +244,7 @@ namespace MeteorDefenseVR.Education
         {
             if(owner.IsTraining&&hud.activeSelf)
             {
-                stageLabel.text=$"STAGE {(int)owner.Stage+1}/4 · {EducationLabels.Stage(owner.Stage)}";
+                stageLabel.text=$"훈련 {(int)owner.Stage+1}/4 · {EducationLabels.Stage(owner.Stage)}";
                 timer.text=$"남은 학습 {owner.StageRemaining:F0}초 / 과제 {owner.PhaseRemaining:F0}초";
                 instruction.text=owner.Message;
                 if(question.activeSelf)questionBody.text=owner.QuestionText;

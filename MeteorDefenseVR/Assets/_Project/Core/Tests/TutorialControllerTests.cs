@@ -42,8 +42,8 @@ namespace MeteorDefenseVR.Tests
             controller.BeginTutorial();
 
             Assert.That(controller.IsRunning, Is.True);
-            Assert.That(controller.Instruction, Does.Contain("LOCK ON"));
-            Assert.That(controller.Instruction, Does.Contain("자동으로 공격"));
+            Assert.That(controller.Instruction, Does.Contain("자동으로 발사"));
+            Assert.That(controller.Instruction, Does.Contain("조준점을 운석에"));
             Assert.That(controller.ActiveMeteor, Is.Not.Null);
             Assert.That(controller.ActiveMeteor.MeteorType, Is.EqualTo(MeteorType.Tutorial));
             Assert.That(controller.ActiveMeteor.Damage, Is.Zero);
@@ -61,7 +61,7 @@ namespace MeteorDefenseVR.Tests
 
             controller.Tick(2.1f);
 
-            Assert.That(controller.Instruction, Does.Contain("초록색 LOCK ON"));
+            Assert.That(controller.Instruction, Does.Contain("초록색으로 바뀌면"));
             Assert.That(reminders, Is.EqualTo(1));
             Assert.That(controller.ActiveMeteor.GetComponent<TutorialPulseView>().IsPulsing, Is.True);
         }
@@ -79,7 +79,7 @@ namespace MeteorDefenseVR.Tests
             Assert.That(controller.IsComplete, Is.True);
             Assert.That(controller.IsRunning, Is.False);
             Assert.That(successes, Is.EqualTo(1));
-            Assert.That(controller.Instruction, Does.StartWith("좋아요!"));
+            Assert.That(controller.Instruction, Does.StartWith("잘했어요!"));
         }
     }
 }

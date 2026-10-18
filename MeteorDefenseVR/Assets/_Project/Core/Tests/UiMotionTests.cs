@@ -109,7 +109,7 @@ namespace MeteorDefenseVR.Tests
             Assert.That(missionCompleteDisplay.enabled, Is.False, "Victory must not overlap Result, including direct state jumps");
             var hudOverlay = Object.FindAnyObjectByType<GameplayHudOverlayView>();
             Assert.That(hudOverlay.FeedbackPanel.activeSelf, Is.False, "Completion feedback must not cover the result score after a direct transition.");
-            Assert.That(resultMotion.GetComponent<WorldTextPresentation>().Display.font.HasCharacters("미션 성공! 지구를 지켜냈습니다! 입력 안내 완료"), Is.True);
+            Assert.That(resultMotion.GetComponent<WorldTextPresentation>().Display.font.HasCharacters("잘했어요! 지구를 지켜냈어요! 준비됐어요! 조준 연습 점수 명중률 등급"), Is.True);
             var resultDisplay = resultMotion.GetComponent<WorldTextPresentation>().Display;
             string normalResultText = resultDisplay.text;
             foreach (int score in new[] { 138940, int.MaxValue })

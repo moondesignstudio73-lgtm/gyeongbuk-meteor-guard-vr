@@ -101,31 +101,59 @@ namespace MeteorDefenseVR.PcInput
                 previous = content;
                 display.text = result != null && result.IsVisible ? FormatResult(result.Snapshot, result.Rank) : FormatTelemetry(sourceName, content);
                 if (sourceName == "MissionCompleteText" && !string.IsNullOrEmpty(content))
-                    display.text = "<color=#BFF9FF>MISSION COMPLETE</color>\n<size=1.8><color=#8FFFC4>미션 성공!\n지구를 지켜냈습니다!</color></size>";
+                    display.text = "<color=#BFF9FF>임무 완료</color>\n<size=1.8><color=#8FFFC4>잘했어요!\n지구를 지켜냈어요!</color></size>";
                 if (sourceName == "AlertText" && content.StartsWith("WARNING"))
-                    display.text = "<color=#FF7952>" + content + "</color>";
+                    display.text = "<color=#FF7952>" + PlayerMessage(content) + "</color>";
                 if (sourceName == "HudFeedback" && content.Contains("LARGE METEOR"))
-                    display.text = "<color=#FF7952>WARNING</color>\n<size=1.7>LARGE METEOR DETECTED</size>";
+                    display.text = "<color=#FF7952>위험!</color>\n<size=1.7>거대한 운석이 다가와요!</size>";
             }
             motion?.Present(content, display.enabled && !string.IsNullOrEmpty(content));
         }
         private static string FormatTelemetry(string name, string value)
         {
-            if (name == "HudHealth") return "<size=1.35>HP / SHIELD</size>\n<size=1.0> </size>";
+            if (name == "StartLabel") return "시작";
+            if (name == "ReadyPrompt") return "시작에 조준점을 맞춰 보세요.";
+            if (name == "HudHealth") return "<size=1.35>방어막</size>\n<size=1.0> </size>";
             if (name == "HudRemaining" && value.StartsWith("METEORS")) return "<size=1.35>남은 운석</size>\n" + value.Substring(7).Trim();
-            if (name == "HudScore" && value.StartsWith("SCORE")) return "<size=1.35>SCORE</size>\n" + value.Substring(5).Trim();
-            return value;
+            if (name == "HudScore" && value.StartsWith("SCORE")) return "<size=1.35>점수</size>\n" + value.Substring(5).Trim();
+            return PlayerMessage(value);
+        }
+        // Controllers retain their status tokens for timing and feedback; only visible copy changes.
+        public static string PlayerMessage(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return string.Empty;
+            switch (value)
+            {
+                case "HANGAR": return "출격을 준비해요";
+                case "DOOR OPEN": return "격납고 문이 열려요";
+                case "ENGINE START": return "엔진을 켜고 있어요";
+                case "THRUST": return "우주로 출발해요!";
+                case "SPACE": return "우주에 도착했어요";
+                case "MISSION START": return "지구를 지켜 주세요!";
+                case "LOCK ON": return "조준 완료!";
+                case "WARNING\nMASSIVE OBJECT DETECTED\nBOSS ASTEROID APPROACHING": return "위험!\n거대한 운석이 다가와요!";
+                case "MISSION COMPLETE\nALL THREAT LEVELS CLEARED": return "모든 임무 완료!\n지구를 지켜냈어요!";
+            }
+            return value.Replace("MISSION COMPLETE", "임무 완료").Replace("MISSION FAILED", "아쉽지만 다시 도전해요")
+                .Replace("WARNING", "위험!").Replace("MISSION", "우리의 임무")
+                .Replace("THREAT LEVEL INCREASED", "다음 구역을 준비하세요")
+                .Replace("STAGE ", "구역 ").Replace(" CLEAR", " 완료")
+                .Replace("SCORE", "점수").Replace("ACCURACY", "명중률")
+                .Replace("LARGE METEOR DETECTED", "큰 운석이 다가와요!")
+                .Replace("NICE!", "멋져요!").Replace("GOOD!", "잘했어요!");
         }
         public static string FormatResult(GameSessionSnapshot snapshot, string rank)
         {
             snapshot ??= new GameSessionSnapshot();
-            return (snapshot.MissionFailed ? "<align=center><color=#FF7952>MISSION FAILED</color></align>\n" : "<align=center><color=#BAFAFF>MISSION RESULT</color></align>\n")
-                + $"<align=left><size=2.3>SCORE<pos=65%><color=#FFD18A><size=2.6>{snapshot.Score:N0}</size></color>\n"
-                + $"DESTROYED<pos=65%>{snapshot.DestroyedMeteors}\n"
-                + $"ACCURACY<pos=65%>{snapshot.AccuracyPercent}%\n"
-                + $"RANK<pos=65%><color={(rank == "S" || rank == "A" ? "#FFC96B" : "#82FFC1")}><size=2.6>{rank}</size></color></size></align>\n"
-                + $"<align=center><size=1.5><color=#9CBAC5>난이도 : {Difficulty.DifficultyConfig.Label(snapshot.Difficulty)} / {Difficulty.DifficultyConfig.Code(snapshot.Difficulty)}</color></size>\n"
-                + (snapshot.MissionFailed ? "<size=1.8><color=#FFAA88>기지로 귀환해 다시 도전하세요</color></size></align>" : "<size=1.8><color=#82FFC1>지구 방어 성공!</color></size></align>");
+            string score = snapshot.Score.ToString("N0");
+            string scoreSize = (2.6f * Mathf.Min(1f, 5f / score.Length)).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+            return (snapshot.MissionFailed ? "<align=center><color=#FF7952>다시 도전해요!</color></align>\n" : "<align=center><color=#BAFAFF>이번 임무의 기록</color></align>\n")
+                + $"<align=left><size=2.3>점수<pos=65%><color=#FFD18A><size={scoreSize}>{score}</size></color>\n"
+                + $"파괴한 운석<pos=65%>{snapshot.DestroyedMeteors}\n"
+                + $"명중률<pos=65%>{snapshot.AccuracyPercent}%\n"
+                + $"등급<pos=65%><color={(rank == "S" || rank == "A" ? "#FFC96B" : "#82FFC1")}><size=2.6>{rank}</size></color></size></align>\n"
+                + $"<align=center><size=1.5><color=#9CBAC5>난이도 : {Difficulty.DifficultyConfig.Label(snapshot.Difficulty)}</color></size>\n"
+                + (snapshot.MissionFailed ? "<size=1.8><color=#FFAA88>기지로 돌아가 다시 도전해요.</color></size></align>" : "<size=1.8><color=#82FFC1>지구를 지켜냈어요!</color></size></align>");
         }
         private void OnDisable()
         {

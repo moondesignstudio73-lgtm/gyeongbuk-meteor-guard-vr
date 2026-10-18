@@ -180,7 +180,7 @@ namespace MeteorDefenseVR.PcInput
         }
 
         public static string FormatDifficultyStage(DifficultyLevel difficulty, int stage) =>
-            $"{DifficultyConfig.Code(difficulty)}  ·  STAGE {Mathf.Max(0, stage):D2}";
+            $"{DifficultyConfig.Label(difficulty)}  ·  구역 {Mathf.Max(0, stage):D2}";
 
         public static string FormatAsteroidValue(int remaining, int total) =>
             $"{Mathf.Max(0, remaining)} / {Mathf.Max(0, total)}";
@@ -270,7 +270,7 @@ namespace MeteorDefenseVR.PcInput
             if (feedbackValue == null) return;
             feedbackValue.color = message.Contains("WARNING") || message.Contains("FAILED") || message.Contains("BOSS")
                 ? Warning : message.Contains("COMPLETE") || message.Contains("CLEAR") || message.Contains("지키세요") ? Green : Cyan;
-            SetText(feedbackValue, message);
+            SetText(feedbackValue, WorldTextPresentation.PlayerMessage(message));
         }
 
         private static void SetText(TMP_Text target, string value)

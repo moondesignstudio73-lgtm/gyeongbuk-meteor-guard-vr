@@ -43,7 +43,7 @@ namespace MeteorDefenseVR.Tutorial
         public void SetProgress(int remaining, int total, int score)
         {
             if (hudText != null)
-                hudText.text = $"HP  ████████     남은 운석  {remaining}/{total}     SCORE  {score:N0}";
+                hudText.text = $"방어막  ████████     남은 운석  {remaining}/{total}     점수  {score:N0}";
         }
 
         public void SetStatus(string status)

@@ -58,7 +58,7 @@ namespace MeteorDefenseVR.EyeTracking
             if (!valid && !IsTrackingFailed && invalidTrackingTime >= trackingFailureTimeout)
             {
                 IsTrackingFailed = true;
-                SetStatus("시선 인식에 실패했습니다. 다시 시도하거나 Head Gaze Mode를 사용하세요.");
+                SetStatus("눈을 인식하기 어려워요.\n안내 선생님에게 도움을 요청해 주세요.");
                 TrackingFailed?.Invoke();
             }
         }
@@ -83,13 +83,13 @@ namespace MeteorDefenseVR.EyeTracking
             ResetSequence();
             if (points == null || points.Length == 0)
             {
-                SetStatus("시선 인식 지점이 설정되지 않았습니다.");
+                SetStatus("준비에 문제가 생겼어요.\n안내 선생님에게 알려 주세요.");
                 return;
             }
 
             IsRunning = true;
             SubscribePoints();
-            SetStatus("시선 인식을 시작합니다. 화면에 나타나는 점을 바라봐 주세요.");
+            SetStatus("눈의 위치를 맞출게요.\n화면에 나타나는 점을 바라보세요.");
             ActivatePoint(0);
         }
 
@@ -101,7 +101,7 @@ namespace MeteorDefenseVR.EyeTracking
             if (vrProvider != null) vrProvider.ForceHeadGazeMode();
             IsTrackingFailed = false;
             invalidTrackingTime = 0f;
-            SetStatus("Head Gaze Mode로 진행합니다. 화면의 점을 바라봐 주세요.");
+            SetStatus("고개를 천천히 돌려\n가운데 조준점을 빛나는 점에 맞추세요.");
         }
 
         public void ResetSequence()
@@ -145,7 +145,7 @@ namespace MeteorDefenseVR.EyeTracking
             IsRunning = false;
             IsComplete = true;
             CurrentPointIndex = points.Length;
-            SetStatus("시선 인식 완료!");
+            SetStatus("준비됐어요! 이제 시작해 볼까요?");
             CalibrationCompleted?.Invoke();
             if (completionDisplayDuration > 0f) yield return new WaitForSecondsRealtime(completionDisplayDuration);
             gameFlow?.CompleteCalibration();

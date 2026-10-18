@@ -71,14 +71,14 @@ namespace MeteorDefenseVR.Editor
 
             RectTransform left = Panel(telemetry, "HealthPanel", imageMaterial);
             Place(left, new Vector2(.24f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(238f, 94f));
-            Text(left, "HealthLabel", "HP / SHIELD", font, fontMaterial, 16f,
+            Text(left, "HealthLabel", "방어막", font, fontMaterial, 16f,
                 new Vector2(.5f, 1f), new Vector2(0f, -6f), new Vector2(214f, 32f), new Color32(153, 226, 235, 255));
             TextMeshProUGUI health = Text(left, "HealthValue", "■■■■■■■■", font, fontMaterial, 22f,
                 new Vector2(.5f, 0f), new Vector2(0f, 3f), new Vector2(214f, 48f), new Color32(47, 231, 246, 255));
 
             RectTransform center = Panel(telemetry, "StagePanel", imageMaterial);
             Place(center, new Vector2(.5f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(282f, 94f));
-            TextMeshProUGUI stage = Text(center, "DifficultyStageValue", "NORMAL  ·  STAGE 01", font, fontMaterial, 15f,
+            TextMeshProUGUI stage = Text(center, "DifficultyStageValue", "보통  ·  구역 01", font, fontMaterial, 15f,
                 new Vector2(.5f, 1f), new Vector2(0f, -6f), new Vector2(258f, 32f), new Color32(153, 226, 235, 255));
             TextMeshProUGUI asteroidLabel = Text(center, "AsteroidLabel", string.Empty, font, fontMaterial, 1f,
                 new Vector2(.5f, .5f), Vector2.zero, Vector2.one, Color.clear);
@@ -88,7 +88,7 @@ namespace MeteorDefenseVR.Editor
 
             RectTransform right = Panel(telemetry, "ScorePanel", imageMaterial);
             Place(right, new Vector2(.76f, 1f), new Vector2(.5f, 1f), Vector2.zero, new Vector2(210f, 94f));
-            Text(right, "ScoreLabel", "SCORE", font, fontMaterial, 16f,
+            Text(right, "ScoreLabel", "점수", font, fontMaterial, 16f,
                 new Vector2(.5f, 1f), new Vector2(0f, -6f), new Vector2(186f, 32f), new Color32(153, 226, 235, 255));
             TextMeshProUGUI score = Text(right, "ScoreValue", "999,999", font, fontMaterial, 26f,
                 new Vector2(.5f, 0f), new Vector2(0f, 3f), new Vector2(186f, 48f), new Color32(47, 231, 246, 255));

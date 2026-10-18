@@ -83,7 +83,7 @@ namespace MeteorDefenseVR.PcInput
                 ResetSamples(true);
             }
             elapsed += Time.unscaledDeltaTime;
-            if (elapsed >= pointTimeout) { FallBack("보정 시간 초과 — 마우스 시선으로 전환합니다."); return; }
+            if (elapsed >= pointTimeout) { FallBack("눈을 인식하기 어려워요.\n마우스로 계속할게요."); return; }
             WebcamGazeProvider webcam = router.Webcam;
             if (elapsed < settleDuration || !webcam.HasFreshTracking || webcam.SampleNumber == lastSample) return;
             lastSample = webcam.SampleNumber;
@@ -101,7 +101,7 @@ namespace MeteorDefenseVR.PcInput
             { Message = "고개를 편안히 고정하고 표시점을 바라봐 주세요."; ResetSamples(false); return; }
             means[PointIndex] = mean;
             if (PointIndex < 4) { pointCompleteUntil = Time.unscaledTime + .3f; return; }
-            if (!webcam.Calibration.Fit(means)) { FallBack("눈의 이동 범위를 구분하기 어렵습니다. 마우스로 계속하거나 웹캠을 다시 보정하세요."); return; }
+            if (!webcam.Calibration.Fit(means)) { FallBack("눈을 인식하기 어려워요.\n마우스로 계속할게요."); return; }
             Complete();
         }
         private void Begin()
@@ -124,12 +124,20 @@ namespace MeteorDefenseVR.PcInput
             PointIndex = 0;
             IsWebcamCalibration = router.ActiveMode == PcGazeMode.WebcamGaze;
             ResetSamples(true);
-            Message = IsWebcamCalibration ? "시선 테스트를 시작합니다.\n화면에 나타나는 점을 바라봐 주세요." : "PC 시선 안내\n마우스로 둘러보고 중앙 시선점을 운석에 맞추세요.\n기기 보정을 생략합니다.";
+            Message = IsWebcamCalibration ? "눈의 위치를 맞출게요.\n고개를 편하게 두고 빛나는 점을 바라보세요." : AimInstructions();
             if (IsWebcamCalibration) router.Webcam.Calibration.Reset();
         }
         private void ResetSamples(bool resetElapsed)
         { if (resetElapsed) elapsed = 0f; stableTime = 0f; sampleCount = 0; sum = sumSquares = Vector2.zero; }
-        private void Complete() { completing = true; completeTime = 0f; Message = "시선 인식 완료!"; }
+        private string AimInstructions()
+        {
+            if (router.Simulation != null && router.Simulation.OwnsDesktopLook)
+                return "마우스로 주변을 둘러보세요.\n가운데 조준점을 운석에 맞추면 자동으로 발사돼요.";
+            return router.ActiveMode == PcGazeMode.MouseGaze
+                ? "마우스 포인터를 운석 위에 올려 보세요.\n잠시 기다리면 자동으로 발사돼요."
+                : "가운데 조준점을 운석에 맞춰 보세요.\n잠시 기다리면 자동으로 발사돼요.";
+        }
+        private void Complete() { completing = true; completeTime = 0f; Message = IsWebcamCalibration ? "준비됐어요!\n이제 운석을 조준해 볼까요?" : "준비됐어요!\n운석을 조준해 볼까요?"; }
         private void FallBack(string message)
         {
             router.SetMode(PcGazeMode.MouseGaze);
@@ -143,7 +151,7 @@ namespace MeteorDefenseVR.PcInput
             router.SetMode(PcGazeMode.WebcamGaze);
             // Restart from the ready state so gameplay hazards never run during calibration.
             Object.FindAnyObjectByType<OperationsResetController>()?.ResetExperience();
-            Message = "웹캠을 준비한 뒤 START를 누르세요.";
+            Message = "카메라에 얼굴이 보이도록 앉은 뒤\n시작을 선택하세요.";
         }
     }
 }

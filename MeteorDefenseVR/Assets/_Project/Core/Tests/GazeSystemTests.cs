@@ -128,7 +128,7 @@ namespace MeteorDefenseVR.Tests
             second.Advance(1f);
             yield return null;
             Assert.That(sequence.IsComplete, Is.True);
-            Assert.That(sequence.StatusMessage, Is.EqualTo("시선 인식 완료!"));
+            Assert.That(sequence.StatusMessage, Is.EqualTo("준비됐어요! 이제 시작해 볼까요?"));
         }
 
         private CalibrationPoint CreateCalibrationPoint(string name)

@@ -199,13 +199,13 @@ namespace MeteorDefenseVR.Tests
             Assert.That(view.FeedbackValue.text, Is.EqualTo("3"));
             launch.Tick(0f); launch.Tick(0f); launch.Tick(0f);
             view.RefreshPresentation();
-            Assert.That(view.FeedbackValue.text, Is.EqualTo("MISSION START"));
+            Assert.That(view.FeedbackValue.text, Is.EqualTo("지구를 지켜 주세요!"));
             launch.ResetLaunch();
 
             complete.BeginMissionComplete();
             complete.Tick(MissionCompleteController.PresentationDelay + .1f);
             view.RefreshPresentation();
-            Assert.That(view.FeedbackValue.text, Does.Contain("MISSION COMPLETE"));
+            Assert.That(view.FeedbackValue.text, Does.Contain("임무 완료"));
             Assert.That(view.HudCanvas.sortingOrder, Is.GreaterThanOrEqualTo(200));
             complete.ResetSequence();
         }

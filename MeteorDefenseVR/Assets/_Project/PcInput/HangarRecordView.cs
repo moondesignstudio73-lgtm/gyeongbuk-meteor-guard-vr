@@ -41,18 +41,18 @@ namespace MeteorDefenseVR.PcInput
             }
             recent=HangarLobbyView.Group("RecentRecord",root.transform);
             top=HangarLobbyView.Group("TopTen",root.transform); best=HangarLobbyView.Group("DifficultyBests",root.transform);
-            score=Text(recent.transform,"Score","SCORE —",new Vector2(-95,42),340,385,font);
-            rank=Text(recent.transform,"Rank","RANK —",new Vector2(215,42),310,155,font); rank.color=new Color(1,.8f,.43f);
+            score=Text(recent.transform,"Score","점수 —",new Vector2(-95,42),340,385,font);
+            rank=Text(recent.transform,"Rank","등급 —",new Vector2(215,42),310,155,font); rank.color=new Color(1,.8f,.43f);
             for(int i=0;i<6;i++) metrics[i]=Text(recent.transform,"Metric"+i,"—",new Vector2(i%2==0?-150:150,1-(i/2)*36),190,280,font);
             timestamp=Text(recent.transform,"Timestamp","플레이 후 기록을 확인하세요",new Vector2(0,-107),155,590,font);
-            string[] columns={"순위","SCORE","난이도","명중률","HP"}; float[] x={-268,-157,-21,112,249}; float[] widths={55,160,100,100,84};
+            string[] columns={"순위","점수","난이도","명중률","방어막"}; float[] x={-268,-157,-21,112,249}; float[] widths={55,160,100,100,84};
             for(int c=0;c<5;c++)
             {
                 Text(top.transform,"Column"+c,columns[c],new Vector2(x[c],57),145,widths[c],font);
                 for(int r=0;r<5;r++) rows[r,c]=Text(top.transform,"Row"+r+"Cell"+c,"—",new Vector2(x[c],29-r*29),185,widths[c],font);
             }
             pageText=Text(top.transform,"Page","TOP 10 / 1–5",new Vector2(0,-111),145,570,font);
-            bestRank=Text(best.transform,"HighestRank","HIGHEST RANK —",new Vector2(0,40),300,570,font); bestRank.color=new Color(1,.8f,.43f);
+            bestRank=Text(best.transform,"HighestRank","최고 등급 —",new Vector2(0,40),300,570,font); bestRank.color=new Color(1,.8f,.43f);
             for(int i=0;i<bestRows.Length;i++) bestRows[i]=Text(best.transform,"Best"+i,"—",new Vector2(0,1-i*33),190,570,font);
             status=Text(root.transform,"StorageNotice","",new Vector2(0,-179),120,580,font);
             BackButton=HangarLobbyView.Button(root.transform,"RecordsBack","뒤로가기",new Vector2(-145,-148),font,()=>action(HangarLobbyController.MenuAction.Back),new Vector2(260,48));
@@ -73,20 +73,20 @@ namespace MeteorDefenseVR.PcInput
             if(Tab==RecordTab.TopTen) DrawTop(store.TopTen());
             if(Tab==RecordTab.Best)
             {
-                bestRank.text="HIGHEST RANK  "+store.HighestRank;
+                bestRank.text="최고 등급  "+store.HighestRank;
                 for(int i=0;i<bestRows.Length;i++)
                 {
                     var level=(DifficultyLevel)i; var item=store.Best(level);
-                    bestRows[i].text=DifficultyConfig.Label(level)+"   /   "+(item==null?"아직 기록이 없습니다":item.Score.ToString("N0")+"   /   RANK "+item.Rank);
+                    bestRows[i].text=DifficultyConfig.Label(level)+"   /   "+(item==null?"아직 기록이 없어요":item.Score.ToString("N0")+"점   /   등급 "+item.Rank);
                 }
             }
         }
         private void DrawRecent(LocalMissionRecord item)
         {
-            score.text=item==null?"아직 기록이 없습니다":"SCORE "+item.Score.ToString("N0"); rank.text="RANK "+(item?.Rank??"—");
-            string[] values=item==null?new[] {"파괴 —","명중률 —","최종 HP —","난이도 —","플레이 시간 —","최고 Combo —"}
-                :new[] {"파괴 "+item.Destroyed,"명중률 "+Percent(item.Accuracy),"최종 HP "+item.RemainingHP.ToString("0.#"),
-                    "난이도 "+DifficultyConfig.Label(item.Difficulty)+(item.MaxStage>0?" · STAGE "+item.MaxStage.ToString("D2"):""),"플레이 시간 "+FormatPlayTime(item.PlayTime),"최고 Combo "+item.Combo};
+            score.text=item==null?"아직 기록이 없어요":"점수 "+item.Score.ToString("N0"); rank.text="등급 "+(item?.Rank??"—");
+            string[] values=item==null?new[] {"파괴 —","명중률 —","남은 방어막 —","난이도 —","플레이 시간 —","최고 연속 성공 —"}
+                :new[] {"파괴 "+item.Destroyed,"명중률 "+Percent(item.Accuracy),"남은 방어막 "+item.RemainingHP.ToString("0.#"),
+                    "난이도 "+DifficultyConfig.Label(item.Difficulty)+(item.MaxStage>0?" · 구역 "+item.MaxStage.ToString("D2"):""),"플레이 시간 "+FormatPlayTime(item.PlayTime),"최고 연속 성공 "+item.Combo};
             for(int i=0;i<6;i++) metrics[i].text=values[i];
             timestamp.text=item==null?"임무를 완료하면 이곳에 기록됩니다":DateTimeOffset.ParseExact(item.Timestamp,"O",CultureInfo.InvariantCulture).ToLocalTime().ToString("yyyy.MM.dd  HH:mm:ss");
         }
@@ -110,7 +110,7 @@ namespace MeteorDefenseVR.PcInput
         {
             if(shownPersistence==store.PersistenceAvailable) return;
             shownPersistence=store.PersistenceAvailable;
-            status.text=store.PersistenceAvailable?"이 기기의 최근 "+store.Capacity+"개 기록 / 이름·영상 저장 없음":"저장할 수 없어 이번 실행에서만 기록을 확인할 수 있습니다";
+            status.text=store.PersistenceAvailable?"이 기기에 최근 "+store.Capacity+"번의 도전을 기록해요. 이름과 영상은 저장하지 않아요.":"기록을 저장하지 못했어요. 게임을 닫기 전에 확인해 주세요.";
         }
         private static TextMeshPro Text(Transform parent,string name,string content,Vector2 position,float size,float width,TMP_FontAsset font)
         { var label=HangarLobbyView.Label(parent,name,content,position,size,font); label.rectTransform.sizeDelta=new Vector2(width,36); return label; }

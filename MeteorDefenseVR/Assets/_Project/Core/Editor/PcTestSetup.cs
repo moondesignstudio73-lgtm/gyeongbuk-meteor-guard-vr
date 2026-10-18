@@ -226,6 +226,7 @@ namespace MeteorDefenseVR.Editor
             foreach (string launcher in Directory.GetFiles("Tools/Launchers", "*.cmd"))
                 File.Copy(launcher, Path.Combine(output, Path.GetFileName(launcher)), true);
             File.Copy("Docs/FinalQA/OPERATOR_GUIDE.md", output + "/OPERATOR_GUIDE.md", true);
+            File.Copy("Docs/PLAYER_GUIDE.md", output + "/플레이_안내.md", true);
             Debug.Log("[PCBuild] Windows executable ready: " + Path.GetFullPath(output + "/MeteorDefenseVR.exe"));
         }
 

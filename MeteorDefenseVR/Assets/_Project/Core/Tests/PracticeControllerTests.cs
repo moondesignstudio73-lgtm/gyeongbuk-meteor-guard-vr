@@ -65,7 +65,7 @@ namespace MeteorDefenseVR.Tests
             Assert.That(controller.IsComplete, Is.True);
             Assert.That(controller.RemainingMeteors, Is.Zero);
             Assert.That(controller.PracticeScore, Is.EqualTo(200));
-            Assert.That(controller.StatusMessage, Is.EqualTo("준비 완료!"));
+            Assert.That(controller.StatusMessage, Is.EqualTo("잘했어요! 이제 출격해요."));
         }
 
         [UnityTest]

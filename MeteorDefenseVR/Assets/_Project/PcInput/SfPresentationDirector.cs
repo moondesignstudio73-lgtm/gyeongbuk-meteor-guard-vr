@@ -30,7 +30,7 @@ namespace MeteorDefenseVR.PcInput
         private readonly UnityEngine.UI.Image[] edges = new UnityEngine.UI.Image[8];
         private readonly UnityEngine.UI.Image[] ring = new UnityEngine.UI.Image[40];
         private RectTransform ringRoot;
-        private TextMeshPro bootText, ghost;
+        private TextMeshPro ghost;
         private MeshRenderer originalStart, startVisual;
         private Transform healthPanel;
         private Vector3 healthScale;
@@ -76,6 +76,7 @@ namespace MeteorDefenseVR.PcInput
             if (font == null) { enabled = false; return; }
             BuildOverlay(font, fontMaterial);
             InitializeFeel(font, fontMaterial);
+            BuildTransitions(font);
             foreach (var point in FindObjectsByType<CalibrationPoint>(FindObjectsInactive.Include))
                 if (point.GetComponent<CalibrationPointMotion>() == null) point.gameObject.AddComponent<CalibrationPointMotion>().ConfigureLegacy(point);
             if (startTarget != null)
@@ -138,11 +139,6 @@ namespace MeteorDefenseVR.PcInput
                 ring[i].color = Color.clear;
             }
             ringRoot.gameObject.SetActive(false);
-            bootText = Text("SystemOnline", font, fontMaterial); bootText.fontSize = 1.3f;
-            bootText.GetComponent<MeshRenderer>().sortingOrder = 21;
-            // Exercise the same rich-text parser in Ready, not on the first Intro frame.
-            bootText.text = "<align=center><color=#BFF9FF><size=1.3>SYSTEM ONLINE</size></color></align>";
-            bootText.transform.localPosition = new Vector3(0, .15f, 2.65f); bootText.rectTransform.sizeDelta = new Vector2(3, .4f); bootText.enabled = false;
             ghost = Text("OutgoingPanel", font, fontMaterial); ghost.enabled = false;
         }
         private TextMeshPro Text(string name, TMP_FontAsset font, Material material)
@@ -171,6 +167,7 @@ namespace MeteorDefenseVR.PcInput
         private void Transition(GameState from, GameState to)
         {
             TransitionFeel(to);
+            TransitionArrival(to);
             TransitionCount++;
             if (to != GameState.Boot) CaptureOutgoing();
             if (to == GameState.Reset) { BeginBoot(true); return; }
@@ -205,7 +202,7 @@ namespace MeteorDefenseVR.PcInput
         {
             booting = false;
             if (curtain != null) curtain.color = Color.clear;
-            if (bootText != null) bootText.enabled = false;
+            if (loadingOverlay != null) loadingOverlay.gameObject.SetActive(false);
             if (startTarget != null) startTarget.enabled = startWasEnabled;
             startFeedback?.SetAvailable(true);
             if (startVisual != null) startVisual.enabled = true;
@@ -247,9 +244,7 @@ namespace MeteorDefenseVR.PcInput
                 curtain.color = new Color(0, .005f, .012f, opacity);
                 bool preparing = preparation != null && !preparation.IsComplete;
                 bool resetAudioPending = resetting && audio != null && audio.IsBgmTransitioning;
-                bootText.enabled = age > .05f;
-                bootText.color = Cyan;
-                bootText.text = preparing ? preparation.Stage : resetting ? "SYSTEM RESET / READY" : "DEFENSE SYSTEM ONLINE";
+                if (resetting) curtain.color = new Color(0, .005f, .012f, .92f);
                 if (preparing)
                 {
                     curtain.color = new Color(0, .005f, .012f, .92f);
@@ -276,6 +271,7 @@ namespace MeteorDefenseVR.PcInput
             if (healthPanel != null) healthPanel.localScale = healthScale * (1f + .035f * WorldTextMotion.Pulse(healthAge, .3f));
             UpdateDwell();
             TickFeel(dt);
+            TickTransitions(dt);
         }
         private void UpdateDwell()
         {
@@ -300,6 +296,7 @@ namespace MeteorDefenseVR.PcInput
             GazeLockOnTarget.GlobalLocked -= Locked;
             if (hud != null) hud.HealthChanged -= HealthChanged;
             if (initialized) EndBoot();
+            if (stageCard != null) stageCard.gameObject.SetActive(false);
             if (healthPanel != null) healthPanel.localScale = healthScale;
         }
         private void OnDestroy()
@@ -308,7 +305,7 @@ namespace MeteorDefenseVR.PcInput
             if (originalStart != null) originalStart.forceRenderingOff = false;
             if (startVisual != null) Destroy(startVisual.gameObject);
             if (overlay != null) Destroy(overlay.gameObject);
-            if (bootText != null) Destroy(bootText.gameObject);
+            if (loadingOverlay != null) Destroy(loadingOverlay.gameObject);
             if (ghost != null) Destroy(ghost.gameObject);
         }
     }

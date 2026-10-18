@@ -85,10 +85,10 @@ namespace MeteorDefenseVR.Tests
             Assert.That(result.IsVisible, Is.True);
             Assert.That(result.Rank, Is.EqualTo("A"));
             string text = ResultView.Format(result.Snapshot, result.Rank);
-            Assert.That(text, Does.Contain("MISSION RESULT"));
+            Assert.That(text, Does.Contain("이번 임무의 기록"));
             Assert.That(text, Does.Contain("2,500"));
             Assert.That(text, Does.Contain("100%"));
-            Assert.That(text, Does.Contain("FINAL RANK  A"));
+            Assert.That(text, Does.Contain("최종 등급 A"));
         }
     }
 }

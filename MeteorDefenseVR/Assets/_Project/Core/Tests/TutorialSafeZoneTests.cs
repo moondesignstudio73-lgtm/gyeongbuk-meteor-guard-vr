@@ -53,7 +53,7 @@ namespace MeteorDefenseVR.Tests
             var router=Object.FindAnyObjectByType<GazeInputRouter>();router.SetMode(PcGazeMode.WindowsVRSimulation);
             var simulation=router.Simulation;var camera=Camera.main;var flow=GameFlowManager.Instance;flow.StartTutorial();yield return new WaitForSecondsRealtime(.25f);
             var view=Object.FindAnyObjectByType<TutorialSafeZoneView>();var tutorial=Object.FindAnyObjectByType<TutorialController>();
-            Assert.That(view.IsVisible,Is.True);Assert.That(view.CurrentInstruction,Is.EqualTo(tutorial.Instruction));Assert.That(view.InstructionText.text,Does.Contain("LOCK ON"));
+            Assert.That(view.IsVisible,Is.True);Assert.That(view.CurrentInstruction,Is.EqualTo(tutorial.Instruction));Assert.That(view.InstructionText.text,Does.Contain("자동으로 발사"));
             foreach(Renderer legacy in view.SuppressedWorldRenderers)legacy.enabled=true;
             Object.FindAnyObjectByType<TutorialStatusView>(FindObjectsInactive.Include).SetInstruction(tutorial.Instruction);
             foreach(Renderer legacy in view.SuppressedWorldRenderers)
@@ -74,7 +74,8 @@ namespace MeteorDefenseVR.Tests
                     view.InstructionText.ForceMeshUpdate(true,true);Canvas.ForceUpdateCanvases();
                     bool rendered=false;for(int attempt=0;attempt<4&&!rendered;attempt++){camera.Render();rendered=TutorialPixelsVisible(camera);}
                     Assert.That(rendered,Is.True,name+" tutorial pixels");
-                    Assert.That(view.InstructionText.textInfo.characterCount,Is.GreaterThan(40),name+" combined text mesh");
+                    Assert.That(view.InstructionText.textInfo.characterCount,Is.GreaterThanOrEqualTo(tutorial.Instruction.Length),name+" complete instruction mesh");
+                    Assert.That(view.InstructionText.isTextTruncated,Is.False,name+" instruction must fit");
                     string folder=Path.Combine("Docs/TutorialSafeZoneQA",name);Directory.CreateDirectory(folder);render.SaveGameOnlyProof(folder,router);
                 }
             }

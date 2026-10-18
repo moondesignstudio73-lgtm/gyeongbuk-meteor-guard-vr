@@ -18,7 +18,6 @@ namespace MeteorDefenseVR.PcInput
         private LaunchSequenceController launch;
         private AudioManager audio;
         private TextMeshPro flightNotice, praise;
-        private UnityEngine.UI.Image preparationBar;
         private bool ambientStarted;
         private float noticeAge = 10f, noticeDuration, praiseAge = 10f, lastKill = -10f, praiseAllowedAt, dangerAllowedAt;
         private int streak, noticePriority;
@@ -36,16 +35,13 @@ namespace MeteorDefenseVR.PcInput
             launch = FindAnyObjectByType<LaunchSequenceController>(FindObjectsInactive.Include);
             audio = FindAnyObjectByType<AudioManager>();
             flightNotice = Text("FlightNotice", font, material); flightNotice.fontSize = 1f;
-            flightNotice.text = "WAVE 01 / APPROACH";
+            flightNotice.text = "운석이 다가와요!";
             flightNotice.rectTransform.sizeDelta = new Vector2(4.8f,.65f);
             flightNotice.transform.localPosition = new Vector3(0,.6f,2.65f); flightNotice.enabled = false;
             praise = Text("CombatPraise", font, material); praise.fontSize = .9f;
-            praise.text = "NICE / COMBO x3";
+            praise.text = "멋져요! 3번 연속 성공!";
             praise.rectTransform.sizeDelta = new Vector2(4,.5f);
             praise.transform.localPosition = new Vector3(0,-.4f,2.65f); praise.enabled = false;
-            preparationBar = Image("PreparationProgress", overlay, new Vector2(-160,-36), new Vector2(0,3));
-            preparationBar.rectTransform.pivot = new Vector2(0,.5f); preparationBar.color = Cyan;
-            preparationBar.gameObject.SetActive(false);
         }
         private void BindFeel()
         {
@@ -82,7 +78,7 @@ namespace MeteorDefenseVR.PcInput
         private void WaveStarted(int index, MeteorWaveData wave)
         {
             if (flow == null || flow.CurrentState != GameState.Playing) return;
-            ShowNotice(wave.DisplayName, Cyan, 1.15f, 1); Pulse(Cyan); WaveNoticeCount++;
+            ShowNotice($"{index}번째 운석 무리가 다가와요!", Cyan, 1.15f, 1); Pulse(Cyan); WaveNoticeCount++;
             audio?.TryPlay(AudioCue.Countdown);
         }
         private void CombatHit(MeteorController meteor, Vector3 position)
@@ -91,7 +87,7 @@ namespace MeteorDefenseVR.PcInput
             if (meteor.State != MeteorLifecycleState.Destroyed) return;
             streak = Time.unscaledTime - lastKill <= 4f ? streak + 1 : 1; lastKill = Time.unscaledTime;
             if (streak % 3 != 0 || Time.unscaledTime < praiseAllowedAt) return;
-            praise.text = streak == 3 ? "NICE / COMBO x3" : streak == 6 ? "GREAT / COMBO x6" : "GREAT LOCK";
+            praise.text = $"멋져요! {streak}번 연속 성공!";
             praise.enabled = true; praiseAge = 0f; praiseAllowedAt = Time.unscaledTime + 4f; PraiseCount++;
         }
         private void BossStage(BossClimaxStage stage, string message)
@@ -113,9 +109,6 @@ namespace MeteorDefenseVR.PcInput
         }
         private void TickFeel(float dt)
         {
-            preparationBar.gameObject.SetActive(booting && IsPreparing);
-            if (booting && IsPreparing)
-                preparationBar.rectTransform.sizeDelta = new Vector2(320f * preparation.CompletedSteps / preparation.TotalSteps,3);
             if (flow.CurrentState == GameState.Boot && !booting && !IsPreparing && !ambientStarted)
             { ambientStarted = true; audio?.TryPlay(AudioCue.IntroSpaceAmbient); }
             noticeAge += dt; praiseAge += dt;
@@ -136,7 +129,7 @@ namespace MeteorDefenseVR.PcInput
             if (combat && hud != null && hud.CurrentHealth > 0 && hud.CurrentHealth <= hud.MaxHealth * .3f && Time.unscaledTime >= dangerAllowedAt)
             {
                 dangerAllowedAt = Time.unscaledTime + 6f;
-                if (flow.CurrentState == GameState.Playing) ShowNotice("SHIELD LOW / 방어막 위험", Warning,1.1f,2);
+                if (flow.CurrentState == GameState.Playing) ShowNotice("방어막이 약해졌어요! 운석을 막아 주세요.", Warning,1.1f,2);
                 Pulse(Warning); audio?.TryPlay(AudioCue.Warning);
             }
         }

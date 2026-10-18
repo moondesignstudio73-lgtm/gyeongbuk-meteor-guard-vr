@@ -105,7 +105,7 @@ namespace MeteorDefenseVR.PcInput
         {
             if(instructionText==null)return;
             CurrentInstruction=message??string.Empty;
-            instructionText.text="<size=27><b><cspace=3>TUTORIAL // GAZE TRAINING</cspace></b></size>\n<size=48><b>"+CurrentInstruction+"</b></size>";
+            instructionText.text="<size=27><b>조준 연습</b></size>\n<size=48><b>"+CurrentInstruction+"</b></size>";
             RefreshTextGeometry();
         }
 

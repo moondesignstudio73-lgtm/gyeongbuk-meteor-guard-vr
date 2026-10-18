@@ -15,7 +15,7 @@ namespace MeteorDefenseVR.Editor
             Transform decor = ready.Find("ReadyDecorations");
             TextMesh instructions = EnsureText(decor, "ReadyInstructions");
             instructions.transform.localPosition = new Vector3(0, -.1f, 3.82f);
-            instructions.text = "VR 운석 맞추기\n\n지구를 향해 날아오는 운석을\n시선으로 파괴하세요.";
+            instructions.text = "VR 운석 맞추기\n\n운석에 조준점을 맞추고\n지구를 지켜 주세요!";
             Present(instructions, font, 2.1f, 3.6f, 1.3f);
             ready.Find("ReadyTitle").localPosition = new Vector3(0, 1.05f, 3.82f);
             Present(ready.Find("ReadyTitle").GetComponent<TextMesh>(), font, 3.3f, 3.7f, .55f);
@@ -26,7 +26,7 @@ namespace MeteorDefenseVR.Editor
             Present(decor.Find("StartLabel").GetComponent<TextMesh>(), font, 2.6f, 1.3f, .4f);
             TextMesh prompt = EnsureText(decor, "ReadyPrompt");
             prompt.transform.localPosition = new Vector3(0, -1.03f, 3.82f);
-            prompt.text = "준비가 되면 START를 바라보세요.";
+            prompt.text = "시작에 조준점을 맞춰 보세요.";
             Present(prompt, font, 1.8f, 3.5f, .3f);
 
             Present(camera.transform.Find("MissionCompleteText").GetComponent<TextMesh>(), font, 3f, 3.15f, .9f);

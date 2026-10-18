@@ -133,7 +133,7 @@ namespace MeteorDefenseVR.PcInput
             resumeButton = Button(canvasObject.transform, "ResumeSimulation", "게임으로 돌아가기 / ESC", Vector2.zero, new Vector2(370, 52), () => router.Simulation?.Resume()).gameObject;
             var resumeRect = resumeButton.GetComponent<RectTransform>(); resumeRect.anchorMin = resumeRect.anchorMax = resumeRect.pivot = Vector2.one * .5f;
             resumeRect.anchoredPosition = new Vector2(0, -120);
-            simulationHelp = Label(canvasObject.transform, "SimulationHelp", "마우스로 주변을 둘러보세요.\nESC를 누르면 커서가 해제됩니다.", Vector2.zero, new Vector2(960, 90), 24);
+            simulationHelp = Label(canvasObject.transform, "SimulationHelp", "마우스로 둘러보고 조준점을 메뉴에 맞추세요.\nEsc를 누르면 잠시 쉴 수 있어요.", Vector2.zero, new Vector2(960, 90), 24);
             simulationHelp.rectTransform.anchorMin = simulationHelp.rectTransform.anchorMax = simulationHelp.rectTransform.pivot = new Vector2(.5f, 0);
             simulationHelp.rectTransform.anchoredPosition = new Vector2(0, 100); simulationHelp.alignment = TextAlignmentOptions.Center;
             BuildLookSettings();
@@ -145,14 +145,14 @@ namespace MeteorDefenseVR.PcInput
             DockBottom(lookSettingsButton, true, 20, 76);
             lookSettingsPanel = Rect("LookSettingsPanel", canvasObject.transform, Vector2.one * .5f, Vector2.one * .5f, new Vector2(0, 80), new Vector2(620, 330)).gameObject;
             Background(lookSettingsPanel, new Color(.005f, .025f, .045f, .98f));
-            Label(lookSettingsPanel.transform, "Title", "FLIGHT CONTROL / 시점 설정", new Vector2(24, -18), new Vector2(572, 40), 27);
+            Label(lookSettingsPanel.transform, "Title", "편하게 둘러보기", new Vector2(24, -18), new Vector2(572, 40), 27);
             for (int i = 0; i < 4; i++) lookSettingsValues[i] = Label(lookSettingsPanel.transform, "Value" + i, "", new Vector2(24, -72 - i * 44), new Vector2(340, 36), 23);
             Button(lookSettingsPanel.transform, "SensitivityDown", "−", new Vector2(390, -72), new Vector2(85, 36), () => router.Simulation.Sensitivity -= .1f);
             Button(lookSettingsPanel.transform, "SensitivityUp", "+", new Vector2(490, -72), new Vector2(85, 36), () => router.Simulation.Sensitivity += .1f);
             Button(lookSettingsPanel.transform, "InvertY", "변경", new Vector2(390, -116), new Vector2(185, 36), () => router.Simulation.InvertY = !router.Simulation.InvertY);
             Button(lookSettingsPanel.transform, "CenterPoint", "변경", new Vector2(390, -160), new Vector2(185, 36), () => router.Simulation.ShowCenterPoint = !router.Simulation.ShowCenterPoint);
             Button(lookSettingsPanel.transform, "CameraShake", "변경", new Vector2(390, -204), new Vector2(185, 36), () => router.Simulation.Shake = (CameraShakeLevel)(((int)router.Simulation.Shake + 1) % 3));
-            Label(lookSettingsPanel.transform, "Comfort", "VR은 흔들림 항상 끔 · 웹캠은 고개를 돌려 유지하면 회전", new Vector2(24, -256), new Vector2(570, 26), 16);
+            Label(lookSettingsPanel.transform, "Comfort", "눈이 편한 속도와 움직임으로 맞춰 보세요.", new Vector2(24, -256), new Vector2(570, 26), 16);
             Button(lookSettingsPanel.transform, "Close", "닫기", new Vector2(240, -289), new Vector2(140, 32), () => settingsOpen = false);
             lookSettingsPanel.SetActive(false);
         }
@@ -186,12 +186,17 @@ namespace MeteorDefenseVR.PcInput
                 nextSettingsText = Time.unscaledTime + .1f;
                 var look = router.Simulation;
                 lookSettingsValues[0].text = $"마우스 감도   {look.Sensitivity:F1}";
-                lookSettingsValues[1].text = "상하 반전   " + (look.InvertY ? "ON" : "OFF");
-                lookSettingsValues[2].text = "시선점 표시   " + (look.ShowCenterPoint ? "ON" : "OFF");
-                lookSettingsValues[3].text = "카메라 흔들림   " + (look.Shake == CameraShakeLevel.Off ? "끔" : look.Shake == CameraShakeLevel.Weak ? "약" : "강");
+                lookSettingsValues[1].text = "위아래 방향 반전   " + (look.InvertY ? "켬" : "끔");
+                lookSettingsValues[2].text = "조준점 표시   " + (look.ShowCenterPoint ? "켬" : "끔");
+                lookSettingsValues[3].text = "화면 흔들림   " + (look.Shake == CameraShakeLevel.Off ? "끔" : look.Shake == CameraShakeLevel.Weak ? "약하게" : "강하게");
             }
             resumeButton.SetActive(paused);
             simulationHelp.gameObject.SetActive(simulation && (isBoot || paused) && !calibrating);
+            string help = paused ? "잠시 쉬어 가세요.\nEsc를 누르면 다시 이어서 플레이해요."
+                : router.ActiveMode == PcGazeMode.WebcamGaze
+                    ? "고개를 천천히 돌려 조준점을 메뉴에 맞추세요.\nEsc를 누르면 잠시 쉴 수 있어요."
+                    : "마우스로 둘러보고 조준점을 메뉴에 맞추세요.\nEsc를 누르면 잠시 쉴 수 있어요.";
+            if (simulationHelp.text != help) simulationHelp.text = help;
             if (!operatorUi && !development) menuOpen = false;
             panel.SetActive(!settingsOpen && !calibrating && (operatorUi || development) && (menuOpen || paused));
             router.UiModalOpen = panel.activeSelf || lookSettingsPanel.activeSelf;
@@ -206,14 +211,14 @@ namespace MeteorDefenseVR.PcInput
             debug.gameObject.SetActive(development);
             bool mouseFallback = router.ActiveMode == PcGazeMode.MouseGaze && !string.IsNullOrEmpty(router.Notice);
             fallbackNotice.gameObject.SetActive(!development && !operatorUi && !calibrating && mouseFallback);
-            fallbackNotice.text = mouseFallback ? "마우스로 둘러보고 중앙 시선점을 운석에 맞추세요." : string.Empty;
+            fallbackNotice.text = !mouseFallback ? string.Empty : simulation
+                ? "마우스로 둘러보며 가운데 조준점을 운석에 맞추세요."
+                : "마우스 포인터를 운석 위에 올리면 자동으로 공격해요.";
             calibrationPanel.SetActive(calibrating);
             pointRect.gameObject.SetActive(calibrating && calibration.IsWebcamCalibration);
             if (calibrating)
             {
                 instruction.text = calibration.Message + (calibration.IsWebcamCalibration ? $"\n{Mathf.Min(calibration.PointIndex + 1, 5)} / 5" : "");
-                if (!calibration.IsWebcamCalibration && calibration.Message == "시선 인식 완료!")
-                    instruction.text = "입력 안내 완료!\n마우스로 미션을 시작합니다.";
                 pointRect.anchorMin = pointRect.anchorMax = calibration.Target;
                 pointText.text = calibration.Progress >= .99f ? "●" : calibration.Progress > .15f ? "◉" : "○";
                 pointText.color = calibration.IsPointComplete ? CalibrationProgressRing.CompleteGreen : CalibrationProgressRing.ActiveRed;

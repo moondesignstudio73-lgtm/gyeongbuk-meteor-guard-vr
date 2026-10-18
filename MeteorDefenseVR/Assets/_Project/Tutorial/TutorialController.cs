@@ -76,7 +76,7 @@ namespace MeteorDefenseVR.Tutorial
             reminderShown = false;
             IsComplete = false;
             IsRunning = true;
-            SetInstruction("운석을 바라보세요.\nLOCK ON 되면 자동으로 공격합니다.");
+            SetInstruction("조준점을 운석에 맞추세요.\n잠시 기다리면 자동으로 발사돼요.");
 
             GameObject meteorObject = CreateTutorialMeteor();
             ActiveMeteor = meteorObject.GetComponent<MeteorController>();
@@ -98,7 +98,7 @@ namespace MeteorDefenseVR.Tutorial
             elapsedWithoutSuccess += Mathf.Max(0f, deltaTime);
             if (elapsedWithoutSuccess < reminderDelay) return;
             reminderShown = true;
-            SetInstruction("운석을 계속 바라봐 주세요.\n초록색 LOCK ON 후 자동 발사됩니다.");
+            SetInstruction("조준점을 운석에 계속 맞춰 주세요.\n초록색으로 바뀌면 자동으로 발사돼요.");
             pulseView?.SetPulsing(true);
             ReminderActivated?.Invoke();
         }
@@ -127,7 +127,7 @@ namespace MeteorDefenseVR.Tutorial
             IsComplete = true;
             IsRunning = false;
             pulseView?.SetPulsing(false);
-            SetInstruction("좋아요! 이런 방식으로 운석을 파괴하세요.");
+            SetInstruction("잘했어요!\n이제 다른 운석도 맞혀 볼까요?");
             TutorialSucceeded?.Invoke();
             completionRoutine = StartCoroutine(CompleteAfterDelay());
         }
