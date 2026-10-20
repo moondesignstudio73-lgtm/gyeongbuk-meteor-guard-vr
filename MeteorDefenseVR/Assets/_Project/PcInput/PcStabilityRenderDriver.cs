@@ -26,7 +26,7 @@ namespace MeteorDefenseVR.PcInput
         {
             if (GameCamera != null && GameCamera.targetTexture != null)
             {
-                GameCamera.Render();
+                RenderForProof(GameCamera);
                 RenderCompleted?.Invoke();
             }
             if (AllocationCounterAvailable)
@@ -36,6 +36,15 @@ namespace MeteorDefenseVR.PcInput
                 previousAllocation = current;
             }
             else LastFrameMainThreadAllocation = -1;
+        }
+        public static void RenderForProof(Camera camera)
+        {
+            // Batch players do not automatically render the cinema's texture camera.
+            // Render its input before capturing the main camera that composites it.
+            foreach (var auxiliary in Camera.allCameras)
+                if (auxiliary != camera && auxiliary.enabled && auxiliary.targetTexture != null
+                    && auxiliary.name == "FlightFilmCamera") auxiliary.Render();
+            camera.Render();
         }
     }
 }

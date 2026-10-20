@@ -146,12 +146,11 @@ namespace MeteorDefenseVR.PcInput
         {
             snapshot ??= new GameSessionSnapshot();
             string score = snapshot.Score.ToString("N0");
-            string scoreSize = (2.6f * Mathf.Min(1f, 5f / score.Length)).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
             return (snapshot.MissionFailed ? "<align=center><color=#FF7952>다시 도전해요!</color></align>\n" : "<align=center><color=#BAFAFF>이번 임무의 기록</color></align>\n")
-                + $"<align=left><size=2.3>점수<pos=65%><color=#FFD18A><size={scoreSize}>{score}</size></color>\n"
-                + $"파괴한 운석<pos=65%>{snapshot.DestroyedMeteors}\n"
-                + $"명중률<pos=65%>{snapshot.AccuracyPercent}%\n"
-                + $"등급<pos=65%><color={(rank == "S" || rank == "A" ? "#FFC96B" : "#82FFC1")}><size=2.6>{rank}</size></color></size></align>\n"
+                + $"<align=left><size=2.3>점수<pos=45%><color=#FFD18A>{score}</color>\n"
+                + $"파괴한 운석<pos=45%>{snapshot.DestroyedMeteors:N0}\n"
+                + $"명중률<pos=45%>{snapshot.AccuracyPercent}%\n"
+                + $"등급<pos=45%><color={(rank == "S" || rank == "A" ? "#FFC96B" : "#82FFC1")}><size=2.6>{rank}</size></color></size></align>\n"
                 + $"<align=center><size=1.5><color=#9CBAC5>난이도 : {Difficulty.DifficultyConfig.Label(snapshot.Difficulty)}</color></size>\n"
                 + (snapshot.MissionFailed ? "<size=1.8><color=#FFAA88>다시 출격해 지구를 지켜요!</color></size></align>" : "<size=1.8><color=#82FFC1>지구를 지켜냈어요!</color></size></align>");
         }

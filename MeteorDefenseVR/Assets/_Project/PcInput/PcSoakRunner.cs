@@ -86,7 +86,7 @@ namespace MeteorDefenseVR.PcInput
                 string folder = Path.Combine(output, "Delivery", label);
                 Directory.CreateDirectory(folder);
                 Canvas.ForceUpdateCanvases();
-                camera.Render();
+                PcStabilityRenderDriver.RenderForProof(camera);
                 probe.SaveGameOnlyProof(folder, router);
             }
             report.gpu = SystemInfo.graphicsDeviceName + " / " + SystemInfo.graphicsDeviceType;
@@ -295,6 +295,8 @@ namespace MeteorDefenseVR.PcInput
                     yield return new WaitForSecondsRealtime(1.7f); Capture("failure-result");
                     yield return new WaitForSecondsRealtime(3f);
                     bool readableDuration = results.IsVisible;
+                    if (!ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
+                        report.issues.Add("Delivery result boundary fixture failed");
                     deadline = Time.realtimeSinceStartup + 15;
                     while (!lobby.IsMenuReady && Time.realtimeSinceStartup < deadline) yield return null;
                     Capture("failure-after-result");
@@ -318,7 +320,8 @@ namespace MeteorDefenseVR.PcInput
             }
             report.completedUtc = DateTime.UtcNow.ToString("O");
             report.passed = report.preflight.passed && report.rounds.Count == repetitions && report.rounds.All(r => r.passed)
-                && !report.issues.Contains("Delivery failure/return fixture failed");
+                && !report.issues.Contains("Delivery failure/return fixture failed")
+                && !report.issues.Contains("Delivery result boundary fixture failed");
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);
