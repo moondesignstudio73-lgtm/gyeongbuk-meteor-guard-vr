@@ -12,6 +12,8 @@ namespace MeteorDefenseVR.PcInput
         private UnityEngine.UI.Button button;
         private Action action;
         private bool consumed;
+        private readonly GazeMenuSelectionGate selectionGate = new GazeMenuSelectionGate();
+        private void OnEnable() => selectionGate.OpenScreen();
         public float Progress { get; private set; }
         public void Configure(UIInteractionAnimator animator, CalibrationProgressRing progress,
             UnityEngine.UI.Image outline, Action selected)
@@ -25,17 +27,18 @@ namespace MeteorDefenseVR.PcInput
             button.interactable = value; feedback.SetAvailable(value);
             if (!value) OnGazeExit();
         }
-        public void OnGazeEnter(RaycastHit _) { if (Available) Focus(true); }
+        public void OnGazeEnter(RaycastHit _) { selectionGate.Enter(transform.position); if (Available && selectionGate.IsOpen) Focus(true); }
         public void OnGazeStay(RaycastHit _, float deltaTime)
         {
-            if (!Available || consumed || !Core.RuntimeValueGuard.IsFinite(deltaTime) || deltaTime <= 0) return;
+            if (!Available || !selectionGate.IsOpen || consumed || !Core.RuntimeValueGuard.IsFinite(deltaTime) || deltaTime <= 0) return;
             Progress = Mathf.Clamp01(Progress + deltaTime / .7f); Focus(true);
             if (Progress >= 1) Choose();
         }
-        public void OnGazeExit() { consumed = false; Progress = 0; Focus(false); }
+        public void OnGazeExit() { selectionGate.Exit(); consumed = false; Progress = 0; Focus(false); }
         public void Choose()
         {
-            if (!Available || consumed) return;
+            if (!Available || !selectionGate.IsOpen || consumed) return;
+            selectionGate.Confirm(transform.position);
             consumed = true; Progress = 1; Focus(true); feedback.Confirm(); action?.Invoke();
         }
         private void Focus(bool value)

@@ -64,6 +64,9 @@ namespace MeteorDefenseVR.Tests
             Assert.That(lobby.Phase,Is.EqualTo(HangarLobbyController.LobbyPhase.Difficulty));
             var selection=Object.FindAnyObjectByType<DifficultySelectionView>();
             Assert.That(selection.Choices.All(c=>c.gameObject.activeInHierarchy),Is.True);
+            selection.Choices[3].Choose();
+            Assert.That(difficulty.Selected,Is.EqualTo(DifficultyLevel.Normal),"New menu must reject an immediate carried-over selection");
+            yield return new WaitForSecondsRealtime(.45f);
             selection.Choices[3].Choose(); Assert.That(difficulty.Selected,Is.EqualTo(DifficultyLevel.Hard));
             Assert.That(lobby.LastResult.Difficulty,Is.EqualTo(DifficultyLevel.Normal)); Save(render,router,"difficulty");
             lobby.Queue(HangarLobbyController.MenuAction.Back); yield return new WaitForSecondsRealtime(.3f);
@@ -117,7 +120,7 @@ namespace MeteorDefenseVR.Tests
             float end=Time.realtimeSinceStartup+timeout;
             while(!lobby.IsMenuReady && Time.realtimeSinceStartup<end)yield return null;
             Assert.That(lobby.IsMenuReady,Is.True,"Docking/calibration must complete before menu activation");
-            yield return new WaitForSecondsRealtime(.1f);
+            yield return new WaitForSecondsRealtime(.45f);
         }
         private static void Save(PcStabilityProbe render,GazeInputRouter router,string stage)
         {

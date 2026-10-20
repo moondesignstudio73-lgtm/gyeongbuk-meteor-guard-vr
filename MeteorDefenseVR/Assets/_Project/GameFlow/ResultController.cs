@@ -15,6 +15,8 @@ namespace MeteorDefenseVR.GameFlow
         public GameSessionSnapshot Snapshot { get; private set; }
         public string Rank { get; private set; } = "C";
         public bool IsVisible { get; private set; }
+        public bool IsPresentationPending { get; private set; }
+        public Func<bool> BeforeFailedResult { get; set; }
         public float DisplayDuration => displayDuration;
 
         public event Action<GameSessionSnapshot, string> ResultShown;
@@ -46,12 +48,22 @@ namespace MeteorDefenseVR.GameFlow
             stats?.StopSession();
             Snapshot = stats != null ? stats.CreateSnapshot() : new GameSessionSnapshot();
             Rank = rankSettings != null ? rankSettings.Evaluate(Snapshot) : "C";
+            IsPresentationPending = Snapshot.MissionFailed && BeforeFailedResult != null && BeforeFailedResult();
+            if (IsPresentationPending) return;
+            RevealPreparedResult();
+        }
+
+        public void RevealPreparedResult()
+        {
+            if (Snapshot == null) return;
+            IsPresentationPending = false;
             IsVisible = true;
             ResultShown?.Invoke(Snapshot, Rank);
         }
 
         public void HideResult()
         {
+            IsPresentationPending = false;
             Snapshot = null;
             Rank = "C";
             if (!IsVisible) return;

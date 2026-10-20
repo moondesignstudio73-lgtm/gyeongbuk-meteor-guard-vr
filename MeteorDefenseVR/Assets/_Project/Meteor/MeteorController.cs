@@ -173,7 +173,7 @@ namespace MeteorDefenseVR.Meteor
 
             transform.position = next;
             if (rotateWhileMoving)
-                transform.Rotate(angularVelocity * deltaTime, Space.Self);
+                transform.Rotate(angularVelocity * deltaTime * (meteorType == MeteorType.Large || meteorType == MeteorType.Boss ? .45f : 1f), Space.Self);
         }
 
         public bool ReceiveDamage(float amount)

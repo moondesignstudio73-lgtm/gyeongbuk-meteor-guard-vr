@@ -35,6 +35,7 @@ namespace MeteorDefenseVR.PcInput
         private HangarLobbyView view;
         private LocalRankingController ranking;
         private StageProgressionController progression;
+        private BaseFlightCinematic flightCinematic;
         private LobbyPhase recordsReturnPhase;
         private float elapsed, commandAt;
         private bool initialized, internalReset;
@@ -62,6 +63,8 @@ namespace MeteorDefenseVR.PcInput
             ranking.Initialize(flow,result);
             view=gameObject.AddComponent<HangarLobbyView>();
             view.Build(Camera.main,hangar,leftDoor,rightDoor,font,Queue);
+            flightCinematic=gameObject.AddComponent<BaseFlightCinematic>();
+            flightCinematic.Initialize(flow,launch,result);
             initialized=true; Bind();
         }
         private void Bind()
@@ -84,6 +87,7 @@ namespace MeteorDefenseVR.PcInput
             if(!isActiveAndEnabled || !initialized || flow.CurrentState!=GameState.Result) return false;
             if(Phase!=LobbyPhase.Hidden) return true;
             LastResult=result.Snapshot; result.HideResult(); reset.CancelResultTimer();
+            if(flightCinematic!=null && flightCinematic.HasReturned) { flightCinematic.DismissDockedBackdrop(); EnterMenu(); return true; }
             SetPhase(LobbyPhase.Returning); audio?.TryPlay(AudioCue.EngineStart); return true;
         }
         public void Queue(MenuAction action)

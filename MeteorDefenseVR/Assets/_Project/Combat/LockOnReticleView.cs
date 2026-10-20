@@ -17,6 +17,8 @@ namespace MeteorDefenseVR.Combat
         private float focusAge;
         private bool previousAimReady;
         private GazeLockOnTarget subscribedTarget;
+        private float arrivalAge = 10f;
+        private Vector3[] bracketPositions;
 
         private void OnEnable()
         {
@@ -43,7 +45,30 @@ namespace MeteorDefenseVR.Combat
 
         private void Update()
         {
-            if (target == null || progressRing == null || !progressRing.enabled) return;
+            if (target == null) return;
+            arrivalAge += Time.deltaTime;
+            bool focusing = target.State == LockOnState.Focusing || target.State == LockOnState.Locked;
+            if (tacticalBrackets != null)
+            {
+                if (bracketPositions == null || bracketPositions.Length != tacticalBrackets.Length)
+                {
+                    bracketPositions = new Vector3[tacticalBrackets.Length];
+                    for (int i = 0; i < tacticalBrackets.Length; i++) if (tacticalBrackets[i] != null) bracketPositions[i] = tacticalBrackets[i].transform.localPosition;
+                }
+                float scale = Mathf.Lerp(1.3f, 1f, Mathf.SmoothStep(0, 1, focusAge / .12f));
+                for (int i = 0; i < tacticalBrackets.Length; i++)
+                {
+                    var bracket = tacticalBrackets[i]; if (bracket == null) continue;
+                    bracket.enabled = target.IsAvailable && (focusing || arrivalAge < .35f);
+                    bracket.transform.localPosition = bracketPositions[i] * (focusing ? scale : 1.12f);
+                    if (!focusing && bracket is LineRenderer line)
+                    {
+                        Color tint = focusingColor; tint.a = .45f * Mathf.Clamp01(1 - arrivalAge / .35f);
+                        line.startColor = line.endColor = tint;
+                    }
+                }
+            }
+            if (progressRing == null || !progressRing.enabled) return;
             bool aimReady=PresentationLocked(target.State);
             if(aimReady!=previousAimReady){previousAimReady=aimReady;Refresh(target.Progress,target.State);}
             focusAge += Time.unscaledDeltaTime;
@@ -71,6 +96,7 @@ namespace MeteorDefenseVR.Combat
             Configure(lockTarget, ring, text);
         }
 
+        private void HandleArrival(MeteorDefenseVR.Meteor.MeteorController _) { arrivalAge = 0f; }
         private void HandleFocusStarted(GazeLockOnTarget _) { focusAge = 0f; Refresh(target.Progress, LockOnState.Focusing); }
         private void HandleProgressChanged(GazeLockOnTarget _, float progress) => Refresh(progress, target.State);
         private void HandleLocked(GazeLockOnTarget _) => Refresh(1f, LockOnState.Locked);
@@ -95,6 +121,7 @@ namespace MeteorDefenseVR.Combat
             subscribedTarget.ProgressChanged += HandleProgressChanged;
             subscribedTarget.Locked += HandleLocked;
             subscribedTarget.LockLost += HandleLockLost;
+            if (subscribedTarget.Meteor != null) subscribedTarget.Meteor.Spawned += HandleArrival;
         }
 
         private void UnsubscribeTarget()
@@ -104,6 +131,7 @@ namespace MeteorDefenseVR.Combat
             subscribedTarget.ProgressChanged -= HandleProgressChanged;
             subscribedTarget.Locked -= HandleLocked;
             subscribedTarget.LockLost -= HandleLockLost;
+            if (subscribedTarget.Meteor != null) subscribedTarget.Meteor.Spawned -= HandleArrival;
             subscribedTarget = null;
         }
 
@@ -144,7 +172,7 @@ namespace MeteorDefenseVR.Combat
             if (statusText != null)
             {
                 statusText.gameObject.SetActive(visible);
-                statusText.text = locked ? "LOCK ON" : state==LockOnState.Locked?"TURRET AIMING":"LOCKING";
+                statusText.text = locked ? "조준 완료" : state==LockOnState.Locked?"포탑 조준 중":"조준 중";
                 previousLabelState = state;
                 statusText.color = locked ? lockedColor : focusingColor;
             }

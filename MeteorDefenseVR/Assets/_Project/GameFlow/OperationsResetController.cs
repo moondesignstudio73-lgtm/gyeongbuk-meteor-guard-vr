@@ -88,6 +88,7 @@ namespace MeteorDefenseVR.GameFlow
         public void Tick(float unscaledDeltaTime)
         {
             if (!resultTimerRunning) return;
+            if (result != null && result.IsPresentationPending) return;
             resultElapsed += Mathf.Max(0f, unscaledDeltaTime);
             if (resultElapsed < resultDisplayDuration) return;
             CancelResultTimer();

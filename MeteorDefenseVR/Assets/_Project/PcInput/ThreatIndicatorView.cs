@@ -33,7 +33,7 @@ namespace MeteorDefenseVR.PcInput
     }
 
     [DefaultExecutionOrder(1400), DisallowMultipleComponent]
-    public sealed class ThreatIndicatorView : MonoBehaviour
+    public sealed partial class ThreatIndicatorView : MonoBehaviour
     {
         [SerializeField] private ViewDirectionProvider view;
         [SerializeField] private MeteorSpawner spawner;
@@ -68,6 +68,7 @@ namespace MeteorDefenseVR.PcInput
         {
             MeteorController.GlobalTargetingInvalidated -= HandleTargetingInvalidated;
             MeteorController.GlobalTargetingInvalidated += HandleTargetingInvalidated;
+            if (root != null) BindImpactPresentation();
         }
         private void Start()
         {
@@ -86,6 +87,7 @@ namespace MeteorDefenseVR.PcInput
                 var text = item.AddComponent<TextMeshProUGUI>(); text.font = font; if (overlayFontMaterial != null) text.fontSharedMaterial = overlayFontMaterial; text.fontSize = 21; text.alignment = TextAlignmentOptions.Center;
                 text.raycastTarget = false; text.textWrappingMode = TextWrappingModes.NoWrap; text.rectTransform.sizeDelta = new Vector2(160, 55); labels[i] = text;
             }
+            BuildImpactPresentation();
         }
         private void LateUpdate()
         {
@@ -93,8 +95,8 @@ namespace MeteorDefenseVR.PcInput
             bool combat = flow != null && (flow.CurrentState == GameState.Playing || flow.CurrentState == GameState.BossMeteor);
             bool enabledForSession = combat && Time.timeScale > 0 && difficulty != null &&
                 (difficulty.Session.SpawnDirections == SpawnDirectionMode.FrontAndSides || difficulty.Session.SpawnDirections == SpawnDirectionMode.FullSphere || spawner.ScenarioControlled);
-            root.gameObject.SetActive(enabledForSession);
-            if (!enabledForSession) { VisibleCount = 0; if (rearWarning != null) rearWarning.Stop(); playingThreat = null; nextWarning = 0; return; }
+            root.gameObject.SetActive(combat);
+            if (!combat) { VisibleCount = 0; impactAge = arrivalAge = 10; if (rearWarning != null) rearWarning.Stop(); playingThreat = null; nextWarning = 0; return; }
             if (Time.timeScale == 0) return;
             if (worldCanvas != view.Camera.stereoEnabled)
             {
@@ -116,7 +118,7 @@ namespace MeteorDefenseVR.PcInput
             // reusable source follows the actual threat direction as the view turns.
             if (playingThreat != null && playingThreat.IsTargetable && rearWarning != null && rearWarning.isPlaying)
                 rearWarning.transform.position = view.Position + (playingThreat.transform.position - view.Position).normalized * 2;
-            if (audioThreat != null && Time.unscaledTime >= nextWarning && audioArrival < 18 && audioManager != null)
+            if (audioThreat != null && difficulty != null && Time.unscaledTime >= nextWarning && audioArrival < 18 && audioManager != null)
             {
                 if (audioManager.TryPlaySpatial(AudioCue.Warning, rearWarning, view.Position + (audioThreat.transform.position - view.Position).normalized * 2, audioArrival < 6 ? .8f : .35f))
                 { playingThreat = audioThreat; RearWarnings++; nextWarning = Time.unscaledTime + difficulty.Session.SpatialCueInterval; }
@@ -126,7 +128,7 @@ namespace MeteorDefenseVR.PcInput
             VisibleCount = 0;
             for (int i = 0; i < labels.Length; i++)
             {
-                var text = labels[i]; var meteor = candidates[i]; bool show = !VisualsSuppressed && i < IndicatorLimit && meteor != null && arrival[i] <= difficulty.Session.WarningHorizon;
+                var text = labels[i]; var meteor = candidates[i]; bool show = enabledForSession && !VisualsSuppressed && i < IndicatorLimit && meteor != null && arrival[i] <= difficulty.Session.WarningHorizon;
                 text.gameObject.SetActive(show); if (!show) continue; VisibleCount++;
                 Vector3 local = Quaternion.Inverse(view.Rotation) * (meteor.transform.position - view.Position);
                 Vector2 edge = ThreatProjection.Edge(local, view.Camera.aspect);
@@ -140,10 +142,11 @@ namespace MeteorDefenseVR.PcInput
                 text.color = distance < redDistance ? new Color(1,.25f,.15f) : distance < orangeDistance ? new Color(1,.55f,.16f) : distance < yellowDistance ? new Color(1,.88f,.3f) : new Color(.2f,.95f,1);
                 float urgency = Mathf.Clamp01(1f-arrival[i]/Mathf.Max(1f,difficulty.Session.WarningHorizon));
                 float pulse = .5f+.5f*Mathf.Sin(Time.unscaledTime*Mathf.Lerp(4f,9f,urgency)+i*.8f);
-                text.rectTransform.localScale = Vector3.one * (1f + pulse * urgency * .075f);
+                text.rectTransform.localScale = Vector3.one * (1f + (meteor == audioThreat ? pulse * urgency * .12f : 0f));
                 if (updateText) text.text = (difficulty.Session.WarningDirectionText ? ThreatProjection.Direction(local) : ThreatProjection.Arrow(local)) +
                     (difficulty.Session.WarningDistance ? "\n" + Mathf.RoundToInt(distance) + "m" : "");
             }
+            TickImpactPresentation();
         }
         private void Consider(MeteorController meteor)
         {
@@ -179,6 +182,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void OnDisable()
         {
+            UnbindImpactPresentation();
             MeteorController.GlobalTargetingInvalidated -= HandleTargetingInvalidated;
             if (rearWarning != null) rearWarning.Stop();
             playingThreat = audioThreat = null;

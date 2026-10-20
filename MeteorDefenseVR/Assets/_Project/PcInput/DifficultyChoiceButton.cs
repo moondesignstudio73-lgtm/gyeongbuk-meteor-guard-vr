@@ -16,6 +16,8 @@ namespace MeteorDefenseVR.PcInput
         private GameObject check;
         private bool consumed, available, focused;
         private UnityEngine.UI.Button button;
+        private readonly GazeMenuSelectionGate selectionGate = new GazeMenuSelectionGate();
+        private void OnEnable() => selectionGate.OpenScreen();
         public float Progress { get; private set; }
         public DifficultyLevel Level => level;
         public void Configure(DifficultyManager owner, DifficultyLevel choice, UIInteractionAnimator animator,
@@ -39,10 +41,10 @@ namespace MeteorDefenseVR.PcInput
             if (focused != value) { focused = value; Refresh(); }
             feedback.SetGaze(value, Progress);
         }
-        public void OnGazeEnter(RaycastHit _) { if (available) feedback.SetGaze(true, 0f); }
+        public void OnGazeEnter(RaycastHit _) { selectionGate.Enter(transform.position); if (available && selectionGate.IsOpen) feedback.SetGaze(true, 0f); }
         public void OnGazeStay(RaycastHit _, float deltaTime)
         {
-            if (!available || consumed || !Core.RuntimeValueGuard.IsFinite(deltaTime) || deltaTime <= 0f) return;
+            if (!available || !selectionGate.IsOpen || consumed || !Core.RuntimeValueGuard.IsFinite(deltaTime) || deltaTime <= 0f) return;
             Progress = Mathf.Clamp01(Progress + deltaTime / .7f);
             progressBar.rectTransform.localScale = new Vector3(Progress, 1f, 1f);
             feedback.SetGaze(true, Progress);
@@ -50,13 +52,15 @@ namespace MeteorDefenseVR.PcInput
         }
         public void OnGazeExit()
         {
+            selectionGate.Exit();
             consumed = false; Progress = 0f;
             if (progressBar != null) progressBar.rectTransform.localScale = new Vector3(0, 1, 1);
             feedback?.SetGaze(false, 0);
         }
         public void Choose()
         {
-            if (!available) return;
+            if (!available || !selectionGate.IsOpen || consumed) return;
+            selectionGate.Confirm(transform.position);
             consumed = true;
             if (manager.Select(level)) feedback.Confirm();
         }

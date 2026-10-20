@@ -28,7 +28,7 @@ namespace MeteorDefenseVR.Visual
                 if (percent != previousPercent)
                 {
                     previousPercent = percent;
-                    progressLabel = percent < 8 ? "TRACKING" : "LOCKING  " + percent + "%";
+                    progressLabel = percent < 8 ? "조준 중" : "조준  " + percent + "%";
                 }
                 if (label.text != progressLabel) label.text = progressLabel;
             }
