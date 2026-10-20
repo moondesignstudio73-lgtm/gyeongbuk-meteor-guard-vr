@@ -94,6 +94,8 @@ namespace MeteorDefenseVR.PcInput
 
         private void OnEnable()
         {
+            if (Application.isPlaying && GetComponent<ReadableTelemetryLayout>() == null)
+                gameObject.AddComponent<ReadableTelemetryLayout>();
             if (Application.isPlaying && GetComponent<PracticeHudSafeOverlay>() == null)
                 gameObject.AddComponent<PracticeHudSafeOverlay>();
             if (controller == null) controller = FindAnyObjectByType<MissionHudController>(FindObjectsInactive.Include);

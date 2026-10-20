@@ -62,6 +62,7 @@ namespace MeteorDefenseVR.PcInput
             string path = Path.Combine(output, "pc-soak.json");
             bool deliveryQa = Environment.GetCommandLineArgs().Contains("--pc-delivery-qa");
             bool threatQa = Environment.GetCommandLineArgs().Contains("--pc-threat-qa");
+            bool telemetryQa = Environment.GetCommandLineArgs().Contains("--pc-telemetry-qa");
             var capturedStates = new HashSet<GameState>();
             Application.runInBackground = true;
             Time.timeScale = 1f;
@@ -296,7 +297,7 @@ namespace MeteorDefenseVR.PcInput
                     yield return new WaitForSecondsRealtime(1.7f); Capture("failure-result");
                     yield return new WaitForSecondsRealtime(3f);
                     bool readableDuration = results.IsVisible;
-                    if (!threatQa && !ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
+                    if (!threatQa && !telemetryQa && !ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
                         report.issues.Add("Delivery result boundary fixture failed");
                     deadline = Time.realtimeSinceStartup + 15;
                     while (!lobby.IsMenuReady && Time.realtimeSinceStartup < deadline) yield return null;
@@ -313,6 +314,9 @@ namespace MeteorDefenseVR.PcInput
                 if(threatQa)
                     yield return ThreatPriorityProof.Run(router,Path.Combine(output,"ThreatPriority"),true,
                         passed=>{if(!passed)report.issues.Add("Threat priority fixture failed");});
+                if(telemetryQa)
+                    yield return TelemetryReadabilityProof.Run(router,Path.Combine(output,"TelemetryReadable"),true,
+                        passed=>{if(!passed)report.issues.Add("Telemetry readability fixture failed");});
             }
             finally
             {

@@ -74,6 +74,9 @@ namespace MeteorDefenseVR.Visual
         public int TrackedThreatCount { get; private set; }
         public float MostUrgentTtc { get; private set; } = float.PositiveInfinity;
         public float CurrentLookYaw { get; private set; }
+        public bool ReadableSummary { get; set; }
+        public TMP_Text ShipReadout => shipStatus;
+        public TMP_Text ThreatReadout => threatAnalysis;
 
         public void Configure(MeteorSpawner meteorSpawner, PlayerHealth playerHealth, GameSessionStats sessionStats,
             DifficultyManager manager, Transform reference, TMP_Text left, TMP_Text right, TMP_Text radar,
@@ -115,6 +118,12 @@ namespace MeteorDefenseVR.Visual
         {
             GameState state=flow!=null?flow.CurrentState:GameState.Boot;
             bool combatVisible=state==GameState.Launch||state==GameState.Countdown||state==GameState.Playing||state==GameState.BossMeteor;
+            if (ReadableSummary)
+            {
+                if (shipHologram != null) shipHologram.alpha = combatVisible ? 1 : 0;
+                if (threatHologram != null) threatHologram.alpha = combatVisible ? 1 : 0;
+                return;
+            }
             if(shipHologram!=null)
             {
                 float damagePulse=Time.unscaledTime<statusPulseUntil ? Mathf.Lerp(.72f,1f,.5f+.5f*Mathf.Sin(Time.unscaledTime*24f)) : 0f;
@@ -209,6 +218,41 @@ namespace MeteorDefenseVR.Visual
                 radarReadout.text=$"360° THREAT RADAR // {(difficulty!=null?DifficultyConfig.Code(difficulty.Selected):"NORMAL")}\nCONTACTS {TrackedThreatCount:00}   PRIORITY {ttc}";
             }
             RefreshSecondaryDisplays(closest,closestDistance,engine,damageLevel);
+            if (ReadableSummary) RefreshReadableSummary(hp);
+        }
+
+        private void RefreshReadableSummary(float hp)
+        {
+            // Match the urgent-warning selection: actual closing velocity, including the boss.
+            MeteorController urgent = null;
+            float seconds = float.PositiveInfinity;
+            int count = 0;
+            void Consider(MeteorController meteor)
+            {
+                if (meteor == null || !meteor.IsTargetable) return;
+                count++;
+                float time = ThreatRadarMath.TimeToCollision(spawner.ShipCenter, meteor, spawner.ShipCollisionRadius);
+                if (urgent == null || time < seconds) { urgent = meteor; seconds = time; }
+            }
+            if (spawner != null)
+            {
+                bool bossIncluded = false;
+                foreach (var meteor in spawner.ActiveMeteors)
+                { Consider(meteor); bossIncluded |= boss != null && meteor == boss.ActiveBoss; }
+                if (!bossIncluded && boss != null) Consider(boss.ActiveBoss);
+            }
+            string condition = hp < .35f ? "위험" : hp < .7f ? "손상" : "정상";
+            if (shipStatus != null) shipStatus.text = $"방어막 {Mathf.RoundToInt(hp * 100)}%\n<color=#{(hp < .35f ? "FFAA79" : "B6F4FF")}>{condition}</color> · 피해 {(health != null ? health.TotalDamageTaken : 0):0}";
+            if (threatAnalysis == null) return;
+            if (urgent == null) { threatAnalysis.text = "위협 0개\n주변 안전"; return; }
+            Vector3 local = playerCamera != null ? playerCamera.transform.InverseTransformPoint(urgent.transform.position)
+                : Quaternion.Inverse(spawner.ShipRotation) * (urgent.transform.position - spawner.ShipCenter);
+            float ax = Mathf.Abs(local.x), ay = Mathf.Abs(local.y), az = Mathf.Abs(local.z);
+            string direction = ay > ax && ay > az * .7f ? (local.y >= 0 ? "위쪽" : "아래쪽")
+                : local.z < 0 && az > ax * .65f ? "뒤쪽" : ax > az * .55f ? (local.x < 0 ? "왼쪽" : "오른쪽") : "앞쪽";
+            string risk = seconds < 5 ? "위험" : "접근";
+            float distance = Vector3.Distance(spawner.ShipCenter, urgent.transform.position);
+            threatAnalysis.text = $"위협 {count}개 · <color=#{(seconds < 5 ? "FFAA79" : "B6F4FF")}>{risk}</color>\n{direction} · {distance:0}m";
         }
 
         private void RefreshSecondaryDisplays(MeteorController closest,float closestDistance,string engine,int damageLevel)
