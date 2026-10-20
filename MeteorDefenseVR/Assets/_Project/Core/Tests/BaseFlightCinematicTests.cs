@@ -28,6 +28,9 @@ namespace MeteorDefenseVR.Tests
             while (!warm.IsComplete && Time.realtimeSinceStartup < deadline) yield return null;
             Assert.That(warm.IsComplete, Is.True);
             var cinema = Object.FindAnyObjectByType<BaseFlightCinematic>();
+            Assert.That(Resources.Load<Shader>("FlightSmoke"), Is.Not.Null);
+            Assert.That(Resources.Load<Shader>("FlightSmoke").isSupported, Is.True);
+            Assert.That(Resources.Load<Shader>("FlightVelocityBlur").isSupported, Is.True);
             var launch = Object.FindAnyObjectByType<LaunchSequenceController>();
             var flow = GameFlowManager.Instance;
             var result = Object.FindAnyObjectByType<ResultController>();
@@ -69,7 +72,9 @@ namespace MeteorDefenseVR.Tests
             Assert.That(cinema.HasReturned, Is.True);
             Assert.That(cinema.DoorOpening, Is.EqualTo(0).Within(.001f));
             Assert.That(result.IsVisible, Is.True);
-            Assert.That(result.Snapshot.Score, Is.EqualTo(138940)); Save(proof, router, "failed-result");
+            Assert.That(result.Snapshot.Score, Is.EqualTo(138940));
+            yield return new WaitForSecondsRealtime(1.6f);
+            Save(proof, router, "failed-result");
             reset.Tick(8.1f);
             var lobby = Object.FindAnyObjectByType<HangarLobbyController>();
             Assert.That(lobby.IsMenuReady, Is.True, "Already docked failure must not replay the return");

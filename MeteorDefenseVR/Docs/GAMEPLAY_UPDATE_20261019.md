@@ -33,6 +33,7 @@
 - 초기화·재도전·일시정지, 결과 점수 보존, 이미 귀환한 뒤 중복 귀환 방지를 실제 장면에서 검사했다. 전체 관련 30개 중 29개가 먼저 통과했고, 남은 검사의 고정 대기시간을 완료 상태 기반으로 보정한 뒤 재검사 1개가 통과했다.
 - 근거: `Docs/PlayerCopyQA/base-flight-regression.xml` 및 `base-flight-final.xml`. 실제 렌더는 `Docs/BaseFlightQA/`의 출동·손상 접근·착륙·문 닫힘·결과 화면이다.
 - Suno 신규 음원 제작은 브라우저 연결이 막혀 대기 중이다. 이번 연출은 기존 게임 음원을 사용하며 새 Suno 음원이 포함됐다고 표시하지 않는다. HMD 검증도 별도 대기다.
+- 첫 Windows 실행 검사에서 런타임 검색으로만 사용한 연기 셰이더가 제거되는 문제를 발견했다. 배포를 중단하고 전용 연기 셰이더를 Resources에 포함하도록 변경했다. 최초 실패 빌드는 배포 대상에서 제외하고 수정 빌드로 실행 검사를 다시 진행한다.
 
 - 안내 문구 1차: 37개 중 34개 통과. 이전 문장/문자 수를 전제로 한 3개 검사를 새 문구와 실제 표시 검증에 맞춰 수정했다.
 - 연출 및 관련 회귀: 17개 전부 통과. FlightTransition, UiMotion, GameFeel, StageProgression, TutorialController, TutorialSafeZone, EducationEntry 포함.

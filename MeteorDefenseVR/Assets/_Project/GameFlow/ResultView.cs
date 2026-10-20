@@ -35,7 +35,7 @@ namespace MeteorDefenseVR.GameFlow
             string progress = snapshot.CampaignMode
                 ? $"{Difficulty.DifficultyConfig.Label(snapshot.Difficulty)} · 구역 {snapshot.MaxStage:D2}\n파괴한 운석 {snapshot.DestroyedMeteors} / 210\n파괴한 보스 {snapshot.BossesDestroyed}\n"
                 : string.Empty;
-            string outcome = snapshot.MissionFailed ? "기지로 돌아가 다시 도전해요." : "지구 방어 성공!";
+            string outcome = snapshot.MissionFailed ? "다시 출격해 지구를 지켜요!" : "지구 방어 성공!";
             return $"{heading}\n\n{progress}총점 {snapshot.Score:N0}\n파괴한 운석 {snapshot.DestroyedMeteors}\n명중률 {snapshot.AccuracyPercent}%\n받은 피해 {snapshot.DamageTaken}%\n플레이 시간 {snapshot.PlayTime:0.0}초\n최고 구역 {snapshot.MaxStage}\n최종 등급 {rank}\n\n{outcome}";
         }
 

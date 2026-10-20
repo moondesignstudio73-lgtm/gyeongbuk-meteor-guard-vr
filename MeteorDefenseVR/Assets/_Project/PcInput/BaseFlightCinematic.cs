@@ -244,18 +244,15 @@ namespace MeteorDefenseVR.PcInput
             var emission = smoke.emission; emission.rateOverTime = 22;
             var shape = smoke.shape; shape.shapeType = ParticleSystemShapeType.Cone; shape.angle = 15; shape.radius = .12f;
             smokeNode.localRotation = Quaternion.Euler(-90, 0, 0);
-            var smokeMaterial = new Material(Shader.Find("Universal Render Pipeline/Particles/Unlit"));
-            smokeMaterial.SetFloat("_Surface", 1); smokeMaterial.SetFloat("_ZWrite", 0);
-            smokeMaterial.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            smokeMaterial.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            smokeMaterial.EnableKeyword("_SURFACE_TYPE_TRANSPARENT"); smokeMaterial.renderQueue = 3000;
+            // A Resources shader survives player stripping even when no authored particle asset uses it.
+            var smokeMaterial = new Material(Resources.Load<Shader>("FlightSmoke"));
             var puff = new Texture2D(32, 32, TextureFormat.RGBA32, false);
             for (int y = 0; y < 32; y++) for (int x = 0; x < 32; x++)
             {
                 float radius = Vector2.Distance(new Vector2(x,y), new Vector2(15.5f,15.5f)) / 15.5f;
                 puff.SetPixel(x, y, new Color(1,1,1,Mathf.Pow(Mathf.Clamp01(1-radius), 1.6f)));
             }
-            puff.Apply(); smokeMaterial.SetTexture("_BaseMap", puff); resources.Add(puff); resources.Add(smokeMaterial);
+            puff.Apply(); smokeMaterial.SetTexture("_MainTex", puff); resources.Add(puff); resources.Add(smokeMaterial);
             smoke.GetComponent<ParticleSystemRenderer>().sharedMaterial = smokeMaterial;
             cameraRig = Node("FlightFilmCamera", stage); cameraRig.localPosition = cameraPosition;
             cameraRotation = Quaternion.LookRotation(new Vector3(0, .5f, 20) - cameraPosition);
