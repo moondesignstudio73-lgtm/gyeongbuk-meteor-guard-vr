@@ -296,15 +296,15 @@ namespace MeteorDefenseVR.PcInput
                     yield return new WaitForSecondsRealtime(3f);
                     bool readableDuration = results.IsVisible;
                     deadline = Time.realtimeSinceStartup + 15;
-                    while (flow.CurrentState == GameState.Result && Time.realtimeSinceStartup < deadline) yield return null;
+                    while (!lobby.IsMenuReady && Time.realtimeSinceStartup < deadline) yield return null;
                     Capture("failure-after-result");
                     bool returned = Object.FindAnyObjectByType<BaseFlightCinematic>().HasReturned;
                     bool passed = pending && retained && revealed && readableDuration
-                        && flow.CurrentState != GameState.Result;
+                        && lobby.IsMenuReady;
                     File.WriteAllText(Path.Combine(output, "Delivery", "failure-fixture.txt"),
                         $"Input: explicit state/score/damage fixture; not human or synthetic-mouse failure gameplay\n" +
                         $"pending={pending}; retainedBeforeDoorClose={retained}; revealedWith138940={revealed}; " +
-                        $"visibleAfter4.7seconds={readableDuration}; nextState={flow.CurrentState}; hasReturned={returned}; passed={passed}\n");
+                        $"visibleAfter4.7seconds={readableDuration}; hangarMenuReady={lobby.IsMenuReady}; nextState={flow.CurrentState}; hasReturned={returned}; passed={passed}\n");
                     if (!passed) report.issues.Add("Delivery failure/return fixture failed");
                 }
             }
