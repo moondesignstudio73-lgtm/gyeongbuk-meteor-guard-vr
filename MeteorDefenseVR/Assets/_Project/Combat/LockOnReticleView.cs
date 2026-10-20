@@ -19,6 +19,14 @@ namespace MeteorDefenseVR.Combat
         private GazeLockOnTarget subscribedTarget;
         private float arrivalAge = 10f;
         private Vector3[] bracketPositions;
+        private float[] bracketWidths;
+        private bool priorityThreat;
+        private float threatUrgency;
+        public static bool DiscoveryEnabled { get; set; }
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetDiscovery() => DiscoveryEnabled = false;
+        public void SetThreatPriority(bool priority, float urgency)
+        { priorityThreat = priority; threatUrgency = Mathf.Clamp01(urgency); }
 
         private void OnEnable()
         {
@@ -39,6 +47,7 @@ namespace MeteorDefenseVR.Combat
             GazeLockOnTarget.GlobalReleased -= HandleGlobalReleased;
             UnsubscribeTarget();
             ClearPresentation();
+            priorityThreat = false;
             transform.localScale = Vector3.one;
             previousLabelState = null;
         }
@@ -53,17 +62,28 @@ namespace MeteorDefenseVR.Combat
                 if (bracketPositions == null || bracketPositions.Length != tacticalBrackets.Length)
                 {
                     bracketPositions = new Vector3[tacticalBrackets.Length];
-                    for (int i = 0; i < tacticalBrackets.Length; i++) if (tacticalBrackets[i] != null) bracketPositions[i] = tacticalBrackets[i].transform.localPosition;
+                    bracketWidths = new float[tacticalBrackets.Length];
+                    for (int i = 0; i < tacticalBrackets.Length; i++) if (tacticalBrackets[i] != null)
+                    {
+                        bracketPositions[i] = tacticalBrackets[i].transform.localPosition;
+                        if (tacticalBrackets[i] is LineRenderer line) bracketWidths[i] = line.widthMultiplier;
+                    }
                 }
                 float scale = Mathf.Lerp(1.3f, 1f, Mathf.SmoothStep(0, 1, focusAge / .12f));
                 for (int i = 0; i < tacticalBrackets.Length; i++)
                 {
                     var bracket = tacticalBrackets[i]; if (bracket == null) continue;
-                    bracket.enabled = target.IsAvailable && (focusing || arrivalAge < .35f);
+                    bool discovery = DiscoveryEnabled && target.Meteor != null;
+                    bool priority = discovery && priorityThreat;
+                    bracket.enabled = target.IsAvailable && (focusing || arrivalAge < .35f || discovery);
                     bracket.transform.localPosition = bracketPositions[i] * (focusing ? scale : 1.12f);
-                    if (!focusing && bracket is LineRenderer line)
+                    if (bracket is LineRenderer line)
                     {
-                        Color tint = focusingColor; tint.a = .45f * Mathf.Clamp01(1 - arrivalAge / .35f);
+                        Color tint = PresentationLocked(target.State) ? lockedColor : focusingColor;
+                        float threatPulse=.5f+.5f*Mathf.Sin(Time.time*Mathf.Lerp(3,7,threatUrgency));
+                        if(priority) tint=new Color(1,.52f,.12f,.85f+.15f*threatPulse);
+                        else if(!focusing) tint.a=Mathf.Max(discovery?.38f:0f,.45f*Mathf.Clamp01(1-arrivalAge/.35f));
+                        line.widthMultiplier=bracketWidths[i]*(priority?4.5f:discovery&&!focusing?1.75f:1f);
                         line.startColor = line.endColor = tint;
                     }
                 }
@@ -180,7 +200,7 @@ namespace MeteorDefenseVR.Combat
 
             if (tacticalBrackets != null)
             {
-                Color color = locked ? lockedColor : focusingColor;
+                Color color = priorityThreat && DiscoveryEnabled ? new Color(1,.52f,.12f,.95f) : locked ? lockedColor : focusingColor;
                 foreach (Renderer bracket in tacticalBrackets)
                 {
                     if (bracket == null) continue;

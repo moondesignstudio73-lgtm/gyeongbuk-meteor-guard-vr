@@ -1,4 +1,5 @@
 using MeteorDefenseVR.Audio;
+using MeteorDefenseVR.Combat;
 using MeteorDefenseVR.Core;
 using MeteorDefenseVR.Difficulty;
 using MeteorDefenseVR.EyeTracking;
@@ -56,6 +57,43 @@ namespace MeteorDefenseVR.PcInput
         private float nextText, nextWarning;
         private MeteorController audioThreat, playingThreat;
         private float audioArrival;
+        private LockOnReticleView priorityReticle;
+        private MeteorController priorityMeteor;
+        private readonly RectTransform[] telemetryPanels = new RectTransform[2];
+        private readonly Vector3[] panelCorners = new Vector3[4];
+        private Vector2 KeepClearOfTelemetry(Vector2 point)
+        {
+            // Work in the warning canvas coordinates, derived from the actual panel corners.
+            foreach(var panel in telemetryPanels)
+            {
+                if(panel==null || !panel.gameObject.activeInHierarchy)continue;
+                panel.GetWorldCorners(panelCorners);
+                Vector2 min=Vector2.one*float.PositiveInfinity,max=Vector2.one*float.NegativeInfinity;
+                foreach(var corner in panelCorners)
+                {
+                    Vector3 viewport=view.Camera.WorldToViewportPoint(corner);
+                    Vector2 local=new Vector2((viewport.x-.5f)*root.rect.width,(viewport.y-.5f)*root.rect.height);
+                    min=Vector2.Min(min,local);max=Vector2.Max(max,local);
+                }
+                const float halfWidth=92,halfHeight=32,padding=10;
+                if(point.x+halfWidth<min.x || point.x-halfWidth>max.x || point.y+halfHeight<min.y || point.y-halfHeight>max.y)continue;
+                float above=max.y+halfHeight+padding,below=min.y-halfHeight-padding;
+                point.y=Mathf.Abs(above-point.y)<=Mathf.Abs(below-point.y)?above:below;
+            }
+            return point;
+        }
+        private void UpdatePriorityPresentation(bool enabledForCombat)
+        {
+            LockOnReticleView.DiscoveryEnabled = enabledForCombat && !VisualsSuppressed;
+            var next = LockOnReticleView.DiscoveryEnabled ? audioThreat : null;
+            if(next != priorityMeteor)
+            {
+                if(priorityReticle!=null)priorityReticle.SetThreatPriority(false,0);
+                priorityMeteor=next;
+                priorityReticle=next!=null?next.GetComponentInChildren<LockOnReticleView>(true):null;
+            }
+            if(priorityReticle!=null)priorityReticle.SetThreatPriority(true,1-audioArrival/Mathf.Max(1,difficulty.Session.WarningHorizon));
+        }
         private bool worldCanvas;
         private Canvas canvas;
         public int IndicatorLimit => difficulty != null ? Mathf.Min(maximumIndicators, difficulty.Session.WarningCount) : maximumIndicators;
@@ -72,6 +110,8 @@ namespace MeteorDefenseVR.PcInput
         }
         private void Start()
         {
+            telemetryPanels[0]=GameObject.Find("ShipStatusHologram")?.GetComponent<RectTransform>();
+            telemetryPanels[1]=GameObject.Find("ThreatStatusHologram")?.GetComponent<RectTransform>();
             difficulty = FindAnyObjectByType<DifficultyManager>(); flow = GameFlowManager.Instance;
             var go = new GameObject("ThreatIndicators", typeof(RectTransform), typeof(Canvas));
             root = (RectTransform)go.transform; root.SetParent(view.Camera.transform, false); root.localPosition = new Vector3(0, 0, 2.65f);
@@ -96,7 +136,7 @@ namespace MeteorDefenseVR.PcInput
             bool enabledForSession = combat && Time.timeScale > 0 && difficulty != null &&
                 (difficulty.Session.SpawnDirections == SpawnDirectionMode.FrontAndSides || difficulty.Session.SpawnDirections == SpawnDirectionMode.FullSphere || spawner.ScenarioControlled);
             root.gameObject.SetActive(combat);
-            if (!combat) { VisibleCount = 0; impactAge = arrivalAge = 10; if (rearWarning != null) rearWarning.Stop(); playingThreat = null; nextWarning = 0; return; }
+            if (!combat) { UpdatePriorityPresentation(false); audioThreat=null; VisibleCount = 0; impactAge = arrivalAge = 10; if (rearWarning != null) rearWarning.Stop(); playingThreat = null; nextWarning = 0; return; }
             if (Time.timeScale == 0) return;
             if (worldCanvas != view.Camera.stereoEnabled)
             {
@@ -114,6 +154,7 @@ namespace MeteorDefenseVR.PcInput
             audioThreat = null; audioArrival = float.PositiveInfinity;
             for (int i = 0; i < active.Count; i++) Consider(active[i]);
             if (boss != null) Consider(boss.ActiveBoss);
+            UpdatePriorityPresentation(true);
             // Audio is independent of the reduced visual warning budget. One
             // reusable source follows the actual threat direction as the view turns.
             if (playingThreat != null && playingThreat.IsTargetable && rearWarning != null && rearWarning.isPlaying)
@@ -133,13 +174,19 @@ namespace MeteorDefenseVR.PcInput
                 Vector3 local = Quaternion.Inverse(view.Rotation) * (meteor.transform.position - view.Position);
                 Vector2 edge = ThreatProjection.Edge(local, view.Camera.aspect);
                 Vector2 point = new Vector2(edge.x * (root.rect.width * .5f - 96), edge.y * (root.rect.height * .5f - 115));
+                point=KeepClearOfTelemetry(point);
                 // Separate labels which occupy nearly the same edge; keep a fixed bounded pool.
                 for (int j = 0; j < i; j++)
                     if (labels[j].gameObject.activeSelf && Vector2.Distance(point, labels[j].rectTransform.anchoredPosition) < 58)
-                        point.y = Mathf.Clamp(point.y - 60, -295, 295);
-                text.rectTransform.anchoredPosition = Vector2.Lerp(text.rectTransform.anchoredPosition, point, 1 - Mathf.Exp(-Time.unscaledDeltaTime * 18));
+                    {
+                        point.y += point.y>=0?60:-60;
+                        if(Mathf.Abs(point.y)>root.rect.height*.5f-115)point.y=-Mathf.Sign(point.y)*100;
+                        point=KeepClearOfTelemetry(point);
+                    }
+                text.rectTransform.anchoredPosition = KeepClearOfTelemetry(Vector2.Lerp(text.rectTransform.anchoredPosition, point, 1 - Mathf.Exp(-Time.unscaledDeltaTime * 18)));
                 float distance = distances[i];
                 text.color = distance < redDistance ? new Color(1,.25f,.15f) : distance < orangeDistance ? new Color(1,.55f,.16f) : distance < yellowDistance ? new Color(1,.88f,.3f) : new Color(.2f,.95f,1);
+                text.color = meteor == audioThreat ? new Color(1,.52f,.12f,1) : new Color(text.color.r,text.color.g,text.color.b,.65f);
                 float urgency = Mathf.Clamp01(1f-arrival[i]/Mathf.Max(1f,difficulty.Session.WarningHorizon));
                 float pulse = .5f+.5f*Mathf.Sin(Time.unscaledTime*Mathf.Lerp(4f,9f,urgency)+i*.8f);
                 text.rectTransform.localScale = Vector3.one * (1f + (meteor == audioThreat ? pulse * urgency * .12f : 0f));
@@ -151,7 +198,7 @@ namespace MeteorDefenseVR.PcInput
         private void Consider(MeteorController meteor)
         {
             if (meteor == null || !meteor.IsTargetable) return;
-            float time = ThreatProjection.TimeToImpact(spawner.ShipCenter, meteor, 4.2f), distance = Vector3.Distance(view.Position, meteor.transform.position);
+            float time = ThreatProjection.TimeToImpact(spawner.ShipCenter, meteor, spawner.ShipCollisionRadius), distance = Vector3.Distance(view.Position, meteor.transform.position);
             if (time < audioArrival) { audioArrival = time; audioThreat = meteor; }
             Vector3 viewport = view.Camera.WorldToViewportPoint(meteor.transform.position);
             if (viewport.z > 0 && viewport.x > .06f && viewport.x < .94f && viewport.y > .12f && viewport.y < .88f) return;
@@ -172,6 +219,8 @@ namespace MeteorDefenseVR.PcInput
                 if (i < labels.Length && labels[i] != null) labels[i].gameObject.SetActive(false);
             }
             if (ReferenceEquals(audioThreat, meteor)) audioThreat = null;
+            if (ReferenceEquals(priorityMeteor,meteor))
+            { if(priorityReticle!=null)priorityReticle.SetThreatPriority(false,0); priorityMeteor=null; priorityReticle=null; }
             if (ReferenceEquals(playingThreat, meteor))
             {
                 playingThreat = null;
@@ -182,6 +231,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void OnDisable()
         {
+            UpdatePriorityPresentation(false);
             UnbindImpactPresentation();
             MeteorController.GlobalTargetingInvalidated -= HandleTargetingInvalidated;
             if (rearWarning != null) rearWarning.Stop();

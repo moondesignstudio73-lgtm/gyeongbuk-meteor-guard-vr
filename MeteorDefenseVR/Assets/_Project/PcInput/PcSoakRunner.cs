@@ -61,6 +61,7 @@ namespace MeteorDefenseVR.PcInput
             Directory.CreateDirectory(output);
             string path = Path.Combine(output, "pc-soak.json");
             bool deliveryQa = Environment.GetCommandLineArgs().Contains("--pc-delivery-qa");
+            bool threatQa = Environment.GetCommandLineArgs().Contains("--pc-threat-qa");
             var capturedStates = new HashSet<GameState>();
             Application.runInBackground = true;
             Time.timeScale = 1f;
@@ -295,7 +296,7 @@ namespace MeteorDefenseVR.PcInput
                     yield return new WaitForSecondsRealtime(1.7f); Capture("failure-result");
                     yield return new WaitForSecondsRealtime(3f);
                     bool readableDuration = results.IsVisible;
-                    if (!ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
+                    if (!threatQa && !ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
                         report.issues.Add("Delivery result boundary fixture failed");
                     deadline = Time.realtimeSinceStartup + 15;
                     while (!lobby.IsMenuReady && Time.realtimeSinceStartup < deadline) yield return null;
@@ -309,6 +310,9 @@ namespace MeteorDefenseVR.PcInput
                         $"visibleAfter4.7seconds={readableDuration}; hangarMenuReady={lobby.IsMenuReady}; nextState={flow.CurrentState}; hasReturned={returned}; passed={passed}\n");
                     if (!passed) report.issues.Add("Delivery failure/return fixture failed");
                 }
+                if(threatQa)
+                    yield return ThreatPriorityProof.Run(router,Path.Combine(output,"ThreatPriority"),true,
+                        passed=>{if(!passed)report.issues.Add("Threat priority fixture failed");});
             }
             finally
             {
@@ -321,7 +325,8 @@ namespace MeteorDefenseVR.PcInput
             report.completedUtc = DateTime.UtcNow.ToString("O");
             report.passed = report.preflight.passed && report.rounds.Count == repetitions && report.rounds.All(r => r.passed)
                 && !report.issues.Contains("Delivery failure/return fixture failed")
-                && !report.issues.Contains("Delivery result boundary fixture failed");
+                && !report.issues.Contains("Delivery result boundary fixture failed")
+                && !report.issues.Contains("Threat priority fixture failed");
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);
