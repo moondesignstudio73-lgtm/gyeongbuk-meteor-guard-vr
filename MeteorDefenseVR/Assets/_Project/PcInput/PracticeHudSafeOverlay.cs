@@ -16,6 +16,9 @@ namespace MeteorDefenseVR.PcInput
         private TextMeshProUGUI safeStatus;
         private Camera playerCamera;
         private bool? stereoMode;
+        private RectTransform telemetryPanel, instructionPanel;
+        private Renderer[] oldTelemetry = System.Array.Empty<Renderer>(), oldInstruction = System.Array.Empty<Renderer>();
+        private bool lowerBand;
         public Canvas SafeCanvas => safeCanvas;
         public TextMeshProUGUI SafeText => safeText;
         public TextMeshProUGUI SafeStatus => safeStatus;
@@ -31,13 +34,12 @@ namespace MeteorDefenseVR.PcInput
                 safeCanvas.enabled = visible;
                 if (hudText != null && safeText.text != hudText.text) safeText.text = hudText.text;
                 if (statusText != null && safeStatus.text != statusText.text) safeStatus.text = statusText.text;
+                if (visible) PlacePanels();
                 // The old TextMesh remains a data channel; its 3D TMP bridge must not
                 // draw a second, depth-tested copy behind the cockpit.
-                if (hudText != null)
-                    foreach (Renderer renderer in hudText.GetComponentsInChildren<Renderer>(true))
+                    foreach (Renderer renderer in oldTelemetry)
                     { renderer.enabled = false; renderer.forceRenderingOff = true; }
-                if (statusText != null)
-                    foreach (Renderer renderer in statusText.GetComponentsInChildren<Renderer>(true))
+                    foreach (Renderer renderer in oldInstruction)
                     { renderer.enabled = false; renderer.forceRenderingOff = true; }
             }
             else if (hudText != null && hudText.TryGetComponent<Renderer>(out var hudRenderer)) hudRenderer.enabled = visible;
@@ -63,6 +65,7 @@ namespace MeteorDefenseVR.PcInput
             var panel = new GameObject("PracticeTelemetry", typeof(RectTransform), typeof(UnityEngine.UI.Image));
             panel.transform.SetParent(root.transform, false);
             var rect = (RectTransform)panel.transform;
+            telemetryPanel = rect;
             rect.anchorMin = new Vector2(.06f, .865f);
             rect.anchorMax = new Vector2(.94f, .935f);
             rect.offsetMin = rect.offsetMax = Vector2.zero;
@@ -88,6 +91,7 @@ namespace MeteorDefenseVR.PcInput
             var statusPanel = Instantiate(panel, root.transform);
             statusPanel.name = "PracticeInstruction";
             var statusRect = (RectTransform)statusPanel.transform;
+            instructionPanel = statusRect;
             statusRect.anchorMin = new Vector2(.06f, .74f);
             statusRect.anchorMax = new Vector2(.94f, .84f);
             safeStatus = statusPanel.GetComponentInChildren<TextMeshProUGUI>();
@@ -96,6 +100,48 @@ namespace MeteorDefenseVR.PcInput
             foreach (Transform child in root.GetComponentsInChildren<Transform>(true))
                 child.gameObject.layer = mainHud.gameObject.layer;
             ApplyCanvasMode(playerCamera.stereoEnabled);
+        }
+
+        private void PlacePanels()
+        {
+            var root = (RectTransform)safeCanvas.transform;
+            FitPanel(telemetryPanel, safeText, root.rect.width);
+            FitPanel(instructionPanel, safeStatus, root.rect.width);
+            bool targetCrossesTop = false;
+            var meteor = controller.ActiveMeteor;
+            if (meteor != null)
+            {
+                Vector3 point = playerCamera.WorldToViewportPoint(meteor.transform.position);
+                if (point.z > 0)
+                {
+                    // Include the production aim ring and its label, not just the rock.
+                    float radius = Mathf.Max(1.1f, meteor.CollisionRadius * 1.7f);
+                    Vector3 upper = playerCamera.WorldToViewportPoint(meteor.transform.position + playerCamera.transform.up * radius);
+                    Vector3 right = playerCamera.WorldToViewportPoint(meteor.transform.position + playerCamera.transform.right * radius);
+                    float halfWidth = Mathf.Max(telemetryPanel.rect.width, instructionPanel.rect.width) / root.rect.width * .5f;
+                    float dx = Mathf.Abs(right.x - point.x), dy = Mathf.Abs(upper.y - point.y);
+                    // Wider release bounds prevent flicker while the target grazes a band edge.
+                    targetCrossesTop = point.x + dx > .5f - halfWidth && point.x - dx < .5f + halfWidth
+                        && point.y + dy > (lowerBand ? .69f : .73f)
+                        && point.y - dy < (lowerBand ? .98f : .94f);
+                }
+            }
+            lowerBand = targetCrossesTop;
+            Place(telemetryPanel, lowerBand ? .24f : .90f);
+            Place(instructionPanel, lowerBand ? .13f : .79f);
+        }
+
+        private static void FitPanel(RectTransform panel, TMP_Text text, float canvasWidth)
+        {
+            panel.sizeDelta = new Vector2(Mathf.Min(canvasWidth * .88f, text.preferredWidth + 40f),
+                text.preferredHeight + 16f);
+        }
+
+        private static void Place(RectTransform panel, float height)
+        {
+            panel.anchorMin = panel.anchorMax = new Vector2(.5f, height);
+            panel.pivot = Vector2.one * .5f;
+            panel.anchoredPosition = Vector2.zero;
         }
 
         public void ApplyCanvasMode(bool stereo)
@@ -122,6 +168,8 @@ namespace MeteorDefenseVR.PcInput
             controller = FindAnyObjectByType<PracticeController>(FindObjectsInactive.Include);
             hudText = source != null ? source.HudText : null;
             statusText = source != null ? source.StatusText : null;
+            oldTelemetry = hudText != null ? hudText.GetComponentsInChildren<Renderer>(true) : System.Array.Empty<Renderer>();
+            oldInstruction = statusText != null ? statusText.GetComponentsInChildren<Renderer>(true) : System.Array.Empty<Renderer>();
         }
         private void OnDisable() { if (safeCanvas != null) safeCanvas.enabled = false; }
         private void OnDestroy() { if (safeCanvas != null) Destroy(safeCanvas.gameObject); }
