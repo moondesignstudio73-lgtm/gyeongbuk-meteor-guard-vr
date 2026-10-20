@@ -1,5 +1,7 @@
 using System;
 using MeteorDefenseVR.Meteor;
+using MeteorDefenseVR.Core;
+using MeteorDefenseVR.GameFlow;
 using UnityEngine;
 
 namespace MeteorDefenseVR.Combat
@@ -24,6 +26,9 @@ namespace MeteorDefenseVR.Combat
             public Renderer[] energyRenderers=Array.Empty<Renderer>();
             public Light muzzleLight;
             [NonSerialized] public float yaw,pitch,yawVelocity,pitchVelocity,error,flash;
+            [NonSerialized] internal Transform[] recoilParts;
+            [NonSerialized] internal Vector3[] recoilRest;
+            [NonSerialized] internal float recoilAge=1f,recoilStart,recoilOffset;
         }
 
         [Header("Dependencies")]
@@ -60,6 +65,10 @@ namespace MeteorDefenseVR.Combat
         private int selectedIndex=-1;
         private float trackedTime;
         private bool chargePlayed;
+        private GameFlowManager flow;
+        public const float RecoilDistance=.09f;
+        public const float RecoilKickSeconds=.045f;
+        public const float RecoilReturnSeconds=.175f;
         private static readonly int BaseColor=Shader.PropertyToID("_BaseColor");
         private static readonly int EmissionColor=Shader.PropertyToID("_EmissionColor");
         private static AudioClip sharedServo,sharedCharge;
@@ -100,12 +109,18 @@ namespace MeteorDefenseVR.Combat
             if(playerView==null&&Camera.main!=null)playerView=Camera.main.transform;
             InitializeAudio();weapon?.SetTurretAiming(this);
         }
-        private void OnEnable(){Instance=this;GazeLockOnTarget.GlobalReleased-=HandleTargetReleased;GazeLockOnTarget.GlobalReleased+=HandleTargetReleased;}
-        private void OnDisable(){GazeLockOnTarget.GlobalReleased-=HandleTargetReleased;if(Instance==this)Instance=null;StopAudio();ResetTurrets();}
+        private void OnEnable()
+        {
+            Instance=this;GazeLockOnTarget.GlobalReleased-=HandleTargetReleased;GazeLockOnTarget.GlobalReleased+=HandleTargetReleased;
+            flow=GameFlowManager.Instance ?? FindAnyObjectByType<GameFlowManager>(FindObjectsInactive.Include);
+            if(flow!=null){flow.OnStateChanged-=HandleFlow;flow.OnStateChanged+=HandleFlow;}
+        }
+        private void OnDisable(){GazeLockOnTarget.GlobalReleased-=HandleTargetReleased;if(flow!=null)flow.OnStateChanged-=HandleFlow;if(Instance==this)Instance=null;StopAudio();ResetTurrets();}
         private void Update()=>Tick(Time.deltaTime);
 
         public void Tick(float deltaTime)
         {
+            if(Application.isPlaying&&Time.timeScale<=0f){ResetRecoil(top);ResetRecoil(bottom);return;}
             float dt=Mathf.Max(0f,deltaTime);
             GazeLockOnTarget active=GazeLockOnTarget.ActiveTarget;
             if(active==null||!active.IsAvailable||(active.State!=LockOnState.Focusing&&active.State!=LockOnState.Locked))active=null;
@@ -122,6 +137,7 @@ namespace MeteorDefenseVR.Combat
             Aim(bottom,candidate!=null&&(selectedIndex==1||dual)?candidate.Meteor.transform:null,bottomNeutral,dt);
             UpdateGlow(top,candidate!=null&&(selectedIndex==0||dual)?candidate.Progress:0f,dt);
             UpdateGlow(bottom,candidate!=null&&(selectedIndex==1||dual)?candidate.Progress:0f,dt);
+            TickRecoil(top,dt);TickRecoil(bottom,dt);
             UpdateAudio(dt);
             if(candidate!=null&&!chargePlayed&&candidate.Progress>=.58f)
             {chargePlayed=true;if(chargeSource!=null&&chargeSource.clip!=null){chargeSource.volume=chargeVolume;chargeSource.Play();}}
@@ -144,19 +160,58 @@ namespace MeteorDefenseVR.Combat
 
         public void NotifyFired(int turretIndex)
         {
-            TurretMount mount=turretIndex==0?top:bottom;if(mount==null)return;mount.flash=.09f;
+            TurretMount mount=turretIndex==0?top:turretIndex==1?bottom:null;
+            if(mount==null||!isActiveAndEnabled||(Application.isPlaying&&Time.timeScale<=0f))return;
+            mount.flash=.09f;CacheRecoil(mount);
+            mount.recoilStart=mount.recoilOffset;mount.recoilAge=0;
         }
 
-        public void ResetTurrets()
+        public void ResetTurrets(bool resetRecoil=true)
         {
             candidate=null;selectedIndex=-1;trackedTime=0;chargePlayed=false;
             ResetMount(top,topNeutral);ResetMount(bottom,bottomNeutral);StopAudio();
+            if(resetRecoil){ResetRecoil(top);ResetRecoil(bottom);}
         }
 
         public void ReleaseTarget(GazeLockOnTarget released)
         {
-            if(released != null && ReferenceEquals(candidate, released)) ResetTurrets();
+            // A killed target releases the lock in the same frame as the shot.
+            // Clear aiming immediately, but let that already-fired barrel finish its stroke.
+            if(released != null && ReferenceEquals(candidate, released)) ResetTurrets(false);
         }
+
+        private void HandleFlow(GameState state)
+        {
+            if(state!=GameState.Playing&&state!=GameState.BossMeteor&&state!=GameState.Practice)
+            {ResetRecoil(top);ResetRecoil(bottom);}
+        }
+
+        private static void CacheRecoil(TurretMount mount)
+        {
+            if(mount==null||mount.recoilParts!=null||mount.pitchPivot==null)return;
+            mount.recoilParts=new[]{mount.pitchPivot.Find("Barrel"),mount.pitchPivot.Find("MuzzleRing"),mount.muzzle};
+            mount.recoilRest=new Vector3[mount.recoilParts.Length];
+            for(int i=0;i<mount.recoilParts.Length;i++)
+                if(mount.recoilParts[i]!=null)mount.recoilRest[i]=mount.recoilParts[i].localPosition;
+        }
+        private static void TickRecoil(TurretMount mount,float dt)
+        {
+            if(mount==null||mount.recoilParts==null)return;
+            mount.recoilAge+=dt;
+            float offset=mount.recoilAge<RecoilKickSeconds
+                ? Mathf.Lerp(mount.recoilStart,RecoilDistance,Mathf.SmoothStep(0,1,mount.recoilAge/RecoilKickSeconds))
+                : RecoilDistance*(1-Mathf.SmoothStep(0,1,(mount.recoilAge-RecoilKickSeconds)/RecoilReturnSeconds));
+            SetRecoil(mount,offset);
+        }
+        private static void SetRecoil(TurretMount mount,float offset)
+        {
+            mount.recoilOffset=Mathf.Clamp(offset,0,RecoilDistance);
+            if(mount.recoilParts==null)return;
+            for(int i=0;i<mount.recoilParts.Length;i++)if(mount.recoilParts[i]!=null)
+                mount.recoilParts[i].localPosition=mount.recoilRest[i]+Vector3.back*mount.recoilOffset;
+        }
+        private static void ResetRecoil(TurretMount mount)
+        {if(mount==null)return;mount.recoilAge=1;mount.recoilStart=0;SetRecoil(mount,0);}
 
         private void HandleTargetReleased(GazeLockOnTarget released) => ReleaseTarget(released);
 

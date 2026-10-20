@@ -75,9 +75,8 @@ namespace MeteorDefenseVR.Combat
             else origin=SelectMuzzlePosition();
             Vector3 destination = ResolveHitPoint(meteor,origin);
             PlayFeedback(origin, destination,lastCannonIndex,true);
-            turretAiming?.NotifyFired(lastCannonIndex);
             if(secondaryIndex>=0)
-            {PlayFeedback(secondaryOrigin,destination,secondaryIndex,false);turretAiming?.NotifyFired(secondaryIndex);}
+            {PlayFeedback(secondaryOrigin,destination,secondaryIndex,false);}
             Fired?.Invoke(target, meteor);
 
             bool accepted = meteor.ReceiveDamage(EffectiveDamage);
@@ -154,6 +153,8 @@ namespace MeteorDefenseVR.Combat
 
         private void PlayFeedback(Vector3 origin, Vector3 destination,int cannonIndex,bool fullFeedback)
         {
+            // Every actual muzzle discharge (normal, auxiliary, power beam, dual) uses this path.
+            turretAiming?.NotifyFired(cannonIndex);
             if (beamViews != null && beamViews.Length > 0)
             {
                 int beamIndex = Mathf.Abs(cannonIndex) % beamViews.Length;
