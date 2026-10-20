@@ -42,4 +42,13 @@
 
 ## 배포
 
-모든 요청 항목 구현·검증 후 같은 커밋으로 새 Windows 실행본을 빌드한다. 실행본의 BUILD_IDENTITY.json, ZIP 해시, GitHub 릴리스 및 실행 경로를 이 기록에 연결한다. 9월 18일 실행본은 이전 버전으로 유지한다.
+10월 20일 출동·패배 귀환 및 완료된 안내 개선을 Windows 미리보기로 배포했다. 위 표에서 대기 중인 추가 드론·보스·보상 연출 및 Suno 음원은 이번 완료 범위에 포함하지 않는다.
+
+- [출동·귀환 업데이트 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-flight-20261020)
+- 실행본 소스: `bfddddd4c62b459d5d3ebcc03d5d18de9cd203f4`, 빌드 시 소스 변경 없음.
+- 빌드 폴더: `Builds/Windows/RC_0.2.0-rc.1_bfddddd`.
+- ZIP: `MeteorDefenseVR-Windows-20261020.zip`, 89,400,235바이트, 구성 파일 222개 원본 해시 대조 완료.
+- SHA-256: `94848f2e90c7c144ae03cd8e74423cdb15f02a8fd5c8281bd6607e473b0f90ba`.
+- 수정 후 Windows 실행 검사 1회 통과: 오류·경고 0건, 중복 호출 0건, 결과 후 초기화 정상. 전투 평균 89.98 FPS, 1280×720, 검사 PC 기준.
+- 실제 실행 근거: `Docs/StabilityQA/flight-20261020-fixed-host.json` 및 빌드 폴더의 `QA/pc-soak.json`. 편집기 귀환/셰이더 재검사도 통과했다.
+- GitHub에 저장된 ZIP의 크기·해시가 로컬 배포본과 일치하며, 공개 다운로드 응답 200을 확인했다. 이전 9월 18일 릴리스에도 새 버전 링크를 추가했다.
