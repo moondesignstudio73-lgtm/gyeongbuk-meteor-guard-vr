@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-threat-priority-20261021)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-telemetry-readable-20261021)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
@@ -20,7 +20,7 @@
 
 임무가 끝나면 기지로 돌아와 기록을 확인하고 다시 도전할 수 있어요.
 
-공격할 수 있는 운석에는 옅은 청록 표시가 보여요. 주황색으로 강조된 운석은 먼저 막아 주세요. 실제 거리와 다가오는 속도를 보고 가장 급한 한 개를 알려 줘요. 결과 점수도 모든 숫자를 읽기 쉽게 표시해요.
+공격할 수 있는 운석에는 옅은 청록 표시가 보여요. 주황색으로 강조된 운석은 먼저 막아 주세요. 실제 거리와 다가오는 속도를 보고 가장 급한 한 개를 알려 줘요. 결과 점수도 모든 숫자를 읽기 쉽게 표시해요. 방어막과 위협의 방향·거리는 큰 한글로 보여요. 상태판이 운석을 가리면 빈 공간으로 이동해요.
 
 [난이도·화면 읽기·도움말 보기](MeteorDefenseVR/Docs/PLAYER_GUIDE.md)
 
@@ -327,3 +327,4 @@ OVR Metrics Tool 또는 Unity Profiler를 연결해 최종 측정해야 합니�
 - 현재 판정: Editor 기능 개발 완료 / Quest Pro·Meta XR·Android 실기기 통합 대기
 
 </details>
+
