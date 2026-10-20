@@ -330,7 +330,8 @@ namespace MeteorDefenseVR.PcInput
             report.passed = report.preflight.passed && report.rounds.Count == repetitions && report.rounds.All(r => r.passed)
                 && !report.issues.Contains("Delivery failure/return fixture failed")
                 && !report.issues.Contains("Delivery result boundary fixture failed")
-                && !report.issues.Contains("Threat priority fixture failed");
+                && !report.issues.Contains("Threat priority fixture failed")
+                && !report.issues.Contains("Telemetry readability fixture failed");
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);

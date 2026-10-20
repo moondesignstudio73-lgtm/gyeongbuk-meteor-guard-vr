@@ -56,7 +56,7 @@ namespace MeteorDefenseVR.PcInput
                     camera.GetComponent<WorldUiSafeArea>().Apply();
                     spawner.BeginScenario();health.ResetHealth();yield return new WaitForSecondsRealtime(.5f);
                     MeteorController front=null,rear=null;
-                    foreach(string state in new[]{"normal","low-health","multiple","rear-to-front","target-crossing","right-target-crossing"})
+                    foreach(string state in new[]{"normal","low-health","multiple","rear-to-front","target-crossing","right-target-crossing","left-damaged"})
                     {
                         if(state=="low-health")
                         {health.Tick(1);health.ApplyDamage(85);front=Spawn(camera.ViewportToWorldPoint(new Vector3(.55f,.6f,45)),3);}
@@ -68,6 +68,12 @@ namespace MeteorDefenseVR.PcInput
                         }
                         if(state=="rear-to-front")
                         {rear.transform.position=camera.transform.TransformPoint(new Vector3(25,2,35));rear.SetMovementDirection(spawner.ShipCenter-rear.transform.position);}
+                        if(state=="left-damaged")
+                        {
+                            health.ResetHealth();health.Tick(1);health.ApplyDamage(45);
+                            rear.transform.position=camera.transform.TransformPoint(new Vector3(-25,2,35));
+                            rear.SetMovementDirection(spawner.ShipCenter-rear.transform.position);
+                        }
                         Vector2? crossedPanelCenter=null;
                         if(state=="target-crossing" || state=="right-target-crossing")
                         {
@@ -103,10 +109,11 @@ namespace MeteorDefenseVR.PcInput
                             if(crossedPanelCenter.HasValue && ((state=="target-crossing" && name=="LiveShipStatus") || (state=="right-target-crossing" && name=="LiveThreatAnalysis")))
                                 clear &= Vector2.Distance(bounds.center,crossedPanelCenter.Value)>.05f;
                             if(name=="LiveThreatAnalysis" && rear!=null)
-                                values &= parsed.Contains(state=="multiple"?"뒤쪽":"오른쪽")
+                                values &= parsed.Contains(state=="multiple"?"뒤쪽":state=="left-damaged"?"왼쪽":"오른쪽")
                                     && parsed.Contains($"{Vector3.Distance(spawner.ShipCenter,rear.transform.position):0}m");
                             valid &= minGlyph>=14 && minDigit>=18 && fits && clear && glyphsPresent && values && !text.enableAutoSizing;
                             notes.Add($"{size}/{state}/{name}: minGlyphPixels={minGlyph} minDigitPixels={minDigit} fits={fits} clear={clear} glyphsPresent={glyphsPresent} values={values} panel={bounds} text={parsed.Replace('\n','|')}");
+                            if(!clear) foreach(var meteor in spawner.ActiveMeteors) notes.Add($"  targetBounds={MeteorRect(camera,meteor)} targetable={meteor.IsTargetable}");
                         }
                         if(validate)passed &= valid;
                     }

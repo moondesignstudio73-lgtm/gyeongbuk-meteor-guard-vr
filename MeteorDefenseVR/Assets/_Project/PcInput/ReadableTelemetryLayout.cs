@@ -74,31 +74,69 @@ namespace MeteorDefenseVR.PcInput
             if (!ready || spawner == null) return;
             for (int side = 0; side < panels.Length; side++)
             {
-                float oldHeight = panels[side].anchorMin.y, bestHeight = oldHeight;
+                Vector2 bestAnchor = panels[side].anchorMin;
                 float best = Obstruction(panels[side]);
                 if (best <= 0) continue; // Stable until a target crosses the panel.
                 foreach (float height in heights)
                 {
                     SetHeight(side, height);
                     float score = Obstruction(panels[side]);
-                    if (score < best) { best = score; bestHeight = height; }
+                    if (score < best) { best = score; bestAnchor = panels[side].anchorMin; }
                     if (score <= 0) break;
                 }
-                SetHeight(side, bestHeight);
+                // Closely spaced targets can leave a gap between the preferred rows.
+                // Search that remaining vertical space without shrinking or hiding values.
+                if (best > 0)
+                {
+                    float halfHeight = ViewBounds(panels[side]).height * .5f;
+                    for (float y = .03f + halfHeight; y <= .88f - halfHeight; y += .015f)
+                    {
+                        SetHeight(side, y);
+                        float score = Obstruction(panels[side]);
+                        if (score < best) { best = score; bestAnchor = panels[side].anchorMin; }
+                        if (score <= 0) break;
+                    }
+                }
+                // A dense vertical column can occupy the entire side. Use the empty
+                // central lower/upper band, keeping both the aim area and other panel clear.
+                if (best > 0)
+                {
+                    float halfWidth = ViewBounds(panels[side]).width * .5f;
+                    foreach (float y in new[] { .18f, .75f })
+                    {
+                        panels[side].anchorMin = panels[side].anchorMax = new Vector2(.5f + (side == 0 ? -halfWidth : halfWidth), y);
+                        float score = Obstruction(panels[side]);
+                        if (score < best) { best = score; bestAnchor = panels[side].anchorMin; }
+                        if (score <= 0) break;
+                    }
+                }
+                panels[side].anchorMin = panels[side].anchorMax = bestAnchor;
             }
         }
 
-        private float Obstruction(RectTransform panel)
+        private Rect ViewBounds(RectTransform panel)
         {
             panel.GetWorldCorners(corners);
             Vector2 min = Vector2.one * float.PositiveInfinity, max = Vector2.one * float.NegativeInfinity;
             foreach (var corner in corners) { Vector2 p = view.WorldToViewportPoint(corner); min = Vector2.Min(min, p); max = Vector2.Max(max, p); }
-            var bounds = Rect.MinMaxRect(min.x - .012f, min.y - .012f, max.x + .012f, max.y + .012f);
+            return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+        }
+
+        private float Obstruction(RectTransform panel)
+        {
+            var bounds = ViewBounds(panel);
+            bounds.xMin -= .006f; bounds.xMax += .006f; bounds.yMin -= .006f; bounds.yMax += .006f;
             float score = 0;
+            score += Intersection(bounds, new Rect(.42f, .4f, .16f, .2f));
+            foreach (var other in panels) if (other != null && other != panel) score += Intersection(bounds, ViewBounds(other));
             foreach (var meteor in spawner.ActiveMeteors) score += Overlap(bounds, meteor);
             if (boss != null) score += Overlap(bounds, boss.ActiveBoss);
             return score;
         }
+
+        private static float Intersection(Rect a, Rect b) =>
+            Mathf.Max(0, Mathf.Min(a.xMax, b.xMax) - Mathf.Max(a.xMin, b.xMin))
+            * Mathf.Max(0, Mathf.Min(a.yMax, b.yMax) - Mathf.Max(a.yMin, b.yMin));
 
         private float Overlap(Rect bounds, MeteorController meteor)
         {

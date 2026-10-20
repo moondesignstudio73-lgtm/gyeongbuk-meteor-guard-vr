@@ -2,6 +2,8 @@ using System.Collections;
 using System.Linq;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Player;
+using MeteorDefenseVR.PcInput;
+using MeteorDefenseVR.UI;
 using MeteorDefenseVR.Visual;
 using NUnit.Framework;
 using TMPro;
@@ -89,7 +91,7 @@ namespace MeteorDefenseVR.Tests
         }
 
         [Test]
-        public void RightHologramWorstCaseReadoutsStayInsideTheirPanel()
+        public void RightHologramKeepsReferencesForRuntimeSummary()
         {
             EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
             var telemetry=Object.FindAnyObjectByType<CockpitTelemetryPresentation>(FindObjectsInactive.Include);
@@ -98,16 +100,11 @@ namespace MeteorDefenseVR.Tests
             var weapon=serialized.FindProperty("weaponStatus").objectReferenceValue as TMP_Text;
             var panel=threat.rectTransform.parent as RectTransform;
             Assert.That(panel,Is.Not.Null);Assert.That(weapon.rectTransform.parent,Is.EqualTo(panel));
-            threat.text="THREAT // WARNING\nCONTACTS 12\nVECTOR REAR RIGHT\nRANGE 018m\nSCORE 99,999";
-            weapon.text="WEAPON SYSTEM\nTOP TURRET READY\nBOTTOM TURRET AIMING\nTARGET LOCKING\nRANGE 018m";
-            Canvas.ForceUpdateCanvases();threat.ForceMeshUpdate(true,true);weapon.ForceMeshUpdate(true,true);
-            Assert.That(threat.preferredHeight,Is.LessThanOrEqualTo(threat.rectTransform.rect.height+.5f));
-            Assert.That(weapon.preferredHeight,Is.LessThanOrEqualTo(weapon.rectTransform.rect.height+.5f));
-            float threatBottom=threat.rectTransform.anchoredPosition.y-threat.rectTransform.rect.height;
-            float weaponTop=weapon.rectTransform.anchoredPosition.y;
-            float weaponBottom=weaponTop-weapon.rectTransform.rect.height;
-            Assert.That(threatBottom,Is.GreaterThanOrEqualTo(weaponTop),"Threat and weapon blocks overlap.");
-            Assert.That(weaponBottom,Is.GreaterThan(panel.rect.yMin+8),"Weapon block crosses the hologram bottom border.");
+            // The weapon block is retained as authored data but hidden during play.
+            // TelemetryReadabilityTests covers the actual runtime text bounds at five sizes.
+            Assert.That(telemetry.ThreatReadout,Is.SameAs(threat));
+            Assert.That(panel.GetComponent<CanvasGroup>(),Is.Not.Null);
+            Assert.That(threat.raycastTarget,Is.False);
         }
 
         [Test]
@@ -132,20 +129,26 @@ namespace MeteorDefenseVR.Tests
         public IEnumerator ShipAndScoreReadoutsFollowRuntimeValues()
         {
             EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);yield return new EnterPlayMode();yield return null;
+            var router=Object.FindAnyObjectByType<GazeInputRouter>();router.InputSuspended=true;
+            var director=Object.FindAnyObjectByType<SfPresentationDirector>();
+            float deadline=Time.realtimeSinceStartup+30;
+            while(director.IsBootPresenting&&Time.realtimeSinceStartup<deadline)yield return null;
+            GameFlowManager.Instance.StartMainGame();yield return null;
             var telemetry=Object.FindAnyObjectByType<CockpitTelemetryPresentation>();
             var health=Object.FindAnyObjectByType<PlayerHealth>();var stats=Object.FindAnyObjectByType<GameSessionStats>();
-            health.Tick(1);Assert.That(health.ApplyDamage(30),Is.True);stats.SetScore(2550);
+            health.Tick(1);Assert.That(health.ApplyDamage(30),Is.True);
+            Object.FindAnyObjectByType<MissionHudController>().RestoreScore(2550);
             for(int i=0;i<20;i++)yield return null;telemetry.Refresh();
             var ship=GameObject.Find("LiveShipStatus").GetComponent<TMP_Text>();
             var threat=GameObject.Find("LiveThreatAnalysis").GetComponent<TMP_Text>();
-            var weapon=GameObject.Find("LiveWeaponStatus").GetComponent<TMP_Text>();
-            var systems=GameObject.Find("LiveSystemsStatus").GetComponent<TMP_Text>();
-            Assert.That(ship.text,Does.Not.Contain("SHIELD    100%"),"The readout must begin its short animated decrease");
-            yield return new WaitForSecondsRealtime(.2f);telemetry.Refresh();
-            Assert.That(ship.text,Does.Contain("SHIELD    070%"));Assert.That(ship.text,Does.Contain("DAMAGE    030"));
-            Assert.That(threat.text,Does.Contain("SCORE     2,550"));
-            Assert.That(weapon.text,Does.Contain("TOP TURRET").And.Contain("BOTTOM TURRET").And.Contain("TARGET"));
-            Assert.That(systems.text,Does.Contain("GAZE").And.Contain("ENGINE").And.Contain("RADAR"));
+            Assert.That(telemetry.ReadableSummary,Is.True);
+            Assert.That(ship.text,Does.Contain("방어막 70%").And.Contain("피해 30"));
+            Assert.That(stats.Score,Is.EqualTo(2550));
+            Assert.That(Object.FindAnyObjectByType<GameplayHudOverlayView>().ScoreValue.text,Is.EqualTo("2,550"));
+            Assert.That(threat.text,Does.Not.Contain("SCORE"),"Score remains in the main HUD rather than duplicated on the threat panel");
+            foreach(var text in ship.transform.parent.parent.GetComponentsInChildren<TMP_Text>(true))
+                if(text.name=="LiveWeaponStatus"||text.name=="LiveSystemsStatus")
+                    Assert.That(text.gameObject.activeSelf,Is.False,"Decorative and duplicate readouts must not compete with essential values");
         }
     }
 }
