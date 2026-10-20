@@ -30,12 +30,12 @@ namespace MeteorDefenseVR.PcInput
             : "Per-frame allocation counter unavailable; total/managed heap and GC collections remain recorded";
         public long LastFrameAllocation => allocation.Valid ? allocation.LastValue : driver != null && driver.AllocationCounterAvailable ? driver.LastFrameMainThreadAllocation : -1;
 
-        public PcStabilityProbe(Camera gameCamera)
+        public PcStabilityProbe(Camera gameCamera, int width = 1280, int height = 720)
         {
             camera = gameCamera;
             previousTarget = camera.targetTexture; previousAspect = camera.aspect;
-            target = new RenderTexture(1280, 720, 24, RenderTextureFormat.DefaultHDR) { name = "QA_GameOnly_RenderTarget" };
-            target.Create(); camera.targetTexture = target; camera.aspect = 1280f / 720;
+            target = new RenderTexture(width, height, 24, RenderTextureFormat.DefaultHDR) { name = "QA_GameOnly_RenderTarget" };
+            target.Create(); camera.targetTexture = target; camera.aspect = (float)width / height;
             var overlay = Object.FindAnyObjectByType<PcTestOverlay>();
             canvas = overlay != null ? overlay.GetComponentInChildren<Canvas>(true) : null;
             if (canvas != null)

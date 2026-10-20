@@ -9,6 +9,9 @@ namespace MeteorDefenseVR.Tutorial
         [SerializeField] private TextMesh hudText;
         [SerializeField] private TextMesh statusText;
 
+        public TextMesh HudText => hudText;
+        public TextMesh StatusText => statusText;
+
         private void LateUpdate()
         {
             bool visible = controller != null && (controller.IsRunning || controller.IsComplete);

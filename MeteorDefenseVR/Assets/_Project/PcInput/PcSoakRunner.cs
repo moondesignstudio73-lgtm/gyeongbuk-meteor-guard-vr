@@ -60,6 +60,8 @@ namespace MeteorDefenseVR.PcInput
             string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "QA"));
             Directory.CreateDirectory(output);
             string path = Path.Combine(output, "pc-soak.json");
+            bool deliveryQa = Environment.GetCommandLineArgs().Contains("--pc-delivery-qa");
+            var capturedStates = new HashSet<GameState>();
             Application.runInBackground = true;
             Time.timeScale = 1f;
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
@@ -79,6 +81,14 @@ namespace MeteorDefenseVR.PcInput
             var weapon = Object.FindAnyObjectByType<LaserWeapon>();
             Camera camera = Camera.main;
             using var probe = new PcStabilityProbe(camera);
+            void Capture(string label)
+            {
+                string folder = Path.Combine(output, "Delivery", label);
+                Directory.CreateDirectory(folder);
+                Canvas.ForceUpdateCanvases();
+                camera.Render();
+                probe.SaveGameOnlyProof(folder, router);
+            }
             report.gpu = SystemInfo.graphicsDeviceName + " / " + SystemInfo.graphicsDeviceType;
             report.allocationCounterAvailable = probe.AllocationCounterAvailable;
             report.profilerAllocationCounterAvailable = probe.ProfilerAllocationCounterAvailable;
@@ -188,6 +198,9 @@ namespace MeteorDefenseVR.PcInput
                         }
                         long allocated=probe.LastFrameAllocation;if(allocated>=0){allocationTotal+=allocated;allocationMax=Math.Max(allocationMax,allocated);}
                         if (premiumVfx != null) peakParticles=Mathf.Max(peakParticles,premiumVfx.ActiveParticleCount);
+                        if (deliveryQa && Time.realtimeSinceStartup - stateStart > 1.7f
+                            && capturedStates.Add(flow.CurrentState))
+                            Capture("victory-" + flow.CurrentState);
                         if (lobby != null && lobby.IsMenuReady) lobby.Queue(HangarLobbyController.MenuAction.Standby);
                         if (reachedResult > 0 && flow.CurrentState == GameState.Boot) break;
                         yield return null;
@@ -260,6 +273,40 @@ namespace MeteorDefenseVR.PcInput
                     Debug.Log($"[PCSoak] Round {round}/{repetitions} {(item.passed ? "PASS" : "FAIL")} result={item.startToResult:F2}s reset={item.startToReset:F2}s fps={item.averageFps:F1} objects={item.objects} materials={item.materials} memory={item.allocatedBytes / 1048576f:F1}MB");
                     if (!item.passed) break;
                 }
+                if (deliveryQa && report.rounds.All(r => r.passed))
+                {
+                    Capture("restart-standby");
+                    // Explicit failure fixture, separate from the synthetic-input victory run.
+                    // Exercises the shipped return/result path without waiting for random misses.
+                    Object.FindAnyObjectByType<DifficultyManager>().Select(DifficultyLevel.Normal);
+                    flow.StartMainGame();
+                    yield return new WaitForSecondsRealtime(.3f);
+                    stats.SetScore(138940);
+                    Object.FindAnyObjectByType<MeteorDefenseVR.Player.PlayerHealth>()
+                        .ApplyImpactDamage(100, camera.transform.position);
+                    bool pending = results.IsPresentationPending && !results.IsVisible;
+                    yield return new WaitForSecondsRealtime(.6f); Capture("failure-approach");
+                    yield return new WaitForSecondsRealtime(2.9f); Capture("failure-landing");
+                    yield return new WaitForSecondsRealtime(1.2f); Capture("failure-door-closing");
+                    bool retained = results.Snapshot.Score == 138940 && results.IsPresentationPending;
+                    float deadline = Time.realtimeSinceStartup + 8;
+                    while (!results.IsVisible && Time.realtimeSinceStartup < deadline) yield return null;
+                    bool revealed = results.IsVisible && results.Snapshot.Score == 138940;
+                    yield return new WaitForSecondsRealtime(1.7f); Capture("failure-result");
+                    yield return new WaitForSecondsRealtime(3f);
+                    bool readableDuration = results.IsVisible;
+                    deadline = Time.realtimeSinceStartup + 15;
+                    while (flow.CurrentState == GameState.Result && Time.realtimeSinceStartup < deadline) yield return null;
+                    Capture("failure-after-result");
+                    bool returned = Object.FindAnyObjectByType<BaseFlightCinematic>().HasReturned;
+                    bool passed = pending && retained && revealed && readableDuration
+                        && flow.CurrentState != GameState.Result;
+                    File.WriteAllText(Path.Combine(output, "Delivery", "failure-fixture.txt"),
+                        $"Input: explicit state/score/damage fixture; not human or synthetic-mouse failure gameplay\n" +
+                        $"pending={pending}; retainedBeforeDoorClose={retained}; revealedWith138940={revealed}; " +
+                        $"visibleAfter4.7seconds={readableDuration}; nextState={flow.CurrentState}; hasReturned={returned}; passed={passed}\n");
+                    if (!passed) report.issues.Add("Delivery failure/return fixture failed");
+                }
             }
             finally
             {
@@ -270,7 +317,8 @@ namespace MeteorDefenseVR.PcInput
                 spawner.MeteorSpawned-=spawned;spawner.MeteorCompleted-=completed;
             }
             report.completedUtc = DateTime.UtcNow.ToString("O");
-            report.passed = report.preflight.passed && report.rounds.Count == repetitions && report.rounds.All(r => r.passed);
+            report.passed = report.preflight.passed && report.rounds.Count == repetitions && report.rounds.All(r => r.passed)
+                && !report.issues.Contains("Delivery failure/return fixture failed");
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);

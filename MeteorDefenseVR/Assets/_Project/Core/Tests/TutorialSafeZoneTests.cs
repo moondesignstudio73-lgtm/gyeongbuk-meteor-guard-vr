@@ -16,6 +16,60 @@ namespace MeteorDefenseVR.Tests
     {
         [UnityTearDown] public IEnumerator Cleanup(){if(Application.isPlaying)yield return new ExitPlayMode();}
 
+        [UnityTest, Timeout(150000)]
+        public IEnumerator PracticeTelemetryRemainsReadableAcrossDesktopViewsAndAspectRatios()
+        {
+            EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity", OpenSceneMode.Single);
+            yield return new EnterPlayMode();
+            var router = Object.FindAnyObjectByType<GazeInputRouter>();
+            router.SetMode(PcGazeMode.MouseGaze);
+            router.InputSuspended = true;
+            GameFlowManager.Instance.StartPractice();
+            yield return new WaitForSecondsRealtime(.3f);
+            var view = Object.FindAnyObjectByType<PracticeHudSafeOverlay>();
+            Object.FindAnyObjectByType<PracticeHudView>().SetProgress(2, 3, 100);
+            yield return null;
+            Assert.That(view.SafeCanvas, Is.Not.Null);
+            var camera = Camera.main;
+            Vector3 originalPosition = camera.transform.position;
+            foreach (var size in new[] { new Vector2Int(1920,1080), new Vector2Int(1280,720),
+                new Vector2Int(1024,768), new Vector2Int(800,600), new Vector2Int(2560,1080) })
+            {
+                using var proof = new PcStabilityProbe(camera, size.x, size.y);
+                foreach (var direction in new[] { new Vector2(0,0), new Vector2(-10,-20),
+                    new Vector2(-90,0), new Vector2(90,0), new Vector2(180,0),
+                    new Vector2(0,65), new Vector2(0,-65) })
+                {
+                    router.Simulation.Recenter();
+                    router.Simulation.ApplyLook(new Vector2(direction.x/.1f, -direction.y/.09f), 1);
+                    yield return new WaitForSecondsRealtime(.12f);
+                    Canvas.ForceUpdateCanvases();
+                    view.SafeText.ForceMeshUpdate(true, true);
+                    camera.Render();
+                    Assert.That(view.SafeText.fontSize, Is.EqualTo(32));
+                    Assert.That(view.SafeText.enableAutoSizing, Is.False);
+                    Assert.That(view.SafeText.text, Does.Contain("2/3"));
+                    Assert.That(view.SafeText.text, Does.Contain("100"));
+                    Assert.That(view.SafeText.preferredWidth, Is.LessThanOrEqualTo(view.SafeText.rectTransform.rect.width));
+                    Assert.That(view.SafeText.preferredHeight, Is.LessThanOrEqualTo(view.SafeText.rectTransform.rect.height));
+                    Assert.That(view.SafeText.isTextTruncated, Is.False);
+                    Assert.That(view.SafeStatus.fontSize, Is.EqualTo(40));
+                    Assert.That(view.SafeStatus.preferredWidth, Is.LessThanOrEqualTo(view.SafeStatus.rectTransform.rect.width));
+                    Assert.That(view.SafeStatus.text, Does.Contain("연습해"));
+                    Assert.That(camera.transform.position, Is.EqualTo(originalPosition));
+                    string folder = $"Docs/DeliveryQA/hud-safe-20261021/{size.x}x{size.y}/{direction.x}_{direction.y}";
+                    Directory.CreateDirectory(folder);
+                    proof.SaveGameOnlyProof(folder, router);
+                }
+            }
+            Quaternion originalRotation = camera.transform.rotation;
+            view.ApplyCanvasMode(true);
+            Assert.That(view.SafeCanvas.renderMode, Is.EqualTo(RenderMode.WorldSpace));
+            Assert.That(camera.transform.rotation, Is.EqualTo(originalRotation));
+            Assert.That(camera.transform.position, Is.EqualTo(originalPosition));
+            view.ApplyCanvasMode(false);
+        }
+
         [Test]
         public void AuthoredTutorialUsesPlayerHudSafeZoneAndHidesWorldPresentation()
         {
