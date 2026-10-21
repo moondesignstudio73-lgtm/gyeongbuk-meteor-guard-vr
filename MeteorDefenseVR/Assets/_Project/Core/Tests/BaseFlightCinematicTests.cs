@@ -22,6 +22,10 @@ namespace MeteorDefenseVR.Tests
         {
             EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity", OpenSceneMode.Single);
             yield return new EnterPlayMode();
+            yield return Verify();
+        }
+        private static IEnumerator Verify()
+        {
             var router = Object.FindAnyObjectByType<GazeInputRouter>(); router.InputSuspended = true;
             var warm = Object.FindAnyObjectByType<ReadyPrewarmController>();
             float deadline = Time.realtimeSinceStartup + 30;
@@ -43,6 +47,10 @@ namespace MeteorDefenseVR.Tests
             flow.StartLaunch();
             yield return new WaitForSecondsRealtime(.7f); Save(proof, router, "door-opening");
             Assert.That(cinema.CurrentShot, Is.EqualTo(BaseFlightCinematic.Shot.Departure));
+            var fuselage=GameObject.Find("Fuselage");
+            Assert.That(fuselage.GetComponent<MeshFilter>().sharedMesh.vertexCount, Is.GreaterThan(16));
+            Assert.That(fuselage.GetComponent<Renderer>().sharedMaterial.GetTexture("_BaseMap"), Is.Not.Null);
+            Assert.That(fuselage.GetComponent<Renderer>().sharedMaterial.GetTexture("_BumpMap"), Is.Not.Null);
             yield return new WaitForSecondsRealtime(1.1f); Save(proof, router, "engine-ready");
             yield return new WaitForSecondsRealtime(1.3f); Save(proof, router, "acceleration");
             Assert.That(cinema.BlurStrength, Is.GreaterThan(0));
@@ -88,7 +96,7 @@ namespace MeteorDefenseVR.Tests
         }
         private static void Save(PcStabilityProbe proof, GazeInputRouter router, string label)
         {
-            var directory = "Docs/BaseFlightQA/" + label; Directory.CreateDirectory(directory); proof.SaveGameOnlyProof(directory, router);
+            var directory = "Docs/DeliveryQA/hangar-graphics-20261022/After/" + label; Directory.CreateDirectory(directory); proof.SaveGameOnlyProof(directory, router);
         }
     }
 }

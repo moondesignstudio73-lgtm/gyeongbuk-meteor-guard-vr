@@ -10,7 +10,7 @@ namespace MeteorDefenseVR.PcInput
 {
     // An isolated, pooled miniature set filmed to a texture. Never moves the tracked camera.
     [DisallowMultipleComponent]
-    public sealed class BaseFlightCinematic : MonoBehaviour
+    public sealed partial class BaseFlightCinematic : MonoBehaviour
     {
         public enum Shot { None, Departure, Return }
         public Shot CurrentShot { get; private set; }
@@ -123,7 +123,7 @@ namespace MeteorDefenseVR.PcInput
                 float t = ReturnProgress;
                 float approach = Mathf.SmoothStep(0, 1, Mathf.Clamp01(t / .58f));
                 float landing = Mathf.SmoothStep(0, 1, Mathf.Clamp01((t - .58f) / .18f));
-                ship.localPosition = Vector3.Lerp(new Vector3(4, 1.6f, 2), new Vector3(0, .9f, 23), approach) + Vector3.down * landing * 1.15f;
+                ship.localPosition = Vector3.Lerp(new Vector3(4, 1.6f, 2), new Vector3(0, .9f, 23), approach) + Vector3.down * landing * 1.37f;
                 ship.localRotation = Quaternion.Euler(0, 180, Mathf.Sin(t * 13) * 4 * (1 - landing));
                 engines.localScale = new Vector3(1, 1, Mathf.Lerp(.6f, .08f, landing));
                 DoorOpening = 1 - Mathf.SmoothStep(0, 1, Mathf.Clamp01((t - .76f) / .2f));
@@ -182,9 +182,9 @@ namespace MeteorDefenseVR.PcInput
         {
             stage = Node("BaseFlightSet", null);
             stage.position = new Vector3(10000, 10000, 10000);
-            hull = Paint("Hull", new Color(.19f, .27f, .36f), true);
-            trim = Paint("Armor", new Color(.52f, .62f, .7f), true);
-            dark = Paint("Hangar", new Color(.035f, .065f, .095f), true);
+            hull = Paint("Hull", new Color(.62f, .68f, .74f), true);
+            trim = Paint("Armor", new Color(.76f, .8f, .84f), true);
+            dark = Paint("Hangar", new Color(.22f, .27f, .32f), true);
             lightBlue = Paint("Ion", new Color(.12f, .85f, 1), false);
             orange = Paint("Damage", new Color(1, .3f, .045f), false);
             Box("Floor", stage, new Vector3(0, -2, 23), new Vector3(18, .5f, 30), dark);
@@ -215,7 +215,7 @@ namespace MeteorDefenseVR.PcInput
             ship = Node("Interceptor", stage);
             Wedge("Fuselage", ship, new Vector3(0, 0, 0), new Vector3(1.4f, .8f, 4.6f), hull);
             Wedge("Wings", ship, new Vector3(0, -.16f, 1.2f), new Vector3(5.5f, .17f, 2.6f), trim);
-            Wedge("Canopy", ship, new Vector3(0, .5f, -.3f), new Vector3(.7f, .45f, 1.7f), lightBlue);
+            Wedge("Canopy", ship, new Vector3(0, .5f, -.3f), new Vector3(.7f, .45f, 1.7f), Paint("CanopyGlass", new Color(.07f, .22f, .3f), true));
             engines = Node("Exhaust", ship);
             engines.localPosition = new Vector3(0, 0, 2.5f);
             landingGear = Node("LandingGear", ship);
@@ -254,6 +254,7 @@ namespace MeteorDefenseVR.PcInput
             }
             puff.Apply(); smokeMaterial.SetTexture("_MainTex", puff); resources.Add(puff); resources.Add(smokeMaterial);
             smoke.GetComponent<ParticleSystemRenderer>().sharedMaterial = smokeMaterial;
+            DetailHangar();
             cameraRig = Node("FlightFilmCamera", stage); cameraRig.localPosition = cameraPosition;
             cameraRotation = Quaternion.LookRotation(new Vector3(0, .5f, 20) - cameraPosition);
             cameraRig.localRotation = cameraRotation;
@@ -261,12 +262,12 @@ namespace MeteorDefenseVR.PcInput
             filmCamera.clearFlags = CameraClearFlags.SolidColor; filmCamera.backgroundColor = new Color(.006f, .014f, .028f);
             filmCamera.cullingMask = 1 << FilmLayer; filmCamera.nearClipPlane = .1f; filmCamera.farClipPlane = 90;
             filmCamera.fieldOfView = 48; filmCamera.depth = -10;
-            var data = filmCamera.GetUniversalAdditionalCameraData(); data.allowXRRendering = false; data.renderPostProcessing = false;
-            film = new RenderTexture(1280, 720, 24) { name = "BaseFlightFilm" }; film.Create(); resources.Add(film);
+            var data = filmCamera.GetUniversalAdditionalCameraData(); data.allowXRRendering = false; data.renderPostProcessing = true; data.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
+            film = new RenderTexture(1920, 1080, 24) { name = "BaseFlightFilm" }; film.Create(); resources.Add(film);
             filmCamera.targetTexture = film;
-            var key = Node("SetKey", stage).gameObject.AddComponent<Light>(); key.type = LightType.Point; key.range = 60; key.intensity = 12;
+            var key = Node("SetKey", stage).gameObject.AddComponent<Light>(); key.type = LightType.Point; key.range = 60; key.intensity = 350;
             key.color = new Color(.65f,.8f,1); key.cullingMask = 1 << FilmLayer; key.transform.localPosition = new Vector3(0,5,10);
-            var fill = Node("SetFill", stage).gameObject.AddComponent<Light>(); fill.type = LightType.Point; fill.range = 30; fill.intensity = 8;
+            var fill = Node("SetFill", stage).gameObject.AddComponent<Light>(); fill.type = LightType.Point; fill.range = 30; fill.intensity = 250;
             fill.color = new Color(.25f,.7f,1); fill.cullingMask = 1 << FilmLayer; fill.transform.localPosition = new Vector3(0,4,30);
             var screen = new GameObject("BaseFlightScreen", typeof(RectTransform), typeof(Canvas), typeof(CanvasGroup));
             canvas = screen.GetComponent<Canvas>(); canvas.sortingOrder = 270;
@@ -284,9 +285,10 @@ namespace MeteorDefenseVR.PcInput
         }
         private Material Paint(string label, Color color, bool lit)
         {
-            var material = new Material(Shader.Find(lit ? "Universal Render Pipeline/Lit" : "Universal Render Pipeline/Unlit"));
+            var template = lit ? ExistingMetal() : null;
+            var material = template != null ? new Material(template) : new Material(Shader.Find(lit ? "Universal Render Pipeline/Lit" : "Universal Render Pipeline/Unlit"));
             material.name = "Flight_" + label; material.SetColor("_BaseColor", color);
-            if (lit) { material.SetFloat("_Metallic", .5f); material.SetFloat("_Smoothness", .65f); }
+            if (lit) { material.SetFloat("_Metallic", .3f); material.SetFloat("_Smoothness", .34f); material.SetTextureScale("_BaseMap", new Vector2(2, 2)); material.SetTextureScale("_BumpMap", new Vector2(2, 2)); }
             resources.Add(material); return material;
         }
         private Transform Box(string label, Transform parent, Vector3 position, Vector3 scale, Material material)
@@ -294,14 +296,14 @@ namespace MeteorDefenseVR.PcInput
             var item = GameObject.CreatePrimitive(PrimitiveType.Cube); item.name = label; item.layer = FilmLayer;
             item.GetComponent<Collider>().enabled = false; Destroy(item.GetComponent<Collider>());
             item.transform.SetParent(parent, false); item.transform.localPosition = position; item.transform.localScale = scale;
+            item.GetComponent<MeshFilter>().sharedMesh = BeveledUnit();
             item.GetComponent<Renderer>().sharedMaterial = material; return item.transform;
         }
         private void Wedge(string label, Transform parent, Vector3 position, Vector3 scale, Material material)
         {
             var item = Node(label, parent); item.localPosition = position; item.localScale = scale;
             var mesh = new Mesh { name = label };
-            mesh.vertices = new[] { new Vector3(0,0,-.5f), new Vector3(-.5f,-.3f,.5f), new Vector3(.5f,-.3f,.5f), new Vector3(0,.5f,.25f) };
-            mesh.triangles = new[] { 0,2,1, 0,1,3, 0,3,2, 1,2,3 }; mesh.RecalculateNormals(); resources.Add(mesh);
+            ShapeAirframe(mesh); resources.Add(mesh);
             item.gameObject.AddComponent<MeshFilter>().sharedMesh = mesh;
             item.gameObject.AddComponent<MeshRenderer>().sharedMaterial = material;
         }

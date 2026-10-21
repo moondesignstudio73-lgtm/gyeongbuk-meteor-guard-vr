@@ -60,6 +60,7 @@ namespace MeteorDefenseVR.PcInput
             launch=FindAnyObjectByType<LaunchSequenceController>(); environment=FindAnyObjectByType<CinematicEnvironmentView>();
             progression=StageProgressionController.Instance??FindAnyObjectByType<StageProgressionController>();
             if (flow==null || reset==null || ready==null || font==null || hangar==null || Camera.main==null) { enabled=false; return; }
+            hangar.gameObject.AddComponent<HangarSurfaceUpgrade>().Build(hangar,leftDoor,rightDoor);
             ranking=GetComponent<LocalRankingController>()??gameObject.AddComponent<LocalRankingController>();
             ranking.Initialize(flow,result);
             view=gameObject.AddComponent<HangarLobbyView>();
