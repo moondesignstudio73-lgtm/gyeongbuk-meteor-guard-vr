@@ -55,10 +55,10 @@ namespace MeteorDefenseVR.PcInput
             if (role == "MissionCompleteText") lines = t < .4f ? 1 : int.MaxValue;
             if (role == "ResultText")
             {
-                lines = t < .16f ? 1 : t < .30f ? 2 : t < .44f ? 3 : t < .58f ? 4 : t < .86f ? 5 : int.MaxValue;
-                scale += .025f * Pulse(t - .58f, .3f);
-                rankScale = t < .58f ? 1f : Mathf.Lerp(1.65f, 1f, Ease((t - .58f) / .32f));
-                if (rankCached && t < 1.05f) { ApplyRank(text.textInfo); text.UpdateVertexData(TMP_VertexDataUpdateFlags.Vertices); }
+                // Final values are readable immediately; only the existing rank glyph settles.
+                alpha=1f;scale=1f;lines=int.MaxValue;
+                rankScale=Mathf.Lerp(1.12f,1f,Ease(elapsed/WorldTextPresentation.ScoreCountupSeconds));
+                if (rankCached && elapsed < 1.05f) { ApplyRank(text.textInfo); text.UpdateVertexData(TMP_VertexDataUpdateFlags.Vertices); }
             }
             bool countdown = role == "LaunchStatus" && (content == "3" || content == "2" || content == "1");
             if (countdown)
@@ -71,7 +71,7 @@ namespace MeteorDefenseVR.PcInput
             if (role == "HudScore") { alpha = 1f; scale = 1f + .07f * Pulse(elapsed, .3f); }
             Opacity = alpha;
             text.transform.localScale = restScale * scale;
-            text.transform.localPosition = restPosition + (role == "HudScore" || countdown ? Vector3.zero : Vector3.up * (.035f * (1f - Ease(t / .4f))));
+            text.transform.localPosition = restPosition + (role == "ResultText" || role == "HudScore" || countdown ? Vector3.zero : Vector3.up * (.035f * (1f - Ease(t / .4f))));
             if (text.maxVisibleLines != lines) text.maxVisibleLines = lines;
             mesh.GetPropertyBlock(properties);
             Color tint = face; tint.a *= alpha;

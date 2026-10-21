@@ -100,7 +100,7 @@ namespace MeteorDefenseVR.Tests
             flow.ShowResult();
             yield return new WaitForSecondsRealtime(.18f);
             var resultMotion = Object.FindObjectsByType<WorldTextMotion>().Single(t => t.name == "ResultText");
-            Assert.That(resultMotion.VisibleLines, Is.EqualTo(1));
+            Assert.That(resultMotion.VisibleLines, Is.EqualTo(int.MaxValue), "Final result values are readable during countup");
             Save(render, router, "result-title");
             yield return new WaitForSecondsRealtime(.95f); Save(render, router, "result-full");
             Assert.That(resultMotion.VisibleLines, Is.EqualTo(int.MaxValue));

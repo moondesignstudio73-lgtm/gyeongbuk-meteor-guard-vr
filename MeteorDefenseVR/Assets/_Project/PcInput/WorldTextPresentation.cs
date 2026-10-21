@@ -20,6 +20,14 @@ namespace MeteorDefenseVR.PcInput
         private WorldTextMotion motion;
         private bool prepared;
         private string sourceName;
+        private GameSessionSnapshot countedSnapshot;
+        private float scoreAge;
+        private float scoreStartedAt;
+        private bool resultWasVisible;
+        private GazeInputRouter inputRouter;
+        public const float ScoreCountupSeconds = .8f;
+        public int DisplayedCount { get; private set; }
+        public bool ScoreCountupActive => result != null && result.IsVisible && resultWasVisible && scoreAge < ScoreCountupSeconds;
         public TextMeshPro Display => display;
         public void Configure(TextMesh text, TextMeshPro presentation, ResultController resultController = null)
         { source = text; display = presentation; result = resultController; }
@@ -108,6 +116,26 @@ namespace MeteorDefenseVR.PcInput
                     display.text = "<color=#FF7952>위험!</color>\n<size=1.7>거대한 운석이 다가와요!</size>";
             }
             motion?.Present(content, display.enabled && !string.IsNullOrEmpty(content));
+            if (result != null) PresentResultCount();
+        }
+        private void PresentResultCount()
+        {
+            bool visible=result.IsVisible&&display.enabled;
+            if(!visible){resultWasVisible=false;countedSnapshot=null;scoreAge=0;DisplayedCount=0;return;}
+            bool fresh=!resultWasVisible||countedSnapshot!=result.Snapshot;
+            if(fresh){countedSnapshot=result.Snapshot;scoreAge=0;scoreStartedAt=Time.time;}
+            else if(scoreAge>=ScoreCountupSeconds)return;
+            else scoreAge=Mathf.Min(ScoreCountupSeconds,Time.time-scoreStartedAt);
+            resultWasVisible=true;
+            inputRouter ??= FindAnyObjectByType<GazeInputRouter>();
+            if(inputRouter!=null&&inputRouter.UiModalOpen)scoreAge=ScoreCountupSeconds;
+            int score=Mathf.Max(0,result.Snapshot?.Score??0);
+            DisplayedCount=(int)System.Math.Min(score,System.Math.Round(score*(double)WorldTextMotion.Ease(scoreAge/ScoreCountupSeconds)));
+            string final=FormatResult(result.Snapshot,result.Rank,result.RankSettings);
+            // Only the title counts. The unchanged final score/rank rows are visible immediately.
+            display.text=scoreAge<ScoreCountupSeconds
+                ? $"<align=center><color=#BAFAFF>집계 중 {DisplayedCount:N0}</color></align>"+final.Substring(final.IndexOf('\n'))
+                : final;
         }
         private static string FormatTelemetry(string name, string value)
         {
@@ -158,6 +186,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void OnDisable()
         {
+            resultWasVisible=false;countedSnapshot=null;scoreAge=0;DisplayedCount=0;
             if (legacyRenderer != null) legacyRenderer.forceRenderingOff = false;
             // Explicitly disabling this bridge still supports the original TextMesh fallback.
             // Hidden state roots keep their font detached for the next state activation.

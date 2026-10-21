@@ -27,6 +27,7 @@ namespace MeteorDefenseVR.PcInput
             var canvas=root.GetComponent<Canvas>();canvas.renderMode=RenderMode.WorldSpace;canvas.worldCamera=camera;canvas.sortingOrder=102;
             Replay=HangarLobbyView.Button(root.transform,"Replay","다시 출격",new Vector2(-155,0),font,()=>lobby.ChooseFromResult(true),new Vector2(285,68));
             Menu=HangarLobbyView.Button(root.transform,"Menu","기지 메뉴",new Vector2(155,0),font,()=>lobby.ChooseFromResult(false),new Vector2(285,68));
+            Replay.AllowImmediateClick=Menu.AllowImmediateClick=true;
             textOverlay=new Material(font.material){name="Result action text overlay",renderQueue=4000};
             textOverlay.SetFloat("_ZTestMode",(float)UnityEngine.Rendering.CompareFunction.Always);
             foreach(var label in root.GetComponentsInChildren<TextMeshPro>()){label.fontSize=360;label.fontSharedMaterial=textOverlay;}
@@ -50,7 +51,7 @@ namespace MeteorDefenseVR.PcInput
         {
             Present();
             if(Visible&&Time.timeScale>0&&Mouse.current!=null&&Mouse.current.leftButton.wasPressedThisFrame)
-            {if(gaze.CurrentTarget==Replay)Replay.Choose();else if(gaze.CurrentTarget==Menu)Menu.Choose();}
+            {if(gaze.CurrentTarget==Replay)Replay.Click();else if(gaze.CurrentTarget==Menu)Menu.Click();}
         }
         private void OnDisable(){if(root!=null)root.SetActive(false);}
         private void OnDestroy(){if(result!=null){result.ResultHidden-=Hide;result.ResultShown-=Show;}if(root!=null)Destroy(root);if(textOverlay!=null)Destroy(textOverlay);}
