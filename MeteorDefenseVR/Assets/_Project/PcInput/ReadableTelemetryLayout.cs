@@ -18,8 +18,6 @@ namespace MeteorDefenseVR.PcInput
         private readonly float[] heights = { .18f, .76f, .36f, .57f };
         private readonly Vector3[] corners = new Vector3[4];
         private bool ready;
-        private void OnEnable() => Canvas.willRenderCanvases += LateUpdate;
-        private void OnDisable() => Canvas.willRenderCanvases -= LateUpdate;
 
         private void Start()
         {
@@ -78,13 +76,6 @@ namespace MeteorDefenseVR.PcInput
         private void LateUpdate()
         {
             if (!ready || spawner == null) return;
-            // The HUD can finish wiring after Start, and its canvas changes dimensions
-            // immediately before a resized render. Recheck using the final canvas geometry.
-            if (feedbackBounds == null)
-            {
-                var hud = GetComponent<GameplayHudOverlayView>();
-                if (hud != null && hud.FeedbackValue != null) feedbackBounds = hud.FeedbackValue.rectTransform;
-            }
             for (int side = 0; side < panels.Length; side++)
             {
                 Vector2 bestAnchor = panels[side].anchorMin;
@@ -130,11 +121,12 @@ namespace MeteorDefenseVR.PcInput
                     int other = 1 - side;
                     Vector2 originalOther = panels[other].anchorMin;
                     float width = ViewBounds(panels[side]).width;
+                    float halfHeight = ViewBounds(panels[side]).height * .5f;
                     bool paired = false;
                     foreach (float otherHeight in heights)
                     {
                         SetHeight(other, otherHeight);
-                        foreach (float height in heights)
+                        for (float height = .03f + halfHeight; height <= .88f - halfHeight; height += .015f)
                         {
                             panels[side].anchorMin = panels[side].anchorMax = new Vector2(side == 0 ? .98f - width : .02f + width, height);
                             if (Obstruction(panels[side]) > .000001f || Obstruction(panels[other]) > .000001f) continue;
