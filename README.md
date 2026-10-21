@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-result-feedback-20261021)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-view-settings-readability-20261021)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
@@ -17,6 +17,8 @@
 - **메뉴 선택:** 원하는 메뉴에 조준점을 맞추고 잠시 기다려요.
 - **잠시 쉬기:** PC에서 **Esc**를 누르세요. 다시 누르면 이어서 플레이해요.
 - **편하게 맞추기:** 시작 화면이나 쉬는 화면의 **시점 설정**에서 마우스 감도와 화면 흔들림을 바꿔요.
+
+시작·일시정지·결과 화면의 아래 중앙에서 **시점 설정**을 열 수 있어요. 설정을 닫아도 쉬는 상태는 유지돼요. 준비가 되면 **게임으로 돌아가기**나 **Esc**를 눌러 주세요.
 
 임무가 끝나면 기지로 돌아와 기록을 확인하고 다시 도전할 수 있어요.
 
