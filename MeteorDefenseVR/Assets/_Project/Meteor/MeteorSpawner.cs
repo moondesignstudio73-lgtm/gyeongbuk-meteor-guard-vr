@@ -405,14 +405,14 @@ namespace MeteorDefenseVR.Meteor
         }
         public void EndScenario() { StopSpawning(true); ScenarioControlled = false; AllWavesSpawned = false; }
         public void ClearScenarioRound() { if (ScenarioControlled) { ClearTrackedMeteors(true); FlushPendingReleases(); } }
-        public MeteorController SpawnScenario(Vector3 position, Vector3 velocity, float scale, int damage, float health = 1)
+        public MeteorController SpawnScenario(Vector3 position, Vector3 velocity, float scale, int damage, float health = 1, MeteorType? type = null)
         {
             if (!ScenarioControlled || activeMeteors.Count >= 5) return null;
             MeteorSpawnData data = null;
             foreach (var wave in waves)
             {
                 if (wave == null) continue;
-                foreach (var entry in wave.Spawns) if (entry != null) { data = entry; break; }
+                foreach (var entry in wave.Spawns) if (entry != null && (!type.HasValue || entry.MeteorType == type.Value)) { data = entry; break; }
                 if (data != null) break;
             }
             if (data == null) return null;

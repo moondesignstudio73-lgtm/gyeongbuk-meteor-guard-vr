@@ -141,6 +141,10 @@ namespace MeteorDefenseVR.Meteor
                 float radius = bounds.extents.magnitude * Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.y), Mathf.Abs(scale.z));
                 CollisionRadius = Mathf.Max(CollisionRadius, radius + Vector3.Distance(transform.position, filter.transform.TransformPoint(bounds.center)));
             }
+            // Prewarm the persistent surface once for meteors that can survive a hit.
+            // Boss presentation belongs to its own view.
+            if (maxHealth > 1f && meteorType != MeteorType.Boss && GetComponent<MeteorDamageSurface>() == null)
+                gameObject.AddComponent<MeteorDamageSurface>();
             Spawned?.Invoke(this);
         }
 
