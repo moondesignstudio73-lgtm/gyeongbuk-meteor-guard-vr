@@ -43,6 +43,13 @@ namespace MeteorDefenseVR.PcInput
             health=FindAnyObjectByType<PlayerHealth>();damage=FindAnyObjectByType<CockpitDamagePresentation>();
             Build(font);flow.OnStateChanged+=StateChanged;reset.BeforeReset+=BeforeReset;Cancel(false);
         }
+        // Reuse the existing non-target body and shared materials; no duplicate scan/repair rig.
+        public GameObject CreateControlDrone(Transform parent)
+        {
+            var copy=Instantiate(drones[0].gameObject,parent,false);copy.name="ControlDroneBody";
+            foreach(var collider in copy.GetComponentsInChildren<Collider>(true)){collider.enabled=false;Destroy(collider);}
+            return copy;
+        }
         public void BeginDocked()
         {
             Cancel(false);

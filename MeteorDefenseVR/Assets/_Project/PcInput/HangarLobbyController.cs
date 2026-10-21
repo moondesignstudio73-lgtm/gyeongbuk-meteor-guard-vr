@@ -68,6 +68,7 @@ namespace MeteorDefenseVR.PcInput
             flightCinematic.Initialize(flow,launch,result);
             gameObject.AddComponent<VictoryEarthResponse>().Initialize(flow,environment!=null?environment.Earth:null,view);
             Repair=gameObject.AddComponent<DockRepairController>();Repair.Initialize(Camera.main,font,flow,reset);
+            gameObject.AddComponent<ControlDroneController>().Initialize(Camera.main,flow,reset,Repair,router);
             initialized=true; Bind();
             gameObject.AddComponent<ResultActionsView>().Initialize(Camera.main,font,result,this);
         }

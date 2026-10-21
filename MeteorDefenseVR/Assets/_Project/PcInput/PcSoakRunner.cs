@@ -68,6 +68,7 @@ namespace MeteorDefenseVR.PcInput
             bool dockRepairQa = Environment.GetCommandLineArgs().Contains("--pc-dock-repair-qa");
             bool buffReadabilityQa = Environment.GetCommandLineArgs().Contains("--pc-buff-readability-qa");
             bool resultFeedbackQa = Environment.GetCommandLineArgs().Contains("--pc-result-feedback-qa");
+            bool controlDroneQa = Environment.GetCommandLineArgs().Contains("--pc-control-drone-qa");
             bool victoryEarthQa = Environment.GetCommandLineArgs().Contains("--pc-victory-earth-response-qa");
             bool introTransitionQa = Environment.GetCommandLineArgs().Contains("--pc-intro-transition-qa");
             bool pausePriorityQa = Environment.GetCommandLineArgs().Contains("--pc-pause-priority-qa");
@@ -343,6 +344,8 @@ namespace MeteorDefenseVR.PcInput
                 if(resultFeedbackQa)
                     yield return ResultFeedbackProof.Run(router,Path.Combine(output,"ResultFeedback"),true,
                         passed=>{if(!passed)report.issues.Add("Result feedback fixture failed");});
+                if(controlDroneQa)
+                    yield return ControlDroneProof.Run(router,Path.Combine(output,"ControlDrone"),passed=>{if(!passed)report.issues.Add("Control drone fixture failed");});
                 if(victoryEarthQa)
                     yield return VictoryEarthProof.Run(router,Path.Combine(output,"VictoryEarth"),true,passed=>{if(!passed)report.issues.Add("Victory Earth fixture failed");});
                 if(introTransitionQa)
@@ -383,7 +386,8 @@ namespace MeteorDefenseVR.PcInput
                 && !report.issues.Contains("View settings fixture failed")
                 && !report.issues.Contains("Pause priority fixture failed")
                 && !report.issues.Contains("Intro transition fixture failed")
-                && !report.issues.Contains("Victory Earth fixture failed");
+                && !report.issues.Contains("Victory Earth fixture failed")
+                && !report.issues.Contains("Control drone fixture failed");
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);
