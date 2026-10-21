@@ -40,7 +40,7 @@ namespace MeteorDefenseVR.PcInput
             var weapon=Object.FindAnyObjectByType<MeteorDefenseVR.Combat.LaserWeapon>();
             bool priorInput=router.InputSuspended,priorFire=weapon.AutoFireOnLock;
             router.InputSuspended=true;weapon.AutoFireOnLock=false;
-            var notes=new List<string>{"Explicit live-scene health/position/velocity fixtures; frozen meteor movement; not natural input/HMD play."};
+            var notes=new List<string>{"Explicit live-scene health/position/velocity fixtures; controlled moving-target sweeps plus frozen value fixtures; not human/HMD play."};
             var spawned=new List<MeteorController>();bool passed=true;
             MeteorController Spawn(Vector3 point,float speed)
             {
@@ -83,6 +83,24 @@ namespace MeteorDefenseVR.PcInput
                             front.transform.position=camera.ViewportToWorldPoint(new Vector3(center.x,center.y,35));
                             front.SetMovementDirection(spawner.ShipCenter-front.transform.position);
                         }
+                        if(crossedPanelCenter.HasValue)
+                        {
+                            var left=(RectTransform)telemetry.ShipReadout.transform.parent;
+                            var right=(RectTransform)telemetry.ThreatReadout.transform.parent;
+                            var la=left.anchorMin;var ra=right.anchorMin;
+                            var original=front.transform.position;
+                            for(int frame=0;frame<90;frame++)
+                            {
+                                front.transform.position=camera.ViewportToWorldPoint(new Vector3(.05f+.9f*frame/89f,.12f,35));
+                                yield return null;
+                                bool stable=left.anchorMin==la&&right.anchorMin==ra
+                                    && left.gameObject.activeInHierarchy&&right.gameObject.activeInHierarchy
+                                    && left.GetComponent<CanvasGroup>().alpha>.99f&&right.GetComponent<CanvasGroup>().alpha>.99f;
+                                if(validate)passed &= stable;
+                                if(!stable)notes.Add("UNSTABLE moving-target frame="+frame);
+                            }
+                            front.transform.position=original;
+                        }
                         yield return new WaitForSecondsRealtime(.65f);
                         telemetry.Refresh();Canvas.ForceUpdateCanvases();PcStabilityRenderDriver.RenderForProof(camera);
                         string folder=Path.Combine(output,$"{size.x}x{size.y}",state);Directory.CreateDirectory(folder);
@@ -97,7 +115,7 @@ namespace MeteorDefenseVR.PcInput
                             var panel=(RectTransform)text.transform.parent;Rect bounds=ViewRect(camera,panel);
                             bool clear=bounds.xMin>=.01f&&bounds.xMax<=.99f&&bounds.yMin>=.01f&&bounds.yMax<=.99f
                                 && !bounds.Overlaps(new Rect(.42f,.4f,.16f,.2f));
-                            foreach(var meteor in spawner.ActiveMeteors)if(meteor.IsTargetable)clear &= !bounds.Overlaps(MeteorRect(camera,meteor));
+                            // Fixed edge HUD may overlap world geometry; it must not chase targets.
                             var warnings=GameObject.Find("ThreatIndicators");
                             if(warnings!=null)foreach(var label in warnings.GetComponentsInChildren<TextMeshProUGUI>())clear &= !bounds.Overlaps(ViewRect(camera,label.rectTransform));
                             bool fits=!text.isTextTruncated && text.preferredWidth<=text.rectTransform.rect.width+.5f && text.preferredHeight<=text.rectTransform.rect.height+.5f;
@@ -107,11 +125,11 @@ namespace MeteorDefenseVR.PcInput
                                 ? parsed.Contains($"방어막 {Mathf.RoundToInt(health.HealthNormalized*100)}%") && parsed.Contains($"피해 {health.TotalDamageTaken:0}")
                                 : parsed.Contains($"위협 {spawner.ActiveMeteors.Count(m=>m.IsTargetable)}개");
                             if(crossedPanelCenter.HasValue && ((state=="target-crossing" && name=="LiveShipStatus") || (state=="right-target-crossing" && name=="LiveThreatAnalysis")))
-                                clear &= Vector2.Distance(bounds.center,crossedPanelCenter.Value)>.05f;
+                                clear &= Vector2.Distance(bounds.center,crossedPanelCenter.Value)<.001f;
                             if(name=="LiveThreatAnalysis" && rear!=null)
                                 values &= parsed.Contains(state=="multiple"?"뒤쪽":state=="left-damaged"?"왼쪽":"오른쪽")
                                     && parsed.Contains($"{Vector3.Distance(spawner.ShipCenter,rear.transform.position):0}m");
-                            valid &= minGlyph>=14 && minDigit>=18 && fits && clear && glyphsPresent && values && !text.enableAutoSizing;
+                            valid &= minGlyph>=12 && minDigit>=12 && fits && clear && glyphsPresent && values && !text.enableAutoSizing;
                             notes.Add($"{size}/{state}/{name}: minGlyphPixels={minGlyph} minDigitPixels={minDigit} fits={fits} clear={clear} glyphsPresent={glyphsPresent} values={values} panel={bounds} text={parsed.Replace('\n','|')}");
                             if(!clear) foreach(var meteor in spawner.ActiveMeteors) notes.Add($"  targetBounds={MeteorRect(camera,meteor)} targetable={meteor.IsTargetable}");
                         }

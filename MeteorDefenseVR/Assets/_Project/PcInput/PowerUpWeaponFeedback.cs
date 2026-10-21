@@ -111,7 +111,7 @@ namespace MeteorDefenseVR.PcInput
             Visible=visible;if(label==null)return;
             label.gameObject.SetActive(visible);graphics.gameObject.SetActive(visible);
             float extra=visible?manager.ActiveBuffCount*54+8:0;
-            panel.sizeDelta=new Vector2(400,160+extra);summary.rectTransform.offsetMin=new Vector2(16,8+extra);
+            panel.sizeDelta=new Vector2(visible?400:300,136+extra);summary.rectTransform.offsetMin=new Vector2(16,8+extra);
             label.rectTransform.sizeDelta=new Vector2(368,Mathf.Max(56,extra+2));
         }
     }
