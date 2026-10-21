@@ -186,8 +186,10 @@ namespace MeteorDefenseVR.Progression
         {
             CurrentStage = Mathf.Min(TotalStages, CurrentStage + 1);
             boss.ResetClimax();
-            ApplyStage(CurrentStage);
-            flow?.StartMainGame();
+            // DifficultyManager prepares the next stage before Playing-state consumers run.
+            // Applying here as well emits StageStarted twice and captures the baseline twice.
+            if (flow != null) flow.StartMainGame();
+            else ApplyStage(CurrentStage); // Standalone controller fixtures have no flow host.
         }
 
         private bool HandleMissionFailure()

@@ -358,6 +358,8 @@ namespace MeteorDefenseVR.PcInput
                         passed=>{if(!passed)report.issues.Add("View settings fixture failed");});
                 if(Environment.GetCommandLineArgs().Contains("--pc-audio-lifecycle-qa"))
                     yield return AudioLifecycleProof.Run(router,Path.Combine(output,"AudioLifecycle"),passed=>{if(!passed)report.issues.Add("Audio lifecycle fixture failed");});
+                if(Environment.GetCommandLineArgs().Contains("--pc-campaign-audio-qa"))
+                    yield return CampaignAudioContractProof.Run(Path.Combine(output,"CampaignAudio"),passed=>{if(!passed)report.issues.Add("Campaign audio fixture failed");});
                 if(audioControlsQa)
                     yield return AudioControlsProof.Run(router,Path.Combine(output,"AudioControls"),passed=>{if(!passed)report.issues.Add("Audio controls fixture failed");});
                 if(powerUpQa)
@@ -391,6 +393,7 @@ namespace MeteorDefenseVR.PcInput
                 && !report.issues.Contains("View settings fixture failed")
                 && !report.issues.Contains("Audio controls fixture failed")
                 && !report.issues.Contains("Audio lifecycle fixture failed")
+                && !report.issues.Contains("Campaign audio fixture failed")
                 && !report.issues.Contains("Pause priority fixture failed")
                 && !report.issues.Contains("Intro transition fixture failed")
                 && !report.issues.Contains("Victory Earth fixture failed")
