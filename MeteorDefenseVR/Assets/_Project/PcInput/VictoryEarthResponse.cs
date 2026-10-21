@@ -20,7 +20,7 @@ namespace MeteorDefenseVR.PcInput
         private PlayerHealth health;
         private HangarLobbyView hangar;
         private Transform earth;
-        private Renderer earthSurface;
+        private float localPlanetRadius = .5f;
         private Camera view;
         private LineRenderer ring;
         private Material material;
@@ -32,6 +32,7 @@ namespace MeteorDefenseVR.PcInput
         public bool RingVisible => ring != null && ring.enabled;
         public int PresentationCount { get; private set; }
         public float Age => age;
+        public float PlanetRadius => earth==null ? 0 : localPlanetRadius*Mathf.Max(Mathf.Abs(earth.lossyScale.x),Mathf.Max(Mathf.Abs(earth.lossyScale.y),Mathf.Abs(earth.lossyScale.z)));
         public int OwnedObjectCount => ring == null ? 0 : 1;
         public int OwnedMaterialCount => material == null ? 0 : 1;
 
@@ -42,7 +43,9 @@ namespace MeteorDefenseVR.PcInput
             boss=FindAnyObjectByType<BossClimaxController>(); completion=FindAnyObjectByType<MissionCompleteController>();
             stats=FindAnyObjectByType<GameSessionStats>(); health=FindAnyObjectByType<PlayerHealth>();
             if(flow==null || earth==null || view==null || boss==null || completion==null) { enabled=false; return; }
-            earthSurface=earth.GetComponent<Renderer>();
+            var mesh=earth.GetComponent<MeshFilter>()?.sharedMesh;
+            if(mesh!=null){var extent=mesh.bounds.extents;localPlanetRadius=Mathf.Max(extent.x,extent.y,extent.z);}
+            // World AABB grows when the planet rotates; the sphere radius must not.
             completion.PresentationAllowed=CanPresent;
             if(FindAnyObjectByType<GameplayHudOverlayView>()!=null)
                 FindAnyObjectByType<MissionCompleteView>()?.SetExternalPresentation(true);
@@ -89,7 +92,7 @@ namespace MeteorDefenseVR.PcInput
                 Vector3 forward=(earth.position-view.transform.position).normalized;
                 Vector3 right=Vector3.Cross(Vector3.up,forward).normalized;
                 Vector3 up=Vector3.Cross(forward,right);
-                float radius=earthSurface!=null?earthSurface.bounds.extents.x:earth.lossyScale.x*.5f;
+                float radius=PlanetRadius;
                 float distance=Vector3.Distance(earth.position,view.transform.position);
                 float ratio=Mathf.Clamp(radius/Mathf.Max(.01f,distance),0,.95f);
                 Vector3 centre=earth.position-forward*(radius*ratio);

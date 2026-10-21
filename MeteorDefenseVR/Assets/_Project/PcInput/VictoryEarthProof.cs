@@ -21,6 +21,7 @@ namespace MeteorDefenseVR.PcInput
     {
         public static IEnumerator Run(GazeInputRouter router,string output,bool allSizes,Action<bool> complete)
         {
+            var powers=Object.FindAnyObjectByType<MeteorDefenseVR.PowerUps.PowerUpManager>();
             var flow=GameFlowManager.Instance;var reset=Object.FindAnyObjectByType<OperationsResetController>();
             var victory=Object.FindAnyObjectByType<VictoryEarthResponse>();var boss=Object.FindAnyObjectByType<BossClimaxController>();
             var sequence=Object.FindAnyObjectByType<MissionCompleteController>();var health=Object.FindAnyObjectByType<PlayerHealth>();
@@ -33,6 +34,7 @@ namespace MeteorDefenseVR.PcInput
             var notes=new List<string>{"Explicit state setup and direct real boss damage events; not a human playthrough. Campaign stage callbacks are real; only between-stage timers accelerated in an isolated settings clone."};
             var oldDifficulty=difficulty.Selected;
             bool passed=true;bool oldSuspended=router.InputSuspended;router.InputSuspended=true;
+            var planet=Object.FindAnyObjectByType<MeteorDefenseVR.Visual.CinematicEnvironmentView>().Earth;var originalRotation=planet.rotation;
             var camera=Camera.main;var cameraPosition=camera.transform.position;var cameraRotation=camera.transform.rotation;
             using var cpu=ProfilerRecorder.StartNew(ProfilerCategory.Scripts,"MD.VictoryEarthResponse",128);
             var timings=new FrameTiming[1];double cpuMax=0,gpuMax=0;int cpuSamples=0,gpuSamples=0;
@@ -57,10 +59,11 @@ namespace MeteorDefenseVR.PcInput
                     reset.ResetExperience();difficulty.Select(DifficultyLevel.Normal);flow.StartMainGame();spawner.StopSpawning(false);
                     for(int stage=1;stage<=progression.TotalStages;stage++)
                     {
-                        SpawnBoss();if(stage==progression.TotalStages)Capture("before-final-hit");KillBoss();
+                        SpawnBoss();if(stage==progression.TotalStages){powers.TryDrop(boss.ActiveBoss,true,0);Check(powers.ActiveWorldItems>0,size+" pickup present before final hit");Capture("before-final-hit");}KillBoss();
                         if(stage<progression.TotalStages){Check(!victory.IsPresenting,$"{size} intermediate {stage} has no success");yield return WaitState(GameState.Playing,2);}
                     }
                     Check(stats.AllStagesCleared&&flow.CurrentState==GameState.MissionComplete,size+" actual campaign complete");
+                    Check(powers.ActiveWorldItems==0,size+" final transition clears pickups including late boss callback");
                     int score=stats.Score;Capture("death-0");Check(!victory.IsPresenting,size+" debris wait");
                     yield return new WaitForSecondsRealtime(.45f);Capture("debris-045");Check(!victory.RingVisible,size+" quiet before presentation");
                     yield return new WaitForSecondsRealtime(.55f);Capture("response-100");
@@ -70,6 +73,9 @@ namespace MeteorDefenseVR.PcInput
                     // Measure the new CPU marker only if the runtime exposes it; GPU frame timings are optional.
                     for(int i=0;i<12;i++)
                     {FrameTimingManager.CaptureFrameTimings();yield return null;if(cpu.Valid&&cpu.LastValue>0){cpuSamples++;cpuMax=Math.Max(cpuMax,cpu.LastValue/1000000.0);}if(FrameTimingManager.GetLatestTimings(1,timings)>0&&timings[0].gpuFrameTime>0){gpuSamples++;gpuMax=Math.Max(gpuMax,timings[0].gpuFrameTime);}}
+                    float normalizedRadius=victory.PlanetRadius/Mathf.Max(planet.lossyScale.x,planet.lossyScale.y,planet.lossyScale.z);
+                    planet.Rotate(0,45,0);yield return null;Capture("rotated-planet");
+                    Check(Mathf.Abs(victory.PlanetRadius/Mathf.Max(planet.lossyScale.x,planet.lossyScale.y,planet.lossyScale.z)-normalizedRadius)<.0001f,size+" rotation preserves sphere radius");
                     router.Simulation.Pause();float age=victory.Age;yield return new WaitForSecondsRealtime(.2f);Capture("paused");
                     Check(!victory.RingVisible&&!lobby.View.VictoryGuidanceVisible&&Mathf.Approximately(age,victory.Age),size+" paused hidden and frozen");
                     router.Simulation.Resume();yield return new WaitForSecondsRealtime(.1f);Capture("resumed");Check(victory.RingVisible,size+" resumes");
@@ -94,7 +100,7 @@ namespace MeteorDefenseVR.PcInput
             }
             finally
             {
-                reset.ResetExperience();Configure(original);difficulty.Select(oldDifficulty);Object.Destroy(fast);router.InputSuspended=oldSuspended;
+                reset.ResetExperience();planet.rotation=originalRotation;Configure(original);difficulty.Select(oldDifficulty);Object.Destroy(fast);router.InputSuspended=oldSuspended;
                 notes.Add($"CPU marker samples={cpuSamples} maxMs={cpuMax:F5}; GPU frame samples={gpuSamples} maxMs={gpuMax:F3}. Zero samples means unavailable, not zero cost. No baseline speedup claim.");
                 Directory.CreateDirectory(output);notes.Add("passed="+passed);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);
             }

@@ -170,6 +170,8 @@ namespace MeteorDefenseVR.PowerUps
         public bool TryDrop(MeteorController meteor, bool guaranteedBoss = false, float? randomValue = null)
         {
             if (!initialized || meteor == null) return false;
+            // A final boss callback can arrive after MissionComplete has already cleared the pool.
+            if (flow != null && (flow.CurrentState == GameState.MissionComplete || flow.CurrentState == GameState.Result)) return false;
             if (ActiveWorldItems >= settings.maximumWorldItems)
             {
                 if (guaranteedBoss && settings.bossGuaranteedDrop)
@@ -406,6 +408,8 @@ namespace MeteorDefenseVR.PowerUps
         private void StateChanged(GameState state)
         {
             if (state == GameState.Boot || state == GameState.Reset) ResetSystem();
+            if (state == GameState.MissionComplete || state == GameState.Result)
+                foreach (PowerUpItem item in itemPool) item?.Despawn();
             timersPaused = state != GameState.Playing && state != GameState.BossMeteor;
         }
         private void StagePhaseChanged(StageTransitionPhase phase) => timersPaused = phase == StageTransitionPhase.ExplosionQuiet || phase == StageTransitionPhase.StageClear;
