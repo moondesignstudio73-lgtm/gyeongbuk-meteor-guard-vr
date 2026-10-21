@@ -12,7 +12,7 @@ namespace MeteorDefenseVR.PcInput
 {
     // Screen-space PC-only controls. Gameplay and VR HUD remain world-space and unchanged.
     [DefaultExecutionOrder(-175)]
-    public sealed class PcTestOverlay : MonoBehaviour
+    public sealed partial class PcTestOverlay : MonoBehaviour
     {
         [SerializeField] private GazeInputRouter router;
         [SerializeField] private PcCalibrationController calibration;
@@ -152,6 +152,7 @@ namespace MeteorDefenseVR.PcInput
             simulationHelp.rectTransform.anchorMin = simulationHelp.rectTransform.anchorMax = simulationHelp.rectTransform.pivot = Vector2.one * .5f;
             simulationHelp.rectTransform.anchoredPosition = new Vector2(0, 200); simulationHelp.alignment = TextAlignmentOptions.Center;
             BuildLookSettings();
+            BuildAudioSettings();
             gameObject.AddComponent<PausePresentationGate>().Configure(router.Simulation, canvasObject.GetComponent<Canvas>());
         }
         private void ToggleInputMenu() { menuOpen = !menuOpen; if (menuOpen) router.Simulation?.Pause(); }
@@ -183,7 +184,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void SetLookSettings(bool open)
         {
-            settingsOpen=open;menuOpen=false;nextSettingsText=0;
+            settingsOpen=open;audioSettingsOpen=false;if(audioSettingsPanel!=null)audioSettingsPanel.SetActive(false);menuOpen=false;nextSettingsText=0;
             if(panel!=null)panel.SetActive(false);
             if(lookSettingsPanel!=null)lookSettingsPanel.SetActive(open);
             if(settingsBackdrop!=null)settingsBackdrop.SetActive(open);
@@ -201,7 +202,7 @@ namespace MeteorDefenseVR.PcInput
             var canvas=canvasObject.GetComponent<Canvas>();var view=canvas.renderMode==RenderMode.ScreenSpaceOverlay?null:canvas.worldCamera;
             if(valid)
             {
-                var candidates=settingsOpen?lookSettingsPanel.GetComponentsInChildren<UnityEngine.UI.Button>():new[]{lookSettingsButton.GetComponent<UnityEngine.UI.Button>()};
+                var candidates=settingsOpen?(audioSettingsOpen?audioSettingsPanel:lookSettingsPanel).GetComponentsInChildren<UnityEngine.UI.Button>():new[]{lookSettingsButton.GetComponent<UnityEngine.UI.Button>(),audioSettingsButton.GetComponent<UnityEngine.UI.Button>()};
                 foreach(var button in candidates)if(button.gameObject.activeInHierarchy&&button.interactable&&RectTransformUtility.RectangleContainsScreenPoint((RectTransform)button.transform,point,view)){next=button;break;}
             }
             if(next!=gazeSettingsTarget){gazeSettingsTarget?.GetComponent<UIInteractionAnimator>().SetGaze(false,0);gazeSettingsTarget=next;settingsDwell=0;settingsDwellConsumed=false;}
@@ -235,9 +236,12 @@ namespace MeteorDefenseVR.PcInput
             settingsAvailable &= presentation==null||!presentation.IsBootPresenting;
             if (!settingsAvailable) settingsOpen = false;
             lookSettingsButton.SetActive(settingsAvailable && !calibrating);
-            lookSettingsPanel.SetActive(settingsAvailable && settingsOpen && !calibrating);
-            settingsBackdrop.SetActive(lookSettingsPanel.activeSelf);
-            if(operationsReset!=null)operationsReset.ResultTimerSuspended=lookSettingsPanel.activeSelf;
+            lookSettingsPanel.SetActive(settingsAvailable && settingsOpen && !audioSettingsOpen && !calibrating);
+            audioSettingsButton.SetActive(settingsAvailable && !calibrating);
+            audioSettingsPanel.SetActive(settingsAvailable && settingsOpen && audioSettingsOpen && !calibrating);
+            if(audioSettingsPanel.activeSelf)RefreshAudioSettings();
+            settingsBackdrop.SetActive(lookSettingsPanel.activeSelf||audioSettingsPanel.activeSelf);
+            if(operationsReset!=null)operationsReset.ResultTimerSuspended=lookSettingsPanel.activeSelf||audioSettingsPanel.activeSelf;
             if (settingsOpen && Time.unscaledTime >= nextSettingsText)
             {
                 nextSettingsText = Time.unscaledTime + .1f;
@@ -260,7 +264,7 @@ namespace MeteorDefenseVR.PcInput
             if (simulationHelp.text != help) simulationHelp.text = help;
             if (!operatorUi && !development) menuOpen = false;
             panel.SetActive(!settingsOpen && !calibrating && (operatorUi || development) && (menuOpen || paused));
-            router.UiModalOpen = panel.activeSelf || lookSettingsPanel.activeSelf;
+            router.UiModalOpen = panel.activeSelf || lookSettingsPanel.activeSelf || audioSettingsPanel.activeSelf;
             if(router.ActiveMode==PcGazeMode.WebcamGaze||router.ActiveMode==PcGazeMode.VREyeTracking)
             {
                 bool tracked=router.TryGetScreenMenuRay(out Ray menuRay);

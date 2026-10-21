@@ -95,10 +95,13 @@ namespace MeteorDefenseVR.PcInput
                 if (requested) Enter(); else Leave(!xr && !MenuLookSuppressed);
             }
             bool calibrating = flow != null && (flow.CurrentState == GameState.EyeCalibration || MenuLookSuppressed && LookInputPolicy.GameplayLook(flow.CurrentState));
+            // Settings are also available at Boot/Result, before gameplay look is active.
+            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame &&
+                FindAnyObjectByType<PcTestOverlay>()?.TryCloseLookSettings()==true) return;
             if (!active && !calibrating) return;
             if (active && (provider == null || lastMode != router.ActiveMode)) SelectProvider();
             if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-            { if(FindAnyObjectByType<PcTestOverlay>()?.TryCloseLookSettings()==true)return; if (IsPaused) Resume(); else Pause(); return; }
+            { if (IsPaused) Resume(); else Pause(); return; }
             if (!active) return;
             if (!IsPaused && !Application.isBatchMode && (!Application.isFocused || Cursor.lockState != CursorLockMode.Locked)) Pause();
             if (!IsLooking || Time.frameCount <= ignoreInputFrame) return;

@@ -23,6 +23,7 @@ namespace MeteorDefenseVR.Meteor
         private void Awake()
         {
             propertyBlock = new MaterialPropertyBlock();
+            MeteorDefenseVR.Audio.AudioChannelFilter.Attach(destructionAudioSource,MeteorDefenseVR.Audio.UserAudioChannel.Effects);
             if (meteor == null) meteor = GetComponent<MeteorController>();
             if (crackRenderers == null || crackRenderers.Length == 0) crackRenderers = GetComponentsInChildren<Renderer>();
             EnsureShell();
@@ -88,7 +89,7 @@ namespace MeteorDefenseVR.Meteor
             if(destructionHandled)return;destructionHandled=true;ExplosionCount++;
             SetCrackIntensity(6f);
             if (destructionAudioSource != null && destructionAudioSource.clip != null)
-                AudioSource.PlayClipAtPoint(destructionAudioSource.clip, target.transform.position);
+                FindAnyObjectByType<MeteorDefenseVR.Audio.AudioManager>()?.PlaySupplementalEffect(destructionAudioSource.clip);
             if (Application.isPlaying) BossExplosionEffect.Spawn(target.transform.position);
             onStrongExplosion?.Invoke();
         }

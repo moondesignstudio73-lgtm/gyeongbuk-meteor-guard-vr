@@ -114,6 +114,9 @@ namespace MeteorDefenseVR.Audio
             RebuildLookup();
         }
 
+        // Legacy optional boss clip shares the existing effects source; no temporary source leaks.
+        public void PlaySupplementalEffect(AudioClip clip) { if (clip != null && sfxSource != null) sfxSource.PlayOneShot(clip); }
+
         public bool TryPlay(AudioCue cue) => TryPlay(cue, AudioSettings.dspTime);
 
         // Caller owns a single prewarmed 3D source. Shares library, mix and cue cooldowns.

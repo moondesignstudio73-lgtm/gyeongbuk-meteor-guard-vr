@@ -60,6 +60,7 @@ namespace MeteorDefenseVR.PcInput
             string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "QA"));
             Directory.CreateDirectory(output);
             string path = Path.Combine(output, "pc-soak.json");
+            bool audioControlsQa = Environment.GetCommandLineArgs().Contains("--pc-audio-controls-qa");
             bool deliveryQa = Environment.GetCommandLineArgs().Contains("--pc-delivery-qa");
             bool threatQa = Environment.GetCommandLineArgs().Contains("--pc-threat-qa");
             bool telemetryQa = Environment.GetCommandLineArgs().Contains("--pc-telemetry-qa");
@@ -384,6 +385,7 @@ namespace MeteorDefenseVR.PcInput
                 && !report.issues.Contains("Buff readability fixture failed")
                 && !report.issues.Contains("Result feedback fixture failed")
                 && !report.issues.Contains("View settings fixture failed")
+                && !report.issues.Contains("Audio controls fixture failed")
                 && !report.issues.Contains("Pause priority fixture failed")
                 && !report.issues.Contains("Intro transition fixture failed")
                 && !report.issues.Contains("Victory Earth fixture failed")

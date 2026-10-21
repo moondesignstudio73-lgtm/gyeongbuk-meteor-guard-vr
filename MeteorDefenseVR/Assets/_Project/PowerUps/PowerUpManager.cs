@@ -508,6 +508,7 @@ namespace MeteorDefenseVR.PowerUps
         {
             pickupAudio = gameObject.GetComponent<AudioSource>();
             if (pickupAudio == null) pickupAudio = gameObject.AddComponent<AudioSource>();
+            MeteorDefenseVR.Audio.AudioChannelFilter.Attach(pickupAudio, MeteorDefenseVR.Audio.UserAudioChannel.Effects);
             pickupAudio.playOnAwake = false; pickupAudio.spatialBlend = 0f; pickupAudio.volume = .22f;
             float[] frequencies = { 660f, 520f, 780f, 920f, 840f, 1080f, 610f, 1250f };
             for (int i = 0; i < pickupClips.Length; i++) pickupClips[i] = CreateTone("PowerUp_" + ((PowerUpType)i), frequencies[i], i == (int)PowerUpType.Overdrive ? .28f : .16f);
