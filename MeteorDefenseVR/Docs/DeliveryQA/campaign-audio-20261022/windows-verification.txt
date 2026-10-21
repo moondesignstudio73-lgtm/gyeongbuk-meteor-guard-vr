@@ -1,0 +1,177 @@
+Real scene in Editor or QA Windows player, default campaign callback retained. Spawner.Tick(3) advances spawn schedule each frame; ReceiveDamage(MaxHealth) accelerates real hits. Boss/transition/result timers remain real-time. No direct success state or completion callback invocation. No human listening/HMD; source RMS timeline is not final speaker recording.
+CUE t=0.955 stage=1 phase=None state=Boot cue=IntroSpaceAmbient
+START 1
+CUE t=3.032 stage=1 phase=None state=Playing cue=Countdown
+CUE t=3.033 stage=1 phase=None state=Playing cue=BgmBattle
+CUE t=3.243 stage=1 phase=None state=BossMeteor cue=Warning
+CUE t=3.243 stage=1 phase=None state=BossMeteor cue=BossWarning
+CUE t=3.443 stage=1 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-01-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-01-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=5.853 stage=1 phase=None state=BossMeteor cue=TargetFocus
+CUE t=5.853 stage=1 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 1
+HUD readable stage-01-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-01-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-01-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-01-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 2
+CUE t=9.468 stage=2 phase=None state=Playing cue=Countdown
+CUE t=9.679 stage=2 phase=None state=BossMeteor cue=Warning
+CUE t=9.679 stage=2 phase=None state=BossMeteor cue=BossWarning
+CUE t=9.879 stage=2 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-02-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-02-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=12.287 stage=2 phase=None state=BossMeteor cue=TargetFocus
+CUE t=12.287 stage=2 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 2
+HUD readable stage-02-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-02-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-02-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-02-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 3
+CUE t=15.899 stage=3 phase=None state=Playing cue=Countdown
+CUE t=16.110 stage=3 phase=None state=BossMeteor cue=Warning
+CUE t=16.110 stage=3 phase=None state=BossMeteor cue=BossWarning
+CUE t=16.310 stage=3 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-03-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-03-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=18.720 stage=3 phase=None state=BossMeteor cue=TargetFocus
+CUE t=18.721 stage=3 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 3
+HUD readable stage-03-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-03-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-03-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-03-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 4
+CUE t=22.341 stage=4 phase=None state=Playing cue=Countdown
+CUE t=22.553 stage=4 phase=None state=BossMeteor cue=Warning
+CUE t=22.553 stage=4 phase=None state=BossMeteor cue=BossWarning
+CUE t=22.752 stage=4 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-04-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-04-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=25.160 stage=4 phase=None state=BossMeteor cue=TargetFocus
+CUE t=25.160 stage=4 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 4
+HUD readable stage-04-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-04-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-04-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-04-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 5
+CUE t=28.778 stage=5 phase=None state=Playing cue=Countdown
+CUE t=28.989 stage=5 phase=None state=BossMeteor cue=Warning
+CUE t=28.989 stage=5 phase=None state=BossMeteor cue=BossWarning
+CUE t=29.189 stage=5 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-05-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-05-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=31.597 stage=5 phase=None state=BossMeteor cue=TargetFocus
+CUE t=31.597 stage=5 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 5
+HUD readable stage-05-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-05-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-05-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-05-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 6
+CUE t=35.210 stage=6 phase=None state=Playing cue=Countdown
+CUE t=35.421 stage=6 phase=None state=BossMeteor cue=Warning
+CUE t=35.421 stage=6 phase=None state=BossMeteor cue=BossWarning
+CUE t=35.621 stage=6 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-06-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-06-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=38.028 stage=6 phase=None state=BossMeteor cue=TargetFocus
+CUE t=38.028 stage=6 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 6
+HUD readable stage-06-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-06-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-06-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-06-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 7
+CUE t=41.636 stage=7 phase=None state=Playing cue=Countdown
+CUE t=41.848 stage=7 phase=None state=BossMeteor cue=Warning
+CUE t=41.848 stage=7 phase=None state=BossMeteor cue=BossWarning
+CUE t=42.047 stage=7 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-07-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-07-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=44.458 stage=7 phase=None state=BossMeteor cue=TargetFocus
+CUE t=44.459 stage=7 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 7
+HUD readable stage-07-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-07-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-07-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-07-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 8
+CUE t=48.065 stage=8 phase=None state=Playing cue=Countdown
+CUE t=48.276 stage=8 phase=None state=BossMeteor cue=Warning
+CUE t=48.276 stage=8 phase=None state=BossMeteor cue=BossWarning
+CUE t=48.476 stage=8 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-08-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-08-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=50.884 stage=8 phase=None state=BossMeteor cue=TargetFocus
+CUE t=50.885 stage=8 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 8
+HUD readable stage-08-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-08-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-08-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-08-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 9
+CUE t=54.503 stage=9 phase=None state=Playing cue=Countdown
+CUE t=54.714 stage=9 phase=None state=BossMeteor cue=Warning
+CUE t=54.714 stage=9 phase=None state=BossMeteor cue=BossWarning
+CUE t=54.914 stage=9 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-09-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-09-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=57.321 stage=9 phase=None state=BossMeteor cue=TargetFocus
+CUE t=57.322 stage=9 phase=None state=BossMeteor cue=BossExplosion
+CLEAR 9
+HUD readable stage-09-ExplosionQuiet-BossMeteor/LiveShipStatus=True
+HUD readable stage-09-ExplosionQuiet-BossMeteor/LiveThreatAnalysis=True
+HUD readable stage-09-StageClear-BossMeteor/LiveShipStatus=True
+HUD readable stage-09-StageClear-BossMeteor/LiveThreatAnalysis=True
+START 10
+CUE t=60.938 stage=10 phase=None state=Playing cue=Countdown
+CUE t=61.149 stage=10 phase=None state=BossMeteor cue=Warning
+CUE t=61.149 stage=10 phase=None state=BossMeteor cue=BossWarning
+CUE t=61.349 stage=10 phase=None state=BossMeteor cue=BgmBoss
+HUD readable stage-10-None-BossMeteor/LiveShipStatus=True
+HUD readable stage-10-None-BossMeteor/LiveThreatAnalysis=True
+CUE t=63.756 stage=10 phase=None state=BossMeteor cue=TargetFocus
+CUE t=63.756 stage=10 phase=None state=BossMeteor cue=BossExplosion
+CAMPAIGN COMPLETE 10
+HUD readable stage-10-Complete-MissionComplete/LiveShipStatus=True
+HUD readable stage-10-Complete-MissionComplete/LiveThreatAnalysis=True
+CUE t=64.256 stage=10 phase=Complete state=MissionComplete cue=BgmResult
+CUE t=64.656 stage=10 phase=Complete state=MissionComplete cue=MissionComplete
+CUE t=67.957 stage=10 phase=Complete state=Result cue=Result
+RESULT stage=10 count=1 allCleared=True
+natural final result visible=True
+stages 1 through 10 in order=True
+nine intermediate clears in order=True
+one final victory and one result after ten stages=True
+HUD readable final-result/LiveShipStatus=True
+HUD readable final-result/LiveThreatAnalysis=True
+HUD readable final-result-settled/LiveShipStatus=True
+HUD readable final-result-settled/LiveThreatAnalysis=True
+final result text fits=True
+final result glyphs present=True
+Final result text: 이번 임무의 기록|점수112,540|파괴한 운석210|명중률0%|등급S|난이도 : 보통|운석 210개 격파!|최고 S등급!
+no duplicate result=True
+no warning events after combat=True
+CUE t=70.021 stage=10 phase=Complete state=Result cue=CalibrationComplete
+actual replay action accepted=True
+CUE t=70.023 stage=1 phase=None state=Boot cue=IntroSpaceAmbient
+CUE t=70.994 stage=1 phase=None state=Launch cue=BgmBattle
+CUE t=72.047 stage=1 phase=None state=Launch cue=EngineStart
+CUE t=72.804 stage=1 phase=None state=Launch cue=Launch
+CUE t=75.459 stage=1 phase=None state=Countdown cue=Countdown
+CUE t=75.915 stage=1 phase=None state=Countdown cue=Countdown
+CUE t=76.371 stage=1 phase=None state=Countdown cue=Countdown
+CUE t=76.826 stage=1 phase=None state=Countdown cue=Launch
+START 1
+CUE t=77.526 stage=1 phase=None state=Playing cue=Countdown
+replay resets to stage one=True
+HUD readable replay-stage-one/LiveShipStatus=True
+HUD readable replay-stage-one/LiveThreatAnalysis=True
+original campaign handler retained throughout=True
+damageCalls=210 fixedHudSamples=1146
+Listener output WAV: samples=7446528 rate=48000 channels=2 seconds=77.57 peak=0.1855723 RMS=0.0201121179329456 samplesAboveUnity=0; not human listening or OS/speaker capture
+passed=True

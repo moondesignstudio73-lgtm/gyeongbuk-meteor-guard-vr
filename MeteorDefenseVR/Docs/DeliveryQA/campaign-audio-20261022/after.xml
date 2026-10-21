@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Passed" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 20:42:27Z" end-time="2026-10-21 20:43:44Z" duration="77.3630385">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="435" result="Passed" start-time="2026-10-21 20:42:27Z" end-time="2026-10-21 20:43:44Z" duration="77.363039" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1562" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="435" result="Passed" start-time="2026-10-21 20:42:27Z" end-time="2026-10-21 20:43:44Z" duration="77.207194" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="51556" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1563" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="435" result="Passed" start-time="2026-10-21 20:42:27Z" end-time="2026-10-21 20:43:44Z" duration="77.204152" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1564" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="435" result="Passed" start-time="2026-10-21 20:42:27Z" end-time="2026-10-21 20:43:44Z" duration="77.201770" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1065" name="CampaignAudioContractTests" fullname="MeteorDefenseVR.Tests.CampaignAudioContractTests" classname="MeteorDefenseVR.Tests.CampaignAudioContractTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 20:42:27Z" end-time="2026-10-21 20:43:44Z" duration="77.164112" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1066" name="TenStagesWithOriginalCompletionHandler" fullname="MeteorDefenseVR.Tests.CampaignAudioContractTests.TenStagesWithOriginalCompletionHandler" methodname="TenStagesWithOriginalCompletionHandler" classname="MeteorDefenseVR.Tests.CampaignAudioContractTests" runstate="Runnable" seed="1360910201" result="Passed" start-time="2026-10-21 20:42:11Z" end-time="2026-10-21 20:43:44Z" duration="93.158831" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="360000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> MissionComplete
+[GameFlow] MissionComplete -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1421" name="StageProgressionTests" fullname="MeteorDefenseVR.Tests.StageProgressionTests" classname="MeteorDefenseVR.Tests.StageProgressionTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-21 20:43:44Z" end-time="2026-10-21 20:43:44Z" duration="0.025620" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1422" name="CampaignHasTenDataDrivenTwentyPlusBossStages" fullname="MeteorDefenseVR.Tests.StageProgressionTests.CampaignHasTenDataDrivenTwentyPlusBossStages" methodname="CampaignHasTenDataDrivenTwentyPlusBossStages" classname="MeteorDefenseVR.Tests.StageProgressionTests" runstate="Runnable" seed="492525160" result="Passed" start-time="2026-10-21 20:43:44Z" end-time="2026-10-21 20:43:44Z" duration="0.012412" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1425" name="CampaignSpawnerRepeatsAuthoredPatternButStopsAtExactlyTwentyResolvedMeteors" fullname="MeteorDefenseVR.Tests.StageProgressionTests.CampaignSpawnerRepeatsAuthoredPatternButStopsAtExactlyTwentyResolvedMeteors" methodname="CampaignSpawnerRepeatsAuthoredPatternButStopsAtExactlyTwentyResolvedMeteors" classname="MeteorDefenseVR.Tests.StageProgressionTests" runstate="Runnable" seed="1117016608" result="Passed" start-time="2026-10-21 20:43:44Z" end-time="2026-10-21 20:43:44Z" duration="0.004805" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1423" name="DifficultyControlsDirectionWhileStageControlsPressure" fullname="MeteorDefenseVR.Tests.StageProgressionTests.DifficultyControlsDirectionWhileStageControlsPressure" methodname="DifficultyControlsDirectionWhileStageControlsPressure" classname="MeteorDefenseVR.Tests.StageProgressionTests" runstate="Runnable" seed="59501580" result="Passed" start-time="2026-10-21 20:43:44Z" end-time="2026-10-21 20:43:44Z" duration="0.003671" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1424" name="LegacyNumericSlotThreeLoadsAsExperience" fullname="MeteorDefenseVR.Tests.StageProgressionTests.LegacyNumericSlotThreeLoadsAsExperience" methodname="LegacyNumericSlotThreeLoadsAsExperience" classname="MeteorDefenseVR.Tests.StageProgressionTests" runstate="Runnable" seed="1589852043" result="Passed" start-time="2026-10-21 20:43:44Z" end-time="2026-10-21 20:43:44Z" duration="0.000256" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1426" name="OperationDurationRemainsAuthoritativeWhenExperienceSessionStarts" fullname="MeteorDefenseVR.Tests.StageProgressionTests.OperationDurationRemainsAuthoritativeWhenExperienceSessionStarts" methodname="OperationDurationRemainsAuthoritativeWhenExperienceSessionStarts" classname="MeteorDefenseVR.Tests.StageProgressionTests" runstate="Runnable" seed="2096971587" result="Passed" start-time="2026-10-21 20:43:44Z" end-time="2026-10-21 20:43:44Z" duration="0.000889" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1427" name="TenBossCompletionsAdvanceToDistinctFinalCampaignSuccess" fullname="MeteorDefenseVR.Tests.StageProgressionTests.TenBossCompletionsAdvanceToDistinctFinalCampaignSuccess" methodname="TenBossCompletionsAdvanceToDistinctFinalCampaignSuccess" classname="MeteorDefenseVR.Tests.StageProgressionTests" runstate="Runnable" seed="563712785" result="Passed" start-time="2026-10-21 20:43:44Z" end-time="2026-10-21 20:43:44Z" duration="0.001249" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
