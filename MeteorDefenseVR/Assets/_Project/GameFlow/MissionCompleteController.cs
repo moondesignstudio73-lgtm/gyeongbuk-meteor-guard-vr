@@ -19,7 +19,9 @@ namespace MeteorDefenseVR.GameFlow
         private float elapsed;
         private bool presentationStarted;
         public const float PresentationDelay = 0.9f;
-        public float PresentationProgress => IsRunning ? Mathf.Clamp01((elapsed - PresentationDelay) / .45f) : 0f;
+        public Func<bool> PresentationAllowed { get; set; }
+        public bool CanPresent => PresentationAllowed == null || PresentationAllowed();
+        public float PresentationProgress => IsRunning && CanPresent ? Mathf.Clamp01((elapsed - PresentationDelay) / .45f) : 0f;
 
         public bool IsRunning { get; private set; }
         public bool IsComplete { get; private set; }
@@ -76,7 +78,7 @@ namespace MeteorDefenseVR.GameFlow
             if (!presentationStarted && elapsed >= PresentationDelay)
             {
                 presentationStarted = true;
-                PresentationStarted?.Invoke();
+                if(CanPresent)PresentationStarted?.Invoke();
             }
             if (elapsed < resultDelay) return;
             IsRunning = false;

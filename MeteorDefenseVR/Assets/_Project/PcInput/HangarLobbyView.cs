@@ -137,6 +137,14 @@ namespace MeteorDefenseVR.PcInput
             // No cockpit vibration is added: doors, work lights and the hull convey docking.
             panel.localPosition=panelPosition;
         }
+        public bool VictoryGuidanceVisible => lightsRoot != null && lightsRoot.activeSelf;
+        public void SetVictoryGuidance(float amount)
+        {
+            if(lightsRoot==null)return;
+            lightsRoot.SetActive(amount>0);
+            lightsRoot.transform.localPosition=Vector3.zero;
+            foreach(var lamp in lights)lamp.intensity=Mathf.Clamp01(amount)*1.2f;
+        }
         public void Hide()
         {
             if(panel!=null) panel.gameObject.SetActive(false);

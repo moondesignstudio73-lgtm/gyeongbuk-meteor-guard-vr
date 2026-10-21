@@ -205,7 +205,7 @@ namespace MeteorDefenseVR.Tests
             complete.BeginMissionComplete();
             complete.Tick(MissionCompleteController.PresentationDelay + .1f);
             view.RefreshPresentation();
-            Assert.That(view.FeedbackValue.text, Does.Contain("임무 완료"));
+            Assert.That(view.FeedbackValue.text, Does.Contain("방어 성공!"));
             Assert.That(view.HudCanvas.sortingOrder, Is.GreaterThanOrEqualTo(200));
             complete.ResetSequence();
         }

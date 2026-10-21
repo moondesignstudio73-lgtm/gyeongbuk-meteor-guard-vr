@@ -36,6 +36,7 @@ namespace MeteorDefenseVR.Visual
         private Vector3 earthDestination;
         private float shieldFraction = 1f;
         private MeteorDefenseVR.Player.PlayerHealth health;
+        public Transform Earth => earth;
         public float IntroDuration => introDuration;
         public float BriefingDuration => briefingDuration;
         public void SetDurations(float intro, float briefing)

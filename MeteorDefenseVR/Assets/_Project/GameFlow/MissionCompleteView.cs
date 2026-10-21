@@ -13,6 +13,8 @@ namespace MeteorDefenseVR.GameFlow
         [SerializeField] private GameObject visualFrame;
         private Vector3 earthBaseScale;
         private Color textColor;
+        private bool externalPresentation;
+        public void SetExternalPresentation(bool value) { externalPresentation=value; if(value&&visualFrame!=null)visualFrame.SetActive(false); }
 
         private void Awake()
         {
@@ -32,7 +34,7 @@ namespace MeteorDefenseVR.GameFlow
                 Color color = textColor; color.a = controller != null ? controller.PresentationProgress : 0f;
                 statusText.color = color;
             }
-            if (visualFrame != null) visualFrame.SetActive(visible);
+            if (visualFrame != null) visualFrame.SetActive(visible && !externalPresentation);
             if (earthFocusLight != null) earthFocusLight.enabled = visible;
             if (earth == null || controller == null || !controller.IsRunning) return;
             float pulse = 1f + Mathf.Sin(Time.unscaledTime * 2.2f) * 0.025f;
@@ -62,7 +64,7 @@ namespace MeteorDefenseVR.GameFlow
         {
             visualFrame = frame;
             if (visualFrame != null)
-                visualFrame.SetActive(controller != null && !string.IsNullOrEmpty(controller.StatusMessage));
+                visualFrame.SetActive(!externalPresentation && controller != null && controller.PresentationProgress>0 && !string.IsNullOrEmpty(controller.StatusMessage));
         }
 
         private void Subscribe()

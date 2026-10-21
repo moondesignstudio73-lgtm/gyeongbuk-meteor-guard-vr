@@ -68,6 +68,7 @@ namespace MeteorDefenseVR.PcInput
             bool dockRepairQa = Environment.GetCommandLineArgs().Contains("--pc-dock-repair-qa");
             bool buffReadabilityQa = Environment.GetCommandLineArgs().Contains("--pc-buff-readability-qa");
             bool resultFeedbackQa = Environment.GetCommandLineArgs().Contains("--pc-result-feedback-qa");
+            bool victoryEarthQa = Environment.GetCommandLineArgs().Contains("--pc-victory-earth-response-qa");
             bool introTransitionQa = Environment.GetCommandLineArgs().Contains("--pc-intro-transition-qa");
             bool pausePriorityQa = Environment.GetCommandLineArgs().Contains("--pc-pause-priority-qa");
             bool viewSettingsQa = Environment.GetCommandLineArgs().Contains("--pc-view-settings-qa");
@@ -342,6 +343,8 @@ namespace MeteorDefenseVR.PcInput
                 if(resultFeedbackQa)
                     yield return ResultFeedbackProof.Run(router,Path.Combine(output,"ResultFeedback"),true,
                         passed=>{if(!passed)report.issues.Add("Result feedback fixture failed");});
+                if(victoryEarthQa)
+                    yield return VictoryEarthProof.Run(router,Path.Combine(output,"VictoryEarth"),true,passed=>{if(!passed)report.issues.Add("Victory Earth fixture failed");});
                 if(introTransitionQa)
                     yield return IntroTransitionProof.Run(router,Path.Combine(output,"IntroTransition"),true,passed=>{if(!passed)report.issues.Add("Intro transition fixture failed");});
                 if(pausePriorityQa)
@@ -379,7 +382,8 @@ namespace MeteorDefenseVR.PcInput
                 && !report.issues.Contains("Result feedback fixture failed")
                 && !report.issues.Contains("View settings fixture failed")
                 && !report.issues.Contains("Pause priority fixture failed")
-                && !report.issues.Contains("Intro transition fixture failed");
+                && !report.issues.Contains("Intro transition fixture failed")
+                && !report.issues.Contains("Victory Earth fixture failed");
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);

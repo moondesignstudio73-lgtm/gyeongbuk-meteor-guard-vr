@@ -101,7 +101,7 @@ namespace MeteorDefenseVR.PcInput
                 previous = content;
                 display.text = result != null && result.IsVisible ? FormatResult(result.Snapshot, result.Rank, result.RankSettings) : FormatTelemetry(sourceName, content);
                 if (sourceName == "MissionCompleteText" && !string.IsNullOrEmpty(content))
-                    display.text = "<color=#BFF9FF>임무 완료</color>\n<size=1.8><color=#8FFFC4>잘했어요!\n지구를 지켜냈어요!</color></size>";
+                    display.text = "<color=#BFF9FF>임무 완료</color>\n<size=1.8><color=#8FFFC4>방어 성공!\n지구가 안전해졌어요!</color></size>";
                 if (sourceName == "AlertText" && content.StartsWith("WARNING"))
                     display.text = "<color=#FF7952>" + PlayerMessage(content) + "</color>";
                 if (sourceName == "HudFeedback" && content.Contains("LARGE METEOR"))
@@ -132,6 +132,7 @@ namespace MeteorDefenseVR.PcInput
                 case "MISSION START": return "지구를 지켜 주세요!";
                 case "LOCK ON": return "조준 완료!";
                 case "WARNING\nMASSIVE OBJECT DETECTED\nBOSS ASTEROID APPROACHING": return "위험!\n거대한 운석이 다가와요!";
+                case "MISSION COMPLETE\n지구 방어 성공!": return "방어 성공!\n지구가 안전해졌어요!";
                 case "MISSION COMPLETE\nALL THREAT LEVELS CLEARED": return "모든 임무 완료!\n지구를 지켜냈어요!";
             }
             return value.Replace("MISSION COMPLETE", "임무 완료").Replace("MISSION FAILED", "아쉽지만 다시 도전해요")
