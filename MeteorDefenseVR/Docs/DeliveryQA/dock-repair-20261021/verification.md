@@ -1,69 +1,40 @@
-# 현재 단계: 원본 픽셀 회귀검사 통과, 최종 실행파일 제작 중. 다음 행동: ZIP 압축 해제 실행·원본 화면 확인 후 GitHub 공개
+# 현재 단계: 도킹 수리 드론 최종 ZIP 검증·GitHub 공개·공개 재다운로드 해시 확인 완료. 다음 행동: 검토 채팅에서 배포 기록 반영
 
-## 범위
-PLAY_REVIEW_20261019.md 항목5 도킹 수리 드론만 구현. 드론2대 접근→실제 손상 부위 스캔→체력에 연결한 균열 복원→청록 준비. 메뉴 사용 가능, 무손상 짧은 점검, 메뉴 전환/출격/리셋 시 정리. 결과 점수/표시 시간 유지. 사용자 ProjectSettings 보존, Suno 대기, Drive/연속개선 상태는 검토 채팅 담당.
+## 배포
+- 공개: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-dock-repair-20261021
+- Release ID: 419153939. prerelease=true, draft=false.
+- 실행본 커밋: fe277d95d462a84843d26206e0928ae8f5a77415 (브랜치 codex/cockpit-visual-restore).
+- Unity6000.5.10f1, release build, worktreeClean=true, 빌드 시각2026-10-21T12:16:25+09:00.
+- ZIP: MeteorDefenseVR-Windows-DockRepair-20261021.zip, 89,438,939bytes.
+- SHA256: e729faee9c7d302a8b4f047f4f8d42239c38304f5e38f9e9a16dcb7f1777a5e8.
+- 로컬 ZIP: ../../../Builds/Sharing/DockRepair20261021/MeteorDefenseVR-Windows-DockRepair-20261021.zip
+- 압축 안222개 파일 및 압축 해제222개 파일의 원본 해시 일치. 공개 업로드 asset digest/size 및 공개 링크 재다운로드 SHA256 일치.
 
-## 기존 구현 확인
-- BaseFlightCinematic 패배 귀환5.2초 후 결과를 공개하고, 기존 결과 타이머 종료 후 HangarLobbyController.EnterMenu. 승리는 결과 표시 후3초 Returning을 거쳐 메뉴.
-- 드론 구현 없음. PlayerHealth.ResetHealth와 RepairNormalized(실패 시 거부)가 있고 CockpitDamagePresentation은 체력 이벤트로 균열/경고/누출을 정리한다.
-- 단계 수리의 HealthRepaired는 작은 양에도 최소1개 손상을 지워 연속 도킹 수리에 그대로 재사용하면 체력과 외피가 어긋날 수 있다. 도킹 전용 회복 상태와 실제 회복률 기반 균열 투명도를 연결하고 최종 ResetHealth에서 함께 정리한다.
-- 수정 전 렌더: 이전 공개 e426d86의 FinalExtract/QA/Delivery/failure-after-result. 드론/수리 표시 없음. 이 프레임은 메뉴 직후 결과 패널 전환이 겹친 시점이므로 새 검증은 안정된 프레임도 따로 확인한다.
+## 구현 범위
+PLAY_REVIEW_20261019.md 항목5 도킹 수리 드론만 진행했다. 두 드론 접근→실제 손상 부위 스캔→실제 HP 회복과 기존 균열 알파 복원→청록색 준비 표시. 손상 시 약3초, 무손상은 약0.6초 점검이다.
+수리 중 기존 메뉴를 사용할 수 있다. 조기 출격/다른 메뉴 이동은 수리를 마무리하고 드론·스캔·손상 경고를 정리한다. 메뉴 Back은 수리를 다시 시작하지 않는다. 외부 Reset과 상태 변경도 정리한다.
+기존 패배 귀환5.2초→결과 공개→기존 결과 타이머→메뉴 순서와 LastResult 점수는 유지한다. 도킹은 기존 단계 수리 이벤트를 반복 발행하지 않고, 실제 회복률에 연결한 균열 알파를 사용하며 최종 ResetHealth에서 일괄 정리한다.
+카메라/XR 포즈를 강제로 움직이지 않는다. 새 음원·광원·파티클을 추가하지 않았다. Suno 승인 대기를 유지했다.
 
-## 검증 구분
-PC 자동 입력 전투 / 명시적 상태·피해 fixture / 실제 플레이어 카메라 렌더를 구분한다. 직접 사람 전체 플레이·HMD·초심자 인지·청감은 실제 수행 전 미완료.
+## 최종 검증
+- 관련 개별 자동 검사26개는 최신 결과 기준 모두 통과. 최종 dock-original-pixels-20261021.xml의 도킹/메뉴3개도 통과했다. 출동/실패 착륙 검사는 dock-flight-20261021.xml 1/1 통과했다.
+- 정확한 최종 ZIP을 FinalVerified에 압축 해제하여 새 플레이어 프로세스로 실행했다. QA/pc-soak.json: passed=true, issues=[], 2026-10-21T04:12:04Z–04:15:38Z.
+- 자동 전투1회: 점수4980, 파괴21, 오류0/경고0, 평균89.94FPS. 자동 PC 환경 측정이며 VR 성능 보증은 아니다.
+- 1280×720/800×600의 접근·스캔·준비·조기 이탈 직전/직후 PNG를 생성했다. 문자별 투영 영역의 실제 밝은 청록 픽셀 검사113건 모두 통과했다. ForceMeshUpdate나 추가 프레임 대기로 캡처를 바꾸지 않았다.
+- 원본 PNG 및 원본 픽셀 영역을 최근접 확대하여 메뉴/수리 문구를 확인했다. 확대는 진단 보기이며 배포 이미지는 수정하지 않은 원본 PNG다. FinalPixelViews에 진단 보기를 보존했다.
+- 수리 안내 최소 글자 높이: 23.677px(1280×720), 19.731px(800×600). 텍스트 잘림/누락 글리프 검사 통과.
+- 균열 알파0.820→0.560/0.579로 실제 HP에 따라 옅어지고, 완료 시 HP100/균열0/드론0/스캔false/경고와 누출 정리를 확인했다.
+- 메뉴 사용, 조기 Replay 후 다음 전투 정리, 난이도 메뉴 이탈 정리, Back 후 정비 재시작 방지, 무손상 짧은 점검 통과.
+- 실패 결과 pending/점수 보존/표시 후4.7초 유지/실패 기체 수리/Reset 정리 및 카메라 포즈 유지 통과.
+- 4회 반복 귀환: 도킹pool27/공유재질4, 전체objects2041/materials145로 일정했다.
+- 1000회 zero-delta scan Tick: GC0bytes, 합계1.46/1.42ms. 실제 HP/UI 이벤트 포함200회 작은 Tick: GC0bytes, 합계2.23/2.02ms. 전체 GPU 부하 측정은 아니다.
 
-## 구현/첫 관측
-- 실제 결과 표시 종료 및 귀환 완료 뒤 메뉴를 열 때만 BeginDocked. 결과 대기/표시 타이머는 수정하지 않는다. 상태가 Result일 때만 도킹 체력 회복을 허용한다.
-- 접근0.8초, 실제 체력 회복1.4초, 청록 준비/드론 퇴장0.8초. 무손상은0.2+0.25+0.15초 점검. 스캔/균열 투명도는 실제 HP 회복률을 사용한다. 수리 완료/조기 메뉴 이탈은 ResetHealth로 HP와 균열·경고를 함께 정리한다.
-- 메뉴의 Back 진입은 새 수리를 시작하지 않는다. 초기화 BeforeReset/게임 상태 변경/컴포넌트 비활성화에서도 정리한다. 카메라/XR 위치 변경 없음, 음원/광원/파티클 추가 없음.
-- 드론은27개 Transform/공유재질4개를 재사용한다. 첫 명시적 fixture는 손상/무손상/조기 Replay/난이도 전환/4회 귀환/실제 패배 귀환 결과 보존 모두 통과.
-- 첫23개 검사 중19개 통과,4개 실패: 재질 없는 테스트용 균열2건을 위한 null 방어, 장면 종료 시 이미 파괴된 Scan renderer 접근1건을 수정했다. 기존 결과 문구 검사는 과거 영어 MISSION FAILED를 요구하여 현재 한국어 '다시 도전해요!'와 성공 문구 부재를 확인하도록 갱신했다.
-- 첫1280 scan 렌더 직접 확인. 측면 드론을 안쪽으로 약간 이동하고 조명에 묻히지 않는 재질로 조정했다. 안내문은1280 글자 최소23.7px,800 최소19.7px·누락/잘림 없음 확인. 최종 재검사에는 실제 다음 전투까지 정리, 균열 alpha 감소, 전체 객체/재질 반복 안정성, 실제 HP 갱신 비용도 포함한다.
+## 글자 누락 보고 정정
+앞선 “게임 글자 누락 확정” 및 “깊이 가림이 원인” 보고는 철회한다. 축소/전달된 미리보기에서는 글자 일부가 빠진 것처럼 보였지만 기존 후보 a075f4b의 원본 PNG에도 해당 글자 픽셀이 있었다. 예를 들어 접근 화면의 ‘눈’ 영역은 실제 밝은 청록 픽셀59개이며, 원본 영역 확대에서 전체 글자를 확인했다.
+재질 검사에서 Mobile SDF가 material의 _ZTestMode 대신 unity_GUIZTestMode를 사용하는 점을 발견했으나 이것만으로 게임 결함의 원인이라고 볼 수 없다. 임시 DockTextOverlay 셰이더와 재질 변경, 강제 갱신/대기 실험은 전부 철회했다. 최종 추가 변경은 QA의 원본 PNG 문자 픽셀 검사이며 실제 게임 표시 결함을 고쳤다고 주장하지 않는다.
+원인 조사 이력은 investigation-history.md와 DepthDiagnosis에 남겼다. 최신 결론은 이 문서가 우선한다.
 
-## 편집기 최종 동작 검사
-- dock-repair-verified-20261021.xml:21/21. 이전 PlayerHealth 등과 합쳐25개 서로 다른 검사 최신 결과 통과. 기존20회 손상/실패/리셋 회귀 및 격납고 메뉴 회귀 포함.
-- 새 fixture: 실제 체력 회복 중 균열 alpha .820→.586/.592 감소, 완료 시HP100/균열0. 수리 중 Replay 이후 다음 Playing 상태에서도 정리, 난이도 전환 및 Back 시 수리 재시작 없음.
-- 반복 귀환4회: 드론27객체/4재질, 전체Transform2021/Material180 동일. 점수43210과 패배 결과4.7초 가시성 유지, 실제 패배 후 회복/중간 리셋 통과.
-- 예열된 스캔 Tick1000회 및 실제 HP/기존 UI 이벤트를 포함한 작은 회복 Tick200회 모두 관리 할당0. 200회 CPU 합계3.67~3.92ms(전체 GPU 프레임 비용 아님).
-- 복수 플레이모드가 연달아 실행된 편집기 렌더에서는 새 상태 안내뿐 아니라 기존 메뉴의 글자까지 보이지 않는 프레임을 발견했다. 글자 좌표/누락 검사는 통과했지만 이를 시각 검증 통과로 취급하지 않는다. 새 프로세스로 실행하는 최종 ZIP에서 실제 픽셀 확인을 완료하기 전 공개하지 않는다.
-- 사용자 ProjectSettings는 현재 QA 폴더 백업과 경로 한정 stash로 보존, 빌드 후 복원한다.
-
-## 최종 빌드/포장
-- 실행 커밋361cb74ebb205051d45d9963150d478f02854732, clean=true, 빌드 종료0. 2026-10-21T10:30:16+09:00.
-- 사용자 ProjectSettings 복원 후 백업과 정규화 내용 동일 확인. 사용자 변경은 커밋하지 않았다.
-- MeteorDefenseVR-Windows-DockRepair-20261021.zip,89,438,176 bytes,222개 파일 크기/해시 일치.
-- SHA256 `975304ddd3f3f4b8850da8e159152d57cbc210d390dc230353f76a56311d53a8`.
-- FinalExtract에서 --pc-soak --pc-soak-rounds=1 --pc-delivery-qa --pc-dock-repair-qa --no-webcam -batchmode 실행. 최종 플레이어 카메라 렌더 확인 전 공개하지 않는다.
-
-
-## 메뉴 렌더 보완 및 출동·귀환 재검사
-- 최초 후보361cb74는 자동 검사 통과했지만 Ready 화면의 메뉴 글자 일부가 가려져 공개하지 않음.
-- a075f4b에서 격납고 메뉴 전용 글꼴 재질에 깊이 가림 방지 적용. 사용자 설정 및 다른 글꼴 재질은 유지.
-- dock-repair-overlay-20261021.xml 3/3 통과. 1280×720 준비 화면 및 800×600 수리 화면의 실제 글자 표시 확인.
-- dock-flight-20261021.xml 1/1 통과. 문 열림·가속 블러·전투 전환·손상 기체 귀환·착륙·문 닫힘·결과 표시 및 점수138940 보존 검사. 실제 가속/착륙 렌더 확인. HMD 착용 검사는 아님.
-
-
-## 최신 후보 및 공개 보류 (2026-10-21)
-- runtime a075f4bff3ddd2d513fec2ad0200544c9c5d13b5, GitHub 브랜치에 push 완료.
-- ZIP 89,438,254 bytes, SHA256 4884289b50d7eb6c640b078f01a5529665f1028a213a5b6425b536d94ab7e253. 222개 압축 해제 파일 원본 해시 일치.
-- FinalExtractOverlay 배포본 QA passed=true/issues=[] (01:44:55–01:48:30 UTC). 4회 귀환2041objects/145materials 일정, 도킹pool27/shared4 유지, 실제HP회복/점수/패배결과시간/조기출격/리셋 통과. 최신 개별 자동 검사26개 통과.
-- 1280×720 scan-repair/ready 및800×600 scan-repair 정상 글자 실제 확인. 그러나 approach 및 early-exit-scan 일부 이미지에 글자 누락 남음. 메뉴 전용overlay 재질만으로 전체 해결했다고 볼 수 없음.
-- QA에서 ForceMeshUpdate 및2프레임 대기 실험: early-exit-scan은 정상 출력되었으나 approach 누락 지속. 따라서 검사 캡처 시점만의 문제로 확정하지 않음. 실험용 DockRepairProof 변경은 되돌림. 반복 테스트 XML은 ignored 진단 자료로 보존.
-- 신규 GitHub release 생성/업로드/공개를 수행하지 않았음. 기존 공개 meteor-damage 릴리스 유지. Suno 음원 추가 안 함. 사용자 ProjectSettings는 별도 백업과 줄바꿈 정규화 비교로 복원 확인.
-
-
-## 깊이 가림 원인 조사
-- 정상/누락 모두 TMP active=true, alpha=1, clipRect전체, keywords없음, CanvasGroup/RectMask2D없음. DepthDiagnosis 폴더에 원본/외부Renderer제외 동일프레임 비교 및상태로그 보존.
-- 외부Renderer를 제외하면 누락글자 모두표시. 기존 Mobile SDF 소스는 ZTest [unity_GUIZTestMode] 사용. 이전 _ZTestMode setter는 해당 렌더 상태를 바꾸지 않음.
-- 기존 TMP Mobile Overlay 소스의 ZTest Always를 도킹전용 Resources/DockTextOverlay.shader로 포함, 메뉴 및 수리안내에만 사용. 전역폰트/카메라 변경없음.
-- 최초후검사: 대다수누락해소, 접근첫프레임 눈 위치 맞추기의 첫글자 추가확인중. 준비청록색은 픽셀 검사 r>.15 조건으로 오검출되어색의g/b기준으로정정. 검사상태값통과와 실제픽셀확인은구분.
-
-
-## 원인 정정 — 원본 해상도 검사 (최신 결론)
-- 앞선 깊이 가림/캐시 원인 추정은 확정 근거가 부족했음. 같은 PNG를 view_image 기본 detail/high 및 image 기본 전달로 볼 때 글자 일부가 누락된 것처럼 나타났지만, view_image detail original + image(url, original) 전달 시 전체 글자가 정상 표시됨.
-- 기존 a075f4b FinalExtractOverlay/1280x720/approach 원본의 눈 글자 영역(x465–479,y263–277)은 실제 청록 픽셀59개. 새실험후 원본도59개. 원본 영역을 최근접 확대하여 눈 위치 맞추기의 전체문자를 확인. 원본 파일 복사 해시 일치도 확인.
-- 따라서 실제 게임의 깊이 결함이 재현되었다고 결론내리지 않음. 외부Renderer제외 비교의 미리보기만으로 원인을 단정한 판단은 철회. 실험용 DockTextOverlay 셰이더와 메뉴/상태재질 변경은 전부 되돌림.
-- 남은 변경은 QA InspectTextPixels: 기존과 동일한 무수정 캡처 PNG에서 문자별 투영영역의 밝은 청록 픽셀 존재를 검사하며, ForceMeshUpdate나 추가대기로 통과를 만들지 않음. 메타데이터만이 아닌 실제PNG 픽셀 검사이며 최종 원본해상도 육안확인을 함께 수행.
-- 실패보고의 핵심은 이미지 검사 표시방식 오판. 최종확인에는 반드시 view_image(detail original) 결과를 image(data, original)로 전달. 기존 원본 PNG에 없던 내용을 생성/보완하지 않음.
-
-- 최종 원복 상태: dock-original-pixels-20261021.xml 3/3 통과, PNG 문자검사113행 전부pass=true. 7b6cfc7에는 QA 픽셀검사만 추가. 실험셰이더없음. 게임표시 원인으로의 단정은 철회된 상태.
+## 보존 및 한계
+- 사용자 ProjectSettings.asset의 Standalone analytics define 제거 변경을 커밋에 포함하지 않았다. 빌드 전에 경로 한정 stash와 백업을 사용했고, 완료 후 복원하여 줄바꿈 정규화 비교가 일치함을 확인했다.
+- 직접 사람 전체 플레이, HMD 착용, 초심자 인지, 실제 눈추적, 청감 검사는 수행하지 않았다. 자동 입력/명시적 피해·상태 fixture와 실제 플레이어 카메라 PNG 검증이다.
+- Suno 음원 승인 대기 유지. Drive/연속개선 상태파일은 수정하지 않았다. 다른 채팅으로 메시지를 전송하지 않았다.

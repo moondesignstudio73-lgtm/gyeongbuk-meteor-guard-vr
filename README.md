@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-meteor-damage-20261021)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-dock-repair-20261021)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
@@ -330,3 +330,5 @@ OVR Metrics Tool 또는 Unity Profiler를 연결해 최종 측정해야 합니�
 
 </details>
 
+
+기지에 돌아오면 수리 드론 두 대가 손상 부위를 점검해요. 수리 중에도 메뉴를 고를 수 있고, 바로 다시 출격할 수 있어요. 준비가 끝나면 청록색 안내가 나타나요.
