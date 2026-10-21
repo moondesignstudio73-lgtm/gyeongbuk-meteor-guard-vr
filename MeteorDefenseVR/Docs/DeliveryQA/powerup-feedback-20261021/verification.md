@@ -1,4 +1,4 @@
-# 현재 작업: 항목8 기능/렌더 14개 통과, 기존 배치 회귀 검사 중. 완료조건: 회귀 통과 후 최종 ZIP 추출 실행·GitHub 공개 및 재다운로드 해시 확인. 다음 행동: 배치 회귀 결과 확인 뒤 소스 고정/빌드.
+# 현재 단계: 항목8 속사·다중 레이저 구현/검증/최종 ZIP 추출 실행/GitHub 공개/재다운로드 해시 확인 완료. 다음 행동: 검토 채팅에서 배포 기록 반영.
 
 기준 완료판: boss-shell 014539e. 출동·귀환 반복 검사는 본 작업 범위가 아니다.
 
@@ -45,3 +45,29 @@
 - 다음 행동: 기존 TelemetryReadabilityTests 회귀 완료 후 커밋/클린 빌드.
 
 - 기존 TelemetryReadabilityTests 1/1 통과(powerup-layout-regression-20261021.xml), 총15개 서로 다른 검사 통과. 다음 행동: 소스 고정 및 사용자 설정을 보존한 클린 빌드.
+
+
+## 최종 빌드/패키지
+- 소스25cbe198e856f8b404c0971437d9271e8c90351d, Unity6000.5.10f1,2026-10-21T16:32:55+09:00,worktreeClean=true.
+- 사용자 ProjectSettings는 경로 한정 stash 적용 후 백업과 줄바꿈 정규화 비교 일치. 변경을 커밋하지 않음.
+- ZIP MeteorDefenseVR-Windows-PowerUpFeedback-20261021.zip,89,452,409bytes,222개 파일 원본 대비 해시 일치.
+- SHA256 90c128f170786e118dd42a89d39dea5f8b9331d3fa5601f41dda0762c86d0b4e.
+- FinalVerified에 ZIP을 새로 추출하여 실제 실행 중. GitHub 공개는 아직 안 함.
+
+
+## 최종 ZIP 추출 실행 완료
+- FinalVerified/MeteorDefenseVR-Windows-PowerUpFeedback-20261021/QA/pc-soak.json passed=true,issues=[]. UTC07:34:16→07:36:39.
+- 기본 Direct3D12 실제 실행, 점수4980/파괴21,오류0/경고0,평균89.916FPS,objects2056/materials146. 사람/HMD플레이 아님.
+- PowerUpFeedback/verification.txt passed=True. 두 해상도 전후/동시/추가발사/종료예고/갱신/만료 원본 검사 완료. 모든 구성222개 파일 추출 후 해시도 일치.
+- 최종 렌더제출CPU 중앙값 before/active:1280 1.4474/1.4388ms,800 1.2571/1.7381ms. 20표본, QA포함/비동기GPU비용 아님. 총프레임 성능 향상 주장 없음.
+- 표시1000Tick GC0,CPU2.1447ms(1280),1.4940ms(800).30회재사용 객체/재질 동일.
+- 소스25cbe19 GitHub브랜치 push 완료. 다음 행동: 신규 공개 릴리스와 다운로드 해시 검증.
+
+
+## 공개 및 재다운로드 완료
+- 릴리스: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-powerup-feedback-20261021
+- releaseId419275873,draft=false,prerelease=true,tag windows-powerup-feedback-20261021,소스25cbe198e856f8b404c0971437d9271e8c90351d.
+- 자산6개: ZIP,SHA256SUMS.txt,PowerUp-Before.png,PowerUp-Active.png,PowerUp-Shot.png,PowerUp-800x600.png. 이미지는 최종ZIP실행 원본 복사, 이미지 재가공 없음.
+- 업로드 자산 크기/서버digest 일치. 공개 URL로 재다운로드 완료2026-10-21T07:37:59.6322754Z,89,452,409bytes,SHA256 90c128f170786e118dd42a89d39dea5f8b9331d3fa5601f41dda0762c86d0b4e 일치.
+- 로컬ZIP: Builds/Sharing/PowerUpFeedback20261021/MeteorDefenseVR-Windows-PowerUpFeedback-20261021.zip.
+- 출동·귀환 완료 작업을 반복하는 대신 요청된 항목8을 완료함. 사용자 설정 보존, Suno승인대기, 직접사람/HMD미검증 유지. Drive/continuous-improvement-state 수정 안 함.
