@@ -75,7 +75,12 @@ namespace MeteorDefenseVR.PcInput
                 }
                 Check(result.IsVisible,"natural final result visible");Check(starts.SequenceEqual(Enumerable.Range(1,10)),"stages 1 through 10 in order");Check(clears.SequenceEqual(Enumerable.Range(1,9)),"nine intermediate clears in order");
                 Check(completeCount==1&&resultCount==1&&stats.AllStagesCleared&&stats.ClearedStages==10,"one final victory and one result after ten stages");
-                Capture("final-result");yield return new WaitForSecondsRealtime(2);Check(resultCount==1,"no duplicate result");Check(warningsOutsideCombat==0,"no warning events after combat");
+                Capture("final-result");yield return new WaitForSecondsRealtime(2);Capture("final-result-settled");
+                var display=Camera.main.transform.Find("ResultText").GetComponent<WorldTextPresentation>().Display;display.ForceMeshUpdate(true,true);
+                Check(!display.isTextTruncated&&display.textBounds.size.x<=display.rectTransform.rect.width+.1f&&display.textBounds.size.y<=display.rectTransform.rect.height+.1f,"final result text fits");
+                Check(display.GetParsedText().Where(c=>!char.IsWhiteSpace(c)&&!char.IsControl(c)).All(c=>display.font.HasCharacter(c,true)),"final result glyphs present");
+                notes.Add("Final result text: "+display.GetParsedText().Replace('\n','|'));
+                Check(resultCount==1,"no duplicate result");Check(warningsOutsideCombat==0,"no warning events after combat");
                 Check(Object.FindAnyObjectByType<HangarLobbyController>().ChooseFromResult(true),"actual replay action accepted");
                 deadline=Time.realtimeSinceStartup+35;while(flow.CurrentState!=GameState.Playing&&Time.realtimeSinceStartup<deadline)yield return null;
                 Check(flow.CurrentState==GameState.Playing&&campaign.CurrentStage==1&&!stats.AllStagesCleared&&stats.ClearedStages==0&&!result.IsVisible,"replay resets to stage one");
