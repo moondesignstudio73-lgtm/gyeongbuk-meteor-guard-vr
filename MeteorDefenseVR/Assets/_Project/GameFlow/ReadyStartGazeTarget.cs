@@ -26,7 +26,8 @@ namespace MeteorDefenseVR.GameFlow
 
         public void Advance(float deltaTime)
         {
-            if (controller == null || !controller.IsReadyVisible || deltaTime <= 0f) return;
+            if (controller == null || !controller.CanStart) { progress = 0f; return; }
+            if (deltaTime <= 0f) return;
             progress = Mathf.Clamp01(progress + deltaTime / dwellDuration);
             if (progress < 1f) return;
             progress = 0f;

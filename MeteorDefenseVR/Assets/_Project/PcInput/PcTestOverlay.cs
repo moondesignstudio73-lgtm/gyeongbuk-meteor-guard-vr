@@ -52,6 +52,7 @@ namespace MeteorDefenseVR.PcInput
         private float settingsDwell;
         private bool settingsDwellConsumed;
         private SfPresentationDirector presentation;
+        private ReadyScreenController readyScreen;
         public bool LookSettingsOpen => settingsOpen;
         public void Configure(GazeInputRouter input, PcCalibrationController calibrator, PcTestControls testControls, TMP_FontAsset uiFont)
         { router = input; calibration = calibrator; controls = testControls; font = uiFont; }
@@ -59,6 +60,8 @@ namespace MeteorDefenseVR.PcInput
         {
             lobby = Object.FindAnyObjectByType<HangarLobbyController>();
             presentation=Object.FindAnyObjectByType<SfPresentationDirector>();
+            readyScreen=Object.FindAnyObjectByType<ReadyScreenController>();
+            if(readyScreen!=null)readyScreen.StartAllowed=CanStartExperience;
             operationsReset=Object.FindAnyObjectByType<OperationsResetController>();
             if(operationsReset!=null)operationsReset.BeforeReset+=CloseLookSettings;
             if (EventSystem.current == null)
@@ -318,7 +321,10 @@ namespace MeteorDefenseVR.PcInput
                 GameFlowManager.Instance == null || GameFlowManager.Instance.CurrentState != MeteorDefenseVR.Core.GameState.Boot) return;
             menuOpen = !menuOpen;
         }
-        private void OnDestroy(){if(operationsReset!=null)operationsReset.BeforeReset-=CloseLookSettings;}
+        private bool CanStartExperience() => (presentation==null||!presentation.IsBootPresenting)
+            && router!=null&&!router.UiModalOpen&&!router.EducationModalOpen&&!router.CalibrationInProgress;
+        private void OnDestroy(){if(operationsReset!=null)operationsReset.BeforeReset-=CloseLookSettings;
+            if(readyScreen!=null&&readyScreen.StartAllowed==CanStartExperience)readyScreen.StartAllowed=null;}
 
         private static string LoadBuildIdentity()
         {

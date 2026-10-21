@@ -13,6 +13,10 @@ namespace MeteorDefenseVR.GameFlow
 
         public bool IsReadyVisible { get; private set; }
         public bool InputBlocked { get; set; }
+        // Optional platform gate; the core game flow does not depend on the PC assembly.
+        public Func<bool> StartAllowed { get; set; }
+        public bool CanStart => !InputBlocked && IsReadyVisible && Time.timeScale > 0
+            && (StartAllowed == null || StartAllowed());
         public event Action<bool> VisibilityChanged;
 
         private void Awake() => gameFlow = GameFlowManager.Instance;
@@ -25,7 +29,7 @@ namespace MeteorDefenseVR.GameFlow
 
         private void Update()
         {
-            if (InputBlocked || !allowKeyboardStart || !IsReadyVisible || Time.timeScale == 0) return;
+            if (!allowKeyboardStart || !CanStart) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame || keyboard.enterKey.wasPressedThisFrame))
                 StartExperience();
@@ -45,7 +49,7 @@ namespace MeteorDefenseVR.GameFlow
 
         public void StartExperience()
         {
-            if (InputBlocked || !IsReadyVisible) return;
+            if (!CanStart) return;
             SetVisible(false);
             gameFlow?.StartGame();
         }
