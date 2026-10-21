@@ -232,7 +232,7 @@ namespace MeteorDefenseVR.PowerUps
         {
             PowerUpDefinition source = settings.Find(type); if (source == null) return false;
             PowerUpBalance value = source.Capture();
-            if (type == PowerUpType.Heal) { playerHealth.RepairNormalized(value.Power); hud?.ShowWarning("HULL REPAIRED", 1.1f); return true; }
+            if (type == PowerUpType.Heal) { playerHealth.RepairNormalized(value.Power); hud?.ShowWarning("선체 회복!", 1.1f); return true; }
             if (type == PowerUpType.EMP) { FireEmp(value); return true; }
             ActiveBuff existing = buffs.Find(entry => entry.Value.Type == type);
             if (existing != null)
@@ -249,11 +249,11 @@ namespace MeteorDefenseVR.PowerUps
                 { existing.ShieldHits = settings.shieldImpactCount; existing.Remaining = float.PositiveInfinity; }
                 buffs.Add(existing);
             }
-            if (type == PowerUpType.Overdrive) hud?.ShowWarning("OVERDRIVE ACTIVATED", 1.25f);
-            else if (type == PowerUpType.Shield) hud?.ShowWarning("SHIELD RESTORED", 1f);
+            if (type == PowerUpType.Overdrive) hud?.ShowWarning("과부하 레이저 강화!", 1.25f);
+            else if (type == PowerUpType.Shield) hud?.ShowWarning("방어막 충전!", 1f);
             else if (type == PowerUpType.RapidFire) hud?.ShowWarning("속사 강화!", 1f);
             else if (type == PowerUpType.MultiLaser) hud?.ShowWarning("다중 레이저 강화!", 1f);
-            else hud?.ShowWarning("WEAPON SYSTEM ENHANCED", 1f);
+            else hud?.ShowWarning(PowerUpHudView.PlayerName(type) + " 강화!", 1f);
             RefreshEffects(); return true;
         }
 
@@ -344,7 +344,7 @@ namespace MeteorDefenseVR.PowerUps
             foreach (MeteorController meteor in snapshot) if (meteor != null && meteor.MeteorType != MeteorType.Boss) meteor.DestroyMeteor();
             if (boss != null && boss.ActiveBoss != null) boss.ActiveBoss.ReceiveDamage(boss.ActiveBoss.MaxHealth * Mathf.Clamp(settings.empBossHealthFraction, .1f, .5f));
             if (empVisual != null) { empVisual.transform.position = driftTarget.position + driftTarget.forward * 1.5f; empVisual.transform.localScale = Vector3.one * .1f; empVisualRemaining = .65f; empVisual.SetActive(true); }
-            hud?.ShowWarning("EMP SHOCKWAVE", 1.2f);
+            hud?.ShowWarning("전자기 충격파 발동!", 1.2f);
         }
 
         private bool TryBlockDamage(int _, Vector3 position)
@@ -364,7 +364,7 @@ namespace MeteorDefenseVR.PowerUps
                 shield.ShieldHits--;
                 if (shield.ShieldHits <= 0) RemoveBuff(shield); else RebuildViews();
             }
-            hud?.ShowWarning("SHIELD HIT", .75f); ShieldBlocked?.Invoke(); return true;
+            hud?.ShowWarning("방어막으로 막았어요!", .75f); ShieldBlocked?.Invoke(); return true;
         }
 
         private void RefreshEffects()

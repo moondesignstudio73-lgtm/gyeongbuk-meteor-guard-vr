@@ -13,6 +13,7 @@ namespace MeteorDefenseVR.PcInput
         private MeteorSpawner spawner;
         private BossClimaxController boss;
         private Camera view;
+        private RectTransform feedbackBounds;
         private readonly RectTransform[] panels = new RectTransform[2];
         private readonly float[] heights = { .18f, .76f, .36f, .57f };
         private readonly Vector3[] corners = new Vector3[4];
@@ -22,6 +23,7 @@ namespace MeteorDefenseVR.PcInput
         {
             telemetry = FindAnyObjectByType<CockpitTelemetryPresentation>();
             var hud = GetComponent<GameplayHudOverlayView>();
+            if (hud != null && hud.FeedbackValue != null) feedbackBounds = hud.FeedbackValue.rectTransform;
             view = Camera.main; spawner = FindAnyObjectByType<MeteorSpawner>();
             boss = FindAnyObjectByType<BossClimaxController>();
             if (telemetry == null || hud == null || view == null || telemetry.ShipReadout == null || telemetry.ThreatReadout == null) return;
@@ -99,6 +101,40 @@ namespace MeteorDefenseVR.PcInput
                         if (score <= 0) break;
                     }
                 }
+                // A larger buff list may have no clear vertical gap on its original side.
+                // Try the opposite edge before considering the central bands; preserve size.
+                if (best > 0)
+                {
+                    Rect current = ViewBounds(panels[side]);
+                    for (float y = .03f + current.height * .5f; y <= .88f - current.height * .5f; y += .015f)
+                    {
+                        panels[side].anchorMin = panels[side].anchorMax = new Vector2(side == 0 ? .98f - current.width : .02f + current.width, y);
+                        float score = Obstruction(panels[side]);
+                        if (score < best) { best = score; bestAnchor = panels[side].anchorMin; }
+                        if (score <= 0) break;
+                    }
+                }
+                // If the other status panel divides that edge into two small gaps, move
+                // both panels as a pair. Neither is hidden, shrunk, or allowed over a target.
+                if (best > 0)
+                {
+                    int other = 1 - side;
+                    Vector2 originalOther = panels[other].anchorMin;
+                    float width = ViewBounds(panels[side]).width;
+                    bool paired = false;
+                    foreach (float otherHeight in heights)
+                    {
+                        SetHeight(other, otherHeight);
+                        foreach (float height in heights)
+                        {
+                            panels[side].anchorMin = panels[side].anchorMax = new Vector2(side == 0 ? .98f - width : .02f + width, height);
+                            if (Obstruction(panels[side]) > .000001f || Obstruction(panels[other]) > .000001f) continue;
+                            best = 0; bestAnchor = panels[side].anchorMin; paired = true; break;
+                        }
+                        if (paired) break;
+                    }
+                    if (!paired) panels[other].anchorMin = panels[other].anchorMax = originalOther;
+                }
                 // A dense vertical column can occupy the entire side. Use the empty
                 // central lower/upper band, keeping both the aim area and other panel clear.
                 if (best > 0)
@@ -132,6 +168,8 @@ namespace MeteorDefenseVR.PcInput
             // A temporary weapon extension must stay on-screen and below the top HUD too.
             score += bounds.width * bounds.height - Intersection(bounds, new Rect(.01f, .02f, .98f, .86f));
             score += Intersection(bounds, new Rect(.42f, .4f, .16f, .2f));
+            if (feedbackBounds != null && feedbackBounds.gameObject.activeInHierarchy)
+                score += Intersection(bounds, ViewBounds(feedbackBounds));
             foreach (var other in panels) if (other != null && other != panel) score += Intersection(bounds, ViewBounds(other));
             foreach (var meteor in spawner.ActiveMeteors) score += Overlap(bounds, meteor);
             if (boss != null) score += Overlap(bounds, boss.ActiveBoss);

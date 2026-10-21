@@ -264,6 +264,7 @@ namespace MeteorDefenseVR.PcInput
         private static bool IsLaunchMessageStage(LaunchStage stage) =>
             stage == LaunchStage.Countdown3 || stage == LaunchStage.Countdown2 || stage == LaunchStage.Countdown1 || stage == LaunchStage.MissionStart;
 
+        private float standardFeedbackFontSize = -1;
         private void PresentFeedback(string message)
         {
             message ??= string.Empty;
@@ -272,6 +273,11 @@ namespace MeteorDefenseVR.PcInput
             if (presentedMessage == message) return;
             presentedMessage = message;
             if (feedbackValue == null) return;
+            if (standardFeedbackFontSize < 0) standardFeedbackFontSize = feedbackValue.fontSize;
+            bool abilityNotice = false;
+            for (int i = 0; i < 8; i++)
+                abilityNotice |= message.StartsWith(MeteorDefenseVR.PowerUps.PowerUpHudView.PlayerName((MeteorDefenseVR.PowerUps.PowerUpType)i), System.StringComparison.Ordinal);
+            feedbackValue.fontSize = abilityNotice ? Mathf.Max(40, standardFeedbackFontSize) : standardFeedbackFontSize;
             feedbackValue.color = message.Contains("WARNING") || message.Contains("FAILED") || message.Contains("BOSS")
                 ? Warning : message.Contains("COMPLETE") || message.Contains("CLEAR") || message.Contains("지키세요") ? Green : Cyan;
             SetText(feedbackValue, WorldTextPresentation.PlayerMessage(message));

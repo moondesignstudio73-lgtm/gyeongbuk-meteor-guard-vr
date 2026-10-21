@@ -10,6 +10,20 @@ namespace MeteorDefenseVR.PowerUps
         [SerializeField] private TextMesh activeBuffsText;
         [SerializeField] private TextMesh acquiredText;
         private float acquiredRemaining;
+        private bool integrated;
+        public static string PlayerName(PowerUpType type) => type switch
+        {
+            PowerUpType.Heal => "선체 회복", PowerUpType.Shield => "방어막",
+            PowerUpType.DamageBoost => "공격력 강화", PowerUpType.RapidFire => "속사",
+            PowerUpType.MultiLaser => "다중 레이저", PowerUpType.Overdrive => "과부하 레이저",
+            PowerUpType.SlowTime => "운석 감속", PowerUpType.EMP => "전자기 충격파", _ => "능력"
+        };
+        public void SetIntegratedPresentation(bool value)
+        {
+            integrated = value;
+            if (activeBuffsText != null) activeBuffsText.gameObject.SetActive(!value);
+            if (acquiredText != null) acquiredText.gameObject.SetActive(!value);
+        }
 
         public void Configure(PowerUpManager source, TextMesh buffs, TextMesh acquired)
         {
@@ -47,7 +61,7 @@ namespace MeteorDefenseVR.PowerUps
         }
         public void Refresh()
         {
-            if (activeBuffsText == null || manager == null) return;
+            if (integrated || activeBuffsText == null || manager == null) return;
             var builder = new StringBuilder(96);
             foreach (PowerUpManager.ActiveBuffView buff in manager.ActiveBuffs)
             {
