@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "write": {
+    "passed": true,
+    "profile": "QA only",
+    "processId": 24488
+  },
+  "read": {
+    "passed": true,
+    "profile": "QA only",
+    "processId": 40116
+  }
+}

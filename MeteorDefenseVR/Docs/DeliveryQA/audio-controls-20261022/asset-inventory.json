@@ -1,0 +1,459 @@
+{
+  "files": [
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Battle.mp3",
+      "guid": "cb942eacc84f08a43bc0dd8c8171f1ec",
+      "bytes": 1841640,
+      "sha256": "d6f054a9dbe555e3fb7193284ca7c32630d018fa9c9bf3c7bee73be6966ea669"
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Boss.mp3",
+      "guid": "ad69fa7c20c4bbe49a5e9eeee03387b1",
+      "bytes": 608425,
+      "sha256": "77142d68f160748a30783501c88227ffd554b9e06097a5899cc41aca13ba6974"
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Intro.mp3",
+      "guid": "f9d44a15ddc0c1d458be74cf4f864a17",
+      "bytes": 606876,
+      "sha256": "08388457c65d3a32fc401dc49b157910b761c580403a57b40eb1b19cb515f78b"
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Result.mp3",
+      "guid": "d3e811a493ffe2f45b3f4338fdc64a53",
+      "bytes": 608425,
+      "sha256": "77142d68f160748a30783501c88227ffd554b9e06097a5899cc41aca13ba6974"
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Tutorial.mp3",
+      "guid": "10133e44b77b59c45ae2786907993371",
+      "bytes": 940161,
+      "sha256": "55fceb0e43b9a4f57daaa61243b6b554a4f16fadb88b8da4c4d58cb1cdb77843"
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/BossExplosion.wav",
+      "guid": "222551a7814fe674fa3f6c78182f00a5",
+      "bytes": 37528,
+      "sha256": "10db4df8d9df440fefc414f28ec61ec723f01c5e51d2c9ff6fae7afb559c0262",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.8499773242630385
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/BossWarning.wav",
+      "guid": "f04a4e7845901d745938bc9b85e8b4b5",
+      "bytes": 12392,
+      "sha256": "37bd78571a08326ebb3e9d76c79fe34075f17c0895b6bb15959297e12d458931",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/CalibrationComplete.wav",
+      "guid": "6fb73f262af04bb439d0c4f49d53ecf5",
+      "bytes": 12392,
+      "sha256": "7a67f9fc89403005455384d061cee0d95763e58c208cd5f3b651e1f27c6aed90",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/CalibrationPoint.wav",
+      "guid": "0af92c97b28adf54d9b8364037a55cba",
+      "bytes": 12392,
+      "sha256": "c285a6695f897f6ccb0a2dc0e69fde11334bcb37cd9360d2975cedf95576bb52",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Countdown.wav",
+      "guid": "238119f2c178fd84ea81cf103a0b14db",
+      "bytes": 12392,
+      "sha256": "35f1ead53d23ef91897110b78229da4b979feb60f21fc7abd5bcf080a7d640f6",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/EngineStart.wav",
+      "guid": "27d56c21de3d2db4986e84ef620b213f",
+      "bytes": 30912,
+      "sha256": "fbe13f801ace191a640bd5595f845d8a04f310702bf06e5522ab79017ec9cf5b",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.6999546485260771
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/IntroSpaceAmbient.wav",
+      "guid": "a2b0b919b6b0ee445abf643dba70eaa3",
+      "bytes": 352844,
+      "sha256": "9fca4d91a4a777f6eee8d2621bba311fd33ba6598a28639e2c3eb51596a1dd51",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 8
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Laser.wav",
+      "guid": "12639f4a9972c7d49a3ad2780cac5807",
+      "bytes": 9744,
+      "sha256": "8254615803622524239591089f8b21ecf8f70248d979d53300c50b1dcce4c04e",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.2199546485260771
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Launch.wav",
+      "guid": "9a4b804ec6fa3ba46bc7fc2f46632f94",
+      "bytes": 12392,
+      "sha256": "f5dfeba4cc97d37df868762f5c1a483b38f680038feae8d09c7774ff3fc67ed6",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/LockOn.wav",
+      "guid": "f1206668e7890e246aba55c62a6ca7fc",
+      "bytes": 12392,
+      "sha256": "7f71c0d606754446b7352b56610b581b2c315dd742214b1c0e8d3b3fde4e5d5d",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/MeteorExplosion.wav",
+      "guid": "c6d066e30a39b1545b7a7d17b2dbfe24",
+      "bytes": 37528,
+      "sha256": "ad7724baa330d36bcb562d052a178c49d2d31bfd6684fee2d916b35c7f66ca97",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.8499773242630385
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/MeteorHit.wav",
+      "guid": "28fd0521fec203d44a9fdeef0cd0adf8",
+      "bytes": 12392,
+      "sha256": "e486b8cc7a686ff04bd30e61a4ec05bcaaf630eb3b147aeecc606a6c36c5791c",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/MissionComplete.wav",
+      "guid": "b81c2697135d01d4bbae08e5e0eecc1a",
+      "bytes": 176444,
+      "sha256": "1a60ce7370364ef6aa635edb5928a04f3781ffbdce4bf4addd152849aa39c1db",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 4
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/PlayerDamage.wav",
+      "guid": "23231b43efdb4664c82a7a2a87829f56",
+      "bytes": 12392,
+      "sha256": "47a88f3d87bb5ef75aecc4cc694ec209b40a113830f8e11f08fa734ae93df23a",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Result.wav",
+      "guid": "6a1040140b16d3a4c9c7ad834c6169b0",
+      "bytes": 12392,
+      "sha256": "d85332a628caae5f6f8e0972b020076f984761afc2d006e5c48d8e2afd2fb24f",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Score.wav",
+      "guid": "03ad515ce4a6fda4d8cd31581292a080",
+      "bytes": 12392,
+      "sha256": "cb4a4eb658c7c349805a8a12078650d4bddf6ca805db98677d2e572ce5a3f6b8",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/TargetFocus.wav",
+      "guid": "3a7a92eb02d509941beb64ca50798a28",
+      "bytes": 12392,
+      "sha256": "7f06b05a9a2718c70b07d17ab9fb7fa45bc9d922b5d91655c728f3b036ee8036",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Warning.wav",
+      "guid": "ed6de1c42352d7041a3db35a928ac4e1",
+      "bytes": 12392,
+      "sha256": "3f0be81799a1027a7d38771345b2ffd9dd8b43f65a3d0e40327acd5cbb09cd97",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.28
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/Art/CockpitDamage/CabinAirLeak.wav",
+      "guid": "d5fe8af96bdb15b4885d54883f9b2677",
+      "bytes": 176444,
+      "sha256": "c1135e070bfa56b0382499ea1b445dcf7ca01738d81df9eaca3268165c4ea16f",
+      "channels": 1,
+      "rate": 44100,
+      "seconds": 2
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/Art/CockpitDamage/GlassHit.wav",
+      "guid": "a6c25e79c9c1e51408e7ffaafc1718b0",
+      "bytes": 11068,
+      "sha256": "21de14325dbf236e5ada729010a286ae0962493733cb0c9147ccc1f9c448a8e1",
+      "channels": 1,
+      "rate": 22050,
+      "seconds": 0.24997732426303854
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/Art/CockpitDamage/GlassImpactLayer.wav",
+      "guid": "e6087cd1d0f57ea40aa1120d0c09c0f3",
+      "bytes": 44144,
+      "sha256": "c7ae5b70555ef74287c4a7620a5749c06f59c32ec2d3f2dad40fb1d6145fea12",
+      "channels": 1,
+      "rate": 44100,
+      "seconds": 0.5
+    },
+    {
+      "path": "MeteorDefenseVR/Assets/Art/CockpitDamage/HullImpactLayer.wav",
+      "guid": "613efca2c67028a46bac7f60de3477a5",
+      "bytes": 44144,
+      "sha256": "2c8f9c11fd3bc083c89034cf2441c9e1adc850ccc1d33381b201e99010750214",
+      "channels": 1,
+      "rate": 44100,
+      "seconds": 0.5
+    }
+  ],
+  "cues": [
+    {
+      "cue": 0,
+      "category": 4,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/IntroSpaceAmbient.wav",
+      "volume": 0.28,
+      "cooldown": 1,
+      "loop": true,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 1,
+      "category": 1,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Warning.wav",
+      "volume": 0.45,
+      "cooldown": 0.7,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 2,
+      "category": 1,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/CalibrationPoint.wav",
+      "volume": 0.38,
+      "cooldown": 0.12,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 3,
+      "category": 1,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/CalibrationComplete.wav",
+      "volume": 0.5,
+      "cooldown": 0.5,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 4,
+      "category": 1,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/TargetFocus.wav",
+      "volume": 0.24,
+      "cooldown": 0.18,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 5,
+      "category": 1,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/LockOn.wav",
+      "volume": 0.48,
+      "cooldown": 0.2,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 6,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Laser.wav",
+      "volume": 0.42,
+      "cooldown": 0.08,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 7,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/MeteorHit.wav",
+      "volume": 0.4,
+      "cooldown": 0.08,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 8,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/MeteorExplosion.wav",
+      "volume": 0.52,
+      "cooldown": 0.14,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 9,
+      "category": 1,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Score.wav",
+      "volume": 0.34,
+      "cooldown": 0.1,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 10,
+      "category": 3,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Countdown.wav",
+      "volume": 0.5,
+      "cooldown": 0.35,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 11,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Launch.wav",
+      "volume": 0.55,
+      "cooldown": 0.8,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 13,
+      "category": 3,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/BossWarning.wav",
+      "volume": 0.58,
+      "cooldown": 1,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 14,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/BossExplosion.wav",
+      "volume": 0.6,
+      "cooldown": 1,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 15,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/MissionComplete.wav",
+      "volume": 0.48,
+      "cooldown": 1,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 16,
+      "category": 1,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/Result.wav",
+      "volume": 0.4,
+      "cooldown": 1,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 17,
+      "category": 0,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Intro.mp3",
+      "volume": 0.7,
+      "cooldown": 0,
+      "loop": true,
+      "userChannel": "Music"
+    },
+    {
+      "cue": 18,
+      "category": 0,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Tutorial.mp3",
+      "volume": 0.7,
+      "cooldown": 0,
+      "loop": true,
+      "userChannel": "Music"
+    },
+    {
+      "cue": 19,
+      "category": 0,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Battle.mp3",
+      "volume": 0.7,
+      "cooldown": 0,
+      "loop": true,
+      "userChannel": "Music"
+    },
+    {
+      "cue": 20,
+      "category": 0,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Boss.mp3",
+      "volume": 0.7,
+      "cooldown": 0,
+      "loop": true,
+      "userChannel": "Music"
+    },
+    {
+      "cue": 21,
+      "category": 0,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/BGM/Result.mp3",
+      "volume": 0.7,
+      "cooldown": 0,
+      "loop": false,
+      "userChannel": "Music"
+    },
+    {
+      "cue": 22,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/_Project/Audio/Generated/EngineStart.wav",
+      "volume": 0.45,
+      "cooldown": 0.5,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 23,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/Art/CockpitDamage/GlassImpactLayer.wav",
+      "volume": 0.56,
+      "cooldown": 0.16,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 12,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/Art/CockpitDamage/HullImpactLayer.wav",
+      "volume": 0.68,
+      "cooldown": 0.12,
+      "loop": false,
+      "userChannel": "Effects"
+    },
+    {
+      "cue": 24,
+      "category": 2,
+      "clip": "MeteorDefenseVR/Assets/Art/CockpitDamage/CabinAirLeak.wav",
+      "volume": 0.12,
+      "cooldown": 1,
+      "loop": true,
+      "userChannel": "Effects"
+    }
+  ]
+}

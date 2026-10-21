@@ -1,0 +1,62 @@
+[
+  {
+    "file": "Battle.mp3",
+    "bytes": 1841640,
+    "sha256": "d6f054a9dbe555e3fb7193284ca7c32630d018fa9c9bf3c7bee73be6966ea669",
+    "id3": {
+      "TIT2": "Neon Horizon",
+      "TPE1": "moondesignstudio73",
+      "TSSE": "Lavf60.16.100",
+      "TXXX": "﻿comment﻿made with suno; created=2026-08-27T19:40:13Z; id=0121dec6-4199-44ec-96ee-566df77023c5"
+    },
+    "rightsEvidence": "Not established by these metadata; first repository import 4d07eb461961287c7d54d2b9c2313ac9ce80de4d"
+  },
+  {
+    "file": "Boss.mp3",
+    "bytes": 608425,
+    "sha256": "77142d68f160748a30783501c88227ffd554b9e06097a5899cc41aca13ba6974",
+    "id3": {
+      "TIT2": "Asteroid Impact",
+      "TPE1": "moondesignstudio73",
+      "TSSE": "Lavf60.16.100",
+      "TXXX": "﻿comment﻿made with suno; created=2026-08-27T19:41:09Z; id=bb502ee0-a54e-473b-82fd-e1aed001710d"
+    },
+    "rightsEvidence": "Not established by these metadata; first repository import 4d07eb461961287c7d54d2b9c2313ac9ce80de4d"
+  },
+  {
+    "file": "Intro.mp3",
+    "bytes": 606876,
+    "sha256": "08388457c65d3a32fc401dc49b157910b761c580403a57b40eb1b19cb515f78b",
+    "id3": {
+      "TIT2": "Starlight Horizon",
+      "TPE1": "moondesignstudio73",
+      "TSSE": "Lavf60.16.100",
+      "TXXX": "﻿comment﻿made with suno; created=2026-08-27T19:35:41Z; id=373245c6-d36d-4ccd-9250-fd05a76ceb06"
+    },
+    "rightsEvidence": "Not established by these metadata; first repository import 4d07eb461961287c7d54d2b9c2313ac9ce80de4d"
+  },
+  {
+    "file": "Result.mp3",
+    "bytes": 608425,
+    "sha256": "77142d68f160748a30783501c88227ffd554b9e06097a5899cc41aca13ba6974",
+    "id3": {
+      "TIT2": "Asteroid Impact",
+      "TPE1": "moondesignstudio73",
+      "TSSE": "Lavf60.16.100",
+      "TXXX": "﻿comment﻿made with suno; created=2026-08-27T19:41:09Z; id=bb502ee0-a54e-473b-82fd-e1aed001710d"
+    },
+    "rightsEvidence": "Not established by these metadata; first repository import 4d07eb461961287c7d54d2b9c2313ac9ce80de4d"
+  },
+  {
+    "file": "Tutorial.mp3",
+    "bytes": 940161,
+    "sha256": "55fceb0e43b9a4f57daaa61243b6b554a4f16fadb88b8da4c4d58cb1cdb77843",
+    "id3": {
+      "TIT2": "Digital Calm",
+      "TPE1": "moondesignstudio73",
+      "TSSE": "Lavf60.16.100",
+      "TXXX": "﻿comment﻿made with suno; created=2026-08-27T19:39:35Z; id=cfa0364d-b7f8-4d66-aad6-21c7c699fe9d"
+    },
+    "rightsEvidence": "Not established by these metadata; first repository import 4d07eb461961287c7d54d2b9c2313ac9ce80de4d"
+  }
+]
