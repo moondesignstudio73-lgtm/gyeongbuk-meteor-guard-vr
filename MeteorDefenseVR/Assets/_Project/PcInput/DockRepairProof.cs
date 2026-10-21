@@ -54,6 +54,7 @@ namespace MeteorDefenseVR.PcInput
                         Canvas.ForceUpdateCanvases();PcStabilityRenderDriver.RenderForProof(camera);
                         string folder=Path.Combine(output,$"{size.x}x{size.y}",name);Directory.CreateDirectory(folder);proof.SaveGameOnlyProof(folder,router);
                         notes.Add($"{size}/{name}: hp={health.CurrentHealth:F3} cracks={damage.VisibleCrackCount} phase={repair.Phase} progress={repair.Progress:F3} drones={repair.VisibleDrones} scan={repair.ScanVisible} menu={lobby.Phase}");
+                        passed &= InspectTextPixels(camera,folder,notes);
                     }
                     yield return Start(85);Capture("damaged-result");
                     bool preserved=result.Snapshot.Score==43210;
@@ -148,6 +149,39 @@ namespace MeteorDefenseVR.PcInput
                 Directory.CreateDirectory(output);notes.Add("passed="+passed);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);
             }
             complete(passed);
+        }
+        private static bool InspectTextPixels(Camera camera,string folder,List<string> notes)
+        {
+            // Inspect the unmodified capture, not text regenerated specially for the test.
+            var image=new Texture2D(2,2,TextureFormat.RGB24,false);
+            bool passed=true;
+            try
+            {
+                image.LoadImage(File.ReadAllBytes(Path.Combine(folder,"stability-game-render.png")));
+                foreach(var text in Object.FindObjectsByType<TMPro.TMP_Text>(FindObjectsSortMode.None))
+                {
+                    bool dock=false;
+                    for(var t=text.transform;t!=null;t=t.parent)if(t.name=="HangarHologram"||t.name=="DockRepairStatus")dock=true;
+                    if(!dock || !text.isActiveAndEnabled)continue;
+                    string missing="";int checkedGlyphs=0;
+                    for(int i=0;i<text.textInfo.characterCount;i++)
+                    {
+                        var c=text.textInfo.characterInfo[i];if(!c.isVisible||!char.IsLetterOrDigit(c.character))continue;
+                        var lo=camera.WorldToScreenPoint(text.transform.TransformPoint(c.bottomLeft));
+                        var hi=camera.WorldToScreenPoint(text.transform.TransformPoint(c.topRight));
+                        int count=0;
+                        for(int y=Mathf.Max(0,Mathf.FloorToInt(lo.y));y<Mathf.Min(image.height,Mathf.CeilToInt(hi.y));y++)
+                        for(int x=Mathf.Max(0,Mathf.FloorToInt(lo.x));x<Mathf.Min(image.width,Mathf.CeilToInt(hi.x));x++)
+                        {var p=image.GetPixel(x,y);if(p.g>.30f&&p.b>.30f&&p.g>=p.r*.95f)count++;}
+                        checkedGlyphs++;if(count<2)missing+=c.character;
+                    }
+                    bool visible=checkedGlyphs>0&&missing.Length==0&&text.alpha>0;
+                    notes.Add($"pixels/{folder}/{text.name}: text={text.text} glyphs={checkedGlyphs} missing={missing} pass={visible} shader={text.fontSharedMaterial.shader.name} alpha={text.alpha}");
+                    passed &= visible;
+                }
+            }
+            finally{Object.Destroy(image);}
+            return passed;
         }
     }
 }
