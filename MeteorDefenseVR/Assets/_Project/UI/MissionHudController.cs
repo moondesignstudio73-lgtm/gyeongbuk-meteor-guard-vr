@@ -18,6 +18,7 @@ namespace MeteorDefenseVR.UI
 
         private readonly HashSet<MeteorController> trackedMeteors = new HashSet<MeteorController>();
         private float feedbackRemaining;
+        public float FeedbackRemaining => feedbackRemaining;
         private int extraMeteors;
         private int extraCompleted;
         private bool campaignMode;
@@ -54,7 +55,7 @@ namespace MeteorDefenseVR.UI
             if (spawner != null) foreach (MeteorController meteor in spawner.ActiveMeteors) TrackMeteor(meteor);
         }
 
-        private void Update() => Tick(Time.unscaledDeltaTime);
+        private void Update() { if (Time.timeScale > 0) Tick(Time.unscaledDeltaTime); }
 
         private void OnDisable()
         {

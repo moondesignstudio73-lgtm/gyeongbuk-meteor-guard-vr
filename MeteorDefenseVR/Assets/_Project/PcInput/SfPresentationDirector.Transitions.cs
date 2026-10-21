@@ -13,6 +13,7 @@ namespace MeteorDefenseVR.PcInput
         private CanvasGroup stageGroup;
         private TextMeshProUGUI stageTitle, stageSubtitle;
         private float stageAge = 10f;
+        public float StageTimeRemaining => Mathf.Max(0, 1.6f-stageAge);
         public bool IsStagePresenting => stageCard != null && stageCard.gameObject.activeSelf;
         public int PresentedStage { get; private set; }
         public int StagePresentationCount { get; private set; }

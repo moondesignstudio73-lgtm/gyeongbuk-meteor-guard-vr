@@ -146,9 +146,10 @@ namespace MeteorDefenseVR.PcInput
             var resumeRect = resumeButton.GetComponent<RectTransform>(); resumeRect.anchorMin = resumeRect.anchorMax = resumeRect.pivot = Vector2.one * .5f;
             resumeRect.anchoredPosition = new Vector2(0, -120);
             simulationHelp = Label(canvasObject.transform, "SimulationHelp", "마우스로 둘러보고 조준점을 메뉴에 맞추세요.\nEsc를 누르면 잠시 쉴 수 있어요.", Vector2.zero, new Vector2(1300, 160), 50);
-            simulationHelp.rectTransform.anchorMin = simulationHelp.rectTransform.anchorMax = simulationHelp.rectTransform.pivot = new Vector2(.5f, 0);
-            simulationHelp.rectTransform.anchoredPosition = new Vector2(0, 360); simulationHelp.alignment = TextAlignmentOptions.Center;
+            simulationHelp.rectTransform.anchorMin = simulationHelp.rectTransform.anchorMax = simulationHelp.rectTransform.pivot = Vector2.one * .5f;
+            simulationHelp.rectTransform.anchoredPosition = new Vector2(0, 200); simulationHelp.alignment = TextAlignmentOptions.Center;
             BuildLookSettings();
+            gameObject.AddComponent<PausePresentationGate>().Configure(router.Simulation, canvasObject.GetComponent<Canvas>());
         }
         private void ToggleInputMenu() { menuOpen = !menuOpen; if (menuOpen) router.Simulation?.Pause(); }
         private UnityEngine.UI.Button SettingsButton(Transform parent,string name,string text,Vector2 position,Vector2 size,UnityEngine.Events.UnityAction action)

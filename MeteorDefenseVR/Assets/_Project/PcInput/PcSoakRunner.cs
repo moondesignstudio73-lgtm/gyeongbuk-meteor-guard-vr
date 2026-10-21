@@ -68,6 +68,7 @@ namespace MeteorDefenseVR.PcInput
             bool dockRepairQa = Environment.GetCommandLineArgs().Contains("--pc-dock-repair-qa");
             bool buffReadabilityQa = Environment.GetCommandLineArgs().Contains("--pc-buff-readability-qa");
             bool resultFeedbackQa = Environment.GetCommandLineArgs().Contains("--pc-result-feedback-qa");
+            bool pausePriorityQa = Environment.GetCommandLineArgs().Contains("--pc-pause-priority-qa");
             bool viewSettingsQa = Environment.GetCommandLineArgs().Contains("--pc-view-settings-qa");
             bool powerUpQa = Environment.GetCommandLineArgs().Contains("--pc-powerup-feedback-qa");
             bool bossShellQa = Environment.GetCommandLineArgs().Contains("--pc-boss-shell-qa");
@@ -305,7 +306,7 @@ namespace MeteorDefenseVR.PcInput
                     yield return new WaitForSecondsRealtime(1.7f); Capture("failure-result");
                     yield return new WaitForSecondsRealtime(3f);
                     bool readableDuration = results.IsVisible;
-                    if (!threatQa && !telemetryQa && !recoilQa && !damageQa && !dockRepairQa && !bossShellQa && !powerUpQa && !buffReadabilityQa && !resultFeedbackQa && !viewSettingsQa && !ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
+                    if (!threatQa && !telemetryQa && !recoilQa && !damageQa && !dockRepairQa && !bossShellQa && !powerUpQa && !buffReadabilityQa && !resultFeedbackQa && !viewSettingsQa && !pausePriorityQa && !ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
                         report.issues.Add("Delivery result boundary fixture failed");
                     deadline = Time.realtimeSinceStartup + 15;
                     while (!lobby.IsMenuReady && Time.realtimeSinceStartup < deadline) yield return null;
@@ -340,6 +341,8 @@ namespace MeteorDefenseVR.PcInput
                 if(resultFeedbackQa)
                     yield return ResultFeedbackProof.Run(router,Path.Combine(output,"ResultFeedback"),true,
                         passed=>{if(!passed)report.issues.Add("Result feedback fixture failed");});
+                if(pausePriorityQa)
+                    yield return PausePriorityProof.Run(router,Path.Combine(output,"PausePriority"),passed=>{if(!passed)report.issues.Add("Pause priority fixture failed");});
                 if(viewSettingsQa)
                     yield return ViewSettingsProof.Run(router,Path.Combine(output,"ViewSettings"),true,
                         passed=>{if(!passed)report.issues.Add("View settings fixture failed");});
@@ -369,7 +372,10 @@ namespace MeteorDefenseVR.PcInput
                 && !report.issues.Contains("Dock repair fixture failed")
                 && !report.issues.Contains("Boss shell fixture failed")
                 && !report.issues.Contains("Power-up feedback fixture failed")
-                && !report.issues.Contains("Buff readability fixture failed");
+                && !report.issues.Contains("Buff readability fixture failed")
+                && !report.issues.Contains("Result feedback fixture failed")
+                && !report.issues.Contains("View settings fixture failed")
+                && !report.issues.Contains("Pause priority fixture failed");
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);

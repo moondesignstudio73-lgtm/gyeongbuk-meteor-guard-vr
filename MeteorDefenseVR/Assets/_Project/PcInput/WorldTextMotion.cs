@@ -40,9 +40,9 @@ namespace MeteorDefenseVR.PcInput
             if (!visible) { wasVisible = false; elapsed = 0f; return; }
             bool changed = lastContent != content;
             if (wasVisible && !changed && elapsed > 2.2f && Opacity >= .999f) return;
-            if (!wasVisible || changed) { elapsed = 0f; beganAt = Time.unscaledTime; rankCached = false; }
+            if (!wasVisible || changed) { elapsed = 0f; beganAt = Time.time; rankCached = false; }
             wasVisible = true; lastContent = content;
-            elapsed = Mathf.Max(0f, Time.unscaledTime - beganAt);
+            elapsed = Mathf.Max(0f, Time.time - beganAt);
             float delay = role == "ReadyTitle" ? SfPresentationDirector.ReadyTitleDelay :
                 role == "ReadyInstructions" ? SfPresentationDirector.ReadyTitleDelay + .12f :
                 role == "StartLabel" || role == "ReadyPrompt" ? SfPresentationDirector.ReadyStartDelay : .14f;

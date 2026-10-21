@@ -12,6 +12,7 @@ namespace MeteorDefenseVR.Visual
         private Quaternion[] rotations;
         private Vector3 referencePosition;
         private Quaternion referenceRotation;
+        public Transform[] UiRoots => roots;
         public bool ShipLocked { get; set; }
         public void Configure(Camera camera, Transform[] uiRoots) { viewCamera = camera; roots = uiRoots; }
         private void Awake() => Capture();
