@@ -88,6 +88,9 @@ namespace MeteorDefenseVR.Audio
 
         private void Update()
         {
+            // Listener pause freezes audible playback and its fade at the same point.
+            // A timeScale-only reset still fades out on unscaled time as before.
+            if (AudioListener.pause) return;
             presentationGain = Mathf.MoveTowards(presentationGain, presentationTarget, Time.unscaledDeltaTime * 3f);
             TickBgm(Time.unscaledDeltaTime);
             ApplyMix();
