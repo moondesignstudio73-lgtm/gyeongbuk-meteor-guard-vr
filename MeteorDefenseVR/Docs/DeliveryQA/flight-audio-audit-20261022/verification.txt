@@ -1,0 +1,100 @@
+Audit only. Default authored flight timings; actual stage/request/playback events. Return geometry phase boundaries are inferred from the same animation's ReturnProgress, not independent playback timers. Controlled state/health inputs; no human listening/HMD.
+t=3.041 case=boot state=Boot launch=Idle shot=None STAGE Idle
+t=4.829 case=reset state=Boot launch=Idle shot=None PLAY IntroSpaceAmbient
+t=5.055 case=departure state=Launch launch=Hangar shot=Departure STAGE Hangar
+t=5.056 case=departure state=Launch launch=Hangar shot=Departure PLAY BgmBattle
+t=5.434 case=departure state=Launch launch=DoorOpen shot=Departure STAGE DoorOpen
+t=5.434 case=departure state=Launch launch=DoorOpen shot=Departure REQUEST Door
+t=6.136 case=departure state=Launch launch=EngineStart shot=Departure STAGE EngineStart
+t=6.136 case=departure state=Launch launch=EngineStart shot=Departure PLAY EngineStart
+t=6.137 case=departure state=Launch launch=EngineStart shot=Departure REQUEST Engine
+t=6.186 case=departure state=Launch launch=EngineStart shot=Departure condition reached=True
+t=6.687 case=departure-paused state=Launch launch=EngineStart shot=Departure departure phase freezes with pause=True
+t=7.405 case=departure-resumed state=Launch launch=Launch shot=Departure STAGE Launch
+t=7.405 case=departure-resumed state=Launch launch=Launch shot=Departure PLAY Launch
+t=7.405 case=departure-resumed state=Launch launch=Launch shot=Departure REQUEST Launch
+t=9.416 case=departure-resumed state=Launch launch=Space shot=Departure STAGE Space
+t=10.073 case=departure-resumed state=Countdown launch=Countdown3 shot=None STAGE Countdown3
+t=10.073 case=departure-resumed state=Countdown launch=Countdown3 shot=None PLAY Countdown
+t=10.073 case=departure-resumed state=Countdown launch=Countdown3 shot=None REQUEST Countdown
+t=10.527 case=departure-resumed state=Countdown launch=Countdown2 shot=None STAGE Countdown2
+t=10.527 case=departure-resumed state=Countdown launch=Countdown2 shot=None PLAY Countdown
+t=10.528 case=departure-resumed state=Countdown launch=Countdown2 shot=None REQUEST Countdown
+t=10.983 case=departure-resumed state=Countdown launch=Countdown1 shot=None STAGE Countdown1
+t=10.983 case=departure-resumed state=Countdown launch=Countdown1 shot=None PLAY Countdown
+t=10.983 case=departure-resumed state=Countdown launch=Countdown1 shot=None REQUEST Countdown
+t=11.439 case=departure-resumed state=Countdown launch=MissionStart shot=None STAGE MissionStart
+t=11.439 case=departure-resumed state=Countdown launch=MissionStart shot=None PLAY Launch
+t=11.439 case=departure-resumed state=Countdown launch=MissionStart shot=None REQUEST MissionStart
+t=12.150 case=departure-resumed state=Countdown launch=Complete shot=None STAGE Complete
+t=12.153 case=departure-resumed state=Playing launch=Complete shot=None PLAY Countdown
+t=12.197 case=departure-resumed state=Playing launch=Complete shot=None condition reached=True
+t=12.198 case=departure-resumed state=Playing launch=Complete shot=None existing departure cue counts (launch and mission-start share electronic cue)=True
+t=12.700 case=combat state=Playing launch=Complete shot=None PLAY PlayerDamage
+t=12.700 case=combat state=Playing launch=Complete shot=None PLAY GlassHit
+t=12.705 case=combat state=Result launch=Complete shot=Return failure starts return before result=True
+t=12.705 case=combat state=Result launch=Complete shot=Return early replay rejected while return pending=True
+t=13.194 case=return-approach state=Result launch=Complete shot=Return PLAY BgmResult
+t=13.909 case=return-controlled-pause state=Result launch=Complete shot=Return return animation freezes with controlled pause=True
+t=18.298 case=return-resumed state=Result launch=Complete shot=None PLAY Result
+t=18.318 case=return-resumed state=Result launch=Complete shot=None condition reached=True
+t=18.318 case=return-resumed state=Result launch=Complete shot=None result waits for landing and door close=True
+t=19.321 case=failed-result state=Result launch=Complete shot=None result BGM selected=True
+t=19.322 case=failed-result state=Result launch=Idle shot=None STAGE Idle
+t=20.330 case=cancel-setup state=Boot launch=Idle shot=None PLAY IntroSpaceAmbient
+t=21.328 case=cancel-setup state=Launch launch=Hangar shot=Departure STAGE Hangar
+t=21.329 case=cancel-setup state=Launch launch=Hangar shot=Departure PLAY BgmBattle
+t=21.675 case=cancel-departure state=Launch launch=DoorOpen shot=Departure STAGE DoorOpen
+t=21.675 case=cancel-departure state=Launch launch=DoorOpen shot=Departure REQUEST Door
+t=22.375 case=cancel-departure state=Launch launch=EngineStart shot=Departure STAGE EngineStart
+t=22.375 case=cancel-departure state=Launch launch=EngineStart shot=Departure PLAY EngineStart
+t=22.375 case=cancel-departure state=Launch launch=EngineStart shot=Departure REQUEST Engine
+t=22.380 case=cancel-departure state=Launch launch=EngineStart shot=Departure condition reached=True
+t=22.382 case=cancel-departure state=Launch launch=Idle shot=None STAGE Idle
+t=23.386 case=cancel-departure-after state=Boot launch=Idle shot=None PLAY IntroSpaceAmbient
+t=23.586 case=cancel-departure-after state=Boot launch=Idle shot=None cancel departure clears shot and effect loops=True
+t=23.587 case=cancel-departure-after state=Playing launch=Idle shot=None PLAY Countdown
+t=23.587 case=cancel-departure-after state=Playing launch=Idle shot=None PLAY BgmBattle
+t=23.888 case=failure-cancel-setup state=Playing launch=Idle shot=None PLAY PlayerDamage
+t=23.888 case=failure-cancel-setup state=Playing launch=Idle shot=None PLAY GlassHit
+t=24.392 case=cancel-return state=Result launch=Idle shot=None STAGE Idle
+t=25.386 case=cancel-return-after state=Boot launch=Idle shot=None PLAY IntroSpaceAmbient
+t=25.595 case=cancel-return-after state=Boot launch=Idle shot=None return cancellation clears pending result=True
+t=25.597 case=cancel-return-after state=MissionComplete launch=Idle shot=None PLAY BgmResult
+t=29.797 case=controlled-success state=Result launch=Idle shot=None PLAY Result
+t=29.804 case=controlled-success state=Result launch=Idle shot=None condition reached=True
+t=29.804 case=controlled-success state=Result launch=Idle shot=None success does not play failed return=True
+t=29.806 case=controlled-success state=Result launch=Idle shot=None PLAY CalibrationComplete
+t=29.807 case=controlled-success state=Result launch=Idle shot=None STAGE Idle
+t=29.809 case=controlled-success state=Boot launch=Idle shot=None post-result replay accepted=True
+t=29.810 case=replay state=Boot launch=Idle shot=None PLAY IntroSpaceAmbient
+t=30.799 case=replay state=Launch launch=Hangar shot=Departure STAGE Hangar
+t=30.799 case=replay state=Launch launch=Hangar shot=Departure PLAY BgmBattle
+t=31.153 case=replay state=Launch launch=DoorOpen shot=Departure STAGE DoorOpen
+t=31.153 case=replay state=Launch launch=DoorOpen shot=Departure REQUEST Door
+t=31.853 case=replay state=Launch launch=EngineStart shot=Departure STAGE EngineStart
+t=31.853 case=replay state=Launch launch=EngineStart shot=Departure PLAY EngineStart
+t=31.853 case=replay state=Launch launch=EngineStart shot=Departure REQUEST Engine
+t=32.608 case=replay state=Launch launch=Launch shot=Departure STAGE Launch
+t=32.608 case=replay state=Launch launch=Launch shot=Departure PLAY Launch
+t=32.608 case=replay state=Launch launch=Launch shot=Departure REQUEST Launch
+t=34.619 case=replay state=Launch launch=Space shot=Departure STAGE Space
+t=35.275 case=replay state=Countdown launch=Countdown3 shot=None STAGE Countdown3
+t=35.275 case=replay state=Countdown launch=Countdown3 shot=None PLAY Countdown
+t=35.275 case=replay state=Countdown launch=Countdown3 shot=None REQUEST Countdown
+t=35.730 case=replay state=Countdown launch=Countdown2 shot=None STAGE Countdown2
+t=35.730 case=replay state=Countdown launch=Countdown2 shot=None PLAY Countdown
+t=35.730 case=replay state=Countdown launch=Countdown2 shot=None REQUEST Countdown
+t=36.186 case=replay state=Countdown launch=Countdown1 shot=None STAGE Countdown1
+t=36.186 case=replay state=Countdown launch=Countdown1 shot=None PLAY Countdown
+t=36.186 case=replay state=Countdown launch=Countdown1 shot=None REQUEST Countdown
+t=36.642 case=replay state=Countdown launch=MissionStart shot=None STAGE MissionStart
+t=36.642 case=replay state=Countdown launch=MissionStart shot=None PLAY Launch
+t=36.642 case=replay state=Countdown launch=MissionStart shot=None REQUEST MissionStart
+t=37.353 case=replay state=Countdown launch=Complete shot=None STAGE Complete
+t=37.353 case=replay state=Playing launch=Complete shot=None PLAY Countdown
+t=37.373 case=replay state=Playing launch=Complete shot=None condition reached=True
+t=37.373 case=replay state=Playing launch=Complete shot=None replay restores battle BGM=True
+t=37.591 case=replay state=Boot launch=Idle shot=None Listener output WAV: samples=3586048 rate=48000 channels=2 seconds=37.35 peak=0.3314415 RMS=0.0161438324416056 samplesAboveUnity=0; not human listening or OS/speaker capture
+existing-routing-and-cleanup-passed=True
+Detailed door/approach/landing audio and real radio/AI speech remain incomplete: no suitable dedicated assets. Existing Launch/Countdown are electronic cues, not spoken countdown or continuous thrust audio.
