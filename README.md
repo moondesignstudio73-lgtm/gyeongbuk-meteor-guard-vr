@@ -4,13 +4,15 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-victory-readability-20261021)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-control-drone-20261022)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
 3. 난이도를 고른 뒤 **시작**에 조준점을 맞춰 주세요. 처음이라면 **체험** 또는 **쉬움**이 좋아요.
 
 마지막 보스를 물리치면 지구 둘레에 보호 고리가 나타나고 방어 성공을 알려 줘요.
+
+작은 관제 드론이 첫 출격에 인사하고, 연습에 성공하면 고개를 끄덕여요. 드론은 공격 대상이 아니에요.
 
 ## 조작 방법
 
@@ -69,7 +71,7 @@
 
 ### Windows 실행파일
 
-1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/RC_0.2.0-rc.1_3492913/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
+1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/RC_0.2.0-rc.1_04937cd/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
 2. 기본은 Public Experience + Auto 입력입니다. 화면의 `START`를 바라보거나 마우스를 올려 시작합니다. Enter/Space로도 시작됩니다.
 3. 운석을 바라보거나 마우스를 올려 약 0.65초 유지합니다. 클릭 없이 잠금 → 레이저 → 파괴가 진행됩니다.
 

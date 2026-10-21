@@ -1,0 +1,377 @@
+Synthetic keyboard/mouse/UI events; natural timers and weapon hits plus explicit rapid state commands. No human/webcam/HMD test.
+(800, 600)/loading-early: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(800, 600)/loading-middle: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(800, 600)/ready: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Boot-to-Intro-before: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Intro-0: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Intro-1: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Intro-2: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Intro-to-MissionBriefing-before: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-MissionBriefing-0: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-MissionBriefing-1: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-MissionBriefing-2: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-MissionBriefing-to-EyeCalibration-before: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-EyeCalibration-0: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(800, 600)/natural-EyeCalibration-1: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(800, 600)/natural-EyeCalibration-2: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(800, 600)/natural-EyeCalibration-to-Tutorial-before: state=Tutorial, loading=False, modal=False, paused=False, tracking=False
+(800, 600)/natural-Tutorial-0: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Tutorial-1: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/tutorial-pause: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(800, 600)/tutorial-settings: state=Tutorial, loading=False, modal=True, paused=True, tracking=False
+(800, 600)/tutorial-settings-closed: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(800, 600) settings closes before resume=True
+(800, 600)/tutorial-resumed: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(800, 600) input restored=True
+(800, 600)/natural-Tutorial-2: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Tutorial-to-Practice-before: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Practice-0: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Practice-1: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Practice-2: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Practice-to-Launch-before: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Launch-0: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Launch-1: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Launch-2: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Launch-to-Countdown-before: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Countdown-0: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Countdown-1: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Countdown-2: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Countdown-to-Playing-before: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Playing-0: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Playing-1: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/natural-Playing-2: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(800, 600) natural Intro=True
+(800, 600) natural MissionBriefing=True
+(800, 600) natural EyeCalibration=True
+(800, 600) natural Tutorial=True
+(800, 600) natural Practice=True
+(800, 600) natural Launch=True
+(800, 600) natural Countdown=True
+(800, 600) natural Playing=True
+(800, 600)/rapid-before-Intro: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-middle-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-after-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-before-MissionBriefing: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-middle-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-after-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-before-Tutorial: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-middle-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-after-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-before-Practice: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-middle-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-after-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-before-Launch: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-middle-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/rapid-after-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(800, 600)/restart-from-launch: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(800, 600) launch reset clears input=True
+(800, 600)/restart-from-tutorial-settings: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(800, 600) paused modal reset clears input=True
+(800, 600)/loading-before-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(800, 600)/loading-after-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(800, 600) loading blocks Space=True
+(800, 600)/ready-settings-before-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(800, 600)/ready-settings-after-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(800, 600) settings blocks Enter=True
+(800, 600) Enter works after settings close=True
+(1280, 720)/loading-early: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1280, 720)/loading-middle: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1280, 720)/ready: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Boot-to-Intro-before: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Intro-0: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Intro-1: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Intro-2: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Intro-to-MissionBriefing-before: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-MissionBriefing-0: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-MissionBriefing-1: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-MissionBriefing-2: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-MissionBriefing-to-EyeCalibration-before: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-EyeCalibration-0: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1280, 720)/natural-EyeCalibration-1: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1280, 720)/natural-EyeCalibration-2: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1280, 720)/natural-EyeCalibration-to-Tutorial-before: state=Tutorial, loading=False, modal=False, paused=False, tracking=False
+(1280, 720)/natural-Tutorial-0: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Tutorial-1: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/tutorial-pause: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(1280, 720)/tutorial-settings: state=Tutorial, loading=False, modal=True, paused=True, tracking=False
+(1280, 720)/tutorial-settings-closed: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(1280, 720) settings closes before resume=True
+(1280, 720)/tutorial-resumed: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1280, 720) input restored=True
+(1280, 720)/natural-Tutorial-2: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Tutorial-to-Practice-before: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Practice-0: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Practice-1: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Practice-2: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Practice-to-Launch-before: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Launch-0: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Launch-1: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Launch-2: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Launch-to-Countdown-before: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Countdown-0: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Countdown-1: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Countdown-2: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Countdown-to-Playing-before: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Playing-0: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Playing-1: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/natural-Playing-2: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720) natural Intro=True
+(1280, 720) natural MissionBriefing=True
+(1280, 720) natural EyeCalibration=True
+(1280, 720) natural Tutorial=True
+(1280, 720) natural Practice=True
+(1280, 720) natural Launch=True
+(1280, 720) natural Countdown=True
+(1280, 720) natural Playing=True
+(1280, 720)/rapid-before-Intro: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-middle-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-after-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-before-MissionBriefing: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-middle-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-after-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-before-Tutorial: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-middle-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-after-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-before-Practice: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-middle-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-after-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-before-Launch: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-middle-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/rapid-after-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1280, 720)/restart-from-launch: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1280, 720) launch reset clears input=True
+(1280, 720)/restart-from-tutorial-settings: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1280, 720) paused modal reset clears input=True
+(1280, 720)/loading-before-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1280, 720)/loading-after-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1280, 720) loading blocks Space=True
+(1280, 720)/ready-settings-before-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(1280, 720)/ready-settings-after-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(1280, 720) settings blocks Enter=True
+(1280, 720) Enter works after settings close=True
+(1920, 1080)/loading-early: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1920, 1080)/loading-middle: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1920, 1080)/ready: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Boot-to-Intro-before: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Intro-0: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Intro-1: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Intro-2: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Intro-to-MissionBriefing-before: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-MissionBriefing-0: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-MissionBriefing-1: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-MissionBriefing-2: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-MissionBriefing-to-EyeCalibration-before: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-EyeCalibration-0: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1920, 1080)/natural-EyeCalibration-1: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1920, 1080)/natural-EyeCalibration-2: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1920, 1080)/natural-EyeCalibration-to-Tutorial-before: state=Tutorial, loading=False, modal=False, paused=False, tracking=False
+(1920, 1080)/natural-Tutorial-0: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Tutorial-1: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/tutorial-pause: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(1920, 1080)/tutorial-settings: state=Tutorial, loading=False, modal=True, paused=True, tracking=False
+(1920, 1080)/tutorial-settings-closed: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(1920, 1080) settings closes before resume=True
+(1920, 1080)/tutorial-resumed: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080) input restored=True
+(1920, 1080)/natural-Tutorial-2: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Tutorial-to-Practice-before: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Practice-0: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Practice-1: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Practice-2: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Practice-to-Launch-before: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Launch-0: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Launch-1: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Launch-2: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Launch-to-Countdown-before: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Countdown-0: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Countdown-1: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Countdown-2: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Countdown-to-Playing-before: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Playing-0: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Playing-1: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/natural-Playing-2: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080) natural Intro=True
+(1920, 1080) natural MissionBriefing=True
+(1920, 1080) natural EyeCalibration=True
+(1920, 1080) natural Tutorial=True
+(1920, 1080) natural Practice=True
+(1920, 1080) natural Launch=True
+(1920, 1080) natural Countdown=True
+(1920, 1080) natural Playing=True
+(1920, 1080)/rapid-before-Intro: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-middle-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-after-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-before-MissionBriefing: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-middle-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-after-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-before-Tutorial: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-middle-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-after-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-before-Practice: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-middle-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-after-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-before-Launch: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-middle-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/rapid-after-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1920, 1080)/restart-from-launch: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1920, 1080) launch reset clears input=True
+(1920, 1080)/restart-from-tutorial-settings: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1920, 1080) paused modal reset clears input=True
+(1920, 1080)/loading-before-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1920, 1080)/loading-after-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1920, 1080) loading blocks Space=True
+(1920, 1080)/ready-settings-before-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(1920, 1080)/ready-settings-after-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(1920, 1080) settings blocks Enter=True
+(1920, 1080) Enter works after settings close=True
+(1024, 768)/loading-early: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1024, 768)/loading-middle: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1024, 768)/ready: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Boot-to-Intro-before: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Intro-0: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Intro-1: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Intro-2: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Intro-to-MissionBriefing-before: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-MissionBriefing-0: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-MissionBriefing-1: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-MissionBriefing-2: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-MissionBriefing-to-EyeCalibration-before: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-EyeCalibration-0: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1024, 768)/natural-EyeCalibration-1: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1024, 768)/natural-EyeCalibration-2: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(1024, 768)/natural-EyeCalibration-to-Tutorial-before: state=Tutorial, loading=False, modal=False, paused=False, tracking=False
+(1024, 768)/natural-Tutorial-0: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Tutorial-1: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/tutorial-pause: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(1024, 768)/tutorial-settings: state=Tutorial, loading=False, modal=True, paused=True, tracking=False
+(1024, 768)/tutorial-settings-closed: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(1024, 768) settings closes before resume=True
+(1024, 768)/tutorial-resumed: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1024, 768) input restored=True
+(1024, 768)/natural-Tutorial-2: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Tutorial-to-Practice-before: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Practice-0: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Practice-1: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Practice-2: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Practice-to-Launch-before: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Launch-0: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Launch-1: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Launch-2: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Launch-to-Countdown-before: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Countdown-0: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Countdown-1: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Countdown-2: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Countdown-to-Playing-before: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Playing-0: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Playing-1: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/natural-Playing-2: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768) natural Intro=True
+(1024, 768) natural MissionBriefing=True
+(1024, 768) natural EyeCalibration=True
+(1024, 768) natural Tutorial=True
+(1024, 768) natural Practice=True
+(1024, 768) natural Launch=True
+(1024, 768) natural Countdown=True
+(1024, 768) natural Playing=True
+(1024, 768)/rapid-before-Intro: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-middle-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-after-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-before-MissionBriefing: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-middle-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-after-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-before-Tutorial: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-middle-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-after-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-before-Practice: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-middle-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-after-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-before-Launch: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-middle-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/rapid-after-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(1024, 768)/restart-from-launch: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1024, 768) launch reset clears input=True
+(1024, 768)/restart-from-tutorial-settings: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1024, 768) paused modal reset clears input=True
+(1024, 768)/loading-before-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1024, 768)/loading-after-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(1024, 768) loading blocks Space=True
+(1024, 768)/ready-settings-before-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(1024, 768)/ready-settings-after-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(1024, 768) settings blocks Enter=True
+(1024, 768) Enter works after settings close=True
+(2560, 1080)/loading-early: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(2560, 1080)/loading-middle: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(2560, 1080)/ready: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Boot-to-Intro-before: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Intro-0: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Intro-1: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Intro-2: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Intro-to-MissionBriefing-before: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-MissionBriefing-0: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-MissionBriefing-1: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-MissionBriefing-2: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-MissionBriefing-to-EyeCalibration-before: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-EyeCalibration-0: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(2560, 1080)/natural-EyeCalibration-1: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(2560, 1080)/natural-EyeCalibration-2: state=EyeCalibration, loading=False, modal=False, paused=False, tracking=False
+(2560, 1080)/natural-EyeCalibration-to-Tutorial-before: state=Tutorial, loading=False, modal=False, paused=False, tracking=False
+(2560, 1080)/natural-Tutorial-0: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Tutorial-1: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/tutorial-pause: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(2560, 1080)/tutorial-settings: state=Tutorial, loading=False, modal=True, paused=True, tracking=False
+(2560, 1080)/tutorial-settings-closed: state=Tutorial, loading=False, modal=False, paused=True, tracking=False
+(2560, 1080) settings closes before resume=True
+(2560, 1080)/tutorial-resumed: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080) input restored=True
+(2560, 1080)/natural-Tutorial-2: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Tutorial-to-Practice-before: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Practice-0: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Practice-1: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Practice-2: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Practice-to-Launch-before: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Launch-0: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Launch-1: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Launch-2: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Launch-to-Countdown-before: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Countdown-0: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Countdown-1: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Countdown-2: state=Countdown, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Countdown-to-Playing-before: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Playing-0: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Playing-1: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/natural-Playing-2: state=Playing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080) natural Intro=True
+(2560, 1080) natural MissionBriefing=True
+(2560, 1080) natural EyeCalibration=True
+(2560, 1080) natural Tutorial=True
+(2560, 1080) natural Practice=True
+(2560, 1080) natural Launch=True
+(2560, 1080) natural Countdown=True
+(2560, 1080) natural Playing=True
+(2560, 1080)/rapid-before-Intro: state=Boot, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-middle-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-after-Intro: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-before-MissionBriefing: state=Intro, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-middle-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-after-MissionBriefing: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-before-Tutorial: state=MissionBriefing, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-middle-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-after-Tutorial: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-before-Practice: state=Tutorial, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-middle-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-after-Practice: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-before-Launch: state=Practice, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-middle-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/rapid-after-Launch: state=Launch, loading=False, modal=False, paused=False, tracking=True
+(2560, 1080)/restart-from-launch: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(2560, 1080) launch reset clears input=True
+(2560, 1080)/restart-from-tutorial-settings: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(2560, 1080) paused modal reset clears input=True
+(2560, 1080)/loading-before-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(2560, 1080)/loading-after-space: state=Boot, loading=True, modal=False, paused=False, tracking=True
+(2560, 1080) loading blocks Space=True
+(2560, 1080)/ready-settings-before-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(2560, 1080)/ready-settings-after-enter: state=Boot, loading=False, modal=True, paused=False, tracking=False
+(2560, 1080) settings blocks Enter=True
+(2560, 1080) Enter works after settings close=True
+passed=True
