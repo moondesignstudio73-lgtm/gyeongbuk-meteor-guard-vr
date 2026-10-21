@@ -18,6 +18,8 @@ namespace MeteorDefenseVR.PcInput
         private readonly float[] heights = { .18f, .76f, .36f, .57f };
         private readonly Vector3[] corners = new Vector3[4];
         private bool ready;
+        private void OnEnable() => Canvas.willRenderCanvases += LateUpdate;
+        private void OnDisable() => Canvas.willRenderCanvases -= LateUpdate;
 
         private void Start()
         {
@@ -76,6 +78,13 @@ namespace MeteorDefenseVR.PcInput
         private void LateUpdate()
         {
             if (!ready || spawner == null) return;
+            // The HUD can finish wiring after Start, and its canvas changes dimensions
+            // immediately before a resized render. Recheck using the final canvas geometry.
+            if (feedbackBounds == null)
+            {
+                var hud = GetComponent<GameplayHudOverlayView>();
+                if (hud != null && hud.FeedbackValue != null) feedbackBounds = hud.FeedbackValue.rectTransform;
+            }
             for (int side = 0; side < panels.Length; side++)
             {
                 Vector2 bestAnchor = panels[side].anchorMin;
