@@ -21,6 +21,7 @@ namespace MeteorDefenseVR.PcInput
             var health=Object.FindAnyObjectByType<PlayerHealth>();var reset=Object.FindAnyObjectByType<OperationsResetController>();
             var sources=Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include);
             var filters=Object.FindObjectsByType<AudioChannelFilter>(FindObjectsInactive.Include);
+            var climax=Object.FindAnyObjectByType<BossClimaxController>();var campaignCompletion=climax.CampaignCompletionHandler;
             var bgm=sources.Single(manager.OwnsBgmSource);var notes=new List<string>();var timeline=new List<string>{"seconds,segment,state,paused,hp,source,playing,volume,inputRms,outputRms"};
             bool passed=true;string segment="setup";float start=Time.realtimeSinceStartup;int warnings=0;
             void Check(bool ok,string message){passed &= ok;notes.Add(message+"="+ok);}
@@ -39,6 +40,8 @@ namespace MeteorDefenseVR.PcInput
                 notes.Add("Controlled real scene states/health events and real-time DSP source timeline; not natural human play or human listening. Source RMS cannot prove perceptual masking or final speaker loudness.");
                 foreach(var filter in filters){filter.Measure=true;filter.ResetMeasurement();}manager.CuePlaybackRequested+=Cue;
                 reset.ResetExperience();yield return Observe("boot",2);
+                // This fixture observes terminal victory. Campaign stage progression is tested by the natural round.
+                climax.CampaignCompletionHandler=null;
                 flow.StartMainGame();yield return Observe("combat",1.3f);
                 // Apply the real damage interceptor, then actual damage after restoring it.
                 var powerups=Object.FindAnyObjectByType<PowerUpManager>();float before=health.CurrentHealth;int count=warnings;
@@ -66,7 +69,7 @@ namespace MeteorDefenseVR.PcInput
             }
             finally
             {
-                router.Simulation.Resume();manager.CuePlaybackRequested-=Cue;foreach(var filter in filters)if(filter!=null)filter.Measure=false;reset.ResetExperience();
+                climax.CampaignCompletionHandler=campaignCompletion;router.Simulation.Resume();manager.CuePlaybackRequested-=Cue;foreach(var filter in filters)if(filter!=null)filter.Measure=false;reset.ResetExperience();
                 Directory.CreateDirectory(output);notes.Add("passed="+passed);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);File.WriteAllLines(Path.Combine(output,"source-timeline.csv"),timeline);
             }
             complete(passed);
