@@ -61,7 +61,7 @@ namespace MeteorDefenseVR.PcInput
         public void Tick(float delta)
         {
             if(Current==Gesture.None)return;
-            if(!CanShow()){Cancel();return;}
+            if(!CanShow()||Quaternion.Angle(root.transform.rotation,view.transform.rotation)>5f||Vector3.Distance(root.transform.position,view.transform.position)>.08f){Cancel();return;}
             if(!RuntimeValueGuard.IsFinite(delta)||delta<0)return;
             Age+=delta;
             if(Age>=.85f){Cancel();return;}
@@ -73,7 +73,7 @@ namespace MeteorDefenseVR.PcInput
             const float depth=2.2f;
             float halfHeight=depth*Mathf.Tan(view.fieldOfView*Mathf.Deg2Rad*.5f);
             float wave=Mathf.Sin(Mathf.Clamp01(Age/.85f)*Mathf.PI*2);
-            body.transform.localPosition=new Vector3(halfHeight*view.aspect*.72f,halfHeight*.36f,depth);
+            body.transform.localPosition=new Vector3(halfHeight*Mathf.Min(view.aspect,16f/9f)*.72f,halfHeight*.36f,depth);
             body.transform.localScale=Vector3.one*.72f;
             body.transform.localRotation=Current==Gesture.Greeting?Quaternion.Euler(0,-8,12*wave):Quaternion.Euler(20*Mathf.Sin(Mathf.Clamp01(Age/.85f)*Mathf.PI),-8,0);
         }

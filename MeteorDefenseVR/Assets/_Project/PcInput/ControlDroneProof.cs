@@ -35,6 +35,9 @@ namespace MeteorDefenseVR.PcInput
                 for(int i=0;i<practice.TotalMeteors;i++){var meteor=practice.ActiveMeteor;Check(meteor!=null,"real practice target");if(meteor!=null){meteor.ReceiveDamage(meteor.MaxHealth);Check(!meteor.DestroyMeteor(),"duplicate meteor death rejected");}}
             }
             void Succeed(){flow.StartPractice();FinishPractice();}
+            bool PracticeUiContains(string text)=>Object.FindObjectsByType<PracticeHudSafeOverlay>().Any(p=>p.SafeCanvas!=null&&p.SafeCanvas.enabled&&p.SafeStatus!=null&&p.SafeStatus.text.Contains(text));
+            IEnumerator WaitPracticeUi(string text,float seconds)
+            {float until=Time.realtimeSinceStartup+seconds;while(!PracticeUiContains(text)&&Time.realtimeSinceStartup<until)yield return null;Check(PracticeUiContains(text),"practice UI ready: "+text);}
             Rect Bounds()
             {
                 Vector2 min=Vector2.one*100,max=Vector2.one*-100;
@@ -77,15 +80,16 @@ namespace MeteorDefenseVR.PcInput
                 reset.ResetExperience();
                 var director=Object.FindAnyObjectByType<SfPresentationDirector>();float bootDeadline=Time.realtimeSinceStartup+10;
                 while(director.IsBootPresenting&&Time.realtimeSinceStartup<bootDeadline)yield return null;
-                flow.StartPractice();yield return new WaitForSecondsRealtime(.2f);FinishPractice();
+                flow.StartPractice();yield return WaitPracticeUi("연습",3);yield return null;FinishPractice();
                 Check(drone.Current==ControlDroneController.Gesture.Nod&&drone.NodCount==1,"real practice success nods");
                 DuplicateEvent();Check(drone.NodCount==1,"duplicate completion ignored");
-                yield return null;yield return null;
+                yield return WaitPracticeUi("잘했어요",.5f);
                 foreach(var overlay in Object.FindObjectsByType<PracticeHudSafeOverlay>()){notes.Add("practice UI: canvas="+(overlay.SafeCanvas!=null)+" enabled="+(overlay.SafeCanvas!=null&&overlay.SafeCanvas.enabled)+" text="+(overlay.SafeStatus!=null?overlay.SafeStatus.text:"none"));}
                 Check(Object.FindObjectsByType<PracticeHudSafeOverlay>().Any(p=>p.SafeCanvas!=null&&p.SafeCanvas.enabled&&p.SafeStatus.text.Contains("잘했어요")),"actual practice success message rendered alongside nod");
                 drone.Tick(Mathf.Max(0,.25f-drone.Age));Capture("nod-before",true);Capture("nod-down");drone.Tick(.5f);Capture("nod-up");
                 router.Simulation.Pause();drone.Tick(0);Check(!drone.Visible&&drone.Current==ControlDroneController.Gesture.None,"pause cancels");Capture("paused");router.Simulation.Resume();
                 reset.ResetExperience();Succeed();router.UiModalOpen=true;drone.Tick(0);Check(!drone.Visible,"settings/modal cancels");router.UiModalOpen=false;
+                reset.ResetExperience();Succeed();camera.transform.rotation=rotation*Quaternion.Euler(0,12,0);drone.Tick(0);Check(!drone.Visible,"looking toward drone cancels instead of covering aim");camera.transform.SetPositionAndRotation(pose,rotation);
                 reset.ResetExperience();Succeed();flow.ShowResult();Check(!drone.Visible,"result cancels");Capture("result");
                 reset.ResetExperience();Check(!drone.Visible,"menu/reset clears");
                 Succeed();drone.Tick(1);Check(!drone.Visible,"gesture ends without holding practice");

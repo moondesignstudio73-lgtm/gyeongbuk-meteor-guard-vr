@@ -16,7 +16,7 @@ namespace MeteorDefenseVR.Tests
             yield return null;yield return null;
             var director=Object.FindAnyObjectByType<SfPresentationDirector>();
             float until=Time.realtimeSinceStartup+30;while(director.IsBootPresenting&&Time.realtimeSinceStartup<until)yield return null;
-            bool passed=false;yield return ControlDroneProof.Run(Object.FindAnyObjectByType<GazeInputRouter>(),"Docs/DeliveryQA/control-drone-20261022/WithPracticeUI",v=>passed=v);
+            bool passed=false;yield return ControlDroneProof.Run(Object.FindAnyObjectByType<GazeInputRouter>(),"Docs/DeliveryQA/control-drone-20261022/Final",v=>passed=v);
             Assert.That(passed,Is.True,"See control drone render evidence.");
         }
     }
