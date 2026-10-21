@@ -16,7 +16,7 @@ namespace MeteorDefenseVR.Tests
             yield return null;yield return null;
             var director=Object.FindAnyObjectByType<SfPresentationDirector>();
             float until=Time.realtimeSinceStartup+30;while(director.IsBootPresenting&&Time.realtimeSinceStartup<until)yield return null;
-            bool passed=false;yield return VictoryEarthProof.Run(Object.FindAnyObjectByType<GazeInputRouter>(),"Docs/DeliveryQA/victory-earth-response-20261021/FinalEditor",true,v=>passed=v);
+            bool passed=false;yield return VictoryEarthProof.Run(Object.FindAnyObjectByType<GazeInputRouter>(),"Docs/DeliveryQA/victory-readability-20261021/ApprovedEditor",true,v=>passed=v);
             Assert.That(passed,Is.True,"See victory timeline evidence.");
         }
     }

@@ -265,6 +265,8 @@ namespace MeteorDefenseVR.PcInput
             stage == LaunchStage.Countdown3 || stage == LaunchStage.Countdown2 || stage == LaunchStage.Countdown1 || stage == LaunchStage.MissionStart;
 
         private float standardFeedbackFontSize = -1;
+        private Vector2 standardFeedbackPanelSize, standardFeedbackTextSize;
+        private float standardFeedbackLineSpacing;
         private void PresentFeedback(string message)
         {
             message ??= string.Empty;
@@ -273,11 +275,23 @@ namespace MeteorDefenseVR.PcInput
             if (presentedMessage == message) return;
             presentedMessage = message;
             if (feedbackValue == null) return;
-            if (standardFeedbackFontSize < 0) standardFeedbackFontSize = feedbackValue.fontSize;
+            if (standardFeedbackFontSize < 0)
+            {
+                standardFeedbackFontSize = feedbackValue.fontSize;
+                standardFeedbackPanelSize = ((RectTransform)feedbackPanel.transform).sizeDelta;
+                standardFeedbackTextSize = feedbackValue.rectTransform.sizeDelta;
+                standardFeedbackLineSpacing = feedbackValue.lineSpacing;
+            }
             bool abilityNotice = false;
             for (int i = 0; i < 8; i++)
                 abilityNotice |= message.StartsWith(MeteorDefenseVR.PowerUps.PowerUpHudView.PlayerName((MeteorDefenseVR.PowerUps.PowerUpType)i), System.StringComparison.Ordinal);
-            feedbackValue.fontSize = abilityNotice ? Mathf.Max(40, standardFeedbackFontSize) : standardFeedbackFontSize;
+            // Completion owns a quiet screen. Give its two Korean lines a dedicated readable size
+            // without changing tutorial, warning, stage or pickup message layouts.
+            bool completionNotice = message == "MISSION COMPLETE\n지구 방어 성공!";
+            feedbackValue.fontSize = completionNotice ? 60f : abilityNotice ? Mathf.Max(40, standardFeedbackFontSize) : standardFeedbackFontSize;
+            feedbackValue.lineSpacing = completionNotice ? 8f : standardFeedbackLineSpacing;
+            ((RectTransform)feedbackPanel.transform).sizeDelta = completionNotice ? new Vector2(720f, 232f) : standardFeedbackPanelSize;
+            feedbackValue.rectTransform.sizeDelta = completionNotice ? new Vector2(672f, 200f) : standardFeedbackTextSize;
             feedbackValue.color = message.Contains("WARNING") || message.Contains("FAILED") || message.Contains("BOSS")
                 ? Warning : message.Contains("COMPLETE") || message.Contains("CLEAR") || message.Contains("지키세요") ? Green : Cyan;
             SetText(feedbackValue, WorldTextPresentation.PlayerMessage(message));

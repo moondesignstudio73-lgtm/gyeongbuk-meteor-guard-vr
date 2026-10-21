@@ -73,6 +73,10 @@ namespace MeteorDefenseVR.PcInput
                     // Measure the new CPU marker only if the runtime exposes it; GPU frame timings are optional.
                     for(int i=0;i<12;i++)
                     {FrameTimingManager.CaptureFrameTimings();yield return null;if(cpu.Valid&&cpu.LastValue>0){cpuSamples++;cpuMax=Math.Max(cpuMax,cpu.LastValue/1000000.0);}if(FrameTimingManager.GetLatestTimings(1,timings)>0&&timings[0].gpuFrameTime>0){gpuSamples++;gpuMax=Math.Max(gpuMax,timings[0].gpuFrameTime);}}
+                    var notice=Object.FindAnyObjectByType<GameplayHudOverlayView>().FeedbackValue;
+                    notice.ForceMeshUpdate(true,true);float glyphHeight=1000;
+                    for(int j=0;j<notice.textInfo.characterCount;j++){var c=notice.textInfo.characterInfo[j];if(c.isVisible&&c.character>='가'&&c.character<='힣')glyphHeight=Mathf.Min(glyphHeight,Mathf.Abs(camera.WorldToScreenPoint(notice.transform.TransformPoint(c.topLeft)).y-camera.WorldToScreenPoint(notice.transform.TransformPoint(c.bottomLeft)).y));}
+                    Check(!notice.isTextTruncated&&notice.textInfo.lineCount==2&&notice.preferredHeight<=notice.rectTransform.rect.height&&notice.preferredWidth<=notice.rectTransform.rect.width&&glyphHeight>=20,size+" success two complete lines, glyph quad pixels="+glyphHeight.ToString("F2")+" preferred="+notice.preferredWidth+"x"+notice.preferredHeight);
                     float normalizedRadius=victory.PlanetRadius/Mathf.Max(planet.lossyScale.x,planet.lossyScale.y,planet.lossyScale.z);
                     planet.Rotate(0,45,0);yield return null;Capture("rotated-planet");
                     Check(Mathf.Abs(victory.PlanetRadius/Mathf.Max(planet.lossyScale.x,planet.lossyScale.y,planet.lossyScale.z)-normalizedRadius)<.0001f,size+" rotation preserves sphere radius");

@@ -206,8 +206,16 @@ namespace MeteorDefenseVR.Tests
             complete.Tick(MissionCompleteController.PresentationDelay + .1f);
             view.RefreshPresentation();
             Assert.That(view.FeedbackValue.text, Does.Contain("방어 성공!"));
+            AssertFits(view.FeedbackValue,"Completion two Korean lines");
+            Assert.That(view.FeedbackValue.isTextTruncated,Is.False);
+            Assert.That(view.FeedbackValue.textInfo.lineCount,Is.EqualTo(2));
             Assert.That(view.HudCanvas.sortingOrder, Is.GreaterThanOrEqualTo(200));
             complete.ResetSequence();
+            launch.BeginLaunch();launch.Tick(0);launch.Tick(0);launch.Tick(0);launch.Tick(0);launch.Tick(0);
+            view.RefreshPresentation();
+            Assert.That(view.FeedbackValue.fontSize,Is.EqualTo(25f),"Countdown restores original text size");
+            Assert.That(((RectTransform)view.FeedbackPanel.transform).sizeDelta,Is.EqualTo(new Vector2(620,108)),"Countdown restores original panel");
+            launch.ResetLaunch();
         }
 
         private static void AssertFits(TMP_Text text, string context)
