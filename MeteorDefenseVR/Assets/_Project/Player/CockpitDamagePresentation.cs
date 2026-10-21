@@ -70,6 +70,7 @@ namespace MeteorDefenseVR.Player
         private int lastPoint = 1;
         private int lastImpactFrame = -1;
         private bool prepared;
+        private bool dockTintApplied;
         private float nonCombatCleanup = -1f;
         private Vector3 exteriorInitialLocalPosition;
         private Quaternion exteriorInitialLocalRotation;
@@ -88,6 +89,18 @@ namespace MeteorDefenseVR.Player
         public int ActiveParticles { get { int n=Count(exteriorImpact); foreach(var p in points) n+=Count(p.spark)+Count(p.vapor)+Count(p.dust); return n; } }
         public bool HasWarningLight { get { foreach(var r in warningLamps) if(r != null && r.enabled) return true; return false; } }
         public int ResetRevision { get; private set; }
+        public Transform RepairAnchor(int ordinal)
+        {
+            int first=FindRepairCandidate();
+            if(first<0)first=0;
+            int selected=first;
+            if(ordinal>0)
+            {
+                int most=-1;
+                for(int i=0;i<points.Length;i++)if(i!=first && points[i].hits>most){most=points[i].hits;selected=i;}
+            }
+            return points.Length>0?points[selected].anchor:null;
+        }
 
         public void Configure(PlayerHealth player, GameFlowManager gameFlow, AudioManager audio,
             DamagePoint[] damagePoints, ParticleSystem outside, Renderer[] displays, Renderer[] staticLines,
@@ -235,13 +248,25 @@ namespace MeteorDefenseVR.Player
                 var point=points[i];
                 // HP-stage fractures remain accumulated when the next hit changes sides.
                 int count=Mathf.Max(point.hits,point.hits>0?GlassDamageLevel:0);
-                for(int j=0;j<point.cracks.Length;j++) if(point.cracks[j]!=null) point.cracks[j].enabled=j<count;
+                for(int j=0;j<point.cracks.Length;j++) if(point.cracks[j]!=null)
+                {
+                    var crack=point.cracks[j];crack.enabled=j<count;
+                    if(((health!=null && health.IsDockRepairing) || dockTintApplied)
+                        && crack.sharedMaterial!=null && crack.sharedMaterial.HasProperty(BaseColor))
+                    {
+                        crack.GetPropertyBlock(properties);
+                        Color tint=crack.sharedMaterial.GetColor(BaseColor);
+                        if(health!=null && health.IsDockRepairing)tint.a*=1-health.DockRepairProgress;
+                        properties.SetColor(BaseColor,tint);crack.SetPropertyBlock(properties);
+                    }
+                }
                 if(point.scorch!=null)
                 {
                     point.scorch.enabled=point.hits>0;
                     point.scorch.GetPropertyBlock(properties);properties.SetFloat(Severity,Mathf.Clamp01(Mathf.Max(point.hits,DamageLevel)/3f));point.scorch.SetPropertyBlock(properties);
                 }
             }
+            dockTintApplied=health!=null && health.IsDockRepairing;
             if(ImpactCount>0) GlassDamageLevel=Mathf.Max(1,GlassDamageLevel);
         }
         public void Tick(float deltaTime)
@@ -360,6 +385,7 @@ namespace MeteorDefenseVR.Player
         }
         public void ResetDamageState()
         {
+            dockTintApplied=false;
             ResetRevision++;
             DamageLevel=0;GlassDamageLevel=0; ImpactCount=0;lastPoint=points.Length>1?1:0;lastImpactFrame=-1;
             nonCombatCleanup=-1f;

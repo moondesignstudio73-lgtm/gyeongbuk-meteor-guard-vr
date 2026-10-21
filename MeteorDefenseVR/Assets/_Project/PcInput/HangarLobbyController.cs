@@ -36,6 +36,7 @@ namespace MeteorDefenseVR.PcInput
         private LocalRankingController ranking;
         private StageProgressionController progression;
         private BaseFlightCinematic flightCinematic;
+        public DockRepairController Repair { get; private set; }
         private LobbyPhase recordsReturnPhase;
         private float elapsed, commandAt;
         private bool initialized, internalReset;
@@ -65,6 +66,7 @@ namespace MeteorDefenseVR.PcInput
             view.Build(Camera.main,hangar,leftDoor,rightDoor,font,Queue);
             flightCinematic=gameObject.AddComponent<BaseFlightCinematic>();
             flightCinematic.Initialize(flow,launch,result);
+            Repair=gameObject.AddComponent<DockRepairController>();Repair.Initialize(Camera.main,font,flow,reset);
             initialized=true; Bind();
         }
         private void Bind()
@@ -149,13 +151,16 @@ namespace MeteorDefenseVR.PcInput
         }
         private void EnterMenu()
         {
+            bool docked=Phase==LobbyPhase.Returning || (Phase==LobbyPhase.Hidden && flightCinematic!=null && flightCinematic.HasReturned);
             reset.CancelResultTimer(); result.HideResult();
             difficultyView.SetLobbyContext(null); difficulty.SetLobbySelection(false);
             SetPhase(LobbyPhase.Menu); audio?.TryPlay(AudioCue.CalibrationComplete);
             view.SetRetryAvailable(LastResult != null && LastResult.MissionFailed && progression != null && progression.AllowRetryStage);
+            if(docked)Repair.BeginDocked();
         }
         private void SetPhase(LobbyPhase phase)
         {
+            if(phase!=LobbyPhase.Menu)Repair?.Cancel(true);
             Phase=phase; elapsed=0; pending=null;
             view.Show(phase,LastResult,difficulty.Settings.lockDifficultySelection,difficulty.Selected);
         }
@@ -170,6 +175,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void Hide()
         {
+            Repair?.Cancel(true);
             bool wasVisible=Phase!=LobbyPhase.Hidden;
             Phase=LobbyPhase.Hidden; pending=null; LastResult=null;
             difficultyView?.SetLobbyContext(null); difficulty?.SetLobbySelection(false);

@@ -65,6 +65,7 @@ namespace MeteorDefenseVR.PcInput
             bool telemetryQa = Environment.GetCommandLineArgs().Contains("--pc-telemetry-qa");
             bool recoilQa = Environment.GetCommandLineArgs().Contains("--pc-recoil-qa");
             bool damageQa = Environment.GetCommandLineArgs().Contains("--pc-damage-qa");
+            bool dockRepairQa = Environment.GetCommandLineArgs().Contains("--pc-dock-repair-qa");
             var capturedStates = new HashSet<GameState>();
             Application.runInBackground = true;
             Time.timeScale = 1f;
@@ -299,7 +300,7 @@ namespace MeteorDefenseVR.PcInput
                     yield return new WaitForSecondsRealtime(1.7f); Capture("failure-result");
                     yield return new WaitForSecondsRealtime(3f);
                     bool readableDuration = results.IsVisible;
-                    if (!threatQa && !telemetryQa && !recoilQa && !damageQa && !ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
+                    if (!threatQa && !telemetryQa && !recoilQa && !damageQa && !dockRepairQa && !ResultBoundaryProof.Capture(camera, router, Path.Combine(output, "Delivery", "result-boundaries")))
                         report.issues.Add("Delivery result boundary fixture failed");
                     deadline = Time.realtimeSinceStartup + 15;
                     while (!lobby.IsMenuReady && Time.realtimeSinceStartup < deadline) yield return null;
@@ -325,6 +326,9 @@ namespace MeteorDefenseVR.PcInput
                 if(damageQa)
                     yield return MeteorDamageProof.Run(router,Path.Combine(output,"MeteorDamage"),true,
                         passed=>{if(!passed)report.issues.Add("Meteor damage fixture failed");});
+                if(dockRepairQa)
+                    yield return DockRepairProof.Run(router,Path.Combine(output,"DockRepair"),
+                        passed=>{if(!passed)report.issues.Add("Dock repair fixture failed");});
             }
             finally
             {
@@ -341,7 +345,8 @@ namespace MeteorDefenseVR.PcInput
                 && !report.issues.Contains("Threat priority fixture failed")
                 && !report.issues.Contains("Telemetry readability fixture failed")
                 && !report.issues.Contains("Turret recoil fixture failed")
-                && !report.issues.Contains("Meteor damage fixture failed");
+                && !report.issues.Contains("Meteor damage fixture failed")
+                && !report.issues.Contains("Dock repair fixture failed");
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);

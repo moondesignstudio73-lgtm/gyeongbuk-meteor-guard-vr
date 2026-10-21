@@ -110,8 +110,8 @@ namespace MeteorDefenseVR.Tests
         [Test] public void FailedResultNeverClaimsSuccess()
         {
             var result=new GameSessionSnapshot {MissionFailed=true,RemainingHP=0};
-            Assert.That(ResultView.Format(result,"C"),Does.Contain("MISSION FAILED").And.Not.Contain("지구 방어 성공"));
-            Assert.That(WorldTextPresentation.FormatResult(result,"C"),Does.Contain("MISSION FAILED").And.Not.Contain("지구 방어 성공"));
+            Assert.That(ResultView.Format(result,"C"),Does.Contain("다시 도전해요!").And.Not.Contain("지구 방어 성공"));
+            Assert.That(WorldTextPresentation.FormatResult(result,"C"),Does.Contain("다시 도전해요!").And.Not.Contain("지구 방어 성공"));
         }
         [UnityTest,Timeout(180000)] public IEnumerator TwentyDamageFailureResetCyclesKeepBoundedResources()
         {

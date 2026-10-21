@@ -33,6 +33,9 @@ namespace MeteorDefenseVR.Player
         public bool IsInvincible => invincibilityRemaining > 0f;
         public bool HealthDepleted { get; private set; }
         public bool IsMissionFailed { get; private set; }
+        public bool IsDockRepairing { get; private set; }
+        public float DockRepairStartHealth { get; private set; }
+        public float DockRepairProgress => IsDockRepairing ? Mathf.InverseLerp(DockRepairStartHealth, MaxHealth, CurrentHealth) : 0;
         public GameOverPolicy Policy => gameOverPolicy;
 
         public event Action<float, float> HealthChanged;
@@ -99,6 +102,7 @@ namespace MeteorDefenseVR.Player
 
         public void ResetHealth()
         {
+            IsDockRepairing = false;
             UnsubscribeMeteors();
             CurrentHealth = MaxHealth;
             TotalDamageTaken = 0;
@@ -123,6 +127,26 @@ namespace MeteorDefenseVR.Player
             HealthRepaired?.Invoke(restored, CurrentHealth);
             missionHud?.ShowWarning($"STAGE CLEAR REPAIR  +{Mathf.RoundToInt(restored)}", 1.6f);
             return restored;
+        }
+
+        // Called only after the result has been retained and docking has opened the lobby.
+        public bool BeginDockRepair()
+        {
+            if (gameFlow == null || gameFlow.CurrentState != GameState.Result) return false;
+            DockRepairStartHealth=CurrentHealth;IsDockRepairing=true;NotifyHealthChanged();return true;
+        }
+        public void RepairAtDock(float normalizedAmount)
+        {
+            if (!IsDockRepairing || gameFlow == null || gameFlow.CurrentState != GameState.Result
+                || !RuntimeValueGuard.IsFinite(normalizedAmount) || normalizedAmount<=0) return;
+            CurrentHealth=Mathf.Min(MaxHealth,CurrentHealth+MaxHealth*Mathf.Clamp01(normalizedAmount));
+            NotifyHealthChanged(); // No stage-repair toast or per-frame removal of whole crack layers.
+        }
+        public void EndDockRepair(bool complete)
+        {
+            if(!IsDockRepairing)return;
+            if(complete && gameFlow!=null && gameFlow.CurrentState==GameState.Result)ResetHealth();
+            else {IsDockRepairing=false;NotifyHealthChanged();}
         }
 
         public void RestoreCheckpoint(float health)
