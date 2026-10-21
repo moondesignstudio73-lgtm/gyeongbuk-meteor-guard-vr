@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 12:36:56Z" end-time="2026-10-21 12:38:09Z" duration="72.516542">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="430" result="Failed" site="Child" start-time="2026-10-21 12:36:56Z" end-time="2026-10-21 12:38:09Z" duration="72.516542" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1552" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="430" result="Failed" site="Child" start-time="2026-10-21 12:36:57Z" end-time="2026-10-21 12:38:09Z" duration="72.372011" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="18724" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1553" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="430" result="Failed" site="Child" start-time="2026-10-21 12:36:57Z" end-time="2026-10-21 12:38:09Z" duration="72.368667" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1554" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="430" result="Failed" site="Child" start-time="2026-10-21 12:36:57Z" end-time="2026-10-21 12:38:09Z" duration="72.363889" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1237" name="IntroTransitionReviewTests" fullname="MeteorDefenseVR.Tests.IntroTransitionReviewTests" classname="MeteorDefenseVR.Tests.IntroTransitionReviewTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-21 12:36:57Z" end-time="2026-10-21 12:38:09Z" duration="72.356339" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1238" name="AuditAdjacentTransitions" fullname="MeteorDefenseVR.Tests.IntroTransitionReviewTests.AuditAdjacentTransitions" methodname="AuditAdjacentTransitions" classname="MeteorDefenseVR.Tests.IntroTransitionReviewTests" runstate="Runnable" seed="1528255822" result="Failed" start-time="2026-10-21 12:36:42Z" end-time="2026-10-21 12:38:09Z" duration="87.454978" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="300000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Inspect transition evidence before changing production behavior.
+  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at MeteorDefenseVR.Tests.IntroTransitionReviewTests+<Verify>d__2.MoveNext () [0x000a4] in C:\Users\aaa\OneDrive\Desktop\VR콘텐츠\MeteorDefenseVR\Assets\_Project\Core\Tests\IntroTransitionReviewTests.cs:21
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Tutorial
+[GameFlow] Tutorial -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Tutorial
+[GameFlow] Tutorial -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 12:43:08Z" end-time="2026-10-21 12:46:05Z" duration="177.1094395">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="430" result="Passed" start-time="2026-10-21 12:43:08Z" end-time="2026-10-21 12:46:05Z" duration="177.109440" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1552" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="430" result="Passed" start-time="2026-10-21 12:43:08Z" end-time="2026-10-21 12:46:05Z" duration="176.964951" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="34864" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1553" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="430" result="Passed" start-time="2026-10-21 12:43:08Z" end-time="2026-10-21 12:46:05Z" duration="176.962282" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1554" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="430" result="Passed" start-time="2026-10-21 12:43:08Z" end-time="2026-10-21 12:46:05Z" duration="176.960138" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1015" name="BaseFlightCinematicTests" fullname="MeteorDefenseVR.Tests.BaseFlightCinematicTests" classname="MeteorDefenseVR.Tests.BaseFlightCinematicTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 12:42:17Z" end-time="2026-10-21 12:42:35Z" duration="17.934562" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1016" name="DepartureAndFailedLandingPreserveResultAndResetSafely" fullname="MeteorDefenseVR.Tests.BaseFlightCinematicTests.DepartureAndFailedLandingPreserveResultAndResetSafely" methodname="DepartureAndFailedLandingPreserveResultAndResetSafely" classname="MeteorDefenseVR.Tests.BaseFlightCinematicTests" runstate="Runnable" seed="1560908692" result="Passed" start-time="2026-10-21 12:42:02Z" end-time="2026-10-21 12:42:35Z" duration="32.627979" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="150000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1180" name="FlightTransitionTests" fullname="MeteorDefenseVR.Tests.FlightTransitionTests" classname="MeteorDefenseVR.Tests.FlightTransitionTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 12:42:46Z" end-time="2026-10-21 12:42:59Z" duration="12.604219" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1181" name="StageArrivalTracksCampaignAndCancelsOnResetWithoutBlockingInput" fullname="MeteorDefenseVR.Tests.FlightTransitionTests.StageArrivalTracksCampaignAndCancelsOnResetWithoutBlockingInput" methodname="StageArrivalTracksCampaignAndCancelsOnResetWithoutBlockingInput" classname="MeteorDefenseVR.Tests.FlightTransitionTests" runstate="Runnable" seed="1314326623" result="Passed" start-time="2026-10-21 12:42:35Z" end-time="2026-10-21 12:42:59Z" duration="23.793008" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1237" name="IntroTransitionReviewTests" fullname="MeteorDefenseVR.Tests.IntroTransitionReviewTests" classname="MeteorDefenseVR.Tests.IntroTransitionReviewTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 12:43:08Z" end-time="2026-10-21 12:46:05Z" duration="176.934327" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1238" name="AuditAdjacentTransitions" fullname="MeteorDefenseVR.Tests.IntroTransitionReviewTests.AuditAdjacentTransitions" methodname="AuditAdjacentTransitions" classname="MeteorDefenseVR.Tests.IntroTransitionReviewTests" runstate="Runnable" seed="2015482439" result="Passed" start-time="2026-10-21 12:42:59Z" end-time="2026-10-21 12:46:05Z" duration="185.876992" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="600000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Tutorial
+[GameFlow] Tutorial -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Tutorial
+[GameFlow] Tutorial -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Tutorial
+[GameFlow] Tutorial -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Tutorial
+[GameFlow] Tutorial -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> Tutorial
+[GameFlow] Tutorial -> Practice
+[GameFlow] Practice -> Launch
+[GameFlow] Launch -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Tutorial
+[GameFlow] Tutorial -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

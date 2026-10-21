@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-pause-priority-20261021)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-intro-transition-20261021)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
@@ -20,7 +20,9 @@
 
 시작·일시정지·결과 화면의 아래 중앙에서 **시점 설정**을 열 수 있어요. 쉬는 동안에는 전투 안내와 조준 표시가 잠시 숨겨지고, 돌아가면 이어서 보여요. 설정을 닫아도 쉬는 상태는 유지돼요. 준비가 되면 **게임으로 돌아가기**나 **Esc**를 눌러 주세요.
 
-임무가 끝나면 기지로 돌아와 기록을 확인하고 다시 도전할 수 있어요.
+출격할 때는 격납고 문이 열리고 기체가 가속하며 전투로 이어져요. 패배하면 손상된 기체가 기지에 착륙하고, 문이 닫힌 뒤 기록을 보여 줘요.
+
+준비 화면이 끝나면 시작할 수 있어요. 시점 설정을 열었다면 먼저 닫아 주세요.
 
 결과 화면에는 이번에 해낸 일과 다음 등급까지 필요한 점수가 나와요. 최고 S등급이면 최고 등급을 알려 줘요. 결과가 나타나면 **다시 출격**이나 **기지 메뉴**를 바로 선택할 수 있어요.
 

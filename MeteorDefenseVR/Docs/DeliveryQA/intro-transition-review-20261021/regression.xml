@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="43" result="Passed" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 12:48:39Z" end-time="2026-10-21 12:49:14Z" duration="34.4519921">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="430" result="Passed" start-time="2026-10-21 12:48:39Z" end-time="2026-10-21 12:49:14Z" duration="34.451992" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1552" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="430" result="Passed" start-time="2026-10-21 12:48:40Z" end-time="2026-10-21 12:49:14Z" duration="34.293188" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="44968" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1553" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="430" result="Passed" start-time="2026-10-21 12:48:40Z" end-time="2026-10-21 12:49:14Z" duration="34.284391" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1554" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="430" result="Passed" start-time="2026-10-21 12:48:40Z" end-time="2026-10-21 12:49:14Z" duration="34.277284" total="43" passed="43" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1297" name="OperationsResetControllerTests" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.090503" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1306" name="GazeDwellStartsReadyExperience" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.GazeDwellStartsReadyExperience" methodname="GazeDwellStartsReadyExperience" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="1236869404" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.051631" asserts="0">
+              <properties />
+              <output><![CDATA[[GameFlow] Boot -> Intro
+]]></output>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1304" name="OperatorCommandsJumpToExpectedState" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.OperatorCommandsJumpToExpectedState" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.008156" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1299" name="OperatorCommandsJumpToExpectedState(Intro,Intro)" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.OperatorCommandsJumpToExpectedState(Intro,Intro)" methodname="OperatorCommandsJumpToExpectedState" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="185968602" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.001402" asserts="0">
+                <properties />
+                <output><![CDATA[[GameFlow] Boot -> Intro
+]]></output>
+              </test-case>
+              <test-case id="1300" name="OperatorCommandsJumpToExpectedState(Calibration,EyeCalibration)" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.OperatorCommandsJumpToExpectedState(Calibration,EyeCalibration)" methodname="OperatorCommandsJumpToExpectedState" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="1842766810" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.000863" asserts="0">
+                <properties />
+                <output><![CDATA[[GameFlow] Boot -> EyeCalibration
+]]></output>
+              </test-case>
+              <test-case id="1301" name="OperatorCommandsJumpToExpectedState(Tutorial,Tutorial)" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.OperatorCommandsJumpToExpectedState(Tutorial,Tutorial)" methodname="OperatorCommandsJumpToExpectedState" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="1741049113" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.000842" asserts="0">
+                <properties />
+                <output><![CDATA[[GameFlow] Boot -> Tutorial
+]]></output>
+              </test-case>
+              <test-case id="1302" name="OperatorCommandsJumpToExpectedState(MainGame,Playing)" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.OperatorCommandsJumpToExpectedState(MainGame,Playing)" methodname="OperatorCommandsJumpToExpectedState" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="708996022" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.000776" asserts="0">
+                <properties />
+                <output><![CDATA[[GameFlow] Boot -> Playing
+]]></output>
+              </test-case>
+              <test-case id="1303" name="OperatorCommandsJumpToExpectedState(Result,Result)" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.OperatorCommandsJumpToExpectedState(Result,Result)" methodname="OperatorCommandsJumpToExpectedState" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="798562091" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.001013" asserts="0">
+                <properties />
+                <output><![CDATA[[GameFlow] Boot -> Result
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-case id="1307" name="OperatorKeysCanBeDisabledForReleaseBuild" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.OperatorKeysCanBeDisabledForReleaseBuild" methodname="OperatorKeysCanBeDisabledForReleaseBuild" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="1785221345" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.000680" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1305" name="ReadyScreenStartsIntroAndHides" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.ReadyScreenStartsIntroAndHides" methodname="ReadyScreenStartsIntroAndHides" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="124633478" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.000871" asserts="0">
+              <properties />
+              <output><![CDATA[[GameFlow] Boot -> Intro
+]]></output>
+            </test-case>
+            <test-case id="1298" name="ResultAutomaticallyResetsToBootAfterConfiguredDuration" fullname="MeteorDefenseVR.Tests.OperationsResetControllerTests.ResultAutomaticallyResetsToBootAfterConfiguredDuration" methodname="ResultAutomaticallyResetsToBootAfterConfiguredDuration" classname="MeteorDefenseVR.Tests.OperationsResetControllerTests" runstate="Runnable" seed="1385328906" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:29Z" duration="0.003438" asserts="0">
+              <properties />
+              <output><![CDATA[[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1474" name="UiMotionTests" fullname="MeteorDefenseVR.Tests.UiMotionTests" classname="MeteorDefenseVR.Tests.UiMotionTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 12:47:44Z" end-time="2026-10-21 12:47:57Z" duration="12.815692" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1475" name="MotionPreservesInputStateResetAndCameraAndRendersStagedPanels" fullname="MeteorDefenseVR.Tests.UiMotionTests.MotionPreservesInputStateResetAndCameraAndRendersStagedPanels" methodname="MotionPreservesInputStateResetAndCameraAndRendersStagedPanels" classname="MeteorDefenseVR.Tests.UiMotionTests" runstate="Runnable" seed="696988613" result="Passed" start-time="2026-10-21 12:47:29Z" end-time="2026-10-21 12:47:57Z" duration="27.299297" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> MissionComplete
+[GameFlow] MissionComplete -> Result
+[GameFlow] Result -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1476" name="UnifiedLookTests" fullname="MeteorDefenseVR.Tests.UnifiedLookTests" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-21 12:48:19Z" end-time="2026-10-21 12:48:31Z" duration="11.377265" total="32" passed="32" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1514" name="CenterConeAndRearWarningsFollowRotatedCamera" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.CenterConeAndRearWarningsFollowRotatedCamera" methodname="CenterConeAndRearWarningsFollowRotatedCamera" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="368201526" result="Passed" start-time="2026-10-21 12:47:57Z" end-time="2026-10-21 12:47:57Z" duration="0.003265" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1515" name="ContinuousDeltaPilotAcquiresOffsetWithoutOscillation" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.ContinuousDeltaPilotAcquiresOffsetWithoutOscillation" methodname="ContinuousDeltaPilotAcquiresOffsetWithoutOscillation" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1543752307" result="Passed" start-time="2026-10-21 12:47:57Z" end-time="2026-10-21 12:48:10Z" duration="13.584327" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="60000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Intro
+]]></output>
+            </test-case>
+            <test-case id="1508" name="DirectionTrainingProgressesFromExperienceToHard360" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.DirectionTrainingProgressesFromExperienceToHard360" methodname="DirectionTrainingProgressesFromExperienceToHard360" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1839239550" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.010383" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1510" name="ExistingTrackedPoseDriverOwnsUnclampedHmdPose" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.ExistingTrackedPoseDriverOwnsUnclampedHmdPose" methodname="ExistingTrackedPoseDriverOwnsUnclampedHmdPose" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="2086237501" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.001706" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1509" name="HmdNeverReceivesComfortShakeOrDesktopClamp" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.HmdNeverReceivesComfortShakeOrDesktopClamp" methodname="HmdNeverReceivesComfortShakeOrDesktopClamp" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="115948545" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000300" asserts="0">
+              <properties />
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1507" name="MenusAndCalibrationReleaseDesktopLook" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MenusAndCalibrationReleaseDesktopLook" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.004287" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1501" name="MenusAndCalibrationReleaseDesktopLook(Boot,False)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MenusAndCalibrationReleaseDesktopLook(Boot,False)" methodname="MenusAndCalibrationReleaseDesktopLook" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1128305012" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000777" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1502" name="MenusAndCalibrationReleaseDesktopLook(Intro,True)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MenusAndCalibrationReleaseDesktopLook(Intro,True)" methodname="MenusAndCalibrationReleaseDesktopLook" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="401860327" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000117" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1503" name="MenusAndCalibrationReleaseDesktopLook(EyeCalibration,False)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MenusAndCalibrationReleaseDesktopLook(EyeCalibration,False)" methodname="MenusAndCalibrationReleaseDesktopLook" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1618532296" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000139" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1504" name="MenusAndCalibrationReleaseDesktopLook(Playing,True)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MenusAndCalibrationReleaseDesktopLook(Playing,True)" methodname="MenusAndCalibrationReleaseDesktopLook" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="357321064" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000128" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1505" name="MenusAndCalibrationReleaseDesktopLook(Result,False)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MenusAndCalibrationReleaseDesktopLook(Result,False)" methodname="MenusAndCalibrationReleaseDesktopLook" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1123285220" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000127" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1506" name="MenusAndCalibrationReleaseDesktopLook(Reset,False)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MenusAndCalibrationReleaseDesktopLook(Reset,False)" methodname="MenusAndCalibrationReleaseDesktopLook" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1577072603" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000149" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1500" name="MetricFacePoseConvertsHandednessWithoutEyeCoordinates" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MetricFacePoseConvertsHandednessWithoutEyeCoordinates" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.002843" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1498" name="MetricFacePoseConvertsHandednessWithoutEyeCoordinates(25,15)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MetricFacePoseConvertsHandednessWithoutEyeCoordinates(25,15)" methodname="MetricFacePoseConvertsHandednessWithoutEyeCoordinates" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="958106938" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.001832" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1499" name="MetricFacePoseConvertsHandednessWithoutEyeCoordinates(-25,-15)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MetricFacePoseConvertsHandednessWithoutEyeCoordinates(-25,-15)" methodname="MetricFacePoseConvertsHandednessWithoutEyeCoordinates" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="669179605" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000078" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1479" name="MouseDeltaKeepsTurningBeyondTwoFullTurns" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MouseDeltaKeepsTurningBeyondTwoFullTurns" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.001078" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1477" name="MouseDeltaKeepsTurningBeyondTwoFullTurns(1)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MouseDeltaKeepsTurningBeyondTwoFullTurns(1)" methodname="MouseDeltaKeepsTurningBeyondTwoFullTurns" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1919414834" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000411" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1478" name="MouseDeltaKeepsTurningBeyondTwoFullTurns(-1)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.MouseDeltaKeepsTurningBeyondTwoFullTurns(-1)" methodname="MouseDeltaKeepsTurningBeyondTwoFullTurns" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="179633227" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:10Z" duration="0.000064" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-case id="1516" name="NormalMouseDeltaReachesCameraAndPauseMenuReleasesCursor" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.NormalMouseDeltaReachesCameraAndPauseMenuReleasesCursor" methodname="NormalMouseDeltaReachesCameraAndPauseMenuReleasesCursor" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="17680234" result="Passed" start-time="2026-10-21 12:48:10Z" end-time="2026-10-21 12:48:31Z" duration="20.413936" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> EyeCalibration
+[GameFlow] EyeCalibration -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1482" name="PitchClampAndInvert" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.PitchClampAndInvert" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.003349" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1480" name="PitchClampAndInvert(False,-80)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.PitchClampAndInvert(False,-80)" methodname="PitchClampAndInvert" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="778037433" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.001308" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1481" name="PitchClampAndInvert(True,80)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.PitchClampAndInvert(True,80)" methodname="PitchClampAndInvert" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1007428662" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000072" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1513" name="RearUpperAndLowerWarningsPreferReachableYaw" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.RearUpperAndLowerWarningsPreferReachableYaw" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.001763" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1511" name="RearUpperAndLowerWarningsPreferReachableYaw(-1,30,-2,&quot;◀ REAR&quot;)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.RearUpperAndLowerWarningsPreferReachableYaw(-1,30,-2,&quot;◀ REAR&quot;)" methodname="RearUpperAndLowerWarningsPreferReachableYaw" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="799331297" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000862" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1512" name="RearUpperAndLowerWarningsPreferReachableYaw(1,-30,-2,&quot;REAR ▶&quot;)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.RearUpperAndLowerWarningsPreferReachableYaw(1,-30,-2,&quot;REAR ▶&quot;)" methodname="RearUpperAndLowerWarningsPreferReachableYaw" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="839112639" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000065" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1486" name="SensitivityChangesActualAngle" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.SensitivityChangesActualAngle" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.001050" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1483" name="SensitivityChangesActualAngle(0.1f,10)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.SensitivityChangesActualAngle(0.1f,10)" methodname="SensitivityChangesActualAngle" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1071908546" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000291" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1484" name="SensitivityChangesActualAngle(1.0f,100)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.SensitivityChangesActualAngle(1.0f,100)" methodname="SensitivityChangesActualAngle" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="628562416" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000063" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1485" name="SensitivityChangesActualAngle(2.0f,200)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.SensitivityChangesActualAngle(2.0f,200)" methodname="SensitivityChangesActualAngle" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="357552235" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000054" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1492" name="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.002583" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1487" name="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(True,True,False,True)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(True,True,False,True)" methodname="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="674740679" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.001491" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1488" name="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(True,False,True,False)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(True,False,True,False)" methodname="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="706795063" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000070" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1489" name="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(False,True,False,False)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(False,True,False,False)" methodname="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="546624197" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000064" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1490" name="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(False,False,True,True)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(False,False,True,True)" methodname="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1934063472" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000061" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1491" name="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(True,False,False,False)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus(True,False,False,False)" methodname="WebcamFallbackUsesHeadPoseInFlightButEyeSamplesInMenus" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1509979834" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000061" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1497" name="WebcamHeadPoseSteersAndNeutralOrLossStops" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamHeadPoseSteersAndNeutralOrLossStops" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.002681" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1493" name="WebcamHeadPoseSteersAndNeutralOrLossStops(25,0)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamHeadPoseSteersAndNeutralOrLossStops(25,0)" methodname="WebcamHeadPoseSteersAndNeutralOrLossStops" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1700492925" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.001546" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1494" name="WebcamHeadPoseSteersAndNeutralOrLossStops(-25,0)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamHeadPoseSteersAndNeutralOrLossStops(-25,0)" methodname="WebcamHeadPoseSteersAndNeutralOrLossStops" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="212849576" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000162" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1495" name="WebcamHeadPoseSteersAndNeutralOrLossStops(0,25)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamHeadPoseSteersAndNeutralOrLossStops(0,25)" methodname="WebcamHeadPoseSteersAndNeutralOrLossStops" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1069746383" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000143" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1496" name="WebcamHeadPoseSteersAndNeutralOrLossStops(0,-25)" fullname="MeteorDefenseVR.Tests.UnifiedLookTests.WebcamHeadPoseSteersAndNeutralOrLossStops(0,-25)" methodname="WebcamHeadPoseSteersAndNeutralOrLossStops" classname="MeteorDefenseVR.Tests.UnifiedLookTests" runstate="Runnable" seed="1386856562" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:48:31Z" duration="0.000147" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1517" name="ViewSettingsReadabilityTests" fullname="MeteorDefenseVR.Tests.ViewSettingsReadabilityTests" classname="MeteorDefenseVR.Tests.ViewSettingsReadabilityTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 12:48:40Z" end-time="2026-10-21 12:49:14Z" duration="34.242726" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1518" name="SettingsStayReadableAcrossFiveSizes" fullname="MeteorDefenseVR.Tests.ViewSettingsReadabilityTests.SettingsStayReadableAcrossFiveSizes" methodname="SettingsStayReadableAcrossFiveSizes" classname="MeteorDefenseVR.Tests.ViewSettingsReadabilityTests" runstate="Runnable" seed="1102832004" result="Passed" start-time="2026-10-21 12:48:31Z" end-time="2026-10-21 12:49:14Z" duration="43.326987" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="300000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
