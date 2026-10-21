@@ -125,6 +125,11 @@ namespace MeteorDefenseVR.PcInput
         }
         public Ray GetGazeRay() => Simulation != null && Simulation.UsesCenterAim && Simulation.View != null ? Simulation.View.CenterRay : active != null ? active.GetGazeRay() : gazeCamera != null ? gazeCamera.ViewportPointToRay(new Vector3(.5f, .5f)) : new Ray(transform.position, transform.forward);
         public Vector3 GetGazeOrigin() => GetGazeRay().origin;
+        public bool TryGetScreenMenuRay(out Ray ray)
+        {
+            ray=active!=null?active.GetGazeRay():GetGazeRay();
+            return (!InputSuspended||Simulation!=null&&Simulation.IsPaused)&&!CalibrationInProgress&&!EducationModalOpen&&active!=null&&active.IsTrackingValid;
+        }
         public Vector3 GetGazeDirection() => GetGazeRay().direction;
         private bool PointerOverUi() => (Simulation == null || !Simulation.UsesCenterAim) && (ActiveMode == PcGazeMode.MouseGaze || ActiveMode == PcGazeMode.WindowsVRSimulation) && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
     }

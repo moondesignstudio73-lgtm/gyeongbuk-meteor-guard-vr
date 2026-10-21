@@ -11,6 +11,7 @@ using Object = UnityEngine.Object;
 namespace MeteorDefenseVR.PcInput
 {
     // Screen-space PC-only controls. Gameplay and VR HUD remain world-space and unchanged.
+    [DefaultExecutionOrder(-175)]
     public sealed class PcTestOverlay : MonoBehaviour
     {
         [SerializeField] private GazeInputRouter router;
@@ -44,11 +45,22 @@ namespace MeteorDefenseVR.PcInput
         private readonly TextMeshProUGUI[] lookSettingsValues = new TextMeshProUGUI[4];
         private float nextSettingsText;
         private bool settingsOpen, wasPaused;
+        private GameObject settingsBackdrop;
+        private OperationsResetController operationsReset;
+        private UnityEngine.UI.Button sensitivityDown,sensitivityUp,invertButton,centerButton,shakeButton;
+        private UnityEngine.UI.Button gazeSettingsTarget;
+        private float settingsDwell;
+        private bool settingsDwellConsumed;
+        private SfPresentationDirector presentation;
+        public bool LookSettingsOpen => settingsOpen;
         public void Configure(GazeInputRouter input, PcCalibrationController calibrator, PcTestControls testControls, TMP_FontAsset uiFont)
         { router = input; calibration = calibrator; controls = testControls; font = uiFont; }
         private void Start()
         {
             lobby = Object.FindAnyObjectByType<HangarLobbyController>();
+            presentation=Object.FindAnyObjectByType<SfPresentationDirector>();
+            operationsReset=Object.FindAnyObjectByType<OperationsResetController>();
+            if(operationsReset!=null)operationsReset.BeforeReset+=CloseLookSettings;
             if (EventSystem.current == null)
             {
                 var events = new GameObject("PcEventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
@@ -130,38 +142,76 @@ namespace MeteorDefenseVR.PcInput
             pointRing = CalibrationProgressRing.Create(pointRect, 90f);
             gazeRect = Rect("GazeCursor", canvasObject.transform, Vector2.one * .5f, Vector2.one * .5f, Vector2.zero, Vector2.one * 44);
             gazeText = gazeRect.gameObject.AddComponent<TextMeshProUGUI>(); Style(gazeText, 32); gazeText.text = "+"; gazeText.alignment = TextAlignmentOptions.Center;
-            resumeButton = Button(canvasObject.transform, "ResumeSimulation", "게임으로 돌아가기 / ESC", Vector2.zero, new Vector2(370, 52), () => router.Simulation?.Resume()).gameObject;
+            resumeButton = SettingsButton(canvasObject.transform, "ResumeSimulation", "게임으로 돌아가기 / Esc", Vector2.zero, new Vector2(640, 110), () => router.Simulation?.Resume()).gameObject;
             var resumeRect = resumeButton.GetComponent<RectTransform>(); resumeRect.anchorMin = resumeRect.anchorMax = resumeRect.pivot = Vector2.one * .5f;
             resumeRect.anchoredPosition = new Vector2(0, -120);
-            simulationHelp = Label(canvasObject.transform, "SimulationHelp", "마우스로 둘러보고 조준점을 메뉴에 맞추세요.\nEsc를 누르면 잠시 쉴 수 있어요.", Vector2.zero, new Vector2(960, 90), 24);
+            simulationHelp = Label(canvasObject.transform, "SimulationHelp", "마우스로 둘러보고 조준점을 메뉴에 맞추세요.\nEsc를 누르면 잠시 쉴 수 있어요.", Vector2.zero, new Vector2(1300, 160), 50);
             simulationHelp.rectTransform.anchorMin = simulationHelp.rectTransform.anchorMax = simulationHelp.rectTransform.pivot = new Vector2(.5f, 0);
-            simulationHelp.rectTransform.anchoredPosition = new Vector2(0, 100); simulationHelp.alignment = TextAlignmentOptions.Center;
+            simulationHelp.rectTransform.anchoredPosition = new Vector2(0, 360); simulationHelp.alignment = TextAlignmentOptions.Center;
             BuildLookSettings();
         }
         private void ToggleInputMenu() { menuOpen = !menuOpen; if (menuOpen) router.Simulation?.Pause(); }
+        private UnityEngine.UI.Button SettingsButton(Transform parent,string name,string text,Vector2 position,Vector2 size,UnityEngine.Events.UnityAction action)
+        {
+            var button=Button(parent,name,text,position,size,action);
+            button.GetComponentInChildren<TextMeshProUGUI>().fontSize=50;
+            return button;
+        }
         private void BuildLookSettings()
         {
-            lookSettingsButton = Button(canvasObject.transform, "LookSettings", "시점 설정", Vector2.zero, new Vector2(150, 38), () => { settingsOpen = !settingsOpen; menuOpen = false; }).gameObject;
-            DockBottom(lookSettingsButton, true, 20, 76);
-            lookSettingsPanel = Rect("LookSettingsPanel", canvasObject.transform, Vector2.one * .5f, Vector2.one * .5f, new Vector2(0, 80), new Vector2(620, 330)).gameObject;
-            Background(lookSettingsPanel, new Color(.005f, .025f, .045f, .98f));
-            Label(lookSettingsPanel.transform, "Title", "편하게 둘러보기", new Vector2(24, -18), new Vector2(572, 40), 27);
-            for (int i = 0; i < 4; i++) lookSettingsValues[i] = Label(lookSettingsPanel.transform, "Value" + i, "", new Vector2(24, -72 - i * 44), new Vector2(340, 36), 23);
-            Button(lookSettingsPanel.transform, "SensitivityDown", "−", new Vector2(390, -72), new Vector2(85, 36), () => router.Simulation.Sensitivity -= .1f);
-            Button(lookSettingsPanel.transform, "SensitivityUp", "+", new Vector2(490, -72), new Vector2(85, 36), () => router.Simulation.Sensitivity += .1f);
-            Button(lookSettingsPanel.transform, "InvertY", "변경", new Vector2(390, -116), new Vector2(185, 36), () => router.Simulation.InvertY = !router.Simulation.InvertY);
-            Button(lookSettingsPanel.transform, "CenterPoint", "변경", new Vector2(390, -160), new Vector2(185, 36), () => router.Simulation.ShowCenterPoint = !router.Simulation.ShowCenterPoint);
-            Button(lookSettingsPanel.transform, "CameraShake", "변경", new Vector2(390, -204), new Vector2(185, 36), () => router.Simulation.Shake = (CameraShakeLevel)(((int)router.Simulation.Shake + 1) % 3));
-            Label(lookSettingsPanel.transform, "Comfort", "눈이 편한 속도와 움직임으로 맞춰 보세요.", new Vector2(24, -256), new Vector2(570, 26), 16);
-            Button(lookSettingsPanel.transform, "Close", "닫기", new Vector2(240, -289), new Vector2(140, 32), () => settingsOpen = false);
+            lookSettingsButton=SettingsButton(canvasObject.transform,"LookSettings","시점 설정",Vector2.zero,new Vector2(320,110),()=>SetLookSettings(true)).gameObject;
+            var entryRect=(RectTransform)lookSettingsButton.transform; entryRect.anchorMin=entryRect.anchorMax=entryRect.pivot=new Vector2(.5f,0); entryRect.anchoredPosition=new Vector2(0,48);
+            var shade=Rect("SettingsBackdrop",canvasObject.transform,Vector2.zero,Vector2.zero,Vector2.zero,Vector2.zero);
+            shade.anchorMax=Vector2.one;shade.offsetMin=shade.offsetMax=Vector2.zero;
+            settingsBackdrop=shade.gameObject;Background(settingsBackdrop,new Color(.005f,.015f,.025f,.97f));settingsBackdrop.SetActive(false);
+            lookSettingsPanel=Rect("LookSettingsPanel",canvasObject.transform,Vector2.one*.5f,Vector2.one*.5f,Vector2.zero,new Vector2(1180,900)).gameObject;
+            Background(lookSettingsPanel,new Color(.005f,.025f,.045f,1));
+            Label(lookSettingsPanel.transform,"Title","편하게 둘러보기",new Vector2(36,-24),new Vector2(1108,80),52);
+            for(int i=0;i<4;i++)lookSettingsValues[i]=Label(lookSettingsPanel.transform,"Value"+i,"",new Vector2(36,-120-i*130),new Vector2(650,128),44);
+            sensitivityDown=SettingsButton(lookSettingsPanel.transform,"SensitivityDown","−",new Vector2(760,-120),new Vector2(170,110),()=>router.Simulation.Sensitivity-=.1f);
+            sensitivityUp=SettingsButton(lookSettingsPanel.transform,"SensitivityUp","+",new Vector2(950,-120),new Vector2(170,110),()=>router.Simulation.Sensitivity+=.1f);
+            invertButton=SettingsButton(lookSettingsPanel.transform,"InvertY","변경",new Vector2(760,-250),new Vector2(360,110),()=>router.Simulation.InvertY=!router.Simulation.InvertY);
+            centerButton=SettingsButton(lookSettingsPanel.transform,"CenterPoint","변경",new Vector2(760,-380),new Vector2(360,110),()=>router.Simulation.ShowCenterPoint=!router.Simulation.ShowCenterPoint);
+            shakeButton=SettingsButton(lookSettingsPanel.transform,"CameraShake","변경",new Vector2(760,-510),new Vector2(360,110),()=>router.Simulation.Shake=(CameraShakeLevel)(((int)router.Simulation.Shake+1)%3));
+            Label(lookSettingsPanel.transform,"Comfort","버튼을 누르거나 조준점을 맞추세요.\n닫기를 누르면 이전 화면으로 돌아가요.",new Vector2(36,-650),new Vector2(1108,128),44);
+            SettingsButton(lookSettingsPanel.transform,"Close","닫기 / Esc",new Vector2(400,-780),new Vector2(380,110),CloseLookSettings);
             lookSettingsPanel.SetActive(false);
+        }
+        private void SetLookSettings(bool open)
+        {
+            settingsOpen=open;menuOpen=false;nextSettingsText=0;
+            if(panel!=null)panel.SetActive(false);
+            if(lookSettingsPanel!=null)lookSettingsPanel.SetActive(open);
+            if(settingsBackdrop!=null)settingsBackdrop.SetActive(open);
+            router.UiModalOpen=open;
+            if(operationsReset!=null)operationsReset.ResultTimerSuspended=open;
+            gazeSettingsTarget?.GetComponent<UIInteractionAnimator>().SetGaze(false,0);
+            gazeSettingsTarget=null;settingsDwell=0;settingsDwellConsumed=false;
+        }
+        private void CloseLookSettings()=>SetLookSettings(false);
+        public bool TryCloseLookSettings(){if(!settingsOpen)return false;CloseLookSettings();return true;}
+        // Screen-space menu dwell uses the raw tracked ray, while combat/world menus stay blocked.
+        public void TickSettingsGaze(Vector2 point,bool valid,float deltaTime)
+        {
+            UnityEngine.UI.Button next=null;
+            var canvas=canvasObject.GetComponent<Canvas>();var view=canvas.renderMode==RenderMode.ScreenSpaceOverlay?null:canvas.worldCamera;
+            if(valid)
+            {
+                var candidates=settingsOpen?lookSettingsPanel.GetComponentsInChildren<UnityEngine.UI.Button>():new[]{lookSettingsButton.GetComponent<UnityEngine.UI.Button>()};
+                foreach(var button in candidates)if(button.gameObject.activeInHierarchy&&button.interactable&&RectTransformUtility.RectangleContainsScreenPoint((RectTransform)button.transform,point,view)){next=button;break;}
+            }
+            if(next!=gazeSettingsTarget){gazeSettingsTarget?.GetComponent<UIInteractionAnimator>().SetGaze(false,0);gazeSettingsTarget=next;settingsDwell=0;settingsDwellConsumed=false;}
+            if(next==null||settingsDwellConsumed)return;
+            settingsDwell+=Mathf.Clamp(deltaTime,0,.1f);next.GetComponent<UIInteractionAnimator>().SetGaze(true,Mathf.Clamp01(settingsDwell/.8f));
+            if(settingsDwell>=.8f){settingsDwellConsumed=true;next.onClick.Invoke();}
         }
         private void Update()
         {
             if (canvasObject == null) return;
+            if(settingsOpen&&Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame&&router.Simulation!=null&&!router.Simulation.IsLooking&&!router.Simulation.IsPaused)CloseLookSettings();
             bool visible = controls.ShowUi && (!router.EducationModalOpen || router.Simulation != null && router.Simulation.IsPaused);
             canvasObject.SetActive(visible);
-            if (!visible) { menuOpen = settingsOpen = false; router.UiModalOpen = false; return; }
+            if (!visible) { CloseLookSettings(); return; }
             bool calibrating = calibration.IsVisible;
             if (calibrating && !calibrationWasVisible) calibrationAge = 0f;
             calibrationWasVisible = calibrating;
@@ -178,20 +228,27 @@ namespace MeteorDefenseVR.PcInput
             if (wasPaused && !paused) menuOpen = settingsOpen = false;
             wasPaused = paused;
             bool settingsAvailable = router.Simulation != null && (isBoot || paused || (GameFlowManager.Instance != null && GameFlowManager.Instance.CurrentState == MeteorDefenseVR.Core.GameState.Result));
+            settingsAvailable &= presentation==null||!presentation.IsBootPresenting;
             if (!settingsAvailable) settingsOpen = false;
             lookSettingsButton.SetActive(settingsAvailable && !calibrating);
             lookSettingsPanel.SetActive(settingsAvailable && settingsOpen && !calibrating);
+            settingsBackdrop.SetActive(lookSettingsPanel.activeSelf);
+            if(operationsReset!=null)operationsReset.ResultTimerSuspended=lookSettingsPanel.activeSelf;
             if (settingsOpen && Time.unscaledTime >= nextSettingsText)
             {
                 nextSettingsText = Time.unscaledTime + .1f;
                 var look = router.Simulation;
-                lookSettingsValues[0].text = $"마우스 감도   {look.Sensitivity:F1}";
-                lookSettingsValues[1].text = "위아래 방향 반전   " + (look.InvertY ? "켬" : "끔");
-                lookSettingsValues[2].text = "조준점 표시   " + (look.ShowCenterPoint ? "켬" : "끔");
-                lookSettingsValues[3].text = "화면 흔들림   " + (look.Shake == CameraShakeLevel.Off ? "끔" : look.Shake == CameraShakeLevel.Weak ? "약하게" : "강하게");
+                lookSettingsValues[0].text = $"마우스 감도\n{look.Sensitivity:F1}";
+                lookSettingsValues[1].text = "위아래 방향 반전\n" + (look.InvertY ? "켬" : "끔");
+                lookSettingsValues[2].text = "조준점 표시\n" + (look.ShowCenterPoint ? "켬" : "끔");
+                lookSettingsValues[3].text = "화면 흔들림\n" + (look.Shake == CameraShakeLevel.Off ? "끔" : look.Shake == CameraShakeLevel.Weak ? "약하게" : "강하게");
+                sensitivityDown.interactable=look.Sensitivity>.1001f;sensitivityUp.interactable=look.Sensitivity<1.9999f;
+                invertButton.GetComponent<UIInteractionAnimator>().SetSelected(look.InvertY);
+                centerButton.GetComponent<UIInteractionAnimator>().SetSelected(look.ShowCenterPoint);
+                shakeButton.GetComponent<UIInteractionAnimator>().SetSelected(look.Shake!=CameraShakeLevel.Off);
             }
-            resumeButton.SetActive(paused);
-            simulationHelp.gameObject.SetActive(simulation && (isBoot || paused) && !calibrating);
+            resumeButton.SetActive(paused&&!settingsOpen);
+            simulationHelp.gameObject.SetActive(simulation && (isBoot || paused) && !calibrating&&!settingsOpen);
             string help = paused ? "잠시 쉬어 가세요.\nEsc를 누르면 다시 이어서 플레이해요."
                 : router.ActiveMode == PcGazeMode.WebcamGaze
                     ? "고개를 천천히 돌려 조준점을 메뉴에 맞추세요.\nEsc를 누르면 잠시 쉴 수 있어요."
@@ -200,6 +257,12 @@ namespace MeteorDefenseVR.PcInput
             if (!operatorUi && !development) menuOpen = false;
             panel.SetActive(!settingsOpen && !calibrating && (operatorUi || development) && (menuOpen || paused));
             router.UiModalOpen = panel.activeSelf || lookSettingsPanel.activeSelf;
+            if(router.ActiveMode==PcGazeMode.WebcamGaze||router.ActiveMode==PcGazeMode.VREyeTracking)
+            {
+                bool tracked=router.TryGetScreenMenuRay(out Ray menuRay);
+                Vector3 point=Camera.main.WorldToScreenPoint(menuRay.GetPoint(10));
+                TickSettingsGaze(point,tracked&&point.z>0,Time.unscaledDeltaTime);
+            }
             compactStatus.gameObject.SetActive(development && !panel.activeSelf && !calibrating);
             buildIdentity.gameObject.SetActive((development || operatorUi) && !calibrating);
             developerMenuButton.SetActive(development && isBoot && !calibrating);
@@ -254,6 +317,7 @@ namespace MeteorDefenseVR.PcInput
                 GameFlowManager.Instance == null || GameFlowManager.Instance.CurrentState != MeteorDefenseVR.Core.GameState.Boot) return;
             menuOpen = !menuOpen;
         }
+        private void OnDestroy(){if(operationsReset!=null)operationsReset.BeforeReset-=CloseLookSettings;}
 
         private static string LoadBuildIdentity()
         {
@@ -281,7 +345,7 @@ namespace MeteorDefenseVR.PcInput
             public string gitCommitShort;
         }
 
-        private void OnDisable() { menuOpen = settingsOpen = wasBoot = wasPaused = false; if (router != null) router.UiModalOpen = false; }
+        private void OnDisable() { if(router!=null)CloseLookSettings();menuOpen=settingsOpen=wasBoot=wasPaused=false; }
         private void AddModeButton(string text, PcGazeMode mode, float y) => Button(panel.transform, mode.ToString(), text, new Vector2(16, -y), new Vector2(328, 38), () =>
         {
             if (mode == PcGazeMode.WebcamGaze && !router.Webcam.Calibration.IsCalibrated && GameFlowManager.Instance != null && GameFlowManager.Instance.CurrentState != MeteorDefenseVR.Core.GameState.Boot)

@@ -98,7 +98,7 @@ namespace MeteorDefenseVR.PcInput
             if (!active && !calibrating) return;
             if (active && (provider == null || lastMode != router.ActiveMode)) SelectProvider();
             if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-            { if (IsPaused) Resume(); else Pause(); return; }
+            { if(FindAnyObjectByType<PcTestOverlay>()?.TryCloseLookSettings()==true)return; if (IsPaused) Resume(); else Pause(); return; }
             if (!active) return;
             if (!IsPaused && !Application.isBatchMode && (!Application.isFocused || Cursor.lockState != CursorLockMode.Locked)) Pause();
             if (!IsLooking || Time.frameCount <= ignoreInputFrame) return;

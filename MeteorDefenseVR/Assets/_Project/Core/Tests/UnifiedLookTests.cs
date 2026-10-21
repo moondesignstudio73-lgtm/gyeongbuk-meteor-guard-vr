@@ -210,7 +210,7 @@ namespace MeteorDefenseVR.Tests
                 InputSystem.QueueStateEvent(mouse, new MouseState { delta = new Vector2(0, 10000) }); yield return null;
                 InputSystem.QueueStateEvent(mouse, new MouseState()); yield return new WaitForSecondsRealtime(.35f);
                 Assert.That(controller.Angles.y, Is.EqualTo(-80).Within(.2));
-                InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Escape)); yield return null; yield return null;
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Escape)); yield return new WaitForSecondsRealtime(.12f);
                 Assert.That(controller.IsPaused, Is.True); Assert.That(controller.WantsLockedCursor, Is.False); Assert.That(Time.timeScale, Is.Zero);
                 Quaternion paused = camera.transform.rotation;
                 InputSystem.QueueStateEvent(keyboard, new KeyboardState()); InputSystem.QueueStateEvent(mouse, new MouseState { delta = new Vector2(900, 900) });
@@ -223,7 +223,11 @@ namespace MeteorDefenseVR.Tests
                 Assert.That(router.UiModalOpen, Is.True, "Settings must block world menu gaze behind the panel");
                 Assert.That(router.IsTrackingValid, Is.False);
                 Directory.CreateDirectory("Docs/UnifiedLookQA/settings"); render.SaveGameOnlyProof("Docs/UnifiedLookQA/settings", router);
-                InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Escape)); yield return null; yield return null;
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Escape)); yield return new WaitForSecondsRealtime(.12f);
+                Assert.That(controller.IsPaused, Is.True, "Back from settings must preserve pause");
+                Assert.That(router.UiModalOpen, Is.False);
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState()); yield return new WaitForSecondsRealtime(.12f);
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Escape)); yield return new WaitForSecondsRealtime(.12f);
                 Assert.That(controller.IsPaused, Is.False); Assert.That(controller.WantsLockedCursor, Is.True);
                 Assert.That(router.UiModalOpen, Is.False, "Resume must close all screen-space modal panels");
                 InputSystem.QueueStateEvent(keyboard, new KeyboardState());

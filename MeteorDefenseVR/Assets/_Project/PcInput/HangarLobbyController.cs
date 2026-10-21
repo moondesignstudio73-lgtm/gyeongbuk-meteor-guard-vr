@@ -95,7 +95,7 @@ namespace MeteorDefenseVR.PcInput
         }
         public bool ChooseFromResult(bool replay)
         {
-            if(!initialized || flow.CurrentState!=GameState.Result || !result.IsVisible || Phase!=LobbyPhase.Hidden) return false;
+            if(!initialized || router.UiModalOpen || flow.CurrentState!=GameState.Result || !result.IsVisible || Phase!=LobbyPhase.Hidden) return false;
             LastResult=result.Snapshot;
             flightCinematic?.DismissDockedBackdrop();
             EnterMenu();

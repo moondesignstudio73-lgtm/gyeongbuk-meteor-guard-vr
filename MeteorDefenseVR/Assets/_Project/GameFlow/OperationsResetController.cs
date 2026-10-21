@@ -39,6 +39,7 @@ namespace MeteorDefenseVR.GameFlow
         public void ResumeResultTimer() => HandleStateChanged(gameFlow != null ? gameFlow.CurrentState : GameState.Boot);
 
         public bool ResultTimerRunning => resultTimerRunning;
+        public bool ResultTimerSuspended { get; set; }
         public bool OperatorKeysEnabled => enableOperatorKeys;
 
         private void Awake() => gameFlow = GameFlowManager.Instance;
@@ -87,7 +88,7 @@ namespace MeteorDefenseVR.GameFlow
 
         public void Tick(float unscaledDeltaTime)
         {
-            if (!resultTimerRunning) return;
+            if (!resultTimerRunning || ResultTimerSuspended) return;
             if (result != null && result.IsPresentationPending) return;
             resultElapsed += Mathf.Max(0f, unscaledDeltaTime);
             if (resultElapsed < resultDisplayDuration) return;
@@ -100,6 +101,7 @@ namespace MeteorDefenseVR.GameFlow
         public void ResetExperience()
         {
             BeforeReset?.Invoke();
+            ResultTimerSuspended=false;
             Time.timeScale = 1f;
             AudioListener.pause = false;
             resultTimerRunning = false;
