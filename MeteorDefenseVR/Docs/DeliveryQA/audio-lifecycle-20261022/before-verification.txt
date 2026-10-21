@@ -1,0 +1,39 @@
+Controlled real scene states/health events and real-time DSP source timeline; not natural human play or human listening. Source RMS cannot prove perceptual masking or final speaker loudness.
+t=1.809 segment=boot state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+t=2.019 segment=boot state=Playing hp=100 cue=Countdown category=Voice
+t=2.022 segment=boot state=Playing hp=100 cue=BgmBattle category=Bgm
+intercepted shield hit rejects hull damage=True
+t=3.514 segment=shield-intercept state=Playing hp=100 cue=Warning category=UI
+shield interception does not trigger critical warning=False
+t=3.829 segment=shield-intercept state=Playing hp=15 cue=PlayerDamage category=Sfx
+t=3.830 segment=shield-intercept state=Playing hp=15 cue=GlassHit category=Sfx
+t=4.829 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=6.507 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=8.930 segment=critical-combat state=Playing hp=15 cue=TargetFocus category=UI
+t=9.518 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=9.574 segment=critical-combat state=Playing hp=15 cue=LockOn category=UI
+t=9.586 segment=critical-combat state=Playing hp=15 cue=Laser category=Sfx
+t=9.592 segment=critical-combat state=Playing hp=15 cue=MeteorHit category=Sfx
+t=9.592 segment=critical-combat state=Playing hp=15 cue=MeteorExplosion category=Sfx
+t=9.593 segment=critical-combat state=Playing hp=15 cue=Score category=UI
+t=10.829 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+critical warnings present and bounded=True
+t=11.240 segment=paused-transition state=BossMeteor hp=15 cue=BgmBoss category=Bgm
+paused music transition freezes clip and fade=False
+no new warnings during pause=True
+t=12.729 segment=boss-resumed state=BossMeteor hp=15 cue=Warning category=UI
+music transition finishes after resume=True
+t=14.340 segment=victory-tail state=MissionComplete hp=15 cue=BgmResult category=Bgm
+victory stops recurring danger warnings=True
+t=15.854 segment=victory state=Result hp=15 cue=Result category=UI
+t=17.873 segment=restart state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+t=18.070 segment=restart state=Playing hp=100 cue=Countdown category=Voice
+t=18.070 segment=restart state=Playing hp=100 cue=BgmBattle category=Bgm
+t=18.571 segment=second-combat state=Playing hp=0 cue=PlayerDamage category=Sfx
+t=18.571 segment=second-combat state=Playing hp=0 cue=GlassHit category=Sfx
+t=19.066 segment=failure-return-tail state=Result hp=0 cue=BgmResult category=Bgm
+t=23.772 segment=failure-return-result state=Result hp=0 cue=Result category=UI
+failure return stops recurring danger warnings=True
+t=26.183 segment=final-reset state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+reset has no lingering effect loops=True
+passed=False

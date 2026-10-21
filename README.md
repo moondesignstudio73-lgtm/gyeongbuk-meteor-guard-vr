@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-audio-controls-20261022)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-audio-lifecycle-20261022)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
@@ -14,7 +14,7 @@
 
 작은 관제 드론이 첫 출격에 인사하고, 연습에 성공하면 고개를 끄덕여요. 드론은 공격 대상이 아니에요.
 
-**소리 설정**에서 배경음악과 효과음의 크기를 따로 조절하고 음소거할 수 있어요. 설정은 다음 실행에도 유지돼요. 무전·AI 안내는 음성 준비 중이에요.
+**소리 설정**에서 배경음악과 효과음의 크기를 따로 조절하고 음소거할 수 있어요. 설정은 다음 실행에도 유지돼요. 음악이 바뀌는 중 잠시 쉬어도, 돌아오면 멈춘 지점부터 전환이 이어져요. 무전·AI 안내는 음성 준비 중이에요.
 
 ## 조작 방법
 
@@ -73,7 +73,7 @@
 
 ### Windows 실행파일
 
-1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/RC_0.2.0-rc.1_60d9688/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
+1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/RC_0.2.0-rc.1_ffe691a/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
 2. 기본은 Public Experience + Auto 입력입니다. 화면의 `START`를 바라보거나 마우스를 올려 시작합니다. Enter/Space로도 시작됩니다.
 3. 운석을 바라보거나 마우스를 올려 약 0.65초 유지합니다. 클릭 없이 잠금 → 레이저 → 파괴가 진행됩니다.
 
