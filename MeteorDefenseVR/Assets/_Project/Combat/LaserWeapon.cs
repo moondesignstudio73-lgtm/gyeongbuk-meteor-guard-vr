@@ -36,6 +36,8 @@ namespace MeteorDefenseVR.Combat
         public float DamagePerShot { get => damagePerShot; set => damagePerShot = Mathf.Max(0.1f, value); }
         public bool AutoFireOnLock { get => autoFireOnLock; set => autoFireOnLock = value; }
         public float EffectiveDamage => damagePerShot * powerUpDamageMultiplier;
+        public float EffectiveCooldown => fireCooldown * powerUpCooldownMultiplier;
+        public float ChargeNormalized => EffectiveCooldown > 0 ? 1f - Mathf.Clamp01(cooldownRemaining / EffectiveCooldown) : 1f;
         public TurretAimingSystem TurretAiming => turretAiming;
 
         public event Action<GazeLockOnTarget, MeteorController> Fired;

@@ -77,6 +77,7 @@ namespace MeteorDefenseVR.Visual
         public bool ReadableSummary { get; set; }
         public TMP_Text ShipReadout => shipStatus;
         public TMP_Text ThreatReadout => threatAnalysis;
+        public TMP_Text WeaponReadout => weaponStatus;
 
         public void Configure(MeteorSpawner meteorSpawner, PlayerHealth playerHealth, GameSessionStats sessionStats,
             DifficultyManager manager, Transform reference, TMP_Text left, TMP_Text right, TMP_Text radar,
@@ -261,7 +262,7 @@ namespace MeteorDefenseVR.Visual
             string target=firing?"FIRING":candidate==null?"SEARCH":candidate.IsLocked?"LOCKED":"LOCKING";
             float range=candidate!=null&&candidate.Meteor!=null&&spawner!=null?Vector3.Distance(spawner.ShipCenter,candidate.Meteor.transform.position):firing?lastTargetRange:closestDistance;
             string top=TurretState(0,firing&&firedTop,candidate),bottom=TurretState(1,firing&&firedBottom,candidate);
-            if(weaponStatus!=null)weaponStatus.text=$"WEAPON SYSTEM\nTOP TURRET      {top}\nBOTTOM TURRET   {bottom}\nTARGET          {target}\nRANGE           {(range>0?range.ToString("000")+"m":"---")}";
+            if(weaponStatus!=null && !ReadableSummary)weaponStatus.text=$"WEAPON SYSTEM\nTOP TURRET      {top}\nBOTTOM TURRET   {bottom}\nTARGET          {target}\nRANGE           {(range>0?range.ToString("000")+"m":"---")}";
             if(systemsStatus!=null)systemsStatus.text=$"SENSOR ARRAY\nGAZE       {(candidate!=null?"TRACKING":"SEARCH")}\nENGINE     {engine}\nRADAR      {TrackedThreatCount:00} CONTACTS\nPOWER      {(damageLevel>=3?"LOW":"STABLE")}";
         }
 

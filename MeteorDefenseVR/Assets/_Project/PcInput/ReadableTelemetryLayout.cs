@@ -61,6 +61,8 @@ namespace MeteorDefenseVR.PcInput
                 rect.pivot = new Vector2(.5f, .5f); rect.offsetMin = new Vector2(16, 8); rect.offsetMax = new Vector2(-16, -8);
             }
             telemetry.ReadableSummary = true; telemetry.Refresh(); ready = true;
+            if (telemetry.WeaponReadout != null)
+                panels[1].gameObject.AddComponent<PowerUpWeaponFeedback>().Configure(telemetry.WeaponReadout, telemetry.ThreatReadout);
         }
 
         private void SetHeight(int side, float y)
@@ -127,6 +129,8 @@ namespace MeteorDefenseVR.PcInput
             var bounds = ViewBounds(panel);
             bounds.xMin -= .006f; bounds.xMax += .006f; bounds.yMin -= .006f; bounds.yMax += .006f;
             float score = 0;
+            // A temporary weapon extension must stay on-screen and below the top HUD too.
+            score += bounds.width * bounds.height - Intersection(bounds, new Rect(.01f, .02f, .98f, .86f));
             score += Intersection(bounds, new Rect(.42f, .4f, .16f, .2f));
             foreach (var other in panels) if (other != null && other != panel) score += Intersection(bounds, ViewBounds(other));
             foreach (var meteor in spawner.ActiveMeteors) score += Overlap(bounds, meteor);

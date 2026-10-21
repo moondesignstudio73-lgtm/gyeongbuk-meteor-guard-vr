@@ -75,6 +75,7 @@ namespace MeteorDefenseVR.PowerUps
         public event Action BuffsChanged;
         public event Action ShieldBlocked;
         public event Action<int> OverdriveFired;
+        public event Action<int> MultiLaserFired;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Install() { SceneManager.sceneLoaded -= SceneLoaded; SceneManager.sceneLoaded += SceneLoaded; }
@@ -250,6 +251,8 @@ namespace MeteorDefenseVR.PowerUps
             }
             if (type == PowerUpType.Overdrive) hud?.ShowWarning("OVERDRIVE ACTIVATED", 1.25f);
             else if (type == PowerUpType.Shield) hud?.ShowWarning("SHIELD RESTORED", 1f);
+            else if (type == PowerUpType.RapidFire) hud?.ShowWarning("속사 강화!", 1f);
+            else if (type == PowerUpType.MultiLaser) hud?.ShowWarning("다중 레이저 강화!", 1f);
             else hud?.ShowWarning("WEAPON SYSTEM ENHANCED", 1f);
             RefreshEffects(); return true;
         }
@@ -320,13 +323,18 @@ namespace MeteorDefenseVR.PowerUps
             if (!HasBuff(PowerUpType.MultiLaser) || primary == null) return;
             Ray ray = gaze != null && gaze.Provider != null ? gaze.Provider.GetGazeRay() : new Ray(weapon.transform.position, primary.transform.position - weapon.transform.position);
             int remaining = settings.multiLaserAdditionalTargets;
-            foreach (MeteorController candidate in spawner.ActiveMeteors)
+            int fired = 0;
+            // A lethal auxiliary hit removes its meteor immediately. Walk backwards so
+            // removal cannot invalidate an enumerator or skip another eligible target.
+            for (int i = spawner.ActiveMeteors.Count - 1; i >= 0; i--)
             {
+                MeteorController candidate = spawner.ActiveMeteors[i];
                 if (remaining <= 0) break;
                 if (candidate == null || candidate == primary || !candidate.IsTargetable) continue;
                 if (Vector3.Angle(ray.direction, candidate.transform.position - ray.origin) > settings.multiLaserConeDegrees) continue;
-                if (weapon.TryAuxiliaryHit(candidate, weapon.EffectiveDamage)) remaining--;
+                if (weapon.TryAuxiliaryHit(candidate, weapon.EffectiveDamage)) { remaining--; fired++; }
             }
+            if (fired > 0) MultiLaserFired?.Invoke(fired);
         }
 
         private void FireEmp(PowerUpBalance value)
