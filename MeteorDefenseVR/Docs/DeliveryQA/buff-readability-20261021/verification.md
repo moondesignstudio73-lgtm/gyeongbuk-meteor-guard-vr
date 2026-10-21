@@ -1,4 +1,4 @@
-# 현재 작업:800교차배치원인확정(짝배치높이4후보부족),렌더콜백철회후세밀탐색재검사. 완료조건:새ZIP실행PASS후공개해시확인. 다음 행동:buff-pair-search 결과확인/새빌드.
+# 완료: windows-buff-readability-20261021 공개, d748a47 최종 ZIP 실행 PASS 및 공개 SHA-256 일치. 다음 행동: 검토채팅에서 공개본 확인과 Drive/지속개선상태 갱신.
 
 기준 완료판: powerup-feedback25cbe19,문서d56b16b. 출격 반복 검사는 범위 밖.
 
@@ -84,3 +84,25 @@
 - 다음행동:장면검사후세번째후보실행검증.이전두ZIP은둘다미공개반려본.
 
 세밀한 짝배치 높이 탐색 수정 후 buff-pair-search-20261021.xml: 3/3 PASS. 최종 ZIP 실행 검사는 새 빌드로 진행.
+
+
+## 최종 합격 빌드 d748a47
+- 소스 d748a472f99bbfae03643068dba899ac245a0ea9, Unity6000.5.10f1, 2026-10-21T18:18:26+09:00, worktreeClean=true.
+- 사용자 ProjectSettings 경로 한정 보관/복원 및 백업 비교 일치. 커밋에 포함하지 않음.
+- ZIP 89,456,086bytes, 222개 파일 원본 해시 일치.
+- SHA256:66c192a3952d0d4cb3b4f323a02dc03dbd006775fde65a1ee52f861d7345d5c9.
+- FinalVerified에 ZIP 별도 추출, 실제 Direct3D12 실행 2026-10-21T09:19:34Z~09:22:32Z PASS, issues=[].
+- 실제 전체1라운드: 점수4980,파괴21,오류0,경고0,평균89.928fps,2056objects/146materials.
+- BuffReadability 실제실행95렌더 PASS. 800x600 target-crossing 원본 직접 시각 확인: 왼쪽 큰 상태판과 작은 상태판 분리, 중앙 경고/오른쪽표적 모두 비겹침.
+- PowerUpFeedback 실제실행 PASS: 실제 추가발사,만료,재획득,일시정지,패배,재시작 유지. 30회재사용 오브젝트/재질 증가없음,강화피드백1000Tick할당0bytes.
+- 관련검사16개: PowerUpSystem9/LaserWeapon4 기검사 PASS + 최신 buff-pair-search 3/3 PASS. 변경전95/후95 및 최종실행95 화면.
+- Human/HMD 직접플레이 미검증. 신규Suno 음원 승인대기 유지. Drive와 지속개선상태는 검토채팅에서 갱신.
+- 앞선 ca2f96d 및 6d0e772 ZIP은 미공개 반려 자료이며 최종본이 아님.
+
+
+## 공개 배포 완료
+- Release 419366902: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-buff-readability-20261021
+- 공개ZIP: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-buff-readability-20261021/MeteorDefenseVR-Windows-BuffReadability-20261021.zip
+- 2026-10-21T09:23:58.1767859Z 공개 URL 재다운로드: 89,456,086bytes 및 SHA256 66c192a3952d0d4cb3b4f323a02dc03dbd006775fde65a1ee52f861d7345d5c9 일치.
+- 증빙: Builds/Sharing/BuffReadability20261021/public-download-verified.json 및 FinalVerified/MeteorDefenseVR-Windows-BuffReadability-20261021/QA.
+- GitHub 소스 브랜치 push 완료. README 최신 다운로드 및 PLAYER_GUIDE 능력 설명 갱신.
