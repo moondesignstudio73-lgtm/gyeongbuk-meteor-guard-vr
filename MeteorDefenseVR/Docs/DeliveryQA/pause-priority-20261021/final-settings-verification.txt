@@ -1,0 +1,752 @@
+Actual scene/UI events; explicit states, no human/HMD/webcam input.
+(1920, 1080)/boot-entry/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-entry/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/boot-open/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1920, 1080)/boot-open/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|1.0
+(1920, 1080)/boot-open/Value1 px=38.46 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|끔
+(1920, 1080)/boot-open/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(1920, 1080)/boot-open/Value3 px=38.46 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|끔
+(1920, 1080)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1920, 1080)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1920, 1080)/boot-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/boot-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/boot-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/boot-open/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1920, 1080)/boot-open/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+boot-open/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+boot-open/SensitivityUp target=(170.00, 110.00, 0.00) available=True adequate=True
+boot-open/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+boot-open/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+boot-open/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+boot-open/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/changed-values/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1920, 1080)/changed-values/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|1.0
+(1920, 1080)/changed-values/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1920, 1080)/changed-values/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1920, 1080)/changed-values/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(1920, 1080)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1920, 1080)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1920, 1080)/changed-values/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/changed-values/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/changed-values/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/changed-values/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1920, 1080)/changed-values/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+changed-values/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+changed-values/SensitivityUp target=(170.00, 110.00, 0.00) available=True adequate=True
+changed-values/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+changed-values/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+changed-values/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+changed-values/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/minimum-sensitivity/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1920, 1080)/minimum-sensitivity/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|0.1
+(1920, 1080)/minimum-sensitivity/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1920, 1080)/minimum-sensitivity/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1920, 1080)/minimum-sensitivity/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(1920, 1080)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1920, 1080)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1920, 1080)/minimum-sensitivity/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/minimum-sensitivity/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/minimum-sensitivity/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/minimum-sensitivity/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1920, 1080)/minimum-sensitivity/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+minimum-sensitivity/SensitivityDown target=(170.00, 110.00, 0.00) available=False adequate=True
+minimum-sensitivity/SensitivityUp target=(170.00, 110.00, 0.00) available=True adequate=True
+minimum-sensitivity/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+minimum-sensitivity/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+minimum-sensitivity/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+minimum-sensitivity/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/maximum-sensitivity/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1920, 1080)/maximum-sensitivity/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1920, 1080)/maximum-sensitivity/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1920, 1080)/maximum-sensitivity/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1920, 1080)/maximum-sensitivity/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(1920, 1080)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1920, 1080)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1920, 1080)/maximum-sensitivity/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/maximum-sensitivity/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/maximum-sensitivity/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/maximum-sensitivity/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1920, 1080)/maximum-sensitivity/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+maximum-sensitivity/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+maximum-sensitivity/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+maximum-sensitivity/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+maximum-sensitivity/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+maximum-sensitivity/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+maximum-sensitivity/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/boot-closed/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-closed/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/paused-entry/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(1920, 1080)/paused-entry/Label px=30.26 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(1920, 1080)/paused-entry/SimulationHelp px=30.26 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+paused-entry/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/paused-open/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1920, 1080)/paused-open/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1920, 1080)/paused-open/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1920, 1080)/paused-open/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1920, 1080)/paused-open/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(1920, 1080)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1920, 1080)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1920, 1080)/paused-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/paused-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/paused-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/paused-open/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1920, 1080)/paused-open/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+paused-open/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+paused-open/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+paused-open/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+paused-open/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+paused-open/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+paused-open/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=False paused=True
+(1920, 1080)/back-from-settings/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(1920, 1080)/back-from-settings/Label px=30.26 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(1920, 1080)/back-from-settings/SimulationHelp px=30.26 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+back-from-settings/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+first Escape closes settings and keeps paused=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=True paused=False
+second Escape resumes=True
+(1920, 1080)/result-entry/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-entry/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/result-open/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1920, 1080)/result-open/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1920, 1080)/result-open/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1920, 1080)/result-open/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1920, 1080)/result-open/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(1920, 1080)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1920, 1080)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1920, 1080)/result-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/result-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/result-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/result-open/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1920, 1080)/result-open/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+result-open/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+result-open/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+result-open/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+result-open/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+result-open/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+result-open/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+result modal blocks timer and replay=True
+(1920, 1080)/result-closed/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-closed/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/gaze-open/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1920, 1080)/gaze-open/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1920, 1080)/gaze-open/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1920, 1080)/gaze-open/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1920, 1080)/gaze-open/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(1920, 1080)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1920, 1080)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1920, 1080)/gaze-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/gaze-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/gaze-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1920, 1080)/gaze-open/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1920, 1080)/gaze-open/Label px=31.47 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+gaze-open/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+gaze-open/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+gaze-open/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+gaze-open/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+gaze-open/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+gaze-open/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(1920, 1080)/gaze-closed/Label px=47.90 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+gaze-closed/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+screen-space synthetic gaze open/change/hold/close checked
+(1280, 720)/boot-entry/Label px=30.71 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-entry/LookSettings target=(213.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/boot-open/Title px=25.76 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1280, 720)/boot-open/Value0 px=21.45 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1280, 720)/boot-open/Value1 px=25.64 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|끔
+(1280, 720)/boot-open/Value2 px=21.01 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1280, 720)/boot-open/Value3 px=25.79 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(1280, 720)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1280, 720)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1280, 720)/boot-open/Label px=30.34 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/boot-open/Label px=30.34 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/boot-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/boot-open/Comfort px=21.01 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1280, 720)/boot-open/Label px=20.17 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+boot-open/SensitivityDown target=(113.33, 73.33, 0.00) available=True adequate=True
+boot-open/SensitivityUp target=(113.33, 73.33, 0.00) available=False adequate=True
+boot-open/InvertY target=(240.00, 73.33, 0.00) available=True adequate=True
+boot-open/CenterPoint target=(240.00, 73.33, 0.00) available=True adequate=True
+boot-open/CameraShake target=(240.00, 73.33, 0.00) available=True adequate=True
+boot-open/Close target=(253.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/changed-values/Title px=25.76 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1280, 720)/changed-values/Value0 px=21.45 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1280, 720)/changed-values/Value1 px=26.70 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1280, 720)/changed-values/Value2 px=21.01 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(1280, 720)/changed-values/Value3 px=25.79 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(1280, 720)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1280, 720)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1280, 720)/changed-values/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/changed-values/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/changed-values/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/changed-values/Comfort px=21.01 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1280, 720)/changed-values/Label px=20.17 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+changed-values/SensitivityDown target=(113.33, 73.33, 0.00) available=True adequate=True
+changed-values/SensitivityUp target=(113.33, 73.33, 0.00) available=False adequate=True
+changed-values/InvertY target=(240.00, 73.33, 0.00) available=True adequate=True
+changed-values/CenterPoint target=(240.00, 73.33, 0.00) available=True adequate=True
+changed-values/CameraShake target=(240.00, 73.33, 0.00) available=True adequate=True
+changed-values/Close target=(253.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/minimum-sensitivity/Title px=25.76 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1280, 720)/minimum-sensitivity/Value0 px=21.45 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|0.1
+(1280, 720)/minimum-sensitivity/Value1 px=26.70 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1280, 720)/minimum-sensitivity/Value2 px=21.01 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(1280, 720)/minimum-sensitivity/Value3 px=25.79 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(1280, 720)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1280, 720)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1280, 720)/minimum-sensitivity/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/minimum-sensitivity/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/minimum-sensitivity/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/minimum-sensitivity/Comfort px=21.01 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1280, 720)/minimum-sensitivity/Label px=20.17 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+minimum-sensitivity/SensitivityDown target=(113.33, 73.33, 0.00) available=False adequate=True
+minimum-sensitivity/SensitivityUp target=(113.33, 73.33, 0.00) available=True adequate=True
+minimum-sensitivity/InvertY target=(240.00, 73.33, 0.00) available=True adequate=True
+minimum-sensitivity/CenterPoint target=(240.00, 73.33, 0.00) available=True adequate=True
+minimum-sensitivity/CameraShake target=(240.00, 73.33, 0.00) available=True adequate=True
+minimum-sensitivity/Close target=(253.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/maximum-sensitivity/Title px=25.76 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1280, 720)/maximum-sensitivity/Value0 px=21.45 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1280, 720)/maximum-sensitivity/Value1 px=26.70 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1280, 720)/maximum-sensitivity/Value2 px=21.01 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(1280, 720)/maximum-sensitivity/Value3 px=25.79 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(1280, 720)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1280, 720)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1280, 720)/maximum-sensitivity/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/maximum-sensitivity/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/maximum-sensitivity/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/maximum-sensitivity/Comfort px=21.01 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1280, 720)/maximum-sensitivity/Label px=20.17 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+maximum-sensitivity/SensitivityDown target=(113.33, 73.33, 0.00) available=True adequate=True
+maximum-sensitivity/SensitivityUp target=(113.33, 73.33, 0.00) available=False adequate=True
+maximum-sensitivity/InvertY target=(240.00, 73.33, 0.00) available=True adequate=True
+maximum-sensitivity/CenterPoint target=(240.00, 73.33, 0.00) available=True adequate=True
+maximum-sensitivity/CameraShake target=(240.00, 73.33, 0.00) available=True adequate=True
+maximum-sensitivity/Close target=(253.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/boot-closed/Label px=30.71 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-closed/LookSettings target=(213.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/paused-entry/Label px=30.71 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(1280, 720)/paused-entry/Label px=20.17 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(1280, 720)/paused-entry/SimulationHelp px=20.17 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+paused-entry/LookSettings target=(213.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/paused-open/Title px=25.76 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1280, 720)/paused-open/Value0 px=21.45 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1280, 720)/paused-open/Value1 px=26.70 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1280, 720)/paused-open/Value2 px=21.01 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(1280, 720)/paused-open/Value3 px=25.79 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(1280, 720)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1280, 720)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1280, 720)/paused-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/paused-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/paused-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/paused-open/Comfort px=21.01 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1280, 720)/paused-open/Label px=20.17 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+paused-open/SensitivityDown target=(113.33, 73.33, 0.00) available=True adequate=True
+paused-open/SensitivityUp target=(113.33, 73.33, 0.00) available=False adequate=True
+paused-open/InvertY target=(240.00, 73.33, 0.00) available=True adequate=True
+paused-open/CenterPoint target=(240.00, 73.33, 0.00) available=True adequate=True
+paused-open/CameraShake target=(240.00, 73.33, 0.00) available=True adequate=True
+paused-open/Close target=(253.33, 73.33, 0.00) available=True adequate=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=False paused=True
+(1280, 720)/back-from-settings/Label px=30.71 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(1280, 720)/back-from-settings/Label px=20.17 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(1280, 720)/back-from-settings/SimulationHelp px=20.17 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+back-from-settings/LookSettings target=(213.33, 73.33, 0.00) available=True adequate=True
+first Escape closes settings and keeps paused=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=True paused=False
+second Escape resumes=True
+(1280, 720)/result-entry/Label px=30.71 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-entry/LookSettings target=(213.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/result-open/Title px=25.76 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1280, 720)/result-open/Value0 px=21.45 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1280, 720)/result-open/Value1 px=26.70 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1280, 720)/result-open/Value2 px=21.01 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(1280, 720)/result-open/Value3 px=25.79 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(1280, 720)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1280, 720)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1280, 720)/result-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/result-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/result-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/result-open/Comfort px=21.01 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1280, 720)/result-open/Label px=20.17 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+result-open/SensitivityDown target=(113.33, 73.33, 0.00) available=True adequate=True
+result-open/SensitivityUp target=(113.33, 73.33, 0.00) available=False adequate=True
+result-open/InvertY target=(240.00, 73.33, 0.00) available=True adequate=True
+result-open/CenterPoint target=(240.00, 73.33, 0.00) available=True adequate=True
+result-open/CameraShake target=(240.00, 73.33, 0.00) available=True adequate=True
+result-open/Close target=(253.33, 73.33, 0.00) available=True adequate=True
+result modal blocks timer and replay=True
+(1280, 720)/result-closed/Label px=30.71 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-closed/LookSettings target=(213.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/gaze-open/Title px=25.76 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1280, 720)/gaze-open/Value0 px=21.45 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1280, 720)/gaze-open/Value1 px=26.70 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1280, 720)/gaze-open/Value2 px=21.01 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(1280, 720)/gaze-open/Value3 px=25.79 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(1280, 720)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1280, 720)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1280, 720)/gaze-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/gaze-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/gaze-open/Label px=31.55 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1280, 720)/gaze-open/Comfort px=21.01 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1280, 720)/gaze-open/Label px=20.98 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+gaze-open/SensitivityDown target=(113.33, 73.33, 0.00) available=True adequate=True
+gaze-open/SensitivityUp target=(113.33, 73.33, 0.00) available=False adequate=True
+gaze-open/InvertY target=(240.00, 73.33, 0.00) available=True adequate=True
+gaze-open/CenterPoint target=(240.00, 73.33, 0.00) available=True adequate=True
+gaze-open/CameraShake target=(240.00, 73.33, 0.00) available=True adequate=True
+gaze-open/Close target=(253.33, 73.33, 0.00) available=True adequate=True
+(1280, 720)/gaze-closed/Label px=31.94 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+gaze-closed/LookSettings target=(213.33, 73.33, 0.00) available=True adequate=True
+screen-space synthetic gaze open/change/hold/close checked
+(1024, 768)/boot-entry/Label px=24.57 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-entry/LookSettings target=(170.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/boot-open/Title px=20.61 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1024, 768)/boot-open/Value0 px=17.16 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1024, 768)/boot-open/Value1 px=20.51 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|끔
+(1024, 768)/boot-open/Value2 px=16.81 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(1024, 768)/boot-open/Value3 px=20.63 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(1024, 768)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1024, 768)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1024, 768)/boot-open/Label px=24.27 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/boot-open/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/boot-open/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/boot-open/Comfort px=16.81 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1024, 768)/boot-open/Label px=16.14 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+boot-open/SensitivityDown target=(90.67, 58.67, 0.00) available=True adequate=True
+boot-open/SensitivityUp target=(90.67, 58.67, 0.00) available=False adequate=True
+boot-open/InvertY target=(192.00, 58.67, 0.00) available=True adequate=True
+boot-open/CenterPoint target=(192.00, 58.67, 0.00) available=True adequate=True
+boot-open/CameraShake target=(192.00, 58.67, 0.00) available=True adequate=True
+boot-open/Close target=(202.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/changed-values/Title px=20.61 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1024, 768)/changed-values/Value0 px=17.16 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1024, 768)/changed-values/Value1 px=21.36 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1024, 768)/changed-values/Value2 px=16.81 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1024, 768)/changed-values/Value3 px=20.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|끔
+(1024, 768)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1024, 768)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1024, 768)/changed-values/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/changed-values/Label px=24.27 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/changed-values/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/changed-values/Comfort px=16.81 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1024, 768)/changed-values/Label px=16.14 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+changed-values/SensitivityDown target=(90.67, 58.67, 0.00) available=True adequate=True
+changed-values/SensitivityUp target=(90.67, 58.67, 0.00) available=False adequate=True
+changed-values/InvertY target=(192.00, 58.67, 0.00) available=True adequate=True
+changed-values/CenterPoint target=(192.00, 58.67, 0.00) available=True adequate=True
+changed-values/CameraShake target=(192.00, 58.67, 0.00) available=True adequate=True
+changed-values/Close target=(202.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/minimum-sensitivity/Title px=20.61 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1024, 768)/minimum-sensitivity/Value0 px=17.16 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|0.1
+(1024, 768)/minimum-sensitivity/Value1 px=21.36 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1024, 768)/minimum-sensitivity/Value2 px=16.81 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1024, 768)/minimum-sensitivity/Value3 px=20.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|끔
+(1024, 768)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1024, 768)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1024, 768)/minimum-sensitivity/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/minimum-sensitivity/Label px=24.27 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/minimum-sensitivity/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/minimum-sensitivity/Comfort px=16.81 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1024, 768)/minimum-sensitivity/Label px=16.14 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+minimum-sensitivity/SensitivityDown target=(90.67, 58.67, 0.00) available=False adequate=True
+minimum-sensitivity/SensitivityUp target=(90.67, 58.67, 0.00) available=True adequate=True
+minimum-sensitivity/InvertY target=(192.00, 58.67, 0.00) available=True adequate=True
+minimum-sensitivity/CenterPoint target=(192.00, 58.67, 0.00) available=True adequate=True
+minimum-sensitivity/CameraShake target=(192.00, 58.67, 0.00) available=True adequate=True
+minimum-sensitivity/Close target=(202.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/maximum-sensitivity/Title px=20.61 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1024, 768)/maximum-sensitivity/Value0 px=17.16 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1024, 768)/maximum-sensitivity/Value1 px=21.36 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1024, 768)/maximum-sensitivity/Value2 px=16.81 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1024, 768)/maximum-sensitivity/Value3 px=20.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|끔
+(1024, 768)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1024, 768)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1024, 768)/maximum-sensitivity/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/maximum-sensitivity/Label px=24.27 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/maximum-sensitivity/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/maximum-sensitivity/Comfort px=16.81 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1024, 768)/maximum-sensitivity/Label px=16.14 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+maximum-sensitivity/SensitivityDown target=(90.67, 58.67, 0.00) available=True adequate=True
+maximum-sensitivity/SensitivityUp target=(90.67, 58.67, 0.00) available=False adequate=True
+maximum-sensitivity/InvertY target=(192.00, 58.67, 0.00) available=True adequate=True
+maximum-sensitivity/CenterPoint target=(192.00, 58.67, 0.00) available=True adequate=True
+maximum-sensitivity/CameraShake target=(192.00, 58.67, 0.00) available=True adequate=True
+maximum-sensitivity/Close target=(202.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/boot-closed/Label px=24.57 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-closed/LookSettings target=(170.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/paused-entry/Label px=24.57 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(1024, 768)/paused-entry/Label px=16.14 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(1024, 768)/paused-entry/SimulationHelp px=16.14 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+paused-entry/LookSettings target=(170.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/paused-open/Title px=20.61 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1024, 768)/paused-open/Value0 px=17.16 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1024, 768)/paused-open/Value1 px=21.36 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1024, 768)/paused-open/Value2 px=16.81 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1024, 768)/paused-open/Value3 px=20.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|끔
+(1024, 768)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1024, 768)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1024, 768)/paused-open/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/paused-open/Label px=24.27 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/paused-open/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/paused-open/Comfort px=16.81 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1024, 768)/paused-open/Label px=16.14 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+paused-open/SensitivityDown target=(90.67, 58.67, 0.00) available=True adequate=True
+paused-open/SensitivityUp target=(90.67, 58.67, 0.00) available=False adequate=True
+paused-open/InvertY target=(192.00, 58.67, 0.00) available=True adequate=True
+paused-open/CenterPoint target=(192.00, 58.67, 0.00) available=True adequate=True
+paused-open/CameraShake target=(192.00, 58.67, 0.00) available=True adequate=True
+paused-open/Close target=(202.67, 58.67, 0.00) available=True adequate=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=False paused=True
+(1024, 768)/back-from-settings/Label px=24.57 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(1024, 768)/back-from-settings/Label px=16.14 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(1024, 768)/back-from-settings/SimulationHelp px=16.14 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+back-from-settings/LookSettings target=(170.67, 58.67, 0.00) available=True adequate=True
+first Escape closes settings and keeps paused=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=True paused=False
+second Escape resumes=True
+(1024, 768)/result-entry/Label px=24.57 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-entry/LookSettings target=(170.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/result-open/Title px=20.61 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1024, 768)/result-open/Value0 px=17.16 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1024, 768)/result-open/Value1 px=21.36 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1024, 768)/result-open/Value2 px=16.81 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1024, 768)/result-open/Value3 px=20.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|끔
+(1024, 768)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1024, 768)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1024, 768)/result-open/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/result-open/Label px=24.27 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/result-open/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/result-open/Comfort px=16.81 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1024, 768)/result-open/Label px=16.14 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+result-open/SensitivityDown target=(90.67, 58.67, 0.00) available=True adequate=True
+result-open/SensitivityUp target=(90.67, 58.67, 0.00) available=False adequate=True
+result-open/InvertY target=(192.00, 58.67, 0.00) available=True adequate=True
+result-open/CenterPoint target=(192.00, 58.67, 0.00) available=True adequate=True
+result-open/CameraShake target=(192.00, 58.67, 0.00) available=True adequate=True
+result-open/Close target=(202.67, 58.67, 0.00) available=True adequate=True
+result modal blocks timer and replay=True
+(1024, 768)/result-closed/Label px=24.57 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-closed/LookSettings target=(170.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/gaze-open/Title px=20.61 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(1024, 768)/gaze-open/Value0 px=17.16 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(1024, 768)/gaze-open/Value1 px=21.36 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(1024, 768)/gaze-open/Value2 px=16.81 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(1024, 768)/gaze-open/Value3 px=20.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|끔
+(1024, 768)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(1024, 768)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(1024, 768)/gaze-open/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/gaze-open/Label px=24.27 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/gaze-open/Label px=25.24 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(1024, 768)/gaze-open/Comfort px=16.81 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(1024, 768)/gaze-open/Label px=16.14 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+gaze-open/SensitivityDown target=(90.67, 58.67, 0.00) available=True adequate=True
+gaze-open/SensitivityUp target=(90.67, 58.67, 0.00) available=False adequate=True
+gaze-open/InvertY target=(192.00, 58.67, 0.00) available=True adequate=True
+gaze-open/CenterPoint target=(192.00, 58.67, 0.00) available=True adequate=True
+gaze-open/CameraShake target=(192.00, 58.67, 0.00) available=True adequate=True
+gaze-open/Close target=(202.67, 58.67, 0.00) available=True adequate=True
+(1024, 768)/gaze-closed/Label px=24.57 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+gaze-closed/LookSettings target=(170.67, 58.67, 0.00) available=True adequate=True
+screen-space synthetic gaze open/change/hold/close checked
+(800, 600)/boot-entry/Label px=19.19 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-entry/LookSettings target=(133.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/boot-open/Title px=16.10 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(800, 600)/boot-open/Value0 px=13.40 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(800, 600)/boot-open/Value1 px=16.02 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|끔
+(800, 600)/boot-open/Value2 px=13.13 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(800, 600)/boot-open/Value3 px=16.02 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|끔
+(800, 600)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(800, 600)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(800, 600)/boot-open/Label px=18.96 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/boot-open/Label px=18.96 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/boot-open/Label px=18.96 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/boot-open/Comfort px=13.13 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(800, 600)/boot-open/Label px=12.61 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+boot-open/SensitivityDown target=(70.83, 45.83, 0.00) available=True adequate=True
+boot-open/SensitivityUp target=(70.83, 45.83, 0.00) available=False adequate=True
+boot-open/InvertY target=(150.00, 45.83, 0.00) available=True adequate=True
+boot-open/CenterPoint target=(150.00, 45.83, 0.00) available=True adequate=True
+boot-open/CameraShake target=(150.00, 45.83, 0.00) available=True adequate=True
+boot-open/Close target=(158.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/changed-values/Title px=16.10 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(800, 600)/changed-values/Value0 px=13.40 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(800, 600)/changed-values/Value1 px=16.69 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(800, 600)/changed-values/Value2 px=13.13 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(800, 600)/changed-values/Value3 px=16.12 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(800, 600)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(800, 600)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(800, 600)/changed-values/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/changed-values/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/changed-values/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/changed-values/Comfort px=13.13 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(800, 600)/changed-values/Label px=12.61 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+changed-values/SensitivityDown target=(70.83, 45.83, 0.00) available=True adequate=True
+changed-values/SensitivityUp target=(70.83, 45.83, 0.00) available=False adequate=True
+changed-values/InvertY target=(150.00, 45.83, 0.00) available=True adequate=True
+changed-values/CenterPoint target=(150.00, 45.83, 0.00) available=True adequate=True
+changed-values/CameraShake target=(150.00, 45.83, 0.00) available=True adequate=True
+changed-values/Close target=(158.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/minimum-sensitivity/Title px=16.10 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(800, 600)/minimum-sensitivity/Value0 px=13.40 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|0.1
+(800, 600)/minimum-sensitivity/Value1 px=16.69 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(800, 600)/minimum-sensitivity/Value2 px=13.13 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(800, 600)/minimum-sensitivity/Value3 px=16.12 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(800, 600)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(800, 600)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(800, 600)/minimum-sensitivity/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/minimum-sensitivity/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/minimum-sensitivity/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/minimum-sensitivity/Comfort px=13.13 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(800, 600)/minimum-sensitivity/Label px=12.61 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+minimum-sensitivity/SensitivityDown target=(70.83, 45.83, 0.00) available=False adequate=True
+minimum-sensitivity/SensitivityUp target=(70.83, 45.83, 0.00) available=True adequate=True
+minimum-sensitivity/InvertY target=(150.00, 45.83, 0.00) available=True adequate=True
+minimum-sensitivity/CenterPoint target=(150.00, 45.83, 0.00) available=True adequate=True
+minimum-sensitivity/CameraShake target=(150.00, 45.83, 0.00) available=True adequate=True
+minimum-sensitivity/Close target=(158.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/maximum-sensitivity/Title px=16.10 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(800, 600)/maximum-sensitivity/Value0 px=13.40 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(800, 600)/maximum-sensitivity/Value1 px=16.69 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(800, 600)/maximum-sensitivity/Value2 px=13.13 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(800, 600)/maximum-sensitivity/Value3 px=16.12 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(800, 600)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(800, 600)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(800, 600)/maximum-sensitivity/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/maximum-sensitivity/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/maximum-sensitivity/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/maximum-sensitivity/Comfort px=13.13 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(800, 600)/maximum-sensitivity/Label px=12.61 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+maximum-sensitivity/SensitivityDown target=(70.83, 45.83, 0.00) available=True adequate=True
+maximum-sensitivity/SensitivityUp target=(70.83, 45.83, 0.00) available=False adequate=True
+maximum-sensitivity/InvertY target=(150.00, 45.83, 0.00) available=True adequate=True
+maximum-sensitivity/CenterPoint target=(150.00, 45.83, 0.00) available=True adequate=True
+maximum-sensitivity/CameraShake target=(150.00, 45.83, 0.00) available=True adequate=True
+maximum-sensitivity/Close target=(158.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/boot-closed/Label px=19.19 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-closed/LookSettings target=(133.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/paused-entry/Label px=19.19 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(800, 600)/paused-entry/Label px=12.61 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(800, 600)/paused-entry/SimulationHelp px=12.61 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+paused-entry/LookSettings target=(133.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/paused-open/Title px=16.10 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(800, 600)/paused-open/Value0 px=13.40 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(800, 600)/paused-open/Value1 px=16.69 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(800, 600)/paused-open/Value2 px=13.13 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(800, 600)/paused-open/Value3 px=16.12 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(800, 600)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(800, 600)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(800, 600)/paused-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/paused-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/paused-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/paused-open/Comfort px=13.13 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(800, 600)/paused-open/Label px=12.61 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+paused-open/SensitivityDown target=(70.83, 45.83, 0.00) available=True adequate=True
+paused-open/SensitivityUp target=(70.83, 45.83, 0.00) available=False adequate=True
+paused-open/InvertY target=(150.00, 45.83, 0.00) available=True adequate=True
+paused-open/CenterPoint target=(150.00, 45.83, 0.00) available=True adequate=True
+paused-open/CameraShake target=(150.00, 45.83, 0.00) available=True adequate=True
+paused-open/Close target=(158.33, 45.83, 0.00) available=True adequate=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=False paused=True
+(800, 600)/back-from-settings/Label px=19.19 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(800, 600)/back-from-settings/Label px=12.61 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(800, 600)/back-from-settings/SimulationHelp px=12.61 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+back-from-settings/LookSettings target=(133.33, 45.83, 0.00) available=True adequate=True
+first Escape closes settings and keeps paused=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=True paused=False
+second Escape resumes=True
+(800, 600)/result-entry/Label px=19.19 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-entry/LookSettings target=(133.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/result-open/Title px=16.10 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(800, 600)/result-open/Value0 px=13.40 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(800, 600)/result-open/Value1 px=16.69 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(800, 600)/result-open/Value2 px=13.13 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(800, 600)/result-open/Value3 px=16.12 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(800, 600)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(800, 600)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(800, 600)/result-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/result-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/result-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/result-open/Comfort px=13.13 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(800, 600)/result-open/Label px=12.61 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+result-open/SensitivityDown target=(70.83, 45.83, 0.00) available=True adequate=True
+result-open/SensitivityUp target=(70.83, 45.83, 0.00) available=False adequate=True
+result-open/InvertY target=(150.00, 45.83, 0.00) available=True adequate=True
+result-open/CenterPoint target=(150.00, 45.83, 0.00) available=True adequate=True
+result-open/CameraShake target=(150.00, 45.83, 0.00) available=True adequate=True
+result-open/Close target=(158.33, 45.83, 0.00) available=True adequate=True
+result modal blocks timer and replay=True
+(800, 600)/result-closed/Label px=19.19 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-closed/LookSettings target=(133.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/gaze-open/Title px=16.10 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(800, 600)/gaze-open/Value0 px=13.40 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(800, 600)/gaze-open/Value1 px=16.69 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(800, 600)/gaze-open/Value2 px=13.13 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(800, 600)/gaze-open/Value3 px=16.12 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(800, 600)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(800, 600)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(800, 600)/gaze-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/gaze-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/gaze-open/Label px=19.72 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(800, 600)/gaze-open/Comfort px=13.13 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(800, 600)/gaze-open/Label px=12.61 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+gaze-open/SensitivityDown target=(70.83, 45.83, 0.00) available=True adequate=True
+gaze-open/SensitivityUp target=(70.83, 45.83, 0.00) available=False adequate=True
+gaze-open/InvertY target=(150.00, 45.83, 0.00) available=True adequate=True
+gaze-open/CenterPoint target=(150.00, 45.83, 0.00) available=True adequate=True
+gaze-open/CameraShake target=(150.00, 45.83, 0.00) available=True adequate=True
+gaze-open/Close target=(158.33, 45.83, 0.00) available=True adequate=True
+(800, 600)/gaze-closed/Label px=19.19 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+gaze-closed/LookSettings target=(133.33, 45.83, 0.00) available=True adequate=True
+screen-space synthetic gaze open/change/hold/close checked
+(2560, 1080)/boot-entry/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-entry/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/boot-open/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(2560, 1080)/boot-open/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(2560, 1080)/boot-open/Value1 px=38.46 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|끔
+(2560, 1080)/boot-open/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|켬
+(2560, 1080)/boot-open/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|약하게
+(2560, 1080)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(2560, 1080)/boot-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(2560, 1080)/boot-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/boot-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/boot-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/boot-open/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(2560, 1080)/boot-open/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+boot-open/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+boot-open/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+boot-open/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+boot-open/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+boot-open/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+boot-open/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/changed-values/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(2560, 1080)/changed-values/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(2560, 1080)/changed-values/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(2560, 1080)/changed-values/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(2560, 1080)/changed-values/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(2560, 1080)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(2560, 1080)/changed-values/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(2560, 1080)/changed-values/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/changed-values/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/changed-values/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/changed-values/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(2560, 1080)/changed-values/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+changed-values/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+changed-values/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+changed-values/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+changed-values/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+changed-values/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+changed-values/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/minimum-sensitivity/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(2560, 1080)/minimum-sensitivity/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|0.1
+(2560, 1080)/minimum-sensitivity/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(2560, 1080)/minimum-sensitivity/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(2560, 1080)/minimum-sensitivity/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(2560, 1080)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(2560, 1080)/minimum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(2560, 1080)/minimum-sensitivity/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/minimum-sensitivity/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/minimum-sensitivity/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/minimum-sensitivity/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(2560, 1080)/minimum-sensitivity/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+minimum-sensitivity/SensitivityDown target=(170.00, 110.00, 0.00) available=False adequate=True
+minimum-sensitivity/SensitivityUp target=(170.00, 110.00, 0.00) available=True adequate=True
+minimum-sensitivity/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+minimum-sensitivity/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+minimum-sensitivity/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+minimum-sensitivity/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/maximum-sensitivity/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(2560, 1080)/maximum-sensitivity/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(2560, 1080)/maximum-sensitivity/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(2560, 1080)/maximum-sensitivity/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(2560, 1080)/maximum-sensitivity/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(2560, 1080)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(2560, 1080)/maximum-sensitivity/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(2560, 1080)/maximum-sensitivity/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/maximum-sensitivity/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/maximum-sensitivity/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/maximum-sensitivity/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(2560, 1080)/maximum-sensitivity/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+maximum-sensitivity/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+maximum-sensitivity/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+maximum-sensitivity/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+maximum-sensitivity/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+maximum-sensitivity/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+maximum-sensitivity/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/boot-closed/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+boot-closed/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/paused-entry/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(2560, 1080)/paused-entry/Label px=30.26 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(2560, 1080)/paused-entry/SimulationHelp px=30.26 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+paused-entry/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/paused-open/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(2560, 1080)/paused-open/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(2560, 1080)/paused-open/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(2560, 1080)/paused-open/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(2560, 1080)/paused-open/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(2560, 1080)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(2560, 1080)/paused-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(2560, 1080)/paused-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/paused-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/paused-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/paused-open/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(2560, 1080)/paused-open/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+paused-open/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+paused-open/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+paused-open/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+paused-open/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+paused-open/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+paused-open/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=False paused=True
+(2560, 1080)/back-from-settings/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+(2560, 1080)/back-from-settings/Label px=30.26 fits=True bounds=(495.52, 72.40, 0.00) rect=(628.00, 106.00) text=게임으로 돌아가기 / Esc
+(2560, 1080)/back-from-settings/SimulationHelp px=30.26 fits=True bounds=(774.25, 144.80, 0.00) rect=(1300.00, 160.00) text=잠시 쉬어 가세요.|Esc를 누르면 다시 이어서 플레이해요.
+back-from-settings/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+first Escape closes settings and keeps paused=True
+Key observed: current=4 test=4 pressed=True state=Playing looking=True paused=False
+second Escape resumes=True
+(2560, 1080)/result-entry/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-entry/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/result-open/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(2560, 1080)/result-open/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(2560, 1080)/result-open/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(2560, 1080)/result-open/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(2560, 1080)/result-open/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(2560, 1080)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(2560, 1080)/result-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(2560, 1080)/result-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/result-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/result-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/result-open/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(2560, 1080)/result-open/Label px=30.26 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+result-open/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+result-open/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+result-open/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+result-open/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+result-open/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+result-open/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+result modal blocks timer and replay=True
+(2560, 1080)/result-closed/Label px=46.06 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+result-closed/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/gaze-open/Title px=38.64 fits=True bounds=(346.29, 75.30, 0.00) rect=(1108.00, 80.00) text=편하게 둘러보기
+(2560, 1080)/gaze-open/Value0 px=32.17 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=마우스 감도|2.0
+(2560, 1080)/gaze-open/Value1 px=40.05 fits=True bounds=(302.70, 127.42, 0.00) rect=(650.00, 128.00) text=위아래 방향 반전|켬
+(2560, 1080)/gaze-open/Value2 px=31.51 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=조준점 표시|끔
+(2560, 1080)/gaze-open/Value3 px=38.69 fits=True bounds=(212.07, 127.42, 0.00) rect=(650.00, 128.00) text=화면 흔들림|강하게
+(2560, 1080)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=−
+(2560, 1080)/gaze-open/Label px=100.00 fits=True bounds=(26.06, 72.40, 0.00) rect=(158.00, 106.00) text=+
+(2560, 1080)/gaze-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/gaze-open/Label px=45.51 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/gaze-open/Label px=47.33 fits=True bounds=(91.99, 72.40, 0.00) rect=(348.00, 106.00) text=변경
+(2560, 1080)/gaze-open/Comfort px=31.51 fits=True bounds=(696.52, 127.42, 0.00) rect=(1108.00, 128.00) text=버튼을 누르거나 조준점을 맞추세요.|닫기를 누르면 이전 화면으로 돌아가요.
+(2560, 1080)/gaze-open/Label px=31.47 fits=True bounds=(208.54, 72.40, 0.00) rect=(368.00, 106.00) text=닫기 / Esc
+gaze-open/SensitivityDown target=(170.00, 110.00, 0.00) available=True adequate=True
+gaze-open/SensitivityUp target=(170.00, 110.00, 0.00) available=False adequate=True
+gaze-open/InvertY target=(360.00, 110.00, 0.00) available=True adequate=True
+gaze-open/CenterPoint target=(360.00, 110.00, 0.00) available=True adequate=True
+gaze-open/CameraShake target=(360.00, 110.00, 0.00) available=True adequate=True
+gaze-open/Close target=(380.00, 110.00, 0.00) available=True adequate=True
+(2560, 1080)/gaze-closed/Label px=47.90 fits=True bounds=(194.99, 72.40, 0.00) rect=(308.00, 106.00) text=시점 설정
+gaze-closed/LookSettings target=(320.00, 110.00, 0.00) available=True adequate=True
+screen-space synthetic gaze open/change/hold/close checked
+passed=True

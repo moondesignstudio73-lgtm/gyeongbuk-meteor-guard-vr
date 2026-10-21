@@ -1,4 +1,6 @@
-# 완료: 시점 설정 가독성·입력 검증 및 새 공개 ZIP 재다운로드 일치 확인
+# REVIEW-06 완료: 일시정지 중첩 수정본 새 공개 ZIP 및 재다운로드 일치 확인
+
+REVIEW-05의 공개본 c07cd11은 설정창 자체 개선만 인정하며, 전체 가독성 통과 결론은 아래 REVIEW-06 반례로 철회합니다. 아래 기록은 버전별 이력입니다.
 
 ## 재현/범위/완료조건
 - 기준: windows-result-feedback-20261021,소스17960da/문서3a7c2a2.
@@ -48,4 +50,31 @@
 - 공개 ZIP 재다운로드: 2026-10-21T11:17:06.8823763Z, 크기와 SHA256 모두 로컬 검증본과 일치.
 - final-pc-soak.json / final-settings-verification.txt / public-redownload-verification.json 보관. 원본은 Before70 + After80 + 최종설정80, 최종 결과/강화 및 전환 원본은 FinalVerified의 QA에 보관.
 - 신규 Suno 음원 승인대기 상태 유지. 사용자 ProjectSettings 변경 보존. Drive/지속검토 상태 변경하지 않음.
+
+
+## REVIEW-20261021-06 — c07cd11 공개 일시정지 화면 검증 실패
+- 기존 REVIEW-05 설정창 확대 자체는 유지하되 **전체 가독성 통과 결론을 철회**. 공개 Settings-Pause.png(1280×720)에서 스테이지 안내·휴식 안내·복귀 버튼 배경이 서로 겹침.
+- 공개 원본을 ../pause-priority-20261021/Before/Published-Settings-Pause-1280x720.png에 다운로드하여 보존. 기존 ZIP·릴리스 자산은 덮어쓰지 않음.
+- 원인1: Time.timeScale=0으로 안내 애니메이션은 멈췄지만 표시가 남음. 원인2: 휴식 안내는 아래 기준, 복귀 버튼은 중앙 기준이라 16:9에서 서로 겹침.
+- 수정: 일시정지 표시 계층을 별도로 제어하여 세계 UI의 텍스트뿐 아니라 패널·Canvas 전체를 일시적으로 숨김. GameObject/컨트롤러/활성 상태를 껐다 켜지 않으며 복귀 시 렌더 상태만 복원.
+- 휴식 문구·복귀 버튼을 공통 중앙 기준으로 배치. HUD 안내 남은 시간과 문자 등장 애니메이션도 게임 일시정지 시간에 맞춰 보존.
+- 새 증거 경로 ../pause-priority-20261021. 스테이지 안내 시작/중간/끝 직전, 튜토리얼, 연습, 일반전투, 보스 ×5해상도, 설정→Esc→Esc·지원되지 않는 결과Pause 차단 검사 추가. 버튼 배경 전체 영역 간 겹침도 검사.
+- 새 테스트 첫 컴파일은 QA 코드의 GazeRaycaster namespace 오기 발견 후 수정. 기능검사 실행 중이며 아직 새 배포 승인 상태 아님.
+- tests-focused: 새 일시정지 우선순위 검사 PASS. 대상 조준 고리가 튜토리얼 휴식 문구 뒤에 남는 것을 원본에서 추가 발견해 대상 렌더러도 일시정지 중 숨기고 복귀 시 복원.
+- tests-regression.xml: 기존 설정·마우스입력·결과·강화 35/35 PASS.
+- tests-final.xml: 조준대상까지 포함한 최종 일시정지 검사 + UI모션·MissionHud 회귀 PASS. 5해상도×7상황×5단계=175 PNG, 상태유지/남은시간/전체버튼사각형겹침/세계Canvas·텍스트·대상숨김/2단계Esc/결과Pause불가 확인.
+- 원본 검수: 1920 스테이지중간 정지·복귀, 1280 종료직전 정지,1024 연습정지,800 튜토리얼정지,2560 보스정지. 글자축소 없이 패널/문구 분리. 실제 사람·HMD·웹캠 검증과 구분.
+- 최종 소스 9cb85fd63fba38e3ad99e7ca2563cd3326019cc7, 깨끗한 작업트리에서 2026-10-21T20:52:09+09:00 Release 빌드 성공. 사용자 설정과 검토 문서를 stash에서 복원, 사용자 설정은 백업과 내용 동일 확인.
+- 새 ZIP MeteorDefenseVR-Windows-PausePriority-20261021.zip: 89,471,877 bytes, 222개 파일별 해시 일치. SHA256 218cb03e454183bd918fc92ebe0a45ff5acea6e9cd7020608024c41c94200dff.
+- FinalVerified 별도 추출 실행 중. 이전 ZIP/릴리스 자산 보존. 기본 Direct3D12, 자동 입력·UI이벤트 검사이며 직접 사용자/HMD 검증 아님.
+
+### REVIEW-06 최종 공개 검증
+- 새 릴리스 https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-pause-priority-20261021 (ID419502882, draft=false, prerelease=true), 소스9cb85fd63fba38e3ad99e7ca2563cd3326019cc7.
+- ZIP 별도 실행 최종 passed=true/issues=[]; 4980점/21파괴/오류0/경고0/평균89.934 FPS, NVIDIA RTX3070/기본Direct3D12. 강제GC 없음, 자동입력 환경 수치.
+- PausePriority175원본 + ViewSettings80원본, 결과·강화 회귀 PASS. 일시정지에서 설정→Esc닫기→Esc복귀, 결과에서 설정열기/닫기/타이머/재출격차단 및 결과Pause미지원 경로 확인.
+- 최종 실행본 원본 추가 검수: 1920스테이지시작/1280중간/1024연습/800튜토리얼/2560보스의 일시정지 화면. 안내·버튼 배경·설정 진입 간 겹침없음. 스테이지중간 복귀 및 튜토리얼 복귀 원본에서 안내 재표시 확인.
+- 공개 재다운로드 검증 2026-10-21T11:58:36.6970649Z. 89,471,877bytes 및 SHA256 218cb03e454183bd918fc92ebe0a45ff5acea6e9cd7020608024c41c94200dff 일치.
+- 증거: ../pause-priority-20261021/final-pc-soak.json, final-pause-verification.txt, final-settings-verification.txt, public-redownload-verification.json 및 Before/source.json. 최종 원본은 그 폴더의 FinalVerified/…/QA에 보관.
+- REVIEW-05 공개 ZIP/릴리스와 그 FinalVerified 원본은 그대로 보존. 공통 ViewSettings 편집기 회귀는 기존 After 경로를 재생성하므로 REVIEW-05의 불변 버전 증거로는 기존 FinalVerified와 공개 자산을 사용해야 함.
+- 사용자 ProjectSettings 선호 보존, 신규 Suno 음원 추가 없음/승인대기 유지. 실제 사람 직접조작·실제 웹캠·HMD 실기기는 미검증. Drive 및 지속검토 상태는 변경하지 않음.
 

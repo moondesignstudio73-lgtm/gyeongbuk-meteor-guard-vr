@@ -1,0 +1,7 @@
+{
+  "source": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-view-settings-readability-20261021/Settings-Pause.png",
+  "sourceCommit": "c07cd110bcf9b882e79ab88342fb088c82d5f5df",
+  "bytes": 342681,
+  "sha256": "ce687250e8016cbef51a097dbfd3d05da25e94216459d3f59e942067dffefb54",
+  "finding": "Stage notice, pause copy and resume button background overlap at 1280x720; REVIEW-20261021-06"
+}
