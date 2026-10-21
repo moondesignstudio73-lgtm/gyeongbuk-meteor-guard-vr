@@ -1,4 +1,4 @@
-# 현재 단계: 13개 검사 및 전후 비용/일반 운석 회귀 통과, 최종 빌드 중. 다음 행동: ZIP 압축 해제 실행·원본 전후 화면 확인→GitHub 공개→재다운로드 해시
+# 현재 단계: 보스 외피 붕괴·핵 노출 검증/ZIP 실행/GitHub 공개/공개 재다운로드 해시 완료. 다음 행동: 검토 채팅에서 배포 기록 반영
 
 ## 범위와 기존 구현
 원래 항목7만 진행. 기존 BossMeteorView는 HP에 따라 균열 발광을 조절하고, BossStageMotion은 별도 궤도 잔해를 움직인다. BossClimaxController의 사망 이벤트→CombatVfxController→PremiumCombatVfx 풀을 재사용하며 별도 사망 폭발을 추가하지 않는다.
@@ -22,3 +22,23 @@ boss-shell-initial-20261021.xml 11/11 통과. 실제 무기3발 HP3→2→1→0,
 - 실제 마지막 조각8개→잔여0, 사망 이벤트1회, 활성 핵 상태에서 OperationsResetController 재시작 시 정리 확인.
 - 1280×720 intact/exposed 렌더 제출CPU중앙값1.3215/1.2409ms,800×600은1.4269/1.3470ms(각20표본,전체GPU벤치마크 아님). 검사시 파티클0,objects2032/materials184 일정.
 - 손상상태1000Tick GC0,총CPU0.0345/0.0149ms. 소유Transform10,사용메시9(신규8+기존1),사용재질2(신규1+기존1).20회풀재사용/50회단위초기화에서누적없음.
+
+
+## 최종 빌드
+- 014539eedc1ab4b0ef778d461ce99ab4e1b7fa55, worktreeClean=true, Unity6000.5.10f1, release build2026-10-21T14:48:18+09:00.
+- ZIP89,444,646bytes, SHA256 7740f70772b42e81596c6bc3e15481909f43e883b530e545d6b079c1311e7280. 압축 안222개 파일 해시 검증 완료.
+- 사용자 설정은 경로 한정 stash 적용 후 백업과 줄바꿈 정규화 비교 일치. 중복 빌드 없음.
+
+
+## 최종 배포 완료
+- 공개 https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-boss-shell-20261021 (ID419204019, prerelease=true, draft=false).
+- 실행본 커밋014539eedc1ab4b0ef778d461ce99ab4e1b7fa55. ZIP MeteorDefenseVR-Windows-BossShell-20261021.zip,89,444,646bytes, SHA256 7740f70772b42e81596c6bc3e15481909f43e883b530e545d6b079c1311e7280.
+- 압축 안 및 압축 해제222개 파일 원본 해시 일치. 업로드6개asset digest/size 확인. 공개 다운로드 ZIP도 같은SHA256/size 일치.
+- FinalVerified/QA/pc-soak.json passed=true,issues=[],2026-10-21T05:49:04Z–05:51:35Z. 자동 전투1회 점수4980/파괴21/오류0/경고0/평균89.94FPS.
+- 최종 실행본 원본1280×720/800×600의 intact,breached,core-exposed,파괴후 화면 확인. FinalPixelViews의 최근접 확대 비교에서도100%/67%/33% 단계 표시와 형상 차이를 확인. 배포에 첨부한 PNG는 수정하지 않은 원본이다.
+- 두 해상도 모두 실제무기HP3→2→1→0,무효타격무변화,같은단계재타격무중복,큰피해단계건너뜀,사망이벤트1회,실제파편8→잔여0,카메라포즈유지,20회풀재사용,활성핵상태재시작정리 통과.
+- 최종실행 steady상태 렌더제출CPU중앙값:1280×720 원형1.1560/핵노출0.9653ms,800×600 원형0.9908/핵노출1.0738ms(각20표본). objects2052/materials146 일정,효과파티클0에서측정. GPU벤치마크나성능향상보장은아님.
+- 새보스표현의 소유Transform10,신규메시8,신규재질1. 일반자동전투 전체objects2051/materials146이며 직전도킹판보다10객체/1재질추가. 손상상태정착후1000Tick GC0bytes,총CPU0.0306/0.0176ms. 활성파편의전체GPU비용은별도측정하지않음.
+
+## 한계와 범위 준수
+직접 사람 전체 플레이/HMD 착용/실제 눈추적/초심자 인지/청감 검사는 수행하지 않았다. 자동 PC 전투와 명시적 체력·위치 고정 fixture를 실제 플레이어 카메라로 검사한 결과다. 일반 운석 실제 무기/손상 회귀는13개 검사에 포함된다. 원래 항목7 외의 새 개선 범위를 추가하지 않았으며 Suno 승인 대기와 사용자 설정을 보존했다. Drive와 연속개선 상태 파일은 수정하지 않았다.
