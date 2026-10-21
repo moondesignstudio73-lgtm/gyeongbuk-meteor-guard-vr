@@ -28,14 +28,14 @@ namespace MeteorDefenseVR.GameFlow
             Configure(resultController, text);
         }
 
-        public static string Format(GameSessionSnapshot snapshot, string rank)
+        public static string Format(GameSessionSnapshot snapshot, string rank, SessionRankSettings settings = null)
         {
             snapshot ??= new GameSessionSnapshot();
             string heading = snapshot.MissionFailed ? "다시 도전해요!" : snapshot.AllStagesCleared ? "모든 임무 완료!\n지구를 지켜냈어요!" : "이번 임무의 기록";
             string progress = snapshot.CampaignMode
                 ? $"{Difficulty.DifficultyConfig.Label(snapshot.Difficulty)} · 구역 {snapshot.MaxStage:D2}\n파괴한 운석 {snapshot.DestroyedMeteors} / 210\n파괴한 보스 {snapshot.BossesDestroyed}\n"
                 : string.Empty;
-            string outcome = snapshot.MissionFailed ? "다시 출격해 지구를 지켜요!" : "지구 방어 성공!";
+            string outcome = ResultFeedback.Achievement(snapshot) + "\n" + (settings != null ? settings.NextGoal(snapshot) : "다음 임무에 도전해요!");
             return $"{heading}\n\n{progress}총점 {snapshot.Score:N0}\n파괴한 운석 {snapshot.DestroyedMeteors}\n명중률 {snapshot.AccuracyPercent}%\n받은 피해 {snapshot.DamageTaken}%\n플레이 시간 {snapshot.PlayTime:0.0}초\n최고 구역 {snapshot.MaxStage}\n최종 등급 {rank}\n\n{outcome}";
         }
 
@@ -65,7 +65,7 @@ namespace MeteorDefenseVR.GameFlow
             if (resultText != null)
                 foreach (Renderer renderer in resultText.GetComponentsInChildren<Renderer>(true))
                     renderer.sortingOrder = 101;
-            if (resultText != null) resultText.text = Format(snapshot, rank);
+            if (resultText != null) resultText.text = Format(snapshot, rank, controller.RankSettings);
             if (visualFrame != null) visualFrame.SetActive(true);
         }
 

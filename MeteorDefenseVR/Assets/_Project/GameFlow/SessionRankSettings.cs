@@ -28,5 +28,15 @@ namespace MeteorDefenseVR.GameFlow
             if (score >= rankBScore) return "B";
             return "C";
         }
+
+        public string NextGoal(GameSessionSnapshot snapshot)
+        {
+            string rank = Evaluate(snapshot);
+            if (rank == "S") return "최고 S등급!";
+            string next = rank == "A" ? "S" : rank == "B" ? "A" : "B";
+            int threshold = rank == "A" ? rankSScore : rank == "B" ? rankAScore : rankBScore;
+            long remaining = (long)threshold - (snapshot?.Score ?? 0);
+            return $"다음 {next}등급까지 {remaining:N0}점";
+        }
     }
 }

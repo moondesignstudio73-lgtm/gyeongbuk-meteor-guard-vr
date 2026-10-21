@@ -99,7 +99,7 @@ namespace MeteorDefenseVR.PcInput
             if (previous != content)
             {
                 previous = content;
-                display.text = result != null && result.IsVisible ? FormatResult(result.Snapshot, result.Rank) : FormatTelemetry(sourceName, content);
+                display.text = result != null && result.IsVisible ? FormatResult(result.Snapshot, result.Rank, result.RankSettings) : FormatTelemetry(sourceName, content);
                 if (sourceName == "MissionCompleteText" && !string.IsNullOrEmpty(content))
                     display.text = "<color=#BFF9FF>임무 완료</color>\n<size=1.8><color=#8FFFC4>잘했어요!\n지구를 지켜냈어요!</color></size>";
                 if (sourceName == "AlertText" && content.StartsWith("WARNING"))
@@ -142,7 +142,7 @@ namespace MeteorDefenseVR.PcInput
                 .Replace("LARGE METEOR DETECTED", "큰 운석이 다가와요!")
                 .Replace("NICE!", "멋져요!").Replace("GOOD!", "잘했어요!");
         }
-        public static string FormatResult(GameSessionSnapshot snapshot, string rank)
+        public static string FormatResult(GameSessionSnapshot snapshot, string rank, SessionRankSettings settings = null)
         {
             snapshot ??= new GameSessionSnapshot();
             string score = snapshot.Score.ToString("N0");
@@ -151,8 +151,9 @@ namespace MeteorDefenseVR.PcInput
                 + $"파괴한 운석<pos=45%>{snapshot.DestroyedMeteors:N0}\n"
                 + $"명중률<pos=45%>{snapshot.AccuracyPercent}%\n"
                 + $"등급<pos=45%><color={(rank == "S" || rank == "A" ? "#FFC96B" : "#82FFC1")}><size=2.6>{rank}</size></color></size></align>\n"
-                + $"<align=center><size=1.5><color=#9CBAC5>난이도 : {Difficulty.DifficultyConfig.Label(snapshot.Difficulty)}</color></size>\n"
-                + (snapshot.MissionFailed ? "<size=1.8><color=#FFAA88>다시 출격해 지구를 지켜요!</color></size></align>" : "<size=1.8><color=#82FFC1>지구를 지켜냈어요!</color></size></align>");
+                + $"<align=center><size=1.7><color=#9CBAC5>난이도 : {Difficulty.DifficultyConfig.Label(snapshot.Difficulty)}</color></size>\n"
+                + $"<size=1.8><color=#82FFC1>{ResultFeedback.Achievement(snapshot)}</color>\n"
+                + $"<color=#FFD18A>{(settings != null ? settings.NextGoal(snapshot) : "다음 임무에 도전해요!")}</color></size></align>";
         }
         private void OnDisable()
         {

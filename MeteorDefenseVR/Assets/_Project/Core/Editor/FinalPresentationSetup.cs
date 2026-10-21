@@ -15,8 +15,8 @@ namespace MeteorDefenseVR.Editor
             var camera = Camera.main;
             var display = camera.transform.Find("ResultText").GetComponent<WorldTextPresentation>().Display;
             if (display == null) throw new System.InvalidOperationException("Result display missing");
-            display.rectTransform.sizeDelta = new Vector2(3.8f, 2.45f);
-            camera.transform.Find("ResultVisualFrame").localScale = new Vector3(1.72f, 1.18f, 1f);
+            display.rectTransform.sizeDelta = new Vector2(3.8f, 2.85f);
+            camera.transform.Find("ResultVisualFrame").localScale = new Vector3(1.72f, 1.4f, 1f);
             UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
             UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
             UnityEditor.AssetDatabase.SaveAssets();
@@ -45,10 +45,10 @@ namespace MeteorDefenseVR.Editor
 
             Present(camera.transform.Find("MissionCompleteText").GetComponent<TextMesh>(), font, 3f, 3.15f, .9f);
             camera.transform.Find("ResultText").localPosition = new Vector3(0, .8f, 3.86f);
-            Present(camera.transform.Find("ResultText").GetComponent<TextMesh>(), font, 2.8f, 3.8f, 2.45f,
+            Present(camera.transform.Find("ResultText").GetComponent<TextMesh>(), font, 2.8f, 3.8f, 2.85f,
                 Object.FindAnyObjectByType<ResultController>());
             camera.transform.Find("MissionCompleteVisualFrame").localScale = new Vector3(1.2f, 1.3f, 1f);
-            camera.transform.Find("ResultVisualFrame").localScale = new Vector3(1.72f, 1.18f, 1f);
+            camera.transform.Find("ResultVisualFrame").localScale = new Vector3(1.72f, 1.4f, 1f);
             camera.transform.Find("ResultVisualFrame").localPosition = new Vector3(0, .706f, 0);
             var hud = camera.transform.Find("MissionHUD");
             foreach (string name in new[] { "HudHealth", "HudRemaining", "HudScore" })

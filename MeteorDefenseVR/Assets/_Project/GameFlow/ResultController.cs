@@ -18,6 +18,7 @@ namespace MeteorDefenseVR.GameFlow
         public bool IsPresentationPending { get; private set; }
         public Func<bool> BeforeFailedResult { get; set; }
         public float DisplayDuration => displayDuration;
+        public SessionRankSettings RankSettings => rankSettings;
 
         public event Action<GameSessionSnapshot, string> ResultShown;
         public event Action ResultHidden;

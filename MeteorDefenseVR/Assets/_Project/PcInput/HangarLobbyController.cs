@@ -68,6 +68,7 @@ namespace MeteorDefenseVR.PcInput
             flightCinematic.Initialize(flow,launch,result);
             Repair=gameObject.AddComponent<DockRepairController>();Repair.Initialize(Camera.main,font,flow,reset);
             initialized=true; Bind();
+            gameObject.AddComponent<ResultActionsView>().Initialize(Camera.main,font,result,this);
         }
         private void Bind()
         {
@@ -91,6 +92,15 @@ namespace MeteorDefenseVR.PcInput
             LastResult=result.Snapshot; result.HideResult(); reset.CancelResultTimer();
             if(flightCinematic!=null && flightCinematic.HasReturned) { flightCinematic.DismissDockedBackdrop(); EnterMenu(); return true; }
             SetPhase(LobbyPhase.Returning); audio?.TryPlay(AudioCue.EngineStart); return true;
+        }
+        public bool ChooseFromResult(bool replay)
+        {
+            if(!initialized || flow.CurrentState!=GameState.Result || !result.IsVisible || Phase!=LobbyPhase.Hidden) return false;
+            LastResult=result.Snapshot;
+            flightCinematic?.DismissDockedBackdrop();
+            EnterMenu();
+            if(replay) Execute(MenuAction.Replay);
+            return true;
         }
         public void Queue(MenuAction action)
         {
