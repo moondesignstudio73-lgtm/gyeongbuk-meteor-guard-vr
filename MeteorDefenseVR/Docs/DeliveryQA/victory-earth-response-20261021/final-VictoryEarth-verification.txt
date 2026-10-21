@@ -1,0 +1,446 @@
+Explicit state setup and direct real boss damage events; not a human playthrough. Campaign stage callbacks are real; only between-stage timers accelerated in an isolated settings clone.
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 1 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 2 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 3 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 4 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 5 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 6 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 7 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 8 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) intermediate 9 has no success=True
+reached Playing=True
+(800, 600) pickup present before final hit=True
+(800, 600)/before-final-hit: state=BossMeteor response=False ring=False lights=False age=0.000 count=0 score=22250
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) actual campaign complete=True
+(800, 600) final transition clears pickups including late boss callback=True
+(800, 600)/death-0: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(800, 600) debris wait=True
+(800, 600)/debris-045: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(800, 600) quiet before presentation=True
+(800, 600)/response-100: state=MissionComplete response=True ring=True lights=True age=0.211 count=1 score=26750
+(800, 600) final success once=True
+(800, 600)/response-145: state=MissionComplete response=True ring=True lights=True age=0.699 count=1 score=26750
+(800, 600) ring and guide lights visible=True
+(800, 600)/rotated-planet: state=MissionComplete response=True ring=True lights=True age=0.864 count=1 score=26750
+(800, 600) rotation preserves sphere radius=True
+(800, 600)/paused: state=MissionComplete response=True ring=False lights=False age=0.864 count=1 score=26750
+(800, 600) paused hidden and frozen=True
+(800, 600)/resumed: state=MissionComplete response=True ring=True lights=True age=0.996 count=1 score=26750
+(800, 600) resumes=True
+reached Result=True
+(800, 600)/result: state=Result response=False ring=False lights=False age=0.000 count=1 score=26750
+(800, 600) result data and actions preserved=True
+(800, 600)/result-action: state=Boot response=False ring=False lights=True age=0.000 count=0 score=0
+(800, 600) result action immediate=True
+boss exists=True
+duplicate destruction rejected=True
+(800, 600) single-session final boss=True
+(800, 600)/immediate-restart: state=Boot response=False ring=False lights=False age=0.000 count=0 score=0
+(800, 600) restart clears response=True
+(800, 600)/failure: state=Result response=False ring=False lights=False age=0.000 count=0 score=0
+(800, 600) failure never celebrates=True
+(800, 600)/unqualified-completion: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=0
+(800, 600) state without boss death cannot activate response or success message=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 1 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 2 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 3 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 4 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 5 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 6 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 7 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 8 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) intermediate 9 has no success=True
+reached Playing=True
+(1280, 720) pickup present before final hit=True
+(1280, 720)/before-final-hit: state=BossMeteor response=False ring=False lights=False age=0.000 count=0 score=22250
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) actual campaign complete=True
+(1280, 720) final transition clears pickups including late boss callback=True
+(1280, 720)/death-0: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(1280, 720) debris wait=True
+(1280, 720)/debris-045: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(1280, 720) quiet before presentation=True
+(1280, 720)/response-100: state=MissionComplete response=True ring=True lights=True age=0.256 count=1 score=26750
+(1280, 720) final success once=True
+(1280, 720)/response-145: state=MissionComplete response=True ring=True lights=True age=0.761 count=1 score=26750
+(1280, 720) ring and guide lights visible=True
+(1280, 720)/rotated-planet: state=MissionComplete response=True ring=True lights=True age=0.942 count=1 score=26750
+(1280, 720) rotation preserves sphere radius=True
+(1280, 720)/paused: state=MissionComplete response=True ring=False lights=False age=0.942 count=1 score=26750
+(1280, 720) paused hidden and frozen=True
+(1280, 720)/resumed: state=MissionComplete response=True ring=True lights=True age=1.089 count=1 score=26750
+(1280, 720) resumes=True
+reached Result=True
+(1280, 720)/result: state=Result response=False ring=False lights=False age=0.000 count=1 score=26750
+(1280, 720) result data and actions preserved=True
+(1280, 720)/result-action: state=Result response=False ring=False lights=True age=0.000 count=1 score=26750
+(1280, 720) result action immediate=True
+boss exists=True
+duplicate destruction rejected=True
+(1280, 720) single-session final boss=True
+(1280, 720)/immediate-restart: state=Boot response=False ring=False lights=False age=0.000 count=0 score=0
+(1280, 720) restart clears response=True
+(1280, 720)/failure: state=Result response=False ring=False lights=False age=0.000 count=0 score=0
+(1280, 720) failure never celebrates=True
+(1280, 720)/unqualified-completion: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=0
+(1280, 720) state without boss death cannot activate response or success message=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 1 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 2 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 3 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 4 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 5 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 6 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 7 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 8 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) intermediate 9 has no success=True
+reached Playing=True
+(1920, 1080) pickup present before final hit=True
+(1920, 1080)/before-final-hit: state=BossMeteor response=False ring=False lights=False age=0.000 count=0 score=22250
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) actual campaign complete=True
+(1920, 1080) final transition clears pickups including late boss callback=True
+(1920, 1080)/death-0: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(1920, 1080) debris wait=True
+(1920, 1080)/debris-045: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(1920, 1080) quiet before presentation=True
+(1920, 1080)/response-100: state=MissionComplete response=True ring=True lights=True age=0.389 count=1 score=26750
+(1920, 1080) final success once=True
+(1920, 1080)/response-145: state=MissionComplete response=True ring=True lights=True age=0.937 count=1 score=26750
+(1920, 1080) ring and guide lights visible=True
+(1920, 1080)/rotated-planet: state=MissionComplete response=True ring=True lights=True age=1.162 count=1 score=26750
+(1920, 1080) rotation preserves sphere radius=True
+(1920, 1080)/paused: state=MissionComplete response=True ring=False lights=False age=1.162 count=1 score=26750
+(1920, 1080) paused hidden and frozen=True
+(1920, 1080)/resumed: state=MissionComplete response=True ring=True lights=True age=1.353 count=1 score=26750
+(1920, 1080) resumes=True
+reached Result=True
+(1920, 1080)/result: state=Result response=False ring=False lights=False age=0.000 count=1 score=26750
+(1920, 1080) result data and actions preserved=True
+(1920, 1080)/result-action: state=Boot response=False ring=False lights=True age=0.000 count=0 score=0
+(1920, 1080) result action immediate=True
+boss exists=True
+duplicate destruction rejected=True
+(1920, 1080) single-session final boss=True
+(1920, 1080)/immediate-restart: state=Boot response=False ring=False lights=False age=0.000 count=0 score=0
+(1920, 1080) restart clears response=True
+(1920, 1080)/failure: state=Result response=False ring=False lights=False age=0.000 count=0 score=0
+(1920, 1080) failure never celebrates=True
+(1920, 1080)/unqualified-completion: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=0
+(1920, 1080) state without boss death cannot activate response or success message=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 1 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 2 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 3 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 4 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 5 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 6 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 7 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 8 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) intermediate 9 has no success=True
+reached Playing=True
+(1024, 768) pickup present before final hit=True
+(1024, 768)/before-final-hit: state=BossMeteor response=False ring=False lights=False age=0.000 count=0 score=22250
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) actual campaign complete=True
+(1024, 768) final transition clears pickups including late boss callback=True
+(1024, 768)/death-0: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(1024, 768) debris wait=True
+(1024, 768)/debris-045: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(1024, 768) quiet before presentation=True
+(1024, 768)/response-100: state=MissionComplete response=True ring=True lights=True age=0.233 count=1 score=26750
+(1024, 768) final success once=True
+(1024, 768)/response-145: state=MissionComplete response=True ring=True lights=True age=0.729 count=1 score=26750
+(1024, 768) ring and guide lights visible=True
+(1024, 768)/rotated-planet: state=MissionComplete response=True ring=True lights=True age=0.904 count=1 score=26750
+(1024, 768) rotation preserves sphere radius=True
+(1024, 768)/paused: state=MissionComplete response=True ring=False lights=False age=0.904 count=1 score=26750
+(1024, 768) paused hidden and frozen=True
+(1024, 768)/resumed: state=MissionComplete response=True ring=True lights=True age=1.044 count=1 score=26750
+(1024, 768) resumes=True
+reached Result=True
+(1024, 768)/result: state=Result response=False ring=False lights=False age=0.000 count=1 score=26750
+(1024, 768) result data and actions preserved=True
+(1024, 768)/result-action: state=Result response=False ring=False lights=True age=0.000 count=1 score=26750
+(1024, 768) result action immediate=True
+boss exists=True
+duplicate destruction rejected=True
+(1024, 768) single-session final boss=True
+(1024, 768)/immediate-restart: state=Boot response=False ring=False lights=False age=0.000 count=0 score=0
+(1024, 768) restart clears response=True
+(1024, 768)/failure: state=Result response=False ring=False lights=False age=0.000 count=0 score=0
+(1024, 768) failure never celebrates=True
+(1024, 768)/unqualified-completion: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=0
+(1024, 768) state without boss death cannot activate response or success message=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 1 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 2 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 3 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 4 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 5 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 6 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 7 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 8 has no success=True
+reached Playing=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) intermediate 9 has no success=True
+reached Playing=True
+(2560, 1080) pickup present before final hit=True
+(2560, 1080)/before-final-hit: state=BossMeteor response=False ring=False lights=False age=0.000 count=0 score=22250
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) actual campaign complete=True
+(2560, 1080) final transition clears pickups including late boss callback=True
+(2560, 1080)/death-0: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(2560, 1080) debris wait=True
+(2560, 1080)/debris-045: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=26750
+(2560, 1080) quiet before presentation=True
+(2560, 1080)/response-100: state=MissionComplete response=True ring=True lights=True age=0.433 count=1 score=26750
+(2560, 1080) final success once=True
+(2560, 1080)/response-145: state=MissionComplete response=True ring=True lights=True age=0.998 count=1 score=26750
+(2560, 1080) ring and guide lights visible=True
+(2560, 1080)/rotated-planet: state=MissionComplete response=True ring=True lights=True age=1.240 count=1 score=26750
+(2560, 1080) rotation preserves sphere radius=True
+(2560, 1080)/paused: state=MissionComplete response=True ring=False lights=False age=1.240 count=1 score=26750
+(2560, 1080) paused hidden and frozen=True
+(2560, 1080)/resumed: state=MissionComplete response=True ring=True lights=True age=1.445 count=1 score=26750
+(2560, 1080) resumes=True
+reached Result=True
+(2560, 1080)/result: state=Result response=False ring=False lights=False age=0.000 count=1 score=26750
+(2560, 1080) result data and actions preserved=True
+(2560, 1080)/result-action: state=Result response=False ring=False lights=True age=0.000 count=1 score=26750
+(2560, 1080) result action immediate=True
+boss exists=True
+duplicate destruction rejected=True
+(2560, 1080) single-session final boss=True
+(2560, 1080)/immediate-restart: state=Boot response=False ring=False lights=False age=0.000 count=0 score=0
+(2560, 1080) restart clears response=True
+(2560, 1080)/failure: state=Result response=False ring=False lights=False age=0.000 count=0 score=0
+(2560, 1080) failure never celebrates=True
+(2560, 1080)/unqualified-completion: state=MissionComplete response=False ring=False lights=False age=0.000 count=0 score=0
+(2560, 1080) state without boss death cannot activate response or success message=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 0=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 1=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 2=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 3=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 4=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 5=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 6=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 7=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 8=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 9=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 10=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 11=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 12=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 13=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 14=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 15=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 16=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 17=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 18=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 19=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 20=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 21=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 22=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 23=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 24=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 25=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 26=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 27=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 28=True
+boss exists=True
+duplicate destruction rejected=True
+repeat reset 29=True
+30 resets one pooled ring=True
+30 resets one shared material=True
+tracked camera unchanged=True
+CPU marker samples=0 maxMs=0.00000; GPU frame samples=0 maxMs=0.000. Zero samples means unavailable, not zero cost. No baseline speedup claim.
+passed=True

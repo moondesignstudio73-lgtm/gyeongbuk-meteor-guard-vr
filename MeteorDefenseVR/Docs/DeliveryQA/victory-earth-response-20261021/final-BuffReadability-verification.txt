@@ -1,0 +1,607 @@
+Actual scene and abilities; five render sizes; synthetic fixed target fixture. Human/HMD not tested.
+(1920, 1080)/none legacy hidden=True
+(1920, 1080)/none visible agrees=True
+(1920, 1080)/Heal legacy hidden=True
+(1920, 1080)/Heal visible agrees=True
+(1920, 1080)/Heal immediate fits and glyphPx=32.12=True
+(1920, 1080)/Heal immediate notice=True
+(1920, 1080)/Shield legacy hidden=True
+(1920, 1080)/Shield visible agrees=True
+(1920, 1080)/Shield complete name 방어막=True
+(1920, 1080)/Shield actual value 3=True
+(1920, 1080)/Shield fits=True clear=True minGlyph=36.18=True
+방어막 3회
+(1920, 1080)/DamageBoost legacy hidden=True
+(1920, 1080)/DamageBoost visible agrees=True
+(1920, 1080)/DamageBoost complete name 공격력 강화=True
+(1920, 1080)/DamageBoost actual value 10=True
+(1920, 1080)/DamageBoost fits=True clear=True minGlyph=35.01=True
+공격력 강화 10초
+(1920, 1080)/RapidFire legacy hidden=True
+(1920, 1080)/RapidFire visible agrees=True
+(1920, 1080)/RapidFire complete name 속사=True
+(1920, 1080)/RapidFire actual value 9=True
+(1920, 1080)/RapidFire fits=True clear=True minGlyph=35.38=True
+속사 9초
+(1920, 1080)/MultiLaser legacy hidden=True
+(1920, 1080)/MultiLaser visible agrees=True
+(1920, 1080)/MultiLaser complete name 다중 레이저=True
+(1920, 1080)/MultiLaser actual value 9=True
+(1920, 1080)/MultiLaser fits=True clear=True minGlyph=35.38=True
+다중 레이저 9초
+(1920, 1080)/Overdrive legacy hidden=True
+(1920, 1080)/Overdrive visible agrees=True
+(1920, 1080)/Overdrive complete name 과부하 레이저=True
+(1920, 1080)/Overdrive actual value 7=True
+(1920, 1080)/Overdrive fits=True clear=True minGlyph=35.01=True
+과부하 레이저 7초
+(1920, 1080)/SlowTime legacy hidden=True
+(1920, 1080)/SlowTime visible agrees=True
+(1920, 1080)/SlowTime complete name 운석 감속=True
+(1920, 1080)/SlowTime actual value 6=True
+(1920, 1080)/SlowTime fits=True clear=True minGlyph=35.38=True
+운석 감속 6초
+(1920, 1080)/EMP legacy hidden=True
+(1920, 1080)/EMP visible agrees=True
+(1920, 1080)/EMP immediate fits and glyphPx=32.12=True
+(1920, 1080)/EMP immediate notice=True
+(1920, 1080)/maximum-defense-long-name legacy hidden=True
+(1920, 1080)/maximum-defense-long-name visible agrees=True
+(1920, 1080)/maximum-defense-long-name complete name 방어막=True
+(1920, 1080)/maximum-defense-long-name actual value 3=True
+(1920, 1080)/maximum-defense-long-name complete name 공격력 강화=True
+(1920, 1080)/maximum-defense-long-name actual value 10=True
+(1920, 1080)/maximum-defense-long-name complete name 과부하 레이저=True
+(1920, 1080)/maximum-defense-long-name actual value 7=True
+(1920, 1080)/maximum-defense-long-name fits=True clear=True minGlyph=35.01=True
+방어막 3회|공격력 강화 10초|과부하 레이저 7초
+(1920, 1080)/shield-hit-count legacy hidden=True
+(1920, 1080)/shield-hit-count visible agrees=True
+(1920, 1080)/shield-hit-count complete name 방어막=True
+(1920, 1080)/shield-hit-count actual value 2=True
+(1920, 1080)/shield-hit-count complete name 공격력 강화=True
+(1920, 1080)/shield-hit-count actual value 10=True
+(1920, 1080)/shield-hit-count complete name 과부하 레이저=True
+(1920, 1080)/shield-hit-count actual value 7=True
+(1920, 1080)/shield-hit-count fits=True clear=True minGlyph=35.01=True
+방어막 2회|공격력 강화 10초|과부하 레이저 7초
+(1920, 1080)/maximum-weapons legacy hidden=True
+(1920, 1080)/maximum-weapons visible agrees=True
+(1920, 1080)/maximum-weapons complete name 속사=True
+(1920, 1080)/maximum-weapons actual value 9=True
+(1920, 1080)/maximum-weapons complete name 다중 레이저=True
+(1920, 1080)/maximum-weapons actual value 9=True
+(1920, 1080)/maximum-weapons complete name 운석 감속=True
+(1920, 1080)/maximum-weapons actual value 6=True
+(1920, 1080)/maximum-weapons fits=True clear=True minGlyph=35.38=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(1920, 1080)/target-crossing legacy hidden=True
+(1920, 1080)/target-crossing visible agrees=True
+(1920, 1080)/target-crossing complete name 속사=True
+(1920, 1080)/target-crossing actual value 9=True
+(1920, 1080)/target-crossing complete name 다중 레이저=True
+(1920, 1080)/target-crossing actual value 9=True
+(1920, 1080)/target-crossing complete name 운석 감속=True
+(1920, 1080)/target-crossing actual value 6=True
+(1920, 1080)/target-crossing fits=True clear=True minGlyph=35.38=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(1920, 1080)/ending-two-seconds legacy hidden=True
+(1920, 1080)/ending-two-seconds visible agrees=True
+(1920, 1080)/ending-two-seconds complete name 속사=True
+(1920, 1080)/ending-two-seconds actual value 2=True
+(1920, 1080)/ending-two-seconds complete name 다중 레이저=True
+(1920, 1080)/ending-two-seconds actual value 2=True
+(1920, 1080)/ending-two-seconds fits=True clear=True minGlyph=35.38=True
+속사 2초|다중 레이저 2초
+(1920, 1080)/refreshed legacy hidden=True
+(1920, 1080)/refreshed visible agrees=True
+(1920, 1080)/refreshed complete name 속사=True
+(1920, 1080)/refreshed actual value 6=True
+(1920, 1080)/refreshed complete name 다중 레이저=True
+(1920, 1080)/refreshed actual value 6=True
+(1920, 1080)/refreshed complete name 운석 감속=True
+(1920, 1080)/refreshed actual value 6=True
+(1920, 1080)/refreshed fits=True clear=True minGlyph=35.38=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(1920, 1080)/paused legacy hidden=True
+(1920, 1080)/paused visible agrees=True
+(1920, 1080)/paused complete name 속사=True
+(1920, 1080)/paused actual value 6=True
+(1920, 1080)/paused complete name 다중 레이저=True
+(1920, 1080)/paused actual value 6=True
+(1920, 1080)/paused complete name 운석 감속=True
+(1920, 1080)/paused actual value 6=True
+(1920, 1080)/paused fits=True clear=True minGlyph=35.38=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(1920, 1080) pause frozen=True
+(1920, 1080)/expired legacy hidden=True
+(1920, 1080)/expired visible agrees=True
+(1920, 1080)/defeated legacy hidden=True
+(1920, 1080)/defeated visible agrees=True
+(1920, 1080)/restarted legacy hidden=True
+(1920, 1080)/restarted visible agrees=True
+(1280, 720)/none legacy hidden=True
+(1280, 720)/none visible agrees=True
+(1280, 720)/Heal legacy hidden=True
+(1280, 720)/Heal visible agrees=True
+(1280, 720)/Heal immediate fits and glyphPx=21.41=True
+(1280, 720)/Heal immediate notice=True
+(1280, 720)/Shield legacy hidden=True
+(1280, 720)/Shield visible agrees=True
+(1280, 720)/Shield complete name 방어막=True
+(1280, 720)/Shield actual value 3=True
+(1280, 720)/Shield fits=True clear=True minGlyph=24.12=True
+방어막 3회
+(1280, 720)/DamageBoost legacy hidden=True
+(1280, 720)/DamageBoost visible agrees=True
+(1280, 720)/DamageBoost complete name 공격력 강화=True
+(1280, 720)/DamageBoost actual value 10=True
+(1280, 720)/DamageBoost fits=True clear=True minGlyph=23.34=True
+공격력 강화 10초
+(1280, 720)/RapidFire legacy hidden=True
+(1280, 720)/RapidFire visible agrees=True
+(1280, 720)/RapidFire complete name 속사=True
+(1280, 720)/RapidFire actual value 9=True
+(1280, 720)/RapidFire fits=True clear=True minGlyph=23.58=True
+속사 9초
+(1280, 720)/MultiLaser legacy hidden=True
+(1280, 720)/MultiLaser visible agrees=True
+(1280, 720)/MultiLaser complete name 다중 레이저=True
+(1280, 720)/MultiLaser actual value 9=True
+(1280, 720)/MultiLaser fits=True clear=True minGlyph=23.58=True
+다중 레이저 9초
+(1280, 720)/Overdrive legacy hidden=True
+(1280, 720)/Overdrive visible agrees=True
+(1280, 720)/Overdrive complete name 과부하 레이저=True
+(1280, 720)/Overdrive actual value 7=True
+(1280, 720)/Overdrive fits=True clear=True minGlyph=23.34=True
+과부하 레이저 7초
+(1280, 720)/SlowTime legacy hidden=True
+(1280, 720)/SlowTime visible agrees=True
+(1280, 720)/SlowTime complete name 운석 감속=True
+(1280, 720)/SlowTime actual value 6=True
+(1280, 720)/SlowTime fits=True clear=True minGlyph=23.58=True
+운석 감속 6초
+(1280, 720)/EMP legacy hidden=True
+(1280, 720)/EMP visible agrees=True
+(1280, 720)/EMP immediate fits and glyphPx=21.41=True
+(1280, 720)/EMP immediate notice=True
+(1280, 720)/maximum-defense-long-name legacy hidden=True
+(1280, 720)/maximum-defense-long-name visible agrees=True
+(1280, 720)/maximum-defense-long-name complete name 방어막=True
+(1280, 720)/maximum-defense-long-name actual value 3=True
+(1280, 720)/maximum-defense-long-name complete name 공격력 강화=True
+(1280, 720)/maximum-defense-long-name actual value 10=True
+(1280, 720)/maximum-defense-long-name complete name 과부하 레이저=True
+(1280, 720)/maximum-defense-long-name actual value 7=True
+(1280, 720)/maximum-defense-long-name fits=True clear=True minGlyph=23.34=True
+방어막 3회|공격력 강화 10초|과부하 레이저 7초
+(1280, 720)/shield-hit-count legacy hidden=True
+(1280, 720)/shield-hit-count visible agrees=True
+(1280, 720)/shield-hit-count complete name 방어막=True
+(1280, 720)/shield-hit-count actual value 2=True
+(1280, 720)/shield-hit-count complete name 공격력 강화=True
+(1280, 720)/shield-hit-count actual value 10=True
+(1280, 720)/shield-hit-count complete name 과부하 레이저=True
+(1280, 720)/shield-hit-count actual value 7=True
+(1280, 720)/shield-hit-count fits=True clear=True minGlyph=23.34=True
+방어막 2회|공격력 강화 10초|과부하 레이저 7초
+(1280, 720)/maximum-weapons legacy hidden=True
+(1280, 720)/maximum-weapons visible agrees=True
+(1280, 720)/maximum-weapons complete name 속사=True
+(1280, 720)/maximum-weapons actual value 9=True
+(1280, 720)/maximum-weapons complete name 다중 레이저=True
+(1280, 720)/maximum-weapons actual value 9=True
+(1280, 720)/maximum-weapons complete name 운석 감속=True
+(1280, 720)/maximum-weapons actual value 6=True
+(1280, 720)/maximum-weapons fits=True clear=True minGlyph=23.58=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(1280, 720)/target-crossing legacy hidden=True
+(1280, 720)/target-crossing visible agrees=True
+(1280, 720)/target-crossing complete name 속사=True
+(1280, 720)/target-crossing actual value 9=True
+(1280, 720)/target-crossing complete name 다중 레이저=True
+(1280, 720)/target-crossing actual value 9=True
+(1280, 720)/target-crossing complete name 운석 감속=True
+(1280, 720)/target-crossing actual value 6=True
+(1280, 720)/target-crossing fits=True clear=True minGlyph=23.58=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(1280, 720)/ending-two-seconds legacy hidden=True
+(1280, 720)/ending-two-seconds visible agrees=True
+(1280, 720)/ending-two-seconds complete name 속사=True
+(1280, 720)/ending-two-seconds actual value 2=True
+(1280, 720)/ending-two-seconds complete name 다중 레이저=True
+(1280, 720)/ending-two-seconds actual value 2=True
+(1280, 720)/ending-two-seconds fits=True clear=True minGlyph=23.58=True
+속사 2초|다중 레이저 2초
+(1280, 720)/refreshed legacy hidden=True
+(1280, 720)/refreshed visible agrees=True
+(1280, 720)/refreshed complete name 속사=True
+(1280, 720)/refreshed actual value 6=True
+(1280, 720)/refreshed complete name 다중 레이저=True
+(1280, 720)/refreshed actual value 6=True
+(1280, 720)/refreshed complete name 운석 감속=True
+(1280, 720)/refreshed actual value 6=True
+(1280, 720)/refreshed fits=True clear=True minGlyph=23.58=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(1280, 720)/paused legacy hidden=True
+(1280, 720)/paused visible agrees=True
+(1280, 720)/paused complete name 속사=True
+(1280, 720)/paused actual value 6=True
+(1280, 720)/paused complete name 다중 레이저=True
+(1280, 720)/paused actual value 6=True
+(1280, 720)/paused complete name 운석 감속=True
+(1280, 720)/paused actual value 6=True
+(1280, 720)/paused fits=True clear=True minGlyph=23.58=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(1280, 720) pause frozen=True
+(1280, 720)/expired legacy hidden=True
+(1280, 720)/expired visible agrees=True
+(1280, 720)/defeated legacy hidden=True
+(1280, 720)/defeated visible agrees=True
+(1280, 720)/restarted legacy hidden=True
+(1280, 720)/restarted visible agrees=True
+(1024, 768)/none legacy hidden=True
+(1024, 768)/none visible agrees=True
+(1024, 768)/Heal legacy hidden=True
+(1024, 768)/Heal visible agrees=True
+(1024, 768)/Heal immediate fits and glyphPx=19.78=True
+(1024, 768)/Heal immediate notice=True
+(1024, 768)/Shield legacy hidden=True
+(1024, 768)/Shield visible agrees=True
+(1024, 768)/Shield complete name 방어막=True
+(1024, 768)/Shield actual value 3=True
+(1024, 768)/Shield fits=True clear=True minGlyph=19.30=True
+방어막 3회
+(1024, 768)/DamageBoost legacy hidden=True
+(1024, 768)/DamageBoost visible agrees=True
+(1024, 768)/DamageBoost complete name 공격력 강화=True
+(1024, 768)/DamageBoost actual value 10=True
+(1024, 768)/DamageBoost fits=True clear=True minGlyph=18.67=True
+공격력 강화 10초
+(1024, 768)/RapidFire legacy hidden=True
+(1024, 768)/RapidFire visible agrees=True
+(1024, 768)/RapidFire complete name 속사=True
+(1024, 768)/RapidFire actual value 9=True
+(1024, 768)/RapidFire fits=True clear=True minGlyph=18.87=True
+속사 9초
+(1024, 768)/MultiLaser legacy hidden=True
+(1024, 768)/MultiLaser visible agrees=True
+(1024, 768)/MultiLaser complete name 다중 레이저=True
+(1024, 768)/MultiLaser actual value 9=True
+(1024, 768)/MultiLaser fits=True clear=True minGlyph=18.87=True
+다중 레이저 9초
+(1024, 768)/Overdrive legacy hidden=True
+(1024, 768)/Overdrive visible agrees=True
+(1024, 768)/Overdrive complete name 과부하 레이저=True
+(1024, 768)/Overdrive actual value 7=True
+(1024, 768)/Overdrive fits=True clear=True minGlyph=18.67=True
+과부하 레이저 7초
+(1024, 768)/SlowTime legacy hidden=True
+(1024, 768)/SlowTime visible agrees=True
+(1024, 768)/SlowTime complete name 운석 감속=True
+(1024, 768)/SlowTime actual value 6=True
+(1024, 768)/SlowTime fits=True clear=True minGlyph=18.87=True
+운석 감속 6초
+(1024, 768)/EMP legacy hidden=True
+(1024, 768)/EMP visible agrees=True
+(1024, 768)/EMP immediate fits and glyphPx=19.78=True
+(1024, 768)/EMP immediate notice=True
+(1024, 768)/maximum-defense-long-name legacy hidden=True
+(1024, 768)/maximum-defense-long-name visible agrees=True
+(1024, 768)/maximum-defense-long-name complete name 방어막=True
+(1024, 768)/maximum-defense-long-name actual value 3=True
+(1024, 768)/maximum-defense-long-name complete name 공격력 강화=True
+(1024, 768)/maximum-defense-long-name actual value 10=True
+(1024, 768)/maximum-defense-long-name complete name 과부하 레이저=True
+(1024, 768)/maximum-defense-long-name actual value 7=True
+(1024, 768)/maximum-defense-long-name fits=True clear=True minGlyph=18.67=True
+방어막 3회|공격력 강화 10초|과부하 레이저 7초
+(1024, 768)/shield-hit-count legacy hidden=True
+(1024, 768)/shield-hit-count visible agrees=True
+(1024, 768)/shield-hit-count complete name 방어막=True
+(1024, 768)/shield-hit-count actual value 2=True
+(1024, 768)/shield-hit-count complete name 공격력 강화=True
+(1024, 768)/shield-hit-count actual value 10=True
+(1024, 768)/shield-hit-count complete name 과부하 레이저=True
+(1024, 768)/shield-hit-count actual value 7=True
+(1024, 768)/shield-hit-count fits=True clear=True minGlyph=18.67=True
+방어막 2회|공격력 강화 10초|과부하 레이저 7초
+(1024, 768)/maximum-weapons legacy hidden=True
+(1024, 768)/maximum-weapons visible agrees=True
+(1024, 768)/maximum-weapons complete name 속사=True
+(1024, 768)/maximum-weapons actual value 9=True
+(1024, 768)/maximum-weapons complete name 다중 레이저=True
+(1024, 768)/maximum-weapons actual value 9=True
+(1024, 768)/maximum-weapons complete name 운석 감속=True
+(1024, 768)/maximum-weapons actual value 6=True
+(1024, 768)/maximum-weapons fits=True clear=True minGlyph=18.87=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(1024, 768)/target-crossing legacy hidden=True
+(1024, 768)/target-crossing visible agrees=True
+(1024, 768)/target-crossing complete name 속사=True
+(1024, 768)/target-crossing actual value 9=True
+(1024, 768)/target-crossing complete name 다중 레이저=True
+(1024, 768)/target-crossing actual value 9=True
+(1024, 768)/target-crossing complete name 운석 감속=True
+(1024, 768)/target-crossing actual value 6=True
+(1024, 768)/target-crossing fits=True clear=True minGlyph=18.87=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(1024, 768)/ending-two-seconds legacy hidden=True
+(1024, 768)/ending-two-seconds visible agrees=True
+(1024, 768)/ending-two-seconds complete name 속사=True
+(1024, 768)/ending-two-seconds actual value 2=True
+(1024, 768)/ending-two-seconds complete name 다중 레이저=True
+(1024, 768)/ending-two-seconds actual value 2=True
+(1024, 768)/ending-two-seconds fits=True clear=True minGlyph=18.87=True
+속사 2초|다중 레이저 2초
+(1024, 768)/refreshed legacy hidden=True
+(1024, 768)/refreshed visible agrees=True
+(1024, 768)/refreshed complete name 속사=True
+(1024, 768)/refreshed actual value 6=True
+(1024, 768)/refreshed complete name 다중 레이저=True
+(1024, 768)/refreshed actual value 6=True
+(1024, 768)/refreshed complete name 운석 감속=True
+(1024, 768)/refreshed actual value 6=True
+(1024, 768)/refreshed fits=True clear=True minGlyph=18.87=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(1024, 768)/paused legacy hidden=True
+(1024, 768)/paused visible agrees=True
+(1024, 768)/paused complete name 속사=True
+(1024, 768)/paused actual value 6=True
+(1024, 768)/paused complete name 다중 레이저=True
+(1024, 768)/paused actual value 6=True
+(1024, 768)/paused complete name 운석 감속=True
+(1024, 768)/paused actual value 6=True
+(1024, 768)/paused fits=True clear=True minGlyph=18.87=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(1024, 768) pause frozen=True
+(1024, 768)/expired legacy hidden=True
+(1024, 768)/expired visible agrees=True
+(1024, 768)/defeated legacy hidden=True
+(1024, 768)/defeated visible agrees=True
+(1024, 768)/restarted legacy hidden=True
+(1024, 768)/restarted visible agrees=True
+(800, 600)/none legacy hidden=True
+(800, 600)/none visible agrees=True
+(800, 600)/Heal legacy hidden=True
+(800, 600)/Heal visible agrees=True
+(800, 600)/Heal immediate fits and glyphPx=15.45=True
+(800, 600)/Heal immediate notice=True
+(800, 600)/Shield legacy hidden=True
+(800, 600)/Shield visible agrees=True
+(800, 600)/Shield complete name 방어막=True
+(800, 600)/Shield actual value 3=True
+(800, 600)/Shield fits=True clear=True minGlyph=15.08=True
+방어막 3회
+(800, 600)/DamageBoost legacy hidden=True
+(800, 600)/DamageBoost visible agrees=True
+(800, 600)/DamageBoost complete name 공격력 강화=True
+(800, 600)/DamageBoost actual value 10=True
+(800, 600)/DamageBoost fits=True clear=True minGlyph=14.59=True
+공격력 강화 10초
+(800, 600)/RapidFire legacy hidden=True
+(800, 600)/RapidFire visible agrees=True
+(800, 600)/RapidFire complete name 속사=True
+(800, 600)/RapidFire actual value 9=True
+(800, 600)/RapidFire fits=True clear=True minGlyph=14.74=True
+속사 9초
+(800, 600)/MultiLaser legacy hidden=True
+(800, 600)/MultiLaser visible agrees=True
+(800, 600)/MultiLaser complete name 다중 레이저=True
+(800, 600)/MultiLaser actual value 9=True
+(800, 600)/MultiLaser fits=True clear=True minGlyph=14.74=True
+다중 레이저 9초
+(800, 600)/Overdrive legacy hidden=True
+(800, 600)/Overdrive visible agrees=True
+(800, 600)/Overdrive complete name 과부하 레이저=True
+(800, 600)/Overdrive actual value 7=True
+(800, 600)/Overdrive fits=True clear=True minGlyph=14.59=True
+과부하 레이저 7초
+(800, 600)/SlowTime legacy hidden=True
+(800, 600)/SlowTime visible agrees=True
+(800, 600)/SlowTime complete name 운석 감속=True
+(800, 600)/SlowTime actual value 6=True
+(800, 600)/SlowTime fits=True clear=True minGlyph=14.74=True
+운석 감속 6초
+(800, 600)/EMP legacy hidden=True
+(800, 600)/EMP visible agrees=True
+(800, 600)/EMP immediate fits and glyphPx=15.45=True
+(800, 600)/EMP immediate notice=True
+(800, 600)/maximum-defense-long-name legacy hidden=True
+(800, 600)/maximum-defense-long-name visible agrees=True
+(800, 600)/maximum-defense-long-name complete name 방어막=True
+(800, 600)/maximum-defense-long-name actual value 3=True
+(800, 600)/maximum-defense-long-name complete name 공격력 강화=True
+(800, 600)/maximum-defense-long-name actual value 10=True
+(800, 600)/maximum-defense-long-name complete name 과부하 레이저=True
+(800, 600)/maximum-defense-long-name actual value 7=True
+(800, 600)/maximum-defense-long-name fits=True clear=True minGlyph=14.59=True
+방어막 3회|공격력 강화 10초|과부하 레이저 7초
+(800, 600)/shield-hit-count legacy hidden=True
+(800, 600)/shield-hit-count visible agrees=True
+(800, 600)/shield-hit-count complete name 방어막=True
+(800, 600)/shield-hit-count actual value 2=True
+(800, 600)/shield-hit-count complete name 공격력 강화=True
+(800, 600)/shield-hit-count actual value 10=True
+(800, 600)/shield-hit-count complete name 과부하 레이저=True
+(800, 600)/shield-hit-count actual value 7=True
+(800, 600)/shield-hit-count fits=True clear=True minGlyph=14.59=True
+방어막 2회|공격력 강화 10초|과부하 레이저 7초
+(800, 600)/maximum-weapons legacy hidden=True
+(800, 600)/maximum-weapons visible agrees=True
+(800, 600)/maximum-weapons complete name 속사=True
+(800, 600)/maximum-weapons actual value 9=True
+(800, 600)/maximum-weapons complete name 다중 레이저=True
+(800, 600)/maximum-weapons actual value 9=True
+(800, 600)/maximum-weapons complete name 운석 감속=True
+(800, 600)/maximum-weapons actual value 6=True
+(800, 600)/maximum-weapons fits=True clear=True minGlyph=14.74=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(800, 600)/target-crossing legacy hidden=True
+(800, 600)/target-crossing visible agrees=True
+(800, 600)/target-crossing complete name 속사=True
+(800, 600)/target-crossing actual value 9=True
+(800, 600)/target-crossing complete name 다중 레이저=True
+(800, 600)/target-crossing actual value 9=True
+(800, 600)/target-crossing complete name 운석 감속=True
+(800, 600)/target-crossing actual value 6=True
+(800, 600)/target-crossing fits=True clear=True minGlyph=14.74=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(800, 600)/ending-two-seconds legacy hidden=True
+(800, 600)/ending-two-seconds visible agrees=True
+(800, 600)/ending-two-seconds complete name 속사=True
+(800, 600)/ending-two-seconds actual value 2=True
+(800, 600)/ending-two-seconds complete name 다중 레이저=True
+(800, 600)/ending-two-seconds actual value 2=True
+(800, 600)/ending-two-seconds fits=True clear=True minGlyph=14.74=True
+속사 2초|다중 레이저 2초
+(800, 600)/refreshed legacy hidden=True
+(800, 600)/refreshed visible agrees=True
+(800, 600)/refreshed complete name 속사=True
+(800, 600)/refreshed actual value 6=True
+(800, 600)/refreshed complete name 다중 레이저=True
+(800, 600)/refreshed actual value 6=True
+(800, 600)/refreshed complete name 운석 감속=True
+(800, 600)/refreshed actual value 6=True
+(800, 600)/refreshed fits=True clear=True minGlyph=14.74=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(800, 600)/paused legacy hidden=True
+(800, 600)/paused visible agrees=True
+(800, 600)/paused complete name 속사=True
+(800, 600)/paused actual value 6=True
+(800, 600)/paused complete name 다중 레이저=True
+(800, 600)/paused actual value 6=True
+(800, 600)/paused complete name 운석 감속=True
+(800, 600)/paused actual value 6=True
+(800, 600)/paused fits=True clear=True minGlyph=14.74=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(800, 600) pause frozen=True
+(800, 600)/expired legacy hidden=True
+(800, 600)/expired visible agrees=True
+(800, 600)/defeated legacy hidden=True
+(800, 600)/defeated visible agrees=True
+(800, 600)/restarted legacy hidden=True
+(800, 600)/restarted visible agrees=True
+(2560, 1080)/none legacy hidden=True
+(2560, 1080)/none visible agrees=True
+(2560, 1080)/Heal legacy hidden=True
+(2560, 1080)/Heal visible agrees=True
+(2560, 1080)/Heal immediate fits and glyphPx=37.09=True
+(2560, 1080)/Heal immediate notice=True
+(2560, 1080)/Shield legacy hidden=True
+(2560, 1080)/Shield visible agrees=True
+(2560, 1080)/Shield complete name 방어막=True
+(2560, 1080)/Shield actual value 3=True
+(2560, 1080)/Shield fits=True clear=True minGlyph=36.18=True
+방어막 3회
+(2560, 1080)/DamageBoost legacy hidden=True
+(2560, 1080)/DamageBoost visible agrees=True
+(2560, 1080)/DamageBoost complete name 공격력 강화=True
+(2560, 1080)/DamageBoost actual value 10=True
+(2560, 1080)/DamageBoost fits=True clear=True minGlyph=35.01=True
+공격력 강화 10초
+(2560, 1080)/RapidFire legacy hidden=True
+(2560, 1080)/RapidFire visible agrees=True
+(2560, 1080)/RapidFire complete name 속사=True
+(2560, 1080)/RapidFire actual value 9=True
+(2560, 1080)/RapidFire fits=True clear=True minGlyph=35.38=True
+속사 9초
+(2560, 1080)/MultiLaser legacy hidden=True
+(2560, 1080)/MultiLaser visible agrees=True
+(2560, 1080)/MultiLaser complete name 다중 레이저=True
+(2560, 1080)/MultiLaser actual value 9=True
+(2560, 1080)/MultiLaser fits=True clear=True minGlyph=35.38=True
+다중 레이저 9초
+(2560, 1080)/Overdrive legacy hidden=True
+(2560, 1080)/Overdrive visible agrees=True
+(2560, 1080)/Overdrive complete name 과부하 레이저=True
+(2560, 1080)/Overdrive actual value 7=True
+(2560, 1080)/Overdrive fits=True clear=True minGlyph=35.01=True
+과부하 레이저 7초
+(2560, 1080)/SlowTime legacy hidden=True
+(2560, 1080)/SlowTime visible agrees=True
+(2560, 1080)/SlowTime complete name 운석 감속=True
+(2560, 1080)/SlowTime actual value 6=True
+(2560, 1080)/SlowTime fits=True clear=True minGlyph=35.38=True
+운석 감속 6초
+(2560, 1080)/EMP legacy hidden=True
+(2560, 1080)/EMP visible agrees=True
+(2560, 1080)/EMP immediate fits and glyphPx=37.09=True
+(2560, 1080)/EMP immediate notice=True
+(2560, 1080)/maximum-defense-long-name legacy hidden=True
+(2560, 1080)/maximum-defense-long-name visible agrees=True
+(2560, 1080)/maximum-defense-long-name complete name 방어막=True
+(2560, 1080)/maximum-defense-long-name actual value 3=True
+(2560, 1080)/maximum-defense-long-name complete name 공격력 강화=True
+(2560, 1080)/maximum-defense-long-name actual value 10=True
+(2560, 1080)/maximum-defense-long-name complete name 과부하 레이저=True
+(2560, 1080)/maximum-defense-long-name actual value 7=True
+(2560, 1080)/maximum-defense-long-name fits=True clear=True minGlyph=35.01=True
+방어막 3회|공격력 강화 10초|과부하 레이저 7초
+(2560, 1080)/shield-hit-count legacy hidden=True
+(2560, 1080)/shield-hit-count visible agrees=True
+(2560, 1080)/shield-hit-count complete name 방어막=True
+(2560, 1080)/shield-hit-count actual value 2=True
+(2560, 1080)/shield-hit-count complete name 공격력 강화=True
+(2560, 1080)/shield-hit-count actual value 10=True
+(2560, 1080)/shield-hit-count complete name 과부하 레이저=True
+(2560, 1080)/shield-hit-count actual value 7=True
+(2560, 1080)/shield-hit-count fits=True clear=True minGlyph=35.01=True
+방어막 2회|공격력 강화 10초|과부하 레이저 7초
+(2560, 1080)/maximum-weapons legacy hidden=True
+(2560, 1080)/maximum-weapons visible agrees=True
+(2560, 1080)/maximum-weapons complete name 속사=True
+(2560, 1080)/maximum-weapons actual value 9=True
+(2560, 1080)/maximum-weapons complete name 다중 레이저=True
+(2560, 1080)/maximum-weapons actual value 9=True
+(2560, 1080)/maximum-weapons complete name 운석 감속=True
+(2560, 1080)/maximum-weapons actual value 6=True
+(2560, 1080)/maximum-weapons fits=True clear=True minGlyph=35.38=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(2560, 1080)/target-crossing legacy hidden=True
+(2560, 1080)/target-crossing visible agrees=True
+(2560, 1080)/target-crossing complete name 속사=True
+(2560, 1080)/target-crossing actual value 9=True
+(2560, 1080)/target-crossing complete name 다중 레이저=True
+(2560, 1080)/target-crossing actual value 9=True
+(2560, 1080)/target-crossing complete name 운석 감속=True
+(2560, 1080)/target-crossing actual value 6=True
+(2560, 1080)/target-crossing fits=True clear=True minGlyph=35.38=True
+속사 9초|다중 레이저 9초|운석 감속 6초
+(2560, 1080)/ending-two-seconds legacy hidden=True
+(2560, 1080)/ending-two-seconds visible agrees=True
+(2560, 1080)/ending-two-seconds complete name 속사=True
+(2560, 1080)/ending-two-seconds actual value 2=True
+(2560, 1080)/ending-two-seconds complete name 다중 레이저=True
+(2560, 1080)/ending-two-seconds actual value 2=True
+(2560, 1080)/ending-two-seconds fits=True clear=True minGlyph=35.38=True
+속사 2초|다중 레이저 2초
+(2560, 1080)/refreshed legacy hidden=True
+(2560, 1080)/refreshed visible agrees=True
+(2560, 1080)/refreshed complete name 속사=True
+(2560, 1080)/refreshed actual value 6=True
+(2560, 1080)/refreshed complete name 다중 레이저=True
+(2560, 1080)/refreshed actual value 6=True
+(2560, 1080)/refreshed complete name 운석 감속=True
+(2560, 1080)/refreshed actual value 6=True
+(2560, 1080)/refreshed fits=True clear=True minGlyph=35.38=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(2560, 1080)/paused legacy hidden=True
+(2560, 1080)/paused visible agrees=True
+(2560, 1080)/paused complete name 속사=True
+(2560, 1080)/paused actual value 6=True
+(2560, 1080)/paused complete name 다중 레이저=True
+(2560, 1080)/paused actual value 6=True
+(2560, 1080)/paused complete name 운석 감속=True
+(2560, 1080)/paused actual value 6=True
+(2560, 1080)/paused fits=True clear=True minGlyph=35.38=True
+속사 6초|다중 레이저 6초|운석 감속 6초
+(2560, 1080) pause frozen=True
+(2560, 1080)/expired legacy hidden=True
+(2560, 1080)/expired visible agrees=True
+(2560, 1080)/defeated legacy hidden=True
+(2560, 1080)/defeated visible agrees=True
+(2560, 1080)/restarted legacy hidden=True
+(2560, 1080)/restarted visible agrees=True
+passed=True

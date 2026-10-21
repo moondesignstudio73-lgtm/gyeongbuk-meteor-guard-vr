@@ -4,11 +4,13 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-intro-transition-20261021)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-victory-earth-response-20261021)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
 3. 난이도를 고른 뒤 **시작**에 조준점을 맞춰 주세요. 처음이라면 **체험** 또는 **쉬움**이 좋아요.
+
+마지막 보스를 물리치면 지구 둘레에 보호 고리가 나타나고 방어 성공을 알려 줘요.
 
 ## 조작 방법
 
