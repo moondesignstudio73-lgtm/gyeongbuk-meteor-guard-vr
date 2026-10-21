@@ -1,4 +1,4 @@
-# 진행 중: 결과 기능/17개 관련검사 및110개 최종화면 PASS. 다음 행동: 클린빌드→ZIP별도실행→공개재다운로드검증.
+# 완료: windows-result-feedback-20261021 공개,17960da 최종ZIP실행 및 공개재다운로드해시 PASS. 다음 행동: 검토채팅에서 공개본확인/Drive·지속개선상태갱신.
 
 ## 현 구현 대조
 - 기준 공개판 windows-buff-readability-20261021, 소스 d748a47, 문서0bad52d.
@@ -28,3 +28,25 @@
 - 버튼y-.55는버튼배경이목표문구하단과겹쳐원본검수에서반려. 최종y-.7,버튼전체사각형과결과글자사이여백도QA에추가.
 - result-spacing-20261021.xml 1/1PASS,최신110렌더/0.5초UI클릭6회/즉시동작30회/재시작초기화/중복구독0 모두PASS.
 - result-final 2/2PASS + result-verified의논리13/격납고2 PASS를합쳐관련고유검사17개PASS. 최종1280원본에서버튼/목표/조종석비겹침확인.
+
+## 클린빌드/패키지
+- 17960daa60f42ad0bf994982553a1ae01b945c59,2026-10-21T18:47:55+09:00,Unity6000.5.10f1,worktreeClean=true.
+- 사용자 ProjectSettings는경로한정보관후복원,백업과줄바꿈정규화비교일치.커밋제외.
+- ZIP MeteorDefenseVR-Windows-ResultFeedback-20261021.zip,89,460,311bytes,222파일원본해시검증.
+- SHA256 f1346f1971e6ec97c77bb1cec524025d0eb437819455ed7f7845e0fdd1b1ae26.
+- FinalVerified 별도압축해제 실제실행검사중. GitHub 소스브랜치 push완료. 릴리스아직미공개.
+
+## 최종 ZIP 실제실행 PASS
+- 2026-10-21T09:48:58Z~09:51:24Z,Direct3D12,pc-soak.passed=true,issues=[].
+- 전체1라운드 점수4980/파괴21/오류0/경고0/평균89.933fps/2065objects/147materials.
+- ResultFeedback110개 실제렌더전부PASS,결과표시0.5초의실제UI.onClick 6회(메뉴/재출격)PASS,초기화6회PASS,즉시선택30회PASS,중복구독0.
+- 최종ZIP의5해상도원본을모두직접확인. 800최대자릿수,1024무성과0점,1280등급직전실패,1920최고등급성공,2560등급직전실패에서전체숫자/문구/버튼가림없음.
+- 해당장면은자동스냅샷fixture이며이점수를사람이실제로달성한관찰이아님. human/HMD 미검증,신규Suno승인대기보존.
+
+## 공개 배포 완료
+- Release419392292: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-result-feedback-20261021
+- ZIP: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-result-feedback-20261021/MeteorDefenseVR-Windows-ResultFeedback-20261021.zip
+- 2026-10-21T09:52:35.4224696Z 공개재다운로드89,460,311bytes/SHA256 f1346f1971e6ec97c77bb1cec524025d0eb437819455ed7f7845e0fdd1b1ae26 일치.
+- 증빙: Builds/Sharing/ResultFeedback20261021/public-download-verified.json, 본폴더 FinalVerified/MeteorDefenseVR-Windows-ResultFeedback-20261021/QA.
+- 최저문자높이800x600 12.67px(문장부호제외). 기존점수숫자2.3point유지/별도ResultReadabilityTests PASS.
+- README 최신공유링크/PLAYER_GUIDE 결과읽기갱신. 사용자설정변경만워크트리에남김. Drive는이번채팅에서수정하지않음.
