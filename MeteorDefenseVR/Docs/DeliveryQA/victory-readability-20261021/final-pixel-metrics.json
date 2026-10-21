@@ -1,0 +1,112 @@
+[
+  {
+    "path": "C:\\Users\\aaa\\OneDrive\\Desktop\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\VR20261021\\MeteorDefenseVR-Windows-VictoryReadable-20261021\\QA\\VictoryEarth\\1024x768\\response-145\\stability-game-render.png",
+    "width": 1024,
+    "height": 768,
+    "inkBands": [
+      [
+        135,
+        166
+      ],
+      [
+        192,
+        223
+      ]
+    ],
+    "inkHeights": [
+      32,
+      32
+    ],
+    "gap": 25,
+    "solidInkContrastAgainstBlack": 11.09,
+    "method": "Green pixel threshold G>100, G>1.4R, G>1.35B; rows with >3 pixels. Contrast uses mean solid ink G>180 against black panel; not antialias edges or human/HMD readability."
+  },
+  {
+    "path": "C:\\Users\\aaa\\OneDrive\\Desktop\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\VR20261021\\MeteorDefenseVR-Windows-VictoryReadable-20261021\\QA\\VictoryEarth\\1280x720\\response-145\\stability-game-render.png",
+    "width": 1280,
+    "height": 720,
+    "inkBands": [
+      [
+        122,
+        156
+      ],
+      [
+        183,
+        217
+      ]
+    ],
+    "inkHeights": [
+      35,
+      35
+    ],
+    "gap": 26,
+    "solidInkContrastAgainstBlack": 11.22,
+    "method": "Green pixel threshold G>100, G>1.4R, G>1.35B; rows with >3 pixels. Contrast uses mean solid ink G>180 against black panel; not antialias edges or human/HMD readability."
+  },
+  {
+    "path": "C:\\Users\\aaa\\OneDrive\\Desktop\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\VR20261021\\MeteorDefenseVR-Windows-VictoryReadable-20261021\\QA\\VictoryEarth\\1920x1080\\response-145\\stability-game-render.png",
+    "width": 1920,
+    "height": 1080,
+    "inkBands": [
+      [
+        183,
+        234
+      ],
+      [
+        275,
+        326
+      ]
+    ],
+    "inkHeights": [
+      52,
+      52
+    ],
+    "gap": 40,
+    "solidInkContrastAgainstBlack": 11.5,
+    "method": "Green pixel threshold G>100, G>1.4R, G>1.35B; rows with >3 pixels. Contrast uses mean solid ink G>180 against black panel; not antialias edges or human/HMD readability."
+  },
+  {
+    "path": "C:\\Users\\aaa\\OneDrive\\Desktop\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\VR20261021\\MeteorDefenseVR-Windows-VictoryReadable-20261021\\QA\\VictoryEarth\\2560x1080\\response-145\\stability-game-render.png",
+    "width": 2560,
+    "height": 1080,
+    "inkBands": [
+      [
+        175,
+        233
+      ],
+      [
+        280,
+        339
+      ]
+    ],
+    "inkHeights": [
+      59,
+      60
+    ],
+    "gap": 46,
+    "solidInkContrastAgainstBlack": 11.64,
+    "method": "Green pixel threshold G>100, G>1.4R, G>1.35B; rows with >3 pixels. Contrast uses mean solid ink G>180 against black panel; not antialias edges or human/HMD readability."
+  },
+  {
+    "path": "C:\\Users\\aaa\\OneDrive\\Desktop\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\VR20261021\\MeteorDefenseVR-Windows-VictoryReadable-20261021\\QA\\VictoryEarth\\800x600\\response-145\\stability-game-render.png",
+    "width": 800,
+    "height": 600,
+    "inkBands": [
+      [
+        106,
+        130
+      ],
+      [
+        150,
+        174
+      ]
+    ],
+    "inkHeights": [
+      25,
+      25
+    ],
+    "gap": 19,
+    "solidInkContrastAgainstBlack": 10.72,
+    "method": "Green pixel threshold G>100, G>1.4R, G>1.35B; rows with >3 pixels. Contrast uses mean solid ink G>180 against black panel; not antialias edges or human/HMD readability."
+  }
+]
