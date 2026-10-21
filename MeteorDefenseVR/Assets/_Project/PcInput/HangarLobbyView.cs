@@ -21,6 +21,7 @@ namespace MeteorDefenseVR.PcInput
         private Light[] lights;
         private Camera cameraView;
         private Vector3 panelPosition, panelScale;
+        private Material menuTextMaterial;
         public Transform DifficultyAnchor { get; private set; }
         public HangarMenuButton[] Buttons { get; private set; }
         public HangarRecordView Records { get; private set; }
@@ -73,7 +74,12 @@ namespace MeteorDefenseVR.PcInput
                 light.shadows=LightShadows.None; light.color=i==0?new Color(.44f,.8f,1):new Color(1,.78f,.47f); lights[i]=light;
             }
             // Warm the new text and Canvas geometry once, while no gameplay state is activated.
-            foreach(var text in panel.GetComponentsInChildren<TextMeshPro>(true)) text.ForceMeshUpdate(true);
+            // These labels belong to the interactive hologram, not the depth-tested hangar set.
+            // A private shared material keeps bay geometry and the UI depth pass from hiding letters.
+            menuTextMaterial=new Material(font.material){name="Hangar menu text overlay",renderQueue=4000};
+            menuTextMaterial.SetFloat("_ZTestMode",(float)UnityEngine.Rendering.CompareFunction.Always);
+            foreach(var text in panel.GetComponentsInChildren<TextMeshPro>(true))
+            {text.fontSharedMaterial=menuTextMaterial;text.ForceMeshUpdate(true);}
             Canvas.ForceUpdateCanvases(); panel.gameObject.SetActive(false); lightsRoot.SetActive(false);
         }
         public void Show(HangarLobbyController.LobbyPhase phase, GameSessionSnapshot snapshot, bool locked, MeteorDefenseVR.Difficulty.DifficultyLevel nextDifficulty)
@@ -173,6 +179,6 @@ namespace MeteorDefenseVR.PcInput
             var target=outline.gameObject.AddComponent<HangarMenuButton>(); target.Configure(feedback,ring,outline,action); return target;
         }
         private void OnDestroy()
-        { if(panel!=null) Destroy(panel.gameObject); if(lightsRoot!=null) Destroy(lightsRoot); }
+        { if(panel!=null) Destroy(panel.gameObject); if(lightsRoot!=null) Destroy(lightsRoot); if(menuTextMaterial!=null)Destroy(menuTextMaterial); }
     }
 }
