@@ -25,6 +25,7 @@ namespace MeteorDefenseVR.Visual
         private GameFlowManager flow;
         public static bool Available {get;private set;}
         public int SlotCount=>slots?.Length??0;
+        public int LastBossFragmentCount {get;private set;}
         public int ActiveParticleCount
         {
             get
@@ -106,6 +107,20 @@ namespace MeteorDefenseVR.Visual
         }
         private void Explode(Vector3 p)=>Queue(p,1);
         private void Boss(Vector3 p)=>Queue(p,2.8f);
+        private void BossFragments(Burst b)
+        {
+            // Use the existing pool. Eight short-lived pieces leave the aim area radially;
+            // no physics bodies, extra death event, or movement of the pilot camera.
+            var camera=Camera.main;Vector3 right=camera!=null?camera.transform.right:Vector3.right;
+            Vector3 up=camera!=null?camera.transform.up:Vector3.up;
+            for(int i=0;i<8;i++)
+            {
+                float angle=(i+.5f)*Mathf.PI/4;Vector3 direction=right*Mathf.Cos(angle)+up*Mathf.Sin(angle);
+                b.fragments.Emit(new ParticleSystem.EmitParams{position=b.position+direction*.35f,velocity=direction*6,
+                    startLifetime=.65f,startSize=.15f*b.scale,startColor=Color.white,applyShapeToPosition=false},1);
+            }
+            LastBossFragmentCount=8;
+        }
         private void Queue(Vector3 p,float scale)
         {if(slots==null)return;var b=slots[cursor++%slots.Length];b.position=p;b.scale=scale;b.delay=.065f;b.pending=true;}
         private void Update()
@@ -118,7 +133,8 @@ namespace MeteorDefenseVR.Visual
                 if(!b.pending)continue;b.delay-=Time.unscaledDeltaTime;if(b.delay>0)continue;b.pending=false;
                 b.hold=.07f;var plasma=b.fire.main;plasma.simulationSpeed=.18f;
                 Emit(b.fire,b.position,1,new Color(3.2f,3.2f,3.2f),b.scale*1.15f);Emit(b.sparks,b.position,b.scale>1?60:30,new Color(3,.85f,.08f),b.scale);
-                Emit(b.fragments,b.position,b.scale>1?20:12,Color.white,b.scale);Emit(b.smoke,b.position,7,new Color(.23f,.095f,.06f,.4f),b.scale);
+                if(b.scale>1)BossFragments(b);else Emit(b.fragments,b.position,12,Color.white,b.scale);
+                Emit(b.smoke,b.position,7,new Color(.23f,.095f,.06f,.4f),b.scale);
                 Emit(b.ring,b.position,1,new Color(2,.38f,.045f,.65f),b.scale);flash.transform.position=b.position;flash.color=new Color(1,.32f,.05f);flashTime=.23f;
             }
             for(int i=0;i<beams.Length;i++)

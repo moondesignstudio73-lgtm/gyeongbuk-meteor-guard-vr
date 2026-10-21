@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 namespace MeteorDefenseVR.Meteor
 {
@@ -14,16 +15,31 @@ namespace MeteorDefenseVR.Meteor
 
         private static readonly int EmissionColorId = Shader.PropertyToID("_EmissionColor");
         private MaterialPropertyBlock propertyBlock;
+        private BossShellPresentation shell;
+        private bool destructionHandled;
+        public BossShellPresentation Shell=>shell;
+        public int ExplosionCount {get;private set;}
 
         private void Awake()
         {
             propertyBlock = new MaterialPropertyBlock();
             if (meteor == null) meteor = GetComponent<MeteorController>();
             if (crackRenderers == null || crackRenderers.Length == 0) crackRenderers = GetComponentsInChildren<Renderer>();
+            EnsureShell();
         }
 
         private void OnEnable() => Subscribe();
-        private void OnDisable() => Unsubscribe();
+        private void OnDisable() { Unsubscribe();shell?.Reset(); }
+        private void Update(){if(Time.timeScale>0)shell?.Tick(Time.deltaTime);}
+        private void OnDestroy()=>shell?.Dispose();
+        private void EnsureShell()
+        {
+            if(shell!=null||!Application.isPlaying)return;
+            var filters=GetComponentsInChildren<MeshFilter>(true).Where(f=>f.transform==transform||f.name.StartsWith("LOD_")).ToArray();
+            var source=filters.FirstOrDefault(f=>f.name=="LOD_Mid")??filters.FirstOrDefault();
+            if(source==null||source.sharedMesh==null||!source.sharedMesh.isReadable)return;
+            shell=new BossShellPresentation(transform,source,filters.Select(f=>f.GetComponent<Renderer>()).Where(r=>r!=null).ToArray());
+        }
 
         public void Configure(MeteorController controller, Renderer[] renderers, Light light, AudioSource audioSource)
         {
@@ -42,9 +58,11 @@ namespace MeteorDefenseVR.Meteor
             meteor.Spawned -= HandleSpawned;
             meteor.Damaged -= HandleDamaged;
             meteor.Destroyed -= HandleDestroyed;
+            meteor.ResetPerformed -= HandleSpawned;
             meteor.Spawned += HandleSpawned;
             meteor.Damaged += HandleDamaged;
             meteor.Destroyed += HandleDestroyed;
+            meteor.ResetPerformed += HandleSpawned;
         }
 
         private void Unsubscribe()
@@ -53,18 +71,21 @@ namespace MeteorDefenseVR.Meteor
             meteor.Spawned -= HandleSpawned;
             meteor.Damaged -= HandleDamaged;
             meteor.Destroyed -= HandleDestroyed;
+            meteor.ResetPerformed -= HandleSpawned;
         }
 
-        private void HandleSpawned(MeteorController _) => SetCrackIntensity(0.35f);
+        private void HandleSpawned(MeteorController _) {destructionHandled=false;ExplosionCount=0;EnsureShell();shell?.Reset();SetCrackIntensity(0.35f);}
 
         private void HandleDamaged(MeteorController target, float _)
         {
             float damageProgress = target.MaxHealth > 0f ? 1f - target.CurrentHealth / target.MaxHealth : 1f;
             SetCrackIntensity(Mathf.Lerp(0.8f, 4.5f, damageProgress));
+            shell?.ApplyHealth(target.CurrentHealth,target.MaxHealth);
         }
 
         private void HandleDestroyed(MeteorController target)
         {
+            if(destructionHandled)return;destructionHandled=true;ExplosionCount++;
             SetCrackIntensity(6f);
             if (destructionAudioSource != null && destructionAudioSource.clip != null)
                 AudioSource.PlayClipAtPoint(destructionAudioSource.clip, target.transform.position);
@@ -91,6 +112,7 @@ namespace MeteorDefenseVR.Meteor
                 crackLight.color = new Color(1f, 0.05f, 0.01f);
                 crackLight.intensity = intensity;
             }
+            propertyBlock.Clear();propertyBlock.SetColor(EmissionColorId,emission);shell?.SetEmission(propertyBlock);
         }
     }
 }
