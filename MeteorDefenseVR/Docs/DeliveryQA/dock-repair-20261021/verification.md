@@ -1,4 +1,4 @@
-# 현재 단계: 신규 공개 보류—전환 직후 일부 글자 누락 원인 미확정. 다음 행동: TMP/렌더 출력 누락을 재현·해결하고 새 ZIP 검사 후 공개
+# 현재 단계: 원본 픽셀 회귀검사 통과, 최종 실행파일 제작 중. 다음 행동: ZIP 압축 해제 실행·원본 화면 확인 후 GitHub 공개
 
 ## 범위
 PLAY_REVIEW_20261019.md 항목5 도킹 수리 드론만 구현. 드론2대 접근→실제 손상 부위 스캔→체력에 연결한 균열 복원→청록 준비. 메뉴 사용 가능, 무손상 짧은 점검, 메뉴 전환/출격/리셋 시 정리. 결과 점수/표시 시간 유지. 사용자 ProjectSettings 보존, Suno 대기, Drive/연속개선 상태는 검토 채팅 담당.
@@ -50,3 +50,20 @@ PC 자동 입력 전투 / 명시적 상태·피해 fixture / 실제 플레이어
 - 1280×720 scan-repair/ready 및800×600 scan-repair 정상 글자 실제 확인. 그러나 approach 및 early-exit-scan 일부 이미지에 글자 누락 남음. 메뉴 전용overlay 재질만으로 전체 해결했다고 볼 수 없음.
 - QA에서 ForceMeshUpdate 및2프레임 대기 실험: early-exit-scan은 정상 출력되었으나 approach 누락 지속. 따라서 검사 캡처 시점만의 문제로 확정하지 않음. 실험용 DockRepairProof 변경은 되돌림. 반복 테스트 XML은 ignored 진단 자료로 보존.
 - 신규 GitHub release 생성/업로드/공개를 수행하지 않았음. 기존 공개 meteor-damage 릴리스 유지. Suno 음원 추가 안 함. 사용자 ProjectSettings는 별도 백업과 줄바꿈 정규화 비교로 복원 확인.
+
+
+## 깊이 가림 원인 조사
+- 정상/누락 모두 TMP active=true, alpha=1, clipRect전체, keywords없음, CanvasGroup/RectMask2D없음. DepthDiagnosis 폴더에 원본/외부Renderer제외 동일프레임 비교 및상태로그 보존.
+- 외부Renderer를 제외하면 누락글자 모두표시. 기존 Mobile SDF 소스는 ZTest [unity_GUIZTestMode] 사용. 이전 _ZTestMode setter는 해당 렌더 상태를 바꾸지 않음.
+- 기존 TMP Mobile Overlay 소스의 ZTest Always를 도킹전용 Resources/DockTextOverlay.shader로 포함, 메뉴 및 수리안내에만 사용. 전역폰트/카메라 변경없음.
+- 최초후검사: 대다수누락해소, 접근첫프레임 눈 위치 맞추기의 첫글자 추가확인중. 준비청록색은 픽셀 검사 r>.15 조건으로 오검출되어색의g/b기준으로정정. 검사상태값통과와 실제픽셀확인은구분.
+
+
+## 원인 정정 — 원본 해상도 검사 (최신 결론)
+- 앞선 깊이 가림/캐시 원인 추정은 확정 근거가 부족했음. 같은 PNG를 view_image 기본 detail/high 및 image 기본 전달로 볼 때 글자 일부가 누락된 것처럼 나타났지만, view_image detail original + image(url, original) 전달 시 전체 글자가 정상 표시됨.
+- 기존 a075f4b FinalExtractOverlay/1280x720/approach 원본의 눈 글자 영역(x465–479,y263–277)은 실제 청록 픽셀59개. 새실험후 원본도59개. 원본 영역을 최근접 확대하여 눈 위치 맞추기의 전체문자를 확인. 원본 파일 복사 해시 일치도 확인.
+- 따라서 실제 게임의 깊이 결함이 재현되었다고 결론내리지 않음. 외부Renderer제외 비교의 미리보기만으로 원인을 단정한 판단은 철회. 실험용 DockTextOverlay 셰이더와 메뉴/상태재질 변경은 전부 되돌림.
+- 남은 변경은 QA InspectTextPixels: 기존과 동일한 무수정 캡처 PNG에서 문자별 투영영역의 밝은 청록 픽셀 존재를 검사하며, ForceMeshUpdate나 추가대기로 통과를 만들지 않음. 메타데이터만이 아닌 실제PNG 픽셀 검사이며 최종 원본해상도 육안확인을 함께 수행.
+- 실패보고의 핵심은 이미지 검사 표시방식 오판. 최종확인에는 반드시 view_image(detail original) 결과를 image(data, original)로 전달. 기존 원본 PNG에 없던 내용을 생성/보완하지 않음.
+
+- 최종 원복 상태: dock-original-pixels-20261021.xml 3/3 통과, PNG 문자검사113행 전부pass=true. 7b6cfc7에는 QA 픽셀검사만 추가. 실험셰이더없음. 게임표시 원인으로의 단정은 철회된 상태.
