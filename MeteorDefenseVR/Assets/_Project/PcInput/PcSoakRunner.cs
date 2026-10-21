@@ -356,6 +356,8 @@ namespace MeteorDefenseVR.PcInput
                 if(viewSettingsQa)
                     yield return ViewSettingsProof.Run(router,Path.Combine(output,"ViewSettings"),true,
                         passed=>{if(!passed)report.issues.Add("View settings fixture failed");});
+                if(audioControlsQa)
+                    yield return AudioControlsProof.Run(router,Path.Combine(output,"AudioControls"),passed=>{if(!passed)report.issues.Add("Audio controls fixture failed");});
                 if(powerUpQa)
                     yield return PowerUpFeedbackProof.Run(router,Path.Combine(output,"PowerUpFeedback"),
                         passed=>{if(!passed)report.issues.Add("Power-up feedback fixture failed");});
