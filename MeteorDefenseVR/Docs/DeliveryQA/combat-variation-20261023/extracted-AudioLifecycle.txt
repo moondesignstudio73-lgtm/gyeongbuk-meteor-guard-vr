@@ -1,0 +1,44 @@
+Controlled real scene states/health events and real-time DSP source timeline; not natural human play or human listening. Source RMS cannot prove perceptual masking or final speaker loudness.
+t=0.952 segment=boot state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+t=2.063 segment=boot state=Playing hp=100 cue=Countdown category=Voice
+t=2.063 segment=boot state=Playing hp=100 cue=BgmBattle category=Bgm
+actual shield activated=True
+shield hit rejects hull damage=True
+t=3.752 segment=shield-hit state=Playing hp=100 cue=Warning category=UI
+shield hit leaves hull healthy; spatial warnings remain valid=True
+t=3.919 segment=shield-hit state=Playing hp=15 cue=PlayerDamage category=Sfx
+t=3.919 segment=shield-hit state=Playing hp=15 cue=GlassHit category=Sfx
+t=4.918 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=5.607 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=7.129 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=8.630 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=9.919 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=10.286 segment=critical-combat state=Playing hp=5 cue=PlayerDamage category=Sfx
+t=10.286 segment=critical-combat state=Playing hp=5 cue=GlassHit category=Sfx
+t=10.619 segment=critical-combat state=Playing hp=5 cue=Warning category=UI
+critical warnings present and bounded with shared cooldown=True
+t=11.197 segment=critical-combat state=BossMeteor hp=100 cue=BgmBoss category=Bgm
+t=11.197 segment=critical-combat state=BossMeteor hp=100 cue=BossWarning category=Voice
+paused music transition freezes clip and fade=True
+no new warnings during pause=True
+t=14.008 segment=boss-resumed state=BossMeteor hp=100 cue=Warning category=UI
+t=14.019 segment=boss-resumed state=BossMeteor hp=90 cue=PlayerDamage category=Sfx
+t=14.019 segment=boss-resumed state=BossMeteor hp=90 cue=GlassHit category=Sfx
+music transition finishes after resume=True
+t=15.008 segment=boss-approach state=BossMeteor hp=90 cue=TargetFocus category=UI
+t=15.142 segment=boss-approach state=BossMeteor hp=90 cue=BossExplosion category=Sfx
+t=15.142 segment=boss-approach state=MissionComplete hp=90 cue=BgmResult category=Bgm
+boss destruction drives victory state=True
+victory stops recurring danger warnings=True
+t=17.253 segment=victory state=Result hp=90 cue=Result category=UI
+t=19.353 segment=restart state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+t=19.564 segment=restart state=Playing hp=100 cue=Countdown category=Voice
+t=19.565 segment=restart state=Playing hp=100 cue=BgmBattle category=Bgm
+t=20.120 segment=second-combat state=Playing hp=0 cue=PlayerDamage category=Sfx
+t=20.120 segment=second-combat state=Playing hp=0 cue=GlassHit category=Sfx
+t=20.571 segment=failure-return-tail state=Result hp=0 cue=BgmResult category=Bgm
+t=25.317 segment=failure-return-result state=Result hp=0 cue=Result category=UI
+failure return stops recurring danger warnings=True
+t=27.750 segment=final-reset state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+reset has no lingering effect loops=True
+passed=True
