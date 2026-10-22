@@ -50,12 +50,7 @@ namespace MeteorDefenseVR.PcInput
             root.transform.SetPositionAndRotation(seat+facing*new Vector3(0,-.7f*fit,3.86f),facing);
             root.transform.localScale=Vector3.one*(.0045f*fit);
         }
-        private void LateUpdate()
-        {
-            Present();
-            if(Visible&&Time.timeScale>0&&Mouse.current!=null&&Mouse.current.leftButton.wasPressedThisFrame)
-            {if(gaze.CurrentTarget==Replay)Replay.Click();else if(gaze.CurrentTarget==Menu)Menu.Click();}
-        }
+        private void LateUpdate() => Present();
         private void OnDisable(){if(root!=null)root.SetActive(false);}
         private void OnDestroy(){if(result!=null){result.ResultHidden-=Hide;result.ResultShown-=Show;}if(root!=null)Destroy(root);if(textOverlay!=null)Destroy(textOverlay);}
     }

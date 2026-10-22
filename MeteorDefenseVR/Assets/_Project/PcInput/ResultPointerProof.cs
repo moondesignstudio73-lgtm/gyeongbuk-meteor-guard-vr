@@ -99,7 +99,21 @@ namespace MeteorDefenseVR.PcInput
                 yield return Pointer(actions.Menu.GetComponent<UnityEngine.UI.Button>());Check(lobby.IsMenuReady&&hidden==blockedHidden+1,"underlying menu still works once after modal closes");
                 // Existing lobby menus remain gaze/collider driven: do not enable their UI graphics.
                 var others=FindObjectsByType<HangarMenuButton>(FindObjectsInactive.Include).Where(b=>b!=actions.Replay&&b!=actions.Menu).ToArray();
-                Check(others.All(b=>!b.AllowImmediateClick&&!b.GetComponent<UnityEngine.UI.Image>().raycastTarget),"other menu pointer/gaze configuration unchanged");
+                Check(others.All(b=>!b.AllowImmediateClick),"other menu pointer/gaze configuration unchanged");
+                router.SetMode(PcGazeMode.MouseGaze);router.InputSuspended=false;
+                var ranking=others.Single(b=>b.name=="Ranking");
+                yield return Pointer(ranking.GetComponent<UnityEngine.UI.Button>(),!ranking.GetComponent<UnityEngine.UI.Image>().raycastTarget);
+                Check(lobby.IsMenuReady,"other lobby menu early click retains guard");
+                yield return Delay(.45f);
+                yield return Pointer(ranking.GetComponent<UnityEngine.UI.Button>(),!ranking.GetComponent<UnityEngine.UI.Image>().raycastTarget);yield return Delay(.3f);
+                Check(lobby.Phase==HangarLobbyController.LobbyPhase.Records,"other lobby menu later click works");
+                yield return Show();router.SetMode(PcGazeMode.MouseGaze);router.InputSuspended=false;
+                InputSystem.QueueStateEvent(mouse,new MouseState{position=new Vector2(20,20)});yield return Delay(.05f);
+                InputSystem.QueueStateEvent(mouse,new MouseState{position=Point(actions.Menu.GetComponent<UnityEngine.UI.Button>())});yield return Delay(.15f);
+                int gazeHidden=hidden,gazeClicks=menu.Clicks;
+                Check(result.IsVisible&&actions.Menu.Progress==0&&router.IsTrackingValid,"actual mouse-gaze hover keeps early dwell guard");
+                yield return Delay(1.3f);
+                Check(lobby.IsMenuReady&&hidden==gazeHidden+1&&menu.Clicks==gazeClicks,"world gaze dwell selects once without pointer click");
                 // Separate gate contract: immediate pointer opt-in must not open the gaze gate early.
                 var gate=new GazeMenuSelectionGate();gate.OpenScreen();yield return Delay(.15f);Check(!gate.IsOpen,"gaze gate closed at0.15s");
                 yield return Delay(.3f);Check(gate.IsOpen,"gaze gate opens after0.4s");

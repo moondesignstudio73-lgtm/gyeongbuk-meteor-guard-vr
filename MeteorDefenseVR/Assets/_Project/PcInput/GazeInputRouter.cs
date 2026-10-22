@@ -131,6 +131,18 @@ namespace MeteorDefenseVR.PcInput
             return (!InputSuspended||Simulation!=null&&Simulation.IsPaused)&&!CalibrationInProgress&&!EducationModalOpen&&active!=null&&active.IsTrackingValid;
         }
         public Vector3 GetGazeDirection() => GetGazeRay().direction;
-        private bool PointerOverUi() => (Simulation == null || !Simulation.UsesCenterAim) && (ActiveMode == PcGazeMode.MouseGaze || ActiveMode == PcGazeMode.WindowsVRSimulation) && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        private bool PointerOverUi()
+        {
+            if (Simulation != null && Simulation.UsesCenterAim || ActiveMode != PcGazeMode.MouseGaze && ActiveMode != PcGazeMode.WindowsVRSimulation || EventSystem.current == null || !EventSystem.current.IsPointerOverGameObject()) return false;
+            // Result buttons share pointer clicks and the existing world-space dwell target.
+            // Settings/modals still block through UiModalOpen and their own topmost UI target.
+            if (Mouse.current != null && EventSystem.current.currentInputModule is UnityEngine.InputSystem.UI.InputSystemUIInputModule module)
+            {
+                var hit = module.GetLastRaycastResult(Mouse.current.deviceId).gameObject;
+                var button = hit != null ? hit.GetComponentInParent<HangarMenuButton>() : null;
+                if (button != null && button.AllowImmediateClick) return false;
+            }
+            return true;
+        }
     }
 }
