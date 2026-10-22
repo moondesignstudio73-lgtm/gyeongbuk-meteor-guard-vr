@@ -346,7 +346,10 @@ namespace MeteorDefenseVR.PcInput
                     yield return ResultFeedbackProof.Run(router,Path.Combine(output,"ResultFeedback"),true,
                         passed=>{if(!passed)report.issues.Add("Result feedback fixture failed");});
                 if(controlDroneQa)
+                {
                     yield return ControlDroneProof.Run(router,Path.Combine(output,"ControlDrone"),passed=>{if(!passed)report.issues.Add("Control drone fixture failed");});
+                    yield return ControlReturnScanProof.Run(router,Path.Combine(output,"ControlReturnScan"),passed=>{if(!passed)report.issues.Add("Control return scan fixture failed");});
+                }
                 if(victoryEarthQa)
                     yield return VictoryEarthProof.Run(router,Path.Combine(output,"VictoryEarth"),true,passed=>{if(!passed)report.issues.Add("Victory Earth fixture failed");});
                 if(introTransitionQa)

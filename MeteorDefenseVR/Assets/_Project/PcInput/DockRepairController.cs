@@ -50,6 +50,12 @@ namespace MeteorDefenseVR.PcInput
             foreach(var collider in copy.GetComponentsInChildren<Collider>(true)){collider.enabled=false;Destroy(collider);}
             return copy;
         }
+        public LineRenderer CreateControlScan(Transform parent)
+        {
+            var copy=Instantiate(scans[0],parent,false);
+            copy.name="ControlReturnScan";copy.enabled=false;
+            return copy;
+        }
         public void BeginDocked()
         {
             Cancel(false);

@@ -18,6 +18,9 @@ namespace MeteorDefenseVR.PcInput
         public float ReturnProgress => Mathf.Clamp01(elapsed / ReturnSeconds);
         public float DoorOpening { get; private set; }
         public float BlurStrength { get; private set; }
+        public int ReturnSequence { get; private set; }
+        public Transform ReturnShip => CurrentShot == Shot.Return ? ship : null;
+        public Transform ReturnSet => stage;
         public const float ReturnSeconds = 5.2f;
         private GameFlowManager flow;
         private LaunchSequenceController launch;
@@ -69,6 +72,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void Begin(Shot shot)
         {
+            if (shot == Shot.Return) ReturnSequence++;
             CurrentShot = shot; elapsed = fade = 0; HasReturned = false;
             xr = XRSettings.isDeviceActive || Camera.main.stereoEnabled;
             filmCamera.enabled = true; stage.gameObject.SetActive(true); canvas.gameObject.SetActive(true);
