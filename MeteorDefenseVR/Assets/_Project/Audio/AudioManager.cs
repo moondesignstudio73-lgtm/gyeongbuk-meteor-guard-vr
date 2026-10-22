@@ -32,6 +32,16 @@ namespace MeteorDefenseVR.Audio
         private float fadeGain, fadeElapsed, phaseDuration, fadeStartGain, incomingDuration;
         private float presentationGain = 1f, presentationTarget = 1f;
         private float presentationSfxPitch = 1f;
+        private float warningMusicGain = 1f, warningMusicHold;
+        public float WarningMusicGain => warningMusicGain;
+        private void TickWarningMusic(float delta)
+        {
+            if (HasCriticalVoice) warningMusicHold = .35f;
+            else warningMusicHold = Mathf.Max(0f, warningMusicHold - delta);
+            float target = HasCriticalVoice || warningMusicHold > 0f ? .35f : 1f;
+            warningMusicGain = Mathf.MoveTowards(warningMusicGain, target,
+                delta * .65f / (target < warningMusicGain ? .15f : .8f));
+        }
         public float PresentationGain => presentationGain;
         public void SetPresentationBgmGain(float gain) => presentationTarget = SafeVolume(gain);
         public void SetPresentationSfxPitch(float pitch) => presentationSfxPitch = Mathf.Clamp(pitch, .85f, 1.25f);
@@ -93,6 +103,7 @@ namespace MeteorDefenseVR.Audio
             // A timeScale-only reset still fades out on unscaled time as before.
             if (AudioListener.pause) return;
             ReapVoices();
+            TickWarningMusic(Time.unscaledDeltaTime);
             presentationGain = Mathf.MoveTowards(presentationGain, presentationTarget, Time.unscaledDeltaTime * 3f);
             TickBgm(Time.unscaledDeltaTime);
             ApplyMix();
@@ -181,6 +192,8 @@ namespace MeteorDefenseVR.Audio
         private void StopEffects()
         {
             StopVoices();
+            warningMusicHold = 0f;
+            warningMusicGain = 1f;
             StopSource(uiSource);
             StopSource(sfxSource);
             StopSource(voiceSource);
@@ -278,7 +291,8 @@ namespace MeteorDefenseVR.Audio
             float master = SafeVolume(masterVolume, 0.7f);
             if (bgmSource != null)
             {
-                bgmSource.volume = master * SafeVolume(bgmVolume) * (playingBgm?.Volume ?? 0f) * fadeGain * presentationGain;
+                // One attenuation: boss presentation and critical warnings never stack.
+                bgmSource.volume = master * SafeVolume(bgmVolume) * (playingBgm?.Volume ?? 0f) * fadeGain * Mathf.Min(presentationGain, warningMusicGain);
                 bgmSource.mute = bgmMute;
             }
             if (uiSource != null) uiSource.volume = master * channelTrim[(int)AudioCategory.UI];

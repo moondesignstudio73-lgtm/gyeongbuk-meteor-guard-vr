@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="29" result="Passed" total="29" passed="29" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-22 10:08:29Z" end-time="2026-10-22 10:08:41Z" duration="11.3902016">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="438" result="Passed" start-time="2026-10-22 10:08:29Z" end-time="2026-10-22 10:08:41Z" duration="11.390202" total="29" passed="29" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1568" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="438" result="Passed" start-time="2026-10-22 10:08:30Z" end-time="2026-10-22 10:08:41Z" duration="11.190714" total="29" passed="29" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="18856" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1569" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="438" result="Passed" start-time="2026-10-22 10:08:30Z" end-time="2026-10-22 10:08:41Z" duration="11.188279" total="29" passed="29" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1570" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="438" result="Passed" start-time="2026-10-22 10:08:30Z" end-time="2026-10-22 10:08:41Z" duration="11.185371" total="29" passed="29" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1004" name="AudioControlsTests" fullname="MeteorDefenseVR.Tests.AudioControlsTests" classname="MeteorDefenseVR.Tests.AudioControlsTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-22 10:06:11Z" end-time="2026-10-22 10:07:03Z" duration="52.161280" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1005" name="FourChannelsAndContinuousSettingsInput" fullname="MeteorDefenseVR.Tests.AudioControlsTests.FourChannelsAndContinuousSettingsInput" methodname="FourChannelsAndContinuousSettingsInput" classname="MeteorDefenseVR.Tests.AudioControlsTests" runstate="Runnable" seed="1939056850" result="Passed" start-time="2026-10-22 10:05:46Z" end-time="2026-10-22 10:07:03Z" duration="77.135402" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1006" name="AudioLifecycleTests" fullname="MeteorDefenseVR.Tests.AudioLifecycleTests" classname="MeteorDefenseVR.Tests.AudioLifecycleTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-22 10:07:15Z" end-time="2026-10-22 10:07:53Z" duration="38.193169" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1007" name="ContinuousWarningsAndPauseTransition" fullname="MeteorDefenseVR.Tests.AudioLifecycleTests.ContinuousWarningsAndPauseTransition" methodname="ContinuousWarningsAndPauseTransition" classname="MeteorDefenseVR.Tests.AudioLifecycleTests" runstate="Runnable" seed="1568869748" result="Passed" start-time="2026-10-22 10:07:03Z" end-time="2026-10-22 10:07:53Z" duration="50.271566" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1008" name="AudioManagerTests" fullname="MeteorDefenseVR.Tests.AudioManagerTests" classname="MeteorDefenseVR.Tests.AudioManagerTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-22 10:07:53Z" end-time="2026-10-22 10:07:53Z" duration="0.008903" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1010" name="DifferentCues_DoNotBlockEachOther" fullname="MeteorDefenseVR.Tests.AudioManagerTests.DifferentCues_DoNotBlockEachOther" methodname="DifferentCues_DoNotBlockEachOther" classname="MeteorDefenseVR.Tests.AudioManagerTests" runstate="Runnable" seed="1414567714" result="Passed" start-time="2026-10-22 10:07:53Z" end-time="2026-10-22 10:07:53Z" duration="0.002905" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1012" name="MissingCue_IsRejected" fullname="MeteorDefenseVR.Tests.AudioManagerTests.MissingCue_IsRejected" methodname="MissingCue_IsRejected" classname="MeteorDefenseVR.Tests.AudioManagerTests" runstate="Runnable" seed="1795241595" result="Passed" start-time="2026-10-22 10:07:53Z" end-time="2026-10-22 10:07:53Z" duration="0.000433" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1011" name="StopAll_ClearsCooldownState" fullname="MeteorDefenseVR.Tests.AudioManagerTests.StopAll_ClearsCooldownState" methodname="StopAll_ClearsCooldownState" classname="MeteorDefenseVR.Tests.AudioManagerTests" runstate="Runnable" seed="956223969" result="Passed" start-time="2026-10-22 10:07:53Z" end-time="2026-10-22 10:07:53Z" duration="0.000303" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1009" name="TryPlay_AppliesPerCueCooldown" fullname="MeteorDefenseVR.Tests.AudioManagerTests.TryPlay_AppliesPerCueCooldown" methodname="TryPlay_AppliesPerCueCooldown" classname="MeteorDefenseVR.Tests.AudioManagerTests" runstate="Runnable" seed="142286950" result="Passed" start-time="2026-10-22 10:07:53Z" end-time="2026-10-22 10:07:53Z" duration="0.003683" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1013" name="AudioPriorityTests" fullname="MeteorDefenseVR.Tests.AudioPriorityTests" classname="MeteorDefenseVR.Tests.AudioPriorityTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-22 10:08:03Z" end-time="2026-10-22 10:08:19Z" duration="16.874305" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1014" name="ExistingEffectsBoundedAndCriticalWarningsAdmitted" fullname="MeteorDefenseVR.Tests.AudioPriorityTests.ExistingEffectsBoundedAndCriticalWarningsAdmitted" methodname="ExistingEffectsBoundedAndCriticalWarningsAdmitted" classname="MeteorDefenseVR.Tests.AudioPriorityTests" runstate="Runnable" seed="34955986" result="Passed" start-time="2026-10-22 10:07:53Z" end-time="2026-10-22 10:08:19Z" duration="26.397119" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1023" name="BgmIntegrationTests" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:20Z" duration="0.520381" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1044" name="DisableAndReconfigure_CancelPendingPlayback" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.DisableAndReconfigure_CancelPendingPlayback" methodname="DisableAndReconfigure_CancelPendingPlayback" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="16469127" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.018607" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1042" name="FinishedResultOneShot_DoesNotRestartOnResultState" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.FinishedResultOneShot_DoesNotRestartOnResultState" methodname="FinishedResultOneShot_DoesNotRestartOnResultState" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="1776475602" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.020416" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1043" name="LiveMixAndMute_AreIndependent_AndRejectNonFiniteInput" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.LiveMixAndMute_AreIndependent_AndRejectNonFiniteInput" methodname="LiveMixAndMute_AreIndependent_AndRejectNonFiniteInput" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="2081797674" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.021702" asserts="0">
+              <properties />
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1037" name="MapsExistingStatesWithoutChangingFlow" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.012419" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1024" name="MapsExistingStatesWithoutChangingFlow(Boot,null)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Boot,null)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="814874628" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.001064" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1025" name="MapsExistingStatesWithoutChangingFlow(Reset,null)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Reset,null)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="1173941613" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000405" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1026" name="MapsExistingStatesWithoutChangingFlow(Intro,BgmIntro)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Intro,BgmIntro)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="1400658552" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.001302" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1027" name="MapsExistingStatesWithoutChangingFlow(MissionBriefing,BgmIntro)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(MissionBriefing,BgmIntro)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="297432873" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000400" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1028" name="MapsExistingStatesWithoutChangingFlow(EyeCalibration,BgmTutorial)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(EyeCalibration,BgmTutorial)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="1851634934" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000387" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1029" name="MapsExistingStatesWithoutChangingFlow(Tutorial,BgmTutorial)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Tutorial,BgmTutorial)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="13681591" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000391" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1030" name="MapsExistingStatesWithoutChangingFlow(Practice,BgmTutorial)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Practice,BgmTutorial)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="154124614" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000405" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1031" name="MapsExistingStatesWithoutChangingFlow(Launch,BgmBattle)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Launch,BgmBattle)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="976584017" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000372" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1032" name="MapsExistingStatesWithoutChangingFlow(Countdown,BgmBattle)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Countdown,BgmBattle)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="521422621" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000372" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1033" name="MapsExistingStatesWithoutChangingFlow(Playing,BgmBattle)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Playing,BgmBattle)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="1850040816" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000369" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1034" name="MapsExistingStatesWithoutChangingFlow(BossMeteor,BgmBoss)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(BossMeteor,BgmBoss)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="1416321789" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000381" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1035" name="MapsExistingStatesWithoutChangingFlow(MissionComplete,BgmResult)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(MissionComplete,BgmResult)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="200385501" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000375" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1036" name="MapsExistingStatesWithoutChangingFlow(Result,BgmResult)" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.MapsExistingStatesWithoutChangingFlow(Result,BgmResult)" methodname="MapsExistingStatesWithoutChangingFlow" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="379531456" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:19Z" duration="0.000375" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-case id="1045" name="RealLibrary_HasAllFiveMp3s_AndVictoryStingIsNotBgm" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.RealLibrary_HasAllFiveMp3s_AndVictoryStingIsNotBgm" methodname="RealLibrary_HasAllFiveMp3s_AndVictoryStingIsNotBgm" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="890435154" result="Passed" start-time="2026-10-22 10:08:19Z" end-time="2026-10-22 10:08:20Z" duration="0.337184" asserts="0">
+              <properties />
+              <output><![CDATA[BGM_ASSET Intro: length=25.080s channels=2 rate=48000 load=DecompressOnLoad sampleRms=0.11246 samplePeak=0.30334
+BGM_ASSET Tutorial: length=38.112s channels=2 rate=48000 load=DecompressOnLoad sampleRms=0.12538 samplePeak=0.26770
+BGM_ASSET Battle: length=74.784s channels=2 rate=48000 load=DecompressOnLoad sampleRms=0.11649 samplePeak=0.34601
+BGM_ASSET Boss: length=24.792s channels=2 rate=48000 load=DecompressOnLoad sampleRms=0.11035 samplePeak=0.41223
+BGM_ASSET Result: length=24.792s channels=2 rate=48000 load=DecompressOnLoad sampleRms=0.11035 samplePeak=0.41223
+]]></output>
+            </test-case>
+            <test-case id="1038" name="RepeatedSameTrackRequests_DoNotRestartOrExtendFade" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.RepeatedSameTrackRequests_DoNotRestartOrExtendFade" methodname="RepeatedSameTrackRequests_DoNotRestartOrExtendFade" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="1364896575" result="Passed" start-time="2026-10-22 10:08:20Z" end-time="2026-10-22 10:08:20Z" duration="0.020521" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1041" name="RestartDuringResetFade_DoesNotResumePreviousSession" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.RestartDuringResetFade_DoesNotResumePreviousSession" methodname="RestartDuringResetFade_DoesNotResumePreviousSession" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="219083071" result="Passed" start-time="2026-10-22 10:08:20Z" end-time="2026-10-22 10:08:20Z" duration="0.039580" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1040" name="ThirtyResets_ClearSourceAndState_AndRestartFresh" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.ThirtyResets_ClearSourceAndState_AndRestartFresh" methodname="ThirtyResets_ClearSourceAndState_AndRestartFresh" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="1768196194" result="Passed" start-time="2026-10-22 10:08:20Z" end-time="2026-10-22 10:08:20Z" duration="0.021396" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1039" name="TransitionUsesOneSource_AndLatestRequestWins" fullname="MeteorDefenseVR.Tests.BgmIntegrationTests.TransitionUsesOneSource_AndLatestRequestWins" methodname="TransitionUsesOneSource_AndLatestRequestWins" classname="MeteorDefenseVR.Tests.BgmIntegrationTests" runstate="Runnable" seed="78345194" result="Passed" start-time="2026-10-22 10:08:20Z" end-time="2026-10-22 10:08:20Z" duration="0.022391" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1046" name="BgmSceneLifecycleTests" fullname="MeteorDefenseVR.Tests.BgmSceneLifecycleTests" classname="MeteorDefenseVR.Tests.BgmSceneLifecycleTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-22 10:08:30Z" end-time="2026-10-22 10:08:41Z" duration="11.090462" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1047" name="SceneReloadAndPausedReset_DoNotLeaveOldMusic" fullname="MeteorDefenseVR.Tests.BgmSceneLifecycleTests.SceneReloadAndPausedReset_DoNotLeaveOldMusic" methodname="SceneReloadAndPausedReset_DoNotLeaveOldMusic" classname="MeteorDefenseVR.Tests.BgmSceneLifecycleTests" runstate="Runnable" seed="909172782" result="Passed" start-time="2026-10-22 10:08:20Z" end-time="2026-10-22 10:08:41Z" duration="20.785376" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="90000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[BGM_RELOAD round=1 oldSourceDestroyed=True oldScene=568105589213701596 managers=1 activeScene=568105589213684092
+BGM_RELOAD round=2 oldSourceDestroyed=True oldScene=568105589213684092 managers=1 activeScene=568105589213666826
+BGM_RELOAD round=3 oldSourceDestroyed=True oldScene=568105589213666826 managers=1 activeScene=568105589213649564
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

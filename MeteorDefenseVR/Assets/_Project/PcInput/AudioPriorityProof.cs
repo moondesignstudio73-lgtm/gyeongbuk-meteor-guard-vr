@@ -64,6 +64,51 @@ namespace MeteorDefenseVR.PcInput
                 yield return null;Check(Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include).Length==baseline,"25 resets no source accumulation");
                 manager.TryPlay(AudioCue.EngineStart,700);manager.enabled=false;Check(manager.ActiveTransientCount==0,"disable clears all managed voices");manager.enabled=true;
                 Check(manager.TryPlay(AudioCue.Warning,700),"next session warning restored");manager.StopAll();
+                // Actual existing music and warning clips; sample the applied source envelope
+                // alongside fresh DSP output. These measurements are not a listening test.
+                var music=Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include).First(s=>manager.OwnsBgmSource(s));
+                var musicFilter=AudioChannelFilter.Attach(music,UserAudioChannel.Music);musicFilter.Measure=true;
+                manager.RequestBgm(AudioCue.BgmIntro);yield return new WaitForSecondsRealtime(1.5f);
+                float normal=music.volume;Check(normal>0,"music baseline active");
+                manager.TryPlay(AudioCue.Warning,800);
+                var trace=new List<string>{"time,warningGain,sourceVolume,musicFilterGain,inputRms,outputRms"};
+                float previous=1;float end=Time.realtimeSinceStartup+.18f;
+                while(Time.realtimeSinceStartup<end)
+                {
+                    yield return null;
+                    Check(manager.WarningMusicGain<=previous+.001f,"attack monotonic");previous=manager.WarningMusicGain;
+                    trace.Add($"{Time.realtimeSinceStartup},{manager.WarningMusicGain},{music.volume},{musicFilter.AppliedGain},{musicFilter.InputRms},{musicFilter.OutputRms}");
+                }
+                Check(Mathf.Abs(manager.WarningMusicGain-.35f)<.01f&&Mathf.Abs(music.volume/normal-.35f)<.01f,"single music attenuation reaches35percent");
+                manager.TryPlay(AudioCue.BossWarning,801);yield return new WaitForSecondsRealtime(.2f);
+                Check(Mathf.Abs(manager.WarningMusicGain-.35f)<.01f,"overlapping critical cues do not compound");
+                float frozen=manager.WarningMusicGain;AudioListener.pause=true;yield return new WaitForSecondsRealtime(.25f);
+                Check(manager.WarningMusicGain==frozen,"pause freezes envelope");AudioListener.pause=false;
+                while(manager.HasCriticalVoice)yield return null;
+                yield return new WaitForSecondsRealtime(.15f);Check(Mathf.Abs(manager.WarningMusicGain-.35f)<.01f,"short silence held without pumping");
+                manager.TryPlay(AudioCue.Warning,802);yield return new WaitForSecondsRealtime(.1f);
+                Check(Mathf.Abs(manager.WarningMusicGain-.35f)<.01f,"warning during hold does not pump");
+                while(manager.HasCriticalVoice)yield return null;
+                previous=manager.WarningMusicGain;end=Time.realtimeSinceStartup+1.3f;
+                musicFilter.ResetMeasurement();
+                while(Time.realtimeSinceStartup<end)
+                {
+                    yield return null;Check(manager.WarningMusicGain>=previous-.001f,"release monotonic");previous=manager.WarningMusicGain;
+                    trace.Add($"{Time.realtimeSinceStartup},{manager.WarningMusicGain},{music.volume},{musicFilter.AppliedGain},{musicFilter.InputRms},{musicFilter.OutputRms}");
+                }
+                Check(manager.WarningMusicGain==1&&Mathf.Abs(music.volume-normal)<.001f&&musicFilter.PeakOutputRms>0,"normal music gain restored with actual DSP output");
+                manager.TryPlay(AudioCue.Warning,803);manager.RequestBgm(AudioCue.BgmBoss);yield return new WaitForSecondsRealtime(1.6f);
+                Check(!manager.IsBgmTransitioning&&manager.WarningMusicGain==1&&music.clip==Clip(AudioCue.BgmBoss),"song transition restores without changing selection");
+                AudioUserPreferences.SetVolume(UserAudioChannel.Music,0);manager.TryPlay(AudioCue.Warning,804);yield return new WaitForSecondsRealtime(.05f);musicFilter.ResetMeasurement();yield return new WaitForSecondsRealtime(.15f);
+                Check(musicFilter.AppliedGain==0&&musicFilter.PeakOutputRms==0,"music zero stays silent during warning");
+                AudioUserPreferences.SetVolume(UserAudioChannel.Music,.6f);AudioUserPreferences.SetMuted(UserAudioChannel.Music,true);
+                yield return new WaitForSecondsRealtime(1.3f);Check(musicFilter.AppliedGain==0&&manager.WarningMusicGain==1,"music mute survives restoration");
+                AudioUserPreferences.SetMuted(UserAudioChannel.Music,false);Check(Mathf.Abs(musicFilter.AppliedGain-.6f)<.001f,"user music volume retained");
+                manager.TryPlay(AudioCue.Warning,805);yield return new WaitForSecondsRealtime(.18f);manager.ResetForNewSession();
+                Check(manager.WarningMusicGain==1,"reset clears warning envelope");yield return new WaitForSecondsRealtime(1.2f);
+                Check(!music.isPlaying,"reset fade completes");manager.RequestBgm(AudioCue.BgmIntro);yield return new WaitForSecondsRealtime(1.2f);
+                Check(manager.WarningMusicGain==1&&music.isPlaying,"next session music restored");manager.StopAll();Check(manager.WarningMusicGain==1&&!music.isPlaying,"stop clears warning envelope");
+                Directory.CreateDirectory(output);File.WriteAllLines(Path.Combine(output,"music-envelope.csv"),trace);
             }
             finally
             {
