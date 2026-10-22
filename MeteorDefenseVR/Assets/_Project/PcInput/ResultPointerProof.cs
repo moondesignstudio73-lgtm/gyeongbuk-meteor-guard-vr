@@ -28,10 +28,11 @@ namespace MeteorDefenseVR.PcInput
             var notes=new List<string>{"QA-only standalone harness. Synthetic InputSystem mouse, not OS/human/HMD input. Explicit result state fixtures; no Button.onClick.Invoke, ExecuteEvents, Choose or ChooseFromResult calls."};
             bool passed=true;void Check(bool value,string message){passed &= value;notes.Add(message+"="+value);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);}
             yield return null;
-            var router=FindAnyObjectByType<GazeInputRouter>();
+            GazeInputRouter router=null;
             var warm=FindAnyObjectByType<ReadyPrewarmController>();
             float deadline=Time.realtimeSinceStartup+40;
             while((warm==null||!warm.IsComplete)&&Time.realtimeSinceStartup<deadline){yield return null;warm=FindAnyObjectByType<ReadyPrewarmController>();}
+            router=FindAnyObjectByType<GazeInputRouter>();
             var flow=GameFlowManager.Instance;var result=FindAnyObjectByType<ResultController>();
             var reset=FindAnyObjectByType<OperationsResetController>();var stats=FindAnyObjectByType<GameSessionStats>();
             var lobby=FindAnyObjectByType<HangarLobbyController>();var actions=FindAnyObjectByType<ResultActionsView>();
