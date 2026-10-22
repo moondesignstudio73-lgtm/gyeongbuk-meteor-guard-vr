@@ -15,3 +15,11 @@ WorldTextPresentation/WorldTextMotion, 정적 한글 폰트 수정. ResultAction
 ## 복구 체크포인트 / 다음 작업
 에디터 검증 완료. 아직 공개 campaign-audio에는 이번 연출이 없다.
 다음: 변경 파일과 이 기록/검증 자료만 커밋(사용자 ProjectSettings 제외). Builds/Sharing/ResultCountup20261022/build.ps1 실행 → package.ps1 -BuildDirectory <clean build> → run-extracted.ps1. passed=true/issues=[] 및 배포 렌더 확인 후 publish.ps1 → verify-public.ps1. 공개 릴리스 확인 뒤 README/기록 갱신. 문맥 압축 후 이 파일을 읽고 이어갈 것. 완료된 격납고 작업으로 되돌아가지 말 것.
+
+## Windows 빌드 완료 / 현재 검사
+소스 0897e1bc447d3f6aeed794a51a7bed4bbba64940, clean/non-development Windows 빌드 성공. BUILD_IDENTITY worktreeClean=true. 빌드 후 stale index.lock(활성 git 없음, 30초 이상 경과)을 확인해 제거하고 줄바꿈 인덱스 갱신 후 사용자 ProjectSettings를 stash에서 복원, 백업과 원문 비교 일치.
+ZIP 89,513,803 bytes, 222파일 해시 일치, SHA256 3f874cab6bfb40ee9c5ba27b64a63b49ade200d678cd6350923f633ffe5889e1.
+현재 run-extracted.ps1 실행 중(session 71057). 추출본 Builds/Verify/RCU20261022/MeteorDefenseVR-Windows-ResultCountup-20261022. --pc-soak --pc-soak-rounds=1 --pc-delivery-qa --pc-result-countup-qa --pc-result-feedback-qa. final-run.json의 실행경로/PID 및 QA/pc-soak.json 확인. 끝나면 실제 배포본 ResultCountup PNG 확인하고 release assets Result-Counting.png/Result-Settled.png 복사. git push 후 publish.ps1, verify-public.ps1. 아직 새 공개 릴리스 없음.
+
+## 첫 Windows 후보 검사
+전투 라운드·기본 배포 회귀·기존 결과 가독성 및 결과 90개 렌더/조기 버튼6회 통과. 집계 pause assertion만 실패. Update에서 timeScale=0으로 바꾸는 프레임에 LateUpdate가 현재 Time.time 값을 한 번 반영하므로, pause 직전 프레임의 표시값과 비교한 fixture가 부정확했다. 정지 후 한 프레임을 완료한 값을 기준으로 비교하도록 QA만 수정. 제품 시간 계산은 변경하지 않음. 첫 ZIP 미공개. 다음 소스 커밋 빌드/새 ZIP을 별도 RCU20261022b에 추출해 전체 재검사.

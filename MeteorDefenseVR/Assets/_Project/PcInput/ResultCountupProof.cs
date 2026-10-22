@@ -87,7 +87,7 @@ namespace MeteorDefenseVR.PcInput
                 }
                 reset.ResetExperience();yield return null;yield return null;stats.SetScore(138940);flow.ShowResult();reset.CancelResultTimer();yield return null;yield return null;
                 float pauseUntil=Time.time+.1f;while(Time.time<pauseUntil)yield return null;
-                Time.timeScale=0;int frozen=presentation.DisplayedCount;
+                Time.timeScale=0;yield return null;int frozen=presentation.DisplayedCount;
                 yield return new WaitForSecondsRealtime(.3f);
                 bool paused=presentation.DisplayedCount==frozen&&presentation.ScoreCountupActive;passed &= paused;
                 notes.Add("scaled-time pause freezes count="+paused);Time.timeScale=1;
