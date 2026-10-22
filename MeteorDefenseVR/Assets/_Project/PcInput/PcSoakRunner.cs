@@ -367,6 +367,8 @@ namespace MeteorDefenseVR.PcInput
                     yield return BgmCrossfadeProof.Run(Path.Combine(output,"BgmCrossfade"),true,passed=>{if(!passed)report.issues.Add("BGM crossfade fixture failed");});
                     yield return CombatVariationProof.Run(Path.Combine(output,"CombatVariation"),true,passed=>{if(!passed)report.issues.Add("Combat variation fixture failed");});
                 }
+                if(Environment.GetCommandLineArgs().Contains("--pc-menu-transition-qa"))
+                    yield return MenuTransitionGazeProof.Run(Path.Combine(output,"MenuTransitionGaze"),true,passed=>{if(!passed)report.issues.Add("Menu transition gaze fixture failed");});
                 if(Environment.GetCommandLineArgs().Contains("--pc-campaign-audio-qa"))
                     yield return CampaignAudioContractProof.Run(Path.Combine(output,"CampaignAudio"),passed=>{if(!passed)report.issues.Add("Campaign audio fixture failed");});
                 if(Environment.GetCommandLineArgs().Contains("--pc-result-countup-qa"))
