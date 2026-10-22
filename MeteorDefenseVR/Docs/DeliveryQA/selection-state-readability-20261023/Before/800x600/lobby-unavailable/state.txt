@@ -1,0 +1,9 @@
+Controlled Editor render of public f603fc9 product code; new capture fixture only, not public executable or OS/HMD observation.
+Difficulty: interactable=False, state=Disabled, gaze=0
+AudioSettings: interactable=True, state=Normal, gaze=0
+Standby: interactable=True, state=Normal, gaze=0
+Ranking: interactable=True, state=Normal, gaze=0
+LookSettings: interactable=True, state=Normal, gaze=0
+RetryStage: interactable=False, state=Disabled, gaze=0
+Replay: interactable=True, state=Normal, gaze=0
+Recalibrate: interactable=True, state=Normal, gaze=0

@@ -25,6 +25,8 @@ namespace MeteorDefenseVR.PcInput
         private Transform visual;
         private Vector3 baseScale;
         private Color baseColor;
+        private TMPro.TMP_Text[] disabledLabels;
+        private Color[] enabledLabelColors;
         private Renderer worldRenderer;
         private MaterialPropertyBlock worldProperties;
         private Color worldBase;
@@ -90,6 +92,17 @@ namespace MeteorDefenseVR.PcInput
             var next = !CanInteract ? InteractionState.Disabled : pressed ? InteractionState.Pressed :
                 hovering || gaze ? InteractionState.Hover : selected || persistentSelection ? InteractionState.Selected : InteractionState.Normal;
             if (next == State) return;
+            RestoreLabelColors();
+            if (next == InteractionState.Disabled)
+            {
+                disabledLabels = GetComponentsInChildren<TMPro.TMP_Text>(true);
+                enabledLabelColors = new Color[disabledLabels.Length];
+                for (int i = 0; i < disabledLabels.Length; i++)
+                {
+                    enabledLabelColors[i] = disabledLabels[i].color;
+                    disabledLabels[i].color = new Color(.58f, .62f, .64f, enabledLabelColors[i].a);
+                }
+            }
             State = next;
             if (worldProperties != null && worldRenderer != null)
             {
@@ -98,7 +111,7 @@ namespace MeteorDefenseVR.PcInput
                 worldRenderer.GetPropertyBlock(worldProperties); worldProperties.SetColor(BaseColor, tint); worldRenderer.SetPropertyBlock(worldProperties);
             }
             if (graphic == null) return;
-            Color color = next == InteractionState.Disabled ? baseColor * .45f :
+            Color color = next == InteractionState.Disabled ? new Color(.18f, .19f, .2f, baseColor.a) :
                 next == InteractionState.Pressed ? new Color(.08f, .72f, .82f, 1f) :
                 next == InteractionState.Hover || next == InteractionState.Selected ? Color.Lerp(baseColor, new Color(.06f, .52f, .63f, 1f), glowIntensity) : baseColor;
             color.a = baseColor.a;
@@ -115,8 +128,16 @@ namespace MeteorDefenseVR.PcInput
         public void OnDeselect(BaseEventData _) { selected = false; Refresh(); }
         public void OnSubmit(BaseEventData _) { if (automaticPointerConfirm) Confirm(); }
         public void CancelFeedback() { pressed = selected = hovering = gaze = false; cancelSfx.Invoke(); Refresh(); }
+        private void RestoreLabelColors()
+        {
+            if (disabledLabels == null) return;
+            for (int i = 0; i < disabledLabels.Length; i++)
+                if (disabledLabels[i] != null) disabledLabels[i].color = enabledLabelColors[i];
+            disabledLabels = null; enabledLabelColors = null;
+        }
         private void OnDisable()
         {
+            RestoreLabelColors();
             hovering = selected = pressed = gaze = false; pulse = GazeProgress = 0f; scale = 1f; State = InteractionState.Normal;
             if (visual != null) visual.localScale = baseScale;
             if (graphic != null) graphic.canvasRenderer.SetColor(baseColor);
