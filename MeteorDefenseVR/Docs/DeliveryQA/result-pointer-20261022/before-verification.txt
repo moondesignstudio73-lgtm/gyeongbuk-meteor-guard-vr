@@ -1,0 +1,53 @@
+QA-only standalone harness. Synthetic InputSystem mouse, not OS/human/HMD input. Explicit result state fixtures; no Button.onClick.Invoke, ExecuteEvents, Choose or ChooseFromResult calls.
+standalone required=True
+InputSystemUIInputModule active=True
+only result buttons opt in to immediate clicks=True
+hit-test Menu at (813.26, 255.38), top=, blocked=False=False
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle0 pointer release age=0.1759s=True
+cycle0 actual IPointer down/up/click once=False
+cycle0 one result exit=False
+cycle0 requested destination=False
+cycle0 no duplicate exit after release=False
+hit-test Replay at (610.74, 255.38), top=, blocked=False=False
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle1 pointer release age=0.1785s=True
+cycle1 actual IPointer down/up/click once=False
+cycle1 one result exit=False
+cycle1 requested destination=False
+cycle1 no duplicate exit after release=False
+hit-test Menu at (813.26, 255.38), top=, blocked=False=False
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle2 pointer release age=0.1791s=True
+cycle2 actual IPointer down/up/click once=False
+cycle2 one result exit=False
+cycle2 requested destination=False
+cycle2 no duplicate exit after release=False
+hit-test Replay at (610.74, 255.38), top=, blocked=False=False
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle3 pointer release age=0.1788s=True
+cycle3 actual IPointer down/up/click once=False
+cycle3 one result exit=False
+cycle3 requested destination=False
+cycle3 no duplicate exit after release=False
+hit-test LookSettings at (593.00, 68.09), top=LookSettings, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+pointer opens settings=True
+hit-test Replay at (610.74, 255.38), top=LookSettingsPanel, blocked=True=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+modal intercepts pointer before result button=True
+hit-test Close at (712.00, 102.47), top=Close, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+pointer closes settings=True
+hit-test Menu at (813.26, 255.38), top=, blocked=False=False
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+underlying menu still works once after modal closes=False
+passed=False

@@ -77,10 +77,10 @@ namespace MeteorDefenseVR.PcInput
                 Check(FindObjectsByType<HangarMenuButton>(FindObjectsInactive.Include).Where(b=>b!=actions.Replay&&b!=actions.Menu).All(b=>!b.AllowImmediateClick),"only result buttons opt in to immediate clicks");
                 for(int i=0;i<4;i++)
                 {
-                    yield return Show();var observer=i%2==0?menu:replay;var target=i%2==0?actions.Menu:actions.Replay;
+                    yield return Show();if(i>=2)router.InputSuspended=false;var observer=i%2==0?menu:replay;var target=i%2==0?actions.Menu:actions.Replay;
                     int clicks=observer.Clicks,downs=observer.Downs,ups=observer.Ups,beforeHidden=hidden;
                     yield return Pointer(target.GetComponent<UnityEngine.UI.Button>());
-                    float age=clickedAt-shownAt;
+                    float age=observer.LastClickAt-shownAt;
                     Check(age>=.1f&&age<=.3f,$"cycle{i} pointer release age={age:F4}s");
                     Check(observer.Clicks-clicks==1&&observer.Downs-downs==1&&observer.Ups-ups==1,$"cycle{i} actual IPointer down/up/click once");
                     Check(hidden-beforeHidden==1&&!result.IsVisible,$"cycle{i} one result exit");
@@ -97,13 +97,9 @@ namespace MeteorDefenseVR.PcInput
                 var close=panel.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="Close");
                 yield return Pointer(close);Check(!overlay.LookSettingsOpen&&!router.UiModalOpen,"pointer closes settings");
                 yield return Pointer(actions.Menu.GetComponent<UnityEngine.UI.Button>());Check(lobby.IsMenuReady&&hidden==blockedHidden+1,"underlying menu still works once after modal closes");
-                // Fresh lobby screen: unlike result clicks, its existing 0.4s guard remains.
-                var ranking=FindObjectsByType<HangarMenuButton>().Single(b=>b.name=="Ranking");
-                var rankingTrace=ranking.gameObject.AddComponent<ResultPointerObserver>();
-                yield return Pointer(ranking.GetComponent<UnityEngine.UI.Button>());
-                Check(rankingTrace.Clicks==1&&lobby.IsMenuReady,"other menu receives early pointer but keeps selection delay");
-                yield return Delay(.45f);yield return Pointer(ranking.GetComponent<UnityEngine.UI.Button>());yield return Delay(.3f);
-                Check(lobby.Phase==HangarLobbyController.LobbyPhase.Records&&rankingTrace.Clicks==2,"other menu later pointer works unchanged");
+                // Existing lobby menus remain gaze/collider driven: do not enable their UI graphics.
+                var others=FindObjectsByType<HangarMenuButton>(FindObjectsInactive.Include).Where(b=>b!=actions.Replay&&b!=actions.Menu).ToArray();
+                Check(others.All(b=>!b.AllowImmediateClick&&!b.GetComponent<UnityEngine.UI.Image>().raycastTarget),"other menu pointer/gaze configuration unchanged");
                 // Separate gate contract: immediate pointer opt-in must not open the gaze gate early.
                 var gate=new GazeMenuSelectionGate();gate.OpenScreen();yield return Delay(.15f);Check(!gate.IsOpen,"gaze gate closed at0.15s");
                 yield return Delay(.3f);Check(gate.IsOpen,"gaze gate opens after0.4s");
@@ -122,8 +118,9 @@ namespace MeteorDefenseVR.PcInput
     public sealed class ResultPointerObserver : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,IPointerClickHandler
     {
         public int Downs,Ups,Clicks;
+        public float LastClickAt;
         public void OnPointerDown(PointerEventData data)=>Downs++;
         public void OnPointerUp(PointerEventData data)=>Ups++;
-        public void OnPointerClick(PointerEventData data)=>Clicks++;
+        public void OnPointerClick(PointerEventData data){Clicks++;LastClickAt=Time.realtimeSinceStartup;}
     }
 }

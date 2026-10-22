@@ -28,6 +28,9 @@ namespace MeteorDefenseVR.PcInput
             Replay=HangarLobbyView.Button(root.transform,"Replay","다시 출격",new Vector2(-155,0),font,()=>lobby.ChooseFromResult(true),new Vector2(285,68));
             Menu=HangarLobbyView.Button(root.transform,"Menu","기지 메뉴",new Vector2(155,0),font,()=>lobby.ChooseFromResult(false),new Vector2(285,68));
             Replay.AllowImmediateClick=Menu.AllowImmediateClick=true;
+            // Result actions also accept the UI input module pointer path, not only world gaze.
+            Replay.GetComponent<UnityEngine.UI.Image>().raycastTarget=true;
+            Menu.GetComponent<UnityEngine.UI.Image>().raycastTarget=true;
             textOverlay=new Material(font.material){name="Result action text overlay",renderQueue=4000};
             textOverlay.SetFloat("_ZTestMode",(float)UnityEngine.Rendering.CompareFunction.Always);
             foreach(var label in root.GetComponentsInChildren<TextMeshPro>()){label.fontSize=360;label.fontSharedMaterial=textOverlay;}
