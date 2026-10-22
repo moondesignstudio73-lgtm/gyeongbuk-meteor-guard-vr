@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-bgm-duck-20261022)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-spatial-cadence-20261022)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
@@ -32,7 +32,7 @@
 
 결과 화면에는 이번에 해낸 일과 다음 등급까지 필요한 점수가 나와요. 제목의 점수가 짧게 올라가는 동안에도 본문의 최종 점수는 바로 읽을 수 있어요. 최고 S등급이면 최고 등급을 알려 줘요. 결과가 나타나면 **다시 출격**이나 **기지 메뉴**를 마우스로 바로 클릭하거나, 조준점을 잠시 맞춰 선택할 수 있어요.
 
-공격할 수 있는 운석에는 옅은 청록 표시가 보여요. 주황색으로 강조된 운석은 먼저 막아 주세요. 실제 거리와 다가오는 속도를 보고 가장 급한 한 개를 알려 줘요. 결과 점수도 모든 숫자를 읽기 쉽게 표시해요. 방어막과 위협의 방향·거리는 큰 한글로 보여요. 상태판은 화면 아래 양쪽에 고정되어 있어요.
+공격할 수 있는 운석에는 옅은 청록 표시가 보여요. 주황색으로 강조된 운석은 먼저 막아 주세요. 실제 거리와 다가오는 속도를 보고 가장 급한 한 개를 알려 줘요. 결과 점수도 모든 숫자를 읽기 쉽게 표시해요. 방어막과 위협의 방향·거리는 큰 한글로 보여요. 상태판은 화면 아래 양쪽에 고정되어 있어요. 충돌이 예상되는 운석의 도달 시간이 짧아질수록 방향 경고음이 더 자주 울려요. 멀어지거나 충돌 경로를 벗어나면 해당 경고음이 멈춰요.
 
 [난이도·화면 읽기·도움말 보기](MeteorDefenseVR/Docs/PLAYER_GUIDE.md)
 
@@ -73,7 +73,7 @@
 
 ### Windows 실행파일
 
-1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/RC_0.2.0-rc.1_ac95d6a/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
+1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/RC_0.2.0-rc.1_b66465b/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
 2. 기본은 Public Experience + Auto 입력입니다. 화면의 `START`를 바라보거나 마우스를 올려 시작합니다. Enter/Space로도 시작됩니다.
 3. 운석을 바라보거나 마우스를 올려 약 0.65초 유지합니다. 클릭 없이 잠금 → 레이저 → 파괴가 진행됩니다.
 
