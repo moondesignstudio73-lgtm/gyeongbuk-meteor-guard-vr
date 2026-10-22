@@ -96,9 +96,12 @@ namespace MeteorDefenseVR.PcInput
                     manager.StopAll();
                     foreach(var filter in Object.FindObjectsByType<AudioChannelFilter>())filter.ResetMeasurement();
                     bool requested=manager.TryPlay(entry.Cue,AudioSettings.dspTime+1000);
+                    // Capture the actual source before short pooled voices finish and release their clip.
+                    var playedSources=manager.GetComponentsInChildren<AudioSource>(true).Where(s=>s.clip==entry.Clip&&s.isPlaying).ToArray();
+                    var playedFilters=playedSources.Select(s=>s.GetComponent<AudioChannelFilter>()).Where(f=>f!=null).ToArray();
                     yield return new WaitForSecondsRealtime(entry.Category==AudioCategory.Bgm?1.3f:.4f);
-                    string sourceName=entry.Category==AudioCategory.Bgm?"BGM":entry.Category==AudioCategory.UI?"UI":entry.Category==AudioCategory.Voice?"Voice":entry.Category==AudioCategory.Ambient?"Ambient":"SFX";
-                    bool outputSignal=Object.FindObjectsByType<AudioChannelFilter>().Any(f=>f.name==sourceName&&f.PeakOutputRms>0.0000001f);
+                    string sourceName=string.Join("/",playedSources.Select(s=>s.name));
+                    bool outputSignal=playedFilters.Any(f=>f.PeakOutputRms>0.0000001f);
                     Check(requested&&outputSignal,$"existing cue DSP {entry.Cue} clip={entry.Clip?.name} seconds={entry.Clip?.length} channels={entry.Clip?.channels} source={sourceName}");
                 }
                 for(int i=0;i<4;i++){AudioUserPreferences.SetVolume((UserAudioChannel)i,1);AudioUserPreferences.SetMuted((UserAudioChannel)i,false);}
