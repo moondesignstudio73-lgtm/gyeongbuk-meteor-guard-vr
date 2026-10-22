@@ -1,47 +1,42 @@
 Controlled real scene states/health events and real-time DSP source timeline; not natural human play or human listening. Source RMS cannot prove perceptual masking or final speaker loudness.
-t=1.811 segment=boot state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
-t=2.023 segment=boot state=Playing hp=100 cue=Countdown category=Voice
+t=1.818 segment=boot state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+t=2.024 segment=boot state=Playing hp=100 cue=Countdown category=Voice
 t=2.026 segment=boot state=Playing hp=100 cue=BgmBattle category=Bgm
 actual shield activated=True
 shield hit rejects hull damage=True
+t=3.704 segment=shield-hit state=Playing hp=100 cue=Warning category=UI
 shield hit leaves hull healthy; spatial warnings remain valid=True
 t=3.836 segment=shield-hit state=Playing hp=15 cue=PlayerDamage category=Sfx
 t=3.836 segment=shield-hit state=Playing hp=15 cue=GlassHit category=Sfx
-t=3.846 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
-t=4.534 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
-t=6.214 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
-t=7.745 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
-t=9.246 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
-t=9.947 segment=critical-combat state=Playing hp=15 cue=TargetFocus category=UI
-t=10.591 segment=critical-combat state=Playing hp=15 cue=LockOn category=UI
-t=10.603 segment=critical-combat state=Playing hp=15 cue=Laser category=Sfx
-t=10.609 segment=critical-combat state=Playing hp=15 cue=MeteorHit category=Sfx
-t=10.609 segment=critical-combat state=Playing hp=15 cue=MeteorExplosion category=Sfx
-t=10.609 segment=critical-combat state=Playing hp=15 cue=Score category=UI
-t=10.790 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=4.826 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=5.514 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=7.037 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=8.548 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=9.848 segment=critical-combat state=Playing hp=15 cue=Warning category=UI
+t=10.206 segment=critical-combat state=Playing hp=5 cue=PlayerDamage category=Sfx
+t=10.207 segment=critical-combat state=Playing hp=5 cue=GlassHit category=Sfx
+t=10.548 segment=critical-combat state=Playing hp=5 cue=Warning category=UI
 critical warnings present and bounded with shared cooldown=True
-t=11.053 segment=critical-combat state=BossMeteor hp=15 cue=BossWarning category=Voice
+t=11.054 segment=critical-combat state=BossMeteor hp=5 cue=BossWarning category=Voice
 paused music transition freezes clip and fade=True
 no new warnings during pause=True
-t=12.456 segment=boss-resumed state=BossMeteor hp=15 cue=BgmBoss category=Bgm
-t=13.857 segment=boss-resumed state=BossMeteor hp=15 cue=Warning category=UI
+t=12.459 segment=boss-resumed state=BossMeteor hp=5 cue=BgmBoss category=Bgm
+t=13.859 segment=boss-resumed state=BossMeteor hp=5 cue=Warning category=UI
 music transition finishes after resume=True
-t=14.002 segment=boss-approach state=BossMeteor hp=5 cue=PlayerDamage category=Sfx
-t=14.002 segment=boss-approach state=BossMeteor hp=5 cue=GlassHit category=Sfx
-t=14.871 segment=boss-approach state=BossMeteor hp=5 cue=TargetFocus category=UI
-t=15.065 segment=boss-approach state=BossMeteor hp=5 cue=BossExplosion category=Sfx
-t=15.567 segment=victory-tail state=MissionComplete hp=5 cue=BgmResult category=Bgm
+t=14.259 segment=boss-approach state=BossMeteor hp=0 cue=PlayerDamage category=Sfx
+t=14.260 segment=boss-approach state=BossMeteor hp=0 cue=GlassHit category=Sfx
+t=14.767 segment=boss-approach state=Result hp=0 cue=BgmResult category=Bgm
+t=19.450 segment=boss-approach state=Result hp=0 cue=Result category=UI
 boss destruction drives victory state=True
 victory stops recurring danger warnings=True
-t=17.073 segment=victory state=Result hp=5 cue=Result category=UI
-t=19.096 segment=restart state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
-t=19.291 segment=restart state=Playing hp=100 cue=Countdown category=Voice
-t=19.292 segment=restart state=Playing hp=100 cue=BgmBattle category=Bgm
-t=19.793 segment=second-combat state=Playing hp=0 cue=PlayerDamage category=Sfx
-t=19.793 segment=second-combat state=Playing hp=0 cue=GlassHit category=Sfx
-t=20.291 segment=failure-return-tail state=Result hp=0 cue=BgmResult category=Bgm
-t=24.991 segment=failure-return-result state=Result hp=0 cue=Result category=UI
+t=26.060 segment=restart state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+t=26.261 segment=restart state=Playing hp=100 cue=Countdown category=Voice
+t=26.261 segment=restart state=Playing hp=100 cue=BgmBattle category=Bgm
+t=26.763 segment=second-combat state=Playing hp=0 cue=PlayerDamage category=Sfx
+t=26.763 segment=second-combat state=Playing hp=0 cue=GlassHit category=Sfx
+t=27.271 segment=failure-return-result state=Result hp=0 cue=BgmResult category=Bgm
+t=31.961 segment=failure-return-result state=Result hp=0 cue=Result category=UI
 failure return stops recurring danger warnings=True
-t=27.358 segment=final-reset state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
+t=34.283 segment=final-reset state=Boot hp=100 cue=IntroSpaceAmbient category=Ambient
 reset has no lingering effect loops=True
 passed=True

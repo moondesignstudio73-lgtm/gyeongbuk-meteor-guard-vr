@@ -82,6 +82,10 @@ namespace MeteorDefenseVR.PcInput
                 GameFlowManager.Instance.ShowResult();yield return null;count=warnings.RearWarnings;
                 yield return new WaitForSecondsRealtime(1.8f);Check(warnings.RearWarnings==count&&!source.isPlaying,"result clears spatial warning");
                 reset.ResetExperience();yield return new WaitForSecondsRealtime(.2f);Check(!source.isPlaying,"restart clears spatial source");
+                GameFlowManager.Instance.StartMainGame();spawner.BeginScenario(1);audio.StopAll();count=warnings.RearWarnings;
+                var urgent=spawner.SpawnScenario(spawner.ShipCenter+direction*(radius+1.5f),-direction*3,3,10);urgent.enabled=false;
+                yield return new WaitForSecondsRealtime(.35f);
+                Check(warnings.RearWarnings==count+1,"first imminent threat warns after qualification without full interval delay");
             }
             finally
             {

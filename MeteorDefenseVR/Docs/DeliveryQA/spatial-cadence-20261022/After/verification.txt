@@ -2,8 +2,8 @@ Actual pooled meteor/real velocity, manually stepped deterministic position. Rea
 real approach warnings and actual DSP output=True
 approach reduces actual accepted gaps=True
 bounded minimum gap=True
-acceptedTimes=2.649474,5.126673,7.41601,9.526569,11.47809,13.27814,14.94444,16.47839,17.97809
-gaps=2.477199,2.289337,2.110559,1.951521,1.800053,1.666302,1.533943,1.499704
+acceptedTimes=0.1699409,2.836179,5.302444,7.579958,9.680058,11.6211,13.41014,15.06539,16.58762
+gaps=2.666238,2.466266,2.277514,2.1001,1.941042,1.789045,1.655243,1.522232
 accepted approach gaps monotonic 1=True
 accepted approach gaps monotonic 2=True
 accepted approach gaps monotonic 3=True
@@ -26,4 +26,5 @@ resume has no overdue warning burst=True
 resume recomputes live warning=True
 result clears spatial warning=True
 restart clears spatial source=True
+first imminent threat warns after qualification without full interval delay=True
 passed=True

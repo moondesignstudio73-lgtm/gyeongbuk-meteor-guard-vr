@@ -139,7 +139,7 @@ namespace MeteorDefenseVR.PcInput
                 (difficulty.Session.SpawnDirections == SpawnDirectionMode.FrontAndSides || difficulty.Session.SpawnDirections == SpawnDirectionMode.FullSphere || spawner.ScenarioControlled);
             root.gameObject.SetActive(combat);
             if (!combat) { UpdatePriorityPresentation(false); audioThreat=null; VisibleCount = 0; impactAge = arrivalAge = 10; ResetSpatialWarning(); return; }
-            if (Time.timeScale == 0 || AudioListener.pause) { ResetSpatialWarning(); return; }
+            if (Time.timeScale == 0 || AudioListener.pause) { ResetSpatialWarning(false); return; }
             if (worldCanvas != view.Camera.stereoEnabled)
             {
                 worldCanvas = view.Camera.stereoEnabled;
@@ -240,10 +240,12 @@ namespace MeteorDefenseVR.PcInput
                 view.Position+(warningThreat.transform.position-view.Position).normalized*2,warningArrival<6f?.8f:.35f))
             { playingThreat=warningThreat; RearWarnings++; warningElapsed=0f; }
         }
-        private void ResetSpatialWarning()
+        private void ResetSpatialWarning(bool newSession=true)
         {
             if(rearWarning!=null)rearWarning.Stop();
-            warningElapsed=warningQualified=0f;
+            // First threat can warn after qualification; repeated/resumed warnings
+            // retain a full spacing budget, never replay an overdue reservation.
+            warningElapsed=newSession?8f:0f;warningQualified=0f;
             warningThreat=qualifiedThreat=playingThreat=null;
         }
         private void HandleTargetingInvalidated(MeteorController meteor)
