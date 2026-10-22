@@ -8,6 +8,7 @@ using MeteorDefenseVR.EyeTracking;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Object=UnityEngine.Object;
 namespace MeteorDefenseVR.PcInput
 {
@@ -29,9 +30,12 @@ namespace MeteorDefenseVR.PcInput
             lobby.Ranking.Initialize(flow,result,new LocalRankingStore(null));
             var original=caster.Provider;bool wasEnabled=caster.enabled,suspended=router.InputSuspended,passed=true;
             var ray=new HeldRay{Router=router};caster.enabled=false;caster.SetProvider(ray);router.InputSuspended=true;
+            var physical=InputSystem.devices.Where(d=>d.enabled&&(d is Mouse||d is Keyboard)).ToArray();
+            foreach(var device in physical)InputSystem.DisableDevice(device);
+            float tickAt=Time.unscaledTime;
             void Log(string s){notes.Add(s);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);}
             void Check(bool ok,string s){Log(s+"="+ok);if(validate)passed&=ok;}
-            IEnumerator Observe(float seconds){float end=Time.unscaledTime+seconds;while(Time.unscaledTime<end){caster.Tick(Time.unscaledDeltaTime);yield return null;}}
+            IEnumerator Observe(float seconds){float end=Time.unscaledTime+seconds;while(Time.unscaledTime<end){float now=Time.unscaledTime;caster.Tick(Mathf.Max(0,now-tickAt));tickAt=now;yield return null;}}
             void Aim(Vector3 point){ray.Ray=new Ray(Camera.main.transform.position,(point-Camera.main.transform.position).normalized);ray.Valid=true;Physics.SyncTransforms();}
             try
             {
@@ -65,7 +69,13 @@ namespace MeteorDefenseVR.PcInput
                     if(lobby.IsMenuReady)
                     {
                         Aim(Camera.main.transform.position+Camera.main.transform.up*4+Camera.main.transform.forward*3);yield return Observe(.1f);
-                        Aim(retry.transform.position);yield return Observe(1.1f);
+                        Aim(retry.transform.position);
+                        // A fresh menu can still be inside OpenScreen(.4), then dwell(.7)
+                        // and the lobby command delay(.24). Bound by their actual contract.
+                        float reentry=Time.unscaledTime;end=reentry+.4f+.7f+.24f+.1f;
+                        while(lobby.IsMenuReady&&Time.unscaledTime<end)yield return Observe(.01f);
+                        Log("reentry selection elapsed="+(Time.unscaledTime-reentry));
+                        Check(Time.unscaledTime-reentry>=.7f,"reentry never bypasses gaze dwell "+closeAge);
                         Check(flow.CurrentState==GameState.Playing,"exit then reenter retries normally "+closeAge);
                     }
                 }
@@ -73,6 +83,7 @@ namespace MeteorDefenseVR.PcInput
             finally
             {
                 ray.Valid=false;caster.Tick(0);overlay.TryCloseLookSettings();reset.ResetExperience();router.InputSuspended=suspended;caster.SetProvider(original);caster.enabled=wasEnabled;
+                foreach(var device in physical)InputSystem.EnableDevice(device);
                 Log("passed="+passed);
             }
             complete(passed);
