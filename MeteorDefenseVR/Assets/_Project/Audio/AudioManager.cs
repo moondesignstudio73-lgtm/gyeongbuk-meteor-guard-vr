@@ -7,7 +7,7 @@ using UnityEngine;
 namespace MeteorDefenseVR.Audio
 {
     [DisallowMultipleComponent]
-    public sealed class AudioManager : MonoBehaviour
+    public sealed partial class AudioManager : MonoBehaviour
     {
         [SerializeField] private AudioCueLibrary cueLibrary;
         [SerializeField] private AudioSource bgmSource;
@@ -83,6 +83,7 @@ namespace MeteorDefenseVR.Audio
         private void Awake()
         {
             ConfigureSources();
+            InitializeVoices();
             RebuildLookup();
         }
 
@@ -91,6 +92,7 @@ namespace MeteorDefenseVR.Audio
             // Listener pause freezes audible playback and its fade at the same point.
             // A timeScale-only reset still fades out on unscaled time as before.
             if (AudioListener.pause) return;
+            ReapVoices();
             presentationGain = Mathf.MoveTowards(presentationGain, presentationTarget, Time.unscaledDeltaTime * 3f);
             TickBgm(Time.unscaledDeltaTime);
             ApplyMix();
@@ -118,7 +120,7 @@ namespace MeteorDefenseVR.Audio
         }
 
         // Legacy optional boss clip shares the existing effects source; no temporary source leaks.
-        public void PlaySupplementalEffect(AudioClip clip) { if (clip != null && sfxSource != null) sfxSource.PlayOneShot(clip); }
+        public void PlaySupplementalEffect(AudioClip clip) { if (clip != null && sfxSource != null) PlayTransient(clip,AudioCategory.Sfx,AudioCue.BossExplosion,1f); }
 
         public bool TryPlay(AudioCue cue) => TryPlay(cue, AudioSettings.dspTime);
 
@@ -128,41 +130,39 @@ namespace MeteorDefenseVR.Audio
             if (source == null || source.isPlaying || !entries.TryGetValue(cue, out var entry) || entry.Clip == null || entry.Category == AudioCategory.Bgm) return false;
             double now = AudioSettings.dspTime;
             if (lastPlayedAt.TryGetValue(cue, out double previous) && now - previous < entry.Cooldown) return false;
-            lastPlayedAt[cue] = now;
-            source.transform.position = position; source.volume = SafeVolume(masterVolume) * SafeVolume(sfxVolume) * entry.Volume * SafeVolume(gain);
-            source.PlayOneShot(entry.Clip); CuePlaybackRequested?.Invoke(cue, entry.Category); return true;
+            if(!AdmitVoice(source,entry.Clip,entry.Category,cue,SafeVolume(masterVolume)*SafeVolume(sfxVolume)*entry.Volume*SafeVolume(gain),false))return false;
+            source.transform.position = position;
+            lastPlayedAt[cue] = now;CuePlaybackRequested?.Invoke(cue, entry.Category);return true;
         }
 
         public bool TryPlay(AudioCue cue, double timestamp)
         {
             if (!entries.TryGetValue(cue, out AudioCueEntry entry)) return false;
             if (entry.Category == AudioCategory.Bgm) return RequestBgm(cue);
+            if(AudioListener.pause||!isActiveAndEnabled)return false;
             const double timingTolerance = 0.000001d;
             if (lastPlayedAt.TryGetValue(cue, out double previous) && timestamp - previous + timingTolerance < entry.Cooldown)
                 return false;
 
+            AudioSource source = GetSource(entry.Category);
+            if(source!=null&&entry.Clip!=null&& !entry.Loop)
+            {
+                if(!PlayTransient(entry.Clip,entry.Category,cue,entry.Volume))return false;
+            }
+            else if (source!=null&&entry.Clip!=null&&entry.Loop)
+            {
+                if (source.clip != entry.Clip || !source.isPlaying)
+                {
+                    source.Stop();
+                    source.clip = entry.Clip;
+                    source.loop = true;
+                    channelTrim[(int)entry.Category] = entry.Volume;
+                    ApplyMix();
+                    source.Play();
+                }
+            }
             lastPlayedAt[cue] = timestamp;
             CuePlaybackRequested?.Invoke(cue, entry.Category);
-            AudioSource source = GetSource(entry.Category);
-            if (source == null || entry.Clip == null) return true;
-
-            if (entry.Loop)
-            {
-                if (source.clip == entry.Clip && source.isPlaying) return true;
-                source.Stop();
-                source.clip = entry.Clip;
-                source.loop = true;
-                channelTrim[(int)entry.Category] = entry.Volume;
-                ApplyMix();
-                source.Play();
-            }
-            else
-            {
-                source.loop = false;
-                channelTrim[(int)entry.Category] = 1f;
-                ApplyMix();
-                source.PlayOneShot(entry.Clip, entry.Volume);
-            }
             return true;
         }
 
@@ -180,6 +180,7 @@ namespace MeteorDefenseVR.Audio
 
         private void StopEffects()
         {
+            StopVoices();
             StopSource(uiSource);
             StopSource(sfxSource);
             StopSource(voiceSource);
@@ -285,6 +286,7 @@ namespace MeteorDefenseVR.Audio
             if (sfxSource != null) sfxSource.pitch = presentationSfxPitch;
             if (voiceSource != null) voiceSource.volume = master * SafeVolume(voiceVolume) * channelTrim[(int)AudioCategory.Voice];
             if (ambientSource != null) ambientSource.volume = master * channelTrim[(int)AudioCategory.Ambient];
+            ApplyVoiceMix();
         }
 
         private static float SafeVolume(float value, float maximum = 1f) =>

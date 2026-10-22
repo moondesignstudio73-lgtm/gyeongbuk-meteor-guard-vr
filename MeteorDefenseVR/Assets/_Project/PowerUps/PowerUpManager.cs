@@ -589,7 +589,7 @@ namespace MeteorDefenseVR.PowerUps
         {
             if (pickupAudio == null) return; PowerUpDefinition definition = settings.Find(type);
             AudioClip clip = definition != null && definition.pickupSfx != null ? definition.pickupSfx : pickupClips[(int)type];
-            if (clip != null) pickupAudio.PlayOneShot(clip, type == PowerUpType.Overdrive ? 1f : .72f);
+            if (clip != null) FindAnyObjectByType<MeteorDefenseVR.Audio.AudioManager>()?.TryPlayEffect(pickupAudio,clip,MeteorDefenseVR.Audio.AudioCue.CalibrationComplete,type == PowerUpType.Overdrive ? 1f : .72f);
         }
         private void BuildHud()
         {

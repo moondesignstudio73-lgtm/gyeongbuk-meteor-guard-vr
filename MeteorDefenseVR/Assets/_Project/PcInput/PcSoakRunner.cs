@@ -360,7 +360,10 @@ namespace MeteorDefenseVR.PcInput
                     yield return ViewSettingsProof.Run(router,Path.Combine(output,"ViewSettings"),true,
                         passed=>{if(!passed)report.issues.Add("View settings fixture failed");});
                 if(Environment.GetCommandLineArgs().Contains("--pc-audio-lifecycle-qa"))
+                {
                     yield return AudioLifecycleProof.Run(router,Path.Combine(output,"AudioLifecycle"),passed=>{if(!passed)report.issues.Add("Audio lifecycle fixture failed");});
+                    yield return AudioPriorityProof.Run(Path.Combine(output,"AudioPriority"),passed=>{if(!passed)report.issues.Add("Audio priority fixture failed");});
+                }
                 if(Environment.GetCommandLineArgs().Contains("--pc-campaign-audio-qa"))
                     yield return CampaignAudioContractProof.Run(Path.Combine(output,"CampaignAudio"),passed=>{if(!passed)report.issues.Add("Campaign audio fixture failed");});
                 if(Environment.GetCommandLineArgs().Contains("--pc-result-countup-qa"))

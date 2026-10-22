@@ -173,7 +173,7 @@ namespace MeteorDefenseVR.Combat
                 hitEffect.transform.position = destination;
                 hitEffect.Play(true);
             }
-            if (laserAudioSource != null) laserAudioSource.Play();
+            if (laserAudioSource != null) FindAnyObjectByType<MeteorDefenseVR.Audio.AudioManager>()?.TryPlayEffect(laserAudioSource,laserAudioSource.clip,MeteorDefenseVR.Audio.AudioCue.Laser);
             onCameraFeedbackRequested?.Invoke();
         }
     }

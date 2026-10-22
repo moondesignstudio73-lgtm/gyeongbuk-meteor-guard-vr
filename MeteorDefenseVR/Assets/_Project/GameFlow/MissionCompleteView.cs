@@ -94,7 +94,7 @@ namespace MeteorDefenseVR.GameFlow
 
         private void PlayVictoryFeedback()
         {
-            if (victoryAudioSource != null && victoryAudioSource.clip != null) victoryAudioSource.Play();
+            if (victoryAudioSource != null && victoryAudioSource.clip != null) FindAnyObjectByType<MeteorDefenseVR.Audio.AudioManager>()?.TryPlayEffect(victoryAudioSource,victoryAudioSource.clip,MeteorDefenseVR.Audio.AudioCue.MissionComplete);
         }
         private static bool IsCompletionState => GameFlowManager.Instance == null ||
             GameFlowManager.Instance.CurrentState == MeteorDefenseVR.Core.GameState.MissionComplete;

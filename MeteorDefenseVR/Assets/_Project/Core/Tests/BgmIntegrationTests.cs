@@ -213,7 +213,7 @@ namespace MeteorDefenseVR.Tests
                 yield return null;
                 var audio = Object.FindAnyObjectByType<AudioManager>();
                 Assert.That(Object.FindObjectsByType<AudioManager>().Length, Is.EqualTo(1));
-                Assert.That(audio.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(5));
+                Assert.That(audio.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(5+AudioManager.TransientVoiceLimit));
                 audio.RequestBgm(AudioCue.BgmBattle);
                 yield return new WaitForSecondsRealtime(1.1f);
                 var oldSource = audio.GetComponentsInChildren<AudioSource>().Single(audio.OwnsBgmSource);
@@ -239,7 +239,7 @@ namespace MeteorDefenseVR.Tests
                 Assert.That(oldSource == null, Is.True, "Scene-owned source must be destroyed, not persisted; old scene " + oldSceneHandle);
                 var replacement = Object.FindAnyObjectByType<AudioManager>();
                 Assert.That(Object.FindObjectsByType<AudioManager>().Length, Is.EqualTo(1));
-                Assert.That(replacement.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(5));
+                Assert.That(replacement.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(5+AudioManager.TransientVoiceLimit));
                 Assert.That(replacement.CurrentBgmClip, Is.Null);
             }
         }
@@ -260,7 +260,7 @@ namespace MeteorDefenseVR.Tests
         {
             Assert.That(manager, Is.Not.Null);
             sourceCount = manager.GetComponentsInChildren<AudioSource>(true).Length;
-            Assert.That(sourceCount, Is.EqualTo(5));
+            Assert.That(sourceCount, Is.EqualTo(5+AudioManager.TransientVoiceLimit));
             Assert.That(manager.CurrentBgmClip, Is.Null, "Ready starts without BGM");
             manager.CuePlaybackRequested += OnCue;
             dspStart = AudioSettings.dspTime;

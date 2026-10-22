@@ -140,7 +140,7 @@ namespace MeteorDefenseVR.Combat
             TickRecoil(top,dt);TickRecoil(bottom,dt);
             UpdateAudio(dt);
             if(candidate!=null&&!chargePlayed&&candidate.Progress>=.58f)
-            {chargePlayed=true;if(chargeSource!=null&&chargeSource.clip!=null){chargeSource.volume=chargeVolume;chargeSource.Play();}}
+            {chargePlayed=true;if(chargeSource!=null&&chargeSource.clip!=null){chargeSource.volume=chargeVolume;FindAnyObjectByType<MeteorDefenseVR.Audio.AudioManager>()?.TryPlayEffect(chargeSource,chargeSource.clip,MeteorDefenseVR.Audio.AudioCue.LockOn);}}
         }
 
         public bool HasTracked(GazeLockOnTarget target)=>target!=null&&candidate==target&&trackedTime>.02f;

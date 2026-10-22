@@ -165,7 +165,7 @@ namespace MeteorDefenseVR.Launch
                 LaunchAudioCue.MissionStart => missionStartClip,
                 _ => null
             };
-            if (clip != null) audioSource.PlayOneShot(clip);
+            if (clip != null) audioManager?.TryPlayEffect(audioSource,clip,AudioCue.Launch);
         }
 
         private void CapturePositions()

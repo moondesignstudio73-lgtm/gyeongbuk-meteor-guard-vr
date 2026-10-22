@@ -61,7 +61,7 @@ namespace MeteorDefenseVR.Player
         {
             flashRemaining = flashDuration;
             SetLight(true, flashIntensity);
-            if (impactAudioSource != null && impactAudioSource.clip != null) impactAudioSource.Play();
+            if (impactAudioSource != null && impactAudioSource.clip != null) FindAnyObjectByType<MeteorDefenseVR.Audio.AudioManager>()?.TryPlayEffect(impactAudioSource,impactAudioSource.clip,MeteorDefenseVR.Audio.AudioCue.PlayerDamage);
         }
 
         private void SetLight(bool enabled, float intensity)
