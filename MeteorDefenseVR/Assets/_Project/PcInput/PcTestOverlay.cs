@@ -235,9 +235,9 @@ namespace MeteorDefenseVR.PcInput
             bool settingsAvailable = router.Simulation != null && (isBoot || paused || (GameFlowManager.Instance != null && GameFlowManager.Instance.CurrentState == MeteorDefenseVR.Core.GameState.Result));
             settingsAvailable &= presentation==null||!presentation.IsBootPresenting;
             if (!settingsAvailable) settingsOpen = false;
-            lookSettingsButton.SetActive(settingsAvailable && !calibrating);
+            lookSettingsButton.SetActive(settingsAvailable && !settingsOpen && !calibrating);
             lookSettingsPanel.SetActive(settingsAvailable && settingsOpen && !audioSettingsOpen && !calibrating);
-            audioSettingsButton.SetActive(settingsAvailable && !calibrating);
+            audioSettingsButton.SetActive(settingsAvailable && !settingsOpen && !calibrating);
             audioSettingsPanel.SetActive(settingsAvailable && settingsOpen && audioSettingsOpen && !calibrating);
             if(audioSettingsPanel.activeSelf)RefreshAudioSettings();
             settingsBackdrop.SetActive(lookSettingsPanel.activeSelf||audioSettingsPanel.activeSelf);

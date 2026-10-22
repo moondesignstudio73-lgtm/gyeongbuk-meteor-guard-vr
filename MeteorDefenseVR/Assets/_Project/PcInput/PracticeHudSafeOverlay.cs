@@ -18,7 +18,6 @@ namespace MeteorDefenseVR.PcInput
         private bool? stereoMode;
         private RectTransform telemetryPanel, instructionPanel;
         private Renderer[] oldTelemetry = System.Array.Empty<Renderer>(), oldInstruction = System.Array.Empty<Renderer>();
-        private bool lowerBand;
         public Canvas SafeCanvas => safeCanvas;
         public TextMeshProUGUI SafeText => safeText;
         public TextMeshProUGUI SafeStatus => safeStatus;
@@ -107,28 +106,9 @@ namespace MeteorDefenseVR.PcInput
             var root = (RectTransform)safeCanvas.transform;
             FitPanel(telemetryPanel, safeText, root.rect.width);
             FitPanel(instructionPanel, safeStatus, root.rect.width);
-            bool targetCrossesTop = false;
-            var meteor = controller.ActiveMeteor;
-            if (meteor != null)
-            {
-                Vector3 point = playerCamera.WorldToViewportPoint(meteor.transform.position);
-                if (point.z > 0)
-                {
-                    // Include the production aim ring and its label, not just the rock.
-                    float radius = Mathf.Max(1.1f, meteor.CollisionRadius * 1.7f);
-                    Vector3 upper = playerCamera.WorldToViewportPoint(meteor.transform.position + playerCamera.transform.up * radius);
-                    Vector3 right = playerCamera.WorldToViewportPoint(meteor.transform.position + playerCamera.transform.right * radius);
-                    float halfWidth = Mathf.Max(telemetryPanel.rect.width, instructionPanel.rect.width) / root.rect.width * .5f;
-                    float dx = Mathf.Abs(right.x - point.x), dy = Mathf.Abs(upper.y - point.y);
-                    // Wider release bounds prevent flicker while the target grazes a band edge.
-                    targetCrossesTop = point.x + dx > .5f - halfWidth && point.x - dx < .5f + halfWidth
-                        && point.y + dy > (lowerBand ? .69f : .73f)
-                        && point.y - dy < (lowerBand ? .98f : .94f);
-                }
-            }
-            lowerBand = targetCrossesTop;
-            Place(telemetryPanel, lowerBand ? .24f : .90f);
-            Place(instructionPanel, lowerBand ? .13f : .79f);
+            // Fixed lower bands keep the central aiming area clear without jumping as targets move.
+            Place(telemetryPanel, .24f);
+            Place(instructionPanel, .13f);
         }
 
         private static void FitPanel(RectTransform panel, TMP_Text text, float canvasWidth)

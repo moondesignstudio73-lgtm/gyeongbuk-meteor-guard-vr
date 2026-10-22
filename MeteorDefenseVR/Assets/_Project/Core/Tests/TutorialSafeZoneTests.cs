@@ -56,6 +56,8 @@ namespace MeteorDefenseVR.Tests
                     Assert.That(view.SafeStatus.fontSize, Is.EqualTo(40));
                     Assert.That(view.SafeStatus.preferredWidth, Is.LessThanOrEqualTo(view.SafeStatus.rectTransform.rect.width));
                     Assert.That(view.SafeStatus.text, Does.Contain("연습해"));
+                    Assert.That(((RectTransform)view.SafeText.transform.parent).anchorMin.y, Is.EqualTo(.24f).Within(.001f), "Practice telemetry must not jump as aim changes");
+                    Assert.That(((RectTransform)view.SafeStatus.transform.parent).anchorMin.y, Is.EqualTo(.13f).Within(.001f), "Practice instructions must remain below the central target area");
                     Assert.That(camera.transform.position, Is.EqualTo(originalPosition));
                     string folder = $"Docs/DeliveryQA/hud-safe-20261021/{size.x}x{size.y}/{direction.x}_{direction.y}";
                     Directory.CreateDirectory(folder);

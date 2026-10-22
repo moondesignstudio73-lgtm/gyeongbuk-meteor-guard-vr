@@ -37,6 +37,8 @@ namespace MeteorDefenseVR.PcInput
                     IEnumerator Capture(string state)
                     {
                         yield return new WaitForSecondsRealtime(.18f);Canvas.ForceUpdateCanvases();camera.GetComponent<WorldUiSafeArea>().Apply();PcStabilityRenderDriver.RenderForProof(camera);
+                        if(validate && panel.gameObject.activeInHierarchy)
+                            passed &= !entry.gameObject.activeInHierarchy && !Button("AudioSettings").gameObject.activeInHierarchy;
                         string folder=Path.Combine(output,$"{size.x}x{size.y}",state);Directory.CreateDirectory(folder);proof.SaveGameOnlyProof(folder,router);
                         var labels=(panel.gameObject.activeInHierarchy?panel.GetComponentsInChildren<TextMeshProUGUI>():entry.gameObject.activeInHierarchy?entry.GetComponentsInChildren<TextMeshProUGUI>().Concat(overlay.GetComponentsInChildren<TextMeshProUGUI>().Where(t=>t.name=="SimulationHelp"||t.transform.parent.name=="ResumeSimulation")).ToArray():Array.Empty<TextMeshProUGUI>());
                         foreach(var label in labels)
