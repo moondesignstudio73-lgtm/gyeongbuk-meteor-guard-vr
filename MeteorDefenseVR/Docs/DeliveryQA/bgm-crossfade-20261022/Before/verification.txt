@@ -1,0 +1,13 @@
+Real state events and existing BGM clips, actual source DSP and applied envelope. Controlled QA, not human listening, loop-seam or speaker/HMD verification.
+battle overlap=False
+battle bounded source count and summed gain=True
+battle-boss overlap=False
+battle-boss actual two-clip overlap=False
+battle-boss bounded source count and summed gain=True
+boss-result overlap=False
+boss-result actual two-clip overlap=False
+boss-result bounded source count and summed gain=True
+result-base overlap=False
+result-base actual two-clip overlap=False
+result-base bounded source count and summed gain=True
+passed=True

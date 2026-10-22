@@ -21,7 +21,7 @@ namespace MeteorDefenseVR.Audio
         [SerializeField, Range(0f, 1f)] private float sfxVolume = 0.9f;
         [SerializeField, Range(0f, 1f)] private float voiceVolume = 1f;
         [SerializeField] private bool bgmMute;
-        [Tooltip("Total fade-out + fade-in time. Also used for the full Reset fade-out.")]
+        [Tooltip("Overlap transition duration. Also used for the full Reset fade-out.")]
         [SerializeField, Min(0.05f)] private float fadeDuration = 1f;
         [SerializeField, Min(0.05f)] private float bossFadeDuration = 0.4f;
 
@@ -29,7 +29,12 @@ namespace MeteorDefenseVR.Audio
         private FadePhase fadePhase;
         private AudioCueEntry requestedBgm;
         private AudioCueEntry playingBgm;
-        private float fadeGain, fadeElapsed, phaseDuration, fadeStartGain, incomingDuration;
+        private float fadeGain, fadeElapsed, phaseDuration, fadeStartGain;
+        private AudioSource outgoingBgmSource, ownedBgmSource;
+        private AudioCueEntry outgoingBgm;
+        private float outgoingGain, outgoingStartGain;
+        public AudioSource CurrentBgmSource => bgmSource;
+        public float BgmEnvelopeGain => fadeGain + outgoingGain;
         private float presentationGain = 1f, presentationTarget = 1f;
         private float presentationSfxPitch = 1f;
         private float warningMusicGain = 1f, warningMusicHold;
@@ -122,6 +127,7 @@ namespace MeteorDefenseVR.Audio
             StopAll();
             cueLibrary = library;
             bgmSource = bgm;
+            outgoingBgmSource = ownedBgmSource;
             uiSource = ui;
             sfxSource = sfx;
             voiceSource = voice;
@@ -181,10 +187,10 @@ namespace MeteorDefenseVR.Audio
         {
             presentationGain = presentationTarget = 1f;
             presentationSfxPitch = 1f;
-            requestedBgm = playingBgm = null;
+            requestedBgm = playingBgm = outgoingBgm = null;
             fadePhase = FadePhase.Idle;
-            fadeGain = fadeElapsed = 0f;
-            StopSource(bgmSource);
+            fadeGain = fadeElapsed = outgoingGain = outgoingStartGain = 0f;
+            StopSource(bgmSource); StopSource(outgoingBgmSource);
             StopEffects();
             ApplyMix();
         }
@@ -207,85 +213,84 @@ namespace MeteorDefenseVR.Audio
         public void SetSfxVolume(float value) { sfxVolume = SafeVolume(value); ApplyMix(); }
         public void SetVoiceVolume(float value) { voiceVolume = SafeVolume(value); ApplyMix(); }
         public void SetBgmMute(bool value) { bgmMute = value; ApplyMix(); }
-        public bool OwnsBgmSource(AudioSource source) => source != null && source == bgmSource;
+        public bool OwnsBgmSource(AudioSource source) => source != null && (source == bgmSource || source == outgoingBgmSource);
         public bool OwnsAmbientSource(AudioSource source) => source != null && source == ambientSource;
 
         public bool RequestBgm(AudioCue cue)
         {
-            if (!entries.TryGetValue(cue, out AudioCueEntry entry) || entry.Category != AudioCategory.Bgm ||
-                entry.Clip == null || bgmSource == null || !isActiveAndEnabled) return false;
-            // A completed one-shot is still the selected song: Result must not restart it.
-            if (requestedBgm != null && requestedBgm.Clip == entry.Clip && requestedBgm.Loop == entry.Loop) return true;
-            requestedBgm = entry;
-            float duration = cue == AudioCue.BgmBoss ? BossFadeDuration : FadeDuration;
-            if (playingBgm == null || bgmSource.clip == null)
+            if (!entries.TryGetValue(cue,out var entry) || entry.Category!=AudioCategory.Bgm ||
+                entry.Clip==null || bgmSource==null || !isActiveAndEnabled) return false;
+            if (SameTrack(requestedBgm,entry)) return true; // includes finished Result one-shot
+            bool restarting = requestedBgm==null && fadePhase==FadePhase.Out;
+            requestedBgm=entry;
+            if(restarting)
             {
-                incomingDuration = duration;
-                StartRequestedBgm();
+                StopSource(bgmSource);StopSource(outgoingBgmSource);
+                playingBgm=outgoingBgm=null;fadeGain=outgoingGain=0;fadePhase=FadePhase.Idle;
             }
-            else
-            {
-                incomingDuration = duration * 0.5f;
-                BeginFadeOut(duration * 0.5f);
-            }
+            // Only one latest request is retained during an overlap. Do not cut an
+            // audible source to make room for a third song or allocate another source.
+            if(fadePhase==FadePhase.Idle)StartRequestedBgm();
             return true;
         }
-
+        private static bool SameTrack(AudioCueEntry a,AudioCueEntry b)
+            =>a!=null&&b!=null&&a.Clip==b.Clip&&a.Loop==b.Loop;
         public void ResetForNewSession()
         {
             StopEffects();
-            // Reset -> Boot, repeated operator Reset: do not prolong the same fade.
-            if (requestedBgm == null && fadePhase == FadePhase.Out) return;
-            requestedBgm = null;
-            if (!isActiveAndEnabled || bgmSource == null || playingBgm == null) { StopAll(); return; }
-            BeginFadeOut(FadeDuration);
+            if(requestedBgm==null&&fadePhase==FadePhase.Out)return;
+            requestedBgm=null;
+            if(!isActiveAndEnabled||playingBgm==null){StopAll();return;}
+            fadeStartGain=fadeGain;outgoingStartGain=outgoingGain;
+            fadeElapsed=0;phaseDuration=FadeDuration;fadePhase=FadePhase.Out;
         }
-
-        private void BeginFadeOut(float seconds)
-        {
-            fadeStartGain = fadeGain;
-            fadeElapsed = 0f;
-            phaseDuration = seconds;
-            fadePhase = FadePhase.Out;
-        }
-
         private void StartRequestedBgm()
         {
-            StopSource(bgmSource);
-            playingBgm = requestedBgm;
-            fadeGain = fadeElapsed = 0f;
-            if (playingBgm == null || bgmSource == null)
+            if(requestedBgm==null||SameTrack(playingBgm,requestedBgm))return;
+            if(playingBgm!=null&&bgmSource.clip!=null)
             {
-                fadePhase = FadePhase.Idle;
-                return;
+                StopSource(outgoingBgmSource);
+                var previous=bgmSource;bgmSource=outgoingBgmSource;outgoingBgmSource=previous;
+                outgoingBgm=playingBgm;outgoingGain=fadeGain;
             }
-            bgmSource.clip = playingBgm.Clip;
-            bgmSource.loop = playingBgm.Loop;
-            bgmSource.volume = 0f;
-            bgmSource.Play();
-            BgmPlaybackStarts++;
-            phaseDuration = incomingDuration;
-            fadePhase = FadePhase.In;
-            CuePlaybackRequested?.Invoke(playingBgm.Cue, AudioCategory.Bgm);
+            else {outgoingBgm=null;outgoingGain=0;}
+            outgoingStartGain=outgoingGain;
+            playingBgm=requestedBgm;fadeGain=fadeElapsed=0;
+            bgmSource.clip=playingBgm.Clip;bgmSource.loop=playingBgm.Loop;bgmSource.volume=0;
+            bgmSource.Play();BgmPlaybackStarts++;
+            phaseDuration=playingBgm.Cue==AudioCue.BgmBoss?BossFadeDuration:FadeDuration;
+            fadePhase=FadePhase.In;
+            CuePlaybackRequested?.Invoke(playingBgm.Cue,AudioCategory.Bgm);
         }
-
         private void TickBgm(float delta)
         {
-            if (float.IsNaN(delta) || float.IsInfinity(delta) || delta <= 0f) return;
-            // At most two phases per tick; no allocations, coroutines, scene searches or extra sources.
-            for (int i = 0; i < 2 && fadePhase != FadePhase.Idle; i++)
+            if(float.IsNaN(delta)||float.IsInfinity(delta)||delta<=0)return;
+            for(int i=0;i<2&&fadePhase!=FadePhase.Idle;i++)
             {
-                float step = Mathf.Min(delta, Mathf.Max(0f, phaseDuration - fadeElapsed));
-                fadeElapsed += step;
-                delta -= step;
-                float t = Mathf.Clamp01(fadeElapsed / phaseDuration);
-                fadeGain = fadePhase == FadePhase.Out ? Mathf.Lerp(fadeStartGain, 0f, t) : t;
-                if (t < 1f) break;
-                if (fadePhase == FadePhase.Out) StartRequestedBgm();
-                else fadePhase = FadePhase.Idle;
+                float step=Mathf.Min(delta,Mathf.Max(0,phaseDuration-fadeElapsed));
+                fadeElapsed+=step;delta-=step;float t=Mathf.Clamp01(fadeElapsed/phaseDuration);
+                outgoingGain=outgoingStartGain*(1-t);
+                fadeGain=fadePhase==FadePhase.Out?fadeStartGain*(1-t):t;
+                if(t<1)break;
+                StopSource(outgoingBgmSource);outgoingBgm=null;outgoingGain=0;
+                if(fadePhase==FadePhase.Out){StopSource(bgmSource);playingBgm=null;fadeGain=0;}
+                fadePhase=FadePhase.Idle;
+                if(requestedBgm!=null&&!SameTrack(playingBgm,requestedBgm))StartRequestedBgm();
             }
         }
-
+        private void InitializeMusicSource()
+        {
+            if(bgmSource==null)return;
+            if(ownedBgmSource==null)
+            {
+                var root=new GameObject("ManagedBgmCrossfade");root.transform.SetParent(transform,false);
+                ownedBgmSource=root.AddComponent<AudioSource>();ConfigureSource(ownedBgmSource);
+                ownedBgmSource.outputAudioMixerGroup=bgmSource.outputAudioMixerGroup;
+                outgoingBgmSource=ownedBgmSource;
+            }
+            AudioChannelFilter.Attach(bgmSource,UserAudioChannel.Music);
+            AudioChannelFilter.Attach(outgoingBgmSource,UserAudioChannel.Music);
+        }
         private void ApplyMix()
         {
             float master = SafeVolume(masterVolume, 0.7f);
@@ -294,6 +299,11 @@ namespace MeteorDefenseVR.Audio
                 // One attenuation: boss presentation and critical warnings never stack.
                 bgmSource.volume = master * SafeVolume(bgmVolume) * (playingBgm?.Volume ?? 0f) * fadeGain * Mathf.Min(presentationGain, warningMusicGain);
                 bgmSource.mute = bgmMute;
+            }
+            if(outgoingBgmSource!=null)
+            {
+                outgoingBgmSource.volume=master*SafeVolume(bgmVolume)*(outgoingBgm?.Volume??0f)*outgoingGain*Mathf.Min(presentationGain,warningMusicGain);
+                outgoingBgmSource.mute=bgmMute;
             }
             if (uiSource != null) uiSource.volume = master * channelTrim[(int)AudioCategory.UI];
             if (sfxSource != null) sfxSource.volume = master * SafeVolume(sfxVolume) * channelTrim[(int)AudioCategory.Sfx];
@@ -311,6 +321,7 @@ namespace MeteorDefenseVR.Audio
         private void ConfigureSources()
         {
             ConfigureSource(bgmSource);
+            InitializeMusicSource();
             ConfigureSource(uiSource);
             ConfigureSource(sfxSource);
             ConfigureSource(voiceSource);

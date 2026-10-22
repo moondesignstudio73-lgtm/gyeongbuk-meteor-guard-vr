@@ -22,7 +22,7 @@ namespace MeteorDefenseVR.PcInput
             var sources=Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include);
             var filters=Object.FindObjectsByType<AudioChannelFilter>(FindObjectsInactive.Include);
             var climax=Object.FindAnyObjectByType<BossClimaxController>();var campaignCompletion=climax.CampaignCompletionHandler;
-            var bgm=sources.Single(manager.OwnsBgmSource);var notes=new List<string>();var timeline=new List<string>{"seconds,segment,state,paused,hp,source,playing,volume,inputRms,outputRms"};
+            var bgm=manager.CurrentBgmSource;var notes=new List<string>();var timeline=new List<string>{"seconds,segment,state,paused,hp,source,playing,volume,inputRms,outputRms"};
             bool passed=true;string segment="setup";float start=Time.realtimeSinceStartup;int warnings=0;
             var warningDspTimes=new List<double>();
             void Check(bool ok,string message){passed &= ok;notes.Add(message+"="+ok);}
@@ -57,7 +57,7 @@ namespace MeteorDefenseVR.PcInput
                 Check(warnings>count&&warnings-count<=8&&cooldownHeld,"critical warnings present and bounded with shared cooldown");
                 // Observe a real BGM transition across a listener pause boundary.
                 flow.StartBoss();Object.FindAnyObjectByType<BossClimaxController>().BeginClimax();yield return Observe("boss-transition",.1f);
-                router.Simulation.Pause();float volume=bgm.volume;var clip=bgm.clip;int starts=manager.BgmPlaybackStarts;count=warnings;
+                bgm=manager.CurrentBgmSource;router.Simulation.Pause();float volume=bgm.volume;var clip=bgm.clip;int starts=manager.BgmPlaybackStarts;count=warnings;
                 yield return Observe("paused-transition",1.2f);
                 Check(AudioListener.pause&&bgm.clip==clip&&Mathf.Abs(bgm.volume-volume)<.00001f&&manager.BgmPlaybackStarts==starts,"paused music transition freezes clip and fade");
                 Check(warnings==count,"no new warnings during pause");router.Simulation.Resume();yield return Observe("boss-resumed",1.5f);

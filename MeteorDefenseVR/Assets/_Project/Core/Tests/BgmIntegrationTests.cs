@@ -81,15 +81,16 @@ namespace MeteorDefenseVR.Tests
         }
 
         [Test]
-        public void TransitionUsesOneSource_AndLatestRequestWins()
+        public void TransitionUsesTwoReusableSources_AndLatestRequestWins()
         {
             manager.RequestBgm(AudioCue.BgmIntro); Step(1);
             manager.RequestBgm(AudioCue.BgmTutorial); Step(.2f);
-            manager.RequestBgm(AudioCue.BgmBattle); Step(1);
+            manager.RequestBgm(AudioCue.BgmBattle); Step(2);
             Assert.That(manager.CurrentBgmClip, Is.SameAs(clips[2]));
-            Assert.That(manager.BgmPlaybackStarts, Is.EqualTo(2), "Superseded Tutorial must never start");
+            Assert.That(manager.BgmPlaybackStarts, Is.EqualTo(3), "Already audible Tutorial finishes overlap before latest Battle starts");
             Assert.That(root.GetComponents<AudioSource>().Length, Is.EqualTo(5));
             Assert.That(sources.Skip(1).All(s => s.clip == null), Is.True);
+            Assert.That(root.GetComponentsInChildren<AudioSource>().Count(manager.OwnsBgmSource), Is.EqualTo(2));
             manager.RequestBgm(AudioCue.BgmBoss); Step(.4f);
             Assert.That(manager.CurrentBgmClip, Is.SameAs(clips[3]));
             Assert.That(manager.IsBgmTransitioning, Is.False);
@@ -161,7 +162,7 @@ namespace MeteorDefenseVR.Tests
             Assert.That(manager.TargetBgmCue, Is.Null);
             manager.Configure(library, sources[0], sources[1], sources[2], sources[3], sources[4]);
             Assert.That(manager.RequestBgm(AudioCue.BgmIntro), Is.True);
-            Assert.That(manager.BgmPlaybackStarts, Is.EqualTo(2));
+            Assert.That(manager.BgmPlaybackStarts, Is.EqualTo(3));
             Assert.That(manager.RequestBgm(AudioCue.Laser), Is.False);
         }
 
@@ -213,10 +214,10 @@ namespace MeteorDefenseVR.Tests
                 yield return null;
                 var audio = Object.FindAnyObjectByType<AudioManager>();
                 Assert.That(Object.FindObjectsByType<AudioManager>().Length, Is.EqualTo(1));
-                Assert.That(audio.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(5+AudioManager.TransientVoiceLimit));
+                Assert.That(audio.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(6+AudioManager.TransientVoiceLimit));
                 audio.RequestBgm(AudioCue.BgmBattle);
                 yield return new WaitForSecondsRealtime(1.1f);
-                var oldSource = audio.GetComponentsInChildren<AudioSource>().Single(audio.OwnsBgmSource);
+                var oldSource = audio.CurrentBgmSource;
                 Assert.That(oldSource.isPlaying, Is.True);
                 Time.timeScale = 0f;
                 audio.ResetForNewSession();
@@ -239,7 +240,7 @@ namespace MeteorDefenseVR.Tests
                 Assert.That(oldSource == null, Is.True, "Scene-owned source must be destroyed, not persisted; old scene " + oldSceneHandle);
                 var replacement = Object.FindAnyObjectByType<AudioManager>();
                 Assert.That(Object.FindObjectsByType<AudioManager>().Length, Is.EqualTo(1));
-                Assert.That(replacement.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(5+AudioManager.TransientVoiceLimit));
+                Assert.That(replacement.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(6+AudioManager.TransientVoiceLimit));
                 Assert.That(replacement.CurrentBgmClip, Is.Null);
             }
         }
@@ -260,7 +261,7 @@ namespace MeteorDefenseVR.Tests
         {
             Assert.That(manager, Is.Not.Null);
             sourceCount = manager.GetComponentsInChildren<AudioSource>(true).Length;
-            Assert.That(sourceCount, Is.EqualTo(5+AudioManager.TransientVoiceLimit));
+            Assert.That(sourceCount, Is.EqualTo(6+AudioManager.TransientVoiceLimit));
             Assert.That(manager.CurrentBgmClip, Is.Null, "Ready starts without BGM");
             manager.CuePlaybackRequested += OnCue;
             dspStart = AudioSettings.dspTime;
@@ -277,7 +278,7 @@ namespace MeteorDefenseVR.Tests
         {
             Assert.That(manager.TargetBgmCue, Is.EqualTo(GameAudioEventRouter.BgmForState(state)), "Audio/state mapping: " + state);
             Assert.That(manager.GetComponentsInChildren<AudioSource>(true).Length, Is.EqualTo(sourceCount));
-            var source = manager.GetComponentsInChildren<AudioSource>(true).Single(manager.OwnsBgmSource);
+            var source = manager.CurrentBgmSource;
             if (manager.TargetBgmCue.HasValue && !manager.IsBgmTransitioning)
             {
                 Assert.That(source.isPlaying, Is.True, "Unexpected silence in " + state);

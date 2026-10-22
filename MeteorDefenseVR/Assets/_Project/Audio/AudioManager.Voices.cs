@@ -55,6 +55,8 @@ namespace MeteorDefenseVR.Audio
         }
         private void OnDestroy()
         {
+            if(ownedBgmSource!=null)
+            {if(Application.isPlaying)Destroy(ownedBgmSource.gameObject);else DestroyImmediate(ownedBgmSource.gameObject);}
             StopVoices();foreach(var v in voices)if(v?.Pool!=null)
             {if(Application.isPlaying)Destroy(v.Pool.gameObject);else DestroyImmediate(v.Pool.gameObject);}
         }

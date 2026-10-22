@@ -66,7 +66,7 @@ namespace MeteorDefenseVR.PcInput
                 Check(manager.TryPlay(AudioCue.Warning,700),"next session warning restored");manager.StopAll();
                 // Actual existing music and warning clips; sample the applied source envelope
                 // alongside fresh DSP output. These measurements are not a listening test.
-                var music=Object.FindObjectsByType<AudioSource>(FindObjectsInactive.Include).First(s=>manager.OwnsBgmSource(s));
+                var music=manager.CurrentBgmSource;
                 var musicFilter=AudioChannelFilter.Attach(music,UserAudioChannel.Music);musicFilter.Measure=true;
                 manager.RequestBgm(AudioCue.BgmIntro);yield return new WaitForSecondsRealtime(1.5f);
                 float normal=music.volume;Check(normal>0,"music baseline active");
@@ -98,6 +98,7 @@ namespace MeteorDefenseVR.PcInput
                 }
                 Check(manager.WarningMusicGain==1&&Mathf.Abs(music.volume-normal)<.001f&&musicFilter.PeakOutputRms>0,"normal music gain restored with actual DSP output");
                 manager.TryPlay(AudioCue.Warning,803);manager.RequestBgm(AudioCue.BgmBoss);yield return new WaitForSecondsRealtime(1.6f);
+                music=manager.CurrentBgmSource;musicFilter=AudioChannelFilter.Attach(music,UserAudioChannel.Music);musicFilter.Measure=true;
                 Check(!manager.IsBgmTransitioning&&manager.WarningMusicGain==1&&music.clip==Clip(AudioCue.BgmBoss),"song transition restores without changing selection");
                 AudioUserPreferences.SetVolume(UserAudioChannel.Music,0);manager.TryPlay(AudioCue.Warning,804);yield return new WaitForSecondsRealtime(.05f);musicFilter.ResetMeasurement();yield return new WaitForSecondsRealtime(.15f);
                 Check(musicFilter.AppliedGain==0&&musicFilter.PeakOutputRms==0,"music zero stays silent during warning");
