@@ -1,0 +1,671 @@
+Standalone: synthetic InputSystem mouse/keyboard; Editor: synthetic gaze/API state checks because batch Editor did not consume queued input. Actual source DSP callbacks. No human listening, human gameplay or HMD. Radio/AI use an existing music clip only as isolated route-test signal; no speech assets exist.
+existing music test clip present=True
+source=PooledSpatialThreatWarning clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: PooledSpatialThreatWarning=True
+source=Voice clip= active=True filter=Effects authoredVolume=0.65 mixer=none
+active source routed: Voice=True
+source=UI clip= active=True filter=Effects authoredVolume=0.65 mixer=none
+active source routed: UI=True
+source=ManagedBgmCrossfade clip= active=True filter=Music authoredVolume=0 mixer=none
+active source routed: ManagedBgmCrossfade=True
+source=Ambient clip=IntroSpaceAmbient active=True filter=Effects authoredVolume=0.182 mixer=none
+active source routed: Ambient=True
+source=SFX clip= active=True filter=Effects authoredVolume=0.585 mixer=none
+active source routed: SFX=True
+source=TurretChargeAudio clip=TurretCharge active=True filter=Effects authoredVolume=0.11 mixer=none
+active source routed: TurretChargeAudio=True
+source=PooledAirLeakAudio clip=CabinAirLeak active=True filter=Effects authoredVolume=0 mixer=none
+active source routed: PooledAirLeakAudio=True
+source=LaunchSystem clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: LaunchSystem=True
+source=MainGameSpawner clip= active=True filter=Effects authoredVolume=0.22 mixer=none
+active source routed: MainGameSpawner=True
+source=ManagedEffectVoice6 clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: ManagedEffectVoice6=True
+source=BGM clip=Battle active=True filter=Music authoredVolume=0.2275 mixer=none
+active source routed: BGM=True
+source=PlayerSystem clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: PlayerSystem=True
+source=MissionCompleteSystem clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: MissionCompleteSystem=True
+source=ManagedEffectVoice5 clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: ManagedEffectVoice5=True
+source=ManagedEffectVoice4 clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: ManagedEffectVoice4=True
+source=ManagedEffectVoice3 clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: ManagedEffectVoice3=True
+source=Meteor_Boss(Clone) clip= active=False filter=Effects authoredVolume=1 mixer=none
+source=ManagedEffectVoice1 clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: ManagedEffectVoice1=True
+source=TurretServoAudio clip=TurretServo active=True filter=Effects authoredVolume=0 mixer=none
+active source routed: TurretServoAudio=True
+source=ManagedEffectVoice7 clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: ManagedEffectVoice7=True
+source=ManagedEffectVoice0 clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: ManagedEffectVoice0=True
+source=ManagedEffectVoice2 clip= active=True filter=Effects authoredVolume=1 mixer=none
+active source routed: ManagedEffectVoice2=True
+DSP Music/full: blocks=14, in=0.00898434, out=0.00898434, expected=1=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Music/zero: blocks=13, in=0.009601023, out=0, expected=0=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Music/restore: blocks=14, in=0.008703294, out=0.003481318, expected=0.4=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Music/mute: blocks=15, in=0.008399776, out=0, expected=0=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Music/unmute: blocks=14, in=0.007660439, out=0.003064176, expected=0.4=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Effects/full: blocks=15, in=0.007781261, out=0.007781261, expected=1=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Effects/zero: blocks=14, in=0.007059031, out=0, expected=0=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Effects/restore: blocks=15, in=0.009169864, out=0.003667945, expected=0.4=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Effects/mute: blocks=13, in=0.00787183, out=0, expected=0=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Effects/unmute: blocks=14, in=0.009442093, out=0.003776837, expected=0.4=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Radio/full: blocks=14, in=0.008727489, out=0.008727489, expected=1=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Radio/zero: blocks=13, in=0.007753322, out=0, expected=0=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Radio/restore: blocks=14, in=0.008775955, out=0.003510382, expected=0.4=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Radio/mute: blocks=14, in=0.009235028, out=0, expected=0=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Radio/unmute: blocks=14, in=0.01053019, out=0.004212075, expected=0.4=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Ai/full: blocks=14, in=0.01543191, out=0.01543191, expected=1=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Ai/zero: blocks=14, in=0.02484435, out=0, expected=0=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Ai/restore: blocks=14, in=0.02341648, out=0.009366592, expected=0.4=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Ai/mute: blocks=14, in=0.01196983, out=0, expected=0=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+DSP Ai/unmute: blocks=14, in=0.01095366, out=0.004381464, expected=0.4=True
+independent 0=True
+independent 1=True
+independent 2=True
+independent 3=True
+existing cue DSP IntroSpaceAmbient clip=IntroSpaceAmbient seconds=8 channels=1 source=Ambient=True
+existing cue DSP Warning clip=Warning seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP CalibrationPoint clip=CalibrationPoint seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP CalibrationComplete clip=CalibrationComplete seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP TargetFocus clip=TargetFocus seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP LockOn clip=LockOn seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP Laser clip=Laser seconds=0.2199547 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP MeteorHit clip=MeteorHit seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP MeteorExplosion clip=MeteorExplosion seconds=0.8499773 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP Score clip=Score seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP Countdown clip=Countdown seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP Launch clip=Launch seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP BossWarning clip=BossWarning seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP BossExplosion clip=BossExplosion seconds=0.8499773 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP MissionComplete clip=MissionComplete seconds=4 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP Result clip=Result seconds=0.28 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP BgmIntro clip=Intro seconds=25.08 channels=2 source=BGM=True
+existing cue DSP BgmTutorial clip=Tutorial seconds=38.112 channels=2 source=BGM=True
+existing cue DSP BgmBattle clip=Battle seconds=74.784 channels=2 source=BGM=True
+existing cue DSP BgmBoss clip=Boss seconds=24.792 channels=2 source=BGM=True
+existing cue DSP BgmResult clip=Result seconds=24.792 channels=2 source=BGM=True
+existing cue DSP EngineStart clip=EngineStart seconds=0.6999546 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP GlassHit clip=GlassImpactLayer seconds=0.5 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP PlayerDamage clip=HullImpactLayer seconds=0.5 channels=1 source=ManagedEffectVoice0=True
+existing cue DSP AirLeak clip=CabinAirLeak seconds=2 channels=1 source=SFX=True
+Editor gaze opens normal screen=True
+normal input volume down 0=True
+normal input mute 0=True
+normal input restore 0=True
+normal input volume down 1=True
+normal input mute 1=True
+normal input restore 1=True
+normal input volume down 2=True
+normal input mute 2=True
+normal input restore 2=True
+normal input volume down 3=True
+normal input mute 3=True
+normal input restore 3=True
+Editor API fallback for Enter; actual input requires standalone run
+Editor API fallback for Space; actual input requires standalone run
+normal input modal blocks start=True
+Editor API fallback for Escape; actual input requires standalone run
+synthetic gaze opens rendered audio (1920, 1080)=True
+gaze mute 0=True
+gaze mute 1=True
+gaze mute 2=True
+gaze mute 3=True
+continuous modal frame 0=True
+continuous modal frame 1=True
+continuous modal frame 2=True
+continuous modal frame 3=True
+continuous modal frame 4=True
+continuous modal frame 5=True
+continuous modal frame 6=True
+continuous modal frame 7=True
+continuous modal frame 8=True
+continuous modal frame 9=True
+continuous modal frame 10=True
+continuous modal frame 11=True
+continuous modal frame 12=True
+continuous modal frame 13=True
+continuous modal frame 14=True
+continuous modal frame 15=True
+continuous modal frame 16=True
+continuous modal frame 17=True
+continuous modal frame 18=True
+continuous modal frame 19=True
+continuous modal frame 20=True
+continuous modal frame 21=True
+continuous modal frame 22=True
+continuous modal frame 23=True
+continuous modal frame 24=True
+continuous modal frame 25=True
+continuous modal frame 26=True
+continuous modal frame 27=True
+continuous modal frame 28=True
+continuous modal frame 29=True
+Editor API fallback for Enter; actual input requires standalone run
+Editor API fallback for Space; actual input requires standalone run
+modal blocks Enter/Space start=True
+all glyphs present AudioTitle=True
+(1920, 1080)/AudioTitle fit=True px=46.12634 text=편하게 듣기=True
+all glyphs present AudioValue0=True
+(1920, 1080)/AudioValue0 fit=True px=36.98572 text=배경음악  90%=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=38.49219 text=소리 켜기=True
+all glyphs present AudioValue1=True
+(1920, 1080)/AudioValue1 fit=True px=36.79108 text=효과음  90%=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=38.49213 text=소리 켜기=True
+all glyphs present AudioValue2=True
+(1920, 1080)/AudioValue2 fit=True px=36.98566 text=무전  90%|음성 준비 중=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=38.49219 text=소리 켜기=True
+all glyphs present AudioValue3=True
+(1920, 1080)/AudioValue3 fit=True px=35.78772 text=AI 안내  90%|음성 준비 중=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=38.49216 text=소리 켜기=True
+all glyphs present AudioHelp=True
+(1920, 1080)/AudioHelp fit=True px=29.53125 text=변경한 소리 설정은 자동으로 저장돼요.=True
+all glyphs present Label=True
+(1920, 1080)/Label fit=True px=30.25715 text=닫기 / Esc=True
+button bounds AudioDown0=True
+button bounds AudioUp0=True
+button bounds AudioMute0=True
+button bounds AudioDown1=True
+button bounds AudioUp1=True
+button bounds AudioMute1=True
+button bounds AudioDown2=True
+button bounds AudioUp2=True
+button bounds AudioMute2=True
+button bounds AudioDown3=True
+button bounds AudioUp3=True
+button bounds AudioMute3=True
+button bounds AudioClose=True
+zero disables down=True
+full disables up=True
+Editor API fallback for Escape; actual input requires standalone run
+Escape closes boot modal=True
+synthetic gaze opens rendered audio (1280, 720)=True
+gaze mute 0=True
+gaze mute 1=True
+gaze mute 2=True
+gaze mute 3=True
+continuous modal frame 0=True
+continuous modal frame 1=True
+continuous modal frame 2=True
+continuous modal frame 3=True
+continuous modal frame 4=True
+continuous modal frame 5=True
+continuous modal frame 6=True
+continuous modal frame 7=True
+continuous modal frame 8=True
+continuous modal frame 9=True
+continuous modal frame 10=True
+continuous modal frame 11=True
+continuous modal frame 12=True
+continuous modal frame 13=True
+continuous modal frame 14=True
+continuous modal frame 15=True
+continuous modal frame 16=True
+continuous modal frame 17=True
+continuous modal frame 18=True
+continuous modal frame 19=True
+continuous modal frame 20=True
+continuous modal frame 21=True
+continuous modal frame 22=True
+continuous modal frame 23=True
+continuous modal frame 24=True
+continuous modal frame 25=True
+continuous modal frame 26=True
+continuous modal frame 27=True
+continuous modal frame 28=True
+continuous modal frame 29=True
+Editor API fallback for Enter; actual input requires standalone run
+Editor API fallback for Space; actual input requires standalone run
+modal blocks Enter/Space start=True
+all glyphs present AudioTitle=True
+(1280, 720)/AudioTitle fit=True px=30.75085 text=편하게 듣기=True
+all glyphs present AudioValue0=True
+(1280, 720)/AudioValue0 fit=True px=24.65717 text=배경음악  90%=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=25.6615 text=소리 켜기=True
+all glyphs present AudioValue1=True
+(1280, 720)/AudioValue1 fit=True px=24.52734 text=효과음  90%=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=25.66144 text=소리 켜기=True
+all glyphs present AudioValue2=True
+(1280, 720)/AudioValue2 fit=True px=24.65714 text=무전  90%|음성 준비 중=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=25.66147 text=소리 켜기=True
+all glyphs present AudioValue3=True
+(1280, 720)/AudioValue3 fit=True px=23.85847 text=AI 안내  90%|음성 준비 중=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=25.66144 text=소리 켜기=True
+all glyphs present AudioHelp=True
+(1280, 720)/AudioHelp fit=True px=19.68751 text=변경한 소리 설정은 자동으로 저장돼요.=True
+all glyphs present Label=True
+(1280, 720)/Label fit=True px=20.17143 text=닫기 / Esc=True
+button bounds AudioDown0=True
+button bounds AudioUp0=True
+button bounds AudioMute0=True
+button bounds AudioDown1=True
+button bounds AudioUp1=True
+button bounds AudioMute1=True
+button bounds AudioDown2=True
+button bounds AudioUp2=True
+button bounds AudioMute2=True
+button bounds AudioDown3=True
+button bounds AudioUp3=True
+button bounds AudioMute3=True
+button bounds AudioClose=True
+zero disables down=True
+full disables up=True
+Editor API fallback for Escape; actual input requires standalone run
+Escape closes boot modal=True
+synthetic gaze opens rendered audio (1024, 768)=True
+gaze mute 0=True
+gaze mute 1=True
+gaze mute 2=True
+gaze mute 3=True
+continuous modal frame 0=True
+continuous modal frame 1=True
+continuous modal frame 2=True
+continuous modal frame 3=True
+continuous modal frame 4=True
+continuous modal frame 5=True
+continuous modal frame 6=True
+continuous modal frame 7=True
+continuous modal frame 8=True
+continuous modal frame 9=True
+continuous modal frame 10=True
+continuous modal frame 11=True
+continuous modal frame 12=True
+continuous modal frame 13=True
+continuous modal frame 14=True
+continuous modal frame 15=True
+continuous modal frame 16=True
+continuous modal frame 17=True
+continuous modal frame 18=True
+continuous modal frame 19=True
+continuous modal frame 20=True
+continuous modal frame 21=True
+continuous modal frame 22=True
+continuous modal frame 23=True
+continuous modal frame 24=True
+continuous modal frame 25=True
+continuous modal frame 26=True
+continuous modal frame 27=True
+continuous modal frame 28=True
+continuous modal frame 29=True
+Editor API fallback for Enter; actual input requires standalone run
+Editor API fallback for Space; actual input requires standalone run
+modal blocks Enter/Space start=True
+all glyphs present AudioTitle=True
+(1024, 768)/AudioTitle fit=True px=24.60077 text=편하게 듣기=True
+all glyphs present AudioValue0=True
+(1024, 768)/AudioValue0 fit=True px=19.72565 text=배경음악  90%=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=20.52911 text=소리 켜기=True
+all glyphs present AudioValue1=True
+(1024, 768)/AudioValue1 fit=True px=19.62192 text=효과음  90%=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=20.52914 text=소리 켜기=True
+all glyphs present AudioValue2=True
+(1024, 768)/AudioValue2 fit=True px=19.72571 text=무전  90%|음성 준비 중=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=20.52917 text=소리 켜기=True
+all glyphs present AudioValue3=True
+(1024, 768)/AudioValue3 fit=True px=19.08682 text=AI 안내  90%|음성 준비 중=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=20.52917 text=소리 켜기=True
+all glyphs present AudioHelp=True
+(1024, 768)/AudioHelp fit=True px=15.75 text=변경한 소리 설정은 자동으로 저장돼요.=True
+all glyphs present Label=True
+(1024, 768)/Label fit=True px=16.13716 text=닫기 / Esc=True
+button bounds AudioDown0=True
+button bounds AudioUp0=True
+button bounds AudioMute0=True
+button bounds AudioDown1=True
+button bounds AudioUp1=True
+button bounds AudioMute1=True
+button bounds AudioDown2=True
+button bounds AudioUp2=True
+button bounds AudioMute2=True
+button bounds AudioDown3=True
+button bounds AudioUp3=True
+button bounds AudioMute3=True
+button bounds AudioClose=True
+zero disables down=True
+full disables up=True
+Editor API fallback for Escape; actual input requires standalone run
+Escape closes boot modal=True
+synthetic gaze opens rendered audio (800, 600)=True
+gaze mute 0=True
+gaze mute 1=True
+gaze mute 2=True
+gaze mute 3=True
+continuous modal frame 0=True
+continuous modal frame 1=True
+continuous modal frame 2=True
+continuous modal frame 3=True
+continuous modal frame 4=True
+continuous modal frame 5=True
+continuous modal frame 6=True
+continuous modal frame 7=True
+continuous modal frame 8=True
+continuous modal frame 9=True
+continuous modal frame 10=True
+continuous modal frame 11=True
+continuous modal frame 12=True
+continuous modal frame 13=True
+continuous modal frame 14=True
+continuous modal frame 15=True
+continuous modal frame 16=True
+continuous modal frame 17=True
+continuous modal frame 18=True
+continuous modal frame 19=True
+continuous modal frame 20=True
+continuous modal frame 21=True
+continuous modal frame 22=True
+continuous modal frame 23=True
+continuous modal frame 24=True
+continuous modal frame 25=True
+continuous modal frame 26=True
+continuous modal frame 27=True
+continuous modal frame 28=True
+continuous modal frame 29=True
+Editor API fallback for Enter; actual input requires standalone run
+Editor API fallback for Space; actual input requires standalone run
+modal blocks Enter/Space start=True
+all glyphs present AudioTitle=True
+(800, 600)/AudioTitle fit=True px=19.21927 text=편하게 듣기=True
+all glyphs present AudioValue0=True
+(800, 600)/AudioValue0 fit=True px=15.41068 text=배경음악  90%=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=16.03842 text=소리 켜기=True
+all glyphs present AudioValue1=True
+(800, 600)/AudioValue1 fit=True px=15.32962 text=효과음  90%=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=16.03839 text=소리 켜기=True
+all glyphs present AudioValue2=True
+(800, 600)/AudioValue2 fit=True px=15.41071 text=무전  90%|음성 준비 중=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=16.03839 text=소리 켜기=True
+all glyphs present AudioValue3=True
+(800, 600)/AudioValue3 fit=True px=14.91156 text=AI 안내  90%|음성 준비 중=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=16.03841 text=소리 켜기=True
+all glyphs present AudioHelp=True
+(800, 600)/AudioHelp fit=True px=12.30469 text=변경한 소리 설정은 자동으로 저장돼요.=True
+all glyphs present Label=True
+(800, 600)/Label fit=True px=12.60713 text=닫기 / Esc=True
+button bounds AudioDown0=True
+button bounds AudioUp0=True
+button bounds AudioMute0=True
+button bounds AudioDown1=True
+button bounds AudioUp1=True
+button bounds AudioMute1=True
+button bounds AudioDown2=True
+button bounds AudioUp2=True
+button bounds AudioMute2=True
+button bounds AudioDown3=True
+button bounds AudioUp3=True
+button bounds AudioMute3=True
+button bounds AudioClose=True
+zero disables down=True
+full disables up=True
+Editor API fallback for Escape; actual input requires standalone run
+Escape closes boot modal=True
+synthetic gaze opens rendered audio (2560, 1080)=True
+gaze mute 0=True
+gaze mute 1=True
+gaze mute 2=True
+gaze mute 3=True
+continuous modal frame 0=True
+continuous modal frame 1=True
+continuous modal frame 2=True
+continuous modal frame 3=True
+continuous modal frame 4=True
+continuous modal frame 5=True
+continuous modal frame 6=True
+continuous modal frame 7=True
+continuous modal frame 8=True
+continuous modal frame 9=True
+continuous modal frame 10=True
+continuous modal frame 11=True
+continuous modal frame 12=True
+continuous modal frame 13=True
+continuous modal frame 14=True
+continuous modal frame 15=True
+continuous modal frame 16=True
+continuous modal frame 17=True
+continuous modal frame 18=True
+continuous modal frame 19=True
+continuous modal frame 20=True
+continuous modal frame 21=True
+continuous modal frame 22=True
+continuous modal frame 23=True
+continuous modal frame 24=True
+continuous modal frame 25=True
+continuous modal frame 26=True
+continuous modal frame 27=True
+continuous modal frame 28=True
+continuous modal frame 29=True
+Editor API fallback for Enter; actual input requires standalone run
+Editor API fallback for Space; actual input requires standalone run
+modal blocks Enter/Space start=True
+all glyphs present AudioTitle=True
+(2560, 1080)/AudioTitle fit=True px=46.12634 text=편하게 듣기=True
+all glyphs present AudioValue0=True
+(2560, 1080)/AudioValue0 fit=True px=36.98572 text=배경음악  90%=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=38.49219 text=소리 켜기=True
+all glyphs present AudioValue1=True
+(2560, 1080)/AudioValue1 fit=True px=36.79108 text=효과음  90%=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=38.49213 text=소리 켜기=True
+all glyphs present AudioValue2=True
+(2560, 1080)/AudioValue2 fit=True px=36.98566 text=무전  90%|음성 준비 중=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=38.49219 text=소리 켜기=True
+all glyphs present AudioValue3=True
+(2560, 1080)/AudioValue3 fit=True px=35.78772 text=AI 안내  90%|음성 준비 중=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=100 text=−=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=100 text=+=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=38.49216 text=소리 켜기=True
+all glyphs present AudioHelp=True
+(2560, 1080)/AudioHelp fit=True px=29.53125 text=변경한 소리 설정은 자동으로 저장돼요.=True
+all glyphs present Label=True
+(2560, 1080)/Label fit=True px=30.25715 text=닫기 / Esc=True
+button bounds AudioDown0=True
+button bounds AudioUp0=True
+button bounds AudioMute0=True
+button bounds AudioDown1=True
+button bounds AudioUp1=True
+button bounds AudioMute1=True
+button bounds AudioDown2=True
+button bounds AudioUp2=True
+button bounds AudioMute2=True
+button bounds AudioDown3=True
+button bounds AudioUp3=True
+button bounds AudioMute3=True
+button bounds AudioClose=True
+zero disables down=True
+full disables up=True
+Editor API fallback for Escape; actual input requires standalone run
+Escape closes boot modal=True
+pause entered before click=True
+pause audio opens=True
+Editor API fallback for Escape; actual input requires standalone run
+first Escape keeps pause=True
+Editor API fallback for Escape; actual input requires standalone run
+second Escape resumes=True
+result modal blocks timer and replay=True
+Editor API fallback for Escape; actual input requires standalone run
+Escape closes result settings=True
+reset clears audio modal=True
+five pause reset loops source count stable=True
+no lingering effects loops after reset=True
+production preferences preserved 0=True
+production preferences preserved 1=True
+production preferences preserved 2=True
+production preferences preserved 3=True
+passed=True

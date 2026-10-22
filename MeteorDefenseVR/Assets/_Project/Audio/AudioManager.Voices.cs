@@ -12,7 +12,7 @@ namespace MeteorDefenseVR.Audio
             public AudioSource Pool,Source;
             public AudioClip OriginalClip;
             public bool OriginalLoop,Owned;
-            public float OriginalVolume,OriginalPitch,Gain;
+            public float OriginalVolume,OriginalPitch,Gain,VariationPitch;
             public int OriginalPriority,Priority;
             public long Order;
             public AudioCategory Category;
@@ -20,6 +20,15 @@ namespace MeteorDefenseVR.Audio
         }
         private readonly Voice[] voices=new Voice[TransientVoiceLimit];
         private long voiceOrder;
+        // Local deterministic PRNG: accepted combat voices only; never consumes gameplay randomness.
+        private uint combatVariationState=0x4D455445u;
+        private float NextCombatVariation()
+        {
+            combatVariationState^=combatVariationState<<13;
+            combatVariationState^=combatVariationState>>17;
+            combatVariationState^=combatVariationState<<5;
+            return (combatVariationState&0xFFFFFFu)/16777215f;
+        }
         public int RejectedVoices { get; private set; }
         public int PreemptedVoices { get; private set; }
         public int ActiveTransientCount { get { int count=0;foreach(var v in voices)if(v?.Source!=null)count++;return count; } }
@@ -79,6 +88,15 @@ namespace MeteorDefenseVR.Audio
             var v=voices[chosen];ReleaseVoice(v);
             v.Source=owned?v.Pool:external;v.Owned=owned;v.Category=category;v.Cue=cue;v.Priority=priority;v.Order=++voiceOrder;v.Gain=gain;
             var s=v.Source;v.OriginalClip=s.clip;v.OriginalLoop=s.loop;v.OriginalVolume=s.volume;v.OriginalPitch=s.pitch;v.OriginalPriority=s.priority;
+            v.VariationPitch=1f;
+            // Select only after admission. Gain can only become quieter; excluded cues stay exact.
+            bool combat=category==AudioCategory.Sfx&&(cue==AudioCue.Laser||cue==AudioCue.MeteorHit||cue==AudioCue.MeteorExplosion);
+            bool loop=v.OriginalLoop||entries.TryGetValue(cue,out var entry)&&entry.Loop;
+            if(combat&&!loop)
+            {
+                v.VariationPitch=Mathf.Lerp(.97f,1.03f,NextCombatVariation());
+                v.Gain*=Mathf.Lerp(.94f,1f,NextCombatVariation());
+            }
             if(owned)
             {
                 var template=GetSource(category);s.outputAudioMixerGroup=template!=null?template.outputAudioMixerGroup:null;
@@ -100,7 +118,7 @@ namespace MeteorDefenseVR.Audio
             var s=v.Source;s.Stop();s.clip=v.Owned?null:v.OriginalClip;s.loop=v.Owned?false:v.OriginalLoop;
             s.volume=v.OriginalVolume;s.pitch=v.OriginalPitch;s.priority=v.OriginalPriority;v.Source=null;
         }
-        private void StopVoices(){foreach(var v in voices)ReleaseVoice(v);voiceOrder=0;}
+        private void StopVoices(){foreach(var v in voices)ReleaseVoice(v);voiceOrder=0;combatVariationState=0x4D455445u;}
         private void ApplyVoiceMix()
         {
             bool critical=HasCriticalVoice;
@@ -111,8 +129,8 @@ namespace MeteorDefenseVR.Audio
                 if(v.Owned)
                 {
                     volume*=SafeVolume(masterVolume,.7f)*(v.Category==AudioCategory.Sfx?SafeVolume(sfxVolume):v.Category==AudioCategory.Voice?SafeVolume(voiceVolume):1f);
-                    v.Source.pitch=v.Category==AudioCategory.Sfx?presentationSfxPitch:1;
                 }
+                v.Source.pitch=(v.Owned?(v.Category==AudioCategory.Sfx?presentationSfxPitch:1f):v.OriginalPitch)*v.VariationPitch;
                 v.Source.volume=volume*(critical&&v.Priority<3?.35f:1f);
             }
         }

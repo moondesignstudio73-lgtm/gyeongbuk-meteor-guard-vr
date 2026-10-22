@@ -56,6 +56,9 @@ namespace MeteorDefenseVR.PcInput
                 bool cooldownHeld=true;for(int i=Mathf.Max(1,dspStart);i<warningDspTimes.Count;i++)cooldownHeld&=warningDspTimes[i]-warningDspTimes[i-1]>=.699;
                 Check(warnings>count&&warnings-count<=8&&cooldownHeld,"critical warnings present and bounded with shared cooldown");
                 // Observe a real BGM transition across a listener pause boundary.
+                // End the low-health case first: an unrelated lethal impact would start a new
+                // Result transition while this case is asserting that the Boss fade has ended.
+                health.RestoreCheckpoint(health.MaxHealth);
                 flow.StartBoss();Object.FindAnyObjectByType<BossClimaxController>().BeginClimax();yield return Observe("boss-transition",.1f);
                 bgm=manager.CurrentBgmSource;router.Simulation.Pause();float volume=bgm.volume;var clip=bgm.clip;int starts=manager.BgmPlaybackStarts;count=warnings;
                 yield return Observe("paused-transition",1.2f);
