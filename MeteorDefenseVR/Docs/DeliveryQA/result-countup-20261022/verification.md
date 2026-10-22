@@ -23,3 +23,13 @@ ZIP 89,513,803 bytes, 222파일 해시 일치, SHA256 3f874cab6bfb40ee9c5ba27b64
 
 ## 첫 Windows 후보 검사
 전투 라운드·기본 배포 회귀·기존 결과 가독성 및 결과 90개 렌더/조기 버튼6회 통과. 집계 pause assertion만 실패. Update에서 timeScale=0으로 바꾸는 프레임에 LateUpdate가 현재 Time.time 값을 한 번 반영하므로, pause 직전 프레임의 표시값과 비교한 fixture가 부정확했다. 정지 후 한 프레임을 완료한 값을 기준으로 비교하도록 QA만 수정. 제품 시간 계산은 변경하지 않음. 첫 ZIP 미공개. 다음 소스 커밋 빌드/새 ZIP을 별도 RCU20261022b에 추출해 전체 재검사.
+
+## 최종 Windows 검증 / 공개 완료
+최종 소스 7ac4b4eaa3348151c6ac1d35e161926e93f64c2d, clean/non-development Windows 빌드. 사용자 ProjectSettings 백업과 일치 확인.
+최종 ZIP 89,513,812 bytes/222파일 원본 해시 일치, SHA256 4bc8c3e0ce18defc3fa861d3cc1139950ff83624b247d31bed8cf1f113135dcb.
+RCU20261022b 별도 압축 해제 실행 2026-10-22T00:17:20Z~00:20:17Z, exit0, passed=true/issues=[]. 실제 InputSystem 자동 마우스 전투 90.86초 결과/102.11초 초기화, 해당 PC 평균89.94FPS. 실제 배포본 90개 결과 경계/집계 캡처, 집계 중0.1초 UI button event6회, pause/settings/reset 모두 통과. 기존 결과 가독성 및 실패 귀환/결과 경계 fixture 통과. 이 버전에서 고정 HUD 전용 sweep을 재실행한 것은 아니며 기존 코드는 변경하지 않았다.
+최종 최대값 집계/실패 완료 PNG 원본 시각 확인. 기존 before는 이전 배포의 실제 전투 결과, after는 경계값 fixture로 점수/임무 데이터가 다름. 사람 직접 조작/HMD/실제 OS 결과 버튼 클릭 검증은 아님. 전투 입력은 자동 InputSystem, 결과 버튼은 명시적 UI event. 별도 출동 음향 작업 포함 안 함.
+GitHub 공개 release420179588, windows-result-countup-20261022, target7ac4b4e. ZIP/SHA256SUMS/전후 이미지3개 업로드 크기/해시 검증. 공개 다운로드 재검증은 public-redownload-verification.json 참조.
+복구 체크포인트: 구현/에디터 검증/클린 빌드/별도 실행/공개 완료. 남은 일은 공개 다운로드 해시 결과 기록 및 문서 커밋·push, 사용자에게 새 링크 전달뿐이다. 이전 격납고 안내로 돌아가지 말 것.
+
+공개 ZIP 재다운로드 2026-10-22T00:21:40.0637975Z, SHA256/크기 일치(matches=true). 구현·검증·공개 다운로드 확인 모두 완료.

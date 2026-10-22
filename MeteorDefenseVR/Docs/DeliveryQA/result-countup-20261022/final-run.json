@@ -1,0 +1,8 @@
+{
+  "pid": 41600,
+  "exe": "C:\\Users\\aaa\\OneDrive\\Desktop\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\RCU20261022b\\MeteorDefenseVR-Windows-ResultCountup-20261022\\MeteorDefenseVR.exe",
+  "exeHash": "6CD16EDFBE85284EB69CD2EFE1170AA1CFFDF0DBDB309C3269E2F8454811ADAB",
+  "zipHash": "4bc8c3e0ce18defc3fa861d3cc1139950ff83624b247d31bed8cf1f113135dcb",
+  "log": "C:\\Users\\aaa\\OneDrive\\Desktop\\VR콘텐츠\\MeteorDefenseVR\\Docs\\DeliveryQA\\result-countup-20261022\\final-player.log",
+  "input": "Synthetic InputSystem mouse round; failure return, result boundary/readability/countup and UI button event fixtures; no human/webcam/HMD"
+}
