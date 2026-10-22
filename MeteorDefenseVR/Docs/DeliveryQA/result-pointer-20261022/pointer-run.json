@@ -1,0 +1,5 @@
+{
+  "pid": 35388,
+  "exe": "C:\\Users\\aaa\\OneDrive\\Desktop\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\RP20261022\\MeteorDefenseVR-Windows-ResultPointer-20261022\\MeteorDefenseVR.exe",
+  "input": "Synthetic InputSystem pointer, not OS input. Actual raycast/UI module/IPointer callbacks; no direct UI event invocation."
+}

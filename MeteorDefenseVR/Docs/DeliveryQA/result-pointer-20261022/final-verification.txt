@@ -1,0 +1,67 @@
+QA-only standalone harness. Synthetic InputSystem mouse, not OS/human/HMD input. Explicit result state fixtures; no Button.onClick.Invoke, ExecuteEvents, Choose or ChooseFromResult calls.
+standalone required=True
+InputSystemUIInputModule active=True
+only result buttons opt in to immediate clicks=True
+hit-test Menu at (813.26, 255.38), top=Menu, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle0 pointer release age=0.1923s=True
+cycle0 actual IPointer down/up/click once=True
+cycle0 one result exit=True
+cycle0 requested destination=True
+cycle0 no duplicate exit after release=True
+hit-test Replay at (610.74, 255.38), top=Replay, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle1 pointer release age=0.1908s=True
+cycle1 actual IPointer down/up/click once=True
+cycle1 one result exit=True
+cycle1 requested destination=True
+cycle1 no duplicate exit after release=True
+hit-test Menu at (813.26, 255.38), top=Menu, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle2 pointer release age=0.1888s=True
+cycle2 actual IPointer down/up/click once=True
+cycle2 one result exit=True
+cycle2 requested destination=True
+cycle2 no duplicate exit after release=True
+hit-test Replay at (610.74, 255.38), top=Replay, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle3 pointer release age=0.1900s=True
+cycle3 actual IPointer down/up/click once=True
+cycle3 one result exit=True
+cycle3 requested destination=True
+cycle3 no duplicate exit after release=True
+hit-test LookSettings at (593.00, 68.09), top=LookSettings, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+pointer opens settings=True
+hit-test Replay at (610.74, 255.38), top=LookSettingsPanel, blocked=True=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+modal intercepts pointer before result button=True
+hit-test Close at (712.00, 102.47), top=Close, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+pointer closes settings=True
+hit-test Menu at (813.26, 255.38), top=Menu, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+underlying menu still works once after modal closes=True
+other menu pointer/gaze configuration unchanged=True
+hit-test Ranking at (827.84, 446.40), top=, blocked=True=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+other lobby menu early click retains guard=True
+hit-test Ranking at (827.84, 446.40), top=, blocked=True=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+other lobby menu later click works=True
+actual mouse-gaze hover keeps early dwell guard=True
+world gaze dwell selects once without pointer click=True
+gaze gate closed at0.15s=True
+gaze gate opens after0.4s=True
+completed=True
+passed=True
