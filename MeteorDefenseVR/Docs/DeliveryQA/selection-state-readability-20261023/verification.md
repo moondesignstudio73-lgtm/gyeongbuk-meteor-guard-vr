@@ -1,3 +1,17 @@
+# Selection-state readability — delivered
+
+Public release: [windows-selection-state-20261023](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-selection-state-20261023), release ID421307943.
+Source/build56b81ea8f8292e1efedd3a5fee86cc4db75354ac; baseline publicf603fc9. Build is non-development and records worktreeClean=true.
+ZIP89,543,376bytes /222files; SHA256 `46de6aa5decd4ca1b73fd693b9d4dfe55aa8d9df217bd7cfaf6fdc2b3182a458`.
+Public redownload matched at2026-10-22T23:45:51.5291541Z (Oct23 KST).
+
+Only product fix: distinguish unavailable buttons with neutral fill/muted labels, restoring latest original label colors when available again. Selected check, label text/size, collider and selection gate are unchanged. No art/audio additions; HUD, hangar, existing audio/gaze fixes and user ProjectSettings retained. Suno approval remains pending.
+
+Evidence:14 unique final Editor tests passed; all16 Before and16 After originals visually reviewed at800×600 and2560×1080. Final freshly extracted executable passed one synthetic InputSystem gameplay round (4980score,21destroyed,24shots/24hits,zero errors/warnings), menu-transition regression and standalone pointer proof. All222 extracted file hashes matched;16 executable controlled state captures generated. Executable visual spot reviews cover800 locked-selection/unavailable menu, wide unavailable menu/audio bounds. See coverage.csv for exact visual-review versus generated-only distinctions.
+
+Evidence boundaries: controlled camera rendering and synthetic input are not OS/human/HMD observations. No external-app/OS/Esc/timed-result retries were performed. Existing small difficulty descriptions and record footnote at800 remain a separate readability limitation; this is not a blanket whole-screen readability pass. Existing view-settings bound/selected and muted-audio coverage was audited first and not counted as new gap coverage. Final executable originals are under Extracted; Before/After are Editor originals.
+
+## Investigation checkpoints
 # Selection state readability — investigation checkpoint
 Baseline publicf603fc9 / docsHEADeb0cfea, user ProjectSettings only pre-existing dirty file. Scope selected/disabled/gaze-progress readability, no audio/art expansion, preserve gate/HUD/settings. No OS retries under unchanged external obstruction. UI + ui-ugui skills read; existing Canvas/TMP design retained.
 Existing evidence: ViewSettingsProof captures minimum/maximum sensitivity (disabled minus/plus), changed-values and settings-gaze open/close at800x600 and2560x1080. AudioControlsProof captures all channels100% (plus disabled) at both sizes, but zero/mute/dwell assertions after capture are not original state images. HangarLobbyQA menu-dwell and Hard-selected difficulty are1280x720 only; UiMotion disabled-state check is synthetic button logic without a disabled screen capture. Need inspect originals before deciding gaps.
@@ -13,3 +27,13 @@ Baseline original review completed for all16 corrected gap images (8 states ×2 
 Related Editor suite13/13 passed (selection render, menu transition, difficulty, hangar lobby, audio controls, UI motion). Actual After800/wide unavailable originals distinguish neutral disabled fills/muted labels from cyan available labels; locked difficulty keeps current green check. No text-size or input geometry change. A focused lifecycle test is additionally checking disabled click/submit suppression, selected-state retention, repeated hide/show and restoration of latest label colors.
 
 Focused disabled-feedback lifecycle1/1 passed; total14 unique final Editor tests passed. Disabled pointer/submit blocked; selection and label size/text retained; original/latest label colors restored across three disable/hide/show/re-enable cycles. User ProjectSettings diff unchanged. Build/extracted/publication pending.
+
+Final source56b81ea built successfully with clean worktree identity; user ProjectSettings restored/verified. All16 After Editor originals visually inspected: disabled neutral fill/gray labels distinct, selected check and partial gaze indicators retained at both sizes; no new clipping. Existing tiny800 descriptions/record footnote remain outside this single fix. Preparing fresh ZIP/extracted Windows run.
+
+Package89,543,376bytes /222files, SHA25646de6aa5decd4ca1b73fd693b9d4dfe55aa8d9df217bd7cfaf6fdc2b3182a458. Fresh extract SS20261023 running real Windows player with synthetic InputSystem round plus controlled state rendering/menu-transition fixtures. Publication remains pending run result.
+
+Fresh extracted56b81ea player passed: exit0, pc-soak.passed=true, zeroissues,222file hashes verified,16controlled SelectionState originals generated, menu-transition regression passed. Spot-reviewed executable800 unavailable/locked-selected andwide audio bounds originals match intended feedback. Remaining final synthetic pointer proof/publication pending.
+
+Standalone controlled InputSystem pointer proof passed:4result clicks eachoneexit, modal intercept/close and gaze gate retained. Fresh round score4980,21destroyed,24shots/24hits,0errors/0warnings. No OS/Esc/result timedclick scan retries or external apps touched. Publishing verified package next.
+
+Published release421307943: windows-selection-state-20261023, source56b81ea8f8292e1efedd3a5fee86cc4db75354ac. ZIP89,543,376bytes,222files. Public redownload hash verification running.
