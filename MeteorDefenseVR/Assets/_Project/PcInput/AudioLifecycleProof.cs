@@ -24,8 +24,9 @@ namespace MeteorDefenseVR.PcInput
             var climax=Object.FindAnyObjectByType<BossClimaxController>();var campaignCompletion=climax.CampaignCompletionHandler;
             var bgm=sources.Single(manager.OwnsBgmSource);var notes=new List<string>();var timeline=new List<string>{"seconds,segment,state,paused,hp,source,playing,volume,inputRms,outputRms"};
             bool passed=true;string segment="setup";float start=Time.realtimeSinceStartup;int warnings=0;
+            var warningDspTimes=new List<double>();
             void Check(bool ok,string message){passed &= ok;notes.Add(message+"="+ok);}
-            void Cue(AudioCue cue,AudioCategory category){notes.Add($"t={Time.realtimeSinceStartup-start:F3} segment={segment} state={flow.CurrentState} hp={health.CurrentHealth} cue={cue} category={category}");if(cue==AudioCue.Warning||cue==AudioCue.BossWarning)warnings++;}
+            void Cue(AudioCue cue,AudioCategory category){notes.Add($"t={Time.realtimeSinceStartup-start:F3} segment={segment} state={flow.CurrentState} hp={health.CurrentHealth} cue={cue} category={category}");if(cue==AudioCue.Warning||cue==AudioCue.BossWarning)warnings++;if(cue==AudioCue.Warning)warningDspTimes.Add(AudioSettings.dspTime);}
             IEnumerator Observe(string name,float seconds)
             {
                 segment=name;float until=Time.realtimeSinceStartup+seconds;
@@ -49,7 +50,11 @@ namespace MeteorDefenseVR.PcInput
                 Check(!health.ApplyImpactDamage(10,health.transform.position),"shield hit rejects hull damage");yield return Observe("shield-hit",.5f);
                 Check(health.CurrentHealth==before&&Object.FindAnyObjectByType<CockpitDamagePresentation>().DamageLevel==0,"shield hit leaves hull healthy; spatial warnings remain valid");powerups.ResetSystem();
                 health.RestoreCheckpoint(health.MaxHealth);health.ApplyImpactDamage(Mathf.RoundToInt(health.MaxHealth*.85f),health.transform.position);
-                count=warnings;yield return Observe("critical-combat",7.2f);Check(warnings>count&&warnings-count<=4,"critical warnings present and bounded");
+                // Spatial cadence now reaches 1.5s; hull warning remains >=3s.
+                // Check both their combined bound and the actual shared cue cooldown.
+                count=warnings;int dspStart=warningDspTimes.Count;yield return Observe("critical-combat",7.2f);
+                bool cooldownHeld=true;for(int i=Mathf.Max(1,dspStart);i<warningDspTimes.Count;i++)cooldownHeld&=warningDspTimes[i]-warningDspTimes[i-1]>=.699;
+                Check(warnings>count&&warnings-count<=8&&cooldownHeld,"critical warnings present and bounded with shared cooldown");
                 // Observe a real BGM transition across a listener pause boundary.
                 flow.StartBoss();Object.FindAnyObjectByType<BossClimaxController>().BeginClimax();yield return Observe("boss-transition",.1f);
                 router.Simulation.Pause();float volume=bgm.volume;var clip=bgm.clip;int starts=manager.BgmPlaybackStarts;count=warnings;

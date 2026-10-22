@@ -1,0 +1,7 @@
+Actual pooled meteor/real velocity, manually stepped deterministic position. Real spatial Warning source and DSP. Not natural play/listening/HMD.
+real approach warnings and actual DSP output=True
+approach reduces actual accepted gaps=False
+bounded minimum gap=True
+acceptedTimes=0.009235382,3.00773,6.018631,9.018694,12.01864,15.01915
+gaps=2.998495,3.0109,3.000063,2.999949,3.000504
+passed=True

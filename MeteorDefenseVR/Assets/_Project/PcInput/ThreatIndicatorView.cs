@@ -54,7 +54,9 @@ namespace MeteorDefenseVR.PcInput
         private RectTransform root;
         private DifficultyManager difficulty;
         private GameFlowManager flow;
-        private float nextText, nextWarning;
+        private float nextText;
+        private float warningElapsed, warningQualified, warningArrival;
+        private MeteorController warningThreat, qualifiedThreat;
         private MeteorController audioThreat, playingThreat;
         private float audioArrival;
         private LockOnReticleView priorityReticle;
@@ -136,8 +138,8 @@ namespace MeteorDefenseVR.PcInput
             bool enabledForSession = combat && Time.timeScale > 0 && difficulty != null &&
                 (difficulty.Session.SpawnDirections == SpawnDirectionMode.FrontAndSides || difficulty.Session.SpawnDirections == SpawnDirectionMode.FullSphere || spawner.ScenarioControlled);
             root.gameObject.SetActive(combat);
-            if (!combat) { UpdatePriorityPresentation(false); audioThreat=null; VisibleCount = 0; impactAge = arrivalAge = 10; if (rearWarning != null) rearWarning.Stop(); playingThreat = null; nextWarning = 0; return; }
-            if (Time.timeScale == 0) return;
+            if (!combat) { UpdatePriorityPresentation(false); audioThreat=null; VisibleCount = 0; impactAge = arrivalAge = 10; ResetSpatialWarning(); return; }
+            if (Time.timeScale == 0 || AudioListener.pause) { ResetSpatialWarning(); return; }
             if (worldCanvas != view.Camera.stereoEnabled)
             {
                 worldCanvas = view.Camera.stereoEnabled;
@@ -152,18 +154,13 @@ namespace MeteorDefenseVR.PcInput
             for (int i = 0; i < candidates.Length; i++) { candidates[i] = null; arrival[i] = distances[i] = float.PositiveInfinity; }
             var active = spawner.ActiveMeteors;
             audioThreat = null; audioArrival = float.PositiveInfinity;
+            warningThreat = null; warningArrival = float.PositiveInfinity;
             for (int i = 0; i < active.Count; i++) Consider(active[i]);
             if (boss != null) Consider(boss.ActiveBoss);
             UpdatePriorityPresentation(true);
             // Audio is independent of the reduced visual warning budget. One
             // reusable source follows the actual threat direction as the view turns.
-            if (playingThreat != null && playingThreat.IsTargetable && rearWarning != null && rearWarning.isPlaying)
-                rearWarning.transform.position = view.Position + (playingThreat.transform.position - view.Position).normalized * 2;
-            if (audioThreat != null && difficulty != null && Time.unscaledTime >= nextWarning && audioArrival < 18 && audioManager != null)
-            {
-                if (audioManager.TryPlaySpatial(AudioCue.Warning, rearWarning, view.Position + (audioThreat.transform.position - view.Position).normalized * 2, audioArrival < 6 ? .8f : .35f))
-                { playingThreat = audioThreat; RearWarnings++; nextWarning = Time.unscaledTime + difficulty.Session.SpatialCueInterval; }
-            }
+            TickSpatialWarning(Time.unscaledDeltaTime);
             bool updateText = Time.unscaledTime >= nextText;
             if (updateText) nextText = Time.unscaledTime + .1f;
             VisibleCount = 0;
@@ -198,6 +195,8 @@ namespace MeteorDefenseVR.PcInput
         private void Consider(MeteorController meteor)
         {
             if (meteor == null || !meteor.IsTargetable) return;
+            float collision = CollisionArrival(spawner.ShipCenter, meteor, spawner.ShipCollisionRadius);
+            if (collision < 18f && collision < warningArrival) { warningArrival = collision; warningThreat = meteor; }
             float time = ThreatProjection.TimeToImpact(spawner.ShipCenter, meteor, spawner.ShipCollisionRadius), distance = Vector3.Distance(view.Position, meteor.transform.position);
             if (time < audioArrival) { audioArrival = time; audioThreat = meteor; }
             Vector3 viewport = view.Camera.WorldToViewportPoint(meteor.transform.position);
@@ -208,6 +207,44 @@ namespace MeteorDefenseVR.PcInput
                 for (int j = maximumIndicators - 1; j > i; j--) { candidates[j] = candidates[j-1]; arrival[j] = arrival[j-1]; distances[j] = distances[j-1]; }
                 candidates[i] = meteor; arrival[i] = time; distances[i] = distance; return;
             }
+        }
+        // Audio uses an actual swept sphere intersection, not radial closing speed:
+        // a passing or receding meteor must not sound like an impending collision.
+        public static float CollisionArrival(Vector3 center, MeteorController meteor, float boundary)
+        {
+            if (meteor == null || !meteor.IsTargetable) return float.PositiveInfinity;
+            Vector3 r = meteor.transform.position - center, v = meteor.Velocity;
+            float a = v.sqrMagnitude, b = Vector3.Dot(r,v), radius = boundary + meteor.CollisionRadius;
+            if (a < .000001f || b >= 0f) return float.PositiveInfinity;
+            float c = r.sqrMagnitude - radius * radius, discriminant = b*b-a*c;
+            if (discriminant < 0f) return float.PositiveInfinity;
+            return Mathf.Max(0f,(-b-Mathf.Sqrt(discriminant))/a);
+        }
+        public static float SpatialInterval(float arrivalSeconds, float difficultyInterval)
+        {
+            float maximum = Mathf.Clamp(difficultyInterval,1.5f,8f);
+            return Mathf.Lerp(1.5f,maximum,Mathf.InverseLerp(3f,18f,arrivalSeconds));
+        }
+        private void TickSpatialWarning(float delta)
+        {
+            warningElapsed = Mathf.Min(8f,warningElapsed+delta);
+            if (warningThreat != qualifiedThreat) { qualifiedThreat=warningThreat; warningQualified=0f; }
+            if (playingThreat != warningThreat && rearWarning != null) { rearWarning.Stop(); playingThreat=null; }
+            if (warningThreat == null) { warningQualified=0f; return; }
+            warningQualified += delta;
+            if (playingThreat != null && rearWarning != null && rearWarning.isPlaying)
+                rearWarning.transform.position = view.Position+(playingThreat.transform.position-view.Position).normalized*2;
+            if (difficulty == null || audioManager == null || warningQualified < .2f ||
+                warningElapsed < SpatialInterval(warningArrival,difficulty.Session.SpatialCueInterval)) return;
+            if (audioManager.TryPlaySpatial(AudioCue.Warning,rearWarning,
+                view.Position+(warningThreat.transform.position-view.Position).normalized*2,warningArrival<6f?.8f:.35f))
+            { playingThreat=warningThreat; RearWarnings++; warningElapsed=0f; }
+        }
+        private void ResetSpatialWarning()
+        {
+            if(rearWarning!=null)rearWarning.Stop();
+            warningElapsed=warningQualified=0f;
+            warningThreat=qualifiedThreat=playingThreat=null;
         }
         private void HandleTargetingInvalidated(MeteorController meteor)
         {
@@ -231,6 +268,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void OnDisable()
         {
+            ResetSpatialWarning();
             UpdatePriorityPresentation(false);
             UnbindImpactPresentation();
             MeteorController.GlobalTargetingInvalidated -= HandleTargetingInvalidated;
