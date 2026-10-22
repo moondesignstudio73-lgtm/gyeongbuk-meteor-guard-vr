@@ -26,7 +26,7 @@ namespace MeteorDefenseVR.PcInput
             string output=Path.GetFullPath(Path.Combine(Application.dataPath,"..","QA","ResultPointer"));
             Directory.CreateDirectory(output);
             var notes=new List<string>{"QA-only standalone harness. Synthetic InputSystem mouse, not OS/human/HMD input. Explicit result state fixtures; no Button.onClick.Invoke, ExecuteEvents, Choose or ChooseFromResult calls."};
-            bool passed=true;void Check(bool value,string message){passed &= value;notes.Add(message+"="+value);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);}
+            bool passed=true,completed=false;void Check(bool value,string message){passed &= value;notes.Add(message+"="+value);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);}
             yield return null;
             GazeInputRouter router=null;
             var warm=FindAnyObjectByType<ReadyPrewarmController>();
@@ -101,7 +101,7 @@ namespace MeteorDefenseVR.PcInput
                 var others=FindObjectsByType<HangarMenuButton>(FindObjectsInactive.Include).Where(b=>b!=actions.Replay&&b!=actions.Menu).ToArray();
                 Check(others.All(b=>!b.AllowImmediateClick),"other menu pointer/gaze configuration unchanged");
                 router.SetMode(PcGazeMode.MouseGaze);router.InputSuspended=false;
-                var ranking=others.Single(b=>b.name=="Ranking");
+                var ranking=others.Single(b=>b.name=="Ranking"&&b.isActiveAndEnabled);
                 yield return Pointer(ranking.GetComponent<UnityEngine.UI.Button>(),!ranking.GetComponent<UnityEngine.UI.Image>().raycastTarget);
                 Check(lobby.IsMenuReady,"other lobby menu early click retains guard");
                 yield return Delay(.45f);
@@ -119,12 +119,13 @@ namespace MeteorDefenseVR.PcInput
                 yield return Delay(.3f);Check(gate.IsOpen,"gaze gate opens after0.4s");
                 yield return Show();
                 using(var capture=new PcStabilityProbe(Camera.main,1280,720)){yield return Delay(.1f);PcStabilityRenderDriver.RenderForProof(Camera.main);capture.SaveGameOnlyProof(output,router);}
+                completed=true;
             }
             finally
             {
                 result.ResultHidden-=onHidden;reset.ResetExperience();router.InputSuspended=false;
                 InputSystem.RemoveDevice(mouse);foreach(var device in physical)InputSystem.EnableDevice(device);InputSystem.settings.backgroundBehavior=background;
-                notes.Add("passed="+passed);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);
+                passed &= completed;notes.Add("completed="+completed);notes.Add("passed="+passed);File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);
             }
             Application.Quit(passed?0:2);
         }
