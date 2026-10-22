@@ -68,3 +68,5 @@ Outstanding implementation/content: real Korean countdown/radio/AI speech; appro
 
 Outstanding verification: direct human/novice/HMD/eye-tracking and listening evaluation; ordinary OS natural boss/victory/full campaign; game receipt of Esc and combat pause/settings/resume; actual result-button clicks inside the normal 8s window. Earlier automated checks cannot close these limits. No further Esc/result timing retries, audio generation, or thread messages performed.
 Audit complete. Current public ZIP remains windows-stable-practice-20261022 / source aafb353 / SHA256 a546aad9f52f533eebc717afa801a2432a476a9f4f165e278fded2cb54dbd77e. User ProjectSettings modification preserved.
+
+Follow-up to original item10 audit: control-return-scan-20261022/verification.md records sourcee342f55 landing inspection, extracted regression and explicit ordinary OS observation limits. Failed return ship scan added; success return has no ship so remains excluded. Combat guidance/voice/background suggestions remain outside this change; no overall ten-item completion claim.
