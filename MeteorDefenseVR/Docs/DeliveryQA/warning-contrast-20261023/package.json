@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\WarningContrast20261023\\MeteorDefenseVR-Windows-WarningContrast-20261023.zip",
+  "bytes": 89549810,
+  "sha256": "bff4facb4ed9b08d649f994a82b8f6dc3b0672fc392ea014216ac62042843a5c",
+  "verifiedFiles": 222,
+  "buildDirectory": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Windows\\RC_0.2.0-rc.1_0c93e7f",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "0c93e7ff294dceb4135922eeaa09e62a745029be",
+    "gitCommitShort": "0c93e7f",
+    "buildTimeKST": "2026-10-23T17:54:27+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}
