@@ -1,0 +1,2 @@
+age=0.9602805 alpha=0.5588779 critical=True overlap=True target=(10.57, 19.75, 25.00) projected=(0.64, 1.12, 25.00) label=▲
+34m labelRect=(x:0.55, y:0.80, width:0.10, height:0.08) noticeRect=(x:0.38, y:0.83, width:0.23, height:0.04) labelPosition=(170.93, 245.00)

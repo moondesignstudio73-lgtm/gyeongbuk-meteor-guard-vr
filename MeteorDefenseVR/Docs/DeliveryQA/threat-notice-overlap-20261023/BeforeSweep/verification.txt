@@ -1,0 +1,6 @@
+Controlled real pooled target upper-edge sweep, frozen movement plus explicit viewport samples; not natural play or OS/HMD. Direction/distance derive from actual position; original reported image retained separately.
+(800, 600)/0: overlaps=5; target ray/focus, direction/distance, fixed font and restored tracking checked; validate=False
+(800, 600)/30: overlaps=5; target ray/focus, direction/distance, fixed font and restored tracking checked; validate=False
+(2560, 1080)/0: overlaps=5; target ray/focus, direction/distance, fixed font and restored tracking checked; validate=False
+(2560, 1080)/30: overlaps=5; target ray/focus, direction/distance, fixed font and restored tracking checked; validate=False
+passed=True

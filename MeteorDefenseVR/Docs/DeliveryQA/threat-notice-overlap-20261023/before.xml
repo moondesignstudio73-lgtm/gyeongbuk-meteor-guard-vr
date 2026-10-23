@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-23 09:29:25Z" end-time="2026-10-23 09:29:54Z" duration="28.8358007">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="450" result="Passed" start-time="2026-10-23 09:29:25Z" end-time="2026-10-23 09:29:54Z" duration="28.835801" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1590" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="450" result="Passed" start-time="2026-10-23 09:29:25Z" end-time="2026-10-23 09:29:54Z" duration="28.681877" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="28064" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1591" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="450" result="Passed" start-time="2026-10-23 09:29:25Z" end-time="2026-10-23 09:29:54Z" duration="28.674340" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1592" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="450" result="Passed" start-time="2026-10-23 09:29:25Z" end-time="2026-10-23 09:29:54Z" duration="28.668583" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1460" name="ThreatNoticeTests" fullname="MeteorDefenseVR.Tests.ThreatNoticeTests" classname="MeteorDefenseVR.Tests.ThreatNoticeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-23 09:29:25Z" end-time="2026-10-23 09:29:54Z" duration="28.657569" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1461" name="UpperEdgeIndicatorKeepsWarningClear" fullname="MeteorDefenseVR.Tests.ThreatNoticeTests.UpperEdgeIndicatorKeepsWarningClear" methodname="UpperEdgeIndicatorKeepsWarningClear" classname="MeteorDefenseVR.Tests.ThreatNoticeTests" runstate="Runnable" seed="569997401" result="Passed" start-time="2026-10-23 09:29:06Z" end-time="2026-10-23 09:29:54Z" duration="47.554607" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

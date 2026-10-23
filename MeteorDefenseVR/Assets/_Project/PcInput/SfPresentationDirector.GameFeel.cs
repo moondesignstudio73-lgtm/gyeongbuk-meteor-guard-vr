@@ -26,6 +26,8 @@ namespace MeteorDefenseVR.PcInput
         public int PraiseCount { get; private set; }
         public int ConsecutiveDestructions => streak;
         public bool IsPreparing => preparation != null && !preparation.IsComplete;
+        public RectTransform CriticalNoticeBounds => flightNotice != null && flightNotice.enabled && noticePriority == 2
+            ? warningBacking.rectTransform : null;
 
         private void InitializeFeel(TMP_FontAsset font, Material material)
         {

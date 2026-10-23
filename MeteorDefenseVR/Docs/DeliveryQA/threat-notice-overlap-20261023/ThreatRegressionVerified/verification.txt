@@ -1,0 +1,12 @@
+Explicit position/velocity fixtures. Actual pooled prefabs; movement disabled for deterministic capture. Not natural mouse/HMD play.
+far-fast: expected=QA_FarFast, selected=QA_FarFast, emphasized=1, labelsClear=True, correct=True, nearTtc=27.01091, farTtc=4.789932
+backgroundUntargeted=True
+suppressionClearsDiscovery=True
+focusPreservesPriority=True
+near-now-urgent: expected=QA_NearSlow, selected=QA_NearSlow, emphasized=1, labelsClear=True, correct=True, nearTtc=13.50546, farTtc=47.89931
+urgent-behind: expected=QA_NearSlow, selected=QA_NearSlow, emphasized=1, labelsClear=True, correct=True, nearTtc=15.14717, farTtc=47.89931
+800x600LabelsClear=True
+destroyed-switch: expected=QA_FarFast, selected=QA_FarFast, emphasized=1, labelsClear=True, correct=True, nearTtc=30.29435, farTtc=47.89931
+pooled-respawn: expected=QA_FarFast, selected=QA_FarFast, emphasized=1, labelsClear=True, correct=True, nearTtc=30.29435, farTtc=9.003637
+reset-cleared: expected=none, selected=none, emphasized=0, labelsClear=True, correct=True, nearTtc=30.29435, farTtc=9.003637
+passed=True

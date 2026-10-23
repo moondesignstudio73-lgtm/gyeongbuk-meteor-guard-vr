@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-23 09:39:05Z" end-time="2026-10-23 09:39:33Z" duration="28.6586384">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="451" result="Passed" start-time="2026-10-23 09:39:05Z" end-time="2026-10-23 09:39:33Z" duration="28.658638" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1591" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="451" result="Passed" start-time="2026-10-23 09:39:05Z" end-time="2026-10-23 09:39:33Z" duration="28.510381" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="41184" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1592" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="451" result="Passed" start-time="2026-10-23 09:39:05Z" end-time="2026-10-23 09:39:33Z" duration="28.503388" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1593" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="451" result="Passed" start-time="2026-10-23 09:39:05Z" end-time="2026-10-23 09:39:33Z" duration="28.496224" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1460" name="ThreatNoticeTests" fullname="MeteorDefenseVR.Tests.ThreatNoticeTests" classname="MeteorDefenseVR.Tests.ThreatNoticeTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-23 09:39:05Z" end-time="2026-10-23 09:39:33Z" duration="28.485322" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1462" name="ExistingStageAndThreatPriorityRegression" fullname="MeteorDefenseVR.Tests.ThreatNoticeTests.ExistingStageAndThreatPriorityRegression" methodname="ExistingStageAndThreatPriorityRegression" classname="MeteorDefenseVR.Tests.ThreatNoticeTests" runstate="Runnable" seed="1337959492" result="Passed" start-time="2026-10-23 09:38:09Z" end-time="2026-10-23 09:38:54Z" duration="45.015028" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+            <test-case id="1461" name="UpperEdgeIndicatorKeepsWarningClear" fullname="MeteorDefenseVR.Tests.ThreatNoticeTests.UpperEdgeIndicatorKeepsWarningClear" methodname="UpperEdgeIndicatorKeepsWarningClear" classname="MeteorDefenseVR.Tests.ThreatNoticeTests" runstate="Runnable" seed="88626874" result="Passed" start-time="2026-10-23 09:38:54Z" end-time="2026-10-23 09:39:33Z" duration="39.404360" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

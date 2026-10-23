@@ -115,6 +115,7 @@ namespace MeteorDefenseVR.PcInput
             telemetryPanels[0]=GameObject.Find("ShipStatusHologram")?.GetComponent<RectTransform>();
             telemetryPanels[1]=GameObject.Find("ThreatStatusHologram")?.GetComponent<RectTransform>();
             difficulty = FindAnyObjectByType<DifficultyManager>(); flow = GameFlowManager.Instance;
+            noticeDirector = FindAnyObjectByType<SfPresentationDirector>();
             var go = new GameObject("ThreatIndicators", typeof(RectTransform), typeof(Canvas));
             root = (RectTransform)go.transform; root.SetParent(view.Camera.transform, false); root.localPosition = new Vector3(0, 0, 2.65f);
             go.layer = LayerMask.NameToLayer("Player HUD");
@@ -164,6 +165,7 @@ namespace MeteorDefenseVR.PcInput
             bool updateText = Time.unscaledTime >= nextText;
             if (updateText) nextText = Time.unscaledTime + .1f;
             VisibleCount = 0;
+            RefreshCriticalNoticeRegion();
             for (int i = 0; i < labels.Length; i++)
             {
                 var text = labels[i]; var meteor = candidates[i]; bool show = enabledForSession && !VisualsSuppressed && i < IndicatorLimit && meteor != null && arrival[i] <= difficulty.Session.WarningHorizon;
@@ -172,6 +174,7 @@ namespace MeteorDefenseVR.PcInput
                 Vector2 edge = ThreatProjection.Edge(local, view.Camera.aspect);
                 Vector2 point = new Vector2(edge.x * (root.rect.width * .5f - 96), edge.y * (root.rect.height * .5f - 115));
                 point=KeepClearOfTelemetry(point);
+                point=KeepClearOfCriticalNotice(point, meteor);
                 // Separate labels which occupy nearly the same edge; keep a fixed bounded pool.
                 for (int j = 0; j < i; j++)
                     if (labels[j].gameObject.activeSelf && Vector2.Distance(point, labels[j].rectTransform.anchoredPosition) < 58)
@@ -180,7 +183,7 @@ namespace MeteorDefenseVR.PcInput
                         if(Mathf.Abs(point.y)>root.rect.height*.5f-115)point.y=-Mathf.Sign(point.y)*100;
                         point=KeepClearOfTelemetry(point);
                     }
-                text.rectTransform.anchoredPosition = KeepClearOfTelemetry(Vector2.Lerp(text.rectTransform.anchoredPosition, point, 1 - Mathf.Exp(-Time.unscaledDeltaTime * 18)));
+                text.rectTransform.anchoredPosition = KeepClearOfCriticalNotice(KeepClearOfTelemetry(Vector2.Lerp(text.rectTransform.anchoredPosition, point, 1 - Mathf.Exp(-Time.unscaledDeltaTime * 18))), meteor);
                 float distance = distances[i];
                 text.color = distance < redDistance ? new Color(1,.25f,.15f) : distance < orangeDistance ? new Color(1,.55f,.16f) : distance < yellowDistance ? new Color(1,.88f,.3f) : new Color(.2f,.95f,1);
                 text.color = meteor == audioThreat ? new Color(1,.52f,.12f,1) : new Color(text.color.r,text.color.g,text.color.b,.65f);
@@ -251,6 +254,7 @@ namespace MeteorDefenseVR.PcInput
         private void HandleTargetingInvalidated(MeteorController meteor)
         {
             if (meteor == null) return;
+            noticeSides.Remove(meteor);
             for (int i = 0; i < candidates.Length; i++)
             {
                 if (!ReferenceEquals(candidates[i], meteor)) continue;
@@ -270,6 +274,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void OnDisable()
         {
+            noticeSides.Clear();
             ResetSpatialWarning();
             UpdatePriorityPresentation(false);
             UnbindImpactPresentation();
