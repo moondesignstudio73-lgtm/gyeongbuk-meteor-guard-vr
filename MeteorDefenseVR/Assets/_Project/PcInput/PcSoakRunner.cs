@@ -373,6 +373,8 @@ namespace MeteorDefenseVR.PcInput
                     yield return WarningContrastProof.Run(Path.Combine(output,"WarningContrast"));
                 if(Environment.GetCommandLineArgs().Contains("--pc-threat-notice-qa"))
                     yield return ThreatNoticeProof.Run(Path.Combine(output,"ThreatNotice"),true);
+                if(Environment.GetCommandLineArgs().Contains("--pc-pickup-readability-qa"))
+                    yield return PickupReadabilityProof.Run(Path.Combine(output,"PickupReadability"));
                 if(Environment.GetCommandLineArgs().Contains("--pc-selection-state-qa"))
                     yield return SelectionStateProof.Run(Path.Combine(output,"SelectionState"));
                 if(Environment.GetCommandLineArgs().Contains("--pc-menu-transition-qa"))

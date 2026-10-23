@@ -1,0 +1,1 @@
+elapsed=2.370871; flow=BossMeteor; item=Heal; available=False; dwell=0; position=(0.00, 1.42, 11.22); legacyText=선체 회복|획득 중  96%

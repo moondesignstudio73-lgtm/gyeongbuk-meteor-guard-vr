@@ -36,7 +36,7 @@ namespace MeteorDefenseVR.PowerUps
             collectDuration = Mathf.Max(.1f, gazeSeconds); driftSpeed = Mathf.Max(0f, movementSpeed);
             dwell = 0f; collecting = false; phase = Random.value * 10f;
             transform.SetPositionAndRotation(position, Quaternion.identity);
-            idleLabel = $"{value.Icon}  {value.ShortCode}\nLOOK TO ACQUIRE"; displayedPercent = -1;
+            idleLabel = $"{PowerUpHudView.PlayerName(value.Type)}\n바라보면 획득해요"; displayedPercent = -1;
             if (label != null) { label.text = idleLabel; label.color = value.Color; }
             if (renderers != null) foreach (Renderer renderer in renderers)
             {
@@ -86,7 +86,7 @@ namespace MeteorDefenseVR.PowerUps
                     if (displayedPercent != percent)
                     {
                         displayedPercent = percent;
-                        label.text = $"{balance.Icon}  {balance.ShortCode}\nACQUIRE  {percent:D2}%";
+                        label.text = $"{PowerUpHudView.PlayerName(balance.Type)}\n획득 중  {percent:D2}%";
                     }
                 }
                 else if (displayedPercent >= 0)

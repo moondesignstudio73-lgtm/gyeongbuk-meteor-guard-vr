@@ -1,5 +1,7 @@
 # Wide boss damage-stage readability audit
 
+Review correction: destroyed original shows the actual HEAL pickup instruction obscured by bright explosion/item effects. The primary HUD/HP/reward findings below must NOT be extended to pickup readability. This unresolved issue is tracked separately in ../pickup-explosion-readability-20261024/verification.md; original four-stage evidence remains unchanged.
+
 Current scope: only 2560x1080 intact → 67% → 33% → destroyed boss states, based on current product 411d9bab and readability-coverage-20261024/coverage.md. Existing boss-active/warning snapshots do not establish damage-stage coverage. Earlier boss-shell proof covers 800x600/1280x720 and will not be rerun.
 
 Next: inspect actual boss damage/presentation paths; create a bounded Editor fixture with actual damage transitions, four original renders, HP/shell-stage and visible text/glyph boundary metadata; inspect each original. Record only naturally supported concurrent HUD/feedback. Meaningful reproduced defect alone warrants a minimal fix and new build/extracted run/release; otherwise evidence/coverage only.

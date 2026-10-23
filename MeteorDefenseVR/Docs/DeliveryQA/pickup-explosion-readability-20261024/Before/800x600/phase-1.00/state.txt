@@ -1,0 +1,1 @@
+elapsed=1.005713; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.51, 11.65); legacyText=＋  HEAL|LOOK TO ACQUIRE

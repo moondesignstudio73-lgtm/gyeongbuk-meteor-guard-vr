@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-23 23:53:18Z" end-time="2026-10-23 23:53:30Z" duration="11.8112915">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="452" result="Failed" site="Child" start-time="2026-10-23 23:53:18Z" end-time="2026-10-23 23:53:30Z" duration="11.811292" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1593" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="452" result="Failed" site="Child" start-time="2026-10-23 23:53:18Z" end-time="2026-10-23 23:53:30Z" duration="11.667456" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="35800" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1594" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="452" result="Failed" site="Child" start-time="2026-10-23 23:53:18Z" end-time="2026-10-23 23:53:30Z" duration="11.661903" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1595" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="452" result="Failed" site="Child" start-time="2026-10-23 23:53:18Z" end-time="2026-10-23 23:53:30Z" duration="11.654638" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1350" name="PickupReadabilityTests" fullname="MeteorDefenseVR.Tests.PickupReadabilityTests" classname="MeteorDefenseVR.Tests.PickupReadabilityTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-23 23:53:18Z" end-time="2026-10-23 23:53:30Z" duration="11.642854" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1351" name="DestructionPhasesAndAcquisition" fullname="MeteorDefenseVR.Tests.PickupReadabilityTests.DestructionPhasesAndAcquisition" methodname="DestructionPhasesAndAcquisition" classname="MeteorDefenseVR.Tests.PickupReadabilityTests" runstate="Runnable" seed="873160381" result="Failed" label="Error" start-time="2026-10-23 23:53:05Z" end-time="2026-10-23 23:53:30Z" duration="24.913714" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Acquisition not exactly once]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.PickupReadabilityProof+<Run>d__0.MoveNext () [0x0074b] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\PickupReadabilityProof.cs:41 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

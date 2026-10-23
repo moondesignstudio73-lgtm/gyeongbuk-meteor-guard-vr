@@ -1,0 +1,1 @@
+elapsed=2.135733; flow=Boot; item=Heal; available=False; dwell=0; position=(0.00, 1.46, 11.38); legacyText=＋  HEAL|ACQUIRE  78%

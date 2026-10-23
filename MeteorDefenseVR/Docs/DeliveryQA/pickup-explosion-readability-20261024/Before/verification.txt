@@ -1,0 +1,20 @@
+Actual boss destruction/drop/events; frozen boss position before death; production pickup drift/effects run normally. Seeded random for comparison. Explicit collider ray + IGazeTarget dwell, not human/OS/HMD play. Pixel originals at multiple real elapsed phases are required visual evidence.
+(800, 600)/phase-0.02: elapsed=0.0222168; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.99); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(800, 600)/phase-0.12: elapsed=0.1213398; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.96); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(800, 600)/phase-0.25: elapsed=0.251915; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.91); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(800, 600)/phase-0.50: elapsed=0.5049553; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.52, 11.82); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(800, 600)/phase-1.00: elapsed=1.005713; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.51, 11.65); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(800, 600)/phase-1.70: elapsed=1.709831; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.46, 11.41); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(800, 600)/gaze-progress: elapsed=1.709831; flow=BossMeteor; item=Heal; available=True; dwell=0.2727273; position=(0.00, 1.46, 11.41); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(800, 600)/acquired: elapsed=1.904116; flow=BossMeteor; item=Heal; available=False; dwell=0; position=(0.00, 1.46, 11.38); legacyText=＋  HEAL|ACQUIRE  78%
+(800, 600)/reset: elapsed=2.135733; flow=Boot; item=Heal; available=False; dwell=0; position=(0.00, 1.46, 11.38); legacyText=＋  HEAL|ACQUIRE  78%
+(2560, 1080)/phase-0.02: elapsed=0.02221489; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.99); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(2560, 1080)/phase-0.12: elapsed=0.1522923; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.95); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(2560, 1080)/phase-0.25: elapsed=0.2614441; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.91); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(2560, 1080)/phase-0.50: elapsed=0.5001183; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.52, 11.83); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(2560, 1080)/phase-1.00: elapsed=1.003735; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.51, 11.65); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(2560, 1080)/phase-1.70: elapsed=1.705091; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.46, 11.41); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(2560, 1080)/gaze-progress: elapsed=1.705091; flow=BossMeteor; item=Heal; available=True; dwell=0.2727273; position=(0.00, 1.46, 11.41); legacyText=＋  HEAL|LOOK TO ACQUIRE
+(2560, 1080)/acquired: elapsed=2.043476; flow=BossMeteor; item=Heal; available=False; dwell=0; position=(0.00, 1.44, 11.33); legacyText=＋  HEAL|ACQUIRE  68%
+(2560, 1080)/reset: elapsed=2.34746; flow=Boot; item=Heal; available=False; dwell=0; position=(0.00, 1.44, 11.33); legacyText=＋  HEAL|ACQUIRE  68%
+passed=True

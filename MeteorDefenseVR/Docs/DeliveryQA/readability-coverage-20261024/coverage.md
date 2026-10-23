@@ -32,4 +32,6 @@ Completed at current source 34a6ff9 / product 411d9bab: Start16x9/{1280x720,1920
 
 ## Subsequent separate boss-wide gap audit
 
+Review exception: the destroyed boss-wide original's real HEAL pickup instruction is obscured by explosion light; primary HUD findings do not cover that label. Track correction and final acceptance separately in Q/pickup-explosion-readability-20261024/verification.md. Do not treat the four boss-phase samples as a pickup-readability pass.
+
 Q/boss-wide-stages-20261024/Before/2560x1080/{intact,67-percent,33-percent,destroyed}/stability-game-render.png adds the four previously missing wide damage-stage originals, with actual HP/shell phase and TMP glyph/text metadata in state.txt. Source HEAD6120268/product411d9bab; capture.xml1/1 passed; all four originals visually reviewed. Actual production damage events with frozen boss position/movement, not natural campaign/weapon input. No meaningful primary-text clipping/overlap/contrast defect reproduced; no product change/new binary. This closes only that E-render cell: extracted executable, all intervening frames/positions/pickup combinations, OS and HMD remain unverified. See that audit's verification.md for setup and fixture counter limitation.
