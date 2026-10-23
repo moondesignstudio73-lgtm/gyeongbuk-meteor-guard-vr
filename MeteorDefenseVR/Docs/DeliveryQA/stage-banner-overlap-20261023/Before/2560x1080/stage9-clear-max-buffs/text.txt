@@ -1,0 +1,20 @@
+state=BossMeteor;stage=9;boss=Idle;buffs=3;meteors=0;stageVisible=False;remaining=0;feedback=STAGE 09 CLEAR
+SCORE  0  ·  ACCURACY 0%
+THREAT LEVEL INCREASED
+DifficultyStageValue: font=15 auto=False rect=(x:0.44, y:0.93, width:0.12, height:0.03) preferred=122.82x25.72 available=(258.00, 32.00) truncated=False text=보통  ·  구역 09
+SystemMessageValue: font=25 auto=False rect=(x:0.37, y:0.72, width:0.26, height:0.09) preferred=276.24x112.6 available=(574.00, 82.00) truncated=True text=구역 09 완료
+점수  0  ·  명중률 0%
+다
+AsteroidValue: font=21 auto=False rect=(x:0.44, y:0.87, width:0.12, height:0.05) preferred=187.59x34.41 available=(258.00, 48.00) truncated=False text=남은 운석  21 / 21
+LiveThreatAnalysis: font=34 auto=False rect=(x:0.76, y:0.28, width:0.22, height:0.17) preferred=132.6x101.19 available=(368.00, 120.00) truncated=False text=위협 0개
+주변 안전
+ScoreValue: font=26 auto=False rect=(x:0.70, y:0.87, width:0.08, height:0.05) preferred=29.56x41.65 available=(186.00, 48.00) truncated=False text=0
+LiveWeaponStatus: font=30 auto=False rect=(x:0.76, y:0.04, width:0.22, height:0.24) preferred=222.03x132.73 available=(368.00, 172.00) truncated=False text=방어막 3회
+공격력 강화 9초
+과부하 레이저 6초
+LiveShipStatus: font=34 auto=False rect=(x:0.03, y:0.04, width:0.16, height:0.17) preferred=200.98x101.19 available=(268.00, 120.00) truncated=False text=방어막 35%
+손상 · 피해 90
+HealthValue: font=22 auto=False rect=(x:0.21, y:0.87, width:0.10, height:0.05) preferred=202.78x35.86 available=(214.00, 48.00) truncated=False text=■■■□□□□□
+TutorialTitle: font=48 auto=False rect=(x:0.00, y:0.00, width:0.00, height:0.00) preferred=146.74x172.39 available=(0.00, 0.00) truncated=True text=
+ScoreLabel: font=16 auto=False rect=(x:0.70, y:0.93, width:0.08, height:0.03) preferred=46.56x27.17 available=(186.00, 32.00) truncated=False text=점수
+HealthLabel: font=16 auto=False rect=(x:0.21, y:0.93, width:0.10, height:0.03) preferred=62.4x27.17 available=(214.00, 32.00) truncated=False text=방어막

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-23 07:33:01Z" end-time="2026-10-23 07:33:13Z" duration="11.5540564">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="448" result="Failed" site="Child" start-time="2026-10-23 07:33:01Z" end-time="2026-10-23 07:33:13Z" duration="11.554056" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1586" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="448" result="Failed" site="Child" start-time="2026-10-23 07:33:01Z" end-time="2026-10-23 07:33:13Z" duration="11.402271" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29888" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1587" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="448" result="Failed" site="Child" start-time="2026-10-23 07:33:01Z" end-time="2026-10-23 07:33:13Z" duration="11.393926" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1588" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="448" result="Failed" site="Child" start-time="2026-10-23 07:33:01Z" end-time="2026-10-23 07:33:13Z" duration="11.385750" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1443" name="StageBannerOverlapTests" fullname="MeteorDefenseVR.Tests.StageBannerOverlapTests" classname="MeteorDefenseVR.Tests.StageBannerOverlapTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-23 07:33:01Z" end-time="2026-10-23 07:33:13Z" duration="11.370174" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1444" name="CaptureReachableCoexistence" fullname="MeteorDefenseVR.Tests.StageBannerOverlapTests.CaptureReachableCoexistence" methodname="CaptureReachableCoexistence" classname="MeteorDefenseVR.Tests.StageBannerOverlapTests" runstate="Runnable" seed="1049356805" result="Failed" start-time="2026-10-23 07:32:46Z" end-time="2026-10-23 07:33:13Z" duration="26.526066" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: greater than or equal to 0.810000002f
+  But was:  0.753745675f
+]]></message>
+                <stack-trace><![CDATA[at MeteorDefenseVR.Tests.StageBannerOverlapTests.<CaptureReachableCoexistence>g__Save|1_1 (System.String state, MeteorDefenseVR.Tests.StageBannerOverlapTests+<>c__DisplayClass1_0& , MeteorDefenseVR.Tests.StageBannerOverlapTests+<>c__DisplayClass1_1& , MeteorDefenseVR.Tests.StageBannerOverlapTests+<>c__DisplayClass1_2& ) [0x0008a] in C:\Users\aaa\OneDrive\Desktop\VR콘텐츠\MeteorDefenseVR\Assets\_Project\Core\Tests\StageBannerOverlapTests.cs:49
+at MeteorDefenseVR.Tests.StageBannerOverlapTests+<CaptureReachableCoexistence>d__1.MoveNext () [0x00527] in C:\Users\aaa\OneDrive\Desktop\VR콘텐츠\MeteorDefenseVR\Assets\_Project\Core\Tests\StageBannerOverlapTests.cs:56
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

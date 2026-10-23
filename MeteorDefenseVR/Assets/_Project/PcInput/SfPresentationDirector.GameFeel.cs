@@ -111,6 +111,9 @@ namespace MeteorDefenseVR.PcInput
         {
             if (flow.CurrentState == GameState.Boot && !booting && !IsPreparing && !ambientStarted)
             { ambientStarted = true; audio?.TryPlay(AudioCue.IntroSpaceAmbient); }
+            // Stable lane between the top telemetry and feedback panel; stage cards settle below it.
+            float noticeDepth = 2.65f;
+            flightNotice.transform.localPosition = new Vector3(0, 2f * noticeDepth * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad) * .35f, noticeDepth);
             noticeAge += dt; praiseAge += dt;
             if (flightNotice.enabled)
             {
@@ -140,3 +143,4 @@ namespace MeteorDefenseVR.PcInput
         }
     }
 }
+

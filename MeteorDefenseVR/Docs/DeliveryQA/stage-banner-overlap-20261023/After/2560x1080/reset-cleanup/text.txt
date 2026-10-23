@@ -1,0 +1,22 @@
+state=Boot;stage=1;boss=Idle;buffs=0;meteors=0;stageVisible=False;remaining=0;feedback=
+GazeCursor: font=32 auto=False rect=(x:0.49, y:0.48, width:0.02, height:0.04) preferred=16.68x46.34 available=(44.00, 44.00) truncated=False text=+
+DistanceLabel_0: font=0.042 auto=False rect=(x:0.52, y:0.20, width:0.01, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=25m
+FlightTip: font=18 auto=False rect=(x:0.24, y:0.06, width:0.53, height:0.05) preferred=318.06x26.07 available=(900.00, 38.00) truncated=False text=조준점을 운석에 맞추면 자동으로 발사돼요.
+PolishedText: font=2.1 auto=False rect=(x:0.35, y:0.62, width:0.30, height:0.26) preferred=1.92x0.31 available=(3.60, 1.30) truncated=False text=난이도를 선택하세요
+DistanceLabel_2: font=0.042 auto=False rect=(x:0.54, y:0.20, width:0.01, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=100m
+PolishedText: font=2.6 auto=False rect=(x:0.45, y:0.34, width:0.11, height:0.08) preferred=0.5x0.38 available=(1.30, 0.40) truncated=False text=시작
+LiveThreatAnalysis: font=34 auto=False rect=(x:0.81, y:0.04, width:0.16, height:0.17) preferred=132.6x101.19 available=(268.00, 120.00) truncated=False text=위협 0개
+주변 안전
+TutorialTitle: font=48 auto=False rect=(x:0.00, y:0.00, width:0.00, height:0.00) preferred=146.74x172.39 available=(0.00, 0.00) truncated=True text=
+LiveRadarText: font=0.135 auto=False rect=(x:0.43, y:0.10, width:0.13, height:0.20) preferred=0.19x0.04 available=(0.59, 0.37) truncated=False text=360° THREAT RADAR // NORMAL
+CONTACTS 00   PRIORITY CLEAR
+PreparationStatus: font=25 auto=False rect=(x:0.25, y:0.25, width:0.49, height:0.06) preferred=217.99x36.2 available=(840.00, 44.00) truncated=False text=다음 임무를 준비해요
+DistanceLabel_1: font=0.042 auto=False rect=(x:0.52, y:0.20, width:0.01, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=50m
+PreparationPercent: font=18 auto=False rect=(x:0.41, y:0.15, width:0.18, height:0.04) preferred=43.99x26.07 available=(300.00, 32.00) truncated=False text=100%
+PolishedText: font=1.8 auto=False rect=(x:0.35, y:0.44, width:0.29, height:0.06) preferred=2.34x0.27 available=(3.50, 0.30) truncated=False text=시작에 조준점을 맞춰 보세요.
+HeadDirection: font=0.058 auto=False rect=(x:0.49, y:0.19, width:0.02, height:0.02) preferred=0.01x0.01 available=(0.09, 0.04) truncated=False text=▲
+PolishedText: font=3.3 auto=False rect=(x:0.35, y:0.84, width:0.31, height:0.11) preferred=2.98x0.48 available=(3.70, 0.55) truncated=False text=METEOR DEFENSE
+FlightTitle: font=28 auto=False rect=(x:0.29, y:0.82, width:0.42, height:0.06) preferred=109.2x40.55 available=(720.00, 46.00) truncated=False text=출격 준비
+DistanceLabel_3: font=0.042 auto=False rect=(x:0.55, y:0.20, width:0.01, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=200m
+LiveShipStatus: font=34 auto=False rect=(x:0.03, y:0.04, width:0.16, height:0.17) preferred=184.39x101.19 available=(268.00, 120.00) truncated=False text=방어막 100%
+정상 · 피해 0

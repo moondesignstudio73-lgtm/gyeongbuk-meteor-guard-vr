@@ -1,0 +1,26 @@
+state=BossMeteor;stage=10;boss=Warning;buffs=3;meteors=0;stageVisible=False;remaining=0;feedback=WARNING
+MASSIVE OBJECT DETECTED
+BOSS ASTEROID APPROACHING
+DistanceLabel_0: font=0.042 auto=False rect=(x:0.53, y:0.20, width:0.02, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=25m
+AsteroidValue: font=21 auto=False rect=(x:0.42, y:0.90, width:0.16, height:0.04) preferred=187.59x34.41 available=(258.00, 48.00) truncated=False text=남은 운석  21 / 21
+DistanceLabel_2: font=0.042 auto=False rect=(x:0.56, y:0.20, width:0.02, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=100m
+LiveThreatAnalysis: font=34 auto=False rect=(x:0.68, y:0.22, width:0.29, height:0.13) preferred=132.6x101.19 available=(368.00, 120.00) truncated=False text=위협 0개
+주변 안전
+LiveWeaponStatus: font=30 auto=False rect=(x:0.68, y:0.04, width:0.29, height:0.18) preferred=222.03x132.73 available=(368.00, 172.00) truncated=False text=방어막 3회
+공격력 강화 5초
+과부하 레이저 5초
+TutorialTitle: font=48 auto=False rect=(x:0.00, y:0.00, width:0.00, height:0.00) preferred=146.74x172.39 available=(0.00, 0.00) truncated=True text=
+LiveRadarText: font=0.135 auto=False rect=(x:0.38, y:0.10, width:0.24, height:0.20) preferred=0.19x0.04 available=(0.59, 0.37) truncated=False text=360° THREAT RADAR // NORMAL
+CONTACTS 00   PRIORITY CLEAR
+HealthValue: font=22 auto=False rect=(x:0.20, y:0.90, width:0.13, height:0.04) preferred=202.78x35.86 available=(214.00, 48.00) truncated=False text=■■□□□□□□
+DistanceLabel_1: font=0.042 auto=False rect=(x:0.54, y:0.20, width:0.02, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=50m
+ScoreLabel: font=16 auto=False rect=(x:0.68, y:0.95, width:0.11, height:0.03) preferred=46.56x27.17 available=(186.00, 32.00) truncated=False text=점수
+DifficultyStageValue: font=15 auto=False rect=(x:0.42, y:0.95, width:0.16, height:0.03) preferred=122.82x25.72 available=(258.00, 32.00) truncated=False text=보통  ·  구역 10
+SystemMessageValue: font=25 auto=False rect=(x:0.33, y:0.74, width:0.35, height:0.07) preferred=284.86x76.4 available=(574.00, 82.00) truncated=False text=위험!
+거대한 운석이 다가와요!
+HeadDirection: font=0.058 auto=False rect=(x:0.48, y:0.19, width:0.04, height:0.02) preferred=0.01x0.01 available=(0.09, 0.04) truncated=False text=▲
+ScoreValue: font=26 auto=False rect=(x:0.68, y:0.90, width:0.11, height:0.04) preferred=29.56x41.65 available=(186.00, 48.00) truncated=False text=0
+HealthLabel: font=16 auto=False rect=(x:0.20, y:0.95, width:0.13, height:0.03) preferred=62.4x27.17 available=(214.00, 32.00) truncated=False text=방어막
+DistanceLabel_3: font=0.042 auto=False rect=(x:0.59, y:0.20, width:0.02, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=200m
+LiveShipStatus: font=34 auto=False rect=(x:0.03, y:0.04, width:0.21, height:0.13) preferred=200.98x101.19 available=(268.00, 120.00) truncated=False text=방어막 25%
+위험 · 피해 90
