@@ -1,0 +1,50 @@
+[
+  {
+    "path": "Docs/DeliveryQA/readable-menu-text-20261023/Extracted/800x600/start-selected-dwell/stability-game-render.png",
+    "exists": true
+  },
+  {
+    "path": "Builds/Verify/IT20261021/MeteorDefenseVR-Windows-IntroTransition-20261021/QA/IntroTransition",
+    "exists": true
+  },
+  {
+    "path": "Docs/DeliveryQA/readability-20261021/After/800x600/practice-panel-crossing",
+    "exists": true
+  },
+  {
+    "path": "Builds/Verify/SH20261022/MeteorDefenseVR-Windows-StableHud-20261022/QA/TelemetryReadable",
+    "exists": true
+  },
+  {
+    "path": "Docs/DeliveryQA/boss-shell-20261021/FinalVerified/MeteorDefenseVR-Windows-BossShell-20261021/QA",
+    "exists": true
+  },
+  {
+    "path": "Docs/DeliveryQA/stage-banner-overlap-20261023/Extracted",
+    "exists": true
+  },
+  {
+    "path": "Docs/DeliveryQA/pause-priority-20261021/FinalVerified/MeteorDefenseVR-Windows-PausePriority-20261021/QA/PausePriority",
+    "exists": true
+  },
+  {
+    "path": "Builds/Verify/HG20261022/MeteorDefenseVR-Windows-HangarGraphics-20261022/QA/IntroTransition",
+    "exists": true
+  },
+  {
+    "path": "Builds/Verify/RCU20261022b/MeteorDefenseVR-Windows-ResultCountup-20261022/QA/ResultCountup",
+    "exists": true
+  },
+  {
+    "path": "Docs/DeliveryQA/readable-menu-text-20261023/extracted-menu-verification.txt",
+    "exists": true
+  },
+  {
+    "path": "Docs/DeliveryQA/buff-readability-20261021/FinalVerified/MeteorDefenseVR-Windows-BuffReadability-20261021/QA/BuffReadability",
+    "exists": true
+  },
+  {
+    "path": "Docs/DeliveryQA/populated-records-20261023/Before",
+    "exists": true
+  }
+]

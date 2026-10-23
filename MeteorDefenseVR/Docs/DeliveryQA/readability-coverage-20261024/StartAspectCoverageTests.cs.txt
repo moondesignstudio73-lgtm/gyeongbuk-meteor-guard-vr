@@ -1,0 +1,61 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using MeteorDefenseVR.Difficulty;
+using MeteorDefenseVR.EyeTracking;
+using MeteorDefenseVR.GameFlow;
+using MeteorDefenseVR.PcInput;
+using MeteorDefenseVR.Visual;
+using NUnit.Framework;
+using TMPro;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.TestTools;
+using Object=UnityEngine.Object;
+namespace MeteorDefenseVR.Tests {
+public sealed class StartAspectCoverageTests {
+ [UnityTearDown] public IEnumerator Cleanup(){Time.timeScale=1;if(Application.isPlaying)yield return new ExitPlayMode();}
+ [UnityTest,Timeout(150000)] public IEnumerator CurrentStartAtOrdinaryAspect(){EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity");yield return new EnterPlayMode();yield return Run();}
+ static IEnumerator Run(){
+  const string output="Docs/DeliveryQA/readability-coverage-20261024/Start16x9";
+  var camera=Camera.main;var reset=Object.FindAnyObjectByType<OperationsResetController>();var router=Object.FindAnyObjectByType<GazeInputRouter>();var caster=Object.FindAnyObjectByType<GazeRaycaster>();
+  var difficulty=Object.FindAnyObjectByType<DifficultyManager>();var selection=Object.FindAnyObjectByType<DifficultySelectionView>();
+  bool locked=difficulty.Settings.lockDifficultySelection,input=router.InputSuspended,casting=caster.enabled;
+  var devices=InputSystem.devices.Where(d=>d.enabled&&(d is Mouse||d is Keyboard)).ToArray();foreach(var d in devices)InputSystem.DisableDevice(d);
+  router.InputSuspended=true;caster.enabled=false;
+  try{foreach(var size in new[]{new Vector2Int(1280,720),new Vector2Int(1920,1080)}){
+   difficulty.Settings.lockDifficultySelection=false;reset.ResetExperience();router.InputSuspended=true;
+   float end=Time.unscaledTime+25;while((selection.Choices[0]==null||!selection.Choices[0].isActiveAndEnabled)&&Time.unscaledTime<end)yield return null;
+   Assert.IsTrue(selection.Choices.All(c=>c!=null&&c.isActiveAndEnabled));
+   using var probe=new PcStabilityProbe(camera,size.x,size.y);yield return new WaitForSecondsRealtime(.6f);
+   void Save(string state){
+    Canvas.ForceUpdateCanvases();camera.GetComponent<WorldUiSafeArea>().Apply();PcStabilityRenderDriver.RenderForProof(camera);Physics.SyncTransforms();
+    var lines=new List<string>{$"Editor controlled current-source start; size={size}; selected={difficulty.Selected}; locked={difficulty.Settings.lockDifficultySelection}; not OS/HMD. Direct gaze methods for partial dwell, not natural mouse navigation."};
+    var all=new List<(string name,Rect bounds)>();
+    foreach(var choice in selection.Choices){
+     var collider=choice.GetComponent<Collider>();Assert.IsTrue(collider.Raycast(new Ray(camera.transform.position,collider.bounds.center-camera.transform.position),out var hit,100),"Card collider ray misses");
+     lines.Add($"choice={choice.name} progress={choice.Progress} colliderRay=True");
+     foreach(var text in choice.GetComponentsInChildren<TextMeshPro>()){
+      text.ForceMeshUpdate();Assert.IsFalse(text.enableAutoSizing);Assert.IsFalse(text.isTextTruncated);
+      var min=new Vector2(float.PositiveInfinity,float.PositiveInfinity);var max=new Vector2(float.NegativeInfinity,float.NegativeInfinity);float minHeight=float.PositiveInfinity;
+      foreach(var ch in text.textInfo.characterInfo.Take(text.textInfo.characterCount).Where(c=>c.isVisible)){
+       var points=new[]{ch.bottomLeft,ch.topLeft,ch.topRight,ch.bottomRight}.Select(v=>camera.WorldToViewportPoint(text.transform.TransformPoint(v))).ToArray();
+       foreach(var p in points){Assert.Greater(p.z,0);min=Vector2.Min(min,p);max=Vector2.Max(max,p);}minHeight=Mathf.Min(minHeight,(points.Max(p=>p.y)-points.Min(p=>p.y))*size.y);
+      }
+      Assert.IsFalse(float.IsInfinity(min.x));Assert.GreaterOrEqual(min.x,0);Assert.GreaterOrEqual(min.y,0);Assert.LessOrEqual(max.x,1);Assert.LessOrEqual(max.y,1);
+      var r=Rect.MinMaxRect(min.x,min.y,max.x,max.y);all.Add((choice.name+"/"+text.name,r));
+      lines.Add($"{choice.name}/{text.name}: font={text.fontSize}; glyphRect={r}; minGlyphPx={minHeight}; text={text.GetParsedText().Replace('\n','|')}");
+     }
+    }
+    for(int i=0;i<all.Count;i++)for(int j=0;j<i;j++)if(all[i].bounds.Overlaps(all[j].bounds))lines.Add("GLYPH_OVERLAP "+all[j].name+" / "+all[i].name);
+    string dir=$"{output}/{size.x}x{size.y}/{state}";Directory.CreateDirectory(dir);probe.SaveGameOnlyProof(dir,router);File.WriteAllLines(dir+"/state.txt",lines);
+   }
+   difficulty.Select(DifficultyLevel.Hard);yield return new WaitForSecondsRealtime(.6f);
+   selection.Choices[1].OnGazeEnter(default);selection.Choices[1].OnGazeStay(default,.35f);selection.Choices[1].SetFocus(true);Assert.Greater(selection.Choices[1].Progress,0);Assert.Less(selection.Choices[1].Progress,1);Save("selected-partial-dwell");selection.Choices[1].OnGazeExit();
+   difficulty.Select(DifficultyLevel.Experience);yield return new WaitForSecondsRealtime(.3f);Save("experience-selected");
+   difficulty.Settings.lockDifficultySelection=true;difficulty.ApplyOperatorDefaults();yield return new WaitForSecondsRealtime(.4f);Assert.IsFalse(difficulty.Select(DifficultyLevel.Hard));Save("locked-selected");
+  }}finally{difficulty.Settings.lockDifficultySelection=locked;reset.ResetExperience();router.InputSuspended=input;caster.enabled=casting;foreach(var d in devices)InputSystem.EnableDevice(d);}
+ }
+}}

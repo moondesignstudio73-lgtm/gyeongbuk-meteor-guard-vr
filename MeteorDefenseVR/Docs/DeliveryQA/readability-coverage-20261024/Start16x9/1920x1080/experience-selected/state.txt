@@ -1,0 +1,13 @@
+Editor controlled current-source start; size=(1920, 1080); selected=Experience; locked=False; not OS/HMD. Direct gaze methods for partial dwell, not natural mouse navigation.
+choice=DifficultyExperience progress=0 colliderRay=True
+DifficultyExperience/Title: font=300; glyphRect=(x:0.18, y:0.65, width:0.06, height:0.06); minGlyphPx=61.25002; text=체험
+DifficultyExperience/Description: font=240; glyphRect=(x:0.14, y:0.53, width:0.13, height:0.12); minGlyphPx=45.74134; text=짧게 즐기는|우주 임무
+choice=DifficultyEasy progress=0 colliderRay=True
+DifficultyEasy/Title: font=300; glyphRect=(x:0.37, y:0.64, width:0.06, height:0.05); minGlyphPx=56.98647; text=쉬움
+DifficultyEasy/Description: font=240; glyphRect=(x:0.35, y:0.53, width:0.10, height:0.11); minGlyphPx=37.64199; text=앞을 보며|차근차근
+choice=DifficultyNormal progress=0 colliderRay=True
+DifficultyNormal/Title: font=300; glyphRect=(x:0.57, y:0.64, width:0.06, height:0.05); minGlyphPx=47.05243; text=보통
+DifficultyNormal/Description: font=240; glyphRect=(x:0.52, y:0.53, width:0.15, height:0.11); minGlyphPx=37.03193; text=좌우를 살피며|도전
+choice=DifficultyHard progress=0 colliderRay=True
+DifficultyHard/Title: font=300; glyphRect=(x:0.75, y:0.64, width:0.09, height:0.05); minGlyphPx=56.98647; text=어려움
+DifficultyHard/Description: font=240; glyphRect=(x:0.73, y:0.53, width:0.12, height:0.11); minGlyphPx=36.93305; text=모든 방향의|운석에 도전
