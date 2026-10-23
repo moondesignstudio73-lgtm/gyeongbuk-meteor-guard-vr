@@ -1,0 +1,12 @@
+Controlled scene-camera render with prepared states; not OS/HMD observation. Check enclosing build identity for executable provenance.
+DifficultyExperience: interactable=True, state=Normal, gaze=0
+EducationStart: interactable=True, state=Normal, gaze=0
+CenterPoint: interactable=True, state=Selected, gaze=0
+CameraShake: interactable=True, state=Normal, gaze=0
+Close: interactable=True, state=Normal, gaze=0
+DifficultyEasy: interactable=True, state=Normal, gaze=0
+InvertY: interactable=True, state=Normal, gaze=0
+SensitivityDown: interactable=False, state=Disabled, gaze=0
+DifficultyHard: interactable=True, state=Normal, gaze=0
+DifficultyNormal: interactable=True, state=Selected, gaze=0
+SensitivityUp: interactable=True, state=Normal, gaze=0
