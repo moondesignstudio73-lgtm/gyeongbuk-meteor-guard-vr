@@ -1,0 +1,91 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using MeteorDefenseVR.PcInput;
+using MeteorDefenseVR.Combat;
+using MeteorDefenseVR.Difficulty;
+using MeteorDefenseVR.GameFlow;
+using MeteorDefenseVR.Meteor;
+using MeteorDefenseVR.Player;
+using NUnit.Framework;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEditor.SceneManagement;
+using UnityEngine.TestTools;
+using Object=UnityEngine.Object;
+namespace MeteorDefenseVR.Tests {
+public sealed class MultiThreatNoticeTests {
+ [UnityTearDown] public IEnumerator Cleanup(){Time.timeScale=1;if(Application.isPlaying)yield return new ExitPlayMode();}
+ [UnityTest,Timeout(240000)] public IEnumerator CaptureActualMaximum(){
+  EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity");yield return new EnterPlayMode();yield return Capture();
+ }
+ static IEnumerator Capture(){
+  const string output="Docs/DeliveryQA/multi-threat-notice-20261023/Before";
+  var camera=Camera.main;var router=Object.FindAnyObjectByType<GazeInputRouter>();var caster=Object.FindAnyObjectByType<MeteorDefenseVR.EyeTracking.GazeRaycaster>();
+  var director=Object.FindAnyObjectByType<SfPresentationDirector>();var spawner=Object.FindAnyObjectByType<MeteorSpawner>();var health=Object.FindAnyObjectByType<PlayerHealth>();
+  var weapon=Object.FindAnyObjectByType<LaserWeapon>();var reset=Object.FindAnyObjectByType<OperationsResetController>();var difficulty=Object.FindAnyObjectByType<DifficultyManager>();var indicator=Object.FindAnyObjectByType<ThreatIndicatorView>();
+  bool input=router.InputSuspended,fire=weapon.AutoFireOnLock,casting=caster.enabled;var rotation=camera.transform.localRotation;
+  var devices=InputSystem.devices.Where(d=>d.enabled&&(d is Mouse||d is Keyboard)).ToArray();foreach(var d in devices)InputSystem.DisableDevice(d);
+  router.InputSuspended=true;caster.enabled=false;weapon.AutoFireOnLock=false;
+  var notes=new List<string>{"Capture-only audit; overlap findings do not fail this fixture. Actual Hard settings and pooled targets; frozen movement, controlled positions/speeds. Not native OS/human/HMD play."};
+  var flags=BindingFlags.Instance|BindingFlags.NonPublic;
+  var age=typeof(SfPresentationDirector).GetField("noticeAge",flags);var cooldown=typeof(SfPresentationDirector).GetField("dangerAllowedAt",flags);
+  var targetsField=typeof(ThreatIndicatorView).GetField("candidates",flags);var sidesField=typeof(ThreatIndicatorView).GetField("noticeSides",flags);
+  float deadline=Time.unscaledTime+25;while(director.IsBootPresenting&&Time.unscaledTime<deadline)yield return null;
+  try {foreach(var size in new[]{new Vector2Int(800,600),new Vector2Int(2560,1080)}){
+   reset.ResetExperience();router.InputSuspended=true;yield return new WaitForSecondsRealtime(2);
+   difficulty.Select(DifficultyLevel.Hard);Assert.AreEqual(DifficultyLevel.Hard,difficulty.Selected);
+   GameFlowManager.Instance.StartMainGame();spawner.BeginScenario(4);health.RestoreCheckpoint(100);camera.transform.localRotation=Quaternion.identity;
+   using var probe=new PcStabilityProbe(camera,size.x,size.y);
+   var targets=new List<MeteorController>();
+   MeteorController Spawn(int i,float x){var p=camera.ViewportToWorldPoint(new Vector3(x,1.12f,25+i));var m=spawner.SpawnScenario(p,(spawner.ShipCenter-p).normalized*(8-i),3,10);m.enabled=false;return m;}
+   for(int i=0;i<indicator.IndicatorLimit;i++)targets.Add(Spawn(i,.58f+i*.012f));
+   Assert.AreEqual(4,indicator.IndicatorLimit);Assert.LessOrEqual(targets.Count,difficulty.Session.MaxConcurrent);
+   notes.Add($"{size}: selected={difficulty.Selected} session={difficulty.Session.Level} limit={indicator.IndicatorLimit} maxConcurrent={difficulty.Session.MaxConcurrent} horizon={difficulty.Session.WarningHorizon} directionText={difficulty.Session.WarningDirectionText}");
+   var notice=Object.FindObjectsByType<TextMeshPro>().Single(t=>t.name=="FlightNotice");
+   var backing=camera.GetComponentsInChildren<UnityEngine.UI.Image>(true).Single(t=>t.name=="LowHealthNoticeBacking");
+   void Save(string state,bool critical){
+    Canvas.ForceUpdateCanvases();PcStabilityRenderDriver.RenderForProof(camera);
+    var labels=GameObject.Find("ThreatIndicators").GetComponentsInChildren<TextMeshProUGUI>().Where(t=>t.name.StartsWith("Threat")).OrderBy(t=>t.name).ToArray();
+    Assert.AreEqual(targets.Count(t=>t.IsTargetable),labels.Length,"Unexpected invisible indicators");
+    if(critical)Assert.IsTrue(notice.enabled&&director.CriticalNoticeBounds!=null,"Warning expired before sample");
+    var candidates=(MeteorController[])targetsField.GetValue(indicator);var sides=(Dictionary<MeteorController,int>)sidesField.GetValue(indicator);
+    var lines=new List<string>{$"state={state} age={age.GetValue(director)} alpha={notice.color.a} critical={critical} visible={labels.Length} priority={indicator.MostUrgentThreat?.GetEntityId()}"};
+    int emphasized=labels.Count(l=>l.color.a>.9f);Assert.AreEqual(1,emphasized);
+    var boxes=labels.Select(l=>TelemetryReadabilityProof.ViewRect(camera,l.rectTransform)).ToArray();
+    for(int i=0;i<labels.Length;i++){
+     var label=labels[i];int slot=int.Parse(label.name.Substring(6));var m=candidates[slot];var local=Quaternion.Inverse(camera.transform.rotation)*(m.transform.position-camera.transform.position);
+     Assert.IsTrue(label.text.Contains(Mathf.RoundToInt(Vector3.Distance(camera.transform.position,m.transform.position))+"m"),"stale range");
+     Assert.IsTrue(label.text.Contains(ThreatProjection.Direction(local)),"stale bearing");Assert.AreEqual(21,label.fontSize);Assert.IsFalse(label.enableAutoSizing);
+     lines.Add($"{label.name}: targetId={m.GetEntityId()} text={label.text.Replace('\n',' ')} rect={boxes[i]} position={label.rectTransform.anchoredPosition} side={(sides.TryGetValue(m,out int side)?side:0)} noticeOverlap={critical&&boxes[i].Overlaps(TelemetryReadabilityProof.ViewRect(camera,backing.rectTransform))}");
+     for(int j=0;j<i;j++)if(boxes[i].Overlaps(boxes[j]))lines.Add($"PAIR_OVERLAP {j}/{i}");
+     foreach(string name in new[]{"ShipStatusHologram","ThreatStatusHologram"}){var p=GameObject.Find(name)?.GetComponent<RectTransform>();if(p!=null&&boxes[i].Overlaps(TelemetryReadabilityProof.ViewRect(camera,p)))lines.Add("PANEL_OVERLAP "+name);}
+    }
+    string dir=$"{output}/{size.x}x{size.y}/{state}";Directory.CreateDirectory(dir);probe.SaveGameOnlyProof(dir,router);File.WriteAllLines(dir+"/state.txt",lines);notes.AddRange(lines);
+   }
+   yield return new WaitForSecondsRealtime(2);Save("baseline",false);
+   health.RestoreCheckpoint(25);cooldown.SetValue(director,0f);yield return new WaitForSecondsRealtime(.12f);Save("warning-entry",true);
+   yield return new WaitForSecondsRealtime(.12f);Save("warning-hold",true);
+   targets[3].SetRuntimeSpeedMultiplier(3);yield return new WaitForSecondsRealtime(.12f);Save("priority-switch",true);
+   var dead=indicator.MostUrgentThreat;dead.ReceiveDamage(10000);yield return new WaitForSecondsRealtime(.12f);Save("priority-destroyed",true);
+   Assert.IsFalse(((Dictionary<MeteorController,int>)sidesField.GetValue(indicator)).ContainsKey(dead),"Destroyed target retained side");
+   yield return new WaitForSecondsRealtime(1.5f);
+   // Start another real warning cycle, then return the pool and respawn on opposite side.
+   health.RestoreCheckpoint(100);yield return null;health.RestoreCheckpoint(25);cooldown.SetValue(director,0f);yield return new WaitForSecondsRealtime(.12f);Save("before-pool-return",true);
+   var oldIds=targets.Select(t=>t.GetEntityId()).ToArray();spawner.ClearScenarioRound();
+   Assert.AreEqual(0,((Dictionary<MeteorController,int>)sidesField.GetValue(indicator)).Count,"Pool return retained side");targets.Clear();
+   for(int i=0;i<indicator.IndicatorLimit;i++)targets.Add(Spawn(i,.42f-i*.012f));
+   Assert.IsTrue(targets.Any(t=>oldIds.Contains(t.GetEntityId())),"No actual pool reuse");
+   yield return new WaitForSecondsRealtime(.15f);Save("opposite-side-reuse",true);
+   yield return new WaitForSecondsRealtime(.15f);Save("reuse-hold",true);
+   yield return new WaitForSecondsRealtime(1.5f);Save("restored",false);
+   foreach(var m in targets)m.enabled=true;spawner.EndScenario();reset.ResetExperience();
+  }
+  Directory.CreateDirectory(output);notes.Add("captureCompleted=True (not a no-defect assertion)");File.WriteAllLines(output+"/verification.txt",notes);
+  }finally{spawner.EndScenario();reset.ResetExperience();camera.transform.localRotation=rotation;router.InputSuspended=input;caster.enabled=casting;weapon.AutoFireOnLock=fire;foreach(var d in devices)InputSystem.EnableDevice(d);}
+ }
+}}

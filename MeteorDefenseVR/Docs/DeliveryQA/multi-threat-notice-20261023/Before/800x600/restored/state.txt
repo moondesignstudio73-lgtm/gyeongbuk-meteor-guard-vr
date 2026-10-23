@@ -1,0 +1,5 @@
+state=restored age=1.992765 alpha=0 critical=False visible=4 priority=568105589213741074
+Threat0: targetId=568105589213741074 text=▲ ABOVE 32m rect=(x:0.38, y:0.85, width:0.13, height:0.06) position=(-70.19, 365.00) side=0 noticeOverlap=False
+Threat1: targetId=568105589213740932 text=▲ ABOVE 33m rect=(x:0.37, y:0.37, width:0.13, height:0.06) position=(-80.72, -100.00) side=0 noticeOverlap=False
+Threat2: targetId=568105589213740790 text=▲ ABOVE 35m rect=(x:0.37, y:0.30, width:0.13, height:0.06) position=(-91.25, -160.00) side=0 noticeOverlap=False
+Threat3: targetId=568105589213741216 text=▲ ABOVE 36m rect=(x:0.36, y:0.24, width:0.13, height:0.06) position=(-101.78, -220.00) side=0 noticeOverlap=False

@@ -1,0 +1,4 @@
+state=before-pool-return age=0.1110685 alpha=1 critical=True visible=3 priority=568105589213740790
+Threat0: targetId=568105589213740790 text=▲ ABOVE 32m rect=(x:0.72, y:0.85, width:0.13, height:0.06) position=(367.48, 365.00) side=1 noticeOverlap=False
+Threat1: targetId=568105589213740932 text=▲ ABOVE 33m rect=(x:0.72, y:0.37, width:0.13, height:0.06) position=(367.48, -100.00) side=1 noticeOverlap=False
+Threat2: targetId=568105589213741074 text=▲ ABOVE 35m rect=(x:0.72, y:0.30, width:0.13, height:0.06) position=(367.48, -160.00) side=1 noticeOverlap=False
