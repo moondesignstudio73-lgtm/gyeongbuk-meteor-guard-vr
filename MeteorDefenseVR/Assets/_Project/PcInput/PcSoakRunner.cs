@@ -369,6 +369,8 @@ namespace MeteorDefenseVR.PcInput
                 }
                 if(Environment.GetCommandLineArgs().Contains("--pc-stage-notice-qa"))
                     yield return StageBannerOverlapProof.Run(Path.Combine(output,"StageNotice"));
+                if(Environment.GetCommandLineArgs().Contains("--pc-warning-contrast-qa"))
+                    yield return WarningContrastProof.Run(Path.Combine(output,"WarningContrast"));
                 if(Environment.GetCommandLineArgs().Contains("--pc-selection-state-qa"))
                     yield return SelectionStateProof.Run(Path.Combine(output,"SelectionState"));
                 if(Environment.GetCommandLineArgs().Contains("--pc-menu-transition-qa"))

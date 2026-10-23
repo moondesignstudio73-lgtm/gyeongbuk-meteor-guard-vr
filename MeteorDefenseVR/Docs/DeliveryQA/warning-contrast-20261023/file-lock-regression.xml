@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-23 08:43:29Z" end-time="2026-10-23 08:44:02Z" duration="33.3015901">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="449" result="Failed" site="Child" start-time="2026-10-23 08:43:29Z" end-time="2026-10-23 08:44:02Z" duration="33.301590" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1588" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="449" result="Failed" site="Child" start-time="2026-10-23 08:43:29Z" end-time="2026-10-23 08:44:02Z" duration="33.148659" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="39036" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1589" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="449" result="Failed" site="Child" start-time="2026-10-23 08:43:29Z" end-time="2026-10-23 08:44:02Z" duration="33.142859" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1590" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="449" result="Failed" site="Child" start-time="2026-10-23 08:43:29Z" end-time="2026-10-23 08:44:02Z" duration="33.136592" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1198" name="FlightTransitionTests" fullname="MeteorDefenseVR.Tests.FlightTransitionTests" classname="MeteorDefenseVR.Tests.FlightTransitionTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-23 08:42:32Z" end-time="2026-10-23 08:42:45Z" duration="12.844936" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1199" name="StageArrivalTracksCampaignAndCancelsOnResetWithoutBlockingInput" fullname="MeteorDefenseVR.Tests.FlightTransitionTests.StageArrivalTracksCampaignAndCancelsOnResetWithoutBlockingInput" methodname="StageArrivalTracksCampaignAndCancelsOnResetWithoutBlockingInput" classname="MeteorDefenseVR.Tests.FlightTransitionTests" runstate="Runnable" seed="872734209" result="Passed" start-time="2026-10-23 08:42:19Z" end-time="2026-10-23 08:42:45Z" duration="25.665399" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1443" name="StageBannerOverlapTests" fullname="MeteorDefenseVR.Tests.StageBannerOverlapTests" classname="MeteorDefenseVR.Tests.StageBannerOverlapTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-23 08:42:55Z" end-time="2026-10-23 08:43:20Z" duration="24.810311" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1444" name="CaptureReachableCoexistence" fullname="MeteorDefenseVR.Tests.StageBannerOverlapTests.CaptureReachableCoexistence" methodname="CaptureReachableCoexistence" classname="MeteorDefenseVR.Tests.StageBannerOverlapTests" runstate="Runnable" seed="233540910" result="Failed" label="Error" start-time="2026-10-23 08:42:45Z" end-time="2026-10-23 08:43:20Z" duration="35.340517" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.IO.IOException : Win32 IO returned 1224. Path: C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Docs\DeliveryQA\stage-banner-overlap-20261023\After\2560x1080\boss-warning-max-buffs\stability-game-render.png]]></message>
+                <stack-trace><![CDATA[  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.Boolean anonymous, System.IO.FileOptions options) [0x0019e] in <ee034d2b335a4869bde47687e6ac9c30>:0 
+  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share) [0x00000] in <ee034d2b335a4869bde47687e6ac9c30>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.FileStream..ctor(string,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)
+  at System.IO.File.InternalWriteAllBytes (System.String path, System.Byte[] bytes) [0x00000] in <ee034d2b335a4869bde47687e6ac9c30>:0 
+  at System.IO.File.WriteAllBytes (System.String path, System.Byte[] bytes) [0x00039] in <ee034d2b335a4869bde47687e6ac9c30>:0 
+  at MeteorDefenseVR.PcInput.PcStabilityProbe.SaveGameOnlyProof (System.String directory, MeteorDefenseVR.PcInput.GazeInputRouter router) [0x000cb] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\PcStabilityProbe.cs:78 
+  at MeteorDefenseVR.PcInput.StageBannerOverlapProof.<Run>g__Save|1_2 (System.String state, MeteorDefenseVR.PcInput.StageBannerOverlapProof+<>c__DisplayClass1_0& , MeteorDefenseVR.PcInput.StageBannerOverlapProof+<>c__DisplayClass1_1& , MeteorDefenseVR.PcInput.StageBannerOverlapProof+<>c__DisplayClass1_2& ) [0x0016b] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\StageBannerOverlapProof.cs:58 
+  at MeteorDefenseVR.PcInput.StageBannerOverlapProof+<Run>d__1.MoveNext () [0x007a3] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\StageBannerOverlapProof.cs:72 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1564" name="WarningContrastTests" fullname="MeteorDefenseVR.Tests.WarningContrastTests" classname="MeteorDefenseVR.Tests.WarningContrastTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-23 08:43:29Z" end-time="2026-10-23 08:44:02Z" duration="33.096333" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1565" name="CaptureWarningPhases" fullname="MeteorDefenseVR.Tests.WarningContrastTests.CaptureWarningPhases" methodname="CaptureWarningPhases" classname="MeteorDefenseVR.Tests.WarningContrastTests" runstate="Runnable" seed="1205191211" result="Passed" start-time="2026-10-23 08:43:20Z" end-time="2026-10-23 08:44:02Z" duration="41.930878" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

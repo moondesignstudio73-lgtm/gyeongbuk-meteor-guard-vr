@@ -1,0 +1,25 @@
+state=Playing;stage=10;boss=Idle;buffs=3;meteors=2;stageVisible=False;remaining=0;feedback=
+LiveWeaponStatus: font=30 auto=False rect=(x:0.76, y:0.04, width:0.22, height:0.24) preferred=222.03x132.73 available=(368.00, 172.00) truncated=False text=방어막 3회
+공격력 강화 4초
+과부하 레이저 4초
+HeadDirection: font=0.058 auto=False rect=(x:0.49, y:0.62, width:0.02, height:0.02) preferred=0.03x0.01 available=(0.09, 0.04) truncated=False text=LOOK ▼
+AsteroidValue: font=21 auto=False rect=(x:0.44, y:0.87, width:0.12, height:0.05) preferred=187.59x34.41 available=(258.00, 48.00) truncated=False text=남은 운석  21 / 21
+ThreatLabel: font=0.052 auto=False rect=(x:0.48, y:0.65, width:0.02, height:0.02) preferred=0.01x0.01 available=(0.11, 0.04) truncated=False text=▼ !
+DifficultyStageValue: font=15 auto=False rect=(x:0.44, y:0.93, width:0.12, height:0.03) preferred=122.82x25.72 available=(258.00, 32.00) truncated=False text=보통  ·  구역 10
+LiveShipStatus: font=34 auto=False rect=(x:0.03, y:0.04, width:0.16, height:0.17) preferred=200.98x101.19 available=(268.00, 120.00) truncated=False text=방어막 25%
+위험 · 피해 90
+LiveThreatAnalysis: font=34 auto=False rect=(x:0.76, y:0.28, width:0.22, height:0.17) preferred=214.54x101.19 available=(368.00, 120.00) truncated=False text=위협 2개 · 위험
+앞쪽 · 18m
+ThreatLabel: font=0.052 auto=False rect=(x:0.50, y:0.65, width:0.02, height:0.02) preferred=0.01x0.01 available=(0.11, 0.04) truncated=False text= !
+TutorialTitle: font=48 auto=False rect=(x:0.00, y:0.00, width:0.00, height:0.00) preferred=146.74x172.39 available=(0.00, 0.00) truncated=True text=
+DistanceLabel_3: font=0.042 auto=False rect=(x:0.55, y:0.63, width:0.01, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=200m
+DistanceLabel_2: font=0.042 auto=False rect=(x:0.53, y:0.63, width:0.01, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=100m
+ScoreLabel: font=16 auto=False rect=(x:0.70, y:0.93, width:0.08, height:0.03) preferred=46.56x27.17 available=(186.00, 32.00) truncated=False text=점수
+DistanceLabel_0: font=0.042 auto=False rect=(x:0.52, y:0.63, width:0.01, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=25m
+ScoreValue: font=26 auto=False rect=(x:0.70, y:0.87, width:0.08, height:0.05) preferred=29.56x41.65 available=(186.00, 48.00) truncated=False text=0
+HealthValue: font=22 auto=False rect=(x:0.21, y:0.87, width:0.10, height:0.05) preferred=202.78x35.86 available=(214.00, 48.00) truncated=False text=■■□□□□□□
+FlightNotice: font=1 auto=False rect=(x:0.20, y:0.75, width:0.60, height:0.19) preferred=1.71x0.15 available=(4.80, 0.65) truncated=False text=방어막이 약해졌어요! 운석을 막아 주세요.
+DistanceLabel_1: font=0.042 auto=False rect=(x:0.52, y:0.63, width:0.01, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=50m
+LiveRadarText: font=0.135 auto=False rect=(x:0.44, y:0.54, width:0.12, height:0.18) preferred=0.19x0.04 available=(0.59, 0.37) truncated=False text=360° THREAT RADAR // NORMAL
+CONTACTS 02   PRIORITY 01.1s
+HealthLabel: font=16 auto=False rect=(x:0.21, y:0.93, width:0.10, height:0.03) preferred=62.4x27.17 available=(214.00, 32.00) truncated=False text=방어막

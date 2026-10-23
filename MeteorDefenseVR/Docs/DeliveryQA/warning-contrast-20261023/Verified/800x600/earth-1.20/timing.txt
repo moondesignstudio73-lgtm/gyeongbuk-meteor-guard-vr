@@ -1,0 +1,1 @@
+age=1.208299 duration=1.1 enabled=False color=RGBA(1.000, 0.780, 0.400, 0.000) face=RGBA(1.000, 1.000, 1.000, 1.000) outline=RGBA(0.000, 0.000, 0.000, 1.000) width=0 rotation=(30.00, 0.00, 0.00)

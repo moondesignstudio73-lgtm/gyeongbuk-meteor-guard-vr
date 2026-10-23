@@ -18,6 +18,7 @@ namespace MeteorDefenseVR.PcInput
         private LaunchSequenceController launch;
         private AudioManager audio;
         private TextMeshPro flightNotice, praise;
+        private UnityEngine.UI.Image warningBacking;
         private bool ambientStarted;
         private float noticeAge = 10f, noticeDuration, praiseAge = 10f, lastKill = -10f, praiseAllowedAt, dangerAllowedAt;
         private int streak, noticePriority;
@@ -35,6 +36,10 @@ namespace MeteorDefenseVR.PcInput
             launch = FindAnyObjectByType<LaunchSequenceController>(FindObjectsInactive.Include);
             audio = FindAnyObjectByType<AudioManager>();
             flightNotice = Text("FlightNotice", font, material); flightNotice.fontSize = 1f;
+            warningBacking = Image("LowHealthNoticeBacking", overlay, new Vector2(0, 252f), new Vector2(380f, 28f));
+            var backingCanvas = warningBacking.gameObject.AddComponent<Canvas>();
+            backingCanvas.overrideSorting = true; backingCanvas.sortingOrder = -1;
+            warningBacking.enabled = false;
             flightNotice.text = "운석이 다가와요!";
             flightNotice.rectTransform.sizeDelta = new Vector2(4.8f,.65f);
             flightNotice.transform.localPosition = new Vector3(0,.6f,2.65f); flightNotice.enabled = false;
@@ -60,6 +65,7 @@ namespace MeteorDefenseVR.PcInput
             if (audio != null) { audio.SetPresentationBgmGain(1f); if (ambientStarted) audio.StopAmbient(); }
             ambientStarted = false;
             if (flightNotice != null) flightNotice.enabled = false;
+            if (warningBacking != null) warningBacking.enabled = false;
             if (praise != null) praise.enabled = false;
         }
         private void TransitionFeel(GameState state)
@@ -68,6 +74,7 @@ namespace MeteorDefenseVR.PcInput
             if (state != GameState.Playing)
             {
                 if (flightNotice != null) flightNotice.enabled = false;
+                if (warningBacking != null) warningBacking.enabled = false;
                 if (praise != null) praise.enabled = false;
                 noticeAge = praiseAge = 10f; streak = 0;
             }
@@ -105,6 +112,13 @@ namespace MeteorDefenseVR.PcInput
         {
             if (noticeAge < noticeDuration && noticePriority > priority) return;
             flightNotice.text = message; flightNotice.color = tint; flightNotice.enabled = true;
+            // A narrow backing keeps urgent copy distinct against the sunlit Earth.
+            if (priority == 2)
+            {
+                flightNotice.ForceMeshUpdate();
+                float pixelsPerUnit = 720f / (2f * 2.65f * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad));
+                warningBacking.rectTransform.sizeDelta = new Vector2(flightNotice.preferredWidth * pixelsPerUnit * 1.04f + 16f, 28f);
+            }
             noticeAge = 0f; noticeDuration = duration; noticePriority = priority;
         }
         private void TickFeel(float dt)
@@ -122,6 +136,8 @@ namespace MeteorDefenseVR.PcInput
                 flightNotice.transform.localScale = Vector3.one * Mathf.Lerp(1.04f,1,WorldTextMotion.Ease(noticeAge/.2f));
                 if (noticeAge >= noticeDuration) flightNotice.enabled = false;
             }
+            warningBacking.enabled = flightNotice.enabled && noticePriority == 2;
+            warningBacking.color = new Color(0f, .005f, .012f, flightNotice.color.a * .88f);
             if (praise.enabled)
             {
                 praise.color = new Color(.56f,1,.77f,Mathf.Clamp01((.85f-praiseAge)/.25f));
@@ -132,7 +148,7 @@ namespace MeteorDefenseVR.PcInput
             if (combat && hud != null && hud.CurrentHealth > 0 && hud.CurrentHealth <= hud.MaxHealth * .3f && Time.unscaledTime >= dangerAllowedAt)
             {
                 dangerAllowedAt = Time.unscaledTime + 6f;
-                if (flow.CurrentState == GameState.Playing) ShowNotice("방어막이 약해졌어요! 운석을 막아 주세요.", Warning,1.1f,2);
+                if (flow.CurrentState == GameState.Playing) ShowNotice("방어막이 약해졌어요! 운석을 막아 주세요.", new Color(1f, .78f, .4f),1.1f,2);
                 Pulse(Warning); audio?.TryPlay(AudioCue.Warning);
             }
         }
