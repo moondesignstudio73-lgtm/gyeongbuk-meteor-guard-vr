@@ -93,9 +93,9 @@ namespace MeteorDefenseVR.PcInput
             for (int i = 0; i < choices.Length; i++)
             {
                 DifficultyLevel level = DisplayOrder[i];
-                var card = Image("Difficulty" + level, panel, new Vector2((i - 1.5f) * 188, 0), new Vector2(178, 150), new Color(.07f, .3f, .36f, 1));
+                var card = Image("Difficulty" + level, panel, new Vector2((i - 1.5f) * 176, 0), new Vector2(166, 150), new Color(.07f, .3f, .36f, 1));
                 outlines[i] = card;
-                var fill = Image("Surface", card.transform, Vector2.zero, new Vector2(174, 146), new Color(.012f, .045f, .062f, 1));
+                var fill = Image("Surface", card.transform, Vector2.zero, new Vector2(162, 146), new Color(.012f, .045f, .062f, 1));
                 // Physics IGazeTarget owns mouse dwell and clicks as well as webcam/VR.
                 // GraphicRaycaster must not make GazeInputRouter.PointerOverUi block it.
                 card.raycastTarget = false;
@@ -103,14 +103,14 @@ namespace MeteorDefenseVR.PcInput
                 var body = new GameObject("Label"); body.transform.SetParent(card.transform, false);
                 Label(body.transform, "Title", labels[i], new Vector2(0, 47), 300f, font, material);
                 Label(body.transform, "Description", subtitles[i], new Vector2(0, -12), 240f, font, material);
-                var tickRoot = new GameObject("SelectedCheck"); tickRoot.transform.SetParent(card.transform, false); tickRoot.transform.localPosition = new Vector3(70, 57, -.5f);
+                var tickRoot = new GameObject("SelectedCheck"); tickRoot.transform.SetParent(card.transform, false); tickRoot.transform.localPosition = new Vector3(64, 57, -.5f);
                 var tick1 = Image("TickShort", tickRoot.transform, new Vector2(-4, -2), new Vector2(3, 8), new Color(.35f, 1, .8f));
                 tick1.transform.localRotation = Quaternion.Euler(0, 0, 45);
                 var tick2 = Image("TickLong", tickRoot.transform, new Vector2(1, 0), new Vector2(3, 14), new Color(.35f, 1, .8f));
                 tick2.transform.localRotation = Quaternion.Euler(0, 0, -40);
-                var progress = Image("DwellProgress", card.transform, new Vector2(-84, -67), new Vector2(168, 2), new Color(.35f, 1, .8f));
+                var progress = Image("DwellProgress", card.transform, new Vector2(-78, -67), new Vector2(156, 2), new Color(.35f, 1, .8f));
                 progress.rectTransform.pivot = new Vector2(0, .5f); progress.rectTransform.localScale = new Vector3(0, 1, 1);
-                var collider = card.gameObject.AddComponent<BoxCollider>(); collider.size = new Vector3(178, 150, 2); collider.isTrigger = true;
+                var collider = card.gameObject.AddComponent<BoxCollider>(); collider.size = new Vector3(166, 150, 2); collider.isTrigger = true;
                 // Reuse existing feedback. No independent tween or audio source.
                 var animator = card.gameObject.AddComponent<UIInteractionAnimator>(); animator.SetVisual(body.transform); animator.EnableConfirmCue(AudioCue.LockOn); animator.SetAutomaticPointerConfirm(false);
                 animator.EnableHoverCue(AudioCue.TargetFocus);
@@ -132,7 +132,7 @@ namespace MeteorDefenseVR.PcInput
         {
             var go = new GameObject(name); go.SetActive(false); go.transform.SetParent(parent, false);
             var text = go.AddComponent<TextMeshPro>(); text.font = font; text.fontSharedMaterial = material; text.fontSize = size;
-            text.rectTransform.sizeDelta = new Vector2(name == "Description" ? 160 : 174, name == "Description" ? 80 : 35); text.transform.localPosition = new Vector3(position.x, position.y, -2f);
+            text.rectTransform.sizeDelta = new Vector2(name == "Description" ? 156 : 162, name == "Description" ? 80 : 35); text.transform.localPosition = new Vector3(position.x, position.y, -2f);
             text.color = new Color(.78f, .97f, 1); text.alignment = TextAlignmentOptions.Center; text.enableAutoSizing = false;
             text.textWrappingMode = name == "Description" ? TextWrappingModes.Normal : TextWrappingModes.NoWrap; text.text = content; text.raycastTarget = false;
             // TMP is a mesh, not a Canvas graphic: explicitly put it above the card Canvas.
@@ -142,6 +142,20 @@ namespace MeteorDefenseVR.PcInput
         private void Layout()
         {
             aspect = view.aspect; fov = view.fieldOfView;
+            // Preserve enlarged type while using the extra vertical card padding only on narrow views.
+            float compact = lobbyAnchor != null ? 0 : Mathf.InverseLerp(4f/3f, 16f/9f, aspect);
+            float height = Mathf.Lerp(150,116,compact);
+            panel.sizeDelta = new Vector2(704,height);
+            foreach (var card in choices)
+            {
+                ((RectTransform)card.transform).sizeDelta = new Vector2(166,height);
+                ((RectTransform)card.transform.Find("Surface")).sizeDelta = new Vector2(162,height-4);
+                card.GetComponent<BoxCollider>().size = new Vector3(166,height,2);
+                card.transform.Find("Label/Title").localPosition = new Vector3(0,Mathf.Lerp(47,37,compact),-2);
+                card.transform.Find("Label/Description").localPosition = new Vector3(0,Mathf.Lerp(-12,-8,compact),-2);
+                card.transform.Find("SelectedCheck").localPosition = new Vector3(64,height*.5f-18,-.5f);
+                ((RectTransform)card.transform.Find("DwellProgress")).anchoredPosition = new Vector2(-78,-height*.5f+8);
+            }
             if (lobbyAnchor != null)
             {
                 panel.SetPositionAndRotation(lobbyAnchor.position, lobbyAnchor.rotation);
