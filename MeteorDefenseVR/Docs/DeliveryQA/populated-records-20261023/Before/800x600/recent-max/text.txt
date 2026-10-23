@@ -1,0 +1,15 @@
+Controlled memory-only valid-model boundary fixtures, not natural play/OS/HMD. Score/destroyed/combo=int.MaxValue; HP<=10000; time<=86400; accuracy<=1; stage=actual campaign 10.
+Label: font=224 width=228 preferred=87.36 truncated=False text=최근 기록
+Label: font=224 width=228 preferred=70.5 truncated=False text=TOP 10
+Label: font=224 width=228 preferred=128.57 truncated=False text=난이도별 최고
+Score: font=340 width=385 preferred=270.81 truncated=False text=점수 2,147,483,638
+Rank: font=310 width=155 preferred=81.5 truncated=False text=등급 S
+Metric0: font=240 width=430 preferred=174.52 truncated=False text=파괴 2147483647
+Metric1: font=240 width=430 preferred=130.16 truncated=False text=명중률 100%
+Metric2: font=240 width=430 preferred=189.04 truncated=False text=남은 방어막 9999.9
+Metric3: font=240 width=430 preferred=213.39 truncated=False text=난이도 보통 · 구역 10
+Metric4: font=240 width=430 preferred=207.1 truncated=False text=플레이 시간 24:00:00
+Metric5: font=240 width=430 preferred=273.4 truncated=False text=최고 연속 성공 2147483647
+Timestamp: font=260 width=900 preferred=225.19 truncated=False text=2026.10.23  09:00:09
+StorageNotice: font=260 width=900 preferred=773.87 truncated=False text=이 기기에 최근 100번의 도전을 기록해요. 이름과 영상은 저장하지 않아요.
+Label: font=224 width=208 preferred=82.43 truncated=False text=뒤로가기

@@ -1,0 +1,2 @@
+Controlled memory store; first/last/first page, tabs, empty/populated, back/reentry passed. Gaze covered separately.
+passed=True

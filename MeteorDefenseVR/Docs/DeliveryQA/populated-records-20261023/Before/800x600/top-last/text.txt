@@ -1,0 +1,38 @@
+Controlled memory-only valid-model boundary fixtures, not natural play/OS/HMD. Score/destroyed/combo=int.MaxValue; HP<=10000; time<=86400; accuracy<=1; stage=actual campaign 10.
+Label: font=224 width=228 preferred=87.36 truncated=False text=최근 기록
+Label: font=224 width=228 preferred=70.5 truncated=False text=TOP 10
+Label: font=224 width=228 preferred=128.57 truncated=False text=난이도별 최고
+Column0: font=220 width=90 preferred=40.48 truncated=False text=순위
+Row0Cell0: font=240 width=90 preferred=12.51 truncated=False text=6
+Row1Cell0: font=240 width=90 preferred=12.51 truncated=False text=7
+Row2Cell0: font=240 width=90 preferred=12.51 truncated=False text=8
+Row3Cell0: font=240 width=90 preferred=12.51 truncated=False text=9
+Row4Cell0: font=240 width=90 preferred=25.02 truncated=False text=10
+Column1: font=220 width=200 preferred=40.48 truncated=False text=점수
+Row0Cell1: font=240 width=200 preferred=141.72 truncated=False text=2,147,483,642
+Row1Cell1: font=240 width=200 preferred=141.72 truncated=False text=2,147,483,641
+Row2Cell1: font=240 width=200 preferred=141.72 truncated=False text=2,147,483,640
+Row3Cell1: font=240 width=200 preferred=141.72 truncated=False text=2,147,483,639
+Row4Cell1: font=240 width=200 preferred=141.72 truncated=False text=2,147,483,638
+Column2: font=220 width=170 preferred=60.72 truncated=False text=난이도
+Row0Cell2: font=240 width=170 preferred=88.11 truncated=False text=보통 S10
+Row1Cell2: font=240 width=170 preferred=110.19 truncated=False text=어려움 S10
+Row2Cell2: font=240 width=170 preferred=88.11 truncated=False text=체험 S10
+Row3Cell2: font=240 width=170 preferred=88.11 truncated=False text=쉬움 S10
+Row4Cell2: font=240 width=170 preferred=88.11 truncated=False text=보통 S10
+Column3: font=220 width=160 preferred=60.72 truncated=False text=명중률
+Row0Cell3: font=240 width=160 preferred=58.65 truncated=False text=100%
+Row1Cell3: font=240 width=160 preferred=58.65 truncated=False text=100%
+Row2Cell3: font=240 width=160 preferred=58.65 truncated=False text=100%
+Row3Cell3: font=240 width=160 preferred=58.65 truncated=False text=100%
+Row4Cell3: font=240 width=160 preferred=58.65 truncated=False text=100%
+Column4: font=220 width=120 preferred=60.72 truncated=False text=방어막
+Row0Cell4: font=240 width=120 preferred=68.09 truncated=False text=9999.9
+Row1Cell4: font=240 width=120 preferred=62.54 truncated=False text=10000
+Row2Cell4: font=240 width=120 preferred=68.09 truncated=False text=9999.9
+Row3Cell4: font=240 width=120 preferred=62.54 truncated=False text=10000
+Row4Cell4: font=240 width=120 preferred=68.09 truncated=False text=9999.9
+Page: font=260 width=900 preferred=180.84 truncated=False text=TOP 10   /   6–10
+StorageNotice: font=260 width=900 preferred=773.87 truncated=False text=이 기기에 최근 100번의 도전을 기록해요. 이름과 영상은 저장하지 않아요.
+Label: font=224 width=208 preferred=82.43 truncated=False text=뒤로가기
+Label: font=224 width=208 preferred=101.93 truncated=False text=1–5위 보기
