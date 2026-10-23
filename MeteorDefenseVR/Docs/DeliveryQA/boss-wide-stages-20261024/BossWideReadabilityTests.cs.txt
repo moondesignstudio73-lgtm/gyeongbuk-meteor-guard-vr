@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using MeteorDefenseVR.Combat;
+using MeteorDefenseVR.EyeTracking;
+using MeteorDefenseVR.GameFlow;
+using MeteorDefenseVR.Meteor;
+using MeteorDefenseVR.PcInput;
+using MeteorDefenseVR.Visual;
+using NUnit.Framework;
+using TMPro;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.TestTools;
+using Object=UnityEngine.Object;
+namespace MeteorDefenseVR.Tests {
+public sealed class BossWideReadabilityTests {
+ [UnityTearDown] public IEnumerator Cleanup(){Time.timeScale=1;if(Application.isPlaying)yield return new ExitPlayMode();}
+ [UnityTest,Timeout(120000)] public IEnumerator FourDamageStages(){EditorSceneManager.OpenScene("Assets/_Project/Scenes/MeteorDefense.unity");yield return new EnterPlayMode();yield return Run();}
+ static IEnumerator Run(){
+  const string output="Docs/DeliveryQA/boss-wide-stages-20261024/Before/2560x1080";
+  var camera=Camera.main;var flow=GameFlowManager.Instance;var reset=Object.FindAnyObjectByType<OperationsResetController>();var router=Object.FindAnyObjectByType<GazeInputRouter>();var caster=Object.FindAnyObjectByType<GazeRaycaster>();var weapon=Object.FindAnyObjectByType<LaserWeapon>();
+  var climax=Object.FindAnyObjectByType<BossClimaxController>();var spawner=Object.FindAnyObjectByType<MeteorSpawner>();var director=Object.FindAnyObjectByType<SfPresentationDirector>();
+  bool input=router.InputSuspended,casting=caster.enabled,fire=weapon.AutoFireOnLock;var pose=camera.transform.position;var rotation=camera.transform.rotation;
+  var devices=InputSystem.devices.Where(d=>d.enabled&&(d is Mouse||d is Keyboard)).ToArray();foreach(var d in devices)InputSystem.DisableDevice(d);
+  router.InputSuspended=true;caster.enabled=false;weapon.AutoFireOnLock=false;MeteorController boss=null;BossStageMotion motion=null;
+  try{
+   float deadline=Time.unscaledTime+25;while(director.IsBootPresenting&&Time.unscaledTime<deadline)yield return null;
+   reset.ResetExperience();router.InputSuspended=true;flow.StartMainGame();spawner.StopSpawning(true);climax.BeginClimax();
+   deadline=Time.unscaledTime+18;while(climax.ActiveBoss==null&&Time.unscaledTime<deadline)yield return null;boss=climax.ActiveBoss;Assert.IsNotNull(boss);
+   float maximum=boss.MaxHealth;Assert.Greater(maximum,0);boss.enabled=false;motion=boss.GetComponent<BossStageMotion>();if(motion!=null)motion.enabled=false;
+   using var probe=new PcStabilityProbe(camera,2560,1080);
+   boss.transform.SetPositionAndRotation(camera.ViewportToWorldPoint(new Vector3(.5f,.6f,12)),Quaternion.identity);
+   var shell=boss.GetComponent<BossMeteorView>().Shell;Assert.IsNotNull(shell);int deaths=0;boss.Destroyed+=m=>deaths++;
+   void Save(string state,int expectedStage,float expectedRatio){
+    Canvas.ForceUpdateCanvases();PcStabilityRenderDriver.RenderForProof(camera);
+    Assert.That(boss.CurrentHealth/maximum,Is.EqualTo(expectedRatio).Within(.002));if(expectedRatio>0)Assert.AreEqual(expectedStage,shell.Stage);
+    Assert.AreEqual(pose,camera.transform.position);Assert.AreEqual(rotation,camera.transform.rotation);
+    var lines=new List<string>{$"Editor D3D11 2560x1080; prepared fixed boss position, frozen movement; actual production spawn/HP and ReceiveDamage events. Not natural play/OS/HMD/executable proof.",$"state={state}; hp={boss.CurrentHealth}/{maximum}; shellStage={shell.Stage}; core={shell.CoreVisible}; flow={flow.CurrentState}; climax={climax.CurrentStage}; targetable={boss.IsTargetable}; deathEvents={deaths}; regularMeteors={spawner.ActiveMeteors.Count}"};
+    foreach(var text in Object.FindObjectsByType<TMP_Text>().Where(t=>t.isActiveAndEnabled&&t.color.a>.05f&&!string.IsNullOrWhiteSpace(t.text))){
+     if(text is TextMeshPro mesh && !mesh.GetComponent<MeshRenderer>().enabled)continue;
+     text.ForceMeshUpdate();var min=new Vector2(float.PositiveInfinity,float.PositiveInfinity);var max=new Vector2(float.NegativeInfinity,float.NegativeInfinity);float minimumHeight=float.PositiveInfinity;bool behind=false;
+     foreach(var ch in text.textInfo.characterInfo.Take(text.textInfo.characterCount).Where(c=>c.isVisible)){
+      var pts=new[]{ch.bottomLeft,ch.topLeft,ch.topRight,ch.bottomRight}.Select(v=>camera.WorldToViewportPoint(text.transform.TransformPoint(v))).ToArray();
+      foreach(var p in pts){behind|=p.z<=0;min=Vector2.Min(min,p);max=Vector2.Max(max,p);}minimumHeight=Mathf.Min(minimumHeight,(pts.Max(p=>p.y)-pts.Min(p=>p.y))*1080);
+     }
+     if(float.IsInfinity(min.x))continue;
+     lines.Add($"{text.name}: alpha={text.color.a}; font={text.fontSize}; auto={text.enableAutoSizing}; truncated={text.isTextTruncated}; behind={behind}; glyphMin={min}; glyphMax={max}; minGlyphPx={minimumHeight}; text={text.GetParsedText().Replace('\n','|')}");
+    }
+    string dir=output+"/"+state;Directory.CreateDirectory(dir);probe.SaveGameOnlyProof(dir,router);File.WriteAllLines(dir+"/state.txt",lines);
+   }
+   yield return new WaitForSecondsRealtime(.4f);Save("intact",0,1);
+   Assert.IsTrue(boss.ReceiveDamage(maximum/3));yield return new WaitForSecondsRealtime(.75f);Save("67-percent",1,2f/3);
+   Assert.IsTrue(boss.ReceiveDamage(maximum/3));yield return new WaitForSecondsRealtime(.75f);Save("33-percent",2,1f/3);
+   Assert.IsTrue(boss.ReceiveDamage(maximum));yield return new WaitForSecondsRealtime(.15f);Save("destroyed",0,0);Assert.AreEqual(1,deaths);Assert.IsFalse(boss.IsTargetable);
+  }finally{if(boss!=null)boss.enabled=true;if(motion!=null)motion.enabled=true;reset.ResetExperience();router.InputSuspended=input;caster.enabled=casting;weapon.AutoFireOnLock=fire;foreach(var d in devices)InputSystem.EnableDevice(d);}
+ }
+}}

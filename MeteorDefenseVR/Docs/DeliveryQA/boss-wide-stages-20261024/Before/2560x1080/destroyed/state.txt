@@ -1,0 +1,17 @@
+Editor D3D11 2560x1080; prepared fixed boss position, frozen movement; actual production spawn/HP and ReceiveDamage events. Not natural play/OS/HMD/executable proof.
+state=destroyed; hp=0/3; shellStage=0; core=False; flow=BossMeteor; climax=Complete; targetable=False; deathEvents=1; regularMeteors=0
+DistanceLabel_2: alpha=0.55; font=0.042; auto=False; truncated=False; behind=False; glyphMin=(0.54, 0.21); glyphMax=(0.54, 0.21); minGlyphPx=1.468284; text=100m
+LiveRadarText: alpha=1; font=0.135; auto=False; truncated=False; behind=False; glyphMin=(0.43, 0.10); glyphMax=(0.48, 0.12); minGlyphPx=2.665815; text=360° THREAT RADAR // NORMAL|CONTACTS 00   PRIORITY CLEAR
+DistanceLabel_3: alpha=0.55; font=0.042; auto=False; truncated=False; behind=False; glyphMin=(0.56, 0.21); glyphMax=(0.56, 0.21); minGlyphPx=1.468284; text=200m
+HealthValue: alpha=1; font=22; auto=False; truncated=False; behind=False; glyphMin=(0.22, 0.89); glyphMax=(0.30, 0.91); minGlyphPx=21.64086; text=■■■■■■■■
+DistanceLabel_1: alpha=0.55; font=0.042; auto=False; truncated=False; behind=False; glyphMin=(0.53, 0.21); glyphMax=(0.53, 0.21); minGlyphPx=1.468284; text=50m
+HealthLabel: alpha=1; font=16; auto=False; truncated=False; behind=False; glyphMin=(0.25, 0.94); glyphMax=(0.27, 0.95); minGlyphPx=17.22416; text=방어막
+LiveThreatAnalysis: alpha=1; font=34; auto=False; truncated=False; behind=False; glyphMin=(0.81, 0.07); glyphMax=(0.89, 0.18); minGlyphPx=41.0059; text=위협 0개|주변 안전
+ScoreLabel: alpha=1; font=16; auto=False; truncated=False; behind=False; glyphMin=(0.73, 0.94); glyphMax=(0.75, 0.95); minGlyphPx=16.59272; text=점수
+DifficultyStageValue: alpha=1; font=15; auto=False; truncated=False; behind=False; glyphMin=(0.48, 0.94); glyphMax=(0.52, 0.95); minGlyphPx=2.446883; text=보통  ·  구역 01
+ScoreValue: alpha=1; font=26; auto=False; truncated=False; behind=False; glyphMin=(0.73, 0.89); glyphMax=(0.75, 0.91); minGlyphPx=23.74804; text=850
+SystemMessageValue: alpha=1; font=25; auto=False; truncated=False; behind=False; glyphMin=(0.47, 0.75); glyphMax=(0.53, 0.78); minGlyphPx=15.38283; text=+350  멋져요!
+DistanceLabel_0: alpha=0.55; font=0.042; auto=False; truncated=False; behind=False; glyphMin=(0.52, 0.21); glyphMax=(0.52, 0.21); minGlyphPx=1.468284; text=25m
+AsteroidValue: alpha=1; font=21; auto=False; truncated=False; behind=False; glyphMin=(0.46, 0.88); glyphMax=(0.54, 0.91); minGlyphPx=18.86541; text=남은 운석  20 / 21
+LiveShipStatus: alpha=1; font=34; auto=False; truncated=False; behind=False; glyphMin=(0.03, 0.07); glyphMax=(0.14, 0.18); minGlyphPx=7.205047; text=방어막 100%|정상 · 피해 0
+HeadDirection: alpha=1; font=0.058; auto=False; truncated=False; behind=False; glyphMin=(0.50, 0.20); glyphMax=(0.50, 0.20); minGlyphPx=2.990674; text=▲

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-23 22:45:35Z" end-time="2026-10-23 22:45:46Z" duration="11.2529115">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="452" result="Passed" start-time="2026-10-23 22:45:35Z" end-time="2026-10-23 22:45:46Z" duration="11.252912" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1593" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="452" result="Passed" start-time="2026-10-23 22:45:35Z" end-time="2026-10-23 22:45:46Z" duration="11.086472" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="48112" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1594" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="452" result="Passed" start-time="2026-10-23 22:45:35Z" end-time="2026-10-23 22:45:46Z" duration="11.083743" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1595" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="452" result="Passed" start-time="2026-10-23 22:45:35Z" end-time="2026-10-23 22:45:46Z" duration="11.074247" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1061" name="BossWideReadabilityTests" fullname="MeteorDefenseVR.Tests.BossWideReadabilityTests" classname="MeteorDefenseVR.Tests.BossWideReadabilityTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-23 22:45:35Z" end-time="2026-10-23 22:45:46Z" duration="11.061670" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1062" name="FourDamageStages" fullname="MeteorDefenseVR.Tests.BossWideReadabilityTests.FourDamageStages" methodname="FourDamageStages" classname="MeteorDefenseVR.Tests.BossWideReadabilityTests" runstate="Runnable" seed="1867132462" result="Passed" start-time="2026-10-23 22:45:17Z" end-time="2026-10-23 22:45:46Z" duration="29.233181" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

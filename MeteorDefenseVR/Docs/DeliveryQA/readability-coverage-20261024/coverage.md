@@ -29,3 +29,7 @@ Next: current-source Editor fixture with actual difficulty selection/dwell and l
 ## Selected gap outcome
 
 Completed at current source 34a6ff9 / product 411d9bab: Start16x9/{1280x720,1920x1080}/{selected-partial-dwell,experience-selected,locked-selected}/stability-game-render.png, all six originals reviewed. start.xml 1/1 passed; state.txt includes actual text/visible glyph bounds/collider/progress assertions. No meaningful defect reproduced; no product change or new release. This closes the selected E-render gap only. X at these two sizes, HMD, unobstructed natural OS play, all intervening animation frames and other residual combinations remain unverified. See verification.md for timing/provenance/limits.
+
+## Subsequent separate boss-wide gap audit
+
+Q/boss-wide-stages-20261024/Before/2560x1080/{intact,67-percent,33-percent,destroyed}/stability-game-render.png adds the four previously missing wide damage-stage originals, with actual HP/shell phase and TMP glyph/text metadata in state.txt. Source HEAD6120268/product411d9bab; capture.xml1/1 passed; all four originals visually reviewed. Actual production damage events with frozen boss position/movement, not natural campaign/weapon input. No meaningful primary-text clipping/overlap/contrast defect reproduced; no product change/new binary. This closes only that E-render cell: extracted executable, all intervening frames/positions/pickup combinations, OS and HMD remain unverified. See that audit's verification.md for setup and fixture counter limitation.
