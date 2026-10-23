@@ -33,6 +33,7 @@ namespace MeteorDefenseVR.PcInput
             var difficulty=Object.FindAnyObjectByType<DifficultyManager>();var selection=Object.FindAnyObjectByType<DifficultySelectionView>();
             var lobby=Object.FindAnyObjectByType<HangarLobbyController>();var result=Object.FindAnyObjectByType<ResultController>();
             var overlay=Object.FindAnyObjectByType<PcTestOverlay>();var health=Object.FindAnyObjectByType<PlayerHealth>();
+            float originalSensitivity=router.Simulation.Sensitivity;
             var camera=Camera.main;bool locked=difficulty.Settings.lockDifficultySelection,enabled=caster.enabled;
             var physical=InputSystem.devices.Where(d=>d.enabled&&(d is Mouse||d is Keyboard)).ToArray();foreach(var d in physical)InputSystem.DisableDevice(d);
             caster.enabled=false;router.InputSuspended=true;lobby.Ranking.Initialize(flow,result,new LocalRankingStore(null));
@@ -66,11 +67,16 @@ namespace MeteorDefenseVR.PcInput
                     reset.ResetExperience();router.InputSuspended=true;yield return WaitForChoices(selection); yield return new WaitForSecondsRealtime(.5f);
                     AudioUserPreferences.SetVolume(UserAudioChannel.Music,0);AudioUserPreferences.SetVolume(UserAudioChannel.Effects,1);Button("AudioSettings").onClick.Invoke();yield return new WaitForSecondsRealtime(.2f);
                     var target=Button("AudioMute0");var point=camera.WorldToScreenPoint(target.transform.TransformPoint(((RectTransform)target.transform).rect.center));overlay.TickSettingsGaze(point,true,.35f);yield return Save("audio-bounds-dwell");overlay.TryCloseLookSettings();
+                    Button("LookSettings").onClick.Invoke();router.Simulation.Sensitivity=.1f;yield return Save("view-minimum");
+                    Check(!Button("SensitivityDown").interactable,"Minimum sensitivity must disable minus");
+                    Button("SensitivityUp").onClick.Invoke();Check(Mathf.Abs(router.Simulation.Sensitivity-.2f)<.001f,"Available plus must work after minimum");
+                    router.Simulation.Sensitivity=2;yield return Save("view-maximum");Check(!Button("SensitivityUp").interactable,"Maximum sensitivity must disable plus");
+                    overlay.TryCloseLookSettings();router.Simulation.Sensitivity=originalSensitivity;
                 }
             }
             finally
             {
-                difficulty.Settings.lockDifficultySelection=locked;overlay.TryCloseLookSettings();reset.ResetExperience();router.InputSuspended=false;caster.enabled=enabled;
+                router.Simulation.Sensitivity=originalSensitivity;difficulty.Settings.lockDifficultySelection=locked;overlay.TryCloseLookSettings();reset.ResetExperience();router.InputSuspended=false;caster.enabled=enabled;
                 AudioUserPreferences.ClearVerificationProfile();AudioUserPreferences.UseVerificationProfile(false);foreach(var d in physical)InputSystem.EnableDevice(d);
             }
         }

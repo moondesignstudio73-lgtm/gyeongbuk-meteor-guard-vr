@@ -25,8 +25,7 @@ namespace MeteorDefenseVR.PcInput
         private Transform visual;
         private Vector3 baseScale;
         private Color baseColor;
-        private TMPro.TMP_Text[] disabledLabels;
-        private Color[] enabledLabelColors;
+        private GameObject disabledMarker;
         private Renderer worldRenderer;
         private MaterialPropertyBlock worldProperties;
         private Color worldBase;
@@ -92,17 +91,7 @@ namespace MeteorDefenseVR.PcInput
             var next = !CanInteract ? InteractionState.Disabled : pressed ? InteractionState.Pressed :
                 hovering || gaze ? InteractionState.Hover : selected || persistentSelection ? InteractionState.Selected : InteractionState.Normal;
             if (next == State) return;
-            RestoreLabelColors();
-            if (next == InteractionState.Disabled)
-            {
-                disabledLabels = GetComponentsInChildren<TMPro.TMP_Text>(true);
-                enabledLabelColors = new Color[disabledLabels.Length];
-                for (int i = 0; i < disabledLabels.Length; i++)
-                {
-                    enabledLabelColors[i] = disabledLabels[i].color;
-                    disabledLabels[i].color = new Color(.58f, .62f, .64f, enabledLabelColors[i].a);
-                }
-            }
+            SetDisabledMarker(next == InteractionState.Disabled);
             State = next;
             if (worldProperties != null && worldRenderer != null)
             {
@@ -128,16 +117,25 @@ namespace MeteorDefenseVR.PcInput
         public void OnDeselect(BaseEventData _) { selected = false; Refresh(); }
         public void OnSubmit(BaseEventData _) { if (automaticPointerConfirm) Confirm(); }
         public void CancelFeedback() { pressed = selected = hovering = gaze = false; cancelSfx.Invoke(); Refresh(); }
-        private void RestoreLabelColors()
+        private void SetDisabledMarker(bool visible)
         {
-            if (disabledLabels == null) return;
-            for (int i = 0; i < disabledLabels.Length; i++)
-                if (disabledLabels[i] != null) disabledLabels[i].color = enabledLabelColors[i];
-            disabledLabels = null; enabledLabelColors = null;
+            // Mark unavailability outside the label; never reduce required text contrast.
+            if (disabledMarker == null && visible && graphic != null && transform is RectTransform)
+            {
+                disabledMarker = new GameObject("UnavailableEdge", typeof(RectTransform), typeof(UnityEngine.UI.Image));
+                var rect = (RectTransform)disabledMarker.transform;
+                rect.SetParent(transform, false);
+                rect.anchorMin = new Vector2(.025f, .12f); rect.anchorMax = new Vector2(.045f, .88f);
+                rect.offsetMin = rect.offsetMax = Vector2.zero;
+                var stripe = disabledMarker.GetComponent<UnityEngine.UI.Image>();
+                stripe.color = new Color(1f, .74f, .3f); stripe.raycastTarget = false;
+            }
+            if (disabledMarker != null) disabledMarker.SetActive(visible);
         }
+        private void OnEnable() => Refresh();
         private void OnDisable()
         {
-            RestoreLabelColors();
+            SetDisabledMarker(false);
             hovering = selected = pressed = gaze = false; pulse = GazeProgress = 0f; scale = 1f; State = InteractionState.Normal;
             if (visual != null) visual.localScale = baseScale;
             if (graphic != null) graphic.canvasRenderer.SetColor(baseColor);

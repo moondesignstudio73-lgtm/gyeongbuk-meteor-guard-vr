@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="14" result="Failed(Child)" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-23 00:27:02Z" end-time="2026-10-23 00:27:15Z" duration="13.4245435">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="447" result="Failed" site="Child" start-time="2026-10-23 00:27:02Z" end-time="2026-10-23 00:27:15Z" duration="13.424544" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1584" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="447" result="Failed" site="Child" start-time="2026-10-23 00:27:02Z" end-time="2026-10-23 00:27:15Z" duration="13.264386" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="43252" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1585" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="447" result="Failed" site="Child" start-time="2026-10-23 00:27:02Z" end-time="2026-10-23 00:27:15Z" duration="13.258498" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1586" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="447" result="Failed" site="Child" start-time="2026-10-23 00:27:02Z" end-time="2026-10-23 00:27:15Z" duration="13.250578" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1004" name="AudioControlsTests" fullname="MeteorDefenseVR.Tests.AudioControlsTests" classname="MeteorDefenseVR.Tests.AudioControlsTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-23 00:23:11Z" end-time="2026-10-23 00:24:03Z" duration="51.996230" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1005" name="FourChannelsAndContinuousSettingsInput" fullname="MeteorDefenseVR.Tests.AudioControlsTests.FourChannelsAndContinuousSettingsInput" methodname="FourChannelsAndContinuousSettingsInput" classname="MeteorDefenseVR.Tests.AudioControlsTests" runstate="Runnable" seed="1466266230" result="Passed" start-time="2026-10-23 00:22:56Z" end-time="2026-10-23 00:24:03Z" duration="66.360834" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1139" name="DifficultyTests" fullname="MeteorDefenseVR.Tests.DifficultyTests" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-23 00:24:14Z" end-time="2026-10-23 00:24:25Z" duration="10.888074" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1145" name="BossHealthAndLockTuningRequireExpectedShots" fullname="MeteorDefenseVR.Tests.DifficultyTests.BossHealthAndLockTuningRequireExpectedShots" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-23 00:24:03Z" end-time="2026-10-23 00:24:03Z" duration="0.015701" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1142" name="BossHealthAndLockTuningRequireExpectedShots(Easy,2)" fullname="MeteorDefenseVR.Tests.DifficultyTests.BossHealthAndLockTuningRequireExpectedShots(Easy,2)" methodname="BossHealthAndLockTuningRequireExpectedShots" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" seed="2115116147" result="Passed" start-time="2026-10-23 00:24:03Z" end-time="2026-10-23 00:24:03Z" duration="0.013116" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1143" name="BossHealthAndLockTuningRequireExpectedShots(Normal,3)" fullname="MeteorDefenseVR.Tests.DifficultyTests.BossHealthAndLockTuningRequireExpectedShots(Normal,3)" methodname="BossHealthAndLockTuningRequireExpectedShots" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" seed="439274163" result="Passed" start-time="2026-10-23 00:24:03Z" end-time="2026-10-23 00:24:03Z" duration="0.000543" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1144" name="BossHealthAndLockTuningRequireExpectedShots(Hard,3)" fullname="MeteorDefenseVR.Tests.DifficultyTests.BossHealthAndLockTuningRequireExpectedShots(Hard,3)" methodname="BossHealthAndLockTuningRequireExpectedShots" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" seed="316617377" result="Passed" start-time="2026-10-23 00:24:03Z" end-time="2026-10-23 00:24:03Z" duration="0.000370" asserts="0">
+                <properties />
+              </test-case>
+            </test-suite>
+            <test-case id="1140" name="DefaultsSeparateSpawnDirectionFromStagePressure" fullname="MeteorDefenseVR.Tests.DifficultyTests.DefaultsSeparateSpawnDirectionFromStagePressure" methodname="DefaultsSeparateSpawnDirectionFromStagePressure" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" seed="1138847181" result="Passed" start-time="2026-10-23 00:24:03Z" end-time="2026-10-23 00:24:03Z" duration="0.005241" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1141" name="InvalidAssetValuesAreClampedAndSnapshotCannotChange" fullname="MeteorDefenseVR.Tests.DifficultyTests.InvalidAssetValuesAreClampedAndSnapshotCannotChange" methodname="InvalidAssetValuesAreClampedAndSnapshotCannotChange" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" seed="1812767972" result="Passed" start-time="2026-10-23 00:24:03Z" end-time="2026-10-23 00:24:03Z" duration="0.000927" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1146" name="PoolReuseDoesNotCompoundStatsAssistScoreOrDamage" fullname="MeteorDefenseVR.Tests.DifficultyTests.PoolReuseDoesNotCompoundStatsAssistScoreOrDamage" methodname="PoolReuseDoesNotCompoundStatsAssistScoreOrDamage" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" seed="1816828729" result="Passed" start-time="2026-10-23 00:24:03Z" end-time="2026-10-23 00:24:03Z" duration="0.013066" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1147" name="ReadyMouseAndGazeSelectionFreezeResetOperatorAndResult" fullname="MeteorDefenseVR.Tests.DifficultyTests.ReadyMouseAndGazeSelectionFreezeResetOperatorAndResult" methodname="ReadyMouseAndGazeSelectionFreezeResetOperatorAndResult" classname="MeteorDefenseVR.Tests.DifficultyTests" runstate="Runnable" seed="203025034" result="Passed" start-time="2026-10-23 00:24:03Z" end-time="2026-10-23 00:24:25Z" duration="22.365838" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Practice
+[GameFlow] Practice -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Result
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1148" name="DisabledFeedbackTests" fullname="MeteorDefenseVR.Tests.DisabledFeedbackTests" classname="MeteorDefenseVR.Tests.DisabledFeedbackTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-23 00:24:33Z" end-time="2026-10-23 00:24:34Z" duration="0.681413" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1149" name="DisabledFeedbackRestoresCurrentLabelsAndNeverConfirms" fullname="MeteorDefenseVR.Tests.DisabledFeedbackTests.DisabledFeedbackRestoresCurrentLabelsAndNeverConfirms" methodname="DisabledFeedbackRestoresCurrentLabelsAndNeverConfirms" classname="MeteorDefenseVR.Tests.DisabledFeedbackTests" runstate="Runnable" seed="1461458595" result="Failed" start-time="2026-10-23 00:24:25Z" end-time="2026-10-23 00:24:34Z" duration="8.584105" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: Disabled
+  But was:  Normal
+]]></message>
+                <stack-trace><![CDATA[at MeteorDefenseVR.Tests.DisabledFeedbackTests+<Verify>d__2.MoveNext () [0x00341] in C:\Users\aaa\OneDrive\Desktop\VR콘텐츠\MeteorDefenseVR\Assets\_Project\Core\Tests\DisabledFeedbackTests.cs:47
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+              </failure>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1250" name="HangarLobbyTests" fullname="MeteorDefenseVR.Tests.HangarLobbyTests" classname="MeteorDefenseVR.Tests.HangarLobbyTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-23 00:24:44Z" end-time="2026-10-23 00:25:11Z" duration="27.024531" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1252" name="CalibrationDestinationDefaultsToTutorialAndResetClearsLobbyDestination" fullname="MeteorDefenseVR.Tests.HangarLobbyTests.CalibrationDestinationDefaultsToTutorialAndResetClearsLobbyDestination" methodname="CalibrationDestinationDefaultsToTutorialAndResetClearsLobbyDestination" classname="MeteorDefenseVR.Tests.HangarLobbyTests" runstate="Runnable" seed="1467679242" result="Passed" start-time="2026-10-23 00:24:34Z" end-time="2026-10-23 00:24:34Z" duration="0.008925" asserts="0">
+              <properties />
+              <output><![CDATA[[GameFlow] Boot -> EyeCalibration
+[GameFlow] EyeCalibration -> Result
+[GameFlow] Result -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+[GameFlow] Tutorial -> EyeCalibration
+[GameFlow] EyeCalibration -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> EyeCalibration
+[GameFlow] EyeCalibration -> Tutorial
+]]></output>
+            </test-case>
+            <test-case id="1251" name="ReturnMenuReplayCalibrationAndOperatorResetRemainSafe" fullname="MeteorDefenseVR.Tests.HangarLobbyTests.ReturnMenuReplayCalibrationAndOperatorResetRemainSafe" methodname="ReturnMenuReplayCalibrationAndOperatorResetRemainSafe" classname="MeteorDefenseVR.Tests.HangarLobbyTests" runstate="Runnable" seed="1510375541" result="Passed" start-time="2026-10-23 00:24:34Z" end-time="2026-10-23 00:25:11Z" duration="37.038801" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="150000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Result
+[GameFlow] Result -> EyeCalibration
+[GameFlow] EyeCalibration -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Launch
+[GameFlow] Launch -> Countdown
+[GameFlow] Countdown -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1287" name="MenuTransitionGazeTests" fullname="MeteorDefenseVR.Tests.MenuTransitionGazeTests" classname="MeteorDefenseVR.Tests.MenuTransitionGazeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-23 00:25:20Z" end-time="2026-10-23 00:26:06Z" duration="45.952753" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1288" name="ObserveCurrentTransitions" fullname="MeteorDefenseVR.Tests.MenuTransitionGazeTests.ObserveCurrentTransitions" methodname="ObserveCurrentTransitions" classname="MeteorDefenseVR.Tests.MenuTransitionGazeTests" runstate="Runnable" seed="132459912" result="Passed" start-time="2026-10-23 00:25:11Z" end-time="2026-10-23 00:26:06Z" duration="55.219530" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1426" name="SelectionStateRenderTests" fullname="MeteorDefenseVR.Tests.SelectionStateRenderTests" classname="MeteorDefenseVR.Tests.SelectionStateRenderTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-23 00:26:16Z" end-time="2026-10-23 00:26:53Z" duration="37.019912" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1427" name="CaptureUncoveredStates" fullname="MeteorDefenseVR.Tests.SelectionStateRenderTests.CaptureUncoveredStates" methodname="CaptureUncoveredStates" classname="MeteorDefenseVR.Tests.SelectionStateRenderTests" runstate="Runnable" seed="463543638" result="Passed" start-time="2026-10-23 00:26:06Z" end-time="2026-10-23 00:26:53Z" duration="46.368922" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1504" name="UiMotionTests" fullname="MeteorDefenseVR.Tests.UiMotionTests" classname="MeteorDefenseVR.Tests.UiMotionTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-23 00:27:02Z" end-time="2026-10-23 00:27:15Z" duration="13.152064" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1505" name="MotionPreservesInputStateResetAndCameraAndRendersStagedPanels" fullname="MeteorDefenseVR.Tests.UiMotionTests.MotionPreservesInputStateResetAndCameraAndRendersStagedPanels" methodname="MotionPreservesInputStateResetAndCameraAndRendersStagedPanels" classname="MeteorDefenseVR.Tests.UiMotionTests" runstate="Runnable" seed="314275505" result="Passed" start-time="2026-10-23 00:26:53Z" end-time="2026-10-23 00:27:15Z" duration="22.488940" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> MissionBriefing
+[GameFlow] MissionBriefing -> EyeCalibration
+[GameFlow] EyeCalibration -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> MissionComplete
+[GameFlow] MissionComplete -> Result
+[GameFlow] Result -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+[GameFlow] Intro -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Intro
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -39,7 +39,8 @@ namespace MeteorDefenseVR.Tests
                 yield return null;
                 Assert.That(confirmed, Is.Zero);
                 Assert.That(feedback.State, Is.EqualTo(UIInteractionAnimator.InteractionState.Disabled));
-                Assert.That(label.color, Is.Not.EqualTo(original));
+                Assert.That(label.color, Is.EqualTo(original), "Disabled labels must retain their contrast");
+                Assert.That(root.transform.Find("UnavailableEdge").gameObject.activeSelf, Is.True);
                 Assert.That(label.fontSize, Is.EqualTo(28)); Assert.That(label.text, Is.EqualTo("선택 유지"));
                 root.SetActive(false); Assert.That(label.color, Is.EqualTo(original));
                 root.SetActive(true); yield return null;

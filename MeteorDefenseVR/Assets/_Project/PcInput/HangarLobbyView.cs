@@ -16,6 +16,7 @@ namespace MeteorDefenseVR.PcInput
         private Vector3 roomRest,leftRest,rightRest;
         private Vector3 leftScale,rightScale;
         private RectTransform panel;
+        private RectTransform frame, glass, statusRail;
         private GameObject menu,difficulty,back,standby,lightsRoot;
         private TextMeshPro title,subtitle,nextMission;
         private Light[] lights;
@@ -39,9 +40,9 @@ namespace MeteorDefenseVR.PcInput
             panel.localScale=Vector3.one*.0045f; panel.sizeDelta=new Vector2(650,380);
             panelPosition=panel.localPosition; panelScale=panel.localScale;
             var canvas=root.GetComponent<Canvas>(); canvas.renderMode=RenderMode.WorldSpace; canvas.worldCamera=camera; canvas.sortingOrder=14;
-            Image("Frame",panel,Vector2.zero,new Vector2(650,380),new Color(.12f,.48f,.57f,.8f));
-            Image("Glass",panel,Vector2.zero,new Vector2(646,376),Ink);
-            Image("DockStatusRail",panel,new Vector2(-310,0),new Vector2(3,330),new Color(1,.78f,.47f));
+            frame=Image("Frame",panel,Vector2.zero,new Vector2(650,380),new Color(.12f,.48f,.57f,.8f)).rectTransform;
+            glass=Image("Glass",panel,Vector2.zero,new Vector2(646,376),Ink).rectTransform;
+            statusRail=Image("DockStatusRail",panel,new Vector2(-310,0),new Vector2(3,330),new Color(1,.78f,.47f)).rectTransform;
             title=Label(panel,"Title","격납고 도착",new Vector2(0,145),310,font);
             subtitle=Label(panel,"Subtitle","지구 방어대 · 제1격납고",new Vector2(0,103),155,font);
             menu=Group("Menu",panel); difficulty=Group("DifficultyHud",panel); standby=Group("NextPlayer",panel);
@@ -85,6 +86,15 @@ namespace MeteorDefenseVR.PcInput
         public void Show(HangarLobbyController.LobbyPhase phase, GameSessionSnapshot snapshot, bool locked, MeteorDefenseVR.Difficulty.DifficultyLevel nextDifficulty)
         {
             bool calibrating=phase==HangarLobbyController.LobbyPhase.Calibrating;
+            bool choosing=phase==HangarLobbyController.LobbyPhase.Difficulty;
+            bool records=phase==HangarLobbyController.LobbyPhase.Records;
+            Vector2 size=choosing?new Vector2(1050,500):records?new Vector2(1000,555):new Vector2(650,380);
+            panel.sizeDelta=frame.sizeDelta=size; glass.sizeDelta=size-Vector2.one*4;
+            frame.anchoredPosition=glass.anchoredPosition=new Vector2(0,records?-22.5f:0);
+            statusRail.anchoredPosition=new Vector2(-size.x*.5f+15,records?-22.5f:0); statusRail.sizeDelta=new Vector2(3,size.y-50);
+            title.transform.localPosition=new Vector3(0,choosing?195:records?220:145,-3);
+            subtitle.transform.localPosition=new Vector3(0,choosing?155:103,-3);
+            Buttons[4].GetComponent<RectTransform>().anchoredPosition=new Vector2(0,choosing?-185:-117);
             panel.gameObject.SetActive(!calibrating);
             menu.SetActive(phase==HangarLobbyController.LobbyPhase.Menu);
             difficulty.SetActive(phase==HangarLobbyController.LobbyPhase.Difficulty);

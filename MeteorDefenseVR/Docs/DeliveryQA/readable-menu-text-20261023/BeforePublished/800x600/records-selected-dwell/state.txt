@@ -1,0 +1,7 @@
+Controlled scene-camera render with prepared states; not OS/HMD observation. Check enclosing build identity for executable provenance.
+RecordTab2: interactable=True, state=Hover, gaze=0.5
+AudioSettings: interactable=True, state=Normal, gaze=0
+RecordTab0: interactable=True, state=Normal, gaze=0
+LookSettings: interactable=True, state=Normal, gaze=0
+RecordTab1: interactable=True, state=Normal, gaze=0
+RecordsBack: interactable=True, state=Normal, gaze=0

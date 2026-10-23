@@ -29,34 +29,35 @@ namespace MeteorDefenseVR.PcInput
 
         public void Build(Transform panel,TMP_FontAsset font,Action<HangarLobbyController.MenuAction> action)
         {
-            root=HangarLobbyView.Group("MissionRecords",panel);
+            root=HangarLobbyView.Group("MissionRecords",panel); root.transform.localPosition=new Vector3(0,50,0);
             TabButtons=new HangarMenuButton[3];
             string[] labels={"최근 기록","TOP 10","난이도별 최고"};
             var actions=new[] { HangarLobbyController.MenuAction.RecentRecords,HangarLobbyController.MenuAction.TopRecords,HangarLobbyController.MenuAction.BestRecords };
             for(int i=0;i<3;i++)
             {
                 var command=actions[i];
-                TabButtons[i]=HangarLobbyView.Button(root.transform,"RecordTab"+i,labels[i],new Vector2((i-1)*196,92),font,()=>action(command),new Vector2(186,44));
+                TabButtons[i]=HangarLobbyView.Button(root.transform,"RecordTab"+i,labels[i],new Vector2((i-1)*295,92),font,()=>action(command),new Vector2(280,70));
                 tabLabels[i]=TabButtons[i].GetComponentInChildren<TextMeshPro>();
             }
             recent=HangarLobbyView.Group("RecentRecord",root.transform);
             top=HangarLobbyView.Group("TopTen",root.transform); best=HangarLobbyView.Group("DifficultyBests",root.transform);
             score=Text(recent.transform,"Score","점수 —",new Vector2(-95,42),340,385,font);
             rank=Text(recent.transform,"Rank","등급 —",new Vector2(215,42),310,155,font); rank.color=new Color(1,.8f,.43f);
-            for(int i=0;i<6;i++) metrics[i]=Text(recent.transform,"Metric"+i,"—",new Vector2(i%2==0?-150:150,1-(i/2)*36),190,280,font);
-            timestamp=Text(recent.transform,"Timestamp","플레이 후 기록을 확인하세요",new Vector2(0,-107),155,590,font);
-            string[] columns={"순위","점수","난이도","명중률","방어막"}; float[] x={-268,-157,-21,112,249}; float[] widths={55,160,100,100,84};
+            for(int i=0;i<6;i++) metrics[i]=Text(recent.transform,"Metric"+i,"—",new Vector2(i%2==0?-235:235,1-(i/2)*36),240,430,font);
+            timestamp=Text(recent.transform,"Timestamp","플레이 후 기록을 확인하세요",new Vector2(0,-135),260,900,font);
+            string[] columns={"순위","점수","난이도","명중률","방어막"}; float[] x={-400,-250,-50,175,375}; float[] widths={90,200,170,160,120};
             for(int c=0;c<5;c++)
             {
-                Text(top.transform,"Column"+c,columns[c],new Vector2(x[c],57),145,widths[c],font);
-                for(int r=0;r<5;r++) rows[r,c]=Text(top.transform,"Row"+r+"Cell"+c,"—",new Vector2(x[c],29-r*29),185,widths[c],font);
+                Text(top.transform,"Column"+c,columns[c],new Vector2(x[c],40),220,widths[c],font);
+                for(int r=0;r<5;r++) rows[r,c]=Text(top.transform,"Row"+r+"Cell"+c,"—",new Vector2(x[c],12-r*29),240,widths[c],font);
             }
-            pageText=Text(top.transform,"Page","TOP 10 / 1–5",new Vector2(0,-111),145,570,font);
+            pageText=Text(top.transform,"Page","TOP 10 / 1–5",new Vector2(0,-135),260,900,font);
             bestRank=Text(best.transform,"HighestRank","최고 등급 —",new Vector2(0,40),300,570,font); bestRank.color=new Color(1,.8f,.43f);
-            for(int i=0;i<bestRows.Length;i++) bestRows[i]=Text(best.transform,"Best"+i,"—",new Vector2(0,1-i*33),190,570,font);
-            status=Text(root.transform,"StorageNotice","",new Vector2(0,-179),120,580,font);
-            BackButton=HangarLobbyView.Button(root.transform,"RecordsBack","뒤로가기",new Vector2(-145,-148),font,()=>action(HangarLobbyController.MenuAction.Back),new Vector2(260,48));
-            next=HangarLobbyView.Button(root.transform,"RecordsNext","6–10위 보기",new Vector2(145,-148),font,()=>action(HangarLobbyController.MenuAction.NextRecordPage),new Vector2(260,48));
+            for(int i=0;i<bestRows.Length;i++) bestRows[i]=Text(best.transform,"Best"+i,"—",new Vector2(0,1-i*33),240,900,font);
+            status=Text(root.transform,"StorageNotice","",new Vector2(0,-290),260,900,font);
+            BackButton=HangarLobbyView.Button(root.transform,"RecordsBack","뒤로가기",new Vector2(-145,-190),font,()=>action(HangarLobbyController.MenuAction.Back),new Vector2(260,70));
+            next=HangarLobbyView.Button(root.transform,"RecordsNext","6–10위 보기",new Vector2(145,-190),font,()=>action(HangarLobbyController.MenuAction.NextRecordPage),new Vector2(260,70));
+            status.textWrappingMode=TextWrappingModes.Normal; status.rectTransform.sizeDelta=new Vector2(900,90);
             root.SetActive(false);
         }
         public void SetVisible(bool visible) => root.SetActive(visible);

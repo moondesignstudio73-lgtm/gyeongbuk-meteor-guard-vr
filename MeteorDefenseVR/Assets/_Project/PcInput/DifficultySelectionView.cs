@@ -86,38 +86,38 @@ namespace MeteorDefenseVR.PcInput
         private void Build(TMP_FontAsset font, Material material)
         {
             var root = new GameObject("DifficultySelection", typeof(RectTransform), typeof(Canvas), typeof(UnityEngine.UI.GraphicRaycaster));
-            panel = (RectTransform)root.transform; panel.SetParent(ready.transform, false); panel.sizeDelta = new Vector2(752, 106);
+            panel = (RectTransform)root.transform; panel.SetParent(ready.transform, false); panel.sizeDelta = new Vector2(752, 150);
             var canvas = root.GetComponent<Canvas>(); canvas.renderMode = RenderMode.WorldSpace; canvas.worldCamera = view; canvas.sortingOrder = 12;
             string[] labels = { "체험", "쉬움", "보통", "어려움" };
-            string[] subtitles = { "짧게 즐기는 우주 임무", "앞을 보며 차근차근", "좌우를 살피며 도전", "모든 방향의 운석에 도전" };
+            string[] subtitles = { "짧게 즐기는\n우주 임무", "앞을 보며\n차근차근", "좌우를 살피며\n도전", "모든 방향의\n운석에 도전" };
             for (int i = 0; i < choices.Length; i++)
             {
                 DifficultyLevel level = DisplayOrder[i];
-                var card = Image("Difficulty" + level, panel, new Vector2((i - 1.5f) * 188, 0), new Vector2(178, 102), new Color(.07f, .3f, .36f, 1));
+                var card = Image("Difficulty" + level, panel, new Vector2((i - 1.5f) * 188, 0), new Vector2(178, 150), new Color(.07f, .3f, .36f, 1));
                 outlines[i] = card;
-                var fill = Image("Surface", card.transform, Vector2.zero, new Vector2(174, 98), new Color(.012f, .045f, .062f, 1));
+                var fill = Image("Surface", card.transform, Vector2.zero, new Vector2(174, 146), new Color(.012f, .045f, .062f, 1));
                 // Physics IGazeTarget owns mouse dwell and clicks as well as webcam/VR.
                 // GraphicRaycaster must not make GazeInputRouter.PointerOverUi block it.
                 card.raycastTarget = false;
                 var button = card.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = fill;
                 var body = new GameObject("Label"); body.transform.SetParent(card.transform, false);
-                Label(body.transform, "Title", labels[i], new Vector2(0, 16), 240f, font, material);
-                Label(body.transform, "Description", subtitles[i], new Vector2(0, -18), 108f, font, material);
-                var tickRoot = new GameObject("SelectedCheck"); tickRoot.transform.SetParent(card.transform, false); tickRoot.transform.localPosition = new Vector3(70, 33, -.5f);
+                Label(body.transform, "Title", labels[i], new Vector2(0, 47), 300f, font, material);
+                Label(body.transform, "Description", subtitles[i], new Vector2(0, -12), 240f, font, material);
+                var tickRoot = new GameObject("SelectedCheck"); tickRoot.transform.SetParent(card.transform, false); tickRoot.transform.localPosition = new Vector3(70, 57, -.5f);
                 var tick1 = Image("TickShort", tickRoot.transform, new Vector2(-4, -2), new Vector2(3, 8), new Color(.35f, 1, .8f));
                 tick1.transform.localRotation = Quaternion.Euler(0, 0, 45);
                 var tick2 = Image("TickLong", tickRoot.transform, new Vector2(1, 0), new Vector2(3, 14), new Color(.35f, 1, .8f));
                 tick2.transform.localRotation = Quaternion.Euler(0, 0, -40);
-                var progress = Image("DwellProgress", card.transform, new Vector2(-84, -43), new Vector2(168, 2), new Color(.35f, 1, .8f));
+                var progress = Image("DwellProgress", card.transform, new Vector2(-84, -67), new Vector2(168, 2), new Color(.35f, 1, .8f));
                 progress.rectTransform.pivot = new Vector2(0, .5f); progress.rectTransform.localScale = new Vector3(0, 1, 1);
-                var collider = card.gameObject.AddComponent<BoxCollider>(); collider.size = new Vector3(178, 102, 2); collider.isTrigger = true;
+                var collider = card.gameObject.AddComponent<BoxCollider>(); collider.size = new Vector3(178, 150, 2); collider.isTrigger = true;
                 // Reuse existing feedback. No independent tween or audio source.
                 var animator = card.gameObject.AddComponent<UIInteractionAnimator>(); animator.SetVisual(body.transform); animator.EnableConfirmCue(AudioCue.LockOn); animator.SetAutomaticPointerConfirm(false);
                 animator.EnableHoverCue(AudioCue.TargetFocus);
                 var choice = card.gameObject.AddComponent<DifficultyChoiceButton>();
                 choice.Configure(manager, level, animator, card, progress, tickRoot); choices[i] = choice;
             }
-            Label(panel, "ExtremeNotice", "체험은 짧은 임무로 조작을 익히기 좋아요.", new Vector2(0, 82), 165, font, material);
+            Label(panel, "ExtremeNotice", "체험은 짧은 임무로 조작을 익히기 좋아요.", new Vector2(0, 100), 165, font, material);
             extremeNotice = panel.Find("ExtremeNotice").GetComponent<TextMeshPro>(); extremeNotice.rectTransform.sizeDelta = new Vector2(760, 40);
             extremeNotice.color = new Color(1, .65f, .25f); extremeNotice.gameObject.SetActive(false);
             Layout();
@@ -132,9 +132,9 @@ namespace MeteorDefenseVR.PcInput
         {
             var go = new GameObject(name); go.SetActive(false); go.transform.SetParent(parent, false);
             var text = go.AddComponent<TextMeshPro>(); text.font = font; text.fontSharedMaterial = material; text.fontSize = size;
-            text.rectTransform.sizeDelta = new Vector2(174, 35); text.transform.localPosition = new Vector3(position.x, position.y, -2f);
+            text.rectTransform.sizeDelta = new Vector2(name == "Description" ? 160 : 174, name == "Description" ? 80 : 35); text.transform.localPosition = new Vector3(position.x, position.y, -2f);
             text.color = new Color(.78f, .97f, 1); text.alignment = TextAlignmentOptions.Center; text.enableAutoSizing = false;
-            text.textWrappingMode = TextWrappingModes.NoWrap; text.text = content; text.raycastTarget = false;
+            text.textWrappingMode = name == "Description" ? TextWrappingModes.Normal : TextWrappingModes.NoWrap; text.text = content; text.raycastTarget = false;
             // TMP is a mesh, not a Canvas graphic: explicitly put it above the card Canvas.
             go.GetComponent<MeshRenderer>().sortingOrder = 13;
             go.SetActive(true);
@@ -145,11 +145,11 @@ namespace MeteorDefenseVR.PcInput
             if (lobbyAnchor != null)
             {
                 panel.SetPositionAndRotation(lobbyAnchor.position, lobbyAnchor.rotation);
-                panel.localScale = lobbyAnchor.lossyScale * .78f;
+                panel.localScale = lobbyAnchor.lossyScale * 1.3f;
                 return;
             }
             float scale = 2 * 3.65f * Mathf.Tan(fov * .5f * Mathf.Deg2Rad) / 720f * Mathf.Min(1f, aspect / (16f / 9f));
-            panel.localScale = Vector3.one * scale;
+            panel.localScale = Vector3.one * scale * 1.4f;
             panel.position = view.ViewportToWorldPoint(new Vector3(.5f, .42f, 3.65f)) + ready.transform.position - view.transform.position;
         }
         private void Refresh()
