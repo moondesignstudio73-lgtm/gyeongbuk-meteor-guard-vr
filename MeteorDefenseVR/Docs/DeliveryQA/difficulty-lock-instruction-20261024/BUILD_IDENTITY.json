@@ -1,0 +1,11 @@
+{
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "531b0d7365c4581672965a93fef7629a4bec1f40",
+    "gitCommitShort": "531b0d7",
+    "buildTimeKST": "2026-10-24T22:10:18+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+}

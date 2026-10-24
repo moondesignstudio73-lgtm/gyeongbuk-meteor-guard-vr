@@ -3,3 +3,15 @@ Baseline public product6d27c10, instrumented3c2b044 originals from start-aspect 
 
 Editor final passed (26 captures). Initial compile failed due missing QA Core import; initial runtime failed because refresh was inserted in StateChanged instead of LateUpdate; corrected and rerun. Preserved initial-refresh-failure.xml. Longest 800 start/lobby and 1280 Experience inspected. Experience tip did not appear in that capture; do not claim a simultaneous-tip visual proof. Synthetic raycaster/collider selection only, no OS/HMD. Normal final executable proof pending.
 
+
+## Final normal release executable
+Source 531b0d7365c4581672965a93fef7629a4bec1f40, clean ordinary release candidate, developmentBuild=false, no extra test compile defines. Explicit --pc-difficulty-lock-qa opt-in runs the fixture; ordinary player launch does not. Build identity attached. ZIP MeteorDefenseVR-Windows-DifficultyLock-20261024.zip: 89,580,541 bytes, 222 files verified both package entries and fresh extraction, SHA256 a68b1c3b2562cce8e73215f2a39da0138644210a827e9777db3c343d3665afa9.
+
+Fresh extracted executable ran 2026-10-24T13:10:59Z–13:12:16Z on RTX3070 / default Direct3D12; native exit0, fixture passed, 26 originals. All 26 final images individually visually reviewed: five at800, eleven at1280 (four levels each start/lobby), five at1920 and five at2560. Longest locked title remains inside viewport with no overlap with card glyphs, no truncated/auto-sized card text. Unlock restores selection prompt, partial dwell does not select/start; full dwell selects; actual lock rejects selection; synthetic gaze returns from Difficulty to menu. Temporary CanSelect=false with actual lock=false does not mislabel operator lock. Original2560 pixels retained; tool previews resized to2048.
+
+Before/after private registry primitive values and primary/bak/tmp ranking hashes compared. Only four Unity per-launch session fields changed. No non-session preference or ranking restoration needed; original values preserved. User ProjectSettings diff restored exactly by build wrapper. No private snapshots/backups or full logs committed.
+
+Limitations: synthetic provider through actual GazeRaycaster/colliders, prepared Result return, not natural OS/HMD play. This targeted menu regression does not rerun a complete combat round or previous pickup motion suite. Experience one-time tip was already consumed before the Experience capture; simultaneous tip/prompt visual behavior is not established by these captures. Previous instrumented-only populated-record and16:9 evidence keeps its provenance; this release's 26-state prompt check is on the ordinary distributed executable.
+
+Published prerelease422742271, tag windows-difficulty-lock-20261024. Public ZIP independently downloaded 2026-10-24T13:15:30Z and hash matched. Download: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-difficulty-lock-20261024/MeteorDefenseVR-Windows-DifficultyLock-20261024.zip
+

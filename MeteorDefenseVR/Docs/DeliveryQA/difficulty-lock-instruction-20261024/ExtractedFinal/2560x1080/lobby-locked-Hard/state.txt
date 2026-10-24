@@ -1,0 +1,14 @@
+Explicit opt-in lock-instruction QA; verify enclosing build identity; size=(2560, 1080); selected=Hard; locked=True; not OS/HMD. Synthetic provider through actual GazeRaycaster/collider; not native mouse navigation.
+choice=DifficultyExperience progress=0 colliderRay=True
+DifficultyExperience/Title: font=300; glyphRect=(x:0.32, y:0.71, width:0.03, height:0.04); minGlyphPx=43.45372; text=체험
+DifficultyExperience/Description: font=240; glyphRect=(x:0.30, y:0.60, width:0.07, height:0.08); minGlyphPx=32.45108; text=짧게 즐기는|우주 임무
+choice=DifficultyEasy progress=0 colliderRay=True
+DifficultyEasy/Title: font=300; glyphRect=(x:0.43, y:0.71, width:0.03, height:0.04); minGlyphPx=42.05444; text=쉬움
+DifficultyEasy/Description: font=240; glyphRect=(x:0.42, y:0.60, width:0.05, height:0.08); minGlyphPx=27.77869; text=앞을 보며|차근차근
+choice=DifficultyNormal progress=0 colliderRay=True
+DifficultyNormal/Title: font=300; glyphRect=(x:0.54, y:0.71, width:0.03, height:0.04); minGlyphPx=34.72338; text=보통
+DifficultyNormal/Description: font=240; glyphRect=(x:0.51, y:0.60, width:0.08, height:0.08); minGlyphPx=27.32853; text=좌우를 살피며|도전
+choice=DifficultyHard progress=0 colliderRay=True
+DifficultyHard/Title: font=300; glyphRect=(x:0.64, y:0.71, width:0.05, height:0.04); minGlyphPx=42.05444; text=어려움
+DifficultyHard/Description: font=240; glyphRect=(x:0.63, y:0.60, width:0.07, height:0.08); minGlyphPx=27.25547; text=모든 방향의|운석에 도전
+PROMPT: font=310; text=난이도 고정: 어려움; rect=(x:0.44, y:0.86, width:0.11, height:0.03); selected=Hard; locked=True; CanSelect=False

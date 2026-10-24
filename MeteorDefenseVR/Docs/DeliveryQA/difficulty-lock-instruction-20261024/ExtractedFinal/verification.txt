@@ -1,0 +1,2 @@
+passed=True
+Four sizes: actual operator lock defaults, unlock, temporary unavailability and synthetic gaze/back; no OS/HMD.
