@@ -1,0 +1,1 @@
+instance=568105589213756728; scenario=locked-default; 1280x720; panel=True; tip=False; remaining=0; instruction=True; text=난이도 고정: 체험; simultaneous=False; glyphOverlap=False; firstHidden=0; firstShown=4.864266

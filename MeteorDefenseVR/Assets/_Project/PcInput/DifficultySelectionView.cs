@@ -191,7 +191,7 @@ namespace MeteorDefenseVR.PcInput
             extremeNotice.gameObject.SetActive(panel.gameObject.activeInHierarchy && extremeNoticeRemaining > 0);
             // Narrow start screens need a separate line above the persistent lock instruction.
             float noticeY = lobbyAnchor == null && manager.Settings.lockDifficultySelection
-                ? Mathf.Lerp(125, 100, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect)) : 100;
+                ? Mathf.Lerp(145, 100, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect)) : 100;
             extremeNotice.transform.localPosition = new Vector3(0, noticeY, -2);
             if (instruction != null)
             {

@@ -1,0 +1,5 @@
+passed=False
+GPU=NVIDIA GeForce RTX 3070 / Direct3D12
+System.InvalidOperationException: Tip/prompt glyph overlap
+  at MeteorDefenseVR.PcInput.ExperienceTipProof+<Run>d__3.MoveNext () [0x00a83] in <c0710ca56dde4b2fb4eb915cf04cfcf8>:0 
+  at MeteorDefenseVR.PcInput.ExperienceTipPlayerQa+<Start>d__3.MoveNext () [0x000c8] in <c0710ca56dde4b2fb4eb915cf04cfcf8>:0 

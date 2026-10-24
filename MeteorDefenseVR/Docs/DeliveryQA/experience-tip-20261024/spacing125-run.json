@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "nativeExitCode": 2,
+  "timedOut": false,
+  "startedUtc": "2026-10-24T15:25:49.1777084Z",
+  "endedUtc": "2026-10-24T15:27:15.5620255Z",
+  "images": 20,
+  "registryChangedNames": [
+    "unity_connect.mega_session_id_h1802243016",
+    "unity_connect.session_id_h4145606137",
+    "unity.player_session_count_h922449978",
+    "unity.player_sessionid_h1351336811"
+  ],
+  "nonSessionRestoredNames": [],
+  "recordRestoredNames": [],
+  "preservationVerified": true,
+  "runtime": "passed=True\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\n\npassed=True\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\n\npassed=True\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\n\npassed=True\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\n\npassed=False\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\nSystem.InvalidOperationException: Tip/prompt glyph overlap\r\n  at MeteorDefenseVR.PcInput.ExperienceTipProof+<Run>d__3.MoveNext () [0x00a83] in <c0710ca56dde4b2fb4eb915cf04cfcf8>:0 \r\n  at MeteorDefenseVR.PcInput.ExperienceTipPlayerQa+<Start>d__3.MoveNext () [0x000c8] in <c0710ca56dde4b2fb4eb915cf04cfcf8>:0 \npassed=True\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\n"
+}
