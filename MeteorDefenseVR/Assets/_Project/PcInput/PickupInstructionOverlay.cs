@@ -7,7 +7,7 @@ namespace MeteorDefenseVR.PcInput {
  // Presentation only: colliders, positions, dwell and collection remain on PowerUpItem.
  [DefaultExecutionOrder(1450),DisallowMultipleComponent]
  public sealed class PickupInstructionOverlay:MonoBehaviour {
-  private sealed class Entry { public PowerUpItem item; public TextMesh source; public MeshRenderer legacy; public RectTransform panel; public TextMeshProUGUI text; public Vector2 desired; public bool visible; }
+  private sealed class Entry { public PowerUpItem item; public TextMesh source; public MeshRenderer legacy; public RectTransform panel; public TextMeshProUGUI text; public Vector2 desired, target, previousTarget; public bool visible, positioned; }
   private readonly List<Entry> entries=new List<Entry>();
   private readonly List<Rect> occupied=new List<Rect>();
   private readonly List<float> candidateX=new List<float>(),candidateY=new List<float>();
@@ -36,7 +36,7 @@ namespace MeteorDefenseVR.PcInput {
    foreach(var e in entries){
     bool available=e.item!=null&&e.item.IsAvailable;Vector3 p=available?view.WorldToViewportPoint(e.item.transform.position):Vector3.back;
     bool visible=available&&p.z>view.nearClipPlane&&p.x>=0&&p.x<=1&&p.y>=0&&p.y<=1;
-    e.panel.gameObject.SetActive(visible);e.visible=visible;if(!visible)continue;
+    e.panel.gameObject.SetActive(visible);e.visible=visible;if(!visible){e.positioned=false;continue;}
     e.legacy.forceRenderingOff=true;e.text.text=e.source.text;
     Vector2 preferred=e.text.GetPreferredValues(e.text.text);
     float width=Mathf.Max(220,preferred.x+32),height=Mathf.Max(76,preferred.y+24);e.panel.sizeDelta=new Vector2(width,height);
@@ -46,24 +46,36 @@ namespace MeteorDefenseVR.PcInput {
     float radius=Mathf.Abs(view.WorldToViewportPoint(e.item.transform.position+view.transform.up*bounds.extents.magnitude).y-p.y)*root.rect.height;
     float centerX=(p.x-.5f)*root.rect.width;
     float x=centerX+radius+16+width*.5f,y=(p.y-.5f)*root.rect.height;
+    e.target=new Vector2(centerX,y);
     occupied.Add(new Rect(centerX-radius-8,y-radius-8,2*radius+16,2*radius+16));
     if(x+width*.5f>root.rect.width*.5f-8)x=centerX-radius-16-width*.5f;
     e.desired=new Vector2(Mathf.Clamp(x,-root.rect.width*.5f+width*.5f+8,root.rect.width*.5f-width*.5f-8),Mathf.Clamp(y,-root.rect.height*.5f+height*.5f+8,root.rect.height*.5f-height*.5f-8));
    }
    foreach(var e in entries){if(!e.visible)continue;
-    var size=e.panel.sizeDelta;Vector2 position=Place(e.desired,size);
-    e.panel.anchoredPosition=position;occupied.Add(new Rect(position-size*.5f-Vector2.one*8,size+Vector2.one*16));
+    var size=e.panel.sizeDelta;Vector2 position=Place(e.desired,size,e.positioned?(Vector2?)(e.panel.anchoredPosition+e.target-e.previousTarget):null);
+    e.panel.anchoredPosition=position;e.previousTarget=e.target;e.positioned=true;occupied.Add(new Rect(position-size*.5f-Vector2.one*8,size+Vector2.one*16));
    }
   }
-  private Vector2 Place(Vector2 desired,Vector2 size){
+  private Vector2 Place(Vector2 desired,Vector2 size,Vector2? previous){
    var bounds=root.rect;float left=bounds.xMin+size.x*.5f+8,right=bounds.xMax-size.x*.5f-8,bottom=bounds.yMin+size.y*.5f+8,top=bounds.yMax-size.y*.5f-8;
-   bool Free(Vector2 p){var r=new Rect(p-size*.5f,size);foreach(var block in occupied)if(r.Overlaps(block))return false;return true;}
-   if(Free(desired))return desired;
-   candidateX.Clear();candidateY.Clear();candidateX.Add(desired.x);candidateY.Add(desired.y);candidateX.Add(left);candidateX.Add(right);candidateY.Add(bottom);candidateY.Add(top);
-   foreach(var block in occupied){candidateX.Add(Mathf.Clamp(block.xMin-size.x*.5f-1,left,right));candidateX.Add(Mathf.Clamp(block.xMax+size.x*.5f+1,left,right));candidateY.Add(Mathf.Clamp(block.yMin-size.y*.5f-1,bottom,top));candidateY.Add(Mathf.Clamp(block.yMax+size.y*.5f+1,bottom,top));}
-   Vector2 best=desired;float distance=float.PositiveInfinity;
-   foreach(float x in candidateX)foreach(float y in candidateY){var p=new Vector2(x,y);float d=(p-desired).sqrMagnitude;if(d>=distance||!Free(p))continue;best=p;distance=d;}
-   return best;
+   bool Free(Vector2 p,float clearance=0){if(p.x<left||p.x>right||p.y<bottom||p.y>top)return false;var r=new Rect(p-size*.5f-Vector2.one*clearance,size+Vector2.one*(clearance*2));foreach(var block in occupied)if(r.Overlaps(block))return false;return true;}
+   // Retain the safe placement relative to the moving target. When another target,
+   // HUD or changed label size blocks it, relocate directly to the nearest
+   // safe candidate, never animate through an acquisition sphere or text.
+   Vector2 anchor=previous??desired;
+   if(Free(anchor))return anchor;
+   // Prefer some breathing room after a forced relocation. A barely fitting
+   // gap between a moving sphere and HUD otherwise causes repeated short hops.
+   for(int pass=0;pass<2;pass++){
+    float clearance=pass==0?24:0;
+    candidateX.Clear();candidateY.Clear();candidateX.Add(desired.x);candidateY.Add(desired.y);candidateX.Add(left);candidateX.Add(right);candidateY.Add(bottom);candidateY.Add(top);
+    candidateX.Add(Mathf.Clamp(anchor.x,left,right));candidateY.Add(Mathf.Clamp(anchor.y,bottom,top));
+    foreach(var block in occupied){candidateX.Add(Mathf.Clamp(block.xMin-size.x*.5f-clearance-1,left,right));candidateX.Add(Mathf.Clamp(block.xMax+size.x*.5f+clearance+1,left,right));candidateY.Add(Mathf.Clamp(block.yMin-size.y*.5f-clearance-1,bottom,top));candidateY.Add(Mathf.Clamp(block.yMax+size.y*.5f+clearance+1,bottom,top));}
+    Vector2 best=desired;float distance=float.PositiveInfinity;
+    foreach(float x in candidateX)foreach(float y in candidateY){var p=new Vector2(x,y);float d=(p-anchor).sqrMagnitude;if(d>=distance||!Free(p,clearance))continue;best=p;distance=d;}
+    if(!float.IsPositiveInfinity(distance))return best;
+   }
+   return desired;
   }
   private void Initialize(){
    view=GetComponent<Camera>();TMP_FontAsset font=null;

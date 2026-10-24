@@ -1,0 +1,11 @@
+Continuous synthetic camera / fixed simulation dt=1/60. Original live cap3/drop positions/drift/lifetime. Render/readback overhead is not FPS performance. No natural human/OS/HMD.
+sweep: frames=240; jumpsOver40px=0; maxJumpPx=36.77650; geometryViolations=0
+boundary: frames=240; jumpsOver40px=0; maxJumpPx=0.99214; geometryViolations=0
+600 warmed live3 layout invocations: totalMs=43.571; meanMs=0.07262; includes reflection overhead; no rendering/readback; stationary safe placement, not full FPS benchmark.
+partial-gaze: expectedLabels=3
+acquired: expectedLabels=2
+reused: expectedLabels=3
+reset: expectedLabels=0
+
+captureCompleted=True
+passed=True

@@ -379,6 +379,8 @@ namespace MeteorDefenseVR.PcInput
                     yield return PickupMultipleProof.Run(Path.Combine(output,"PickupMultiple"),true);
                 if(Environment.GetCommandLineArgs().Contains("--pc-pickup-hud-priority-qa"))
                     yield return PickupHudPriorityProof.Run(Path.Combine(output,"PickupHudPriority"),true);
+                if(Environment.GetCommandLineArgs().Contains("--pc-pickup-motion-qa"))
+                    yield return PickupMotionProof.Run(Path.Combine(output,"PickupMotion"),true);
                 if(Environment.GetCommandLineArgs().Contains("--pc-selection-state-qa"))
                     yield return SelectionStateProof.Run(Path.Combine(output,"SelectionState"));
                 if(Environment.GetCommandLineArgs().Contains("--pc-menu-transition-qa"))
