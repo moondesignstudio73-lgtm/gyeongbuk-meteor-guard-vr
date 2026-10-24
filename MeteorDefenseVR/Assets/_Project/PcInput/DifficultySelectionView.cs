@@ -117,9 +117,9 @@ namespace MeteorDefenseVR.PcInput
                 var choice = card.gameObject.AddComponent<DifficultyChoiceButton>();
                 choice.Configure(manager, level, animator, card, progress, tickRoot); choices[i] = choice;
             }
-            Label(panel, "ExtremeNotice", "체험은 짧은 임무로 조작을 익히기 좋아요.", new Vector2(0, 100), 165, font, material);
-            extremeNotice = panel.Find("ExtremeNotice").GetComponent<TextMeshPro>(); extremeNotice.rectTransform.sizeDelta = new Vector2(760, 40);
-            extremeNotice.color = new Color(1, .65f, .25f); extremeNotice.gameObject.SetActive(false);
+            Label(panel, "ExtremeNotice", "체험은 짧은 임무로 조작을 익히기 좋아요.", new Vector2(0, 100), 390, font, material);
+            extremeNotice = panel.Find("ExtremeNotice").GetComponent<TextMeshPro>(); extremeNotice.rectTransform.sizeDelta = new Vector2(900, 64);
+            extremeNotice.color = Color.white; extremeNotice.gameObject.SetActive(false);
             Layout();
         }
         private static UnityEngine.UI.Image Image(string name, Transform parent, Vector2 position, Vector2 size, Color color)
@@ -170,7 +170,7 @@ namespace MeteorDefenseVR.PcInput
         {
             foreach (var choice in choices) if (choice != null) choice.Refresh();
             if (manager.Selected == DifficultyLevel.Experience && !extremeNoticeShown)
-            { extremeNoticeShown = true; extremeNoticeRemaining = 1.8f; }
+            { extremeNoticeShown = true; extremeNoticeRemaining = 4f; }
         }
         private void SetVisible(bool visible) { requestedVisible = visible; RefreshVisibility(); }
         private void RefreshVisibility()
@@ -189,9 +189,10 @@ namespace MeteorDefenseVR.PcInput
             if (panel.gameObject.activeInHierarchy)
                 extremeNoticeRemaining = Mathf.Max(0, extremeNoticeRemaining - Time.deltaTime);
             extremeNotice.gameObject.SetActive(panel.gameObject.activeInHierarchy && extremeNoticeRemaining > 0);
-            // Narrow start screens need a separate line above the persistent lock instruction.
-            float noticeY = lobbyAnchor == null && manager.Settings.lockDifficultySelection
-                ? Mathf.Lerp(145, 100, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect)) : 100;
+            // Reserve a separate line for the full tip; narrow views receive larger type.
+            float noticeY = lobbyAnchor != null ? 110 : manager.Settings.lockDifficultySelection
+                ? Mathf.Lerp(145, 110, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect)) : 100;
+            extremeNotice.fontSize = Mathf.Lerp(470, 390, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect));
             extremeNotice.transform.localPosition = new Vector3(0, noticeY, -2);
             if (instruction != null)
             {

@@ -198,6 +198,10 @@ namespace MeteorDefenseVR.Audio
         }
 
         private void HandleMissionComplete() => audioManager?.TryPlay(AudioCue.MissionComplete);
-        private void HandleResultShown(GameSessionSnapshot _, string __) => audioManager?.TryPlay(AudioCue.Result);
+        private void HandleResultShown(GameSessionSnapshot _, string __)
+        {
+            // Scene teardown can raise this event after the Unity audio object is destroyed.
+            if (audioManager != null) audioManager.TryPlay(AudioCue.Result);
+        }
     }
 }

@@ -88,12 +88,12 @@ namespace MeteorDefenseVR.PcInput
             bool calibrating=phase==HangarLobbyController.LobbyPhase.Calibrating;
             bool choosing=phase==HangarLobbyController.LobbyPhase.Difficulty;
             bool records=phase==HangarLobbyController.LobbyPhase.Records;
-            Vector2 size=choosing?new Vector2(1050,500):records?new Vector2(1000,555):new Vector2(650,380);
+            Vector2 size=choosing?new Vector2(1050,560):records?new Vector2(1000,555):new Vector2(650,380);
             panel.sizeDelta=frame.sizeDelta=size; glass.sizeDelta=size-Vector2.one*4;
             frame.anchoredPosition=glass.anchoredPosition=new Vector2(0,records?-22.5f:0);
             statusRail.anchoredPosition=new Vector2(-size.x*.5f+15,records?-22.5f:0); statusRail.sizeDelta=new Vector2(3,size.y-50);
-            title.transform.localPosition=new Vector3(0,choosing?195:records?220:145,-3);
-            subtitle.transform.localPosition=new Vector3(0,choosing?155:103,-3);
+            title.transform.localPosition=new Vector3(0,choosing?245:records?220:145,-3);
+            subtitle.transform.localPosition=new Vector3(0,choosing?205:103,-3);
             Buttons[4].GetComponent<RectTransform>().anchoredPosition=new Vector2(0,choosing?-185:-117);
             panel.gameObject.SetActive(!calibrating);
             menu.SetActive(phase==HangarLobbyController.LobbyPhase.Menu);
