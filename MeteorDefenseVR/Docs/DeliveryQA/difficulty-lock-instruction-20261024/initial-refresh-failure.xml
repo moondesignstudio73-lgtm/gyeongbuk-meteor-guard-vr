@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-24 13:02:34Z" end-time="2026-10-24 13:02:51Z" duration="17.2651042">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="457" result="Failed" site="Child" start-time="2026-10-24 13:02:34Z" end-time="2026-10-24 13:02:51Z" duration="17.265104" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1603" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="457" result="Failed" site="Child" start-time="2026-10-24 13:02:34Z" end-time="2026-10-24 13:02:51Z" duration="17.108788" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="5668" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1604" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="457" result="Failed" site="Child" start-time="2026-10-24 13:02:34Z" end-time="2026-10-24 13:02:51Z" duration="17.105524" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1605" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="457" result="Failed" site="Child" start-time="2026-10-24 13:02:34Z" end-time="2026-10-24 13:02:51Z" duration="17.096321" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1137" name="DifficultyLockInstructionTests" fullname="MeteorDefenseVR.Tests.DifficultyLockInstructionTests" classname="MeteorDefenseVR.Tests.DifficultyLockInstructionTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-24 13:02:34Z" end-time="2026-10-24 13:02:51Z" duration="17.083002" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1138" name="LockInstructionAndGaze" fullname="MeteorDefenseVR.Tests.DifficultyLockInstructionTests.LockInstructionAndGaze" methodname="LockInstructionAndGaze" classname="MeteorDefenseVR.Tests.DifficultyLockInstructionTests" runstate="Runnable" seed="2032956267" result="Failed" label="Error" start-time="2026-10-24 13:02:12Z" end-time="2026-10-24 13:02:51Z" duration="39.233888" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Instruction mismatch: 난이도를 선택하세요 expected 난이도 고정: 어려움]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.DifficultyLockInstructionProof+<>c__DisplayClass2_0.<Run>g__Save|5 (System.String state, MeteorDefenseVR.PcInput.DifficultyLockInstructionProof+<>c__DisplayClass2_1& , MeteorDefenseVR.PcInput.DifficultyLockInstructionProof+<>c__DisplayClass2_2& ) [0x0086e] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\DifficultyLockInstructionProof.cs:83 
+  at MeteorDefenseVR.PcInput.DifficultyLockInstructionProof+<Run>d__2.MoveNext () [0x00aba] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\DifficultyLockInstructionProof.cs:96 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Result
+[GameFlow] Result -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

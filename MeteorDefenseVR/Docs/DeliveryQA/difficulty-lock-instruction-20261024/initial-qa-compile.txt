@@ -1,0 +1,1 @@
+Initial compile failure was QA-only: missing MeteorDefenseVR.Core import for GameState. Corrected before test execution.

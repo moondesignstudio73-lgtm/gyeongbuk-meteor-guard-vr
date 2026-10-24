@@ -186,8 +186,14 @@ namespace MeteorDefenseVR.PcInput
             if (!initialized || panel == null) return;
             extremeNoticeRemaining = Mathf.Max(0, extremeNoticeRemaining - Time.deltaTime);
             extremeNotice.gameObject.SetActive(extremeNoticeRemaining > 0);
-            if (instruction != null) instruction.gameObject.SetActive(extremeNoticeRemaining <= 0);
             RefreshVisibility();
+            if (instruction != null)
+            {
+                bool operatorLocked = panel.gameObject.activeInHierarchy && manager.Settings.lockDifficultySelection;
+                string message = DifficultyConfig.SelectionInstruction(operatorLocked, manager.Selected);
+                if (instruction.text != message) instruction.text = message;
+                instruction.gameObject.SetActive(operatorLocked || extremeNoticeRemaining <= 0);
+            }
             if (!panel.gameObject.activeInHierarchy) return;
             // Direct mouse click uses the already-resolved gaze ray; dwell remains the shared path.
             if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && gaze != null &&

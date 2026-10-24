@@ -91,5 +91,10 @@ namespace MeteorDefenseVR.Difficulty
         public DifficultyBalance Capture(DifficultyLevel level) => new DifficultyBalance(this, level);
         public static string Label(DifficultyLevel level) => level == DifficultyLevel.Experience ? "체험" : level == DifficultyLevel.Easy ? "쉬움" : level == DifficultyLevel.Hard ? "어려움" : "보통";
         public static string Code(DifficultyLevel level) => level == DifficultyLevel.Experience ? "EXPERIENCE" : level.ToString().ToUpperInvariant();
+        public static string SelectionInstruction(bool operatorLocked, DifficultyLevel level) => !operatorLocked
+            ? "난이도를 선택하세요"
+            : level == DifficultyLevel.Experience ? "난이도 고정: 체험"
+            : level == DifficultyLevel.Easy ? "난이도 고정: 쉬움"
+            : level == DifficultyLevel.Hard ? "난이도 고정: 어려움" : "난이도 고정: 보통";
     }
 }

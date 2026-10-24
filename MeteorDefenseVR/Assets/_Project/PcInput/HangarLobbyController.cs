@@ -202,6 +202,7 @@ namespace MeteorDefenseVR.PcInput
             if(Mouse.current!=null && Mouse.current.leftButton.wasPressedThisFrame && gaze.CurrentTarget is HangarMenuButton button) button.Choose();
             if(pending.HasValue && Time.unscaledTime>=commandAt) { var action=pending.Value; pending=null; Execute(action); }
             if(Phase==LobbyPhase.Hidden) return;
+            view.RefreshDifficultyInstruction(difficulty.Settings.lockDifficultySelection,difficulty.Selected);
             if(Phase==LobbyPhase.Returning && elapsed>=returnDuration) EnterMenu();
             if(Phase==LobbyPhase.ReplayPreparing && elapsed>=.35f && (audio==null || !audio.IsBgmTransitioning))
             {

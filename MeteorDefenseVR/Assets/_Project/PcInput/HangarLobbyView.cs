@@ -108,7 +108,7 @@ namespace MeteorDefenseVR.PcInput
             title.text=phase switch
             {
                 HangarLobbyController.LobbyPhase.Returning=>"기지로 귀환 중",
-                HangarLobbyController.LobbyPhase.Difficulty=>"난이도를 선택하세요",
+                HangarLobbyController.LobbyPhase.Difficulty=>MeteorDefenseVR.Difficulty.DifficultyConfig.SelectionInstruction(locked,nextDifficulty),
                 HangarLobbyController.LobbyPhase.ReplayPreparing=>"출격 준비",
                 HangarLobbyController.LobbyPhase.Departing=>"출격 준비",
                 HangarLobbyController.LobbyPhase.Standby=>"다음 대원을 기다립니다",
@@ -121,6 +121,12 @@ namespace MeteorDefenseVR.PcInput
             if(phase==HangarLobbyController.LobbyPhase.Departing) panel.gameObject.SetActive(false);
         }
         public void SetRetryAvailable(bool value) { if (Buttons != null && Buttons.Length > 8 && Buttons[8] != null) Buttons[8].SetAvailable(value); }
+        public void RefreshDifficultyInstruction(bool locked, MeteorDefenseVR.Difficulty.DifficultyLevel selected)
+        {
+            if (difficulty == null || !difficulty.activeSelf) return;
+            string message=MeteorDefenseVR.Difficulty.DifficultyConfig.SelectionInstruction(locked,selected);
+            if(title.text!=message) title.text=message;
+        }
         public void Animate(HangarLobbyController.LobbyPhase phase,float progress,float doorOpen,float speed)
         {
             bool returning=phase==HangarLobbyController.LobbyPhase.Returning;
