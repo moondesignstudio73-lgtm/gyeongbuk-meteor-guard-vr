@@ -140,6 +140,8 @@ namespace MeteorDefenseVR.Editor
             => BuildIsolatedUiTest("START_ASPECT_QA", "InstrumentedStartAspect", "--pc-start-aspect-qa");
         public static void BuildIntegrationInstrumented()
             => BuildIsolatedUiTest("INTEGRATION_QA", "InstrumentedIntegration", "--pc-soak");
+        public static void BuildReplayInstrumented()
+            => BuildIsolatedUiTest("REPLAY_QA", "InstrumentedReplay", "--pc-replay-qa");
         private static void BuildIsolatedUiTest(string define, string prefix, string flag)
             => WithResources(() =>
             {
@@ -156,12 +158,12 @@ namespace MeteorDefenseVR.Editor
                     options=BuildOptions.None,
                     extraScriptingDefines=new[]{define}
                 });
-                if(report.summary.result!=BuildResult.Succeeded) throw new Exception("Instrumented records build failed");
+                if(report.summary.result!=BuildResult.Succeeded) throw new Exception("Instrumented build failed");
                 identity.buildVersion=PlayerSettings.bundleVersion;
                 identity.buildTimeKST=DateTimeOffset.Now.ToString("O");
                 identity.unityVersion=Application.unityVersion;
                 File.WriteAllText(output+"/BUILD_IDENTITY.json",JsonUtility.ToJson(identity,true));
-                File.WriteAllText(output+"/INSTRUMENTED_ONLY.txt",define+"; private test build, NOT the public 6d27c10 ZIP. Explicit "+flag+" flag required. Memory-only fixtures.\n");
+                File.WriteAllText(output+"/INSTRUMENTED_ONLY.txt",define+"; private test build, NOT a public release ZIP. See BUILD_IDENTITY.json for exact source. Explicit "+flag+" flag required. Memory-only fixtures.\n");
             });
         public static void BuildWindowsAndCapture()
         {
