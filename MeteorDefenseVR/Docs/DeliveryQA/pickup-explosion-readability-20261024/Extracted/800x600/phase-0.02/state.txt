@@ -1,0 +1,2 @@
+elapsed=0.0222168; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.99); legacyText=선체 회복|바라보면 획득해요
+text=선체 회복|바라보면 획득해요; font=32; auto=False; truncated=False; rect=(x:0.56, y:0.55, width:0.20, height:0.11); backing=(x:0.55, y:0.54, width:0.21, height:0.12)

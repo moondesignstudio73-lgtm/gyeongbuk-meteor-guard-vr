@@ -1,0 +1,20 @@
+Actual boss destruction/drop/events; frozen boss position before death; production pickup drift/effects run normally. Seeded random for comparison. Explicit collider ray + IGazeTarget dwell, not human/OS/HMD play. Pixel originals at multiple real elapsed phases are required visual evidence.
+(800, 600)/phase-0.02: elapsed=0.0222168; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.99); legacyText=선체 회복|바라보면 획득해요
+(800, 600)/phase-0.12: elapsed=0.122818; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.96); legacyText=선체 회복|바라보면 획득해요
+(800, 600)/phase-0.25: elapsed=0.2523193; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.91); legacyText=선체 회복|바라보면 획득해요
+(800, 600)/phase-0.50: elapsed=0.5071106; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.52, 11.82); legacyText=선체 회복|바라보면 획득해요
+(800, 600)/phase-1.00: elapsed=1.00415; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.51, 11.65); legacyText=선체 회복|바라보면 획득해요
+(800, 600)/phase-1.70: elapsed=1.703522; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.46, 11.41); legacyText=선체 회복|바라보면 획득해요
+(800, 600)/gaze-progress: elapsed=1.770432; flow=BossMeteor; item=Heal; available=True; dwell=0.2727273; position=(0.00, 1.46, 11.39); legacyText=선체 회복|획득 중  27%
+(800, 600)/acquired: elapsed=2.303085; flow=BossMeteor; item=Heal; available=False; dwell=0; position=(0.00, 1.43, 11.24); legacyText=선체 회복|획득 중  98%
+(800, 600)/reset: elapsed=2.534454; flow=Boot; item=Heal; available=False; dwell=0; position=(0.00, 1.43, 11.24); legacyText=선체 회복|획득 중  98%
+(2560, 1080)/phase-0.02: elapsed=0.02223206; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.99); legacyText=선체 회복|바라보면 획득해요
+(2560, 1080)/phase-0.12: elapsed=0.1264496; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.96); legacyText=선체 회복|바라보면 획득해요
+(2560, 1080)/phase-0.25: elapsed=0.2529907; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.53, 11.91); legacyText=선체 회복|바라보면 획득해요
+(2560, 1080)/phase-0.50: elapsed=0.50354; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.52, 11.83); legacyText=선체 회복|바라보면 획득해요
+(2560, 1080)/phase-1.00: elapsed=1.00415; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.51, 11.65); legacyText=선체 회복|바라보면 획득해요
+(2560, 1080)/phase-1.70: elapsed=1.709488; flow=BossMeteor; item=Heal; available=True; dwell=0; position=(0.00, 1.46, 11.41); legacyText=선체 회복|바라보면 획득해요
+(2560, 1080)/gaze-progress: elapsed=1.856567; flow=BossMeteor; item=Heal; available=True; dwell=0.2727273; position=(0.00, 1.45, 11.36); legacyText=선체 회복|획득 중  27%
+(2560, 1080)/acquired: elapsed=2.397003; flow=BossMeteor; item=Heal; available=False; dwell=0; position=(0.00, 1.42, 11.21); legacyText=선체 회복|획득 중  99%
+(2560, 1080)/reset: elapsed=2.705353; flow=Boot; item=Heal; available=False; dwell=0; position=(0.00, 1.42, 11.21); legacyText=선체 회복|획득 중  99%
+passed=True

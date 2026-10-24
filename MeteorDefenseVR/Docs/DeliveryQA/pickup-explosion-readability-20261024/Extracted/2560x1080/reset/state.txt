@@ -1,0 +1,1 @@
+elapsed=2.705353; flow=Boot; item=Heal; available=False; dwell=0; position=(0.00, 1.42, 11.21); legacyText=선체 회복|획득 중  99%
