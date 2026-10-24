@@ -32,10 +32,18 @@ public static class ExperienceTipProof {
   using var probe=new PcStabilityProbe(camera,width,height);
   Rect Bounds(TextMeshPro text){text.ForceMeshUpdate();Vector2 min=Vector2.one*float.PositiveInfinity,max=Vector2.one*float.NegativeInfinity;foreach(var c in text.textInfo.characterInfo.Take(text.textInfo.characterCount).Where(c=>c.isVisible))foreach(var corner in new[]{c.bottomLeft,c.topLeft,c.topRight,c.bottomRight}){var p=camera.WorldToViewportPoint(text.transform.TransformPoint(corner));min=Vector2.Min(min,p);max=Vector2.Max(max,p);}return Rect.MinMaxRect(min.x,min.y,max.x,max.y);}
   void Save(string state){Canvas.ForceUpdateCanvases();camera.GetComponent<WorldUiSafeArea>().Apply();PcStabilityRenderDriver.RenderForProof(camera);Record();bool visibleTip=tip.gameObject.activeInHierarchy;var prompt=lobby.Phase==HangarLobbyController.LobbyPhase.Difficulty?lobby.View.DifficultyAnchor.parent.Find("Title").GetComponent<TextMeshPro>():instruction;bool simultaneous=visibleTip&&prompt.gameObject.activeInHierarchy;bool intersects=simultaneous&&Bounds(tip).Overlaps(Bounds(prompt));overlap|=intersects;var folder=Path.Combine(output,state);Directory.CreateDirectory(folder);probe.SaveGameOnlyProof(folder,router);File.WriteAllText(Path.Combine(folder,"state.txt"),$"instance={instance}; scenario={scenario}; {width}x{height}; panel={panel.gameObject.activeInHierarchy}; tip={visibleTip}; remaining={Remaining(view)}; instruction={prompt.gameObject.activeInHierarchy}; text={prompt.text}; simultaneous={simultaneous}; glyphOverlap={intersects}; firstHidden={hiddenFirst}; firstShown={shownFirst}\n");}
+  IEnumerator Capture(string state){
+   // Sample the rendered frame after all normal LateUpdate presenters, never mid-update.
+   var driver=Object.FindAnyObjectByType<PcStabilityRenderDriver>();bool captured=false;Exception failure=null;
+   Action completed=()=>{try{Save(state);}catch(Exception error){failure=error;}captured=true;};
+   driver.RenderCompleted+=completed;
+   try{while(!captured)yield return null;}finally{driver.RenderCompleted-=completed;}
+   if(failure!=null)throw failure;
+  }
   try{
    Record();while(!panel.gameObject.activeInHierarchy&&Time.unscaledTime<deadline){Record();yield return null;}Check(panel.gameObject.activeInHierarchy,"First visible timeout");Record();
    if(scenario=="locked-default"){
-    missed=!tip.gameObject.activeInHierarchy;Save("first-visible");yield return new WaitForSecondsRealtime(.2f);Save("visible-200ms");
+    missed=!tip.gameObject.activeInHierarchy;yield return Capture("first-visible");yield return new WaitForSecondsRealtime(.2f);yield return Capture("visible-200ms");
     if(validate){Check(manager.Selected==DifficultyLevel.Experience&&manager.Settings.lockDifficultySelection,"Actual locked Experience default");Check(instruction.gameObject.activeInHierarchy,"Fixed instruction hidden");Check(!missed,"Tip consumed before first visibility");}
     yield return Dwell(view.Choices[1],.8f);Check(manager.Selected==DifficultyLevel.Experience,"Lock rejection");Away();
    }else{
@@ -43,16 +51,17 @@ public static class ExperienceTipProof {
     if(scenario=="lobby-select"){
      GameFlowManager.Instance.ShowResult();lobby.BeginReturn();deadline=Time.unscaledTime+15;while(!lobby.IsMenuReady&&Time.unscaledTime<deadline){Record();yield return null;}Check(lobby.IsMenuReady,"Lobby menu");router.InputSuspended=true;caster.enabled=false;caster.SetProvider(ray);yield return new WaitForSecondsRealtime(.6f);yield return Dwell(lobby.View.Buttons[1],.8f);Away();yield return new WaitForSecondsRealtime(.4f);Check(lobby.Phase==HangarLobbyController.LobbyPhase.Difficulty,"Lobby difficulty");
     }
-    yield return Dwell(view.Choices[0],.8f);Away();Check(manager.Selected==DifficultyLevel.Experience,"Experience actual gaze selection");Save("selected-immediate");yield return new WaitForSecondsRealtime(.2f);Save("selected-200ms");if(validate)Check(tip.gameObject.activeInHierarchy,"Selected tip missing");
+    yield return Dwell(view.Choices[0],.8f);Away();Check(manager.Selected==DifficultyLevel.Experience,"Experience actual gaze selection");yield return Capture("selected-immediate");yield return new WaitForSecondsRealtime(.2f);yield return Capture("selected-200ms");if(validate)Check(tip.gameObject.activeInHierarchy,"Selected tip missing");
    }
-   float until=Time.unscaledTime+2;while(Time.unscaledTime<until){Record();yield return null;}Save("expired");if(validate)Check(!tip.gameObject.activeInHierarchy,"Tip expiry");
-   if(scenario=="lobby-select"){yield return Dwell(lobby.View.Buttons[4],.8f);Away();yield return new WaitForSecondsRealtime(.4f);Check(lobby.IsMenuReady,"Menu return");Save("menu-return");}
+   float until=Time.unscaledTime+2;while(Time.unscaledTime<until){Record();yield return null;}yield return Capture("expired");if(validate)Check(!tip.gameObject.activeInHierarchy,"Tip expiry");
+   if(scenario=="lobby-select"){yield return Dwell(lobby.View.Buttons[4],.8f);Away();yield return new WaitForSecondsRealtime(.4f);Check(lobby.IsMenuReady,"Menu return");yield return Capture("menu-return");}
    if(validate)Check(!overlap,"Tip/prompt glyph overlap");
    File.WriteAllText(Path.Combine(output,"summary.txt"),$"completed=True; validate={validate}; missedFirstTip={missed}; glyphOverlap={overlap}; instance={instance}\n");
   }finally{File.WriteAllLines(Path.Combine(output,"timeline.csv"),timeline);router.InputSuspended=input;caster.SetProvider(previous);caster.enabled=casting;foreach(var d in devices)InputSystem.EnableDevice(d);}
  }
 }
 }
+
 
 
 

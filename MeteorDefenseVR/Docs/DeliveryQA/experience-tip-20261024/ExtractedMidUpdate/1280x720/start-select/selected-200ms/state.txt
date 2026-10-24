@@ -1,0 +1,1 @@
+instance=568105589213756728; scenario=start-select; 1280x720; panel=True; tip=True; remaining=1.386281; instruction=False; text=난이도를 선택하세요; simultaneous=False; glyphOverlap=False; firstHidden=0; firstShown=4.859234

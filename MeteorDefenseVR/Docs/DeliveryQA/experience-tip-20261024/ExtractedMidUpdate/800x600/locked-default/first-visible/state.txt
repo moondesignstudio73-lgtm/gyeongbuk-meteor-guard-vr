@@ -1,0 +1,4 @@
+instance=568105589213756728; scenario=locked-default; 800x600; panel=True; tip=True; remaining=1.788889; instruction=True; text=VR 운석 맞추기
+
+지구를 향해 날아오는 운석을
+시선으로 파괴하세요.; simultaneous=True; glyphOverlap=True; firstHidden=0; firstShown=4.837776

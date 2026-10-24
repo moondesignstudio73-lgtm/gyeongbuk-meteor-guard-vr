@@ -1,0 +1,1 @@
+Build succeeded; wrapper stash restore failed on transient Git index lock. Current settings differed from saved user file only in Standalone define. Restored exact pre-build backup and verified SHA256 equality. No settings committed.
