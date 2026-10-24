@@ -1,0 +1,2 @@
+passed=True
+Two sizes: synthetic hard/partial/experience/locked and lobby difficulty/back; no OS/HMD.

@@ -1,0 +1,23 @@
+{
+  "source": "3c2b0446947305ed2582c59f517864665e56ebe0",
+  "publicBaseline": "6d27c10ef6acc4b457f8fbfbac433235960a7358",
+  "instrumented": true,
+  "define": "START_ASPECT_QA",
+  "zip": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\StartAspectInstrumented20261024\\StartAspectInstrumented-test-only.zip",
+  "sha256": "dba4718934ad587c7cc114bbae369987b83cffc315c48a4aa784bbef3516e777",
+  "bytes": 89570740,
+  "files": 213,
+  "build": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\InstrumentedStartAspect_3c2b044",
+  "extracted": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\StartAspectInstrumented_3c2b044",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "3c2b0446947305ed2582c59f517864665e56ebe0",
+    "gitCommitShort": "3c2b044",
+    "buildTimeKST": "2026-10-24T20:56:43.1388138+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}
