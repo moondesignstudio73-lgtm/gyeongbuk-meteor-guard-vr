@@ -1,0 +1,7 @@
+state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 0.820); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+instruction=선체 회복|바라보면 획득해요; rect=(x:0.48, y:0.55, width:0.16, height:0.16)
+instruction=방어막|바라보면 획득해요; rect=(x:0.65, y:0.70, width:0.16, height:0.16)
+instruction=선체 회복|바라보면 획득해요; rect=(x:0.53, y:0.38, width:0.16, height:0.16)
+item=568105589213754748 available=True world=(-2.01, 0.00, 13.59) viewport=(0.45, 0.78, 12.80) radius=0.75 progress=0
+item=568105589213754708 available=True world=(0.00, -0.02, 13.74) viewport=(0.50, 0.78, 12.95) radius=0.75 progress=0
+item=568105589213754668 available=True world=(2.01, -0.02, 13.59) viewport=(0.55, 0.78, 12.81) radius=0.75 progress=0

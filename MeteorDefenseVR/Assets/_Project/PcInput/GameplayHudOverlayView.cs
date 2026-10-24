@@ -75,6 +75,7 @@ namespace MeteorDefenseVR.PcInput
             canvas = targetCanvas;
             canvasGroup = group;
             telemetryRoot = statsRoot;
+            ProtectTelemetryContrast();
             feedbackPanel = messagePanel;
             healthValue = health;
             difficultyStageValue = difficultyStage;
@@ -94,6 +95,7 @@ namespace MeteorDefenseVR.PcInput
 
         private void OnEnable()
         {
+            ProtectTelemetryContrast();
             if (Application.isPlaying && GetComponent<ReadableTelemetryLayout>() == null)
                 gameObject.AddComponent<ReadableTelemetryLayout>();
             if (Application.isPlaying && GetComponent<PracticeHudSafeOverlay>() == null)
@@ -108,6 +110,14 @@ namespace MeteorDefenseVR.PcInput
         }
 
         private void OnDisable() => Unbind();
+
+        private void ProtectTelemetryContrast()
+        {
+            if (telemetryRoot == null) return;
+            // World pickup effects must not show through mandatory mission information.
+            foreach (var panel in telemetryRoot.GetComponentsInChildren<ChamferedHudPanel>(true))
+                panel.SetFillOpacity(1f);
+        }
 
         private void LateUpdate()
         {

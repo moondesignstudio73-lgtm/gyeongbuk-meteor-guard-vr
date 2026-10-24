@@ -13,6 +13,14 @@ namespace MeteorDefenseVR.PcInput
         public Color BorderColor => borderColor;
         public float CornerCut => cornerCut;
 
+        public void SetFillOpacity(float opacity)
+        {
+            opacity = Mathf.Clamp01(opacity);
+            if (Mathf.Approximately(fillColor.a, opacity)) return;
+            fillColor.a = opacity;
+            graphic?.SetVerticesDirty();
+        }
+
         public void Configure(Color fill, Color border, float cut = 12f, float width = 1.5f)
         {
             fillColor = fill;

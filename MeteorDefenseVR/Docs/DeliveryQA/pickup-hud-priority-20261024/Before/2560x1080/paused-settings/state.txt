@@ -1,0 +1,4 @@
+state=Playing; paused=True; gate=True; settings=True; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 0.820); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+item=568105589213754748 available=True world=(-2.00, -0.01, 13.51) viewport=(0.44, 0.94, 11.79) radius=0.75 progress=0
+item=568105589213754708 available=True world=(0.00, -0.03, 13.66) viewport=(0.50, 0.94, 11.93) radius=0.75 progress=0
+item=568105589213754668 available=True world=(2.00, -0.03, 13.51) viewport=(0.56, 0.94, 11.80) radius=0.75 progress=0
