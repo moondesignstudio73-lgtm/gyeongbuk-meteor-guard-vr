@@ -133,6 +133,30 @@ namespace MeteorDefenseVR.Editor
         // Final release-candidate output is commit-addressed and never overwrites QA builds.
         public static void BuildWindowsReleaseCandidateCurrentScene()
             => WithResources(() => { AssetDatabase.SaveAssets(); BuildWindowsReady(false, true); });
+        // Separate evidence-only executable. Does not replace any public release.
+        public static void BuildPopulatedRecordsInstrumented()
+            => WithResources(() =>
+            {
+                var identity=GitBuildIdentity.Read();
+                if(!identity.worktreeClean) throw new InvalidOperationException("Instrumented build requires clean source");
+                string output="Builds/InstrumentedRecords_"+identity.gitCommitShort;
+                if(Directory.Exists(output)) throw new IOException("Instrumented output already exists");
+                Directory.CreateDirectory(output);
+                var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions
+                {
+                    scenes=new[]{"Assets/_Project/Scenes/Bootstrap.unity","Assets/_Project/Scenes/MeteorDefense.unity"},
+                    locationPathName=output+"/MeteorDefenseVR.exe",
+                    target=BuildTarget.StandaloneWindows64,
+                    options=BuildOptions.None,
+                    extraScriptingDefines=new[]{"RECORDS_QA"}
+                });
+                if(report.summary.result!=BuildResult.Succeeded) throw new Exception("Instrumented records build failed");
+                identity.buildVersion=PlayerSettings.bundleVersion;
+                identity.buildTimeKST=DateTimeOffset.Now.ToString("O");
+                identity.unityVersion=Application.unityVersion;
+                File.WriteAllText(output+"/BUILD_IDENTITY.json",JsonUtility.ToJson(identity,true));
+                File.WriteAllText(output+"/INSTRUMENTED_ONLY.txt","RECORDS_QA; private test build, NOT the public 6d27c10 ZIP. Explicit --pc-populated-records-qa flag required. Memory-only fixtures.\n");
+            });
         public static void BuildWindowsAndCapture()
         {
             BuildWindowsReady();
