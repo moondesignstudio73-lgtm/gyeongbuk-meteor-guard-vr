@@ -1,0 +1,52 @@
+Private REPLAY_QA build; public product1723e35 plus QA hooks. Initial/final result explicitly forced. Synthetic InputSystem pointer and relative aim; no OS/HMD. No action/Queue/Choose/ExecuteEvents or state writes between replay click and observed combat hit.
+prewarm complete=True
+real UI input module=True
+transition=Reset; time=5.1139; phase=Hidden
+transition=Boot; time=5.1158; phase=Hidden
+transition=Playing; time=5.2345; phase=Hidden
+transition=Result; time=5.5887; phase=Hidden
+Experience forced initial result=True
+Experience replay top raycast=True
+transition=Reset; time=5.8910; phase=ReplayPreparing
+transition=Boot; time=5.8921; phase=ReplayPreparing
+Experience actual pointer down/up/click exactly once=True
+Experience result hidden once=True
+Experience ReplayPreparing reached=True
+Experience old score/reward/result cleared=True
+Experience replay retains selected difficulty=True
+transition=Launch; time=6.8798; phase=Departing
+transition=Countdown; time=11.3396; phase=Departing
+transition=Playing; time=13.4071; phase=Hidden
+Experience automatic preparation through Playing=True
+Experience one launch/countdown/playing transition=True
+Experience combat input unblocked=True
+Experience combat difficulty and HUD agree=True
+Experience relative mouse aim acquired and weapon hit through normal combat=True
+Experience no duplicate replay action during preparation/combat=True
+transition=Result; time=16.3047; phase=Hidden
+Experience forced post-hit result agrees=True
+transition=Reset; time=16.6729; phase=Hidden
+transition=Boot; time=16.6740; phase=Hidden
+transition=Playing; time=16.7838; phase=Hidden
+transition=Result; time=17.1381; phase=Hidden
+Easy forced initial result=True
+Easy replay top raycast=True
+transition=Reset; time=17.4250; phase=ReplayPreparing
+transition=Boot; time=17.4262; phase=ReplayPreparing
+Easy actual pointer down/up/click exactly once=True
+Easy result hidden once=True
+Easy ReplayPreparing reached=True
+Easy old score/reward/result cleared=True
+Easy replay retains selected difficulty=True
+transition=Launch; time=18.4161; phase=Departing
+transition=Countdown; time=22.8782; phase=Departing
+transition=Playing; time=24.9454; phase=Hidden
+Easy automatic preparation through Playing=True
+Easy one launch/countdown/playing transition=True
+Easy combat input unblocked=True
+Easy combat difficulty and HUD agree=True
+Easy relative mouse aim acquired and weapon hit through normal combat=True
+Easy no duplicate replay action during preparation/combat=True
+transition=Result; time=27.0202; phase=Hidden
+Easy forced post-hit result agrees=True
+passed=True

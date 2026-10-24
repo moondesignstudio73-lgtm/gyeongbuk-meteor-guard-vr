@@ -1,0 +1,14 @@
+{
+  "source": "8d41819c550ffbc56aff2b7e7ceb8bca1816109d",
+  "nativeExitCode": 0,
+  "timedOut": false,
+  "startedUtc": "2026-10-24T23:08:15.7523247Z",
+  "endedUtc": "2026-10-24T23:08:46.8423678Z",
+  "arguments": [
+    "--pc-replay-qa",
+    "--no-webcam",
+    "-batchmode",
+    "-logFile",
+    "\"C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Docs\\DeliveryQA\\replay-continuation-20261025\\player.log\""
+  ]
+}

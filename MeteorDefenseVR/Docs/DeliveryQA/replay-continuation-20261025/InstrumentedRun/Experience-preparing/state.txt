@@ -1,0 +1,4 @@
+Instrumented only. time=5.985266; state=Boot; phase=ReplayPreparing; selected=Experience; session=Experience; frozen=False; hud=체험  ·  구역 01; resultDifficulty=
+resultVisible=False; resultActions=False; inputSuspended=False; modal=False; looking=False; shots=0; hits=0; score=0; target=; feedback=; remaining=0
+CombatPraise: enabled=False; active=True; alpha=1; text=멋져요! 3번 연속 성공!
+FlightNotice: enabled=False; active=True; alpha=1; text=1번째 운석 무리가 다가와요!
