@@ -1,0 +1,2 @@
+state=Playing; feedback=선체 회복!; remaining=0.959814; panelActive=True; fill=RGBA(0.003, 0.018, 0.028, 1.000); font=40; canvasAlpha=1; warning=True; warningAlpha=0.416795; warningAge=0.0333436; rect=(x:0.31, y:0.73, width:0.37, height:0.09)
+crossing=568105589213755012; world=(0.00, 1.51, 12.38); viewport=(0.50, 0.77, 11.79); collider=0.75

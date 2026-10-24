@@ -1,0 +1,56 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using MeteorDefenseVR.Combat;
+using MeteorDefenseVR.EyeTracking;
+using MeteorDefenseVR.GameFlow;
+using MeteorDefenseVR.Meteor;
+using MeteorDefenseVR.Player;
+using MeteorDefenseVR.PowerUps;
+using MeteorDefenseVR.UI;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using Object=UnityEngine.Object;
+namespace MeteorDefenseVR.PcInput {
+public static class TransientFeedbackProof {
+ public static IEnumerator Run(string output,bool validate){
+  var camera=Camera.main;var flow=GameFlowManager.Instance;var reset=Object.FindAnyObjectByType<OperationsResetController>();var router=Object.FindAnyObjectByType<GazeInputRouter>();var caster=Object.FindAnyObjectByType<GazeRaycaster>();var weapon=Object.FindAnyObjectByType<LaserWeapon>();var spawner=Object.FindAnyObjectByType<MeteorSpawner>();var power=PowerUpManager.Instance;var health=Object.FindAnyObjectByType<PlayerHealth>();var hud=Object.FindAnyObjectByType<MissionHudController>(FindObjectsInactive.Include);var view=Object.FindAnyObjectByType<GameplayHudOverlayView>();var director=Object.FindAnyObjectByType<SfPresentationDirector>();var gate=Object.FindAnyObjectByType<PausePresentationGate>();
+  var rotation=camera.transform.rotation;var random=UnityEngine.Random.state;bool input=router.InputSuspended,casting=caster.enabled,fire=weapon.AutoFireOnLock;var devices=InputSystem.devices.Where(d=>d.enabled&&(d is Mouse||d is Keyboard)).ToArray();foreach(var d in devices)InputSystem.DisableDevice(d);router.InputSuspended=true;caster.enabled=false;weapon.AutoFireOnLock=false;
+  var notes=new List<string>{"Supported frozen scenario meteors; actual auxiliary-hit/death/score/drop callbacks, seeded damage boundary RNG, original colliders and elapsed synthetic gaze. Heal crosses an already available item; next real death replaces Heal with score feedback. Camera alignment only. Not natural user/OS/HMD."};
+  void Check(bool ok,string message){if(!ok)throw new InvalidOperationException(message);}
+  int seed=0;for(;seed<100000;seed++){UnityEngine.Random.InitState(seed);if(UnityEngine.Random.value<.02f&&UnityEngine.Random.value<.02f)break;}Check(seed<100000,"Seed missing");notes.Add("Damage boundary seed="+seed);
+  var cooldown=typeof(SfPresentationDirector).GetField("dangerAllowedAt",BindingFlags.NonPublic|BindingFlags.Instance);var noticeAge=typeof(SfPresentationDirector).GetField("noticeAge",BindingFlags.NonPublic|BindingFlags.Instance);var showNotice=typeof(SfPresentationDirector).GetMethod("ShowNotice",BindingFlags.NonPublic|BindingFlags.Instance);
+  try{
+   float deadline=Time.unscaledTime+25;while(director.IsBootPresenting&&Time.unscaledTime<deadline)yield return null;
+   foreach(var size in new[]{new Vector2Int(800,600),new Vector2Int(2560,1080)}){
+    reset.ResetExperience();router.InputSuspended=true;camera.transform.rotation=rotation;yield return new WaitForSecondsRealtime(1);flow.StartMainGame();yield return new WaitForSecondsRealtime(2.5f);spawner.BeginScenario(8);health.RestoreCheckpoint(60);
+    using var probe=new PcStabilityProbe(camera,size.x,size.y);var notice=Object.FindObjectsByType<TextMeshPro>().Single(t=>t.name=="FlightNotice");var frame=view.FeedbackPanel.GetComponent<ChamferedHudPanel>();
+    var firstPosition=spawner.CalculateSpawnPosition(0,0,1,new Vector2(30,20));var otherPosition=spawner.CalculateSpawnPosition(0,.35f,1,new Vector2(30,20));
+    PowerUpItem Drop(Vector3 position){var prior=Object.FindObjectsByType<PowerUpItem>().Where(i=>i.IsAvailable).ToArray();var meteor=spawner.SpawnScenario(position,Vector3.zero,.6f,10);Check(meteor!=null,"Scenario meteor missing");void Seed(MeteorController m,float damage){UnityEngine.Random.InitState(seed);}meteor.Damaged+=Seed;try{Check(weapon.TryAuxiliaryHit(meteor,meteor.MaxHealth),"Actual weapon damage rejected");}finally{meteor.Damaged-=Seed;}var item=Object.FindObjectsByType<PowerUpItem>().SingleOrDefault(i=>i.IsAvailable&&!prior.Contains(i));Check(item!=null&&item.Type==PowerUpType.Heal,"Seeded death did not drop Heal");notes.Add($"{size}: death at{position}, item={item.GetEntityId()}, sphere={item.GetComponent<SphereCollider>().radius}, scoreFeedback={hud.FeedbackMessage}");return item;}
+    var first=Drop(firstPosition);yield return new WaitForSecondsRealtime(.1f);var other=Drop(otherPosition);yield return new WaitForSecondsRealtime(.7f);Check(power.ActiveWorldItems==2,"Expected two real drops");
+    IEnumerator Acquire(PowerUpItem item){Physics.SyncTransforms();Check(item.GetComponent<Collider>().Raycast(new Ray(camera.transform.position,item.transform.position-camera.transform.position),out var hit,100),"Original collider ray missed");int count=0;void Acquired(PowerUpType type){count++;}power.PowerUpAcquired+=Acquired;try{item.OnGazeEnter(hit);float last=Time.unscaledTime,end=last+2;while(item.IsAvailable&&Time.unscaledTime<end){yield return new WaitForSecondsRealtime(.02f);float now=Time.unscaledTime;item.OnGazeStay(hit,now-last);last=now;}Check(!item.IsAvailable&&count==1,"Acquisition failed");Check(hud.FeedbackMessage=="선체 회복!"&&hud.FeedbackRemaining>.9f,"Heal feedback timing changed");}finally{power.PowerUpAcquired-=Acquired;}}
+    void Aim(PowerUpItem item){float y=TelemetryReadabilityProof.ViewRect(camera,view.FeedbackPanel.GetComponent<RectTransform>()).center.y;float tan=Mathf.Tan(camera.fieldOfView*.5f*Mathf.Deg2Rad);camera.transform.rotation=Quaternion.LookRotation(item.transform.position-camera.transform.position,Vector3.up)*Quaternion.Inverse(Quaternion.LookRotation(new Vector3(0,(y-.5f)*2*tan,1),Vector3.up));}
+    void Save(string state,PowerUpItem crossing=null,bool paused=false){Canvas.ForceUpdateCanvases();gate.Apply();PcStabilityRenderDriver.RenderForProof(camera);var rect=TelemetryReadabilityProof.ViewRect(camera,view.FeedbackPanel.GetComponent<RectTransform>());var lines=new List<string>{$"state={flow.CurrentState}; feedback={hud.FeedbackMessage}; remaining={hud.FeedbackRemaining}; panelActive={view.FeedbackPanel.activeInHierarchy}; fill={frame.FillColor}; font={view.FeedbackValue.fontSize}; canvasAlpha={view.HudCanvas.GetComponent<CanvasGroup>().alpha}; warning={notice.enabled}; warningAlpha={notice.color.a}; warningAge={noticeAge.GetValue(director)}; rect={rect}"};
+     if(validate)Check(frame.FillColor.a==1,"Transient fill not opaque");
+     if(crossing!=null){var p=camera.WorldToViewportPoint(crossing.transform.position);Check(crossing.IsAvailable&&rect.Contains(p),"Real item not crossing feedback");lines.Add($"crossing={crossing.GetEntityId()}; world={crossing.transform.position}; viewport={p}; collider={crossing.GetComponent<SphereCollider>().radius}");}
+     if(view.FeedbackPanel.activeInHierarchy&&!paused){Check(!view.FeedbackValue.isTextTruncated,"Feedback truncated");var labels=camera.GetComponentsInChildren<TextMeshProUGUI>().Where(t=>t.name=="PickupInstruction"&&t.isActiveAndEnabled);foreach(var t in labels){Check(t.fontSize==32&&!t.enableAutoSizing&&!t.isTextTruncated,"Pickup text changed");Check(!rect.Overlaps(TelemetryReadabilityProof.ViewRect(camera,(RectTransform)t.transform.parent)),"Pickup instruction covers feedback");}if(notice.enabled&&director.CriticalNoticeBounds!=null)Check(!rect.Overlaps(TelemetryReadabilityProof.ViewRect(camera,director.CriticalNoticeBounds)),"Critical warning overlaps feedback");}
+     string dir=$"{output}/{size.x}x{size.y}/{state}";Directory.CreateDirectory(dir);probe.SaveGameOnlyProof(dir,router);File.WriteAllLines(dir+"/state.txt",lines);notes.Add(size+"/"+state+": "+lines[0]);
+    }
+    yield return Acquire(first);float began=Time.unscaledTime;yield return new WaitForSecondsRealtime(.03f);Save("heal-entry");Aim(other);yield return new WaitForSecondsRealtime(.05f);Check(hud.FeedbackMessage=="선체 회복!","Heal replaced unexpectedly");Save("heal-overlap",other);
+    while(Time.unscaledTime-began<.95f)yield return null;Check(hud.FeedbackRemaining>0&&view.FeedbackPanel.activeInHierarchy,"Heal expired early");Save("heal-late",other);
+    while(Time.unscaledTime-began<1.2f)yield return null;Check(hud.FeedbackRemaining==0&&!view.FeedbackPanel.activeInHierarchy,"Heal failed to expire");Save("heal-expired");
+    // Actual next death has score precedence, unlike a TryDrop-only fixture.
+    var next=Drop(spawner.CalculateSpawnPosition(.1f,.35f,1,new Vector2(30,20)));Check(next==first,"Expected released item pool reuse");Check(hud.FeedbackMessage.Contains("+")&&hud.FeedbackMessage!="선체 회복!","Next death did not replace feedback with score");began=Time.unscaledTime;Aim(next);yield return new WaitForSecondsRealtime(.03f);Save("score-entry",next);yield return new WaitForSecondsRealtime(.2f);Save("score-hold",next);
+    while(Time.unscaledTime-began<.95f)yield return null;Check(hud.FeedbackRemaining>0,"Score expired early");Save("score-late",next);while(Time.unscaledTime-began<1.2f)yield return null;Check(!view.FeedbackPanel.activeInHierarchy,"Score did not expire");Save("score-expired");
+    yield return Acquire(next);Aim(other);yield return new WaitForSecondsRealtime(.03f);router.Simulation.Pause();float remaining=hud.FeedbackRemaining;yield return new WaitForSecondsRealtime(.2f);gate.Apply();Check(Mathf.Abs(remaining-hud.FeedbackRemaining)<.02f&&view.HudCanvas.GetComponent<CanvasGroup>().alpha==0,"Pause changed timer/visible feedback");Save("paused",null,true);router.Simulation.Resume();router.InputSuspended=true;yield return new WaitForSecondsRealtime(.03f);Aim(other);health.RestoreCheckpoint(25);cooldown.SetValue(director,0f);yield return new WaitForSecondsRealtime(.05f);Check(notice.enabled,"Critical warning missing");string critical=notice.text;showNotice.Invoke(director,new object[]{"낮은 우선순위 확인",Color.white,.5f,1});Check(notice.text==critical,"Lower priority replaced critical warning");Save("resumed-critical",other);Check(hud.FeedbackMessage=="선체 회복!"&&hud.FeedbackRemaining>0,"Heal not active before real replacement");var resetItem=Drop(firstPosition);Check(hud.FeedbackMessage.Contains("+")&&hud.FeedbackRemaining>.9f&&notice.text==critical,"Actual score/warning precedence changed");yield return new WaitForSecondsRealtime(.03f);Save("score-replaces-heal");
+    while((float)noticeAge.GetValue(director)<.94f)yield return null;Check(notice.enabled&&notice.color.a>0&&notice.color.a<.9f,"Warning fade changed");Save("warning-fade");while((float)noticeAge.GetValue(director)<1.2f)yield return null;Check(!notice.enabled,"Warning failed to expire");Save("warning-expired");
+    yield return Acquire(resetItem);reset.ResetExperience();yield return new WaitForSecondsRealtime(.1f);Check(hud.FeedbackMessage==string.Empty&&hud.FeedbackRemaining==0&&power.ActiveWorldItems==0&&!view.FeedbackPanel.activeInHierarchy,"Reset retained feedback/items");Save("reset");
+   }
+   Directory.CreateDirectory(output);notes.Add("captureCompleted=True");if(validate)notes.Add("passed=True");File.WriteAllLines(output+"/verification.txt",notes);
+  }finally{router.Simulation.Resume();spawner.EndScenario();reset.ResetExperience();camera.transform.rotation=rotation;router.InputSuspended=input;caster.enabled=casting;weapon.AutoFireOnLock=fire;UnityEngine.Random.state=random;foreach(var d in devices)InputSystem.EnableDevice(d);}
+ }
+}}

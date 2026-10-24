@@ -1,0 +1,2 @@
+state=Playing; feedback=+100  GOOD!; remaining=0.8024576; panelActive=True; fill=RGBA(0.003, 0.018, 0.028, 0.820); font=25; canvasAlpha=1; warning=False; warningAlpha=0; warningAge=5.742241; rect=(x:0.31, y:0.73, width:0.37, height:0.09)
+crossing=568105589213755052; world=(0.67, 1.70, 13.78); viewport=(0.50, 0.77, 13.14); collider=0.75

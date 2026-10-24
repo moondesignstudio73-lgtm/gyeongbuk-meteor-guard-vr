@@ -75,8 +75,8 @@ namespace MeteorDefenseVR.PcInput
             canvas = targetCanvas;
             canvasGroup = group;
             telemetryRoot = statsRoot;
-            ProtectTelemetryContrast();
             feedbackPanel = messagePanel;
+            ProtectTelemetryContrast();
             healthValue = health;
             difficultyStageValue = difficultyStage;
             asteroidLabel = asteroidsLabel;
@@ -113,6 +113,10 @@ namespace MeteorDefenseVR.PcInput
 
         private void ProtectTelemetryContrast()
         {
+            // Transient reward/status text needs the same world-effect isolation
+            // while its existing controller owns visibility and lifetime.
+            if (feedbackPanel != null)
+                feedbackPanel.GetComponent<ChamferedHudPanel>()?.SetFillOpacity(1f);
             if (telemetryRoot == null) return;
             // World pickup effects must not show through mandatory mission information.
             foreach (var panel in telemetryRoot.GetComponentsInChildren<ChamferedHudPanel>(true))

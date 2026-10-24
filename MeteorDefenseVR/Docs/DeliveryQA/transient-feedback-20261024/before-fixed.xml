@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-24 08:59:05Z" end-time="2026-10-24 08:59:19Z" duration="14.3007532">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="456" result="Failed" site="Child" start-time="2026-10-24 08:59:05Z" end-time="2026-10-24 08:59:19Z" duration="14.300753" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1601" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="456" result="Failed" site="Child" start-time="2026-10-24 08:59:05Z" end-time="2026-10-24 08:59:19Z" duration="14.149445" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="45268" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1602" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="456" result="Failed" site="Child" start-time="2026-10-24 08:59:05Z" end-time="2026-10-24 08:59:19Z" duration="14.142281" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1603" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="456" result="Failed" site="Child" start-time="2026-10-24 08:59:05Z" end-time="2026-10-24 08:59:19Z" duration="14.135061" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1493" name="TransientFeedbackTests" fullname="MeteorDefenseVR.Tests.TransientFeedbackTests" classname="MeteorDefenseVR.Tests.TransientFeedbackTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-24 08:59:05Z" end-time="2026-10-24 08:59:19Z" duration="14.122436" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1494" name="RealDropFeedbackLifetime" fullname="MeteorDefenseVR.Tests.TransientFeedbackTests.RealDropFeedbackLifetime" methodname="RealDropFeedbackLifetime" classname="MeteorDefenseVR.Tests.TransientFeedbackTests" runstate="Runnable" seed="1086188839" result="Failed" label="Error" start-time="2026-10-24 08:58:51Z" end-time="2026-10-24 08:59:19Z" duration="27.568720" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Real item not crossing feedback]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.TransientFeedbackProof+<>c__DisplayClass0_0.<Run>g__Save|6 (System.String state, MeteorDefenseVR.PowerUps.PowerUpItem crossing, System.Boolean paused, MeteorDefenseVR.PcInput.TransientFeedbackProof+<>c__DisplayClass0_1& , MeteorDefenseVR.PcInput.TransientFeedbackProof+<>c__DisplayClass0_2& ) [0x003ea] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\TransientFeedbackProof.cs:42 
+  at MeteorDefenseVR.PcInput.TransientFeedbackProof+<Run>d__0.MoveNext () [0x00d36] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\TransientFeedbackProof.cs:49 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
