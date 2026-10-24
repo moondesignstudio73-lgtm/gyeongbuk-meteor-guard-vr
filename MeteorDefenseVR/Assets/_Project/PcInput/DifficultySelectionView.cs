@@ -191,8 +191,10 @@ namespace MeteorDefenseVR.PcInput
             extremeNotice.gameObject.SetActive(panel.gameObject.activeInHierarchy && extremeNoticeRemaining > 0);
             // Reserve a separate line for the full tip; narrow views receive larger type.
             float noticeY = lobbyAnchor != null ? 110 : manager.Settings.lockDifficultySelection
-                ? Mathf.Lerp(145, 110, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect)) : 100;
-            extremeNotice.fontSize = Mathf.Lerp(470, 390, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect));
+                ? Mathf.Lerp(150, 110, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect)) : 100;
+            // The lobby has a smaller world scale; keep comparable screen-space reading size.
+            extremeNotice.fontSize = Mathf.Lerp(lobbyAnchor != null ? 470 : 430, 390,
+                Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect));
             extremeNotice.transform.localPosition = new Vector3(0, noticeY, -2);
             if (instruction != null)
             {
