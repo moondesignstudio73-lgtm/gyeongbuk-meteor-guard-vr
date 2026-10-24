@@ -1,0 +1,50 @@
+[
+  {
+    "endedUtc": "2026-10-24T15:33:03.8201845Z",
+    "scenario": "locked-default",
+    "nativeExitCode": 0,
+    "width": 800,
+    "timedOut": false,
+    "startedUtc": "2026-10-24T15:32:51.7544350Z"
+  },
+  {
+    "endedUtc": "2026-10-24T15:33:16.1165598Z",
+    "scenario": "start-select",
+    "nativeExitCode": 0,
+    "width": 800,
+    "timedOut": false,
+    "startedUtc": "2026-10-24T15:33:03.8240602Z"
+  },
+  {
+    "endedUtc": "2026-10-24T15:33:34.7269349Z",
+    "scenario": "lobby-select",
+    "nativeExitCode": 0,
+    "width": 800,
+    "timedOut": false,
+    "startedUtc": "2026-10-24T15:33:16.1203967Z"
+  },
+  {
+    "endedUtc": "2026-10-24T15:33:46.5569691Z",
+    "scenario": "locked-default",
+    "nativeExitCode": 0,
+    "width": 1280,
+    "timedOut": false,
+    "startedUtc": "2026-10-24T15:33:34.7310643Z"
+  },
+  {
+    "endedUtc": "2026-10-24T15:33:58.9499725Z",
+    "scenario": "start-select",
+    "nativeExitCode": 0,
+    "width": 1280,
+    "timedOut": false,
+    "startedUtc": "2026-10-24T15:33:46.5603387Z"
+  },
+  {
+    "endedUtc": "2026-10-24T15:34:17.6636230Z",
+    "scenario": "lobby-select",
+    "nativeExitCode": 0,
+    "width": 1280,
+    "timedOut": false,
+    "startedUtc": "2026-10-24T15:33:58.9537504Z"
+  }
+]

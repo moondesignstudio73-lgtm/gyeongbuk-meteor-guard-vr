@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-difficulty-lock-20261024)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-experience-tip-20261025)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
@@ -77,7 +77,7 @@
 
 ### Windows 실행파일
 
-1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/RC_0.2.0-rc.1_531b0d7/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
+1. 다운로드한 ZIP을 전부 압축 해제하고 `MeteorDefenseVR.exe`를 더블클릭합니다. 이 작업 폴더의 실행본은 `MeteorDefenseVR/Builds/Windows/RC_0.2.0-rc.1_9628a64/MeteorDefenseVR.exe`에 있습니다. Unity는 필요 없습니다.
 2. 기본은 Public Experience + Auto 입력입니다. 화면의 `START`를 바라보거나 마우스를 올려 시작합니다. Enter/Space로도 시작됩니다.
 3. 운석을 바라보거나 마우스를 올려 약 0.65초 유지합니다. 클릭 없이 잠금 → 레이저 → 파괴가 진행됩니다.
 
@@ -352,4 +352,5 @@ OVR Metrics Tool 또는 Unity Profiler를 연결해 최종 측정해야 합니�
 기지에 돌아오면 수리 드론 두 대가 손상 부위를 점검해요. 수리 중에도 메뉴를 고를 수 있고, 바로 다시 출격할 수 있어요. 준비가 끝나면 청록색 안내가 나타나요.
 
 보스 운석을 공격하면 외피가 떨어지고 밝은 핵이 드러나요. 핵이 보이면 마지막까지 계속 조준해 보스를 파괴해 주세요!
+
 
