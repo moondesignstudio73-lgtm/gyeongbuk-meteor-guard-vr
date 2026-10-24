@@ -1,0 +1,6 @@
+Assets\_Project\PcInput\ExperienceTipProof.cs(27,113): error CS0619: 'Object.GetInstanceID()' is obsolete: 'Use GetEntityId instead.'
+Assets\_Project\PcInput\ExperienceTipProof.cs(33,76): error CS0246: The type or namespace name 'WorldUiSafeArea' could not be found (are you missing a using directive or an assembly reference?)
+Assets\_Project\PcInput\ExperienceTipProof.cs(27,113): error CS0619: 'Object.GetInstanceID()' is obsolete: 'Use GetEntityId instead.'
+Assets\_Project\PcInput\ExperienceTipProof.cs(33,76): error CS0246: The type or namespace name 'WorldUiSafeArea' could not be found (are you missing a using directive or an assembly reference?)
+Assets\_Project\PcInput\ExperienceTipProof.cs(27,113): error CS0619: 'Object.GetInstanceID()' is obsolete: 'Use GetEntityId instead.'
+Assets\_Project\PcInput\ExperienceTipProof.cs(33,76): error CS0246: The type or namespace name 'WorldUiSafeArea' could not be found (are you missing a using directive or an assembly reference?)

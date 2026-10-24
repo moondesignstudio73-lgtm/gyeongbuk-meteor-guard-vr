@@ -1,0 +1,1 @@
+Second baseline interrupted before completion: missing initial .6s selection guard wait in fixture; no production change.

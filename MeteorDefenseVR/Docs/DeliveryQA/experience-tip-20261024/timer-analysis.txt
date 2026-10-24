@@ -1,0 +1,5 @@
+Before 800x600 hidden remaining min=0 max=1.6469; firstVisibleTime=5.2162 remaining=0.0000 tip=False
+Before 1280x720 hidden remaining min=0 max=1.6457; firstVisibleTime=5.2353 remaining=0.0000 tip=False
+TimerOnly 800x600 hidden remaining min=1.8 max=1.8; firstVisibleTime=5.2235 remaining=1.7923 tip=True
+TimerOnly 1280x720 hidden remaining min=1.8 max=1.8; firstVisibleTime=5.2211 remaining=1.7889 tip=True
+After 1280x720 hidden remaining min=1.8 max=1.8; firstVisibleTime=5.2249 remaining=1.7888 tip=True

@@ -184,9 +184,15 @@ namespace MeteorDefenseVR.PcInput
         private void Update()
         {
             if (!initialized || panel == null) return;
-            extremeNoticeRemaining = Mathf.Max(0, extremeNoticeRemaining - Time.deltaTime);
-            extremeNotice.gameObject.SetActive(extremeNoticeRemaining > 0);
             RefreshVisibility();
+            // Preparation hides the cards: spend the one-time tip only while the player can see it.
+            if (panel.gameObject.activeInHierarchy)
+                extremeNoticeRemaining = Mathf.Max(0, extremeNoticeRemaining - Time.deltaTime);
+            extremeNotice.gameObject.SetActive(panel.gameObject.activeInHierarchy && extremeNoticeRemaining > 0);
+            // Narrow start screens need a separate line above the persistent lock instruction.
+            float noticeY = lobbyAnchor == null && manager.Settings.lockDifficultySelection
+                ? Mathf.Lerp(125, 100, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect)) : 100;
+            extremeNotice.transform.localPosition = new Vector3(0, noticeY, -2);
             if (instruction != null)
             {
                 bool operatorLocked = panel.gameObject.activeInHierarchy && manager.Settings.lockDifficultySelection;
