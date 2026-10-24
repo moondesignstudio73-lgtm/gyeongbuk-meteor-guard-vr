@@ -1,0 +1,16 @@
+label=선체 회복|바라보면 획득해요; rect=(x:0.55, y:0.87, width:0.21, height:0.12)
+panel overlap 0/1
+panel overlap 0/2
+covers centre 568105589213754972 at (0.60, 0.93, 11.83)
+HUD overlap StagePanel
+HUD overlap ScorePanel
+label=선체 회복|바라보면 획득해요; rect=(x:0.46, y:0.87, width:0.21, height:0.12)
+panel overlap 1/2
+covers centre 568105589213755012 at (0.50, 0.93, 11.95)
+covers centre 568105589213754972 at (0.60, 0.93, 11.83)
+HUD overlap StagePanel
+label=방어막|바라보면 획득해요; rect=(x:0.65, y:0.87, width:0.21, height:0.12)
+HUD overlap ScorePanel
+item=568105589213755052 type=Heal available=True pos=(-1.99, -0.01, 13.50) viewport=(0.40, 0.93, 11.84) progress=0
+item=568105589213755012 type=Heal available=True pos=(0.00, 0.02, 13.64) viewport=(0.50, 0.93, 11.95) progress=0
+item=568105589213754972 type=Shield available=True pos=(1.99, 0.02, 13.50) viewport=(0.60, 0.93, 11.83) progress=0

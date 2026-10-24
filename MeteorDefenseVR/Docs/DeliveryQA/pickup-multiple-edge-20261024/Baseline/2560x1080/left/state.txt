@@ -1,0 +1,11 @@
+label=선체 회복|바라보면 획득해요; rect=(x:0.24, y:0.47, width:0.16, height:0.16)
+panel overlap 0/1
+panel overlap 0/2
+covers centre 568105589213754972 at (0.28, 0.55, 11.49)
+label=선체 회복|바라보면 획득해요; rect=(x:0.14, y:0.48, width:0.16, height:0.16)
+covers centre 568105589213755012 at (0.20, 0.55, 10.24)
+covers centre 568105589213754972 at (0.28, 0.55, 11.49)
+label=방어막|바라보면 획득해요; rect=(x:0.31, y:0.46, width:0.16, height:0.16)
+item=568105589213755052 type=Heal available=True pos=(-2.02, -0.01, 13.69) viewport=(0.10, 0.56, 8.77) progress=0
+item=568105589213755012 type=Heal available=True pos=(0.00, -0.01, 13.83) viewport=(0.20, 0.55, 10.24) progress=0
+item=568105589213754972 type=Shield available=True pos=(2.02, 0.01, 13.69) viewport=(0.28, 0.55, 11.49) progress=0
