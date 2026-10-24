@@ -1,0 +1,4 @@
+# Start aspect executable checkpoint
+Public baseline6d27c10; existing Editor StartAspectCoverageTests captured six1280x720/1920x1080 selected-partial/experience/locked originals. Public SelectionStateProof hard-codes800x600/2560x1080 and runs after a complete soak round; no dimension/state override. It therefore cannot close this specific gap without repeating unrelated tests. Use a separate START_ASPECT_QA compiled fixture/explicit launch flag, limited to two ordinary16:9 sizes and state/input/menu-return checks. Public ZIP remains unchanged. Prior records preflight/first-run preservation/native-exit limitations remain intact.
+
+Snapshot user ranking primary/bak/tmp and primitive registry values before execution; compare afterwards, restore non-session values only if changed, preserve exact native exit code. Explicit synthetic provider through original GazeRaycaster/colliders and elapsed dwell; not natural OS/HMD. No Suno/Drive/shared-state changes.

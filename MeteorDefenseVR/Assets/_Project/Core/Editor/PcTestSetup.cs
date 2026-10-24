@@ -135,11 +135,15 @@ namespace MeteorDefenseVR.Editor
             => WithResources(() => { AssetDatabase.SaveAssets(); BuildWindowsReady(false, true); });
         // Separate evidence-only executable. Does not replace any public release.
         public static void BuildPopulatedRecordsInstrumented()
+            => BuildIsolatedUiTest("RECORDS_QA", "InstrumentedRecords", "--pc-populated-records-qa");
+        public static void BuildStartAspectInstrumented()
+            => BuildIsolatedUiTest("START_ASPECT_QA", "InstrumentedStartAspect", "--pc-start-aspect-qa");
+        private static void BuildIsolatedUiTest(string define, string prefix, string flag)
             => WithResources(() =>
             {
                 var identity=GitBuildIdentity.Read();
                 if(!identity.worktreeClean) throw new InvalidOperationException("Instrumented build requires clean source");
-                string output="Builds/InstrumentedRecords_"+identity.gitCommitShort;
+                string output="Builds/"+prefix+"_"+identity.gitCommitShort;
                 if(Directory.Exists(output)) throw new IOException("Instrumented output already exists");
                 Directory.CreateDirectory(output);
                 var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions
@@ -148,14 +152,14 @@ namespace MeteorDefenseVR.Editor
                     locationPathName=output+"/MeteorDefenseVR.exe",
                     target=BuildTarget.StandaloneWindows64,
                     options=BuildOptions.None,
-                    extraScriptingDefines=new[]{"RECORDS_QA"}
+                    extraScriptingDefines=new[]{define}
                 });
                 if(report.summary.result!=BuildResult.Succeeded) throw new Exception("Instrumented records build failed");
                 identity.buildVersion=PlayerSettings.bundleVersion;
                 identity.buildTimeKST=DateTimeOffset.Now.ToString("O");
                 identity.unityVersion=Application.unityVersion;
                 File.WriteAllText(output+"/BUILD_IDENTITY.json",JsonUtility.ToJson(identity,true));
-                File.WriteAllText(output+"/INSTRUMENTED_ONLY.txt","RECORDS_QA; private test build, NOT the public 6d27c10 ZIP. Explicit --pc-populated-records-qa flag required. Memory-only fixtures.\n");
+                File.WriteAllText(output+"/INSTRUMENTED_ONLY.txt",define+"; private test build, NOT the public 6d27c10 ZIP. Explicit "+flag+" flag required. Memory-only fixtures.\n");
             });
         public static void BuildWindowsAndCapture()
         {
