@@ -1,0 +1,16 @@
+ExtractedFinal\1280x720\reselect\easy-selected\stability-game-render.png
+ExtractedFinal\1280x720\reselect\experience-after-expiry\stability-game-render.png
+ExtractedFinal\1280x720\reselect\experience-reselected\stability-game-render.png
+ExtractedFinal\1280x720\reselect\experience-selected\stability-game-render.png
+ExtractedFinal\1280x720\reselect\expired\stability-game-render.png
+ExtractedFinal\1280x720\reselect\normal-selected\stability-game-render.png
+ExtractedFinal\1280x720\start-select\expired\stability-game-render.png
+ExtractedFinal\1280x720\start-select\reading-window\stability-game-render.png
+ExtractedFinal\1280x720\start-select\selected-200ms\stability-game-render.png
+ExtractedFinal\1280x720\start-select\selected-immediate\stability-game-render.png
+ExtractedFinal\800x600\reselect\easy-selected\stability-game-render.png
+ExtractedFinal\800x600\reselect\experience-after-expiry\stability-game-render.png
+ExtractedFinal\800x600\reselect\experience-reselected\stability-game-render.png
+ExtractedFinal\800x600\reselect\experience-selected\stability-game-render.png
+ExtractedFinal\800x600\reselect\expired\stability-game-render.png
+ExtractedFinal\800x600\reselect\normal-selected\stability-game-render.png

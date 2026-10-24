@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-24 18:03:50Z" end-time="2026-10-24 18:04:04Z" duration="13.9317249">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="467" result="Passed" start-time="2026-10-24 18:03:50Z" end-time="2026-10-24 18:04:04Z" duration="13.931725" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1614" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="467" result="Passed" start-time="2026-10-24 18:03:50Z" end-time="2026-10-24 18:04:04Z" duration="13.784579" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="39540" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1615" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="467" result="Passed" start-time="2026-10-24 18:03:50Z" end-time="2026-10-24 18:04:04Z" duration="13.778523" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1616" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="467" result="Passed" start-time="2026-10-24 18:03:50Z" end-time="2026-10-24 18:04:04Z" duration="13.772585" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1188" name="ExperienceTipTests" fullname="MeteorDefenseVR.Tests.ExperienceTipTests" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-24 18:03:50Z" end-time="2026-10-24 18:04:04Z" duration="13.745406" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1190" name="Reselect1280" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Reselect1280" methodname="Reselect1280" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1061615881" result="Passed" start-time="2026-10-24 18:03:06Z" end-time="2026-10-24 18:03:39Z" duration="33.003680" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+            </test-case>
+            <test-case id="1189" name="Reselect800" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Reselect800" methodname="Reselect800" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1389432703" result="Passed" start-time="2026-10-24 18:03:39Z" end-time="2026-10-24 18:04:04Z" duration="24.868525" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

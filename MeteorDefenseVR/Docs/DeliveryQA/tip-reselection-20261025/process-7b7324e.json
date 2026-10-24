@@ -1,0 +1,26 @@
+[
+  {
+    "endedUtc": "2026-10-24T18:21:38.3936581Z",
+    "timedOut": false,
+    "startedUtc": "2026-10-24T18:21:21.8207183Z",
+    "nativeExitCode": 0,
+    "scenario": "reselect",
+    "width": 800
+  },
+  {
+    "endedUtc": "2026-10-24T18:21:54.6830874Z",
+    "timedOut": false,
+    "startedUtc": "2026-10-24T18:21:38.3975457Z",
+    "nativeExitCode": 0,
+    "scenario": "reselect",
+    "width": 1280
+  },
+  {
+    "endedUtc": "2026-10-24T18:22:08.8255843Z",
+    "timedOut": false,
+    "startedUtc": "2026-10-24T18:21:54.6869464Z",
+    "nativeExitCode": 0,
+    "scenario": "start-select",
+    "width": 1280
+  }
+]

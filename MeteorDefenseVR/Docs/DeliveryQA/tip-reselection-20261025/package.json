@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\TipReselection20261025\\MeteorDefenseVR-Windows-TipReselection-20261025.zip",
+  "bytes": 89586494,
+  "sha256": "795c8aced30e40efb499740904d519da61124a913ed767343b93b66f8e23630b",
+  "verifiedFiles": 222,
+  "buildDirectory": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Windows\\RC_0.2.0-rc.1_7b7324e",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "7b7324edc12aa3de2a60010213de1e4547d7d49e",
+    "gitCommitShort": "7b7324e",
+    "buildTimeKST": "2026-10-25T03:07:59+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}

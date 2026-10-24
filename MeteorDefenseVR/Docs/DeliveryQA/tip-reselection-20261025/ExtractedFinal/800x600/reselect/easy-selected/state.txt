@@ -1,0 +1,2 @@
+instance=568105589213756728; scenario=reselect; 800x600; panel=True; tip=False; remaining=0; instruction=True; text=난이도를 선택하세요; simultaneous=False; glyphOverlap=False; tipGlyphBounds=(x:0.17, y:0.67, width:0.66, height:0.05); promptGlyphBounds=(x:0.38, y:0.69, width:0.24, height:0.03); firstHidden=0; firstShown=4.840308
+selected=Easy; checked=Easy; expectedTip=False
