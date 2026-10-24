@@ -103,7 +103,40 @@ namespace MeteorDefenseVR.PcInput
                 Canvas.ForceUpdateCanvases();
                 PcStabilityRenderDriver.RenderForProof(camera);
                 probe.SaveGameOnlyProof(folder, router);
+#if INTEGRATION_QA
+                var selection = Object.FindAnyObjectByType<DifficultySelectionView>();
+                var difficulty = Object.FindAnyObjectByType<DifficultyManager>();
+                var tip = selection.Choices[0].transform.parent.Find("ExtremeNotice").gameObject;
+                var texts = Object.FindObjectsByType<TMPro.TextMeshPro>(FindObjectsInactive.Include);
+                var notice = texts.First(t => t.name == "FlightNotice");
+                var praise = texts.First(t => t.name == "CombatPraise");
+                var power = MeteorDefenseVR.PowerUps.PowerUpManager.Instance;
+                var checks = selection.Choices.Where(c => c.transform.Find("SelectedCheck").gameObject.activeSelf).Select(c => c.Level).ToArray();
+                bool resetClean = !tip.activeInHierarchy && !notice.enabled && !praise.enabled
+                    && hud.FeedbackRemaining == 0 && string.IsNullOrEmpty(hud.FeedbackMessage)
+                    && power.ActiveWorldItems == 0 && power.ActiveBuffCount == 0
+                    && difficulty.Selected == difficulty.Settings.Default
+                    && checks.Length == 1 && checks[0] == difficulty.Selected;
+                File.WriteAllText(Path.Combine(folder,"integration-state.txt"),
+                    $"Instrumented-only observation; public product7b7324e plus QA hooks\nlabel={label}; time={Time.realtimeSinceStartup}; state={flow.CurrentState}; lobby={lobby.Phase}\n"+
+                    $"selected={difficulty.Selected}; session={difficulty.Session.Level}; hudDifficulty={hud.CampaignDifficulty}; checked={string.Join(",",checks)}; tipActive={tip.activeInHierarchy}\n"+
+                    $"noticeEnabled={notice.enabled}; noticeAlpha={notice.color.a}; noticeText={notice.text}; praiseEnabled={praise.enabled}; praiseText={praise.text}\n"+
+                    $"feedbackRemaining={hud.FeedbackRemaining}; feedback={hud.FeedbackMessage}; items={power.ActiveWorldItems}; buffs={power.ActiveBuffCount}; score={stats.Score}\n"+
+                    $"inputSuspended={router.InputSuspended}; modal={router.UiModalOpen}; calibrating={router.CalibrationInProgress}; resetClean={resetClean}\n");
+                if(label.EndsWith("-reset") && !resetClean) report.issues.Add("Integration reset UI residue: "+label);
+#endif
             }
+#if INTEGRATION_QA
+            IEnumerator CaptureRendered(string label)
+            {
+                bool done=false; Exception failure=null;
+                var driver=Object.FindAnyObjectByType<PcStabilityRenderDriver>();
+                Action completed=()=>{try{Capture(label);}catch(Exception e){failure=e;}done=true;};
+                driver.RenderCompleted+=completed;
+                try{while(!done)yield return null;}finally{driver.RenderCompleted-=completed;}
+                if(failure!=null)throw failure;
+            }
+#endif
             report.gpu = SystemInfo.graphicsDeviceName + " / " + SystemInfo.graphicsDeviceType;
             report.allocationCounterAvailable = probe.AllocationCounterAvailable;
             report.profilerAllocationCounterAvailable = probe.ProfilerAllocationCounterAvailable;
@@ -169,10 +202,16 @@ namespace MeteorDefenseVR.PcInput
                 yield return new WaitForSecondsRealtime(.5f); // Keep proof readback outside timed rounds.
                 for (int round = 1; round <= repetitions; round++)
                 {
+#if INTEGRATION_QA
+                    capturedStates.Clear();
+#endif
                     UnityEngine.Random.InitState(7300 + round);
                     var difficulty = Object.FindAnyObjectByType<DifficultyManager>();
                     if (difficulty != null && difficulty.Selected != DifficultyLevel.Experience)
                         difficulty.Select(DifficultyLevel.Experience);
+#if INTEGRATION_QA
+                    yield return CaptureRendered("round-"+round+"-ready");
+#endif
                     counts.Clear(); stageTimes.Clear(); frames.Clear(); bossFrames.Clear(); peakParticles=0; snapshot = null;
                     errors = warnings = resultEvents = completeAudio = resultAudio = 0; statsAgree = true;
                     allFrames.Clear();aliveSpawnEvents.Clear();allocationTotal=allocationMax=0;
@@ -215,13 +254,20 @@ namespace MeteorDefenseVR.PcInput
                         if (premiumVfx != null) peakParticles=Mathf.Max(peakParticles,premiumVfx.ActiveParticleCount);
                         if (deliveryQa && Time.realtimeSinceStartup - stateStart > 1.7f
                             && capturedStates.Add(flow.CurrentState))
+#if INTEGRATION_QA
+                            yield return CaptureRendered("round-"+round+"-"+flow.CurrentState);
+#else
                             Capture("victory-" + flow.CurrentState);
+#endif
                         if (lobby != null && lobby.IsMenuReady) lobby.Queue(HangarLobbyController.MenuAction.Standby);
                         if (reachedResult > 0 && flow.CurrentState == GameState.Boot) break;
                         yield return null;
                     }
                     float resetTime = Time.realtimeSinceStartup;
                     yield return new WaitForSecondsRealtime(Mathf.Max(.5f, audio != null ? audio.FadeDuration + .1f : .5f)); // Include the intentional Reset music fade.
+#if INTEGRATION_QA
+                    yield return CaptureRendered("round-"+round+"-reset");
+#endif
                     // Do not force GC: production-like heap growth and natural collections must remain observable.
                     frames.Sort();
                     bossFrames.Sort();
@@ -430,6 +476,9 @@ namespace MeteorDefenseVR.PcInput
                 && !report.issues.Contains("Intro transition fixture failed")
                 && !report.issues.Contains("Victory Earth fixture failed")
                 && !report.issues.Contains("Control drone fixture failed");
+#if INTEGRATION_QA
+            report.passed &= !report.issues.Any(issue=>issue.StartsWith("Integration reset UI residue:"));
+#endif
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
             Debug.Log("[PCSoak] " + (report.passed ? "PASS" : "FAIL") + "; QA/pc-soak.json");
             Application.Quit(report.passed ? 0 : 2);

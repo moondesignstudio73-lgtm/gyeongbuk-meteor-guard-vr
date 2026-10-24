@@ -138,6 +138,8 @@ namespace MeteorDefenseVR.Editor
             => BuildIsolatedUiTest("RECORDS_QA", "InstrumentedRecords", "--pc-populated-records-qa");
         public static void BuildStartAspectInstrumented()
             => BuildIsolatedUiTest("START_ASPECT_QA", "InstrumentedStartAspect", "--pc-start-aspect-qa");
+        public static void BuildIntegrationInstrumented()
+            => BuildIsolatedUiTest("INTEGRATION_QA", "InstrumentedIntegration", "--pc-soak");
         private static void BuildIsolatedUiTest(string define, string prefix, string flag)
             => WithResources(() =>
             {
