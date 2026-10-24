@@ -1,0 +1,19 @@
+Same supported distinct drops as multiple-edge proof; max3 live setting. Camera-only entry/overlap/exit sweep. Actual colliders, elapsed callback dwell, paused settings UI callbacks and reset. Controlled camera rendering, not human/OS/HMD.
+(800, 600)/entry: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.42, y:0.90, width:0.17, height:0.08)
+(800, 600)/overlap: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.42, y:0.90, width:0.17, height:0.08)
+(800, 600)/exit: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.42, y:0.90, width:0.17, height:0.08)
+(800, 600)/warning: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.42, y:0.90, width:0.17, height:0.08)
+(800, 600)/paused-settings: state=Playing; paused=True; gate=True; settings=True; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.42, y:0.90, width:0.17, height:0.08)
+(800, 600)/partial-gaze: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.42, y:0.90, width:0.17, height:0.08)
+(800, 600)/acquired: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.42, y:0.90, width:0.17, height:0.08)
+(800, 600)/reset: state=Boot; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  3 / 3; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.42, y:0.90, width:0.17, height:0.08)
+(2560, 1080)/entry: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+(2560, 1080)/overlap: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+(2560, 1080)/exit: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+(2560, 1080)/warning: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+(2560, 1080)/paused-settings: state=Playing; paused=True; gate=True; settings=True; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+(2560, 1080)/partial-gaze: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+(2560, 1080)/acquired: state=Playing; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  4 / 4; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+(2560, 1080)/reset: state=Boot; paused=False; gate=False; settings=False; stage=보통  ·  구역 01; count=남은 운석  3 / 3; fill=RGBA(0.003, 0.018, 0.028, 1.000); stageRect=(x:0.44, y:0.87, width:0.13, height:0.10)
+captureCompleted=True; validate=True
+passed=True

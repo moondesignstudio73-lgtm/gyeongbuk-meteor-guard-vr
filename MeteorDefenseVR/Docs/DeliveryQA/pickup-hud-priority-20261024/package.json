@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\PickupHudPriority20261024\\MeteorDefenseVR-Windows-PickupHudPriority-20261024.zip",
+  "bytes": 89566599,
+  "sha256": "32429e8756d995396fbb3ae826a15b5a3cff0788533ede8ccfcd9ef02c2812db",
+  "verifiedFiles": 222,
+  "buildDirectory": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Windows\\RC_0.2.0-rc.1_963f2b9",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "963f2b9c86cef0a1b13f9c608adf9e1fd5a44b84",
+    "gitCommitShort": "963f2b9",
+    "buildTimeKST": "2026-10-24T12:53:31+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}
