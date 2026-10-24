@@ -71,7 +71,7 @@ namespace MeteorDefenseVR.PcInput {
    var items=FindObjectsByType<PowerUpItem>(FindObjectsInactive.Include);var hud=FindAnyObjectByType<GameplayHudOverlayView>();if(view==null||font==null||items.Length==0||hud==null||hud.HealthValue==null)return;
    font=hud.HealthValue.font;
    var go=new GameObject("PickupInstructions",typeof(RectTransform),typeof(Canvas),typeof(UnityEngine.UI.CanvasScaler));root=(RectTransform)go.transform;root.SetParent(view.transform,false);go.layer=LayerMask.NameToLayer("Player HUD");
-   canvas=go.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=view;canvas.planeDistance=2.6f;canvas.sortingOrder=23;
+   canvas=go.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=view;canvas.planeDistance=.25f;canvas.sortingOrder=230;
    var scaler=go.GetComponent<UnityEngine.UI.CanvasScaler>();scaler.uiScaleMode=UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1280,720);scaler.screenMatchMode=UnityEngine.UI.CanvasScaler.ScreenMatchMode.Expand;
    foreach(var item in items){
     var source=item.GetComponentInChildren<TextMesh>(true);if(source==null)continue;

@@ -1,0 +1,23 @@
+Live settings: max=3; lifetime=7; drift=0.35; chance=0.09. Distinct CalculateSpawnPosition locations; real meteor pool and TryDrop with explicit valid random rolls. Camera pan only after spawn. Controlled render/collider callback checks, not natural play/OS/HMD.
+(800, 600): origins=(-2.05, 0.00, 13.85);(0.00, 0.00, 14.00);(2.05, 0.00, 13.85); ids=568105589213754748,568105589213754708,568105589213754668; types=Heal,Heal,Shield
+(800, 600)/close-three: labels=3; collisions=0
+(800, 600)/left: labels=3; collisions=0
+(800, 600)/right: labels=3; collisions=0
+(800, 600)/upper: labels=3; collisions=0
+(800, 600)/lower: labels=3; collisions=0
+(800, 600)/partial-gaze: labels=3; collisions=0
+(800, 600)/acquired: labels=2; collisions=0
+(800, 600)/reused: labels=3; collisions=0
+(800, 600)/reset: labels=0; collisions=0
+(2560, 1080): origins=(-2.05, 0.00, 13.85);(0.00, 0.00, 14.00);(2.05, 0.00, 13.85); ids=568105589213754748,568105589213754708,568105589213754668; types=Heal,Heal,Shield
+(2560, 1080)/close-three: labels=3; collisions=0
+(2560, 1080)/left: labels=3; collisions=0
+(2560, 1080)/right: labels=3; collisions=0
+(2560, 1080)/upper: labels=3; collisions=0
+(2560, 1080)/lower: labels=3; collisions=0
+(2560, 1080)/partial-gaze: labels=3; collisions=0
+(2560, 1080)/acquired: labels=2; collisions=0
+(2560, 1080)/reused: labels=3; collisions=0
+(2560, 1080)/reset: labels=0; collisions=0
+captureCompleted=True; validate=True
+passed=True
