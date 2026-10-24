@@ -27,6 +27,7 @@ public static class StartAspectPlayerProof {
   public static void LessOrEqual(float a,float b){IsTrue(a<=b);}
  }
  public static IEnumerator Run(string output){
+  yield return new WaitForSecondsRealtime(1f);
 
   var camera=Camera.main;var reset=Object.FindAnyObjectByType<OperationsResetController>();var router=Object.FindAnyObjectByType<GazeInputRouter>();var caster=Object.FindAnyObjectByType<GazeRaycaster>();
   var difficulty=Object.FindAnyObjectByType<DifficultyManager>();var selection=Object.FindAnyObjectByType<DifficultySelectionView>();
@@ -43,7 +44,7 @@ public static class StartAspectPlayerProof {
   try{foreach(var size in new[]{new Vector2Int(1280,720),new Vector2Int(1920,1080)}){
    difficulty.Settings.lockDifficultySelection=false;reset.ResetExperience();router.InputSuspended=true;
    float end=Time.unscaledTime+25;while((selection.Choices[0]==null||!selection.Choices[0].isActiveAndEnabled)&&Time.unscaledTime<end)yield return null;
-   Assert.IsTrue(selection.Choices.All(c=>c!=null&&c.isActiveAndEnabled));
+   Assert.IsTrue(selection.Choices.All(c=>c!=null&&c.isActiveAndEnabled));caster.enabled=false;caster.SetProvider(synthetic);router.InputSuspended=true;
    using var probe=new PcStabilityProbe(camera,size.x,size.y);yield return new WaitForSecondsRealtime(.6f);
    void Save(string state){
     Canvas.ForceUpdateCanvases();camera.GetComponent<WorldUiSafeArea>().Apply();PcStabilityRenderDriver.RenderForProof(camera);Physics.SyncTransforms();
@@ -88,3 +89,4 @@ public static class StartAspectPlayerProof {
 }}
 
 #endif
+
