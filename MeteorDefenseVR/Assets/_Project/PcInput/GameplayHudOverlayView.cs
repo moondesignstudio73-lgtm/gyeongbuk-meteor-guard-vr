@@ -37,6 +37,9 @@ namespace MeteorDefenseVR.PcInput
         private static readonly Color Warning = new Color32(255, 123, 73, 255);
         private bool? worldMode;
         private string presentedMessage = string.Empty;
+        private DifficultyManager difficultyManager;
+        private DifficultyLevel? presentedDifficulty;
+        private int presentedStage = -1;
 
         public Canvas HudCanvas => canvas;
         public GameObject TelemetryRoot => telemetryRoot;
@@ -79,6 +82,7 @@ namespace MeteorDefenseVR.PcInput
             ProtectTelemetryContrast();
             healthValue = health;
             difficultyStageValue = difficultyStage;
+            presentedDifficulty = null;
             asteroidLabel = asteroidsLabel;
             asteroidValue = asteroids;
             scoreValue = score;
@@ -131,6 +135,7 @@ namespace MeteorDefenseVR.PcInput
         public void RefreshPresentation()
         {
             HideLegacyRenderers();
+            PresentDifficultyStage();
             if (playerCamera != null) ApplyCanvasMode(playerCamera.stereoEnabled);
             bool telemetryVisible = legacyHudRoot != null && legacyHudRoot.activeInHierarchy;
             if (telemetryRoot != null && telemetryRoot.activeSelf != telemetryVisible) telemetryRoot.SetActive(telemetryVisible);
@@ -236,18 +241,34 @@ namespace MeteorDefenseVR.PcInput
 
         private void PresentMeteorProgress(int remaining, int total)
         {
+            PresentDifficultyStage();
             if (controller != null && controller.CampaignStage > 0)
             {
-                SetText(difficultyStageValue, FormatDifficultyStage(controller.CampaignDifficulty, controller.CampaignStage));
                 SetText(asteroidValue, controller.BossIncoming
                     ? $"보스 운석  {Mathf.RoundToInt(controller.BossHealthNormalized * 100f):D3}%"
                     : $"남은 운석  {FormatAsteroidValue(remaining, total)}");
             }
             else
             {
-                SetText(difficultyStageValue, FormatDifficultyStage(DifficultyLevel.Normal, 1));
                 SetText(asteroidValue, $"남은 운석  {FormatAsteroidValue(remaining, total)}");
             }
+        }
+
+        private void PresentDifficultyStage()
+        {
+            if (difficultyStageValue == null) return;
+            if (difficultyManager == null)
+                difficultyManager = FindAnyObjectByType<DifficultyManager>(FindObjectsInactive.Include);
+            bool campaign = controller != null && controller.CampaignStage > 0;
+            DifficultyLevel level = campaign ? controller.CampaignDifficulty
+                : difficultyManager != null ? difficultyManager.Session.Level : DifficultyLevel.Normal;
+            int stage = campaign ? controller.CampaignStage : 1;
+            // Read the frozen session in combat, and the refreshed session after reset.
+            // Polling the value also handles selection/reset without a meteor-count event.
+            if (presentedDifficulty == level && presentedStage == stage) return;
+            presentedDifficulty = level;
+            presentedStage = stage;
+            SetText(difficultyStageValue, FormatDifficultyStage(level, stage));
         }
 
         private void PresentScore(int score) => SetText(scoreValue, FormatScoreValue(score));
