@@ -1,0 +1,2 @@
+instance=568105589213756728; scenario=locked-default; 800x600; panel=True; tip=True; remaining=3.988889; instruction=True; text=난이도 고정: 체험; simultaneous=True; glyphOverlap=True; tipGlyphBounds=(x:0.14, y:0.72, width:0.73, height:0.05); promptGlyphBounds=(x:0.40, y:0.69, width:0.20, height:0.03); firstHidden=0; firstShown=4.791346
+tipText=체험은 짧은 임무로 조작을 익히기 좋아요.; font=470; color=RGBA(1.000, 1.000, 1.000, 1.000); minHangulGlyphBoxPx=24.634; truncated=False; autosize=False; neighborOverlaps=; exactBounds=0.136656,0.718726,0.862729,0.773239

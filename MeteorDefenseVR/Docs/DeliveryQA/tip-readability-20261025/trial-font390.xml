@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Failed(Child)" total="7" passed="2" failed="5" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-24 16:07:41Z" end-time="2026-10-24 16:07:53Z" duration="11.8510084">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="465" result="Failed" site="Child" start-time="2026-10-24 16:07:41Z" end-time="2026-10-24 16:07:53Z" duration="11.851008" total="7" passed="2" failed="5" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1612" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="465" result="Failed" site="Child" start-time="2026-10-24 16:07:41Z" end-time="2026-10-24 16:07:53Z" duration="11.696708" total="7" passed="2" failed="5" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="44464" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1613" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="465" result="Failed" site="Child" start-time="2026-10-24 16:07:41Z" end-time="2026-10-24 16:07:53Z" duration="11.691233" total="7" passed="2" failed="5" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1614" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="465" result="Failed" site="Child" start-time="2026-10-24 16:07:41Z" end-time="2026-10-24 16:07:53Z" duration="11.685980" total="7" passed="2" failed="5" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1188" name="ExperienceTipTests" fullname="MeteorDefenseVR.Tests.ExperienceTipTests" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" testcasecount="8" result="Failed" site="Child" start-time="2026-10-24 16:07:42Z" end-time="2026-10-24 16:07:53Z" duration="11.607749" total="7" passed="2" failed="5" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1196" name="Lobby1280" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Lobby1280" methodname="Lobby1280" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="199462644" result="Failed" label="Error" start-time="2026-10-24 16:05:26Z" end-time="2026-10-24 16:05:51Z" duration="24.948071" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Tip covers title/cards]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.ExperienceTipProof+<>c__DisplayClass3_0+<<Run>g__Capture|7>d.MoveNext () [0x000dd] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\ExperienceTipProof.cs:54 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Result
+]]></output>
+            </test-case>
+            <test-case id="1195" name="Lobby800" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Lobby800" methodname="Lobby800" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="2015317446" result="Failed" label="Error" start-time="2026-10-24 16:05:51Z" end-time="2026-10-24 16:06:14Z" duration="23.286192" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Tip glyph size below18px]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.ExperienceTipProof+<>c__DisplayClass3_0+<<Run>g__Capture|7>d.MoveNext () [0x000dd] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\ExperienceTipProof.cs:54 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Result
+]]></output>
+            </test-case>
+            <test-case id="1190" name="LobbyWide" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.LobbyWide" methodname="LobbyWide" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1062634295" result="Failed" label="Error" start-time="2026-10-24 16:06:14Z" end-time="2026-10-24 16:06:35Z" duration="21.287794" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Tip covers title/cards]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.ExperienceTipProof+<>c__DisplayClass3_0+<<Run>g__Capture|7>d.MoveNext () [0x000dd] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\ExperienceTipProof.cs:54 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Result
+]]></output>
+            </test-case>
+            <test-case id="1192" name="Locked1280" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Locked1280" methodname="Locked1280" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="205755442" result="Failed" label="Error" start-time="2026-10-24 16:06:35Z" end-time="2026-10-24 16:06:54Z" duration="19.095609" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Tip/prompt glyph overlap]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.ExperienceTipProof+<Run>d__3.MoveNext () [0x00bc9] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\ExperienceTipProof.cs:72 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1191" name="Locked800" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Locked800" methodname="Locked800" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="177234313" result="Passed" start-time="2026-10-24 16:06:54Z" end-time="2026-10-24 16:07:13Z" duration="19.084684" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+            </test-case>
+            <test-case id="1189" name="LockedWide" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.LockedWide" methodname="LockedWide" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="406753451" result="Failed" label="Error" start-time="2026-10-24 16:07:13Z" end-time="2026-10-24 16:07:33Z" duration="19.168797" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Tip/prompt glyph overlap]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.ExperienceTipProof+<Run>d__3.MoveNext () [0x00bc9] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\ExperienceTipProof.cs:72 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1193" name="Select800" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Select800" methodname="Select800" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1912794014" result="Passed" start-time="2026-10-24 16:07:33Z" end-time="2026-10-24 16:07:53Z" duration="20.591357" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

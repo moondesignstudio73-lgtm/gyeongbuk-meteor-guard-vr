@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\TipReadability20261025\\MeteorDefenseVR-Windows-TipReadability-20261025.zip",
+  "bytes": 89585817,
+  "sha256": "75cc042dac0e27db1f57a57e756c0441fca6f3e0830358ba5b342d12eebf2283",
+  "verifiedFiles": 222,
+  "buildDirectory": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Windows\\RC_0.2.0-rc.1_7d852c9",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "7d852c9f6cf6e5bb5060385f5e2e081daee729d0",
+    "gitCommitShort": "7d852c9",
+    "buildTimeKST": "2026-10-25T01:22:19+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}

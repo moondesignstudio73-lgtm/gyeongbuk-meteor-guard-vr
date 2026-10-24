@@ -1,0 +1,4 @@
+Ordinary Unity Windows build completed successfully (build.log: Build Finished, Result: Success).
+Wrapper exit1 was post-build user settings Copy-Item restore failure: Windows mapped-file lock, including five retries.
+After verifying current ProjectSettings equals committed HEAD, restored exact pre-build bytes with WriteAllBytes; SHA256 equals backup. User Standalone APP_UI_EDITOR_ONLY edit preserved.
+Final31137b2 build wrapper exited0; exact user-settings bytes restored and SHA matched.

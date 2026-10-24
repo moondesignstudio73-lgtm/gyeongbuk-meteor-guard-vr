@@ -1,0 +1,1 @@
+instance=568105589213737080; scenario=locked-default; 2560x1080; panel=True; tip=False; remaining=0; instruction=True; text=난이도 고정: 체험; simultaneous=False; glyphOverlap=False; tipGlyphBounds=(x:0.39, y:0.78, width:0.23, height:0.03); promptGlyphBounds=(x:0.43, y:0.72, width:0.14, height:0.04); firstHidden=0; firstShown=5.217971

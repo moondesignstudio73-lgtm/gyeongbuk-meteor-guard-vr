@@ -1,0 +1,2 @@
+passed=True
+GPU=NVIDIA GeForce RTX 3070 / Direct3D12

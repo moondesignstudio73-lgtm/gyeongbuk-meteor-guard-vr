@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Failed(Child)" total="8" passed="5" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-24 16:15:51Z" end-time="2026-10-24 16:16:03Z" duration="11.7757686">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="465" result="Failed" site="Child" start-time="2026-10-24 16:15:51Z" end-time="2026-10-24 16:16:03Z" duration="11.775769" total="8" passed="5" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1612" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="465" result="Failed" site="Child" start-time="2026-10-24 16:15:51Z" end-time="2026-10-24 16:16:03Z" duration="11.633410" total="8" passed="5" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="35220" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1613" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="465" result="Failed" site="Child" start-time="2026-10-24 16:15:51Z" end-time="2026-10-24 16:16:03Z" duration="11.628193" total="8" passed="5" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1614" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="465" result="Failed" site="Child" start-time="2026-10-24 16:15:51Z" end-time="2026-10-24 16:16:03Z" duration="11.623521" total="8" passed="5" failed="3" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1188" name="ExperienceTipTests" fullname="MeteorDefenseVR.Tests.ExperienceTipTests" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" testcasecount="8" result="Failed" site="Child" start-time="2026-10-24 16:15:51Z" end-time="2026-10-24 16:16:03Z" duration="11.609374" total="8" passed="5" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1196" name="Lobby1280" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Lobby1280" methodname="Lobby1280" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="580177202" result="Passed" start-time="2026-10-24 16:13:07Z" end-time="2026-10-24 16:13:38Z" duration="30.941738" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Result
+]]></output>
+            </test-case>
+            <test-case id="1195" name="Lobby800" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Lobby800" methodname="Lobby800" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1282394095" result="Failed" start-time="2026-10-24 16:13:38Z" end-time="2026-10-24 16:14:06Z" duration="28.443530" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <failure>
+                <message><![CDATA[TearDown : Unhandled log message: '[Exception] MissingReferenceException: The object of type 'MeteorDefenseVR.Audio.AudioManager' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <2f52b751ded44e96b74c2c8a24c6c65b>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <2f52b751ded44e96b74c2c8a24c6c65b>:0)
+UnityEngine.Behaviour.get_isActiveAndEnabled () (at <2f52b751ded44e96b74c2c8a24c6c65b>:0)
+MeteorDefenseVR.Audio.AudioManager.TryPlay (MeteorDefenseVR.Audio.AudioCue cue, System.Double timestamp) (at Assets/_Project/Audio/AudioManager.cs:159)
+MeteorDefenseVR.Audio.AudioManager.TryPlay (MeteorDefenseVR.Audio.AudioCue cue) (at Assets/_Project/Audio/AudioManager.cs:142)
+MeteorDefenseVR.Audio.GameAudioEventRouter.HandleResultShown (MeteorDefenseVR.GameFlow.GameSessionSnapshot _, System.String __) (at Assets/_Project/Audio/GameAudioEventRouter.cs:201)
+MeteorDefenseVR.GameFlow.ResultController.RevealPreparedResult () (at Assets/_Project/GameFlow/ResultController.cs:62)
+MeteorDefenseVR.GameFlow.ResultController.ShowResult () (at Assets/_Project/GameFlow/ResultController.cs:54)
+MeteorDefenseVR.PcInput.HangarLobbyController.OnDisable () (at Assets/_Project/PcInput/HangarLobbyController.cs:88)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Result
+MissingReferenceException: The object of type 'MeteorDefenseVR.Audio.AudioManager' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <2f52b751ded44e96b74c2c8a24c6c65b>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <2f52b751ded44e96b74c2c8a24c6c65b>:0)
+UnityEngine.Behaviour.get_isActiveAndEnabled () (at <2f52b751ded44e96b74c2c8a24c6c65b>:0)
+MeteorDefenseVR.Audio.AudioManager.TryPlay (MeteorDefenseVR.Audio.AudioCue cue, System.Double timestamp) (at Assets/_Project/Audio/AudioManager.cs:159)
+MeteorDefenseVR.Audio.AudioManager.TryPlay (MeteorDefenseVR.Audio.AudioCue cue) (at Assets/_Project/Audio/AudioManager.cs:142)
+MeteorDefenseVR.Audio.GameAudioEventRouter.HandleResultShown (MeteorDefenseVR.GameFlow.GameSessionSnapshot _, System.String __) (at Assets/_Project/Audio/GameAudioEventRouter.cs:201)
+MeteorDefenseVR.GameFlow.ResultController.RevealPreparedResult () (at Assets/_Project/GameFlow/ResultController.cs:62)
+MeteorDefenseVR.GameFlow.ResultController.ShowResult () (at Assets/_Project/GameFlow/ResultController.cs:54)
+MeteorDefenseVR.PcInput.HangarLobbyController.OnDisable () (at Assets/_Project/PcInput/HangarLobbyController.cs:88)
+
+]]></output>
+            </test-case>
+            <test-case id="1190" name="LobbyWide" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.LobbyWide" methodname="LobbyWide" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1690977674" result="Passed" start-time="2026-10-24 16:14:06Z" end-time="2026-10-24 16:14:33Z" duration="27.040430" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Result
+]]></output>
+            </test-case>
+            <test-case id="1192" name="Locked1280" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Locked1280" methodname="Locked1280" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="960190056" result="Failed" label="Error" start-time="2026-10-24 16:14:33Z" end-time="2026-10-24 16:14:48Z" duration="14.937698" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Tip covers title/cards]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.ExperienceTipProof+<>c__DisplayClass3_0+<<Run>g__Capture|7>d.MoveNext () [0x000dd] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\ExperienceTipProof.cs:54 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1191" name="Locked800" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Locked800" methodname="Locked800" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1277965803" result="Passed" start-time="2026-10-24 16:14:48Z" end-time="2026-10-24 16:15:07Z" duration="19.023654" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+            </test-case>
+            <test-case id="1189" name="LockedWide" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.LockedWide" methodname="LockedWide" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1660726676" result="Failed" label="Error" start-time="2026-10-24 16:15:07Z" end-time="2026-10-24 16:15:22Z" duration="14.752848" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.InvalidOperationException : Tip covers title/cards]]></message>
+                <stack-trace><![CDATA[  at MeteorDefenseVR.PcInput.ExperienceTipProof+<>c__DisplayClass3_0+<<Run>g__Capture|7>d.MoveNext () [0x000dd] in C:\Users\aaa\OneDrive\Desktop\game\VR콘텐츠\MeteorDefenseVR\Assets\_Project\PcInput\ExperienceTipProof.cs:54 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1194" name="Select1280" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Select1280" methodname="Select1280" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="886895330" result="Passed" start-time="2026-10-24 16:15:22Z" end-time="2026-10-24 16:15:42Z" duration="20.298937" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+              </properties>
+            </test-case>
+            <test-case id="1193" name="Select800" fullname="MeteorDefenseVR.Tests.ExperienceTipTests.Select800" methodname="Select800" classname="MeteorDefenseVR.Tests.ExperienceTipTests" runstate="Runnable" seed="1858975431" result="Passed" start-time="2026-10-24 16:15:42Z" end-time="2026-10-24 16:16:03Z" duration="20.364396" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="120000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

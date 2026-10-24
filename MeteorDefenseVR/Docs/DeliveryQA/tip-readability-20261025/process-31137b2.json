@@ -1,0 +1,66 @@
+[
+  {
+    "endedUtc": "2026-10-24T16:29:19.7466680Z",
+    "startedUtc": "2026-10-24T16:29:06.6523775Z",
+    "timedOut": false,
+    "width": 800,
+    "scenario": "locked-default",
+    "nativeExitCode": 0
+  },
+  {
+    "endedUtc": "2026-10-24T16:29:33.8648983Z",
+    "startedUtc": "2026-10-24T16:29:19.7509451Z",
+    "timedOut": false,
+    "width": 800,
+    "scenario": "start-select",
+    "nativeExitCode": 0
+  },
+  {
+    "endedUtc": "2026-10-24T16:29:54.3563806Z",
+    "startedUtc": "2026-10-24T16:29:33.8684377Z",
+    "timedOut": false,
+    "width": 800,
+    "scenario": "lobby-select",
+    "nativeExitCode": 0
+  },
+  {
+    "endedUtc": "2026-10-24T16:30:07.1245551Z",
+    "startedUtc": "2026-10-24T16:29:54.3602900Z",
+    "timedOut": false,
+    "width": 1280,
+    "scenario": "locked-default",
+    "nativeExitCode": 0
+  },
+  {
+    "endedUtc": "2026-10-24T16:30:21.2655700Z",
+    "startedUtc": "2026-10-24T16:30:07.1278058Z",
+    "timedOut": false,
+    "width": 1280,
+    "scenario": "start-select",
+    "nativeExitCode": 0
+  },
+  {
+    "endedUtc": "2026-10-24T16:30:41.8189552Z",
+    "startedUtc": "2026-10-24T16:30:21.2695214Z",
+    "timedOut": false,
+    "width": 1280,
+    "scenario": "lobby-select",
+    "nativeExitCode": 0
+  },
+  {
+    "endedUtc": "2026-10-24T16:30:54.6412482Z",
+    "startedUtc": "2026-10-24T16:30:41.8228383Z",
+    "timedOut": false,
+    "width": 2560,
+    "scenario": "locked-default",
+    "nativeExitCode": 0
+  },
+  {
+    "endedUtc": "2026-10-24T16:31:15.3597746Z",
+    "startedUtc": "2026-10-24T16:30:54.6453007Z",
+    "timedOut": false,
+    "width": 2560,
+    "scenario": "lobby-select",
+    "nativeExitCode": 0
+  }
+]
