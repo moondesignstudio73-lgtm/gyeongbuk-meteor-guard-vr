@@ -1,0 +1,30 @@
+# Difficulty HUD correction — 2026-10-25
+
+## Actual change
+GameplayHudOverlayView previously rendered Normal / area01 whenever MissionHudController.CampaignStage was zero. Experience uses that non-campaign branch. Public7b7324e integration images and its result snapshot established the discrepancy; the prior graphics audit did not change graphics or resolve this issue.
+
+Product1723e35 now reads DifficultyManager.Session.Level in the non-campaign branch, retains CampaignDifficulty/CampaignStage for campaigns, and refreshes the label when session/stage changes (including reset without a meteor-count event). Cached values avoid formatting an unchanged label every frame. No difficulty configuration, spawning, scoring or damage rules changed. Added opt-in --pc-difficulty-hud-qa=display harness is dormant during normal play.
+
+## Before/after Editor evidence
+Before is c949b23 product (same HUD as public7b7324e) plus the new observation harness, not a public executable. At800x600 and1280x720, four mismatches each: first Experience Playing/Boss and Experience Playing/Boss after Easy/Hard resets. The session was Experience but display was Normal. before.xml passed2/2 because validate=False intentionally records mismatches; this is reproduction, not defect-free acceptance. The initial QA harness compile attempt missed the Core namespace; corrected before the captured baseline, no product impact.
+
+After is the same harness with the production display change: after.xml2/2, validate=True, no mismatches in either resolution. Each resolution has15 captures: Experience/Easy/Hard/Experience Playing/Boss/Result, Easy/Hard stage10 metadata, final default reset. All30 state files record actual selected/frozen session, campaign metadata, display and result snapshot/text. First Experience Playing originals before/after at both resolutions were individually inspected. Automated text equality/truncation assertions are not a blanket visual quality or continuous-animation claim.
+
+## Scope of the fixture
+Uses direct Select, ResetGame, StartMainGame, StartBoss and ShowResult APIs; it injects transitions and does not complete combat. Easy/Hard stage10 metadata is explicitly set on the HUD to regress existing campaign display, not evidence of reaching stage10. Original scene render, HUD and result presenters run normally. Result assertions require actual visible text containing the snapshot difficulty. The default reset observation checks a hidden HUD's refreshed value, not a visible combat panel. Camera rendering uses the existing proof render driver after LateUpdate. No natural mouse selection, HMD, physical webcam, human play or audio acceptance is claimed. Input suspension is restored in finally; ranking uses memory-only batch behavior.
+
+## Delivery boundary
+Windows build, extracted executable validation, stable release identity and independent public download verification are recorded below. Suno, shared reviewer state and Drive remain untouched. User ProjectSettings must retain its exact original bytes; no private snapshots/full engine logs will be committed.
+
+## Windows package and release
+Clean source1723e35b0446f4d90e65de3aac2931ce4d227e7b, version0.2.0-rc.1, non-development Windows build succeeded. ZIP89,588,120bytes/222 files verified against source build and extracted bytes. SHA2562dd77360a229f16aa9e03acc94a5b5ce98ba0ce96b1f087097eeecd080c9e3c9. Pre-publication fresh extraction: two native processes800/1280, both exit0/timeoutfalse,30 images, all state checks passed, Direct3D12 RTX3070. No private defines or instrumented build substitution.
+
+GitHub release422984379/windows-difficulty-hud-20261025 published with the ZIP and checksum. Independent public redownload2026-10-24T21:11:40.5807876Z matched exact ZIP hash/size. See package.json, release.json, public-redownload-verification.json and separate public process report.
+
+Pre-publication originals individually inspected: first Experience Playing/Boss/Result at both resolutions, Hard stage10 at both, repeated Experience Playing at both, Easy stage10 at1280 (11 images). Stage10 is a metadata fixture: the central stage1 launch banner still belongs to the real progression state, so that image is explicitly not actual stage10 gameplay. Other captures were checked automatically and retained, not all claimed individually reviewed.
+
+## Preservation and boundaries
+Both Editor tests use scene-local/transient state. Windows preservation wrappers compare registry and ranking primary/bak/tmp; pre-publication run changed only four Unity per-launch session fields, no gameplay preferences or records. Build wrapper returned native success and restored user ProjectSettings byte-for-byte, SHA256 A8C1FEDDDF182D07C33D8F5162907A0E99DD81F06D1D1995ABDB82EFE963FE89. No full engine logs/private snapshots/settings backups are published. No new graphics work or music work is claimed. Existing whole-round audit remains prior-product evidence, not rerun full-game acceptance of this build.
+
+## Public downloaded ZIP execution
+The independently downloaded public ZIP was separately extracted to Builds/Verify/DifficultyHud_Public_1723e35. Every extracted file was compared to the verified build. Two new native processes at800x600 and1280x720 ran2026-10-24T21:11:45.8175561Z–21:12:14.0594822Z, both exit0, timeoutfalse, all30 state checks passed. Public-process and public-extracted-run JSON preserve exact exits/times; ExtractedPublic has30 original images and paired states. Individually reviewed public first Experience Playing/Boss/Result and repeated Experience Playing at both resolutions (8 originals). The exact selected/session/display/result values agree. Remaining screenshots are retained without an individual visual-review claim. Public-run preferences/records were unchanged except the same four Unity session fields; no restoration of user gameplay settings/records was needed. This closes the reproduced difficulty-name discrepancy for the tested states, not general UI/flicker/HMD acceptance.

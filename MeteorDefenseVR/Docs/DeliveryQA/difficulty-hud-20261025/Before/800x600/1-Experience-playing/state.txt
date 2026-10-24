@@ -1,0 +1,4 @@
+Forced state/display fixture; not natural input or combat completion. 800x600
+state=Playing; selected=Experience; session=Experience; frozen=True; campaignStage=0; campaignDifficulty=Normal
+display=보통  ·  구역 01; expected=체험  ·  구역 01; resultDifficulty=; correct=False
+resultText=

@@ -1,0 +1,18 @@
+[
+  {
+    "timedOut": false,
+    "scenario": "display",
+    "endedUtc": "2026-10-24T21:11:59.6624642Z",
+    "width": 800,
+    "startedUtc": "2026-10-24T21:11:45.8176419Z",
+    "nativeExitCode": 0
+  },
+  {
+    "timedOut": false,
+    "scenario": "display",
+    "endedUtc": "2026-10-24T21:12:13.5978145Z",
+    "width": 1280,
+    "startedUtc": "2026-10-24T21:11:59.6668695Z",
+    "nativeExitCode": 0
+  }
+]

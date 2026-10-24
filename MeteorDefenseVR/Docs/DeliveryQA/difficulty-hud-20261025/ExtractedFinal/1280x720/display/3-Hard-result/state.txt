@@ -1,0 +1,11 @@
+Forced state/display fixture; not natural input or combat completion. 1280x720
+state=Result; selected=Hard; session=Hard; frozen=True; campaignStage=10; campaignDifficulty=Hard
+display=어려움  ·  구역 10; expected=어려움  ·  구역 01; resultDifficulty=Hard; correct=True
+resultText=집계 중 0
+점수0
+파괴한 운석0
+명중률0%
+등급C
+난이도 : 어려움
+첫 격파에 도전해요!
+다음 B등급까지 1,500점

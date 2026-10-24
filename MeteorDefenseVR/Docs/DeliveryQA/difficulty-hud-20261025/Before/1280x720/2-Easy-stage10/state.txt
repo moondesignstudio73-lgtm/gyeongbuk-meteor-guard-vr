@@ -1,0 +1,4 @@
+Forced state/display fixture; not natural input or combat completion. 1280x720
+state=Playing; selected=Easy; session=Easy; frozen=True; campaignStage=10; campaignDifficulty=Easy
+display=쉬움  ·  구역 10; expected=쉬움  ·  구역 10; resultDifficulty=; correct=True
+resultText=

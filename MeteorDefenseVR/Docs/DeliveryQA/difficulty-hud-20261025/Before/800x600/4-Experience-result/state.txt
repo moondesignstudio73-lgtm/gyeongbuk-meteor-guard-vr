@@ -1,0 +1,11 @@
+Forced state/display fixture; not natural input or combat completion. 800x600
+state=Result; selected=Experience; session=Experience; frozen=True; campaignStage=0; campaignDifficulty=Hard
+display=보통  ·  구역 01; expected=체험  ·  구역 01; resultDifficulty=Experience; correct=True
+resultText=집계 중 0
+점수0
+파괴한 운석0
+명중률0%
+등급C
+난이도 : 체험
+첫 격파에 도전해요!
+다음 B등급까지 1,500점

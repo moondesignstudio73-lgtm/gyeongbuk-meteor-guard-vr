@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\DifficultyHud20261025\\MeteorDefenseVR-Windows-DifficultyHud-20261025.zip",
+  "bytes": 89588120,
+  "sha256": "2dd77360a229f16aa9e03acc94a5b5ce98ba0ce96b1f087097eeecd080c9e3c9",
+  "verifiedFiles": 222,
+  "buildDirectory": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Windows\\RC_0.2.0-rc.1_1723e35",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "1723e35b0446f4d90e65de3aac2931ce4d227e7b",
+    "gitCommitShort": "1723e35",
+    "buildTimeKST": "2026-10-25T06:09:36+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}
