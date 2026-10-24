@@ -1,0 +1,3 @@
+item=568105589213756642 type=Heal available=False pos=(-1.94, -0.02, 13.11) viewport=(0.45, 0.50, 13.11) progress=0
+item=568105589213756602 type=Heal available=False pos=(0.00, 1.79, 13.93) viewport=(0.50, 0.60, 13.93) progress=0
+item=568105589213756562 type=Shield available=False pos=(1.94, 0.02, 13.11) viewport=(0.55, 0.50, 13.11) progress=0

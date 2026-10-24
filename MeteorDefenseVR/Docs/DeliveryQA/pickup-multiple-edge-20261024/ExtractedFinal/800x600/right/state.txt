@@ -1,0 +1,6 @@
+label=선체 회복|바라보면 획득해요; rect=(x:0.75, y:0.37, width:0.21, height:0.12)
+label=방어막|바라보면 획득해요; rect=(x:0.65, y:0.61, width:0.21, height:0.12)
+label=선체 회복|바라보면 획득해요; rect=(x:0.53, y:0.36, width:0.21, height:0.12)
+item=568105589213756642 type=Heal available=True pos=(-2.02, -0.02, 13.65) viewport=(0.70, 0.55, 13.06) progress=0
+item=568105589213756602 type=Heal available=True pos=(0.00, -0.01, 13.80) viewport=(0.80, 0.55, 12.28) progress=0
+item=568105589213756562 type=Shield available=True pos=(2.02, 0.01, 13.65) viewport=(0.92, 0.56, 11.23) progress=0

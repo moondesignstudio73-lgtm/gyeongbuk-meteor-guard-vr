@@ -32,6 +32,8 @@ Completed at current source 34a6ff9 / product 411d9bab: Start16x9/{1280x720,1920
 
 ## Subsequent separate boss-wide gap audit
 
+Subsequent multiple-item/edge correction5bf6657: Q/pickup-multiple-edge-20261024 confirms live max3 with distinct supported drop positions. Baseline showed label/label, target-centre and essential-HUD intersections at800/wide. FinalDepth Editor1/1 and final fresh-extraction ExtractedFinal18 originals pass the sampled layout/gaze/reuse/reset checks; all final executable originals reviewed. Candidate d1c3530 was rejected for cockpit occlusion despite geometric passes and was never released; replacement5bf6657 uses front PC canvas depth/order. See verification.md for exact positions/rolls, rejected evidence and bounded coverage. No natural human/OS/HMD or continuous-pan claim; historical single-pickup proof was not rerun.
+
 Subsequent product c8d3e93 corrects the pickup-explosion exception: Q/pickup-explosion-readability-20261024 includes E21 unique latest passing tests and X fresh-extraction18 originals at800x600/2560x1080, all reviewed across six explosion/ordinary timestamps, partial gaze, acquisition and reset. Actual boss death/drop and collider/elapsed dwell are controlled fixtures; no natural human/HMD claim. See its verification.md/package.json/extracted-run.json for precise source and coverage; earlier table rows retain their historical identities.
 
 Review exception: the destroyed boss-wide original's real HEAL pickup instruction is obscured by explosion light; primary HUD findings do not cover that label. Track correction and final acceptance separately in Q/pickup-explosion-readability-20261024/verification.md. Do not treat the four boss-phase samples as a pickup-readability pass.

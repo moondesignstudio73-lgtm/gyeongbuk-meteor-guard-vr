@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-pickup-explosion-readability-20261024)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-pickup-multiple-edge-20261024)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.
@@ -39,6 +39,8 @@
 능력을 얻으면 측면 상태판에 한글 이름과 남은시간이 보여요. 방어막은 앞으로 막을 수 있는 횟수를 알려 줘요. 속사 충전띠는 다음 발사 준비 상태를, 두 개의 보조 표시는 실제 추가 공격을 알려 줘요. 시간이 2초 이하로 남은 능력은 황색으로 바뀌어요. 선체 회복과 전자기 충격파는 화면 안내로 알려 줘요.
 
 떠 있는 아이템 옆에는 한글 이름과 획득 방법이 보여요. 아이템을 바라보고 있으면 획득 진행률이 올라가요. 폭발이 일어나도 안내를 읽을 수 있도록 어두운 안내판을 추가했어요.
+
+아이템이 여러 개 모이면 안내판이 서로 겹치지 않는 가까운 공간에 나타나요. 화면 가장자리에서도 조준할 아이템과 상태창을 가리지 않도록 배치했어요.
 
 공격을 받고도 살아남은 운석에는 균열이 남아요. 암석이 남아 있다면 계속 공격해 주세요. 완전히 파괴하면 폭발과 함께 사라져요.
 
