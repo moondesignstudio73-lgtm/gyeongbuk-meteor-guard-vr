@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\PickupMotion20261024\\MeteorDefenseVR-Windows-PickupMotion-20261024.zip",
+  "bytes": 89569526,
+  "sha256": "7b2c2086eb9da61f564a340d4c6f51332ffbab1742ca8b21135fe7aedda76356",
+  "verifiedFiles": 222,
+  "buildDirectory": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Windows\\RC_0.2.0-rc.1_b747e30",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "b747e3096a89e126206752d1621fe73ff0d2b04e",
+    "gitCommitShort": "b747e30",
+    "buildTimeKST": "2026-10-24T16:00:15+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}
