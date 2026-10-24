@@ -1,0 +1,7 @@
+# Populated records executable checkpoint
+
+Target: published product 6d27c10ef6acc4b457f8fbfbac433235960a7358, docs 674d958. Review only populated records (maximum int score, 24h, T10, first/last/best) at 800x600 and 2560x1080. Existing baseline: ../populated-records-20261023/Before and Harness/PopulatedRecordsProof.cs; b6b08ec is Editor-only evidence. Preserve operator records/settings; no new build absent reproduced defect.
+
+Preflight finding: PopulatedRecordsProof.cs resides outside Assets and is explicitly excluded from player compilation. PcSoakRunner has no populated-records runner. SelectionStateProof.Run explicitly initializes a new LocalRankingStore(null), so its records-selected-dwell capture is empty regardless of on-disk test records. LocalRankingController.Initialize also uses a null storage path in batch mode. The earlier harness populates a memory-only store via Add and calls Present/Queue; those calls are not exposed as an external command protocol by the public executable.
+
+Do not substitute another Editor run, replace the shipped assembly, inject a harness, or publish a test-only build and label it proof of the unchanged public ZIP. No gameplay UI defect is established by this tooling limitation. Full requested executable visual audit is NOT completed. Natural OS interaction/HMD not performed. No user history or settings files have been touched, and no temporary production data was installed. Existing ProjectSettings modification retained. Suno, Drive and shared improvement-state untouched.

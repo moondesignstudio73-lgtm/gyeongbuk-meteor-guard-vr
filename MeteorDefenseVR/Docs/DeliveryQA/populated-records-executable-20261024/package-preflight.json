@@ -1,0 +1,9 @@
+{
+  "source": "Previously independently redownloaded public release ZIP",
+  "sha256": "fa82bca9497d1125cbe4d4dd1ecd51b20ad91d9368f43a83e6b61cf1eaaad51b",
+  "bytes": 89576642,
+  "extraction": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\RecordsPublic20261024",
+  "files": 222,
+  "executed": false,
+  "reason": "Public binary does not include populated-record fixture; existing menu QA replaces ranking with empty memory store"
+}
