@@ -1,0 +1,2 @@
+Controlled memory store; first/last/first page, tabs, empty/populated, back via actual collider check and synthetic elapsed dwell/reentry passed. Not native OS input or HMD.
+passed=True

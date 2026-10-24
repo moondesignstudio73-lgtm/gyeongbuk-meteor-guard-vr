@@ -1,0 +1,1 @@
+INSTRUMENTED TEST BUILD: controlled memory-only valid-model boundary fixtures, not public ZIP/natural play/OS/HMD. Score/destroyed/combo=int.MaxValue; HP<=10000; time<=86400; accuracy<=1; stage=actual campaign 10.

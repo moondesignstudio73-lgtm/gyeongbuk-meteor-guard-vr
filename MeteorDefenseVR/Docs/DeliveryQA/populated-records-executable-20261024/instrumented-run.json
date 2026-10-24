@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "instrumented": true,
+  "images": 20,
+  "nativeProcessExitCode": null,
+  "exitCodeNote": "Wrapper did not persist process exit code; success is fixture verification.txt and runtime.txt, followed by normal Unity shutdown log",
+  "beforeSnapshotUtc": "2026-10-24T10:53:37.4740764Z",
+  "afterSnapshotUtc": "2026-10-24T10:54:10.8212768Z",
+  "operatorRecordsUnchanged": true,
+  "nonSessionRegistryValuesUnchanged": true,
+  "changedUnitySessionFieldNames": [
+    "unity_connect.mega_session_id_h1802243016",
+    "unity_connect.session_id_h4145606137",
+    "unity.player_session_count_h922449978",
+    "unity.player_sessionid_h1351336811"
+  ],
+  "comparison": "Primitive values from persisted snapshots; PS provider metadata excluded; only the four listed Unity per-launch session fields changed",
+  "runtime": "Instrumented RECORDS_QA build, not public release\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\npassed=True\n"
+}
