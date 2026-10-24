@@ -169,6 +169,9 @@ namespace MeteorDefenseVR.PcInput
         private void Refresh()
         {
             foreach (var choice in choices) if (choice != null) choice.Refresh();
+            // Cancel an obsolete tip without resetting the once-per-view display policy.
+            if (manager.Selected != DifficultyLevel.Experience)
+            { extremeNoticeRemaining = 0; extremeNotice.gameObject.SetActive(false); }
             if (manager.Selected == DifficultyLevel.Experience && !extremeNoticeShown)
             { extremeNoticeShown = true; extremeNoticeRemaining = 4f; }
         }

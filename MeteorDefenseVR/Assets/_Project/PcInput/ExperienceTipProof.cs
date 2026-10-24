@@ -55,6 +55,25 @@ public static class ExperienceTipProof {
   }
   try{
    Record();while(!panel.gameObject.activeInHierarchy&&Time.unscaledTime<deadline){Record();yield return null;}Check(panel.gameObject.activeInHierarchy,"First visible timeout");Record();
+   if(scenario=="reselect"){
+    IEnumerator Select(int index,string state,bool expectTip){
+     yield return Dwell(view.Choices[index],.8f);Away();yield return Capture(state);
+     Check(manager.Selected==view.Choices[index].Level,"Reselection value "+state);
+     var checkedChoices=view.Choices.Where(c=>c.transform.Find("SelectedCheck").gameObject.activeInHierarchy).ToArray();
+     Check(checkedChoices.Length==1&&checkedChoices[0]==view.Choices[index],"Reselection check "+state);
+     File.AppendAllText(Path.Combine(output,state,"state.txt"),$"selected={manager.Selected}; checked={string.Join(",",checkedChoices.Select(c=>c.Level))}; expectedTip={expectTip}\n");
+     if(validate){Check(tip.gameObject.activeInHierarchy==expectTip,"Tip disagrees with reselection: "+state);if(!expectTip)Check(instruction.gameObject.activeInHierarchy,"Selection instruction missing: "+state);}
+    }
+    yield return new WaitForSecondsRealtime(.6f);
+    yield return Select(0,"experience-selected",true);float firstSelection=Time.unscaledTime;
+    yield return Select(1,"easy-selected",false);
+    yield return Select(0,"experience-reselected",false);
+    while(Time.unscaledTime<firstSelection+4.3f){Record();yield return null;}
+    yield return Capture("expired");if(validate)Check(!tip.gameObject.activeInHierarchy,"Reselection expiry");
+    yield return Select(2,"normal-selected",false);
+    yield return Select(0,"experience-after-expiry",false);
+    File.WriteAllText(Path.Combine(output,"summary.txt"),$"completed=True; validate={validate}; scenario=reselect; instance={instance}\n");yield break;
+   }
    if(scenario=="locked-default"){
     missed=!tip.gameObject.activeInHierarchy;yield return Capture("first-visible");yield return new WaitForSecondsRealtime(.2f);yield return Capture("visible-200ms");
     if(validate){Check(manager.Selected==DifficultyLevel.Experience&&manager.Settings.lockDifficultySelection,"Actual locked Experience default");Check(instruction.gameObject.activeInHierarchy,"Fixed instruction hidden");Check(!missed,"Tip consumed before first visibility");}
