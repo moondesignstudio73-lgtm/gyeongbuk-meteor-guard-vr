@@ -1,0 +1,2 @@
+Input: explicit state/score/damage fixture; not human or synthetic-mouse failure gameplay
+pending=True; retainedBeforeDoorClose=True; revealedWith138940=True; visibleAfter4.7seconds=True; hangarMenuReady=True; nextState=Result; hasReturned=True; passed=True

@@ -1,0 +1,6 @@
+Instrumented-only observation; public product7b7324e plus QA hooks
+label=round-2-MissionBriefing; time=126.6381; state=MissionBriefing; lobby=Hidden
+selected=Experience; session=Experience; hudDifficulty=Normal; checked=Experience; tipActive=False
+noticeEnabled=False; noticeAlpha=0; noticeText=3번째 운석 무리가 다가와요!; praiseEnabled=False; praiseText=멋져요! 18번 연속 성공!
+feedbackRemaining=0; feedback=; items=0; buffs=0; score=0
+inputSuspended=False; modal=False; calibrating=False; resetClean=False

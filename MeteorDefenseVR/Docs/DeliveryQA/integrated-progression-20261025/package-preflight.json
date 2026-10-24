@@ -1,0 +1,19 @@
+{
+  "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-tip-reselection-20261025/MeteorDefenseVR-Windows-TipReselection-20261025.zip",
+  "sha256": "795c8aced30e40efb499740904d519da61124a913ed767343b93b66f8e23630b",
+  "bytes": 89586494,
+  "files": 222,
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "7b7324edc12aa3de2a60010213de1e4547d7d49e",
+    "gitCommitShort": "7b7324e",
+    "buildTimeKST": "2026-10-25T03:07:59+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  },
+  "extracted": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Verify\\IntegratedPublic_7b7324e\\MeteorDefenseVR-Windows-TipReselection-20261025",
+  "verifiedUtc": "2026-10-24T20:03:03.0516127Z"
+}

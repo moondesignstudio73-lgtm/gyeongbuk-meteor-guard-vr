@@ -1,0 +1,16 @@
+{
+  "source": "63583000fcceeb5ef4e41b4c8fa886b3e848d58a",
+  "nativeExitCode": 0,
+  "timedOut": false,
+  "startedUtc": "2026-10-24T20:12:28.3295193Z",
+  "endedUtc": "2026-10-24T20:16:28.8075975Z",
+  "arguments": [
+    "--pc-soak",
+    "--pc-soak-rounds=2",
+    "--pc-delivery-qa",
+    "--no-webcam",
+    "-batchmode",
+    "-logFile",
+    "\"C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Docs\\DeliveryQA\\integrated-progression-20261025\\instrumented-player.log\""
+  ]
+}

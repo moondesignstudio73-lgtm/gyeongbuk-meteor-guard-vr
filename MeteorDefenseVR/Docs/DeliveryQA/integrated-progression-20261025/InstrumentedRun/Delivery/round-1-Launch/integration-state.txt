@@ -1,0 +1,6 @@
+Instrumented-only observation; public product7b7324e plus QA hooks
+label=round-1-Launch; time=37.19101; state=Launch; lobby=Hidden
+selected=Experience; session=Experience; hudDifficulty=Normal; checked=Experience; tipActive=False
+noticeEnabled=False; noticeAlpha=0.13889; noticeText=1번째 운석 무리가 다가와요!; praiseEnabled=False; praiseText=멋져요! 3번 연속 성공!
+feedbackRemaining=0; feedback=; items=0; buffs=0; score=0
+inputSuspended=False; modal=False; calibrating=False; resetClean=False

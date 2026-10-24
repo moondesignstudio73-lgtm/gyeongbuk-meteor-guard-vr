@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\IntegratedProgression20261025\\MeteorDefenseVR-Windows-IntegrationInstrumented-20261025.zip",
+  "bytes": 89569299,
+  "sha256": "4acdaa89e4966abc68ce2ca6d765ec67c2d89ed8b396bab44d9842806be7a800",
+  "verifiedFiles": 212,
+  "buildDirectory": "C:\\Users\\aaa\\OneDrive\\Desktop\\game\\VR콘텐츠\\MeteorDefenseVR\\Builds\\InstrumentedIntegration_6358300",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "63583000fcceeb5ef4e41b4c8fa886b3e848d58a",
+    "gitCommitShort": "6358300",
+    "buildTimeKST": "2026-10-25T05:10:06.1469116+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}
