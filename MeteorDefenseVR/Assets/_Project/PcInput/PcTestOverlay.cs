@@ -26,6 +26,7 @@ namespace MeteorDefenseVR.PcInput
         private float nextTextUpdate;
         private bool menuOpen;
         private GameObject resumeButton;
+        private GameObject pauseCard;
         private TextMeshProUGUI simulationHelp;
         private HangarLobbyController lobby;
         private bool wasBoot;
@@ -145,6 +146,13 @@ namespace MeteorDefenseVR.PcInput
             pointRing = CalibrationProgressRing.Create(pointRect, 90f);
             gazeRect = Rect("GazeCursor", canvasObject.transform, Vector2.one * .5f, Vector2.one * .5f, Vector2.zero, Vector2.one * 44);
             gazeText = gazeRect.gameObject.AddComponent<TextMeshProUGUI>(); Style(gazeText, 32); gazeText.text = "+"; gazeText.alignment = TextAlignmentOptions.Center;
+            pauseCard = Rect("PauseCard", canvasObject.transform, Vector2.one * .5f, Vector2.one * .5f, new Vector2(0, 80), new Vector2(1400, 620)).gameObject;
+            Background(pauseCard, FlightUiTheme.Ink, false);
+            FlightUiTheme.Plate(pauseCard.GetComponent<UnityEngine.UI.Image>());
+            var pauseTitle = Label(pauseCard.transform, "PauseTitle", "일시정지", new Vector2(48, -40), new Vector2(1304, 104), 64);
+            pauseTitle.fontStyle = FontStyles.Bold; pauseTitle.color = FlightUiTheme.Accent;
+            pauseTitle.alignment = TextAlignmentOptions.Center;
+            pauseCard.SetActive(false);
             resumeButton = SettingsButton(canvasObject.transform, "ResumeSimulation", "게임으로 돌아가기 / Esc", Vector2.zero, new Vector2(640, 110), () => router.Simulation?.Resume()).gameObject;
             var resumeRect = resumeButton.GetComponent<RectTransform>(); resumeRect.anchorMin = resumeRect.anchorMax = resumeRect.pivot = Vector2.one * .5f;
             resumeRect.anchoredPosition = new Vector2(0, -120);
@@ -171,7 +179,10 @@ namespace MeteorDefenseVR.PcInput
             settingsBackdrop=shade.gameObject;Background(settingsBackdrop,new Color(.005f,.015f,.025f,.97f));settingsBackdrop.SetActive(false);
             lookSettingsPanel=Rect("LookSettingsPanel",canvasObject.transform,Vector2.one*.5f,Vector2.one*.5f,Vector2.zero,new Vector2(1180,900)).gameObject;
             Background(lookSettingsPanel,FlightUiTheme.Ink);
-            Label(lookSettingsPanel.transform,"Title","편하게 둘러보기",new Vector2(36,-24),new Vector2(1108,80),52);
+            FlightUiTheme.Plate(lookSettingsPanel.GetComponent<UnityEngine.UI.Image>());
+            var settingsTitle=Label(lookSettingsPanel.transform,"Title","시점 설정",new Vector2(36,-24),new Vector2(1108,88),56);
+            settingsTitle.fontStyle=FontStyles.Bold;settingsTitle.color=FlightUiTheme.Accent;
+            for(int i=0;i<4;i++) SettingsRow(lookSettingsPanel.transform,"LookRow"+i,new Vector2(24,-116-i*130),new Vector2(1132,122));
             for(int i=0;i<4;i++)lookSettingsValues[i]=Label(lookSettingsPanel.transform,"Value"+i,"",new Vector2(36,-120-i*130),new Vector2(650,128),44);
             sensitivityDown=SettingsButton(lookSettingsPanel.transform,"SensitivityDown","−",new Vector2(760,-120),new Vector2(170,110),()=>router.Simulation.Sensitivity-=.1f);
             sensitivityUp=SettingsButton(lookSettingsPanel.transform,"SensitivityUp","+",new Vector2(950,-120),new Vector2(170,110),()=>router.Simulation.Sensitivity+=.1f);
@@ -181,6 +192,13 @@ namespace MeteorDefenseVR.PcInput
             Label(lookSettingsPanel.transform,"Comfort","버튼을 누르거나 조준점을 맞추세요.\n닫기를 누르면 이전 화면으로 돌아가요.",new Vector2(36,-650),new Vector2(1108,128),44);
             SettingsButton(lookSettingsPanel.transform,"Close","닫기 / Esc",new Vector2(400,-780),new Vector2(380,110),CloseLookSettings);
             lookSettingsPanel.SetActive(false);
+        }
+        private static void SettingsRow(Transform parent,string name,Vector2 position,Vector2 size)
+        {
+            var row=Rect(name,parent,new Vector2(0,1),new Vector2(0,1),position,size);
+            Background(row.gameObject,FlightUiTheme.Surface,false);
+            var line=Rect(name+"Edge",row,new Vector2(0,1),new Vector2(0,1),Vector2.zero,new Vector2(3,size.y));
+            Background(line.gameObject,FlightUiTheme.Edge,false);
         }
         private void SetLookSettings(bool open)
         {
@@ -256,6 +274,8 @@ namespace MeteorDefenseVR.PcInput
                 shakeButton.GetComponent<UIInteractionAnimator>().SetSelected(look.Shake!=CameraShakeLevel.Off);
             }
             resumeButton.SetActive(paused&&!settingsOpen);
+            pauseCard.SetActive(paused&&!settingsOpen&&!calibrating);
+            simulationHelp.rectTransform.anchoredPosition=new Vector2(0,paused?130:200);
             simulationHelp.gameObject.SetActive(simulation && (isBoot || paused) && !calibrating&&!settingsOpen);
             string help = paused ? "잠시 쉬어 가세요.\nEsc를 누르면 다시 이어서 플레이해요."
                 : router.ActiveMode == PcGazeMode.WebcamGaze

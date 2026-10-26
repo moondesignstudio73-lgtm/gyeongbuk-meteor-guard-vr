@@ -16,11 +16,14 @@ namespace MeteorDefenseVR.PcInput
             audioSettingsButton=SettingsButton(canvasObject.transform,"AudioSettings","소리 설정",Vector2.zero,new Vector2(320,110),OpenAudioSettings).gameObject;
             var entry=(RectTransform)audioSettingsButton.transform;entry.anchorMin=entry.anchorMax=entry.pivot=new Vector2(.5f,0);entry.anchoredPosition=new Vector2(180,48);
             audioSettingsPanel=Rect("AudioSettingsPanel",canvasObject.transform,Vector2.one*.5f,Vector2.one*.5f,Vector2.zero,new Vector2(1400,1030)).gameObject;
-            Background(audioSettingsPanel,new Color(.005f,.025f,.045f,1));
-            Label(audioSettingsPanel.transform,"AudioTitle","편하게 듣기",new Vector2(36,-24),new Vector2(1328,80),52);
+            Background(audioSettingsPanel,FlightUiTheme.Ink);
+            FlightUiTheme.Plate(audioSettingsPanel.GetComponent<UnityEngine.UI.Image>());
+            var title=Label(audioSettingsPanel.transform,"AudioTitle","소리 설정",new Vector2(36,-24),new Vector2(1328,88),56);
+            title.fontStyle=FontStyles.Bold;title.color=FlightUiTheme.Accent;
             for(int i=0;i<4;i++)
             {
                 var channel=(UserAudioChannel)i;float y=-135-i*170;
+                SettingsRow(audioSettingsPanel.transform,"AudioRow"+i,new Vector2(24,y+4),new Vector2(1352,158));
                 audioValues[i]=Label(audioSettingsPanel.transform,"AudioValue"+i,"",new Vector2(36,y),new Vector2(610,150),46);
                 audioDown[i]=SettingsButton(audioSettingsPanel.transform,"AudioDown"+i,"−",new Vector2(680,y),new Vector2(140,120),()=>AudioUserPreferences.SetVolume(channel,AudioUserPreferences.Volume(channel)-.1f));
                 audioUp[i]=SettingsButton(audioSettingsPanel.transform,"AudioUp"+i,"+",new Vector2(840,y),new Vector2(140,120),()=>AudioUserPreferences.SetVolume(channel,AudioUserPreferences.Volume(channel)+.1f));

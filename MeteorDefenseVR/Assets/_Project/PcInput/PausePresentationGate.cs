@@ -11,16 +11,17 @@ namespace MeteorDefenseVR.PcInput
     {
         private WindowsVRSimulation simulation;
         private Canvas controls;
+        private PcTestOverlay overlay;
         private readonly Dictionary<Renderer, bool> renderers = new();
         private readonly Dictionary<CanvasGroup, float> groups = new();
         private readonly HashSet<CanvasGroup> ownedGroups = new();
         public bool IsSuspended { get; private set; }
         public void Configure(WindowsVRSimulation look, Canvas playerControls)
-        { simulation = look; controls = playerControls; }
+        { simulation = look; controls = playerControls; overlay = playerControls.GetComponentInParent<PcTestOverlay>(); }
         private void LateUpdate() => Apply();
         public void Apply()
         {
-            bool paused = simulation != null && simulation.IsPaused;
+            bool paused = simulation != null && simulation.IsPaused || overlay != null && overlay.LookSettingsOpen;
             if (paused && !IsSuspended)
             {
                 var safe = FindAnyObjectByType<WorldUiSafeArea>();

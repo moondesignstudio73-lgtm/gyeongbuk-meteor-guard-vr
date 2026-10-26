@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MeteorDefenseVR.Combat;
+using MeteorDefenseVR.Audio;
 using MeteorDefenseVR.Core;
 using MeteorDefenseVR.Difficulty;
 using MeteorDefenseVR.GameFlow;
@@ -32,6 +33,7 @@ namespace MeteorDefenseVR.PcInput
    var result=Object.FindAnyObjectByType<ResultController>();var stats=Object.FindAnyObjectByType<GameSessionStats>();
    var overlay=Object.FindAnyObjectByType<PcTestOverlay>();var camera=Camera.main;
    bool originalLock=manager.Settings.lockDifficultySelection;
+   float savedSensitivity=router.Simulation.Sensitivity;bool savedInvert=router.Simulation.InvertY,savedCenter=router.Simulation.ShowCenterPoint;var savedShake=router.Simulation.Shake;
    var room=GameObject.Find("LaunchSystem").transform.Find("HangarVisuals");
    var devices=InputSystem.devices.Where(d=>d.enabled&&(d is Mouse||d is Keyboard)).ToArray();foreach(var d in devices)InputSystem.DisableDevice(d);
    var mouse=InputSystem.AddDevice<Mouse>();var background=InputSystem.settings.backgroundBehavior;InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
@@ -59,6 +61,14 @@ namespace MeteorDefenseVR.PcInput
       }
      }
      if(validate&&folder.Contains("tutorial")){var tutorialView=Object.FindAnyObjectByType<TutorialSafeZoneView>();tutorialView.InstructionText.ForceMeshUpdate();if(tutorialView.InstructionText.isTextTruncated||!tutorialView.InstructionText.GetParsedText().Contains(tutorialView.CurrentInstruction))throw new InvalidOperationException("Tutorial instruction was clipped");}
+     if(validate&&(stateName.Contains("settings")||stateName=="pause")){
+      foreach(var label in overlay.GetComponentsInChildren<TextMeshProUGUI>().Where(t=>t.enabled&&t.gameObject.activeInHierarchy)){
+       label.ForceMeshUpdate();if(label.isTextTruncated||label.textBounds.size.x>label.rectTransform.rect.width+1||label.textBounds.size.y>label.rectTransform.rect.height+1)throw new InvalidOperationException("Settings/pause text overflow: "+label.name);
+      }
+      if(overlay.LookSettingsOpen&&overlay.GetComponent<PausePresentationGate>().IsSuspended){
+       foreach(var text in Object.FindObjectsByType<TextMeshPro>())if(text.TryGetComponent<Renderer>(out var renderer)&&!renderer.forceRenderingOff)throw new InvalidOperationException("World text leaks through settings: "+text.name);
+      }
+     }
      if(validate&&folder.Contains("result")){
       var geometry=new List<string>();
       foreach(var label in Object.FindObjectsByType<TextMeshPro>().Where(t=>t.enabled&&t.gameObject.activeInHierarchy&&new[]{"ResultHeading","ResultScore","ResultMetrics","ResultAccuracy","ResultRank","ResultFeedback","ResultDifficulty"}.Contains(t.name))){label.ForceMeshUpdate();geometry.Add($"{label.name}|bounds={label.textBounds.size}|rect={label.rectTransform.rect.size}");if(label.isTextTruncated||label.textBounds.size.x>label.rectTransform.rect.width+1)throw new InvalidOperationException("Result horizontal overflow: "+label.name);}
@@ -69,13 +79,16 @@ namespace MeteorDefenseVR.PcInput
    }
    IEnumerator Wait(float t){yield return new WaitForSecondsRealtime(t);}
    IEnumerator PointerClick(UnityEngine.UI.Button button){
-    var screen=camera.WorldToScreenPoint(button.transform.position);
+    var rect=(RectTransform)button.transform;
+    var canvas=button.GetComponentInParent<Canvas>();
+    var screen=RectTransformUtility.WorldToScreenPoint(canvas.renderMode==RenderMode.ScreenSpaceOverlay?null:canvas.worldCamera,rect.TransformPoint(rect.rect.center));
     InputSystem.QueueStateEvent(mouse,new MouseState{position=screen});yield return null;yield return null;
     InputSystem.QueueStateEvent(mouse,new MouseState{position=screen,buttons=1});yield return null;yield return null;
     InputSystem.QueueStateEvent(mouse,new MouseState{position=screen});yield return null;yield return null;
    }
    void Button(string name){overlay.GetComponentsInChildren<UnityEngine.UI.Button>(true).Single(b=>b.name==name).onClick.Invoke();}
    try{
+    AudioUserPreferences.ClearVerificationProfile();AudioUserPreferences.UseVerificationProfile(true);
     if(screensOnly){manager.Settings.lockDifficultySelection=false;router.SetMode(PcGazeMode.MouseGaze);}
     if(!screensOnly)using(var probe=new PcStabilityProbe(camera,1280,720)){
      yield return Capture(probe,Path.Combine(output,"loading"));
@@ -115,6 +128,9 @@ namespace MeteorDefenseVR.PcInput
      if(!readyScreen.CanStart||(preparation!=null&&!preparation.IsComplete))throw new InvalidOperationException("Ready UI not interactive after loading");
      router.Simulation.Recenter();
      yield return Snap("start");
+     Button("LookSettings");yield return Snap("boot-look-settings");overlay.TryCloseLookSettings();yield return null;yield return null;
+     Button("AudioSettings");yield return Snap("boot-audio-settings");overlay.TryCloseLookSettings();yield return null;yield return null;
+     if(overlay.GetComponent<PausePresentationGate>().IsSuspended)throw new InvalidOperationException("Settings close failed to restore start presentation");
      if(screensOnly){var selection=Object.FindAnyObjectByType<DifficultySelectionView>();var caster=Object.FindAnyObjectByType<MeteorDefenseVR.EyeTracking.GazeRaycaster>();var provider=caster.Provider;
       var hard=selection.Choices.Single(c=>c.Level==DifficultyLevel.Hard);
       try{caster.SetProvider(new MenuRay(camera.transform.position,hard.transform.position));yield return Wait(1.1f);if(manager.Selected!=DifficultyLevel.Hard)throw new InvalidOperationException("Direct gaze did not select Hard");}finally{caster.SetProvider(provider);}
@@ -134,8 +150,27 @@ namespace MeteorDefenseVR.PcInput
      flow.StartPractice();yield return Snap("practice");
      flow.StartMainGame();stats.SetScore(int.MaxValue);Object.FindAnyObjectByType<MeteorDefenseVR.UI.MissionHudController>().AddScore(int.MaxValue);yield return Snap("combat-max-score");
      flow.StartBoss();yield return Snap("boss");router.Simulation.Pause();yield return Snap("pause");
-     Button("LookSettings");yield return Snap("look-settings");overlay.TryCloseLookSettings();
-     Button("AudioSettings");yield return Snap("audio-settings");overlay.TryCloseLookSettings();router.Simulation.Resume();
+     Button("LookSettings");yield return Snap("look-settings");
+     router.Simulation.Sensitivity=.1f;yield return Snap("look-settings-min");
+     if(overlay.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="SensitivityDown").interactable)throw new InvalidOperationException("Minimum sensitivity button enabled");
+     yield return PointerClick(overlay.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="SensitivityUp"));
+     if(Mathf.Abs(router.Simulation.Sensitivity-.2f)>.001f)throw new InvalidOperationException("Sensitivity pointer action failed");
+     router.Simulation.Sensitivity=2;router.Simulation.InvertY=true;router.Simulation.ShowCenterPoint=true;router.Simulation.Shake=CameraShakeLevel.Strong;yield return Snap("look-settings-max");
+     if(overlay.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="SensitivityUp").interactable)throw new InvalidOperationException("Maximum sensitivity button enabled");
+     yield return PointerClick(overlay.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="Close"));
+     if(overlay.LookSettingsOpen||!router.Simulation.IsPaused)throw new InvalidOperationException("View settings close must stay paused");
+     Button("AudioSettings");yield return Snap("audio-settings");
+     for(int i=0;i<4;i++){AudioUserPreferences.SetVolume((UserAudioChannel)i,0);AudioUserPreferences.SetMuted((UserAudioChannel)i,true);}yield return Snap("audio-settings-muted");
+     yield return PointerClick(overlay.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="AudioUp0"));
+     yield return PointerClick(overlay.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="AudioMute0"));
+     AudioUserPreferences.Reload();if(Mathf.Abs(AudioUserPreferences.Volume(UserAudioChannel.Music)-.1f)>.001f||AudioUserPreferences.Muted(UserAudioChannel.Music))throw new InvalidOperationException($"Audio settings pointer/save/reload failed: volume={AudioUserPreferences.Volume(UserAudioChannel.Music)}, muted={AudioUserPreferences.Muted(UserAudioChannel.Music)}");
+     for(int i=0;i<4;i++){AudioUserPreferences.SetVolume((UserAudioChannel)i,1);AudioUserPreferences.SetMuted((UserAudioChannel)i,false);}yield return Snap("audio-settings-max");
+     yield return PointerClick(overlay.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="AudioClose"));
+     if(overlay.LookSettingsOpen||!router.Simulation.IsPaused)throw new InvalidOperationException("Audio settings close must stay paused");
+     yield return PointerClick(overlay.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="ResumeSimulation"));
+     if(router.Simulation.IsPaused||overlay.GetComponentsInChildren<Transform>(true).Any(t=>t.name=="PauseCard"&&t.gameObject.activeInHierarchy))throw new InvalidOperationException("Resume must clear pause presentation");
+     notes.Add($"{size}: pointer sensitivity bounds, selected states, audio volume/mute save/reload, close-to-pause and resume passed; isolated QA audio profile");
+     router.Simulation.Sensitivity=savedSensitivity;router.Simulation.InvertY=savedInvert;router.Simulation.ShowCenterPoint=savedCenter;router.Simulation.Shake=savedShake;
      flow.ShowResult();reset.CancelResultTimer();yield return Snap("result-max-score");yield return Wait(.4f);yield return Snap("result-settled");
      if(screensOnly){result.Snapshot.DestroyedMeteors=int.MaxValue;result.Snapshot.Shots=int.MaxValue;result.Snapshot.SuccessfulHits=int.MaxValue;yield return Snap("result-max-metrics");}
      yield return PointerClick(Object.FindAnyObjectByType<ResultActionsView>().Menu.GetComponent<UnityEngine.UI.Button>());yield return Snap("hangar");
@@ -148,7 +183,7 @@ namespace MeteorDefenseVR.PcInput
       notes.Add($"{size}: result Menu and Replay synthetic InputSystem pointer clicks passed; no OS click or departure revalidation");}
     }
     notes.Add("passed=True");
-   }finally{manager.Settings.lockDifficultySelection=originalLock;File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);InputSystem.RemoveDevice(mouse);foreach(var d in devices)InputSystem.EnableDevice(d);InputSystem.settings.backgroundBehavior=background;InputSystem.settings.editorInputBehaviorInPlayMode=editorInput;Time.timeScale=1;}
+   }finally{AudioUserPreferences.ClearVerificationProfile();AudioUserPreferences.UseVerificationProfile(false);router.Simulation.Sensitivity=savedSensitivity;router.Simulation.InvertY=savedInvert;router.Simulation.ShowCenterPoint=savedCenter;router.Simulation.Shake=savedShake;manager.Settings.lockDifficultySelection=originalLock;File.WriteAllLines(Path.Combine(output,"verification.txt"),notes);InputSystem.RemoveDevice(mouse);foreach(var d in devices)InputSystem.EnableDevice(d);InputSystem.settings.backgroundBehavior=background;InputSystem.settings.editorInputBehaviorInPlayMode=editorInput;Time.timeScale=1;}
   }
  }
 }
