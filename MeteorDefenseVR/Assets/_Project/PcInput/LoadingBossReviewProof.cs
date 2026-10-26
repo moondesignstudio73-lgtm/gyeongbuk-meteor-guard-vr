@@ -56,7 +56,8 @@ public static class LoadingBossReviewProof {
      driver.RenderCompleted+=Save;try{while(!done)yield return null;}finally{driver.RenderCompleted-=Save;}if(failure!=null)throw failure;
     }
     Time.timeScale=1;reset.ResetExperience();yield return Ready();router.InputSuspended=true;router.Simulation.Recenter();
-    var visual=Object.FindAnyObjectByType<FlightLoadingVisual>(FindObjectsInactive.Include);
+    // The additive bootstrap retains a separate hidden loading visual in Windows builds.
+    var visual=(FlightLoadingVisual)typeof(SfPresentationDirector).GetField("loadingVisual",flags).GetValue(director);
     var loadingRoot=visual.transform.parent.gameObject;
     Time.timeScale=0;bootField.SetValue(director,true);tick.Invoke(director,new object[]{0f});
     foreach(var step in new[]{0,40,100}){visual.Present(step/100f,step==0?"우주로 향하는 길을 준비해요":step==40?"우주선을 준비하고 있어요":"출격 준비 완료!",.4f);yield return Capture("loading-"+step,true);}
