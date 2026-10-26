@@ -1,0 +1,53 @@
+{
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "00b1fd6e94efdd8ef3da04b53a2bf6c116217e61",
+    "gitCommitShort": "00b1fd6",
+    "buildTimeKST": "2026-10-27T07:17:38+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  },
+  "releaseId": 424831916,
+  "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-threat-safe-area-20261027",
+  "gameZip": "MeteorDefenseVR-Windows-ThreatSafeArea-20261027.zip",
+  "bytes": 89613795,
+  "sha256": "19776735694688f462d815c562cde3bb83b4e75ad621189c812533efcae5556f",
+  "verifiedFiles": 222,
+  "publicRedownload": {
+    "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-threat-safe-area-20261027/MeteorDefenseVR-Windows-ThreatSafeArea-20261027.zip",
+    "sha256": "19776735694688f462d815c562cde3bb83b4e75ad621189c812533efcae5556f",
+    "bytes": 89613795,
+    "verifiedUtc": "2026-10-26T22:21:53.714263Z",
+    "matches": true
+  },
+  "nativeRun": {
+    "passed": true,
+    "nativeExitCode": 0,
+    "timedOut": false,
+    "startedUtc": "2026-10-26T22:18:14.3834226Z",
+    "endedUtc": "2026-10-26T22:19:26.0936116Z",
+    "images": 600,
+    "registryChangedNames": [
+      "unity_connect.mega_session_id_h1802243016",
+      "unity_connect.session_id_h4145606137",
+      "unity.player_session_count_h922449978",
+      "unity.player_sessionid_h1351336811"
+    ],
+    "nonSessionRestoredNames": [],
+    "recordRestoredNames": [],
+    "preservationVerified": true,
+    "runtime": "passed=True\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\n"
+  },
+  "continuousFrameArchive": {
+    "file": "ThreatSafeArea-QA-20261027.zip",
+    "bytes": 333523161,
+    "sha256": "f744a7e0af3d0278aea979f634385f5cb395c7f67240819b206dea97101e4022",
+    "files": 607,
+    "images": 600
+  },
+  "baseline": "Editor product951ce7d plus new read-only observation fixture; not new unchanged-public-binary run",
+  "limits": "Controlled viewport motion; no human OS/HMD/listening/Suno sign-off; no repeated whole-game soak"
+}

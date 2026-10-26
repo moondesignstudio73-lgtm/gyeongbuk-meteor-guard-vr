@@ -1,3 +1,5 @@
+Current threat-direction gap update: [00b1fd6 coverage](../threat-safe-area-20261027/coverage.md). The table below remains the951ce7d historical snapshot.
+
 # Current UI coverage and explicit gaps — 2026-10-27
 
 This table supersedes the current-status rows in the historical 20261024 map; that map remains provenance, not a latest-binary pass. E = Editor controlled render, X = normal extracted Windows player, A = automated InputSystem/gaze. No human OS or HMD acceptance. Five sizes: 800×600, 1024×768, 1280×720, 1920×1080, 2560×1080. Baseline public source is 0bf9fc9; corrected product source is 951ce7d (including10901c7). Final native outcomes and release identity are recorded in REPORT.md and release-evidence.json.

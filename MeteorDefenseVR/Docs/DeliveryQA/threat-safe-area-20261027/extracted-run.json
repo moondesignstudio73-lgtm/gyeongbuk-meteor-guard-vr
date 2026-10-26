@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "nativeExitCode": 0,
+  "timedOut": false,
+  "startedUtc": "2026-10-26T22:18:14.3834226Z",
+  "endedUtc": "2026-10-26T22:19:26.0936116Z",
+  "images": 600,
+  "registryChangedNames": [
+    "unity_connect.mega_session_id_h1802243016",
+    "unity_connect.session_id_h4145606137",
+    "unity.player_session_count_h922449978",
+    "unity.player_sessionid_h1351336811"
+  ],
+  "nonSessionRestoredNames": [],
+  "recordRestoredNames": [],
+  "preservationVerified": true,
+  "runtime": "passed=True\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\n"
+}
