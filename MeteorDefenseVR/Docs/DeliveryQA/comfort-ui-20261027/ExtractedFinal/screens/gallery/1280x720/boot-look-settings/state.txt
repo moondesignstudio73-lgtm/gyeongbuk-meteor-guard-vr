@@ -1,0 +1,1 @@
+state=Boot; camera=Main Camera; position=(0.00, 0.00, 0.00); rotation=(0.00, 0.00, 0.00); warm=True

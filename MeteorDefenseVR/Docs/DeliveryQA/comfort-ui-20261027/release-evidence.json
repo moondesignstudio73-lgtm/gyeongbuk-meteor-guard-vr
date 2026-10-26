@@ -1,0 +1,33 @@
+{
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "e832848b7f1ebc454cbb281010b94e289f0e3105",
+    "gitCommitShort": "e832848",
+    "buildTimeKST": "2026-10-27T03:11:26+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  },
+  "releaseId": 424601189,
+  "tag": "windows-comfort-ui-20261027",
+  "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-comfort-ui-20261027",
+  "bytes": 89601107,
+  "sha256": "939590c6854d749e519794a4d71f2e11119f55b3c74f78128b4c4bed2d798991",
+  "files": 222,
+  "publicDownload": {
+    "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-comfort-ui-20261027/MeteorDefenseVR-Windows-ComfortUi-20261027.zip",
+    "sha256": "939590c6854d749e519794a4d71f2e11119f55b3c74f78128b4c4bed2d798991",
+    "bytes": 89601107,
+    "verifiedUtc": "2026-10-26T18:16:04.7112372Z",
+    "matches": true
+  },
+  "tests": [
+    "before.xml",
+    "accepted.xml",
+    "extracted-run.json",
+    "pause-regression.txt",
+    "settings-regression.txt"
+  ]
+}
