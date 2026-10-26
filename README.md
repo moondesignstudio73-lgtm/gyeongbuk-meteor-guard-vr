@@ -4,7 +4,7 @@
 
 ## 바로 플레이하기
 
-**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-ui-screens-20261027)**
+**[Windows 게임 다운로드](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-ready-readability-20261027)**
 
 1. 다운로드 페이지에서 ZIP 파일을 받고 **전체 압축 해제**를 해 주세요.
 2. 폴더 안의 **Start-Mouse.cmd**를 두 번 눌러 시작하세요. Unity 설치는 필요 없어요.

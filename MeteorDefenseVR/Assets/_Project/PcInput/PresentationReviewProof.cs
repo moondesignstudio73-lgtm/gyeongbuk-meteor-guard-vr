@@ -17,6 +17,10 @@ namespace MeteorDefenseVR.PcInput
 {
  public static class PresentationReviewProof
  {
+  private sealed class MenuRay : MeteorDefenseVR.EyeTracking.IGazeProvider {
+   private readonly Ray ray;public MenuRay(Vector3 origin,Vector3 target){ray=new Ray(origin,(target-origin).normalized);}
+   public bool IsTrackingValid=>true;public Ray GetGazeRay()=>ray;public Vector3 GetGazeOrigin()=>ray.origin;public Vector3 GetGazeDirection()=>ray.direction;
+  }
   public static IEnumerator Run(string output,bool validate,bool screensOnly=false)
   {
    Directory.CreateDirectory(output);
@@ -42,9 +46,17 @@ namespace MeteorDefenseVR.PcInput
     Action save=()=>{try{Directory.CreateDirectory(folder);Canvas.ForceUpdateCanvases();PcStabilityRenderDriver.RenderForProof(camera);probe.SaveGameOnlyProof(folder,router);
      string stateName=Path.GetFileName(folder);
      File.WriteAllText(Path.Combine(folder,"state.txt"),$"state={flow.CurrentState}; camera={camera.name}; position={camera.transform.position}; rotation={camera.transform.eulerAngles}; warm={Object.FindAnyObjectByType<ReadyPrewarmController>()?.IsComplete}");
-     if(validate&&new[]{"start","selected","locked"}.Contains(stateName)){
+     if(validate&&new[]{"start","selected","selected-hard","locked"}.Contains(stateName)){
       var selection=Object.FindAnyObjectByType<DifficultySelectionView>();
       if(flow.CurrentState!=GameState.Boot||selection==null||selection.Choices.Any(c=>c==null||!c.gameObject.activeInHierarchy))throw new InvalidOperationException("Ready gallery not visible: "+stateName+" / "+flow.CurrentState);
+      var panel=selection.transform.Find("DifficultySelection");var plate=panel.Find("StartHintPlate")?.GetComponent<ChamferedHudPanel>();
+      if(plate!=null){
+       var hint=panel.Find("StartHint").GetComponent<TextMeshPro>();hint.ForceMeshUpdate();
+       if(plate.FillColor.a<1||hint.fontSize!=260||hint.isTextTruncated||hint.textBounds.size.x>hint.rectTransform.rect.width+1||hint.textBounds.size.y>hint.rectTransform.rect.height+1)throw new InvalidOperationException("Start hint opacity/size/overflow");
+       var corners=new Vector3[4];hint.rectTransform.GetWorldCorners(corners);var plateRect=(RectTransform)plate.transform;
+       foreach(var corner in corners){var p=plateRect.InverseTransformPoint(corner);if(p.x<plateRect.rect.xMin+16||p.x>plateRect.rect.xMax-16||p.y<plateRect.rect.yMin+16||p.y>plateRect.rect.yMax-16)throw new InvalidOperationException("Start hint needs padding");}
+       foreach(var choice in selection.Choices){var description=choice.transform.Find("Label/Description").GetComponent<TextMeshPro>();description.ForceMeshUpdate();if(description.fontSize!=240||description.color.r<.85f||description.isTextTruncated||description.textBounds.size.x>description.rectTransform.rect.width+1)throw new InvalidOperationException("Difficulty description contrast/size/overflow");}
+      }
      }
      if(validate&&folder.Contains("tutorial")){var tutorialView=Object.FindAnyObjectByType<TutorialSafeZoneView>();tutorialView.InstructionText.ForceMeshUpdate();if(tutorialView.InstructionText.isTextTruncated||!tutorialView.InstructionText.GetParsedText().Contains(tutorialView.CurrentInstruction))throw new InvalidOperationException("Tutorial instruction was clipped");}
      if(validate&&folder.Contains("result")){
@@ -103,6 +115,13 @@ namespace MeteorDefenseVR.PcInput
      if(!readyScreen.CanStart||(preparation!=null&&!preparation.IsComplete))throw new InvalidOperationException("Ready UI not interactive after loading");
      router.Simulation.Recenter();
      yield return Snap("start");
+     if(screensOnly){var selection=Object.FindAnyObjectByType<DifficultySelectionView>();var caster=Object.FindAnyObjectByType<MeteorDefenseVR.EyeTracking.GazeRaycaster>();var provider=caster.Provider;
+      var hard=selection.Choices.Single(c=>c.Level==DifficultyLevel.Hard);
+      try{caster.SetProvider(new MenuRay(camera.transform.position,hard.transform.position));yield return Wait(1.1f);if(manager.Selected!=DifficultyLevel.Hard)throw new InvalidOperationException("Direct gaze did not select Hard");}finally{caster.SetProvider(provider);}
+      yield return Snap("selected-hard");
+      typeof(DifficultySelectionView).GetField("extremeNoticeShown",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).SetValue(selection,false);
+      notes.Add($"{size}: synthetic direct gaze selected Hard; experience tip rearmed only for concurrent-notice fixture");
+     }
      manager.Select(DifficultyLevel.Experience);yield return Snap("selected");
      if(screensOnly){manager.Settings.lockDifficultySelection=true;foreach(var choice in Object.FindAnyObjectByType<DifficultySelectionView>().Choices)choice.Refresh();yield return Snap("locked");if(manager.Select(DifficultyLevel.Hard))throw new InvalidOperationException("Locked difficulty changed");manager.Settings.lockDifficultySelection=false;foreach(var choice in Object.FindAnyObjectByType<DifficultySelectionView>().Choices)choice.Refresh();}
      var startButton=readyScreen.transform.Find("DifficultySelection/StartMission")?.GetComponent<UnityEngine.UI.Button>();

@@ -32,6 +32,7 @@ namespace MeteorDefenseVR.PcInput
         private Transform lobbyAnchor;
         private HangarMenuButton startAction;
         private TextMeshPro startHint;
+        private UnityEngine.UI.Image startHintPlate;
         private Material actionTextMaterial;
         private Vector3 readyPosition,readyScale;
         public void SetLobbyContext(Transform anchor)
@@ -132,8 +133,11 @@ namespace MeteorDefenseVR.PcInput
             actionTextMaterial=new Material(material){name="Ready action text overlay",renderQueue=4000};
             actionTextMaterial.SetFloat("_ZTestMode",(float)UnityEngine.Rendering.CompareFunction.Always);
             foreach(var label in startAction.GetComponentsInChildren<TextMeshPro>()){label.fontSize=480;label.fontSharedMaterial=actionTextMaterial;label.GetComponent<MeshRenderer>().sortingOrder=103;}
-            Label(panel,"StartHint","시작에 조준점을 맞춰 보세요.",new Vector2(0,-180f/1.4f),260,font,actionTextMaterial);
-            startHint=panel.Find("StartHint").GetComponent<TextMeshPro>();startHint.rectTransform.sizeDelta=new Vector2(720,40);
+            startHintPlate=Image("StartHintPlate",panel,new Vector2(330,0),new Vector2(220,228),FlightUiTheme.Ink);
+            FlightUiTheme.Plate(startHintPlate);
+            Label(panel,"StartHint","시작에 조준점을 맞춰 보세요.",new Vector2(330,0),260,font,actionTextMaterial);
+            startHint=panel.Find("StartHint").GetComponent<TextMeshPro>();startHint.rectTransform.sizeDelta=new Vector2(180,180);
+            startHint.textWrappingMode=TextWrappingModes.Normal;startHint.alignment=TextAlignmentOptions.MidlineLeft;startHint.color=FlightUiTheme.Text;
             startHint.GetComponent<MeshRenderer>().sortingOrder=103;
             foreach(string path in new[]{"ReadyStartButton","ReadyDecorations/StartLabel","ReadyDecorations/ReadyPrompt"}){var legacy=ready.transform.Find(path);if(legacy!=null)legacy.gameObject.SetActive(false);}
             Layout();
@@ -160,34 +164,35 @@ namespace MeteorDefenseVR.PcInput
             aspect = view.aspect; fov = view.fieldOfView;
             readyPosition=ready.transform.position;readyScale=ready.transform.lossyScale;
             startAction.gameObject.SetActive(lobbyAnchor==null);startHint.gameObject.SetActive(lobbyAnchor==null);
+            startHintPlate.gameObject.SetActive(lobbyAnchor==null);
             foreach(var label in startAction.GetComponentsInChildren<TextMeshPro>(true))label.GetComponent<MeshRenderer>().sortingOrder=103;
             startHint.GetComponent<MeshRenderer>().sortingOrder=103;
             if (lobbyAnchor == null)
             {
-                panel.sizeDelta = new Vector2(640, 230);
+                panel.sizeDelta = new Vector2(740, 230);
                 for (int i=0;i<choices.Length;i++)
                 {
                     var card=choices[i];var rect=(RectTransform)card.transform;
-                    rect.anchoredPosition=new Vector2(i%2==0?-160:160,i<2?60:-60);
-                    rect.sizeDelta=new Vector2(304,108);
-                    ((RectTransform)card.transform.Find("Surface")).sizeDelta=new Vector2(300,104);
-                    card.GetComponent<BoxCollider>().size=new Vector3(304,108,2);
+                    rect.anchoredPosition=new Vector2(i%2==0?-180:80,i<2?60:-60);
+                    rect.sizeDelta=new Vector2(240,108);
+                    ((RectTransform)card.transform.Find("Surface")).sizeDelta=new Vector2(236,104);
+                    card.GetComponent<BoxCollider>().size=new Vector3(240,108,2);
                     var title=card.transform.Find("Label/Title").GetComponent<TextMeshPro>();
-                    title.rectTransform.sizeDelta=new Vector2(254,35);title.transform.localPosition=new Vector3(-8,30,-2);
+                    title.rectTransform.sizeDelta=new Vector2(190,35);title.transform.localPosition=new Vector3(-8,30,-2);
                     title.alignment=TextAlignmentOptions.MidlineLeft;title.color=FlightUiTheme.Text;
                     var description=card.transform.Find("Label/Description").GetComponent<TextMeshPro>();
-                    description.rectTransform.sizeDelta=new Vector2(254,66);description.transform.localPosition=new Vector3(-8,-17,-2);
-                    description.alignment=TextAlignmentOptions.MidlineLeft;description.color=FlightUiTheme.Muted;
-                    card.transform.Find("SelectedCheck").localPosition=new Vector3(128,32,-.5f);
-                    ((RectTransform)card.transform.Find("DwellProgress")).anchoredPosition=new Vector2(-140,-47);
-                    ((RectTransform)card.transform.Find("DwellProgress")).sizeDelta=new Vector2(280,2);
+                    description.rectTransform.sizeDelta=new Vector2(190,66);description.transform.localPosition=new Vector3(-8,-17,-2);
+                    description.alignment=TextAlignmentOptions.MidlineLeft;description.color=FlightUiTheme.Text;
+                    card.transform.Find("SelectedCheck").localPosition=new Vector3(96,32,-.5f);
+                    ((RectTransform)card.transform.Find("DwellProgress")).anchoredPosition=new Vector2(-108,-47);
+                    ((RectTransform)card.transform.Find("DwellProgress")).sizeDelta=new Vector2(216,2);
                     card.transform.Find("Surface").GetComponent<UnityEngine.UI.Image>().color=FlightUiTheme.Surface;
                 }
                 float pixelScale=Mathf.Min(view.pixelWidth/1280f,view.pixelHeight/720f);
                 float depth=view.stereoEnabled?1.25f:.65f;
                 float scale=2*depth*Mathf.Tan(fov*.5f*Mathf.Deg2Rad)/view.pixelHeight*pixelScale;
                 panel.localScale=Vector3.one*scale*1.4f;
-                panel.position=view.ViewportToWorldPoint(new Vector3(.5f,.5f+10*pixelScale/view.pixelHeight,depth));
+                panel.position=view.ViewportToWorldPoint(new Vector3(.5f-70*1.4f*pixelScale*ready.transform.lossyScale.x/view.pixelWidth,.5f+10*pixelScale/view.pixelHeight,depth));
                 // Keep the action in front of the cockpit while retaining its angular size and gaze collider.
                 float actionDepth=view.stereoEnabled?1.25f:.45f;
                 startAction.transform.position=view.ViewportToWorldPoint(new Vector3(.5f-280*pixelScale/view.pixelWidth,.5f-216*pixelScale/view.pixelHeight,actionDepth));
@@ -265,7 +270,7 @@ namespace MeteorDefenseVR.PcInput
             // The lobby has a smaller world scale; keep comparable screen-space reading size.
             extremeNotice.fontSize = Mathf.Lerp(lobbyAnchor != null ? 470 : 430, 390,
                 Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect));
-            extremeNotice.transform.localPosition = new Vector3(0, noticeY, -2);
+            extremeNotice.transform.localPosition = new Vector3(lobbyAnchor!=null?0:70, noticeY, -2);
             if (instruction != null)
             {
                 bool operatorLocked = panel.gameObject.activeInHierarchy && manager.Settings.lockDifficultySelection;
