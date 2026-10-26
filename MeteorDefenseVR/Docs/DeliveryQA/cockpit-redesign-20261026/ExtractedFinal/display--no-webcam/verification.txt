@@ -1,0 +1,22 @@
+Initial start uses StartExperience and synthetic relative InputSystem aim. Replay result is forced then original replay action invoked. UI gallery uses explicit states/menu actions and max-score fixture. No OS/HMD or natural whole-round claim.
+state=Intro; target=; tracking=True; looking=True; mode=MouseGaze
+state=MissionBriefing; target=; tracking=True; looking=True; mode=MouseGaze
+tick state=MissionBriefing; target=; tracking=True; looking=True; suspended=False; modal=False; requested=(0.00, 0.00); forward=(0.00, 0.00, 1.00); aim=; mouse=(0.00, 0.00); queued=(0.00, 0.00); enabled=True; current=1; expected=1; scale=1; dt=0.0661036; hit=; lock=; ray=Origin: (0.00, 0.00, 0.03), Dir: (0.00, 0.00, 1.00)
+state=EyeCalibration; target=; tracking=False; looking=False; mode=MouseGaze
+tick state=EyeCalibration; target=; tracking=False; looking=False; suspended=False; modal=False; requested=(0.00, 0.00); forward=(0.00, 0.00, 1.00); aim=; mouse=(0.00, 0.00); queued=(0.00, 0.00); enabled=True; current=1; expected=1; scale=1; dt=0.07140511; hit=; lock=; ray=Origin: (0.00, 0.00, 0.03), Dir: (0.13, -0.07, 0.99)
+state=Tutorial; target=Meteor_Tutorial(Clone); tracking=True; looking=True; mode=MouseGaze
+tick state=Tutorial; target=; tracking=True; looking=True; suspended=False; modal=False; requested=(0.00, -14.93); forward=(0.00, 0.26, 0.97); aim=; mouse=(0.00, 0.00); queued=(0.00, 0.00); enabled=True; current=1; expected=1; scale=1; dt=0.0111115; hit=; lock=; ray=Origin: (0.00, 0.01, 0.03), Dir: (0.00, 0.26, 0.97)
+state=Practice; target=Meteor_Normal(Clone); tracking=True; looking=True; mode=MouseGaze
+state=Launch; target=; tracking=True; looking=True; mode=MouseGaze
+tick state=Launch; target=; tracking=True; looking=True; suspended=False; modal=False; requested=(10.06, -12.10); forward=(0.17, 0.21, 0.96); aim=; mouse=(0.00, 0.00); queued=(0.00, 0.00); enabled=True; current=1; expected=1; scale=1; dt=0.0111111; hit=; lock=; ray=Origin: (0.01, 0.01, 0.03), Dir: (0.17, 0.21, 0.96)
+state=Countdown; target=; tracking=True; looking=True; mode=MouseGaze
+tick state=Countdown; target=; tracking=True; looking=True; suspended=False; modal=False; requested=(10.06, -12.10); forward=(0.17, 0.21, 0.96); aim=; mouse=(0.00, 0.00); queued=(0.00, 0.00); enabled=True; current=1; expected=1; scale=1; dt=0.011141; hit=; lock=; ray=Origin: (0.01, 0.01, 0.03), Dir: (0.17, 0.21, 0.96)
+state=Playing; target=; tracking=True; looking=True; mode=MouseGaze
+round=1; enteredPlaying=True; frames=62; hangarReversed=False; cameraTranslation=0
+state=Boot; target=; tracking=True; looking=False; mode=MouseGaze
+state=Launch; target=; tracking=True; looking=True; mode=MouseGaze
+tick state=Launch; target=; tracking=True; looking=True; suspended=False; modal=False; requested=(0.00, 0.00); forward=(0.00, 0.00, 1.00); aim=; mouse=(0.00, 0.00); queued=(0.00, 0.00); enabled=True; current=1; expected=1; scale=1; dt=0.0111115; hit=; lock=; ray=Origin: (0.00, 0.00, 0.03), Dir: (0.00, 0.00, 1.00)
+state=Countdown; target=; tracking=True; looking=True; mode=MouseGaze
+state=Playing; target=; tracking=True; looking=True; mode=MouseGaze
+round=2; enteredPlaying=True; frames=63; hangarReversed=False; cameraTranslation=0
+passed=True

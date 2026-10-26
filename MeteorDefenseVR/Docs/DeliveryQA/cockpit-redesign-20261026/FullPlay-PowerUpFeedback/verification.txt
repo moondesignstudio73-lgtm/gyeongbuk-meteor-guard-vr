@@ -1,0 +1,80 @@
+Actual manager/weapon/spawner fixture; fixed targets, real player camera. Not human or HMD verification.
+(1280, 720)/before: rapid=0.000 multi=0.000 charge=0.000 pulse=0.000 shots=0 visible=False
+(1280, 720)/before: renderCPUmedianMs=1.4425 p95=2.0624; QA submission, not GPU benchmark
+actual rapid ability=True
+(1280, 720)/rapid: rapid=8.789 multi=0.000 charge=1.000 pulse=0.000 shots=0 visible=True
+(1280, 720)/rapid: clear=True fits=True minGlyphPx=23.58 panel=(x:0.67, y:0.03, width:0.31, height:0.26)
+rapid readability=True
+(1280, 720)/simultaneous: rapid=8.542 multi=8.753 charge=1.000 pulse=0.000 shots=0 visible=True
+(1280, 720)/simultaneous: clear=True fits=True minGlyphPx=23.58 panel=(x:0.67, y:0.03, width:0.31, height:0.34)
+simultaneous readability=True
+primary shot without auxiliary targets=True
+no invented additional shots=True
+real primary and two lethal auxiliary hits=True
+actual two additional hits and pulse=True
+rapid charge follows cooldown=True
+(1280, 720)/extra-shot: rapid=8.542 multi=8.753 charge=0.000 pulse=0.220 shots=2 visible=True
+(1280, 720)/extra-shot: clear=True fits=True minGlyphPx=23.58 panel=(x:0.67, y:0.03, width:0.31, height:0.34)
+extra-shot readability=True
+pause freezes timers and pulse=True
+(1280, 720)/paused: rapid=8.542 multi=8.753 charge=0.000 pulse=0.220 shots=2 visible=True
+(1280, 720)/paused: clear=True fits=True minGlyphPx=23.58 panel=(x:0.67, y:0.03, width:0.31, height:0.34)
+paused readability=True
+shot pulse clears and weapon recharges=True
+(1280, 720)/ending: rapid=1.500 multi=1.711 charge=1.000 pulse=0.000 shots=2 visible=True
+(1280, 720)/ending: clear=True fits=True minGlyphPx=23.58 panel=(x:0.67, y:0.03, width:0.31, height:0.34)
+ending readability=True
+real remaining time end warning=True
+refresh clears ending warning=True
+(1280, 720)/refreshed: rapid=6.000 multi=6.211 charge=1.000 pulse=0.000 shots=2 visible=True
+(1280, 720)/refreshed: clear=True fits=True minGlyphPx=23.34 panel=(x:0.67, y:0.03, width:0.31, height:0.34)
+refreshed readability=True
+(1280, 720)/active: renderCPUmedianMs=1.7548 p95=2.2692; QA submission, not GPU benchmark
+feedback1000TicksBytes=0 cpuMs=2.0257 (steady feedback only)
+expiration restores normal ability and layout=True
+(1280, 720)/expired: rapid=0.000 multi=0.000 charge=1.000 pulse=0.000 shots=0 visible=False
+30 reuses no object or material growth=True
+actual defeat hides feedback=True
+(1280, 720)/result-cleared: rapid=9.000 multi=9.000 charge=1.000 pulse=0.000 shots=0 visible=False
+restart clears abilities and indicators=True
+camera and turret hiding preserved=True
+(800, 600)/before: rapid=0.000 multi=0.000 charge=1.000 pulse=0.000 shots=0 visible=False
+(800, 600)/before: renderCPUmedianMs=1.6253 p95=2.2253; QA submission, not GPU benchmark
+actual rapid ability=True
+(800, 600)/rapid: rapid=8.789 multi=0.000 charge=1.000 pulse=0.000 shots=0 visible=True
+(800, 600)/rapid: clear=True fits=True minGlyphPx=14.74 panel=(x:0.67, y:0.03, width:0.31, height:0.20)
+rapid readability=True
+(800, 600)/simultaneous: rapid=8.559 multi=8.770 charge=1.000 pulse=0.000 shots=0 visible=True
+(800, 600)/simultaneous: clear=True fits=True minGlyphPx=14.74 panel=(x:0.67, y:0.03, width:0.31, height:0.25)
+simultaneous readability=True
+primary shot without auxiliary targets=True
+no invented additional shots=True
+real primary and two lethal auxiliary hits=True
+actual two additional hits and pulse=True
+rapid charge follows cooldown=True
+(800, 600)/extra-shot: rapid=8.559 multi=8.770 charge=0.000 pulse=0.220 shots=2 visible=True
+(800, 600)/extra-shot: clear=True fits=True minGlyphPx=14.74 panel=(x:0.67, y:0.03, width:0.31, height:0.25)
+extra-shot readability=True
+pause freezes timers and pulse=True
+(800, 600)/paused: rapid=8.559 multi=8.770 charge=0.000 pulse=0.220 shots=2 visible=True
+(800, 600)/paused: clear=True fits=True minGlyphPx=14.74 panel=(x:0.67, y:0.03, width:0.31, height:0.25)
+paused readability=True
+shot pulse clears and weapon recharges=True
+(800, 600)/ending: rapid=1.500 multi=1.711 charge=1.000 pulse=0.000 shots=2 visible=True
+(800, 600)/ending: clear=True fits=True minGlyphPx=14.74 panel=(x:0.67, y:0.03, width:0.31, height:0.25)
+ending readability=True
+real remaining time end warning=True
+refresh clears ending warning=True
+(800, 600)/refreshed: rapid=6.000 multi=6.211 charge=1.000 pulse=0.000 shots=2 visible=True
+(800, 600)/refreshed: clear=True fits=True minGlyphPx=14.59 panel=(x:0.67, y:0.03, width:0.31, height:0.25)
+refreshed readability=True
+(800, 600)/active: renderCPUmedianMs=1.8772 p95=2.2706; QA submission, not GPU benchmark
+feedback1000TicksBytes=0 cpuMs=1.7778 (steady feedback only)
+expiration restores normal ability and layout=True
+(800, 600)/expired: rapid=0.000 multi=0.000 charge=1.000 pulse=0.000 shots=0 visible=False
+30 reuses no object or material growth=True
+actual defeat hides feedback=True
+(800, 600)/result-cleared: rapid=9.000 multi=9.000 charge=1.000 pulse=0.000 shots=0 visible=False
+restart clears abilities and indicators=True
+camera and turret hiding preserved=True
+passed=True
