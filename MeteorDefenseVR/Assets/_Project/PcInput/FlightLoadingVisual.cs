@@ -17,17 +17,22 @@ namespace MeteorDefenseVR.PcInput
             var root = Rect("FlightPreparation", parent, Vector2.zero, new Vector2(1280, 720));
             var visual = root.gameObject.AddComponent<FlightLoadingVisual>();
             var group = root.gameObject.AddComponent<CanvasGroup>(); group.blocksRaycasts = false; group.interactable = false;
-            Label("FlightTitle", root, font, "출격 준비", 28, new Vector2(0, 255), new Vector2(720, 46), new Color(.8f, .98f, 1));
-            var graphicRect = Rect("FlightOrbit", root, new Vector2(0, 50), new Vector2(880, 350));
+            var plate=Rect("PreparationPanel",root,Vector2.zero,new Vector2(1120,660)).gameObject.AddComponent<UnityEngine.UI.Image>();
+            plate.raycastTarget=false;FlightUiTheme.Plate(plate);
+            var title=Label("FlightTitle", root, font, "출격 준비", 48, new Vector2(0, 265), new Vector2(1000, 80), FlightUiTheme.Accent);
+            title.fontStyle=FontStyles.Bold;
+            var graphicRect = Rect("FlightOrbit", root, new Vector2(0, 70), new Vector2(880, 350));
+            graphicRect.localScale=Vector3.one*.8f;
             visual.graphic = graphicRect.gameObject.AddComponent<FlightPreparationGraphic>(); visual.graphic.raycastTarget = false;
-            visual.status = Label("PreparationStatus", root, font, "우주선을 준비하고 있어요", 25, new Vector2(0, -155), new Vector2(840, 44), new Color(.8f, .98f, 1));
-            var track = Rect("ProgressTrack", root, new Vector2(0, -202), new Vector2(420, 3));
+            visual.status = Label("PreparationStatus", root, font, "우주선을 준비하고 있어요", 40, new Vector2(0, -105), new Vector2(1000, 64), FlightUiTheme.Text);
+            var track = Rect("ProgressTrack", root, new Vector2(0, -220), new Vector2(560, 8));
             var image = track.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(.1f, .3f, .35f); image.raycastTarget = false;
-            visual.fill = Rect("ProgressFill", track, Vector2.zero, new Vector2(0, 3));
+            visual.fill = Rect("ProgressFill", track, Vector2.zero, new Vector2(0, 8));
             visual.fill.anchorMin = visual.fill.anchorMax = visual.fill.pivot = new Vector2(0, .5f);
             image = visual.fill.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(.14f, .9f, .95f); image.raycastTarget = false;
-            visual.percent = Label("PreparationPercent", root, font, "0%", 18, new Vector2(0, -235), new Vector2(300, 32), new Color(.45f, .78f, .85f));
-            Label("FlightTip", root, font, "조준점을 운석에 맞추면 자동으로 발사돼요.", 18, new Vector2(0, -295), new Vector2(900, 38), new Color(.55f, .75f, .8f));
+            visual.percent = Label("PreparationPercent", root, font, "0%", 42, new Vector2(0, -175), new Vector2(300, 64), FlightUiTheme.Text);
+            visual.percent.fontStyle=FontStyles.Bold;
+            Label("FlightTip", root, font, "조준점을 운석에 맞추면 자동으로 발사돼요.", 40, new Vector2(0, -275), new Vector2(1000, 64), FlightUiTheme.Text);
             return visual;
         }
         public void Present(float progress, string message, float deltaTime)
@@ -38,7 +43,7 @@ namespace MeteorDefenseVR.PcInput
             if (status.text != message) status.text = message;
             int value = Mathf.FloorToInt(Progress * 100);
             if (value == previousPercent) return;
-            previousPercent = value; percent.SetText("{0}%", value); fill.sizeDelta = new Vector2(420 * Progress, 3);
+            previousPercent = value; percent.SetText("{0}%", value); fill.sizeDelta = new Vector2(560 * Progress, 8);
         }
         internal static RectTransform Rect(string name, Transform parent, Vector2 position, Vector2 size)
         {

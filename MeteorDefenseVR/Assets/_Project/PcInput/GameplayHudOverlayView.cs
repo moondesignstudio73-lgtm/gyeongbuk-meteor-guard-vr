@@ -3,6 +3,7 @@ using MeteorDefenseVR.Core;
 using MeteorDefenseVR.Difficulty;
 using MeteorDefenseVR.GameFlow;
 using MeteorDefenseVR.Launch;
+using MeteorDefenseVR.Meteor;
 using MeteorDefenseVR.UI;
 using TMPro;
 using UnityEngine;
@@ -40,6 +41,9 @@ namespace MeteorDefenseVR.PcInput
         private DifficultyManager difficultyManager;
         private DifficultyLevel? presentedDifficulty;
         private int presentedStage = -1;
+        private BossClimaxController boss;
+        private string bossMessage=string.Empty;
+        private bool BossWarningVisible => boss!=null&&boss.IsRunning&&(boss.CurrentStage==BossClimaxStage.Warning||boss.CurrentStage==BossClimaxStage.Narration);
 
         public Canvas HudCanvas => canvas;
         public GameObject TelemetryRoot => telemetryRoot;
@@ -213,6 +217,8 @@ namespace MeteorDefenseVR.PcInput
         private void Bind()
         {
             Unbind();
+            if(boss==null)boss=FindAnyObjectByType<BossClimaxController>(FindObjectsInactive.Include);
+            if(boss!=null)boss.StageChanged+=HandleBossStage;
             if (controller != null)
             {
                 controller.HealthChanged += PresentHealth;
@@ -226,6 +232,7 @@ namespace MeteorDefenseVR.PcInput
 
         private void Unbind()
         {
+            if(boss!=null)boss.StageChanged-=HandleBossStage;
             if (controller != null)
             {
                 controller.HealthChanged -= PresentHealth;
@@ -275,6 +282,7 @@ namespace MeteorDefenseVR.PcInput
         private void HandleFeedbackChanged(string _) => PresentFeedback(ResolveSystemMessage(legacyHudRoot != null && legacyHudRoot.activeInHierarchy));
         private void HandleLaunchStageChanged(LaunchStage _, string __) => PresentFeedback(ResolveSystemMessage(false));
         private void HandleMissionCompleteChanged(string _) => PresentFeedback(ResolveSystemMessage(false));
+        private void HandleBossStage(BossClimaxStage _,string message){bossMessage=message??string.Empty;presentedMessage=null;PresentFeedback(ResolveSystemMessage(legacyHudRoot!=null&&legacyHudRoot.activeInHierarchy));}
 
         private string ResolveSystemMessage(bool telemetryVisible)
         {
@@ -282,6 +290,9 @@ namespace MeteorDefenseVR.PcInput
             // A direct result transition can precede the completion controller's cleanup.
             // The result panel owns this screen; stale status must not cover its score.
             if (flow != null && flow.CurrentState == GameState.Result) return string.Empty;
+            // Keep the real timed warning/narration legible when score or lock-on updates share the HUD.
+            // BossClimaxController still owns the stage and its duration.
+            if(flow!=null&&flow.CurrentState==GameState.BossMeteor&&BossWarningVisible)return bossMessage;
             if (missionComplete != null && missionComplete.IsRunning && missionComplete.PresentationProgress > 0f && !string.IsNullOrWhiteSpace(missionComplete.StatusMessage))
                 return missionComplete.StatusMessage;
             if (launch != null && launch.IsRunning && IsLaunchMessageStage(launch.CurrentStage))
@@ -301,6 +312,7 @@ namespace MeteorDefenseVR.PcInput
 
         private float standardFeedbackFontSize = -1;
         private Vector2 standardFeedbackPanelSize, standardFeedbackTextSize;
+        private Vector2 standardFeedbackAnchorMin,standardFeedbackAnchorMax,standardFeedbackPosition;
         private float standardFeedbackLineSpacing;
         private void PresentFeedback(string message)
         {
@@ -316,6 +328,7 @@ namespace MeteorDefenseVR.PcInput
                 standardFeedbackPanelSize = ((RectTransform)feedbackPanel.transform).sizeDelta;
                 standardFeedbackTextSize = feedbackValue.rectTransform.sizeDelta;
                 standardFeedbackLineSpacing = feedbackValue.lineSpacing;
+                var original=(RectTransform)feedbackPanel.transform;standardFeedbackAnchorMin=original.anchorMin;standardFeedbackAnchorMax=original.anchorMax;standardFeedbackPosition=original.anchoredPosition;
             }
             bool abilityNotice = false;
             for (int i = 0; i < 8; i++)
@@ -323,10 +336,16 @@ namespace MeteorDefenseVR.PcInput
             // Completion owns a quiet screen. Give its two Korean lines a dedicated readable size
             // without changing tutorial, warning, stage or pickup message layouts.
             bool completionNotice = message == "MISSION COMPLETE\n지구 방어 성공!";
-            feedbackValue.fontSize = completionNotice ? 60f : abilityNotice ? Mathf.Max(40, standardFeedbackFontSize) : standardFeedbackFontSize;
+            bool bossNotice=BossWarningVisible&&!string.IsNullOrEmpty(bossMessage)&&message==bossMessage;
+            bool bossPrompt=boss!=null&&boss.IsRunning&&boss.CurrentStage==BossClimaxStage.Active&&!string.IsNullOrEmpty(bossMessage)&&message==bossMessage;
+            feedbackValue.fontSize = bossNotice||bossPrompt?34f:completionNotice ? 60f : abilityNotice ? Mathf.Max(40, standardFeedbackFontSize) : standardFeedbackFontSize;
             feedbackValue.lineSpacing = completionNotice ? 8f : standardFeedbackLineSpacing;
-            ((RectTransform)feedbackPanel.transform).sizeDelta = completionNotice ? new Vector2(720f, 232f) : standardFeedbackPanelSize;
-            feedbackValue.rectTransform.sizeDelta = completionNotice ? new Vector2(672f, 200f) : standardFeedbackTextSize;
+            var panelRect=(RectTransform)feedbackPanel.transform;
+            panelRect.anchorMin=bossNotice?new Vector2(.5f,.74f):bossPrompt?new Vector2(.5f,.77f):standardFeedbackAnchorMin;
+            panelRect.anchorMax=bossNotice?new Vector2(.5f,.74f):bossPrompt?new Vector2(.5f,.77f):standardFeedbackAnchorMax;
+            panelRect.anchoredPosition=bossNotice?new Vector2(0,12):bossPrompt?Vector2.zero:standardFeedbackPosition;
+            panelRect.sizeDelta = bossNotice?new Vector2(680f,120f):bossPrompt?new Vector2(680f,72f):completionNotice ? new Vector2(720f, 232f) : standardFeedbackPanelSize;
+            feedbackValue.rectTransform.sizeDelta = bossNotice?new Vector2(640f,104f):bossPrompt?new Vector2(640f,56f):completionNotice ? new Vector2(672f, 200f) : standardFeedbackTextSize;
             feedbackValue.color = message.Contains("WARNING") || message.Contains("FAILED") || message.Contains("BOSS")
                 ? Warning : message.Contains("COMPLETE") || message.Contains("CLEAR") || message.Contains("지키세요") ? Green : Cyan;
             SetText(feedbackValue, WorldTextPresentation.PlayerMessage(message));

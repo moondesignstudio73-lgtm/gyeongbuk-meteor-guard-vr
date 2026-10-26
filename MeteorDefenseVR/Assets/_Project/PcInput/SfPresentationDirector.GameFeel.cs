@@ -128,18 +128,28 @@ namespace MeteorDefenseVR.PcInput
             if (flow.CurrentState == GameState.Boot && !booting && !IsPreparing && !ambientStarted)
             { ambientStarted = true; audio?.TryPlay(AudioCue.IntroSpaceAmbient); }
             // Stable lane between the top telemetry and feedback panel; stage cards settle below it.
-            float noticeDepth = 2.65f;
-            flightNotice.transform.localPosition = new Vector3(0, 2f * noticeDepth * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad) * .35f, noticeDepth);
+            bool bossNoticeLane=flow.CurrentState==GameState.BossMeteor;
+            float noticeDepth = bossNoticeLane?(view.stereoEnabled?1.6f:.24f):2.65f;
+            // Boss copy occupies the upper lane. Keep concurrent danger copy below aim,
+            // above the dashboard readouts, with the same message and lifetime.
+            float noticeLane=bossNoticeLane?-.23f:.35f;
+            flightNotice.transform.localPosition = new Vector3(0, 2f * noticeDepth * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad) * noticeLane, noticeDepth);
+            float backingDepth=bossNoticeLane?(view.stereoEnabled?1.65f:.26f):2.8f;
+            float backingScale=backingDepth/2.8f;
+            var backingRect=warningBacking.rectTransform;
+            backingRect.localScale=Vector3.one*backingScale;
+            backingRect.anchoredPosition=new Vector2(0,720f*noticeLane*backingScale);
+            var backingPosition=backingRect.localPosition;backingPosition.z=(backingDepth-2.8f)/overlay.localScale.z;backingRect.localPosition=backingPosition;
             noticeAge += dt; praiseAge += dt;
             if (flightNotice.enabled)
             {
                 var tint = flightNotice.color; tint.a = Mathf.Clamp01(noticeAge / .08f) * Mathf.Clamp01((noticeDuration - noticeAge) / .25f);
                 flightNotice.color = tint;
-                flightNotice.transform.localScale = Vector3.one * Mathf.Lerp(1.04f,1,WorldTextMotion.Ease(noticeAge/.2f));
+                flightNotice.transform.localScale = Vector3.one * (noticeDepth/2.65f) * Mathf.Lerp(1.04f,1,WorldTextMotion.Ease(noticeAge/.2f));
                 if (noticeAge >= noticeDuration) flightNotice.enabled = false;
             }
             warningBacking.enabled = flightNotice.enabled && noticePriority == 2;
-            warningBacking.color = new Color(0f, .005f, .012f, flightNotice.color.a * .88f);
+            warningBacking.color = new Color(0f, .005f, .012f, flightNotice.color.a * (flow.CurrentState==GameState.BossMeteor?1f:.88f));
             if (praise.enabled)
             {
                 praise.color = new Color(.56f,1,.77f,Mathf.Clamp01((.85f-praiseAge)/.25f));

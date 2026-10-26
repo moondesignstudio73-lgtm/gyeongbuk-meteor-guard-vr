@@ -25,7 +25,7 @@ namespace MeteorDefenseVR.PcInput
             loadingCanvas.renderMode = RenderMode.WorldSpace; loadingCanvas.worldCamera = view; loadingCanvas.sortingOrder = 240;
             loadingOverlay.localPosition = Vector3.forward * .4f;
             var veil = Image("PreparationVeil", loadingOverlay, Vector2.zero, new Vector2(4000, 3000));
-            veil.color = new Color(.008f, .018f, .035f, .97f);
+            veil.color = FlightUiTheme.Ink;
             loadingVisual = FlightLoadingVisual.Create(loadingOverlay, font);
             loadingOverlay.gameObject.SetActive(false);
             stageCard = FlightLoadingVisual.Rect("StageArrival", overlay, Vector2.zero, new Vector2(760, 164));
@@ -57,7 +57,7 @@ namespace MeteorDefenseVR.PcInput
             loadingOverlay.gameObject.SetActive(booting);
             if (booting)
             {
-                loadingOverlay.localScale = Vector3.one * (2f * .4f * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad) / 720f);
+                loadingOverlay.localScale = Vector3.one * (2f * .4f * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad) / 720f * Mathf.Min(1f,view.aspect/(1280f/720f)));
                 float progress = IsPreparing ? .4f + .6f * preparation.CompletedSteps / preparation.TotalSteps : 1;
                 loadingVisual.Present(progress, IsPreparing ? preparation.Stage : resetting ? "다음 임무를 준비해요" : "출격 준비 완료!", dt);
             }
