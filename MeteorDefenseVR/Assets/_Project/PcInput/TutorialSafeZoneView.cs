@@ -20,6 +20,7 @@ namespace MeteorDefenseVR.PcInput
         [SerializeField, Range(.8f,2f)] private float vrDepth=1.25f;
         [SerializeField, Range(.0005f,.002f)] private float vrScale=.0011f;
         private bool? worldMode;
+        private TextMeshProUGUI heading;
 
         public Canvas HudCanvas=>canvas;
         public CanvasGroup HudGroup=>group;
@@ -104,9 +105,30 @@ namespace MeteorDefenseVR.PcInput
         private void Present(string message)
         {
             if(instructionText==null)return;
+            Arrange();
             CurrentInstruction=message??string.Empty;
-            instructionText.text="<size=27><b>조준 연습</b></size>\n<size=48><b>"+CurrentInstruction+"</b></size>";
+            instructionText.text=CurrentInstruction;
             RefreshTextGeometry();
+        }
+
+        private void Arrange()
+        {
+            if(safePanel==null||heading!=null)return;
+            // Keep the aiming area clear; the controller still owns every instruction and its timing.
+            safePanel.anchorMin=new Vector2(.08f,.73f);safePanel.anchorMax=new Vector2(.92f,.97f);
+            safePanel.offsetMin=safePanel.offsetMax=Vector2.zero;
+            FlightUiTheme.Plate(safePanel.GetComponent<Image>());
+            var outline=safePanel.GetComponent<Outline>();if(outline!=null)outline.enabled=false;
+            var go=new GameObject("TutorialHeading",typeof(RectTransform));go.transform.SetParent(safePanel,false);
+            heading=go.AddComponent<TextMeshProUGUI>();heading.font=instructionText.font;heading.fontSharedMaterial=instructionText.fontSharedMaterial;
+            heading.fontSize=30;heading.color=FlightUiTheme.Accent;heading.text="조준 연습";heading.raycastTarget=false;
+            heading.alignment=TextAlignmentOptions.MidlineLeft;
+            heading.rectTransform.anchorMin=new Vector2(0,1);heading.rectTransform.anchorMax=Vector2.one;
+            heading.rectTransform.pivot=new Vector2(.5f,1);heading.rectTransform.offsetMin=new Vector2(30,-51);heading.rectTransform.offsetMax=new Vector2(-30,-10);
+            var rect=instructionText.rectTransform;rect.anchorMin=Vector2.zero;rect.anchorMax=Vector2.one;
+            rect.offsetMin=new Vector2(30,12);rect.offsetMax=new Vector2(-30,-52);
+            instructionText.fontSize=48;instructionText.color=FlightUiTheme.Text;instructionText.fontStyle=FontStyles.Bold;
+            instructionText.alignment=TextAlignmentOptions.MidlineLeft;instructionText.margin=Vector4.zero;
         }
 
         private void RefreshTextGeometry()

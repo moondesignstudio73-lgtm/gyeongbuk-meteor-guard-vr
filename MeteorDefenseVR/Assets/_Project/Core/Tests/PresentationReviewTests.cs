@@ -17,7 +17,7 @@ public sealed class PresentationReviewTests {
   IEnumerator Drive()
   {
    var stack=new System.Collections.Generic.Stack<IEnumerator>();
-   stack.Push(PresentationReviewProof.Run(System.Environment.GetEnvironmentVariable("PRESENTATION_OUTPUT")??"Docs/DeliveryQA/cockpit-redesign-20261026/Before",System.Environment.GetEnvironmentVariable("PRESENTATION_VALIDATE")=="1"));
+   stack.Push(PresentationReviewProof.Run(System.Environment.GetEnvironmentVariable("PRESENTATION_OUTPUT")??"Docs/DeliveryQA/cockpit-redesign-20261026/Before",System.Environment.GetEnvironmentVariable("PRESENTATION_VALIDATE")=="1",System.Environment.GetEnvironmentVariable("PRESENTATION_SCREENS")=="1"));
    while(stack.Count>0)
    {
     object next=null;bool more=false;

@@ -11,6 +11,30 @@ namespace MeteorDefenseVR.Tests
     {
         private GameObject root;
 
+        public sealed class DirectMenuTarget : MonoBehaviour, IDirectGazeTarget
+        {
+            public float Duration;
+            public void OnGazeEnter(RaycastHit hit) { }
+            public void OnGazeStay(RaycastHit hit,float deltaTime) => Duration+=deltaTime;
+            public void OnGazeExit() { }
+        }
+
+        [Test]
+        public void CombatAssistanceCannotSelectNearbyMenuWithoutDirectAim()
+        {
+            root=new GameObject("MenuAimBoundary");
+            var provider=new TestGazeProvider{Origin=Vector3.one*10000};
+            var caster=root.AddComponent<GazeRaycaster>();caster.SetProvider(provider);caster.GazeMagnetismRadius=.3f;
+            var item=GameObject.CreatePrimitive(PrimitiveType.Cube);item.transform.SetParent(root.transform);
+            item.transform.position=provider.Origin+new Vector3(.25f,0,1);item.transform.localScale=Vector3.one*.1f;
+            var combat=item.AddComponent<GazeTarget>();Physics.SyncTransforms();caster.Tick(.2f);
+            Assert.That(caster.CurrentTarget,Is.SameAs(combat),"Combat targets retain aim assistance");
+            Object.DestroyImmediate(combat);var menu=item.AddComponent<DirectMenuTarget>();caster.SetProvider(provider);caster.Tick(.8f);
+            Assert.That(caster.CurrentTarget,Is.Null);Assert.That(menu.Duration,Is.Zero,"Nearby menus must not accumulate dwell");
+            provider.Direction=item.transform.position-provider.Origin;caster.Tick(.8f);
+            Assert.That(caster.CurrentTarget,Is.SameAs(menu));Assert.That(menu.Duration,Is.EqualTo(.8f).Within(.001));
+        }
+
         [TearDown]
         public void TearDown()
         {
@@ -142,10 +166,11 @@ namespace MeteorDefenseVR.Tests
         private sealed class TestGazeProvider : IGazeProvider
         {
             public bool Valid = true;
+            public Vector3 Origin;
             public Vector3 Direction = Vector3.forward;
             public bool IsTrackingValid => Valid;
-            public Ray GetGazeRay() => new Ray(Vector3.zero, Direction.normalized);
-            public Vector3 GetGazeOrigin() => Vector3.zero;
+            public Ray GetGazeRay() => new Ray(Origin, Direction.normalized);
+            public Vector3 GetGazeOrigin() => Origin;
             public Vector3 GetGazeDirection() => Direction.normalized;
         }
 

@@ -16,7 +16,7 @@ namespace MeteorDefenseVR.Tests
             var router=Object.FindAnyObjectByType<GazeInputRouter>();router.InputSuspended=true;yield return null;yield return null;
             var warm=Object.FindAnyObjectByType<ReadyPrewarmController>();float deadline=Time.realtimeSinceStartup+30;
             while(!warm.IsComplete&&Time.realtimeSinceStartup<deadline)yield return null;
-            bool passed=false;yield return ResultCountupProof.Run(router,"Docs/DeliveryQA/result-countup-20261022/After",v=>passed=v);Assert.That(passed,Is.True);
+            bool passed=false;yield return ResultCountupProof.Run(router,System.Environment.GetEnvironmentVariable("RESULT_COUNTUP_OUTPUT")??"Docs/DeliveryQA/result-countup-20261022/After",v=>passed=v);Assert.That(passed,Is.True);
         }
     }
 }

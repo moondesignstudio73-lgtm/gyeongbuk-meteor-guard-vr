@@ -30,6 +30,10 @@ namespace MeteorDefenseVR.PcInput
         private float aspect, fov;
         private bool initialized;
         private Transform lobbyAnchor;
+        private HangarMenuButton startAction;
+        private TextMeshPro startHint;
+        private Material actionTextMaterial;
+        private Vector3 readyPosition,readyScale;
         public void SetLobbyContext(Transform anchor)
         {
             lobbyAnchor = anchor;
@@ -81,6 +85,7 @@ namespace MeteorDefenseVR.PcInput
         private void OnDestroy()
         {
             if (panel != null) Destroy(panel.gameObject);
+            if(actionTextMaterial!=null)Destroy(actionTextMaterial);
             if (instruction != null) { instruction.text = originalInstruction; instruction.transform.localPosition = originalPosition; }
         }
         private void Build(TMP_FontAsset font, Material material)
@@ -120,6 +125,17 @@ namespace MeteorDefenseVR.PcInput
             Label(panel, "ExtremeNotice", "체험은 짧은 임무로 조작을 익히기 좋아요.", new Vector2(0, 100), 390, font, material);
             extremeNotice = panel.Find("ExtremeNotice").GetComponent<TextMeshPro>(); extremeNotice.rectTransform.sizeDelta = new Vector2(900, 64);
             extremeNotice.color = Color.white; extremeNotice.gameObject.SetActive(false);
+            startAction=HangarLobbyView.Button(panel,"StartMission","시작",Vector2.zero,font,()=>ready.StartExperience(),new Vector2(360,60));
+            startAction.AllowImmediateClick=true;
+            var actionCanvas=startAction.gameObject.AddComponent<Canvas>();actionCanvas.worldCamera=view;actionCanvas.overrideSorting=true;actionCanvas.sortingOrder=102;
+            startAction.gameObject.AddComponent<UnityEngine.UI.GraphicRaycaster>();startAction.GetComponent<UnityEngine.UI.Image>().raycastTarget=true;
+            actionTextMaterial=new Material(material){name="Ready action text overlay",renderQueue=4000};
+            actionTextMaterial.SetFloat("_ZTestMode",(float)UnityEngine.Rendering.CompareFunction.Always);
+            foreach(var label in startAction.GetComponentsInChildren<TextMeshPro>()){label.fontSize=480;label.fontSharedMaterial=actionTextMaterial;label.GetComponent<MeshRenderer>().sortingOrder=103;}
+            Label(panel,"StartHint","시작에 조준점을 맞춰 보세요.",new Vector2(0,-180f/1.4f),260,font,actionTextMaterial);
+            startHint=panel.Find("StartHint").GetComponent<TextMeshPro>();startHint.rectTransform.sizeDelta=new Vector2(720,40);
+            startHint.GetComponent<MeshRenderer>().sortingOrder=103;
+            foreach(string path in new[]{"ReadyStartButton","ReadyDecorations/StartLabel","ReadyDecorations/ReadyPrompt"}){var legacy=ready.transform.Find(path);if(legacy!=null)legacy.gameObject.SetActive(false);}
             Layout();
         }
         private static UnityEngine.UI.Image Image(string name, Transform parent, Vector2 position, Vector2 size, Color color)
@@ -142,19 +158,67 @@ namespace MeteorDefenseVR.PcInput
         private void Layout()
         {
             aspect = view.aspect; fov = view.fieldOfView;
+            readyPosition=ready.transform.position;readyScale=ready.transform.lossyScale;
+            startAction.gameObject.SetActive(lobbyAnchor==null);startHint.gameObject.SetActive(lobbyAnchor==null);
+            foreach(var label in startAction.GetComponentsInChildren<TextMeshPro>(true))label.GetComponent<MeshRenderer>().sortingOrder=103;
+            startHint.GetComponent<MeshRenderer>().sortingOrder=103;
+            if (lobbyAnchor == null)
+            {
+                panel.sizeDelta = new Vector2(640, 230);
+                for (int i=0;i<choices.Length;i++)
+                {
+                    var card=choices[i];var rect=(RectTransform)card.transform;
+                    rect.anchoredPosition=new Vector2(i%2==0?-160:160,i<2?60:-60);
+                    rect.sizeDelta=new Vector2(304,108);
+                    ((RectTransform)card.transform.Find("Surface")).sizeDelta=new Vector2(300,104);
+                    card.GetComponent<BoxCollider>().size=new Vector3(304,108,2);
+                    var title=card.transform.Find("Label/Title").GetComponent<TextMeshPro>();
+                    title.rectTransform.sizeDelta=new Vector2(254,35);title.transform.localPosition=new Vector3(-8,30,-2);
+                    title.alignment=TextAlignmentOptions.MidlineLeft;title.color=FlightUiTheme.Text;
+                    var description=card.transform.Find("Label/Description").GetComponent<TextMeshPro>();
+                    description.rectTransform.sizeDelta=new Vector2(254,66);description.transform.localPosition=new Vector3(-8,-17,-2);
+                    description.alignment=TextAlignmentOptions.MidlineLeft;description.color=FlightUiTheme.Muted;
+                    card.transform.Find("SelectedCheck").localPosition=new Vector3(128,32,-.5f);
+                    ((RectTransform)card.transform.Find("DwellProgress")).anchoredPosition=new Vector2(-140,-47);
+                    ((RectTransform)card.transform.Find("DwellProgress")).sizeDelta=new Vector2(280,2);
+                    card.transform.Find("Surface").GetComponent<UnityEngine.UI.Image>().color=FlightUiTheme.Surface;
+                }
+                float pixelScale=Mathf.Min(view.pixelWidth/1280f,view.pixelHeight/720f);
+                float depth=view.stereoEnabled?1.25f:.65f;
+                float scale=2*depth*Mathf.Tan(fov*.5f*Mathf.Deg2Rad)/view.pixelHeight*pixelScale;
+                panel.localScale=Vector3.one*scale*1.4f;
+                panel.position=view.ViewportToWorldPoint(new Vector3(.5f,.5f+10*pixelScale/view.pixelHeight,depth));
+                // Keep the action in front of the cockpit while retaining its angular size and gaze collider.
+                float actionDepth=view.stereoEnabled?1.25f:.45f;
+                startAction.transform.position=view.ViewportToWorldPoint(new Vector3(.5f-280*pixelScale/view.pixelWidth,.5f-216*pixelScale/view.pixelHeight,actionDepth));
+                startAction.transform.localScale=Vector3.one*(actionDepth/depth/1.4f);
+                PlaceReady("ReadyTitle",.5f,.5f+310*pixelScale/view.pixelHeight,3.82f);
+                PlaceReady("ReadyDecorations/ReadyInstructions",.5f,.5f+250*pixelScale/view.pixelHeight,3.82f);
+                var backing=ready.transform.Find("ReadyDecorations/PremiumReadyBacking");
+                if(backing!=null)backing.gameObject.SetActive(false);
+                var trim=ready.transform.Find("ReadyDecorations/PremiumReadyTrim");if(trim!=null)trim.gameObject.SetActive(false);
+                return;
+            }
             // Preserve enlarged type while using the extra vertical card padding only on narrow views.
             float compact = lobbyAnchor != null ? 0 : Mathf.InverseLerp(4f/3f, 16f/9f, aspect);
             float height = Mathf.Lerp(150,116,compact);
             panel.sizeDelta = new Vector2(704,height);
             foreach (var card in choices)
             {
+                int index=System.Array.IndexOf(choices,card);
+                ((RectTransform)card.transform).anchoredPosition=new Vector2((index-1.5f)*176,0);
                 ((RectTransform)card.transform).sizeDelta = new Vector2(166,height);
                 ((RectTransform)card.transform.Find("Surface")).sizeDelta = new Vector2(162,height-4);
                 card.GetComponent<BoxCollider>().size = new Vector3(166,height,2);
                 card.transform.Find("Label/Title").localPosition = new Vector3(0,Mathf.Lerp(47,37,compact),-2);
                 card.transform.Find("Label/Description").localPosition = new Vector3(0,Mathf.Lerp(-12,-8,compact),-2);
+                var title=card.transform.Find("Label/Title").GetComponent<TextMeshPro>();
+                title.rectTransform.sizeDelta=new Vector2(162,35);title.alignment=TextAlignmentOptions.Center;
+                var description=card.transform.Find("Label/Description").GetComponent<TextMeshPro>();
+                description.rectTransform.sizeDelta=new Vector2(156,80);description.alignment=TextAlignmentOptions.Center;
                 card.transform.Find("SelectedCheck").localPosition = new Vector3(64,height*.5f-18,-.5f);
                 ((RectTransform)card.transform.Find("DwellProgress")).anchoredPosition = new Vector2(-78,-height*.5f+8);
+                ((RectTransform)card.transform.Find("DwellProgress")).sizeDelta=new Vector2(156,2);
             }
             if (lobbyAnchor != null)
             {
@@ -162,9 +226,12 @@ namespace MeteorDefenseVR.PcInput
                 panel.localScale = lobbyAnchor.lossyScale * 1.3f;
                 return;
             }
-            float scale = 2 * 3.65f * Mathf.Tan(fov * .5f * Mathf.Deg2Rad) / 720f * Mathf.Min(1f, aspect / (16f / 9f));
-            panel.localScale = Vector3.one * scale * 1.4f;
-            panel.position = view.ViewportToWorldPoint(new Vector3(.5f, .42f, 3.65f)) + ready.transform.position - view.transform.position;
+        }
+        private void PlaceReady(string path,float x,float y,float depth)
+        {
+            var child=ready.transform.Find(path);if(child==null)return;
+            child.position=view.ViewportToWorldPoint(new Vector3(x,y,depth));
+            var source=child.GetComponent<TextMesh>();if(source!=null)source.color=FlightUiTheme.Text;
         }
         private void Refresh()
         {
@@ -188,13 +255,13 @@ namespace MeteorDefenseVR.PcInput
         {
             if (!initialized || panel == null) return;
             RefreshVisibility();
+            startAction.SetAvailable(ready.CanStart);
             // Preparation hides the cards: spend the one-time tip only while the player can see it.
             if (panel.gameObject.activeInHierarchy)
                 extremeNoticeRemaining = Mathf.Max(0, extremeNoticeRemaining - Time.deltaTime);
             extremeNotice.gameObject.SetActive(panel.gameObject.activeInHierarchy && extremeNoticeRemaining > 0);
             // Reserve a separate line for the full tip; narrow views receive larger type.
-            float noticeY = lobbyAnchor != null ? 110 : manager.Settings.lockDifficultySelection
-                ? Mathf.Lerp(150, 110, Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect)) : 100;
+            float noticeY = lobbyAnchor != null ? 110 : 195f/1.4f;
             // The lobby has a smaller world scale; keep comparable screen-space reading size.
             extremeNotice.fontSize = Mathf.Lerp(lobbyAnchor != null ? 470 : 430, 390,
                 Mathf.InverseLerp(4f / 3f, 16f / 9f, view.aspect));
@@ -220,7 +287,7 @@ namespace MeteorDefenseVR.PcInput
         private void LateUpdate()
         {
             // WorldUiSafeArea (order 950) adjusts Ready first; follow its final position.
-            if (initialized && panel != null && panel.gameObject.activeInHierarchy && (aspect != view.aspect || fov != view.fieldOfView)) Layout();
+            if (initialized && panel != null && panel.gameObject.activeInHierarchy && (aspect != view.aspect || fov != view.fieldOfView || readyPosition!=ready.transform.position || readyScale!=ready.transform.lossyScale)) Layout();
         }
     }
 }

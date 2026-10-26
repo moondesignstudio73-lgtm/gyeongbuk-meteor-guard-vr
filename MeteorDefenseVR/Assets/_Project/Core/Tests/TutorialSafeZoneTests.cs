@@ -122,7 +122,7 @@ namespace MeteorDefenseVR.Tests
                 foreach((string name,float yaw,float pitch) in new[]{("Front",0f,0f),("Left",-90f,0f),("Right",90f,0f),("Rear",180f,0f),("Above",0f,65f),("Below",0f,-65f)})
                 {
                     simulation.Recenter();simulation.ApplyLook(new Vector2(yaw/.1f,-pitch/.09f),1);yield return new WaitForSecondsRealtime(.12f);Canvas.ForceUpdateCanvases();
-                    Assert.That(view.IsVisible,Is.True,name);Assert.That(view.SafePanel.anchorMin.x,Is.EqualTo(.19f).Within(.001),name);Assert.That(view.SafePanel.anchorMax.x,Is.EqualTo(.81f).Within(.001),name);
+                    Assert.That(view.IsVisible,Is.True,name);Assert.That(view.SafePanel.anchorMin.x,Is.EqualTo(.08f).Within(.001),name);Assert.That(view.SafePanel.anchorMax.x,Is.EqualTo(.92f).Within(.001),name);
                     Assert.That(view.CurrentInstruction,Is.EqualTo(tutorial.Instruction),name);
                     // Capture only after an explicit final render. The QA driver and the simulated
                     // look controller both render in LateUpdate; reading between those callbacks can
@@ -132,7 +132,7 @@ namespace MeteorDefenseVR.Tests
                     Assert.That(rendered,Is.True,name+" tutorial pixels");
                     Assert.That(view.InstructionText.textInfo.characterCount,Is.GreaterThanOrEqualTo(tutorial.Instruction.Length),name+" complete instruction mesh");
                     Assert.That(view.InstructionText.isTextTruncated,Is.False,name+" instruction must fit");
-                    string folder=Path.Combine("Docs/TutorialSafeZoneQA",name);Directory.CreateDirectory(folder);render.SaveGameOnlyProof(folder,router);
+                    string folder=Path.Combine("Docs/DeliveryQA/ui-screens-20261026/HeadTurns",name);Directory.CreateDirectory(folder);render.SaveGameOnlyProof(folder,router);
                 }
             }
             yield return new ExitPlayMode();
@@ -147,7 +147,7 @@ namespace MeteorDefenseVR.Tests
                 RenderTexture.active=target;sample.ReadPixels(new Rect(0,0,target.width,target.height),0,0);sample.Apply(false,false);
                 Color32[] pixels=sample.GetPixels32();int hits=0;
                 int minX=Mathf.RoundToInt(target.width*.26f),maxX=Mathf.RoundToInt(target.width*.74f);
-                int minY=Mathf.RoundToInt(target.height*.60f),maxY=Mathf.RoundToInt(target.height*.76f);
+                int minY=Mathf.RoundToInt(target.height*.76f),maxY=Mathf.RoundToInt(target.height*.91f);
                 for(int y=minY;y<maxY&&hits<120;y++)for(int x=minX;x<maxX&&hits<120;x++)
                 {Color32 c=pixels[y*target.width+x];if(c.g>105&&c.b>105&&c.r>45)hits++;}
                 return hits>=120;

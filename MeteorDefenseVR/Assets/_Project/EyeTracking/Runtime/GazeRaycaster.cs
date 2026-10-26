@@ -95,10 +95,12 @@ namespace MeteorDefenseVR.EyeTracking
 
             Ray ray = gazeProvider.GetGazeRay();
             HasHit = Physics.Raycast(ray, out RaycastHit hit, maximumDistance, targetLayers, triggerInteraction);
+            bool assisted = !HasHit;
             if (!HasHit && gazeMagnetismRadius > 0f)
                 HasHit = Physics.SphereCast(ray, gazeMagnetismRadius, out hit, maximumDistance, targetLayers, triggerInteraction);
-            CurrentHit = hit;
             IGazeTarget nextTarget = HasHit ? FindTargetCached(hit.collider) : null;
+            if(assisted && nextTarget is IDirectGazeTarget){HasHit=false;hit=default;nextTarget=null;}
+            CurrentHit = hit;
 
             if (!ReferenceEquals(nextTarget, currentTarget))
             {

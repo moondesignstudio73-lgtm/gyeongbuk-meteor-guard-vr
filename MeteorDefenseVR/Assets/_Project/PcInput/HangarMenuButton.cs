@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MeteorDefenseVR.PcInput
 {
-    public sealed class HangarMenuButton : MonoBehaviour, IGazeTarget
+    public sealed class HangarMenuButton : MonoBehaviour, IDirectGazeTarget
     {
         private UIInteractionAnimator feedback;
         private CalibrationProgressRing ring;

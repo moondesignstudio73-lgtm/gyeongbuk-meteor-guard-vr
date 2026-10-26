@@ -49,6 +49,9 @@ namespace MeteorDefenseVR.PcInput
                             PcStabilityRenderDriver.RenderForProof(camera);
                             string parsed=display.GetParsedText();
                             bool valid=parsed.Contains("점수"+score.ToString("N0")) && result.Snapshot.Score==score && stats.Score==score && result.Rank==rank;
+                            var visibleScore=GameObject.Find("ResultScore")?.GetComponent<TMPro.TMP_Text>();
+                            var visibleHeading=GameObject.Find("ResultHeading")?.GetComponent<TMPro.TMP_Text>();
+                            if(visibleScore!=null)valid &= visibleScore.GetParsedText()==presentation.DisplayedCount.ToString("N0")&&visibleHeading.GetParsedText()==(failed?"다시 도전해요!":"이번 임무의 기록");
                             valid &= presentation.DisplayedCount>=prior && presentation.DisplayedCount<=score;
                             prior=presentation.DisplayedCount;
                             valid &= motion.Opacity>=.999f && motion.VisibleLines==int.MaxValue && actions.Visible;

@@ -7,7 +7,7 @@ namespace MeteorDefenseVR.PcInput
 {
     // Uses the same physics gaze ray for mouse, webcam and VR. Selection never starts the game.
     [DisallowMultipleComponent]
-    public sealed class DifficultyChoiceButton : MonoBehaviour, IGazeTarget
+    public sealed class DifficultyChoiceButton : MonoBehaviour, IDirectGazeTarget
     {
         private DifficultyManager manager;
         private DifficultyLevel level;

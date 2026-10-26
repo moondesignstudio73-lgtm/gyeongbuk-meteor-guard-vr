@@ -59,7 +59,7 @@ namespace MeteorDefenseVR.Education
             scaler.referenceResolution = new Vector2(1280,720); scaler.screenMatchMode = UnityEngine.UI.CanvasScaler.ScreenMatchMode.Expand;
             canvas.planeDistance = Mathf.Max(.12f,cameraView.nearClipPlane+.01f); ConfigureCanvas();
             entry = Group("Entry");
-            Button(entry.transform, "EducationStart", "우주 안전 훈련 시작 · 약 12분", new Vector2(0,-202), new Vector2(470,56), () => { ClearParticipantFont(); owner.OpenRegistration(); });
+            Button(entry.transform, "EducationStart", "우주 안전 훈련 시작 · 약 12분", new Vector2(210,-216), new Vector2(470,56), () => { ClearParticipantFont(); owner.OpenRegistration(); });
             teacherEntry = Button(entry.transform, "TeacherResults", "교사용 결과", new Vector2(-505,-314), new Vector2(180,36), () => { page = 0; detailRecord = null; ClearParticipantFont(); owner.OpenOperator(); }).gameObject;
             BuildRegistration(); BuildHud(); BuildQuestion(); BuildReport(); BuildDashboard();
             for (int i = 0; i < markers.Length; i++)
