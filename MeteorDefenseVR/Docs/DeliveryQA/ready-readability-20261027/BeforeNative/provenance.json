@@ -1,0 +1,7 @@
+{
+  "sourceCommit": "bb59aa18eb3f9361b1b502efb0f27f32b15e7a43",
+  "releaseTag": "windows-ui-screens-20261027",
+  "archiveSha256": "820ef6f5e40d4b73dcb20372fcf9e557225a23817245f34156e42d6fb5c1238a",
+  "copiedFrom": "../ui-screens-20261026/ExtractedFinal/screens/gallery",
+  "scope": "Previously captured native start originals; byte-identical copies; not a new old-binary run"
+}

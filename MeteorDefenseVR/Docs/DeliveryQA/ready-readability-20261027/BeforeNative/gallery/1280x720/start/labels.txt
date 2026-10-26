@@ -1,0 +1,30 @@
+Title|어려움|font=300|rect=(254.00, 35.00)|truncated=False
+Title|쉬움|font=300|rect=(254.00, 35.00)|truncated=False
+GazeCursor|+|font=32|rect=(44.00, 44.00)|truncated=False
+LiveThreatAnalysis|위협 0개 / 주변 안전|font=30|rect=(288.00, 110.00)|truncated=False
+DistanceLabel_3|200m|font=0.042|rect=(0.06, 0.03)|truncated=False
+Title|체험|font=300|rect=(254.00, 35.00)|truncated=False
+HeadDirection|▲|font=0.058|rect=(0.09, 0.04)|truncated=False
+TutorialHeading|조준 연습|font=30|rect=(1336.73, 41.00)|truncated=False
+LiveRadarText|360° THREAT RADAR // NORMAL / CONTACTS 00   PRIORITY CLEAR|font=0.135|rect=(0.59, 0.37)|truncated=False
+DistanceLabel_0|25m|font=0.042|rect=(0.06, 0.03)|truncated=False
+TutorialTitle||font=48|rect=(1336.73, 235.30)|truncated=False
+Description|앞을 보며 / 차근차근|font=240|rect=(254.00, 66.00)|truncated=False
+PolishedText||font=2.4|rect=(4.60, 0.90)|truncated=False
+PracticeTelemetryText|방어막  ████████     남은 운석  3/3     점수  0|font=32|rect=(703.36, 62.34)|truncated=False
+Description|모든 방향의 / 운석에 도전|font=240|rect=(254.00, 66.00)|truncated=False
+Label|시점 설정|font=50|rect=(308.00, 106.00)|truncated=False
+Description|짧게 즐기는 / 우주 임무|font=240|rect=(254.00, 66.00)|truncated=False
+PracticeInstructionText|운석 3개를 맞히며 연습해 보세요.|font=40|rect=(543.66, 73.92)|truncated=False
+Description|좌우를 살피며 / 도전|font=240|rect=(254.00, 66.00)|truncated=False
+DistanceLabel_2|100m|font=0.042|rect=(0.06, 0.03)|truncated=False
+PolishedText||font=2.8|rect=(3.80, 2.85)|truncated=False
+Label|우주 안전 훈련 시작 · 약 12분|font=22|rect=(420.00, 50.00)|truncated=False
+StartHint|시작에 조준점을 맞춰 보세요.|font=260|rect=(720.00, 40.00)|truncated=False
+Title|보통|font=300|rect=(254.00, 35.00)|truncated=False
+Label|시작|font=480|rect=(308.00, 60.00)|truncated=False
+DistanceLabel_1|50m|font=0.042|rect=(0.06, 0.03)|truncated=False
+PolishedText|난이도를 선택하세요|font=2.1|rect=(3.60, 1.30)|truncated=False
+LiveShipStatus|방어막 100% / 정상 · 피해 0|font=30|rect=(288.00, 110.00)|truncated=False
+Label|소리 설정|font=50|rect=(308.00, 106.00)|truncated=False
+PolishedText|METEOR DEFENSE|font=3.3|rect=(3.70, 0.55)|truncated=False

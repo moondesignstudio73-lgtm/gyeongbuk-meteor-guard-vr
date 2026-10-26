@@ -1,0 +1,17 @@
+UI gallery uses explicit state changes, menu actions and max-score fixture. No launch continuity, OS/HMD or natural whole-round claim.
+(800, 600): synthetic direct gaze selected Hard; experience tip rearmed only for concurrent-notice fixture
+(800, 600): start action entered Intro; tutorial gallery then entered explicitly (not calibration verification)
+(800, 600): result Menu and Replay synthetic InputSystem pointer clicks passed; no OS click or departure revalidation
+(1024, 768): synthetic direct gaze selected Hard; experience tip rearmed only for concurrent-notice fixture
+(1024, 768): start action entered Intro; tutorial gallery then entered explicitly (not calibration verification)
+(1024, 768): result Menu and Replay synthetic InputSystem pointer clicks passed; no OS click or departure revalidation
+(1280, 720): synthetic direct gaze selected Hard; experience tip rearmed only for concurrent-notice fixture
+(1280, 720): start action entered Intro; tutorial gallery then entered explicitly (not calibration verification)
+(1280, 720): result Menu and Replay synthetic InputSystem pointer clicks passed; no OS click or departure revalidation
+(1920, 1080): synthetic direct gaze selected Hard; experience tip rearmed only for concurrent-notice fixture
+(1920, 1080): start action entered Intro; tutorial gallery then entered explicitly (not calibration verification)
+(1920, 1080): result Menu and Replay synthetic InputSystem pointer clicks passed; no OS click or departure revalidation
+(2560, 1080): synthetic direct gaze selected Hard; experience tip rearmed only for concurrent-notice fixture
+(2560, 1080): start action entered Intro; tutorial gallery then entered explicitly (not calibration verification)
+(2560, 1080): result Menu and Replay synthetic InputSystem pointer clicks passed; no OS click or departure revalidation
+passed=True

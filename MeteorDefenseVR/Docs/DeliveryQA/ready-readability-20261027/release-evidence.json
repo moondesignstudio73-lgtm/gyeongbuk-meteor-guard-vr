@@ -1,0 +1,32 @@
+{
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "8d610a882cfb986ee46901846580052ac73ff4b9",
+    "gitCommitShort": "8d610a8",
+    "buildTimeKST": "2026-10-27T02:09:28+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  },
+  "releaseId": 424544208,
+  "tag": "windows-ready-readability-20261027",
+  "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-ready-readability-20261027",
+  "bytes": 89602453,
+  "sha256": "6535c4dbb95cd7358e872393e267e14e13574da4f86240b75e675289ab53bc7f",
+  "files": 222,
+  "publicDownload": {
+    "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-ready-readability-20261027/MeteorDefenseVR-Windows-ReadyReadability-20261027.zip",
+    "sha256": "6535c4dbb95cd7358e872393e267e14e13574da4f86240b75e675289ab53bc7f",
+    "bytes": 89602453,
+    "verifiedUtc": "2026-10-26T17:17:19.0006524Z",
+    "matches": true
+  },
+  "tests": [
+    "before.xml",
+    "accepted.xml",
+    "extracted-run.json",
+    "process-8d610a8.json"
+  ]
+}
