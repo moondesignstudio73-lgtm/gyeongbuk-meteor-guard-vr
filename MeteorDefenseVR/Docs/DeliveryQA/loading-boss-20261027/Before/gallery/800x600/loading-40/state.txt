@@ -1,0 +1,1 @@
+flow=Boot; boss=Idle; bossRunning=False; actualStageMessage=; controllerFeedback=; visibleFeedback=; pause=False; alpha=0

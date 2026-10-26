@@ -1,0 +1,37 @@
+Actual production loading visual with explicit QA progress fixtures. Actual BeginClimax and Tick stage events; clock frozen only for repeatable renders. Concurrent score and critical notice callbacks. No natural whole-round, OS/HMD or listening claim.
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+event=Idle; message=
+(800, 600): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+event=Idle; message=
+(1024, 768): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+event=Idle; message=
+(1280, 720): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+event=Idle; message=
+(1920, 1080): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+event=Idle; message=
+(2560, 1080): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+baselineCaptured=True

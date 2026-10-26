@@ -1,0 +1,1 @@
+flow=BossMeteor; boss=Active; bossRunning=True; actualStageMessage=마지막 운석을 파괴하세요!; controllerFeedback=마지막 운석을 파괴하세요!; visibleFeedback=마지막 운석을 파괴하세요!; pause=False; alpha=1

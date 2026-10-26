@@ -1,0 +1,6 @@
+flow=BossMeteor; boss=Warning; bossRunning=True; actualStageMessage=WARNING
+MASSIVE OBJECT DETECTED
+BOSS ASTEROID APPROACHING; controllerFeedback=WARNING
+MASSIVE OBJECT DETECTED
+BOSS ASTEROID APPROACHING; visibleFeedback=위험!
+거대한 운석이 다가와요!; pause=False; alpha=1

@@ -1,0 +1,62 @@
+{
+  "source": "regression-with-loading-failure.xml",
+  "sourceSha256": "8367193B75108E182B1A012EC9A512BB790DE38E4015429D5076DF952E39C3EF",
+  "note": "11 unchanged logic/bootstrap tests passed; loading gallery failure was rejected and rerun separately after increasing glyph size",
+  "tests": [
+    {
+      "name": "MeteorDefenseVR.Tests.BossClimaxControllerTests.BossRequiresThreeDamageAndThenCompletesMission",
+      "result": "Passed",
+      "duration": "0.040824"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.BossClimaxControllerTests.BossThatReachesPlayerIsRetriedInsteadOfBlockingExperience",
+      "result": "Passed",
+      "duration": "0.004998"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.BossClimaxControllerTests.WarningAndNarrationPrecedeBossSpawn",
+      "result": "Passed",
+      "duration": "0.001318"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.GameplayHudOverlayTests.AuthoredMainHudUsesDedicatedPlayerOverlayAndSafeArea",
+      "result": "Passed",
+      "duration": "1.205241"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.GameplayHudOverlayTests.LaunchAndMissionCompleteMessagesUseTheSameAlwaysOnTopCanvas",
+      "result": "Passed",
+      "duration": "0.804027"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.GameplayHudOverlayTests.MainHudAndSystemMessagesNoLongerUseDepthTestedLegacyRenderers",
+      "result": "Passed",
+      "duration": "0.630577"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.GameplayHudOverlayTests.PcAndVrShareLayoutWhileOnlyCanvasRenderModeChanges",
+      "result": "Passed",
+      "duration": "0.687447"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.GameplayHudOverlayTests.ReferenceSixteenNineResolutionsPreserveMarginsAndPanelSpacing",
+      "result": "Passed",
+      "duration": "0.666458"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.GameplayHudOverlayTests.RestoredTopCardsStayCompactAndVisuallyConsistent",
+      "result": "Passed",
+      "duration": "0.659487"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.GameplayHudOverlayTests.ScoreStageAsteroidAndDifficultyRegressionValuesStayInsideTheirRects",
+      "result": "Passed",
+      "duration": "0.694926"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.GameplaySceneBootstrapTests.BootstrapScene_UsesGameplayEnvironmentThroughReset",
+      "result": "Passed",
+      "duration": "13.548580"
+    }
+  ]
+}

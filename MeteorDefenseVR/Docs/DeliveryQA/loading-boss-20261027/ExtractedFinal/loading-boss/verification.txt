@@ -1,0 +1,42 @@
+Actual production loading visual with explicit QA progress fixtures. Actual BeginClimax and Tick stage events; clock frozen only for repeatable renders. Concurrent score and critical notice callbacks. No natural whole-round, OS/HMD or listening claim.
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+(800, 600): active prompt=(x:0.23, y:0.72, width:0.53, height:0.07); visible boss mesh bounds=(x:0.40, y:0.39, width:0.21, height:0.28); meshes=3; collision radius=4.927083 (not a visual bound)
+event=Idle; message=
+(800, 600): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+(1024, 768): active prompt=(x:0.23, y:0.72, width:0.53, height:0.07); visible boss mesh bounds=(x:0.40, y:0.39, width:0.21, height:0.28); meshes=3; collision radius=4.992083 (not a visual bound)
+event=Idle; message=
+(1024, 768): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+(1280, 720): active prompt=(x:0.23, y:0.70, width:0.53, height:0.10); visible boss mesh bounds=(x:0.42, y:0.39, width:0.16, height:0.28); meshes=3; collision radius=4.992083 (not a visual bound)
+event=Idle; message=
+(1280, 720): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+(1920, 1080): active prompt=(x:0.23, y:0.70, width:0.53, height:0.10); visible boss mesh bounds=(x:0.42, y:0.39, width:0.16, height:0.28); meshes=3; collision radius=4.992083 (not a visual bound)
+event=Idle; message=
+(1920, 1080): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+event=Idle; message=
+event=Idle; message=
+event=Warning; message=WARNING|MASSIVE OBJECT DETECTED|BOSS ASTEROID APPROACHING
+event=Narration; message=마지막 운석입니다!|지구를 지켜주세요!
+event=Active; message=마지막 운석을 파괴하세요!
+(2560, 1080): active prompt=(x:0.30, y:0.70, width:0.40, height:0.10); visible boss mesh bounds=(x:0.44, y:0.39, width:0.12, height:0.28); meshes=3; collision radius=4.992083 (not a visual bound)
+event=Idle; message=
+(2560, 1080): real Warning/Narration/Active events, concurrent score+critical notice, pause/resume and reset cleared
+passed=True
