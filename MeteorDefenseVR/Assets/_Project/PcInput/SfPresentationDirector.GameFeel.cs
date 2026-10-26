@@ -28,7 +28,7 @@ namespace MeteorDefenseVR.PcInput
         public int PraiseCount { get; private set; }
         public int ConsecutiveDestructions => streak;
         public bool IsPreparing => preparation != null && !preparation.IsComplete;
-        public RectTransform CriticalNoticeBounds => flightNotice != null && flightNotice.enabled && noticePriority == 2
+        public RectTransform CriticalNoticeBounds => flightNotice != null && flightNotice.enabled && noticePriority == 2 && warningBacking != null && warningBacking.enabled
             ? warningBacking.rectTransform : null;
 
         private void InitializeFeel(TMP_FontAsset font, Material material)
@@ -129,6 +129,8 @@ namespace MeteorDefenseVR.PcInput
             // A narrow backing keeps urgent copy distinct against the sunlit Earth.
             if (priority == 2)
             {
+                var initialTint = flightNotice.color; initialTint.a = 0f; flightNotice.color = initialTint;
+                warningBacking.enabled = false;
                 flightNotice.ForceMeshUpdate();
                 float pixelsPerUnit = 720f / (2f * 2.65f * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad));
                 warningBacking.rectTransform.sizeDelta = new Vector2(flightNotice.preferredWidth * pixelsPerUnit * 1.04f + 20f, 34f);

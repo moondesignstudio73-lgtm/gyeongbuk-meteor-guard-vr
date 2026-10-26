@@ -1,5 +1,7 @@
 # PC text readability evidence map
 
+Current status as of 2026-10-27 is in [the integrated UI coverage table](../integrated-ui-20261027/coverage.md). Historical entries below retain their original tested source and are not current-build pass claims.
+
 Reconciled 2026-10-24 KST at docs HEAD 34a6ff9; current delivered product 411d9bab. Historical evidence is identified by its tested source, not relabelled as a current-binary rerun. Paths below are relative to MeteorDefenseVR. Q = Docs/DeliveryQA. E = Editor controlled camera render; X = extracted Windows executable camera render/synthetic input; O = native OS window observation; H = HMD. Five sizes = 800x600 and 1024x768 (4:3), 1280x720 and 1920x1080 (16:9), 2560x1080 (64:27).
 
 | Screen | Actual tested source; sizes / states | Original evidence paths | Provenance and remaining boundary |

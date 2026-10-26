@@ -37,10 +37,14 @@ public sealed class LowHealthIntegrationTests {
    Object.FindAnyObjectByType<DifficultyManager>().Select(DifficultyLevel.Normal);flow.StartMainGame();router.InputSuspended=true;router.Simulation.Recenter();yield return new WaitForSecondsRealtime(2);
    spawner.BeginScenario(1);Assert.AreEqual(100,health.CurrentHealth);int damageEvents=0;void Damage(int amount,float remaining){damageEvents++;notes.Add($"{size}: damage={amount}; remaining={remaining}");}health.DamageTaken+=Damage;
    using(var probe=new PcStabilityProbe(camera,size.x,size.y)){
+    var firstFrames=new List<string>(); bool wrongLane=false; var renderDriver=Object.FindAnyObjectByType<PcStabilityRenderDriver>();
+    void Observe(){var label=Object.FindObjectsByType<TextMeshPro>().FirstOrDefault(t=>t.name=="FlightNotice");if(label==null||!label.enabled||label.color.a<=.01f||!label.text.StartsWith("방어막"))return;float y=camera.WorldToViewportPoint(label.transform.position).y;firstFrames.Add($"frame={Time.frameCount}; y={y}; alpha={label.color.a}");if(y<.23f||y>.31f)wrongLane=true;}
+    renderDriver.RenderCompleted+=Observe;
     var meteor=spawner.SpawnScenario(spawner.ShipCenter+Vector3.forward*25,Vector3.back*35,1,75);Assert.NotNull(meteor);
     deadline=Time.realtimeSinceStartup+5;while(health.CurrentHealth==100&&Time.realtimeSinceStartup<deadline)yield return null;
     Assert.AreEqual(25,health.CurrentHealth);Assert.AreEqual(25,hud.CurrentHealth);Assert.AreEqual(1,damageEvents);Assert.AreEqual(75,health.TotalDamageTaken);
     yield return new WaitForSecondsRealtime(.2f);
+    renderDriver.RenderCompleted-=Observe;Directory.CreateDirectory($"{output}/{size.x}x{size.y}");File.WriteAllLines($"{output}/{size.x}x{size.y}/first-frames.txt",firstFrames);Assert.IsNotEmpty(firstFrames);Assert.IsFalse(wrongLane,"A visible survival warning flashed outside its lower lane");
     var notice=Object.FindObjectsByType<TextMeshPro>().Single(t=>t.name=="FlightNotice");Assert.IsTrue(notice.enabled);Assert.AreEqual("방어막이 약해졌어요! 운석을 막아 주세요.",notice.text);Assert.GreaterOrEqual(notice.color.a,.99f);
     bool saved=false;var driver=Object.FindAnyObjectByType<PcStabilityRenderDriver>();string folder=$"{output}/{size.x}x{size.y}";Directory.CreateDirectory(folder);
     void Save(){Canvas.ForceUpdateCanvases();PcStabilityRenderDriver.RenderForProof(camera);probe.SaveGameOnlyProof(folder,router);saved=true;}
