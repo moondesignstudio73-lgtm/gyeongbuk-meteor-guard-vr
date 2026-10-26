@@ -1,0 +1,24 @@
+Subtitle|임무 성공!   ·   2,147,483,647점   ·   체험|font=155|rect=(620.00, 45.00)|truncated=False
+Label|다시 출격|font=198.4|rect=(228.00, 62.00)|truncated=False
+Label|난이도 바꾸기|font=198.4|rect=(228.00, 62.00)|truncated=False
+LiveThreatAnalysis|위협 0개 / 주변 안전|font=30|rect=(288.00, 110.00)|truncated=False
+DistanceLabel_3|200m|font=0.042|rect=(0.06, 0.03)|truncated=False
+Label|눈 위치 맞추기|font=198.4|rect=(228.00, 62.00)|truncated=False
+HeadDirection|▲|font=0.058|rect=(0.09, 0.04)|truncated=False
+TutorialHeading|조준 연습|font=30|rect=(1552.80, 41.00)|truncated=False
+LiveRadarText|360° THREAT RADAR // EXPERIENCE / CONTACTS 00   PRIORITY CLEAR|font=0.135|rect=(0.59, 0.37)|truncated=False
+DistanceLabel_0|25m|font=0.042|rect=(0.06, 0.03)|truncated=False
+TutorialTitle||font=48|rect=(1552.80, 195.20)|truncated=False
+PolishedText||font=2.4|rect=(4.60, 0.90)|truncated=False
+PracticeTelemetryText|방어막  ████████     남은 운석  3/3     점수  0|font=32|rect=(703.36, 62.34)|truncated=False
+Label|시점 설정|font=50|rect=(308.00, 106.00)|truncated=False
+PracticeInstructionText|운석 3개를 맞히며 연습해 보세요.|font=40|rect=(543.66, 73.92)|truncated=False
+DistanceLabel_2|100m|font=0.042|rect=(0.06, 0.03)|truncated=False
+Title|격납고 도착|font=310|rect=(620.00, 45.00)|truncated=False
+PolishedText||font=2.8|rect=(3.80, 2.85)|truncated=False
+Label|체험 마치기|font=198.4|rect=(228.00, 62.00)|truncated=False
+Help|다음 난이도: 체험 · 메뉴에 조준점을 맞추세요|font=150|rect=(620.00, 45.00)|truncated=False
+DistanceLabel_1|50m|font=0.042|rect=(0.06, 0.03)|truncated=False
+Label|랭킹|font=198.4|rect=(228.00, 62.00)|truncated=False
+LiveShipStatus|방어막 100% / 정상 · 피해 0|font=30|rect=(288.00, 110.00)|truncated=False
+Label|소리 설정|font=50|rect=(308.00, 106.00)|truncated=False

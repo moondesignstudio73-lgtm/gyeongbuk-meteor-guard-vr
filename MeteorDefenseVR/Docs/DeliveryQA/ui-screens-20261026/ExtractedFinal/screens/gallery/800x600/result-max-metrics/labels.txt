@@ -1,0 +1,26 @@
+ResultMetrics|파괴한 운석 / 2,147,483,647|font=400|rect=(300.00, 110.00)|truncated=False
+Label|기지 메뉴|font=360|rect=(368.00, 76.00)|truncated=False
+ScoreCaption|점수|font=360|rect=(950.00, 45.00)|truncated=False
+Label|다시 출격|font=360|rect=(368.00, 76.00)|truncated=False
+ResultDifficulty|난이도 : 체험|font=360|rect=(950.00, 45.00)|truncated=False
+ResultFeedback|운석 2,147,483,647개 격파! / 최고 S등급!|font=400|rect=(950.00, 115.00)|truncated=False
+LiveThreatAnalysis|위협 0개 / 주변 안전|font=30|rect=(288.00, 110.00)|truncated=False
+DistanceLabel_3|200m|font=0.042|rect=(0.06, 0.03)|truncated=False
+HeadDirection|▲|font=0.058|rect=(0.09, 0.04)|truncated=False
+ResultScore|2,147,483,647|font=660|rect=(950.00, 100.00)|truncated=False
+TutorialHeading|조준 연습|font=30|rect=(1336.73, 41.00)|truncated=False
+LiveRadarText|360° THREAT RADAR // EXPERIENCE / CONTACTS 00   PRIORITY CLEAR|font=0.135|rect=(0.59, 0.37)|truncated=False
+DistanceLabel_0|25m|font=0.042|rect=(0.06, 0.03)|truncated=False
+TutorialTitle||font=48|rect=(1336.73, 235.30)|truncated=False
+ResultRank|등급 / S|font=400|rect=(300.00, 110.00)|truncated=False
+PolishedText||font=2.4|rect=(4.60, 0.90)|truncated=False
+PracticeTelemetryText|방어막  ████████     남은 운석  3/3     점수  0|font=32|rect=(703.36, 62.34)|truncated=False
+Label|시점 설정|font=50|rect=(308.00, 106.00)|truncated=False
+PracticeInstructionText|운석 3개를 맞히며 연습해 보세요.|font=40|rect=(543.66, 73.92)|truncated=False
+DistanceLabel_2|100m|font=0.042|rect=(0.06, 0.03)|truncated=False
+PolishedText|이번 임무의 기록 / 점수2,147,483,647 / 파괴한 운석0 / 명중률0% / 등급S / 난이도 : 체험 / 첫 격파에 도전해요! / 최고 S등급!|font=2.8|rect=(3.80, 2.85)|truncated=False
+ResultAccuracy|명중률 / 100%|font=400|rect=(300.00, 110.00)|truncated=False
+ResultHeading|이번 임무의 기록|font=560|rect=(950.00, 65.00)|truncated=False
+DistanceLabel_1|50m|font=0.042|rect=(0.06, 0.03)|truncated=False
+LiveShipStatus|방어막 100% / 정상 · 피해 0|font=30|rect=(288.00, 110.00)|truncated=False
+Label|소리 설정|font=50|rect=(308.00, 106.00)|truncated=False
