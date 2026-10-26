@@ -18,6 +18,8 @@ namespace MeteorDefenseVR.PcInput
         private LaunchSequenceController launch;
         private AudioManager audio;
         private TextMeshPro flightNotice, praise;
+        private Material normalNoticeMaterial, criticalNoticeMaterial;
+        private int normalNoticeSortingOrder;
         private UnityEngine.UI.Image warningBacking;
         private bool ambientStarted;
         private float noticeAge = 10f, noticeDuration, praiseAge = 10f, lastKill = -10f, praiseAllowedAt, dangerAllowedAt;
@@ -38,9 +40,16 @@ namespace MeteorDefenseVR.PcInput
             launch = FindAnyObjectByType<LaunchSequenceController>(FindObjectsInactive.Include);
             audio = FindAnyObjectByType<AudioManager>();
             flightNotice = Text("FlightNotice", font, material); flightNotice.fontSize = 1f;
+            normalNoticeMaterial=flightNotice.fontSharedMaterial;
+            normalNoticeSortingOrder=flightNotice.GetComponent<MeshRenderer>().sortingOrder;
+            criticalNoticeMaterial=new Material(normalNoticeMaterial){name="Critical survival text overlay",renderQueue=4001};
+            if(criticalNoticeMaterial.HasProperty("_ZTestMode"))criticalNoticeMaterial.SetFloat("_ZTestMode",(float)UnityEngine.Rendering.CompareFunction.Always);
+            if(criticalNoticeMaterial.HasProperty("_ZTest"))criticalNoticeMaterial.SetFloat("_ZTest",(float)UnityEngine.Rendering.CompareFunction.Always);
             warningBacking = Image("LowHealthNoticeBacking", overlay, new Vector2(0, 252f), new Vector2(380f, 28f));
             var backingCanvas = warningBacking.gameObject.AddComponent<Canvas>();
-            backingCanvas.overrideSorting = true; backingCanvas.sortingOrder = -1;
+            backingCanvas.overrideSorting = true; backingCanvas.sortingOrder = 221;
+            var primaryHud=FindAnyObjectByType<GameplayHudOverlayView>(FindObjectsInactive.Include);
+            if(primaryHud!=null&&primaryHud.TelemetryRoot!=null)warningBacking.material=primaryHud.TelemetryRoot.GetComponentInChildren<UnityEngine.UI.Image>(true).material;
             warningBacking.enabled = false;
             flightNotice.text = "운석이 다가와요!";
             flightNotice.rectTransform.sizeDelta = new Vector2(4.8f,.65f);
@@ -113,13 +122,16 @@ namespace MeteorDefenseVR.PcInput
         private void ShowNotice(string message, Color tint, float duration, int priority)
         {
             if (noticeAge < noticeDuration && noticePriority > priority) return;
-            flightNotice.text = message; flightNotice.color = tint; flightNotice.enabled = true;
+            flightNotice.fontSize = priority == 2 ? 1.35f : 1f;
+            flightNotice.fontSharedMaterial=priority==2?criticalNoticeMaterial:normalNoticeMaterial;
+            flightNotice.GetComponent<MeshRenderer>().sortingOrder=priority==2?222:normalNoticeSortingOrder;
+            flightNotice.text = message; flightNotice.color = priority == 2 ? new Color(1f, .92f, .72f) : tint; flightNotice.enabled = true;
             // A narrow backing keeps urgent copy distinct against the sunlit Earth.
             if (priority == 2)
             {
                 flightNotice.ForceMeshUpdate();
                 float pixelsPerUnit = 720f / (2f * 2.65f * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad));
-                warningBacking.rectTransform.sizeDelta = new Vector2(flightNotice.preferredWidth * pixelsPerUnit * 1.04f + 16f, 28f);
+                warningBacking.rectTransform.sizeDelta = new Vector2(flightNotice.preferredWidth * pixelsPerUnit * 1.04f + 20f, 34f);
             }
             noticeAge = 0f; noticeDuration = duration; noticePriority = priority;
         }
@@ -127,14 +139,15 @@ namespace MeteorDefenseVR.PcInput
         {
             if (flow.CurrentState == GameState.Boot && !booting && !IsPreparing && !ambientStarted)
             { ambientStarted = true; audio?.TryPlay(AudioCue.IntroSpaceAmbient); }
-            // Stable lane between the top telemetry and feedback panel; stage cards settle below it.
+            // Ordinary wave notices keep their upper lane. Critical copy has a dedicated lower lane.
             bool bossNoticeLane=flow.CurrentState==GameState.BossMeteor;
-            float noticeDepth = bossNoticeLane?(view.stereoEnabled?1.6f:.24f):2.65f;
-            // Boss copy occupies the upper lane. Keep concurrent danger copy below aim,
-            // above the dashboard readouts, with the same message and lifetime.
-            float noticeLane=bossNoticeLane?-.23f:.35f;
+            bool lowerNoticeLane=bossNoticeLane||noticePriority==2;
+            float noticeDepth = lowerNoticeLane?(view.stereoEnabled?1.6f:.24f):2.65f;
+            // Keep danger copy below aim and above dashboard readouts, clear of both
+            // upper telemetry and impact/boss feedback, with the same message and lifetime.
+            float noticeLane=lowerNoticeLane?-.23f:.35f;
             flightNotice.transform.localPosition = new Vector3(0, 2f * noticeDepth * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad) * noticeLane, noticeDepth);
-            float backingDepth=bossNoticeLane?(view.stereoEnabled?1.65f:.26f):2.8f;
+            float backingDepth=lowerNoticeLane?(view.stereoEnabled?1.65f:.26f):2.8f;
             float backingScale=backingDepth/2.8f;
             var backingRect=warningBacking.rectTransform;
             backingRect.localScale=Vector3.one*backingScale;
@@ -149,7 +162,7 @@ namespace MeteorDefenseVR.PcInput
                 if (noticeAge >= noticeDuration) flightNotice.enabled = false;
             }
             warningBacking.enabled = flightNotice.enabled && noticePriority == 2;
-            warningBacking.color = new Color(0f, .005f, .012f, flightNotice.color.a * (flow.CurrentState==GameState.BossMeteor?1f:.88f));
+            warningBacking.color = new Color(0f, .005f, .012f, flightNotice.color.a);
             if (praise.enabled)
             {
                 praise.color = new Color(.56f,1,.77f,Mathf.Clamp01((.85f-praiseAge)/.25f));
@@ -168,6 +181,7 @@ namespace MeteorDefenseVR.PcInput
         {
             if (flightNotice != null) Destroy(flightNotice.gameObject);
             if (praise != null) Destroy(praise.gameObject);
+            if (criticalNoticeMaterial != null) Destroy(criticalNoticeMaterial);
         }
     }
 }

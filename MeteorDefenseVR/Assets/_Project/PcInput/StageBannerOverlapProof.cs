@@ -54,7 +54,7 @@ public static IEnumerator Run(string output){
   ProofAssert.AreEqual(3,power.ActiveBuffCount);boss.BeginClimax();boss.ResetClimax();ProofAssert.IsTrue(boss.CampaignCompletionHandler(9));
   using var proof=new PcStabilityProbe(Camera.main,size.x,size.y);
   void Save(string state){Canvas.ForceUpdateCanvases();PcStabilityRenderDriver.RenderForProof(Camera.main);var notice=Object.FindObjectsByType<TextMeshPro>().Single(t=>t.name=="FlightNotice");
-   if(notice.enabled&&notice.color.a>.1f){notice.ForceMeshUpdate();var a=Camera.main.WorldToViewportPoint(notice.transform.TransformPoint(notice.textBounds.min));var b=Camera.main.WorldToViewportPoint(notice.transform.TransformPoint(notice.textBounds.max));var n=Rect.MinMaxRect(a.x,a.y,b.x,b.y);ProofAssert.IsFalse(director.IsStagePresenting&&n.Overlaps(TelemetryReadabilityProof.ViewRect(Camera.main,card)),"Notice overlaps stage card");ProofAssert.GreaterOrEqual(n.yMin,.81f);ProofAssert.LessOrEqual(n.yMax,.9f);}
+   if(notice.enabled&&notice.color.a>.1f){notice.ForceMeshUpdate();var a=Camera.main.WorldToViewportPoint(notice.transform.TransformPoint(notice.textBounds.min));var b=Camera.main.WorldToViewportPoint(notice.transform.TransformPoint(notice.textBounds.max));var n=Rect.MinMaxRect(a.x,a.y,b.x,b.y);ProofAssert.IsFalse(director.IsStagePresenting&&n.Overlaps(TelemetryReadabilityProof.ViewRect(Camera.main,card)),"Notice overlaps stage card");bool critical=director.CriticalNoticeBounds!=null;ProofAssert.GreaterOrEqual(n.yMin,critical?.23f:.81f);ProofAssert.LessOrEqual(n.yMax,critical?.31f:.9f);}
    string dir=$"{output}/{size.x}x{size.y}/{state}";Directory.CreateDirectory(dir);proof.SaveGameOnlyProof(dir,router);
    var texts=Object.FindObjectsByType<TMP_Text>().Where(t=>t.isActiveAndEnabled&&!string.IsNullOrEmpty(t.text)).ToArray();
    File.WriteAllLines(Path.Combine(dir,"text.txt"),new[]{$"state={flow.CurrentState};stage={progression.CurrentStage};boss={boss.CurrentStage};buffs={power.ActiveBuffCount};meteors={spawner.ActiveMeteors.Count};stageVisible={director.IsStagePresenting};remaining={director.StageTimeRemaining};feedback={hud.FeedbackMessage}"}.Concat(texts.Select(t=>{t.ForceMeshUpdate();return $"{t.name}: font={t.fontSize} auto={t.enableAutoSizing} rect={TelemetryReadabilityProof.ViewRect(Camera.main,t.rectTransform)} preferred={t.preferredWidth}x{t.preferredHeight} available={t.rectTransform.rect.size} truncated={t.isTextTruncated} text={t.GetParsedText()}";})));
@@ -80,7 +80,3 @@ public static IEnumerator Run(string output){
 
 }
 }}
-
-
-
-

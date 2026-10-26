@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MeteorDefenseVR.GameFlow;
+using MeteorDefenseVR.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -74,7 +75,8 @@ namespace MeteorDefenseVR.PcInput
             {
                 Check(!Application.isEditor,"standalone required");
                 Check(EventSystem.current.currentInputModule is InputSystemUIInputModule,"InputSystemUIInputModule active");
-                Check(FindObjectsByType<HangarMenuButton>(FindObjectsInactive.Include).Where(b=>b!=actions.Replay&&b!=actions.Menu).All(b=>!b.AllowImmediateClick),"only result buttons opt in to immediate clicks");
+                var authoredStart=FindAnyObjectByType<DifficultySelectionView>().GetComponentsInChildren<HangarMenuButton>(true).Single(b=>b.name=="StartMission");
+                Check(authoredStart.AllowImmediateClick&&FindObjectsByType<HangarMenuButton>(FindObjectsInactive.Include).Where(b=>b!=actions.Replay&&b!=actions.Menu&&b!=authoredStart).All(b=>!b.AllowImmediateClick),"only authored start and result buttons opt in to immediate clicks");
                 for(int i=0;i<4;i++)
                 {
                     yield return Show();if(i>=2)router.InputSuspended=false;var observer=i%2==0?menu:replay;var target=i%2==0?actions.Menu:actions.Replay;
@@ -86,6 +88,43 @@ namespace MeteorDefenseVR.PcInput
                     Check(hidden-beforeHidden==1&&!result.IsVisible,$"cycle{i} one result exit");
                     Check(i%2==0?lobby.IsMenuReady:lobby.Phase==HangarLobbyController.LobbyPhase.ReplayPreparing,$"cycle{i} requested destination");
                     yield return Delay(.15f);Check(hidden-beforeHidden==1,$"cycle{i} no duplicate exit after release");
+                    if(i==1)
+                    {
+                        // Initial result is explicitly forced above. From the real pointer release,
+                        // observe production preparation/progression; never call a start/state API.
+                        var transitions=new List<GameState>();
+                        void State(GameState value){transitions.Add(value);notes.Add("replay transition="+value);}
+                        flow.OnStateChanged+=State;
+                        try
+                        {
+                            using var proof=new PcStabilityProbe(Camera.main,1280,720);
+                            IEnumerator Capture(string label)
+                            {
+                                bool done=false;var driver=FindAnyObjectByType<PcStabilityRenderDriver>();
+                                void Save(){string folder=Path.Combine(output,label);Directory.CreateDirectory(folder);Canvas.ForceUpdateCanvases();PcStabilityRenderDriver.RenderForProof(Camera.main);proof.SaveGameOnlyProof(folder,router);File.WriteAllText(Path.Combine(folder,"state.txt"),$"state={flow.CurrentState}; phase={lobby.Phase}; result={result.IsVisible}; actions={actions.Visible}; inputSuspended={router.InputSuspended}; modal={router.UiModalOpen}; score={stats.Score}; shots={stats.Shots}; hits={stats.SuccessfulHits}");done=true;}
+                                driver.RenderCompleted+=Save;try{while(!done)yield return null;}finally{driver.RenderCompleted-=Save;}
+                            }
+                            yield return Capture("replay-preparing");
+                            Check(stats.Score==0&&stats.Shots==0&&!actions.Visible,"replay clears old score and actions");
+                            deadline=Time.realtimeSinceStartup+35;
+                            while(flow.CurrentState!=GameState.Playing&&Time.realtimeSinceStartup<deadline)yield return null;
+                            Check(flow.CurrentState==GameState.Playing,"pointer replay progresses to actual combat");
+                            Check(transitions.Count(s=>s==GameState.Launch)==1&&transitions.Count(s=>s==GameState.Countdown)==1&&transitions.Count(s=>s==GameState.Playing)==1,"pointer replay has one launch/countdown/playing transition");
+                            Check(!router.InputSuspended&&!router.UiModalOpen&&!result.IsVisible&&!actions.Visible,"replay combat input is unblocked");
+                            router.SetMode(PcGazeMode.MouseGaze);
+                            yield return Capture("replay-playing");
+                            deadline=Time.realtimeSinceStartup+20;
+                            while(stats.SuccessfulHits==0&&Time.realtimeSinceStartup<deadline)
+                            {
+                                var aimTarget=FindObjectsByType<MeteorDefenseVR.Combat.GazeLockOnTarget>().Where(t=>t.IsAvailable).OrderBy(t=>(t.transform.position-Camera.main.transform.position).sqrMagnitude).FirstOrDefault();
+                                PcPlayerSmoke.QueueAim(mouse,router.Simulation,aimTarget!=null?aimTarget.transform:null,new Vector2(Screen.width*.5f,Screen.height*.5f));yield return null;
+                            }
+                            Check(stats.Shots>0&&stats.SuccessfulHits>0,"pointer replay accepts synthetic relative aim and actual weapon hit");
+                            Check(hidden-beforeHidden==1&&observer.Clicks-clicks==1,"replay remains single action through combat");
+                            yield return Capture("replay-hit");
+                        }
+                        finally{flow.OnStateChanged-=State;}
+                    }
                 }
                 yield return Show();
                 var settings=overlay.GetComponentsInChildren<UnityEngine.UI.Button>(true).Single(b=>b.name=="LookSettings");
@@ -99,7 +138,7 @@ namespace MeteorDefenseVR.PcInput
                 yield return Pointer(actions.Menu.GetComponent<UnityEngine.UI.Button>());Check(lobby.IsMenuReady&&hidden==blockedHidden+1,"underlying menu still works once after modal closes");
                 // Existing lobby menus remain gaze/collider driven: do not enable their UI graphics.
                 var others=FindObjectsByType<HangarMenuButton>(FindObjectsInactive.Include).Where(b=>b!=actions.Replay&&b!=actions.Menu).ToArray();
-                Check(others.All(b=>!b.AllowImmediateClick),"other menu pointer/gaze configuration unchanged");
+                Check(others.Where(b=>b!=authoredStart).All(b=>!b.AllowImmediateClick),"other lobby menu pointer/gaze configuration unchanged");
                 router.SetMode(PcGazeMode.MouseGaze);router.InputSuspended=false;
                 var ranking=others.Single(b=>b.name=="Ranking"&&b.isActiveAndEnabled);
                 yield return Pointer(ranking.GetComponent<UnityEngine.UI.Button>(),!ranking.GetComponent<UnityEngine.UI.Image>().raycastTarget);

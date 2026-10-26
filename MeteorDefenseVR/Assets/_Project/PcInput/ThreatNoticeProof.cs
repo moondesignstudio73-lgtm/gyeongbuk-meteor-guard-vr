@@ -53,7 +53,8 @@ public static class ThreatNoticeProof {
     string dir=folder+"/"+state;Directory.CreateDirectory(dir);probe.SaveGameOnlyProof(dir,router);
     File.WriteAllText(dir+"/state.txt",$"age={age.GetValue(director)} alpha={notice.color.a} critical={critical} overlap={overlap} target={meteor.transform.position} projected={camera.WorldToViewportPoint(meteor.transform.position)} label={label.text} labelRect={a} noticeRect={b} labelPosition={label.rectTransform.anchoredPosition}");
     if(state=="entry")reservedX=label.rectTransform.anchoredPosition.x;
-    if(critical)Check(Mathf.Abs(reservedX-label.rectTransform.anchoredPosition.x)<.5f,"Indicator changed its reserved side while target crossed centre");
+    // Side reservation is relevant only while this upper-edge path shares the notice lane.
+    if(critical&&a.yMin<b.yMax&&a.yMax>b.yMin)Check(Mathf.Abs(reservedX-label.rectTransform.anchoredPosition.x)<.5f,"Indicator changed its reserved side while target crossed centre");
     if(state=="before-warning")original=label.rectTransform.anchoredPosition;
     if(state=="restored")Check(Vector2.Distance(original,label.rectTransform.anchoredPosition)<3,"Indicator did not restore tracking position");
    }
