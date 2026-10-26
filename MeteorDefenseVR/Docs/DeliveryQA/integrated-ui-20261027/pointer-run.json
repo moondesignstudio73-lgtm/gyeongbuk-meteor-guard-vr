@@ -1,0 +1,29 @@
+{
+  "passed": false,
+  "nativeExitCode": 2,
+  "timedOut": false,
+  "startedUtc": "2026-10-26T19:57:42.5684787Z",
+  "endedUtc": "2026-10-26T19:57:57.4527557Z",
+  "preservationVerified": true,
+  "registryChangedNames": [
+    "unity_connect.mega_session_id_h1802243016",
+    "unity_connect.session_id_h4145606137",
+    "unity.player_session_count_h922449978",
+    "unity.player_sessionid_h1351336811"
+  ],
+  "nonSessionRestoredNames": [],
+  "recordRestoredNames": [],
+  "packageSha256": "3e4e0f13725aa6de0812ee0781648d602ce52ec9a9556318701e1eda14faf0af",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "0bf9fc944b8ba9df2be28c9c10b565fccb0e70d0",
+    "gitCommitShort": "0bf9fc9",
+    "buildTimeKST": "2026-10-27T04:22:22+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  },
+  "input": "Synthetic InputSystem pointer; explicitly forced result fixtures; original public harness stops at ReplayPreparing; not full replay continuation"
+}

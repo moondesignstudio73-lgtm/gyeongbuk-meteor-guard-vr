@@ -1,0 +1,1 @@
+state=Boot; phase=ReplayPreparing; result=False; actions=False; inputSuspended=False; modal=False; score=0; shots=0; hits=0

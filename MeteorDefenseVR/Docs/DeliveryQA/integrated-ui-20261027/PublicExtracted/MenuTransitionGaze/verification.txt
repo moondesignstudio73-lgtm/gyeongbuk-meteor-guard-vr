@@ -1,0 +1,50 @@
+Controlled real scene/collider gaze. State setup and settings Button.onClick invoked explicitly; not OS/HMD or physical pointer proof. Baseline observations and validated after checks distinguished by caller.
+failure result available -2=True
+result menu fixture -2=True
+records path -2=True
+actual back collider -2=True
+gaze back returns menu -2=True
+held ray next target=RetryStage retry active=True
+same ray overlaps retry -2=True
+held gaze does not select retry -2=True
+reentry selection elapsed=1.122559
+reentry never bypasses gaze dwell -2=True
+exit then reenter retries normally -2=True
+failure result available -1=True
+result menu fixture -1=True
+records path -1=True
+actual back collider -1=True
+gaze back returns menu -1=True
+held ray next target=RetryStage retry active=True
+same ray overlaps retry -1=True
+held gaze does not select retry -1=True
+reentry selection elapsed=0.9445496
+reentry never bypasses gaze dwell -1=True
+exit then reenter retries normally -1=True
+failure result available 1.85=True
+result menu fixture 1.85=True
+records path 1.85=True
+actual back collider 1.85=True
+gaze back returns menu 1.85=True
+held ray next target=RetryStage retry active=True
+same ray overlaps retry 1.85=True
+modal blocks world target 1.85=True
+modal closed at confirmation age=1.855682
+held gaze does not select retry 1.85=True
+reentry selection elapsed=0.944519
+reentry never bypasses gaze dwell 1.85=True
+exit then reenter retries normally 1.85=True
+failure result available 2.15=True
+result menu fixture 2.15=True
+records path 2.15=True
+actual back collider 2.15=True
+gaze back returns menu 2.15=True
+held ray next target=RetryStage retry active=True
+same ray overlaps retry 2.15=True
+modal blocks world target 2.15=True
+modal closed at confirmation age=2.156097
+held gaze does not select retry 2.15=True
+reentry selection elapsed=0.9450684
+reentry never bypasses gaze dwell 2.15=True
+exit then reenter retries normally 2.15=True
+passed=True

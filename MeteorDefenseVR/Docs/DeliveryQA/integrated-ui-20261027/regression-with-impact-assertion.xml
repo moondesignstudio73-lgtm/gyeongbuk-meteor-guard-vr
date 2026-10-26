@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Failed(Child)" total="4" passed="3" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-26 20:16:48Z" end-time="2026-10-26 20:17:17Z" duration="28.9350929">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="476" result="Failed" site="Child" start-time="2026-10-26 20:16:48Z" end-time="2026-10-26 20:17:17Z" duration="28.935093" total="4" passed="3" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1627" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="476" result="Failed" site="Child" start-time="2026-10-26 20:16:48Z" end-time="2026-10-26 20:17:17Z" duration="28.786830" total="4" passed="3" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="31616" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1628" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="476" result="Failed" site="Child" start-time="2026-10-26 20:16:48Z" end-time="2026-10-26 20:17:17Z" duration="28.779756" total="4" passed="3" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1629" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="476" result="Failed" site="Child" start-time="2026-10-26 20:16:48Z" end-time="2026-10-26 20:17:17Z" duration="28.772779" total="4" passed="3" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1306" name="LowHealthIntegrationTests" fullname="MeteorDefenseVR.Tests.LowHealthIntegrationTests" classname="MeteorDefenseVR.Tests.LowHealthIntegrationTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2026-10-26 20:16:48Z" end-time="2026-10-26 20:17:17Z" duration="28.758820" total="4" passed="3" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1310" name="ActualMeteorImpactDrivesMatchingHealthWarning" fullname="MeteorDefenseVR.Tests.LowHealthIntegrationTests.ActualMeteorImpactDrivesMatchingHealthWarning" methodname="ActualMeteorImpactDrivesMatchingHealthWarning" classname="MeteorDefenseVR.Tests.LowHealthIntegrationTests" runstate="Runnable" seed="687977895" result="Failed" start-time="2026-10-26 20:14:56Z" end-time="2026-10-26 20:15:18Z" duration="21.936856" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Error] Material 'Critical survival text overlay' with Shader 'TextMeshPro/Mobile/Distance Field' doesn't have a float or range property '_ZTestMode''. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.Material:GetFloat (string)
+MeteorDefenseVR.Tests.LowHealthIntegrationTests/<Run>d__5:MoveNext () (at Assets/_Project/Core/Tests/LowHealthIntegrationTests.cs:54)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+Material 'Critical survival text overlay' with Shader 'TextMeshPro/Mobile/Distance Field' doesn't have a float or range property '_ZTestMode'
+]]></output>
+            </test-case>
+            <test-case id="1309" name="ConcurrentBossFiveSizes" fullname="MeteorDefenseVR.Tests.LowHealthIntegrationTests.ConcurrentBossFiveSizes" methodname="ConcurrentBossFiveSizes" classname="MeteorDefenseVR.Tests.LowHealthIntegrationTests" runstate="Runnable" seed="1173310162" result="Passed" start-time="2026-10-26 20:15:18Z" end-time="2026-10-26 20:15:57Z" duration="38.499500" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="300000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+            <test-case id="1308" name="CriticalNoticeStageClearance" fullname="MeteorDefenseVR.Tests.LowHealthIntegrationTests.CriticalNoticeStageClearance" methodname="CriticalNoticeStageClearance" classname="MeteorDefenseVR.Tests.LowHealthIntegrationTests" runstate="Runnable" seed="162472001" result="Passed" start-time="2026-10-26 20:15:57Z" end-time="2026-10-26 20:16:39Z" duration="42.669026" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+            <test-case id="1307" name="CriticalNoticeThreatClearance" fullname="MeteorDefenseVR.Tests.LowHealthIntegrationTests.CriticalNoticeThreatClearance" methodname="CriticalNoticeThreatClearance" classname="MeteorDefenseVR.Tests.LowHealthIntegrationTests" runstate="Runnable" seed="1149451483" result="Passed" start-time="2026-10-26 20:16:39Z" end-time="2026-10-26 20:17:17Z" duration="37.889642" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

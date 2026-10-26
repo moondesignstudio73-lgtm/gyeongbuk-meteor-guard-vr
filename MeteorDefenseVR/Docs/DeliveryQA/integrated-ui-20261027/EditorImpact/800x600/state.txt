@@ -1,0 +1,1 @@
+health=25; HUD=25; totalDamage=75; damageEvents=1; state=Playing; text=방어막이 약해졌어요! 운석을 막아 주세요.; tint=RGBA(1.000, 0.920, 0.720, 1.000); minGlyphPixels=17.80475; maxGlyphPixels=22.45898; warningBounds=(x:0.22, y:0.25, width:0.55, height:0.05); timeScale=1

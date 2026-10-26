@@ -1,0 +1,28 @@
+{
+  "note": "Three targeted tests passed on final product source; impact fixture failed on querying an unexposed mobile shader property and is rerun separately. Not a 4/4 pass. Public XML only normalizes trailing stack-trace whitespace; raw original retained locally.",
+  "source": "regression-with-impact-assertion.xml",
+  "sourceSha256": "94DF2E0732FCB4C491AAA42F27ADBED88C3434B05B975199B9392F6FAA2C26ED",
+  "tests": [
+    {
+      "name": "MeteorDefenseVR.Tests.LowHealthIntegrationTests.ActualMeteorImpactDrivesMatchingHealthWarning",
+      "result": "Failed",
+      "duration": "21.936856"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.LowHealthIntegrationTests.ConcurrentBossFiveSizes",
+      "result": "Passed",
+      "duration": "38.499500"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.LowHealthIntegrationTests.CriticalNoticeStageClearance",
+      "result": "Passed",
+      "duration": "42.669026"
+    },
+    {
+      "name": "MeteorDefenseVR.Tests.LowHealthIntegrationTests.CriticalNoticeThreatClearance",
+      "result": "Passed",
+      "duration": "37.889642"
+    }
+  ],
+  "rawSourceSha256": "94DF2E0732FCB4C491AAA42F27ADBED88C3434B05B975199B9392F6FAA2C26ED"
+}

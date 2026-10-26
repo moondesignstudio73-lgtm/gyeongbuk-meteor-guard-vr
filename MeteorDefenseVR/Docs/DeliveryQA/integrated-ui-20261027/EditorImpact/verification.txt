@@ -1,0 +1,7 @@
+Editor current working source; exact source recorded in enclosing report. Explicit StartMainGame/scenario placement; real pooled meteor movement and collision damage. No direct health assignment, ShowNotice call or simulated damage callback. Not public executable or natural full-round evidence.
+(800, 600): damage=75; remaining=25
+(1024, 768): damage=75; remaining=25
+(1280, 720): damage=75; remaining=25
+(1920, 1080): damage=75; remaining=25
+(2560, 1080): damage=75; remaining=25
+passed=True

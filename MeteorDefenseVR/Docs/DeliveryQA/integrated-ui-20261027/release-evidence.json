@@ -1,0 +1,105 @@
+{
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "951ce7d003e76a2c79d947b4af3f08430249b84f",
+    "gitCommitShort": "951ce7d",
+    "buildTimeKST": "2026-10-27T05:41:43+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  },
+  "releaseId": 424756363,
+  "tag": "windows-survival-readability-20261027",
+  "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-survival-readability-20261027",
+  "zip": "MeteorDefenseVR-Windows-SurvivalReadability-20261027.zip",
+  "bytes": 89611718,
+  "sha256": "7eb00471b73637f1634472425e7be769a3cf5248cf6522583d7b07f84ef070b2",
+  "verifiedFiles": 222,
+  "publicDownload": {
+    "url": "https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-survival-readability-20261027/MeteorDefenseVR-Windows-SurvivalReadability-20261027.zip",
+    "sha256": "7eb00471b73637f1634472425e7be769a3cf5248cf6522583d7b07f84ef070b2",
+    "bytes": 89611718,
+    "verifiedUtc": "2026-10-26T20:51:13.7834241Z",
+    "matches": true
+  },
+  "nativeIntegration": {
+    "passed": true,
+    "nativeExitCode": 0,
+    "timedOut": false,
+    "startedUtc": "2026-10-26T20:44:41.4979939Z",
+    "endedUtc": "2026-10-26T20:50:08.37113Z",
+    "preservationVerified": true,
+    "registryChangedNames": [
+      "unity_connect.mega_session_id_h1802243016",
+      "unity_connect.session_id_h4145606137",
+      "unity.player_session_count_h922449978",
+      "unity.player_sessionid_h1351336811"
+    ],
+    "nonSessionRestoredNames": [],
+    "recordRestoredNames": [],
+    "packageSha256": "7eb00471b73637f1634472425e7be769a3cf5248cf6522583d7b07f84ef070b2",
+    "identity": {
+      "buildVersion": "0.2.0-rc.1",
+      "gitBranch": "codex/cockpit-visual-restore",
+      "gitCommit": "951ce7d003e76a2c79d947b4af3f08430249b84f",
+      "gitCommitShort": "951ce7d",
+      "buildTimeKST": "2026-10-27T05:41:43+09:00",
+      "unityVersion": "6000.5.10f1",
+      "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+      "developmentBuild": false,
+      "worktreeClean": true
+    },
+    "input": "Synthetic InputSystem aim; internal start/standby queue; separate forced preflight/failure/menu/low-health fixtures"
+  },
+  "nativePointer": {
+    "passed": true,
+    "nativeExitCode": 0,
+    "timedOut": false,
+    "startedUtc": "2026-10-26T20:43:35.9463945Z",
+    "endedUtc": "2026-10-26T20:44:00.2920444Z",
+    "preservationVerified": true,
+    "registryChangedNames": [
+      "unity_connect.mega_session_id_h1802243016",
+      "unity_connect.session_id_h4145606137",
+      "unity.player_session_count_h922449978",
+      "unity.player_sessionid_h1351336811"
+    ],
+    "nonSessionRestoredNames": [],
+    "recordRestoredNames": [],
+    "packageSha256": "7eb00471b73637f1634472425e7be769a3cf5248cf6522583d7b07f84ef070b2",
+    "identity": {
+      "buildVersion": "0.2.0-rc.1",
+      "gitBranch": "codex/cockpit-visual-restore",
+      "gitCommit": "951ce7d003e76a2c79d947b4af3f08430249b84f",
+      "gitCommitShort": "951ce7d",
+      "buildTimeKST": "2026-10-27T05:41:43+09:00",
+      "unityVersion": "6000.5.10f1",
+      "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+      "developmentBuild": false,
+      "worktreeClean": true
+    },
+    "input": "Synthetic InputSystem pointer and relative aim; explicitly forced initial result; ordinary replay preparation/launch/countdown/first hit; no OS or full replay victory"
+  },
+  "nativeBoss": {
+    "passed": true,
+    "nativeExitCode": 0,
+    "timedOut": false,
+    "startedUtc": "2026-10-26T20:44:04.5865724Z",
+    "endedUtc": "2026-10-26T20:44:37.0155252Z",
+    "images": 50,
+    "registryChangedNames": [
+      "unity_connect.mega_session_id_h1802243016",
+      "unity_connect.session_id_h4145606137",
+      "unity.player_session_count_h922449978",
+      "unity.player_sessionid_h1351336811"
+    ],
+    "nonSessionRestoredNames": [],
+    "recordRestoredNames": [],
+    "preservationVerified": true,
+    "runtime": "passed=True\nGPU=NVIDIA GeForce RTX 3070 / Direct3D12\n"
+  },
+  "editorFinal": "accepted.xml",
+  "otherTargetedTests": "regression-results.json"
+}

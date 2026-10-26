@@ -1,0 +1,20 @@
+state=Boot;stage=1;boss=Idle;buffs=0;meteors=0;stageVisible=False;remaining=0;feedback=
+LiveRadarText: font=0.135 auto=False rect=(x:0.38, y:0.10, width:0.24, height:0.20) preferred=0.19x0.04 available=(0.59, 0.37) truncated=False text=360° THREAT RADAR // NORMAL
+CONTACTS 00   PRIORITY CLEAR
+PolishedText: font=3.3 auto=False rect=(x:0.27, y:0.78, width:0.46, height:0.09) preferred=2.98x0.48 available=(3.70, 0.55) truncated=False text=METEOR DEFENSE
+LiveThreatAnalysis: font=30 auto=False rect=(x:0.74, y:0.04, width:0.23, height:0.11) preferred=117x119.98 available=(288.00, 110.00) truncated=False text=위협 0개
+주변 안전
+PreparationStatus: font=40 auto=False rect=(x:0.11, y:0.36, width:0.78, height:0.07) preferred=348.78x57.92 available=(1000.00, 64.00) truncated=False text=다음 임무를 준비해요
+DistanceLabel_3: font=0.042 auto=False rect=(x:0.59, y:0.20, width:0.02, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=200m
+DistanceLabel_2: font=0.042 auto=False rect=(x:0.56, y:0.20, width:0.02, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=100m
+LiveShipStatus: font=30 auto=False rect=(x:0.03, y:0.04, width:0.23, height:0.11) preferred=198.32x119.98 available=(288.00, 110.00) truncated=False text=방어막 100%
+정상 · 피해 0
+FlightTitle: font=48 auto=False rect=(x:0.11, y:0.73, width:0.78, height:0.08) preferred=200.63x69.51 available=(1000.00, 80.00) truncated=False text=출격 준비
+HeadDirection: font=0.058 auto=False rect=(x:0.48, y:0.19, width:0.04, height:0.02) preferred=0.01x0.01 available=(0.09, 0.04) truncated=False text=▲
+DistanceLabel_1: font=0.042 auto=False rect=(x:0.54, y:0.20, width:0.02, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=50m
+FlightTip: font=40 auto=False rect=(x:0.11, y:0.18, width:0.78, height:0.07) preferred=706.8x57.92 available=(1000.00, 64.00) truncated=False text=조준점을 운석에 맞추면 자동으로 발사돼요.
+GazeCursor: font=32 auto=False rect=(x:0.49, y:0.48, width:0.02, height:0.03) preferred=16.68x46.34 available=(44.00, 44.00) truncated=False text=+
+PreparationPercent: font=42 auto=False rect=(x:0.38, y:0.28, width:0.23, height:0.07) preferred=111.45x60.82 available=(300.00, 64.00) truncated=False text=100%
+PolishedText: font=2.1 auto=False rect=(x:0.28, y:0.66, width:0.44, height:0.21) preferred=1.92x0.31 available=(3.60, 1.30) truncated=False text=난이도를 선택하세요
+TutorialHeading: font=30 auto=False rect=(x:0.00, y:0.00, width:0.00, height:0.00) preferred=117x173.76 available=(-60.00, 41.00) truncated=False text=조준 연습
+DistanceLabel_0: font=0.042 auto=False rect=(x:0.53, y:0.20, width:0.02, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=25m

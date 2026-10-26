@@ -1,0 +1,1 @@
+state=Playing; feedback=; remaining=0; panelActive=False; fill=RGBA(0.043, 0.082, 0.133, 1.000); font=28; canvasAlpha=1; warning=False; warningAlpha=0; warningAge=1.208335; rect=(x:0.32, y:0.69, width:0.36, height:0.15)

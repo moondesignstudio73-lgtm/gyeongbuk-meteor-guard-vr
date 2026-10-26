@@ -1,0 +1,23 @@
+state=BossMeteor;stage=10;boss=RetryDelay;buffs=3;meteors=0;stageVisible=False;remaining=0;feedback=대형 운석 재접근 중...
+LiveRadarText: font=0.135 auto=False rect=(x:0.43, y:0.10, width:0.13, height:0.20) preferred=0.19x0.04 available=(0.59, 0.37) truncated=False text=360° THREAT RADAR // NORMAL
+CONTACTS 00   PRIORITY CLEAR
+HealthValue: font=26 auto=False rect=(x:0.17, y:0.83, width:0.13, height:0.07) preferred=224.01x41.65 available=(216.00, 48.00) truncated=False text=■■□□□□□□
+LiveThreatAnalysis: font=30 auto=False rect=(x:0.76, y:0.28, width:0.22, height:0.15) preferred=117x119.98 available=(368.00, 110.00) truncated=False text=위협 0개
+주변 안전
+DifficultyStageValue: font=24 auto=False rect=(x:0.42, y:0.91, width:0.16, height:0.05) preferred=168.43x38.76 available=(276.00, 34.00) truncated=False text=보통  ·  구역 10
+DistanceLabel_3: font=0.042 auto=False rect=(x:0.55, y:0.20, width:0.01, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=200m
+DistanceLabel_2: font=0.042 auto=False rect=(x:0.54, y:0.20, width:0.01, height:0.01) preferred=0.02x0.01 available=(0.06, 0.03) truncated=False text=100m
+LiveShipStatus: font=30 auto=False rect=(x:0.03, y:0.04, width:0.17, height:0.15) preferred=177.34x119.98 available=(288.00, 110.00) truncated=False text=방어막 25%
+위험 · 피해 90
+LiveWeaponStatus: font=30 auto=False rect=(x:0.76, y:0.04, width:0.22, height:0.24) preferred=222.03x132.73 available=(368.00, 172.00) truncated=False text=방어막 1회
+공격력 강화 1초
+과부하 레이저 2초
+AsteroidValue: font=30 auto=False rect=(x:0.42, y:0.83, width:0.16, height:0.07) preferred=240.5x47.44 available=(276.00, 48.00) truncated=False text=보스 운석  100%
+SystemMessageValue: font=28 auto=False rect=(x:0.33, y:0.70, width:0.34, height:0.11) preferred=285.45x44.55 available=(574.00, 82.00) truncated=False text=대형 운석 재접근 중...
+HeadDirection: font=0.058 auto=False rect=(x:0.49, y:0.19, width:0.02, height:0.02) preferred=0.01x0.01 available=(0.09, 0.04) truncated=False text=▲
+DistanceLabel_1: font=0.042 auto=False rect=(x:0.52, y:0.20, width:0.01, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=50m
+ScoreValue: font=30 auto=False rect=(x:0.70, y:0.83, width:0.14, height:0.07) preferred=31.64x47.44 available=(240.00, 48.00) truncated=False text=0
+ScoreLabel: font=24 auto=False rect=(x:0.70, y:0.91, width:0.14, height:0.05) preferred=60.16x38.76 available=(240.00, 34.00) truncated=False text=점수
+TutorialHeading: font=30 auto=False rect=(x:0.00, y:0.00, width:0.00, height:0.00) preferred=117x173.76 available=(-60.00, 41.00) truncated=False text=조준 연습
+DistanceLabel_0: font=0.042 auto=False rect=(x:0.52, y:0.20, width:0.01, height:0.01) preferred=0.01x0.01 available=(0.06, 0.03) truncated=False text=25m
+HealthLabel: font=24 auto=False rect=(x:0.17, y:0.91, width:0.13, height:0.05) preferred=82.24x38.76 available=(216.00, 34.00) truncated=False text=방어막

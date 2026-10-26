@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "nativeExitCode": 0,
+  "timedOut": false,
+  "startedUtc": "2026-10-26T20:44:41.4979939Z",
+  "endedUtc": "2026-10-26T20:50:08.3711300Z",
+  "preservationVerified": true,
+  "registryChangedNames": [
+    "unity_connect.mega_session_id_h1802243016",
+    "unity_connect.session_id_h4145606137",
+    "unity.player_session_count_h922449978",
+    "unity.player_sessionid_h1351336811"
+  ],
+  "nonSessionRestoredNames": [],
+  "recordRestoredNames": [],
+  "packageSha256": "7eb00471b73637f1634472425e7be769a3cf5248cf6522583d7b07f84ef070b2",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/cockpit-visual-restore",
+    "gitCommit": "951ce7d003e76a2c79d947b4af3f08430249b84f",
+    "gitCommitShort": "951ce7d",
+    "buildTimeKST": "2026-10-27T05:41:43+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  },
+  "input": "Synthetic InputSystem aim; internal start/standby queue; separate forced preflight/failure/menu/low-health fixtures"
+}

@@ -1,0 +1,31 @@
+Explicit result text fixtures in extracted player; not naturally earned scores.
+(1920, 1080) score=0 failed=False pointSize=2.3 countSize=2.3 pixels=40.71454 passed=True text=이번 임무의 기록|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1920, 1080) score=0 failed=True pointSize=2.3 countSize=2.3 pixels=40.71454 passed=True text=다시 도전해요!|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(1920, 1080) score=138940 failed=False pointSize=2.3 countSize=2.3 pixels=39.39581 passed=True text=이번 임무의 기록|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1920, 1080) score=138940 failed=True pointSize=2.3 countSize=2.3 pixels=39.39581 passed=True text=다시 도전해요!|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(1920, 1080) score=2147483647 failed=False pointSize=2.3 countSize=2.3 pixels=39.39581 passed=True text=이번 임무의 기록|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1920, 1080) score=2147483647 failed=True pointSize=2.3 countSize=2.3 pixels=39.39581 passed=True text=다시 도전해요!|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(1280, 720) score=0 failed=False pointSize=2.3 countSize=2.3 pixels=27.14301 passed=True text=이번 임무의 기록|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1280, 720) score=0 failed=True pointSize=2.3 countSize=2.3 pixels=27.14301 passed=True text=다시 도전해요!|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(1280, 720) score=138940 failed=False pointSize=2.3 countSize=2.3 pixels=26.26392 passed=True text=이번 임무의 기록|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1280, 720) score=138940 failed=True pointSize=2.3 countSize=2.3 pixels=26.26392 passed=True text=다시 도전해요!|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(1280, 720) score=2147483647 failed=False pointSize=2.3 countSize=2.3 pixels=26.26392 passed=True text=이번 임무의 기록|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1280, 720) score=2147483647 failed=True pointSize=2.3 countSize=2.3 pixels=26.26392 passed=True text=다시 도전해요!|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(1024, 768) score=0 failed=False pointSize=2.3 countSize=2.3 pixels=24.12714 passed=True text=이번 임무의 기록|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1024, 768) score=0 failed=True pointSize=2.3 countSize=2.3 pixels=24.12714 passed=True text=다시 도전해요!|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(1024, 768) score=138940 failed=False pointSize=2.3 countSize=2.3 pixels=23.3457 passed=True text=이번 임무의 기록|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1024, 768) score=138940 failed=True pointSize=2.3 countSize=2.3 pixels=23.3457 passed=True text=다시 도전해요!|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(1024, 768) score=2147483647 failed=False pointSize=2.3 countSize=2.3 pixels=23.3457 passed=True text=이번 임무의 기록|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(1024, 768) score=2147483647 failed=True pointSize=2.3 countSize=2.3 pixels=23.3457 passed=True text=다시 도전해요!|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(800, 600) score=0 failed=False pointSize=2.3 countSize=2.3 pixels=18.8493 passed=True text=이번 임무의 기록|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(800, 600) score=0 failed=True pointSize=2.3 countSize=2.3 pixels=18.8493 passed=True text=다시 도전해요!|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(800, 600) score=138940 failed=False pointSize=2.3 countSize=2.3 pixels=18.2388 passed=True text=이번 임무의 기록|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(800, 600) score=138940 failed=True pointSize=2.3 countSize=2.3 pixels=18.2388 passed=True text=다시 도전해요!|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(800, 600) score=2147483647 failed=False pointSize=2.3 countSize=2.3 pixels=18.2388 passed=True text=이번 임무의 기록|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(800, 600) score=2147483647 failed=True pointSize=2.3 countSize=2.3 pixels=18.2388 passed=True text=다시 도전해요!|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(2560, 1080) score=0 failed=False pointSize=2.3 countSize=2.3 pixels=40.71454 passed=True text=이번 임무의 기록|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(2560, 1080) score=0 failed=True pointSize=2.3 countSize=2.3 pixels=40.71454 passed=True text=다시 도전해요!|점수0|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(2560, 1080) score=138940 failed=False pointSize=2.3 countSize=2.3 pixels=39.39581 passed=True text=이번 임무의 기록|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(2560, 1080) score=138940 failed=True pointSize=2.3 countSize=2.3 pixels=39.39581 passed=True text=다시 도전해요!|점수138,940|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
+(2560, 1080) score=2147483647 failed=False pointSize=2.3 countSize=2.3 pixels=39.39581 passed=True text=이번 임무의 기록|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|피해 없이 임무 완료!|다음 임무에 도전해요!
+(2560, 1080) score=2147483647 failed=True pointSize=2.3 countSize=2.3 pixels=39.39581 passed=True text=다시 도전해요!|점수2,147,483,647|파괴한 운석2,147,483,647|명중률100%|등급S|난이도 : 체험|운석 2,147,483,647개 격파!|다음 임무에 도전해요!
