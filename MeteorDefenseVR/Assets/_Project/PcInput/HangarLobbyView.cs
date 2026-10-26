@@ -9,9 +9,9 @@ namespace MeteorDefenseVR.PcInput
     // Pooled world-space hologram + existing authored hangar. No camera transforms are written.
     public sealed class HangarLobbyView : MonoBehaviour
     {
-        public static readonly Color Cyan=new Color(.17f,.9f,.94f);
-        private static readonly Color Ink=new Color(.027f,.075f,.105f,.94f);
-        private static readonly Color TextColor=new Color(.8f,.97f,1f);
+        public static readonly Color Cyan=FlightUiTheme.Accent;
+        private static readonly Color Ink=FlightUiTheme.Ink;
+        private static readonly Color TextColor=FlightUiTheme.Text;
         private Transform room,left,right;
         private Vector3 roomRest,leftRest,rightRest;
         private Vector3 leftScale,rightScale;
@@ -40,9 +40,9 @@ namespace MeteorDefenseVR.PcInput
             panel.localScale=Vector3.one*.0045f; panel.sizeDelta=new Vector2(650,380);
             panelPosition=panel.localPosition; panelScale=panel.localScale;
             var canvas=root.GetComponent<Canvas>(); canvas.renderMode=RenderMode.WorldSpace; canvas.worldCamera=camera; canvas.sortingOrder=14;
-            frame=Image("Frame",panel,Vector2.zero,new Vector2(650,380),new Color(.12f,.48f,.57f,.8f)).rectTransform;
+            frame=Image("Frame",panel,Vector2.zero,new Vector2(650,380),FlightUiTheme.Edge).rectTransform;
             glass=Image("Glass",panel,Vector2.zero,new Vector2(646,376),Ink).rectTransform;
-            statusRail=Image("DockStatusRail",panel,new Vector2(-310,0),new Vector2(3,330),new Color(1,.78f,.47f)).rectTransform;
+            statusRail=Image("DockStatusRail",panel,new Vector2(-310,0),new Vector2(3,330),FlightUiTheme.Warning).rectTransform;
             title=Label(panel,"Title","격납고 도착",new Vector2(0,145),310,font);
             subtitle=Label(panel,"Subtitle","지구 방어대 · 제1격납고",new Vector2(0,103),155,font);
             menu=Group("Menu",panel); difficulty=Group("DifficultyHud",panel); standby=Group("NextPlayer",panel);
@@ -72,7 +72,7 @@ namespace MeteorDefenseVR.PcInput
                 var lamp=Group("BayWorkLight"+i,lightsRoot.transform);
                 lamp.transform.localPosition=new Vector3(i==0?-2:2,1.9f,4);
                 var light=lamp.AddComponent<Light>(); light.type=LightType.Point; light.range=10; light.intensity=3;
-                light.shadows=LightShadows.None; light.color=i==0?new Color(.44f,.8f,1):new Color(1,.78f,.47f); lights[i]=light;
+                light.shadows=LightShadows.None; light.color=i==0?new Color(.44f,.8f,1):FlightUiTheme.Warning; lights[i]=light;
             }
             // Warm the new text and Canvas geometry once, while no gameplay state is activated.
             // These labels belong to the interactive hologram, not the depth-tested hangar set.
@@ -131,6 +131,13 @@ namespace MeteorDefenseVR.PcInput
         {
             bool returning=phase==HangarLobbyController.LobbyPhase.Returning;
             bool departing=phase==HangarLobbyController.LobbyPhase.Departing;
+            if (departing)
+            {
+                // LaunchEnvironmentView owns all departure translation, including countdown.
+                left.localScale=leftScale; right.localScale=rightScale;
+                lightsRoot.SetActive(false);
+                return;
+            }
             float t=Mathf.Clamp01(progress);
             float travel=returning?7*(1-Mathf.SmoothStep(0,1,t/.8f)):departing?-9*speed:0;
             float opening=returning?1-Mathf.SmoothStep(0,1,(t-.4f)/.55f):departing?doorOpen:0;
@@ -191,8 +198,8 @@ namespace MeteorDefenseVR.PcInput
         internal static HangarMenuButton Button(Transform parent,string name,string text,Vector2 position,TMP_FontAsset font,Action action,Vector2? dimensions=null)
         {
             Vector2 size=dimensions??new Vector2(280,80);
-            var outline=Image(name,parent,position,size,new Color(.1f,.4f,.5f,.8f));
-            var surface=Image("Surface",outline.transform,Vector2.zero,size-Vector2.one*4,new Color(.035f,.14f,.19f));
+            var outline=Image(name,parent,position,size,FlightUiTheme.Edge);
+            var surface=Image("Surface",outline.transform,Vector2.zero,size-Vector2.one*4,FlightUiTheme.Surface);
             var button=outline.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic=surface;
             var label=Label(outline.transform,"Label",text,new Vector2(-13,0),Mathf.Min(235,size.y*3.2f),font); label.rectTransform.sizeDelta=new Vector2(size.x-52,size.y);
             var ring=CalibrationProgressRing.Create(outline.transform,Mathf.Min(31,size.y*.42f)); ring.name="GazeProgressRing"; ring.rectTransform.anchoredPosition=new Vector2(size.x*.5f-23,0);

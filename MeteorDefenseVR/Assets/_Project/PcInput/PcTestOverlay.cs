@@ -170,7 +170,7 @@ namespace MeteorDefenseVR.PcInput
             shade.anchorMax=Vector2.one;shade.offsetMin=shade.offsetMax=Vector2.zero;
             settingsBackdrop=shade.gameObject;Background(settingsBackdrop,new Color(.005f,.015f,.025f,.97f));settingsBackdrop.SetActive(false);
             lookSettingsPanel=Rect("LookSettingsPanel",canvasObject.transform,Vector2.one*.5f,Vector2.one*.5f,Vector2.zero,new Vector2(1180,900)).gameObject;
-            Background(lookSettingsPanel,new Color(.005f,.025f,.045f,1));
+            Background(lookSettingsPanel,FlightUiTheme.Ink);
             Label(lookSettingsPanel.transform,"Title","편하게 둘러보기",new Vector2(36,-24),new Vector2(1108,80),52);
             for(int i=0;i<4;i++)lookSettingsValues[i]=Label(lookSettingsPanel.transform,"Value"+i,"",new Vector2(36,-120-i*130),new Vector2(650,128),44);
             sensitivityDown=SettingsButton(lookSettingsPanel.transform,"SensitivityDown","−",new Vector2(760,-120),new Vector2(170,110),()=>router.Simulation.Sensitivity-=.1f);
@@ -373,7 +373,7 @@ namespace MeteorDefenseVR.PcInput
         private UnityEngine.UI.Button Button(Transform parent, string name, string text, Vector2 position, Vector2 size, UnityEngine.Events.UnityAction action)
         {
             RectTransform rect = Rect(name, parent, new Vector2(0, 1), new Vector2(0, 1), position, size);
-            Background(rect.gameObject, new Color(.025f, .17f, .23f, 1));
+            Background(rect.gameObject, FlightUiTheme.Surface);
             var button = rect.gameObject.AddComponent<UnityEngine.UI.Button>();
             button.targetGraphic = rect.GetComponent<UnityEngine.UI.Image>();
             button.onClick.AddListener(action);
@@ -392,7 +392,7 @@ namespace MeteorDefenseVR.PcInput
             target.SetActive(true);
             return label;
         }
-        private void Style(TextMeshProUGUI text, float size) { text.font = font; text.fontSize = size; text.enableAutoSizing = false; text.color = new Color(.68f, .96f, 1f); text.raycastTarget = false; }
+        private void Style(TextMeshProUGUI text, float size) { text.font = font; text.fontSize = size; text.enableAutoSizing = false; text.color = FlightUiTheme.Text; text.raycastTarget = false; }
         private static RectTransform Rect(string name, Transform parent, Vector2 anchor, Vector2 pivot, Vector2 position, Vector2 size)
         {
             var rect = new GameObject(name, typeof(RectTransform)).GetComponent<RectTransform>();

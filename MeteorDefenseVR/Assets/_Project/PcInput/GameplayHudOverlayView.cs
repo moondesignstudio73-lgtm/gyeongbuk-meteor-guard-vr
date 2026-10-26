@@ -32,9 +32,9 @@ namespace MeteorDefenseVR.PcInput
         [SerializeField, Range(1f, 2.5f)] private float vrDepth = 1.6f;
         [SerializeField, Range(.0005f, .0015f)] private float vrScale = .00085f;
 
-        private static readonly Color Cyan = new Color32(47, 231, 246, 255);
-        private static readonly Color Green = new Color32(114, 255, 149, 255);
-        private static readonly Color Warning = new Color32(255, 123, 73, 255);
+        private static readonly Color Cyan = FlightUiTheme.Accent;
+        private static readonly Color Green = FlightUiTheme.Accent;
+        private static readonly Color Warning = FlightUiTheme.Warning;
         private bool? worldMode;
         private string presentedMessage = string.Empty;
         private DifficultyManager difficultyManager;

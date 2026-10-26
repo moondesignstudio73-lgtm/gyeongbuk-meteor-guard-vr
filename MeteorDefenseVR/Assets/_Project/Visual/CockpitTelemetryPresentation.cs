@@ -243,9 +243,9 @@ namespace MeteorDefenseVR.Visual
                 if (!bossIncluded && boss != null) Consider(boss.ActiveBoss);
             }
             string condition = hp < .35f ? "위험" : hp < .7f ? "손상" : "정상";
-            if (shipStatus != null) shipStatus.text = $"방어막 {Mathf.RoundToInt(hp * 100)}%\n<color=#{(hp < .35f ? "FFAA79" : "B6F4FF")}>{condition}</color> · 피해 {(health != null ? health.TotalDamageTaken : 0):0}";
+            if (shipStatus != null) shipStatus.text = $"방어막 <size=42><b>{Mathf.RoundToInt(hp * 100)}%</b></size>\n<color=#{(hp < .35f ? "EDB36B" : "77D6D0")}>{condition}</color> · 피해 {(health != null ? health.TotalDamageTaken : 0):0}";
             if (threatAnalysis == null) return;
-            if (urgent == null) { threatAnalysis.text = "위협 0개\n주변 안전"; return; }
+            if (urgent == null) { threatAnalysis.text = "위협 <size=42><b>0</b></size>개\n주변 안전"; return; }
             Vector3 local = playerCamera != null ? playerCamera.transform.InverseTransformPoint(urgent.transform.position)
                 : Quaternion.Inverse(spawner.ShipRotation) * (urgent.transform.position - spawner.ShipCenter);
             float ax = Mathf.Abs(local.x), ay = Mathf.Abs(local.y), az = Mathf.Abs(local.z);
@@ -253,7 +253,7 @@ namespace MeteorDefenseVR.Visual
                 : local.z < 0 && az > ax * .65f ? "뒤쪽" : ax > az * .55f ? (local.x < 0 ? "왼쪽" : "오른쪽") : "앞쪽";
             string risk = seconds < 5 ? "위험" : "접근";
             float distance = Vector3.Distance(spawner.ShipCenter, urgent.transform.position);
-            threatAnalysis.text = $"위협 {count}개 · <color=#{(seconds < 5 ? "FFAA79" : "B6F4FF")}>{risk}</color>\n{direction} · {distance:0}m";
+            threatAnalysis.text = $"위협 <size=42><b>{count}</b></size>개\n<color=#{(seconds < 5 ? "EDB36B" : "77D6D0")}>{risk}</color> · {direction} · {distance:0}m";
         }
 
         private void RefreshSecondaryDisplays(MeteorController closest,float closestDistance,string engine,int damageLevel)

@@ -153,7 +153,7 @@ namespace MeteorDefenseVR.PcInput
             cameraRig.localPosition = shotCamera + new Vector3(Mathf.Sin(elapsed * 73), Mathf.Sin(elapsed * 57), 0) * (.055f * shake);
             cameraRig.localRotation = Quaternion.LookRotation(new Vector3(0, .5f, 20) - shotCamera)
                 * Quaternion.Euler(Mathf.Sin(elapsed * 51) * shake * .35f, 0, Mathf.Sin(elapsed * 67) * shake * .22f);
-            BlurStrength = xr ? 0 : speed * .024f;
+            BlurStrength = xr ? 0 : speed * .006f;
             if (blur != null) blur.SetFloat("_Strength", BlurStrength);
         }
 

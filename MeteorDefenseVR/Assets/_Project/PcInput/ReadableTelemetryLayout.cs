@@ -26,6 +26,7 @@ namespace MeteorDefenseVR.PcInput
             view = Camera.main;
             if (telemetry == null || hud == null || view == null || telemetry.ShipReadout == null || telemetry.ThreatReadout == null) return;
             var labels = new[] { telemetry.ShipReadout, telemetry.ThreatReadout };
+            FlightUiTheme.Hud(hud);
             for (int i = 0; i < labels.Length; i++)
             {
                 var label = labels[i]; var panel = (RectTransform)label.transform.parent; panels[i] = panel;
@@ -38,22 +39,26 @@ namespace MeteorDefenseVR.PcInput
                     scaler.referenceResolution = new Vector2(1280, 720);
                     scaler.screenMatchMode = UnityEngine.UI.CanvasScaler.ScreenMatchMode.Expand;
                 }
-                panel.sizeDelta = new Vector2(300, 136);
+                panel.sizeDelta = new Vector2(320, 126);
                 panel.pivot = new Vector2(i == 0 ? 0 : 1, 0);
                 SetHeight(i, .03f);
                 var scan = panel.GetComponent<CockpitHologramScan>();
                 if (scan != null) { scan.enabled = false; if (scan.ScanLine != null) scan.ScanLine.gameObject.SetActive(false); }
+                foreach (string decoration in new[] { "TopLine", "BottomLine" })
+                    if (panel.Find(decoration) is Transform line) line.gameObject.SetActive(false);
+                var outline = panel.GetComponent<UnityEngine.UI.Outline>();
+                if (outline != null) outline.enabled = false;
                 foreach (var child in panel.GetComponentsInChildren<TMP_Text>(true))
                     if (child != label) child.gameObject.SetActive(false);
                 var plate = panel.GetComponent<UnityEngine.UI.Image>();
                 if (plate != null)
                 {
                     plate.material = hud.TelemetryRoot.GetComponentInChildren<UnityEngine.UI.Image>(true).material;
-                    plate.color = new Color(.006f, .018f, .03f, .94f); plate.raycastTarget = false;
+                    FlightUiTheme.Plate(plate); plate.raycastTarget = false;
                 }
                 label.font = hud.HealthValue.font; label.fontSharedMaterial = hud.HealthValue.fontSharedMaterial;
-                label.fontSize = 34; label.enableAutoSizing = false;
-                label.color = Color.white; label.alpha = 1; label.lineSpacing = 8;
+                label.fontSize = 30; label.enableAutoSizing = false;
+                label.color = FlightUiTheme.Text; label.alpha = 1; label.lineSpacing = 6;
                 label.alignment = TextAlignmentOptions.MidlineLeft;
                 label.textWrappingMode = TextWrappingModes.NoWrap;
                 label.overflowMode = TextOverflowModes.Overflow; label.raycastTarget = false;

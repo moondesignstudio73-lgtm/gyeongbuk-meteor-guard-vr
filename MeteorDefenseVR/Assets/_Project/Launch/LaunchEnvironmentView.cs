@@ -35,6 +35,9 @@ namespace MeteorDefenseVR.Launch
         private Vector3 hangarBasePosition;
         private float speedAmount;
         private float presentationSpeed;
+        private float exitDistance;
+        private float exitAge;
+        private bool coasting;
         private float streakAccumulator;
         private bool positionsCaptured;
         private bool thrustStage;
@@ -45,7 +48,7 @@ namespace MeteorDefenseVR.Launch
         private AudioManager audioManager;
 
         public int StarStreakCapacity => starStreaks != null ? starStreaks.main.maxParticles : 0;
-        public float MaximumCockpitTravel => .004f;
+        public float MaximumCockpitTravel => 0f;
 
         private void Awake()
         {
@@ -70,8 +73,16 @@ namespace MeteorDefenseVR.Launch
 
         private void Update()
         {
+            if (Time.timeScale <= 0f) return;
             float target = thrustStage ? speedAmount : 0f;
+            if (coasting) target = 1f;
             presentationSpeed = Mathf.MoveTowards(presentationSpeed, target, Time.unscaledDeltaTime * (thrustStage ? 2.2f : 2.8f));
+            if (thrustStage) exitDistance = Mathf.Max(exitDistance, 2f * speedAmount);
+            if (coasting)
+            {
+                exitAge += Time.deltaTime;
+                exitDistance = Mathf.Min(hangarExitTravel * 2f, exitDistance + starSpeed * .6f * Mathf.SmoothStep(0f, 1f, exitAge / 1.3f) * Time.deltaTime);
+            }
             AnimateHangarExit();
             AnimateStarfield();
             AnimateStarStreaks();
@@ -149,6 +160,8 @@ namespace MeteorDefenseVR.Launch
         private void HandleStageChanged(LaunchStage stage, string message)
         {
             thrustStage = stage == LaunchStage.Launch;
+            if (stage == LaunchStage.Space) coasting = true;
+            if (stage == LaunchStage.Complete) coasting = false;
             if (statusText != null) statusText.text = message ?? string.Empty;
             if (stage == LaunchStage.Idle || stage == LaunchStage.Hangar) ResetPresentation();
         }
@@ -187,7 +200,8 @@ namespace MeteorDefenseVR.Launch
 
         private void AnimateHangarExit()
         {
-            float travel = hangarExitTravel * presentationSpeed;
+            // Retain travelled distance through countdown; the corridor must never spring back.
+            float travel = exitDistance;
             if (hangarRoot != null) hangarRoot.localPosition = hangarBasePosition + Vector3.back * travel;
             if (leftDoor != null) leftDoor.localPosition = leftDoorClosed + Vector3.left * (doorTravel * DoorAmount()) + Vector3.back * travel;
             if (rightDoor != null) rightDoor.localPosition = rightDoorClosed + Vector3.right * (doorTravel * DoorAmount()) + Vector3.back * travel;
@@ -212,10 +226,8 @@ namespace MeteorDefenseVR.Launch
         private void AnimateCockpit()
         {
             if (cockpitRoot == null) return;
-            // Motion is intentionally limited to cockpit geometry; the VR camera never moves.
-            float amplitude = Mathf.Lerp(0f, 0.004f, presentationSpeed);
-            float phase = Time.unscaledTime * 26f;
-            cockpitRoot.localPosition = cockpitBasePosition + new Vector3(Mathf.Sin(phase), Mathf.Sin(phase * .73f) * .45f, 0f) * amplitude;
+            // Relative scenery motion conveys acceleration without moving the pilot's seat.
+            cockpitRoot.localPosition = cockpitBasePosition;
         }
 
         private void BuildStarStreaks()
@@ -231,7 +243,7 @@ namespace MeteorDefenseVR.Launch
             var emission = starStreaks.emission; emission.enabled = false; emission.rateOverTime = 0f; emission.rateOverDistance = 0f;
             var renderer = starStreaks.GetComponent<ParticleSystemRenderer>();
             renderer.renderMode = ParticleSystemRenderMode.Stretch; renderer.alignment = ParticleSystemRenderSpace.View;
-            renderer.velocityScale = .09f; renderer.lengthScale = 5.5f; renderer.shadowCastingMode = ShadowCastingMode.Off; renderer.receiveShadows = false;
+            renderer.velocityScale = .035f; renderer.lengthScale = 3f; renderer.shadowCastingMode = ShadowCastingMode.Off; renderer.receiveShadows = false;
             Shader shader = Shader.Find("Universal Render Pipeline/Particles/Unlit") ?? Shader.Find("Universal Render Pipeline/Unlit");
             if (shader != null)
             {
@@ -253,15 +265,14 @@ namespace MeteorDefenseVR.Launch
             for (int i = 0; i < count; i++)
             {
                 float depth = Random.Range(8f, 19f);
-                Vector3 position = playerCamera.transform.position + playerCamera.transform.forward * depth
-                    + playerCamera.transform.right * Random.Range(-7f, 7f) + playerCamera.transform.up * Random.Range(-4f, 4f);
+                Vector3 position = playerCamera.ViewportToWorldPoint(new Vector3(Random.value < .5f ? .02f : .98f, Random.Range(.1f, .9f), depth));
                 var emit = new ParticleSystem.EmitParams
                 {
                     position = position,
-                    velocity = -playerCamera.transform.forward * Mathf.Lerp(18f, 48f, presentationSpeed),
+                    velocity = -playerCamera.transform.forward * Mathf.Lerp(8f, 24f, presentationSpeed),
                     startLifetime = Mathf.Lerp(.34f, .62f, presentationSpeed),
-                    startSize = Random.Range(.012f, .035f),
-                    startColor = new Color(.35f, .86f, 1f, Mathf.Lerp(.18f, .58f, presentationSpeed))
+                    startSize = Random.Range(.006f, .015f),
+                    startColor = new Color(.35f, .65f, .75f, Mathf.Lerp(.12f, .3f, presentationSpeed))
                 };
                 starStreaks.Emit(emit, 1);
             }
@@ -270,6 +281,8 @@ namespace MeteorDefenseVR.Launch
         private void ResetPresentation()
         {
             presentationSpeed = speedAmount = streakAccumulator = 0f;
+            exitDistance = exitAge = 0f;
+            coasting = false;
             thrustStage = false;
             if (hangarRoot != null && positionsCaptured) hangarRoot.localPosition = hangarBasePosition;
             if (starStreaks != null) starStreaks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
