@@ -1,0 +1,42 @@
+[
+  {
+    "file": "800-recent-clear.jpg",
+    "bytes": 76573,
+    "sha256": "bff2fc5ee8cffb0ad621e4585db6a4726bc16bb815fa1831e43e88d631f2c789"
+  },
+  {
+    "file": "maximized-recent.jpg",
+    "bytes": 204697,
+    "sha256": "22cea6fd4ddba0db032cd273d29492de340509a00491bf00259697b353c9604f"
+  },
+  {
+    "file": "wide-recent.jpg",
+    "bytes": 52027,
+    "sha256": "e19dc1a86b5efa0a85a5a967e00bb83676dcea4a9d5a98226cc5e2c1a439b2d2"
+  },
+  {
+    "file": "wide-top-first.jpg",
+    "bytes": 54029,
+    "sha256": "37a1d027c22e51172d6709ea0b85e3c9756be9a4f1e1cea5e0982aebe9a7a41c"
+  },
+  {
+    "file": "wide-top-last.jpg",
+    "bytes": 54184,
+    "sha256": "44f8eec84b2d43381b1ae9d21d8fbcf7eaa1a8b2f73f0206a0b97131dd8ede62"
+  },
+  {
+    "file": "wide-best.jpg",
+    "bytes": 51753,
+    "sha256": "4990750e8809fe09ad5b80041244dd9fdd660ea5ca24be4412ed93de178ff0bd"
+  },
+  {
+    "file": "wide-back-menu.jpg",
+    "bytes": 53506,
+    "sha256": "5d51139dc4fb508cf3c8bca1a7b319d52ef5270463c7dc88fe3f5528d92eae0c"
+  },
+  {
+    "file": "wide-replay-combat.jpg",
+    "bytes": 40039,
+    "sha256": "0e927d281c17c1357bf3ce26ff3646eb545b435004d41b9e5ff54935c7f8650e"
+  }
+]
