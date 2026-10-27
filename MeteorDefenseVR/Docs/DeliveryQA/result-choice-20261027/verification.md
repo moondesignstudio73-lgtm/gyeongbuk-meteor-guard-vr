@@ -22,3 +22,7 @@ An unrelated Zoom crash-report window interrupted the first combat attempt and t
 Fixture and ordinary runs restored original local records and non-session preferences (preservation JSONs); ordinary restoration completed 2026-10-27T05:14:20.8458100Z. ProjectSettings.asset still has SHA256 A8C1FEDDDF182D07C33D8F5162907A0E99DD81F06D1D1995ABDB82EFE963FE89. Raw logs and user data are excluded. Ordinary player log scan found zero NullReference/MissingReference/MissingMethod/IndexOutOfRange exceptions or shader errors.
 
 Actual OS victory gameplay, HMD, listening, Suno generation and the previously noted threat-label direction tradeoff remain unverified/outside this change. The non-failed result was tested through explicit fixtures, while failed results and both destinations were verified through ordinary OS play. This release does not claim full-game QA completion or a new hangar graphics upgrade.
+
+## Published package
+
+GitHub release 425059421, tag windows-result-choice-20261027, targets product commit 9b483b36b2f9b633256f5fee7540dc53cc628181. Uploaded ZIP and checksum were verified against GitHub asset size/digest. Public download was fetched again at 2026-10-27T05:17:03.9125103Z and matched the tested archive SHA256 and 89,613,148-byte size (public-download.json). The tested extracted build and the public archive therefore contain the same packaged files. Drive updates remain owned by the review chat; none were made here.
