@@ -1,0 +1,33 @@
+Controlled pooled targets with explicit viewport movement, scenario starts, reward callback and BeginClimax. Consecutive rendered frames, not natural gameplay, OS input or HMD acceptance.
+(800, 600)/top: direction/distance preserved; y reversals=0
+(800, 600)/left-corner: direction/distance preserved; y reversals=0
+(800, 600)/right-corner: direction/distance preserved; y reversals=0
+(800, 600)/reward-multiple: direction/distance preserved; y reversals=1
+(800, 600)/boss-multiple: direction/distance preserved; y reversals=1
+(800, 600): clear/reuse/pause/resume/reset passed
+(1024, 768)/top: direction/distance preserved; y reversals=0
+(1024, 768)/left-corner: direction/distance preserved; y reversals=0
+(1024, 768)/right-corner: direction/distance preserved; y reversals=0
+(1024, 768)/reward-multiple: direction/distance preserved; y reversals=1
+(1024, 768)/boss-multiple: direction/distance preserved; y reversals=1
+(1024, 768): clear/reuse/pause/resume/reset passed
+(1280, 720)/top: direction/distance preserved; y reversals=0
+(1280, 720)/left-corner: direction/distance preserved; y reversals=0
+(1280, 720)/right-corner: direction/distance preserved; y reversals=0
+(1280, 720)/reward-multiple: direction/distance preserved; y reversals=2
+(1280, 720)/boss-multiple: direction/distance preserved; y reversals=2
+(1280, 720): clear/reuse/pause/resume/reset passed
+(1920, 1080)/top: direction/distance preserved; y reversals=0
+(1920, 1080)/left-corner: direction/distance preserved; y reversals=0
+(1920, 1080)/right-corner: direction/distance preserved; y reversals=0
+(1920, 1080)/reward-multiple: direction/distance preserved; y reversals=2
+(1920, 1080)/boss-multiple: direction/distance preserved; y reversals=2
+(1920, 1080): clear/reuse/pause/resume/reset passed
+(2560, 1080)/top: direction/distance preserved; y reversals=0
+(2560, 1080)/left-corner: direction/distance preserved; y reversals=0
+(2560, 1080)/right-corner: direction/distance preserved; y reversals=0
+(2560, 1080)/reward-multiple: direction/distance preserved; y reversals=1
+(2560, 1080)/boss-multiple: direction/distance preserved; y reversals=1
+(2560, 1080): clear/reuse/pause/resume/reset passed
+frames=600; violations=0
+passed=True

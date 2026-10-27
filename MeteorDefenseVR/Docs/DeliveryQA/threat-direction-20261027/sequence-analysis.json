@@ -1,0 +1,17 @@
+{
+  "Baseline": {
+    "observations": 182,
+    "max_horizontal_side_changes_per_monotonic_target": 0,
+    "centre_jitter_max_delta": 0
+  },
+  "After": {
+    "observations": 182,
+    "max_horizontal_side_changes_per_monotonic_target": 1,
+    "centre_jitter_max_delta": 0
+  },
+  "Final": {
+    "observations": 206,
+    "max_horizontal_side_changes_per_monotonic_target": 1,
+    "centre_jitter_max_delta": 0
+  }
+}
