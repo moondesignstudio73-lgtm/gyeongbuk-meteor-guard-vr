@@ -20,7 +20,7 @@ The raw frames and target coordinates allow inspection of direction and placemen
 
 ## Delivery isolation
 
-The original checkout retained a Git index lock. Automated approval rejected deletion of that lock without supplying a specific reason. No forced deletion or lock bypass was performed. A managed worktree at the accepted ResultContrast source was created for committing/building this update. The user's original ProjectSettings and player data remain preserved. Build/package/native verification will be recorded here after completion.
+The original checkout retained a Git index lock. Automated approval rejected deletion of that lock without supplying a specific reason. No forced deletion or lock bypass was performed. A managed worktree at the accepted ResultContrast source was created for committing/building this update. The user's original ProjectSettings and player data remain preserved. Accepted build/package/native verification is recorded below.
 
 The initial worktree import rewrote settings with equivalent normalized contents and triggered the clean-source build guard; index normalization produced no staged setting changes. Historical primary-checkout QA files and the original source were restored from HEAD after the verified source was committed in the managed worktree. The primary checkout's locked index can still show stale modification flags despite empty content diffs. Its user ProjectSettings hash remains A8C1FEDDDF182D07C33D8F5162907A0E99DD81F06D1D1995ABDB82EFE963FE89.
 
@@ -38,3 +38,5 @@ Samples wait 0.16 seconds after explicit target movement; they do not certify ev
 - Extracted final ZIP, Direct3D12 / RTX 3070, opt-in batch render fixture: passed=True, 144 images, 206 observed labels, 0 opposite-half samples. Exact expected label counts and active/unpaused combat were asserted at every sample. Native 800px rear-crossing, 800px four-target and 1280px four-target images were visually inspected; all displayed actual gameplay and correct-side labels, unlike the excluded paused run. See Native/trace.csv and Native/runtime.txt.
 - Separate ordinary 1280x720 launch, without proof or batch flags: actual OS mouse selected Hard, destroyed three tutorial targets, entered combat, and observed natural threat warnings and damage. Ordinary/ sequence records this smoke test. No natural victory completion or HMD acceptance is claimed.
 - Player records and non-session preferences restored after both final runs; native-preservation.json and ordinary-preservation.json retained. No audio work or Drive update was performed here.
+
+Published release 425146992, tag windows-threat-direction-20261027, targets a4c06864fb8a52b40b19f126627678052967118c. Public download rechecked at 2026-10-27T07:34:30.8025451Z: 89,617,094 bytes and SHA256 matched. Stable download: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-threat-direction-20261027/MeteorDefenseVR-Windows-ThreatDirection-20261027.zip
