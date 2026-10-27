@@ -501,7 +501,26 @@ namespace MeteorDefenseVR.PowerUps
             empVisual = GameObject.CreatePrimitive(PrimitiveType.Sphere); empVisual.name = "EMP_Shockwave_Pooled";
             SafeDestroy(empVisual.GetComponent<Collider>()); empVisual.transform.SetParent(transform, true);
             Renderer empRenderer = empVisual.GetComponent<Renderer>(); Shader empShader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Sprites/Default");
-            if (empRenderer != null && empShader != null) { empMaterial = new Material(empShader) { name = "EMP_Shockwave_Runtime" }; Color empColor = new Color(.85f,.95f,1f,.18f); empMaterial.color = empColor; if (empMaterial.HasProperty("_BaseColor")) empMaterial.SetColor("_BaseColor", empColor); if (empMaterial.HasProperty("_Surface")) empMaterial.SetFloat("_Surface",1f); empRenderer.sharedMaterial = empMaterial; }
+            if (empRenderer != null && empShader != null)
+            {
+                empMaterial = new Material(empShader) { name = "EMP_Shockwave_Runtime" };
+                Color empColor = new Color(.85f,.95f,1f,.18f);
+                empMaterial.color = empColor;
+                if (empMaterial.HasProperty("_BaseColor")) empMaterial.SetColor("_BaseColor", empColor);
+                if (empMaterial.HasProperty("_Surface"))
+                {
+                    // Runtime materials do not receive the URP inspector's surface setup.
+                    // Surface alone leaves opaque blending and hides the combat scene.
+                    empMaterial.SetFloat("_Surface", 1f);
+                    empMaterial.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                    empMaterial.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    empMaterial.SetFloat("_ZWrite", 0f);
+                    empMaterial.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                    empMaterial.SetOverrideTag("RenderType", "Transparent");
+                    empMaterial.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+                }
+                empRenderer.sharedMaterial = empMaterial;
+            }
             empVisual.SetActive(false);
         }
         private void BuildAudio()

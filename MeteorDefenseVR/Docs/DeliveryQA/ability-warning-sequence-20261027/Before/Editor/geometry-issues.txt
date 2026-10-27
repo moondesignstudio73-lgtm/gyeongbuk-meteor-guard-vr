@@ -1,0 +1,14 @@
+800x600/maximum-three: critical warning overlaps status/buffs
+800x600/warning-three-before-emp: critical warning overlaps status/buffs
+800x600/emp-score-warning-three: critical warning overlaps status/buffs
+800x600/emp-expansion: critical warning overlaps status/buffs
+800x600/score-replaces-emp-warning: critical warning overlaps status/buffs
+800x600/heal-applied: critical warning overlaps status/buffs
+800x600/heal-settled: critical warning overlaps status/buffs
+1280x720/warning-three-before-emp: critical warning overlaps status/buffs
+1280x720/emp-score-warning-three: critical warning overlaps status/buffs
+1280x720/emp-expansion: critical warning overlaps status/buffs
+1280x720/score-replaces-emp-warning: critical warning overlaps status/buffs
+1280x720/heal-applied: critical warning overlaps status/buffs
+1280x720/heal-settled: critical warning overlaps status/buffs
+1280x720/timed-ending: critical warning overlaps status/buffs

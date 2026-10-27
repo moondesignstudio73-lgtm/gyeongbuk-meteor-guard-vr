@@ -21,6 +21,7 @@ namespace MeteorDefenseVR.PcInput
         private Material normalNoticeMaterial, criticalNoticeMaterial;
         private int normalNoticeSortingOrder;
         private UnityEngine.UI.Image warningBacking;
+        private readonly Vector3[] criticalLaneCorners = new Vector3[4];
         private bool ambientStarted;
         private float noticeAge = 10f, noticeDuration, praiseAge = 10f, lastKill = -10f, praiseAllowedAt, dangerAllowedAt;
         private int streak, noticePriority;
@@ -155,6 +156,20 @@ namespace MeteorDefenseVR.PcInput
             backingRect.localScale=Vector3.one*backingScale;
             backingRect.anchoredPosition=new Vector2(0,720f*noticeLane*backingScale);
             var backingPosition=backingRect.localPosition;backingPosition.z=(backingDepth-2.8f)/overlay.localScale.z;backingRect.localPosition=backingPosition;
+            // Reserve the fixed right-hand status panel at its maximum three-buff width.
+            // Move the whole warning, not its text size or the persistent dashboard panels.
+            if (noticePriority == 2)
+            {
+                backingRect.GetWorldCorners(criticalLaneCorners);
+                float right = float.NegativeInfinity;
+                foreach (var corner in criticalLaneCorners) right = Mathf.Max(right, view.WorldToViewportPoint(corner).x);
+                float shift = Mathf.Min(0f, .65f - right);
+                float widthAtUnitDepth = 2f * Mathf.Tan(view.fieldOfView * .5f * Mathf.Deg2Rad) * view.aspect;
+                var textPosition = flightNotice.transform.localPosition;
+                textPosition.x = shift * widthAtUnitDepth * noticeDepth;
+                flightNotice.transform.localPosition = textPosition;
+                backingRect.anchoredPosition += Vector2.right * (shift * widthAtUnitDepth * backingDepth / overlay.localScale.x);
+            }
             noticeAge += dt; praiseAge += dt;
             if (flightNotice.enabled)
             {

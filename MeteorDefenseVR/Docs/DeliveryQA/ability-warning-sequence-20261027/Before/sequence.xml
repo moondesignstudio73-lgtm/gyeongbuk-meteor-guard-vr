@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-27 14:09:47Z" end-time="2026-10-27 14:10:16Z" duration="28.6539758">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="490" result="Failed" site="Child" start-time="2026-10-27 14:09:47Z" end-time="2026-10-27 14:10:16Z" duration="28.653976" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1649" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/.codex/worktrees/threat-direction/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="490" result="Failed" site="Child" start-time="2026-10-27 14:09:47Z" end-time="2026-10-27 14:10:16Z" duration="28.506681" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="31996" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1650" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="490" result="Failed" site="Child" start-time="2026-10-27 14:09:47Z" end-time="2026-10-27 14:10:16Z" duration="28.503851" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1651" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="490" result="Failed" site="Child" start-time="2026-10-27 14:09:47Z" end-time="2026-10-27 14:10:16Z" duration="28.501285" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1002" name="AbilityWarningSequenceTests" fullname="MeteorDefenseVR.Tests.AbilityWarningSequenceTests" classname="MeteorDefenseVR.Tests.AbilityWarningSequenceTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-27 14:09:47Z" end-time="2026-10-27 14:10:16Z" duration="28.488029" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1003" name="ActualAbilitiesAndLowHealthWarning" fullname="MeteorDefenseVR.Tests.AbilityWarningSequenceTests.ActualAbilitiesAndLowHealthWarning" methodname="ActualAbilitiesAndLowHealthWarning" classname="MeteorDefenseVR.Tests.AbilityWarningSequenceTests" runstate="Runnable" seed="1615533032" result="Failed" start-time="2026-10-27 14:09:36Z" end-time="2026-10-27 14:10:16Z" duration="39.996251" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  800x600/maximum-three: critical warning overlaps status/buffs
+800x600/warning-three-before-emp: critical warning overlaps status/buffs
+800x600/emp-score-warning-three: critical warning overlaps status/buffs
+800x600/emp-expansion: critical warning overlaps status/buffs
+800x600/score-replaces-emp-warning: critical warning overlaps status/buffs
+800x600/heal-applied: critical warning overlaps status/buffs
+800x600/heal-settled: critical warning overlaps status/buffs
+1280x720/warning-three-before-emp: critical warning overlaps status/buffs
+1280x720/emp-score-warning-three: critical warning overlaps status/buffs
+1280x720/emp-expansion: critical warning overlaps status/buffs
+1280x720/score-replaces-emp-warning: critical warning overlaps status/buffs
+1280x720/heal-applied: critical warning overlaps status/buffs
+1280x720/heal-settled: critical warning overlaps status/buffs
+1280x720/timed-ending: critical warning overlaps status/buffs
+  Expected: <empty>
+  But was:  < "800x600/maximum-three: critical warning overlaps status/buffs", "800x600/warning-three-before-emp: critical warning overlaps status/buffs", "800x600/emp-score-warning-three: critical warning overlaps status/buffs", "800x600/emp-expansion: critical warning overlaps status/buffs", "800x600/score-replaces-emp-warning: critical warning overlaps status/buffs", "800x600/heal-applied: critical warning overlaps status/buffs", "800x600/heal-settled: critical warning overlaps status/buffs", "1280x720/warning-three-before-emp: critical warning overlaps status/buffs", "1280x720/emp-score-warning-three: critical warning overlaps status/buffs", "1280x720/emp-expansion: critical warning overlaps status/buffs"... >
+]]></message>
+                <stack-trace><![CDATA[at MeteorDefenseVR.Tests.AbilityWarningSequenceTests+<Review>d__3.MoveNext () [0x01053] in C:\Users\aaa\.codex\worktrees\threat-direction\VR콘텐츠\MeteorDefenseVR\Assets\_Project\Core\Tests\AbilityWarningSequenceTests.cs:184
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[[GameFlow] Boot -> Playing
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

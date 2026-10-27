@@ -1,0 +1,69 @@
+frame=431;game=5.095405;wall=15.220490;state=setup;hp=100;score=0;buffs=;health-changed=100
+frame=431;game=5.095405;wall=15.226880;state=setup;hp=100;score=0;buffs=;health-changed=100
+frame=431;game=5.095405;wall=15.227630;state=setup;hp=100;score=0;buffs=;score-changed=0
+frame=612;game=7.116945;wall=17.228070;state=setup;hp=100;score=0;buffs=;health-changed=100
+frame=612;game=7.116945;wall=17.615600;state=setup;hp=10;score=0;buffs=;health-changed=10
+frame=645;game=7.666945;wall=17.987330;state=800x600/collect-Shield;hp=10;score=0;buffs=Shield:Infinity:3;acquired=Shield
+frame=678;game=8.216945;wall=18.351680;state=800x600/collect-RapidFire;hp=10;score=0;buffs=Shield:Infinity:3|RapidFire:9.000:-1;acquired=RapidFire
+frame=711;game=8.766945;wall=18.717860;state=800x600/collect-MultiLaser;hp=10;score=0;buffs=Shield:Infinity:3|RapidFire:8.633:-1|MultiLaser:9.000:-1;acquired=MultiLaser
+frame=711;game=8.766945;wall=18.763650;state=800x600/maximum-three;hp=10;score=0;buffs=Shield:Infinity:3|RapidFire:8.633:-1|MultiLaser:9.000:-1;capture=maximum-three;readout=방어막 3회|속사 9초|다중 레이저 9초
+frame=711;game=8.766945;wall=18.763920;state=800x600/maximum-three;hp=10;score=0;buffs=Shield:Infinity:2|RapidFire:8.633:-1|MultiLaser:9.000:-1;shield-blocked
+frame=712;game=8.783611;wall=18.804260;state=800x600/shield-consumed-1;hp=10;score=0;buffs=Shield:Infinity:2|RapidFire:8.586:-1|MultiLaser:8.953:-1;capture=shield-consumed-1;readout=방어막 2회|속사 9초|다중 레이저 9초
+frame=712;game=8.783611;wall=18.804320;state=800x600/shield-consumed-1;hp=10;score=0;buffs=Shield:Infinity:1|RapidFire:8.586:-1|MultiLaser:8.953:-1;shield-blocked
+frame=714;game=8.816945;wall=18.846800;state=800x600/shield-consumed-2;hp=10;score=0;buffs=Shield:Infinity:1|RapidFire:8.540:-1|MultiLaser:8.906:-1;capture=shield-consumed-2;readout=방어막 1회|속사 9초|다중 레이저 9초
+frame=714;game=8.816945;wall=18.847060;state=800x600/shield-consumed-2;hp=10;score=0;buffs=RapidFire:8.540:-1|MultiLaser:8.906:-1;shield-blocked
+frame=715;game=8.833611;wall=18.884550;state=800x600/shield-consumed-3;hp=10;score=0;buffs=RapidFire:8.503:-1|MultiLaser:8.870:-1;capture=shield-consumed-3;readout=속사 9초|다중 레이저 9초
+frame=748;game=9.383612;wall=19.239060;state=800x600/collect-Shield;hp=10;score=0;buffs=RapidFire:8.112:-1|MultiLaser:8.479:-1|Shield:Infinity:3;acquired=Shield
+frame=1144;game=15.983610;wall=23.675660;state=800x600/warning-three-before-emp;hp=10;score=0;buffs=RapidFire:3.712:-1|MultiLaser:4.079:-1|Shield:Infinity:3;capture=warning-three-before-emp;readout=속사 4초|다중 레이저 5초|방어막 3회
+frame=1177;game=16.533610;wall=24.030290;state=800x600/collect-EMP;hp=10;score=0;buffs=RapidFire:3.324:-1|MultiLaser:3.691:-1|Shield:Infinity:3;emp-target-destroyed
+frame=1177;game=16.533610;wall=24.030480;state=800x600/collect-EMP;hp=10;score=300;buffs=RapidFire:3.324:-1|MultiLaser:3.691:-1|Shield:Infinity:3;score-changed=300
+frame=1177;game=16.533610;wall=24.031030;state=800x600/collect-EMP;hp=10;score=300;buffs=RapidFire:3.324:-1|MultiLaser:3.691:-1|Shield:Infinity:3;acquired=EMP
+frame=1178;game=16.550280;wall=24.066760;state=800x600/emp-score-warning-three;hp=10;score=300;buffs=RapidFire:3.316:-1|MultiLaser:3.682:-1|Shield:Infinity:3;capture=emp-score-warning-three;readout=속사 4초|다중 레이저 4초|방어막 3회
+frame=1179;game=16.566940;wall=24.100750;state=800x600/emp-expansion;hp=10;score=300;buffs=RapidFire:3.284:-1|MultiLaser:3.650:-1|Shield:Infinity:3;capture=emp-expansion;readout=속사 4초|다중 레이저 4초|방어막 3회
+frame=1179;game=16.566940;wall=24.102360;state=800x600/emp-expansion;hp=10;score=400;buffs=RapidFire:3.284:-1|MultiLaser:3.650:-1|Shield:Infinity:3;score-changed=400
+frame=1180;game=16.583610;wall=24.137890;state=800x600/score-replaces-emp-warning;hp=10;score=400;buffs=RapidFire:3.246:-1|MultiLaser:3.613:-1|Shield:Infinity:3;capture=score-replaces-emp-warning;readout=속사 4초|다중 레이저 4초|방어막 3회
+frame=1213;game=17.133610;wall=24.489170;state=800x600/collect-Heal;hp=30;score=400;buffs=RapidFire:2.862:-1|MultiLaser:3.229:-1|Shield:Infinity:3;health-changed=30
+frame=1213;game=17.133610;wall=24.489710;state=800x600/collect-Heal;hp=30;score=400;buffs=RapidFire:2.862:-1|MultiLaser:3.229:-1|Shield:Infinity:3;acquired=Heal
+frame=1213;game=17.133610;wall=24.523940;state=800x600/heal-applied;hp=30;score=400;buffs=RapidFire:2.862:-1|MultiLaser:3.229:-1|Shield:Infinity:3;capture=heal-applied;readout=속사 3초|다중 레이저 4초|방어막 3회
+frame=1215;game=17.166940;wall=24.564710;state=800x600/heal-settled;hp=30;score=400;buffs=RapidFire:2.822:-1|MultiLaser:3.189:-1|Shield:Infinity:3;capture=heal-settled;readout=속사 3초|다중 레이저 4초|방어막 3회
+frame=1305;game=18.666940;wall=25.584300;state=800x600/timed-ending;hp=30;score=400;buffs=RapidFire:1.800:-1|MultiLaser:2.166:-1|Shield:Infinity:3;capture=timed-ending;readout=속사 2초|다중 레이저 3초|방어막 3회
+frame=1499;game=21.900280;wall=27.758660;state=800x600/timed-expired-shield-remains;hp=30;score=400;buffs=Shield:Infinity:3;capture=timed-expired-shield-remains;readout=방어막 3회
+frame=1499;game=21.900280;wall=27.758870;state=800x600/timed-expired-shield-remains;hp=30;score=400;buffs=Shield:Infinity:2;shield-blocked
+frame=1499;game=21.900280;wall=27.758960;state=800x600/timed-expired-shield-remains;hp=30;score=400;buffs=Shield:Infinity:1;shield-blocked
+frame=1499;game=21.900280;wall=27.758990;state=800x600/timed-expired-shield-remains;hp=30;score=400;buffs=;shield-blocked
+frame=1500;game=21.916940;wall=27.797210;state=800x600/all-consumed-or-expired;hp=30;score=400;buffs=;capture=all-consumed-or-expired;readout=방어막 3회
+frame=1500;game=21.916940;wall=27.798240;state=800x600/all-consumed-or-expired;hp=100;score=400;buffs=;health-changed=100
+frame=1500;game=21.916940;wall=27.805360;state=800x600/all-consumed-or-expired;hp=10;score=400;buffs=;health-changed=10
+frame=1533;game=22.466950;wall=28.155340;state=1280x720/collect-Shield;hp=10;score=400;buffs=Shield:Infinity:3;acquired=Shield
+frame=1566;game=23.016940;wall=28.521660;state=1280x720/collect-RapidFire;hp=10;score=400;buffs=Shield:Infinity:3|RapidFire:9.000:-1;acquired=RapidFire
+frame=1599;game=23.566940;wall=28.888720;state=1280x720/collect-MultiLaser;hp=10;score=400;buffs=Shield:Infinity:3|RapidFire:8.633:-1|MultiLaser:9.000:-1;acquired=MultiLaser
+frame=1599;game=23.566940;wall=28.940230;state=1280x720/maximum-three;hp=10;score=400;buffs=Shield:Infinity:3|RapidFire:8.633:-1|MultiLaser:9.000:-1;capture=maximum-three;readout=방어막 3회|속사 9초|다중 레이저 9초
+frame=1599;game=23.566940;wall=28.940400;state=1280x720/maximum-three;hp=10;score=400;buffs=Shield:Infinity:2|RapidFire:8.633:-1|MultiLaser:9.000:-1;shield-blocked
+frame=1600;game=23.583610;wall=28.995560;state=1280x720/shield-consumed-1;hp=10;score=400;buffs=Shield:Infinity:2|RapidFire:8.580:-1|MultiLaser:8.947:-1;capture=shield-consumed-1;readout=방어막 2회|속사 9초|다중 레이저 9초
+frame=1600;game=23.583610;wall=28.995680;state=1280x720/shield-consumed-1;hp=10;score=400;buffs=Shield:Infinity:1|RapidFire:8.580:-1|MultiLaser:8.947:-1;shield-blocked
+frame=1602;game=23.616950;wall=29.048020;state=1280x720/shield-consumed-2;hp=10;score=400;buffs=Shield:Infinity:1|RapidFire:8.520:-1|MultiLaser:8.887:-1;capture=shield-consumed-2;readout=방어막 1회|속사 9초|다중 레이저 9초
+frame=1602;game=23.616950;wall=29.048080;state=1280x720/shield-consumed-2;hp=10;score=400;buffs=RapidFire:8.520:-1|MultiLaser:8.887:-1;shield-blocked
+frame=1603;game=23.633610;wall=29.099050;state=1280x720/shield-consumed-3;hp=10;score=400;buffs=RapidFire:8.473:-1|MultiLaser:8.839:-1;capture=shield-consumed-3;readout=속사 9초|다중 레이저 9초
+frame=1636;game=24.183610;wall=29.451190;state=1280x720/collect-Shield;hp=10;score=400;buffs=RapidFire:8.071:-1|MultiLaser:8.438:-1|Shield:Infinity:3;acquired=Shield
+frame=1653;game=24.466950;wall=29.685610;state=1280x720/warning-three-before-emp;hp=10;score=400;buffs=RapidFire:7.882:-1|MultiLaser:8.249:-1|Shield:Infinity:3;capture=warning-three-before-emp;readout=속사 8초|다중 레이저 9초|방어막 3회
+frame=1686;game=25.016940;wall=30.039940;state=1280x720/collect-EMP;hp=10;score=400;buffs=RapidFire:7.482:-1|MultiLaser:7.848:-1|Shield:Infinity:3;emp-target-destroyed
+frame=1686;game=25.016940;wall=30.040020;state=1280x720/collect-EMP;hp=10;score=415;buffs=RapidFire:7.482:-1|MultiLaser:7.848:-1|Shield:Infinity:3;score-changed=415
+frame=1686;game=25.016940;wall=30.040160;state=1280x720/collect-EMP;hp=10;score=415;buffs=RapidFire:7.482:-1|MultiLaser:7.848:-1|Shield:Infinity:3;emp-target-destroyed
+frame=1686;game=25.016940;wall=30.040190;state=1280x720/collect-EMP;hp=10;score=715;buffs=RapidFire:7.482:-1|MultiLaser:7.848:-1|Shield:Infinity:3;score-changed=715
+frame=1686;game=25.016940;wall=30.040380;state=1280x720/collect-EMP;hp=10;score=715;buffs=RapidFire:7.482:-1|MultiLaser:7.848:-1|Shield:Infinity:3;acquired=EMP
+frame=1686;game=25.016940;wall=30.088190;state=1280x720/emp-score-warning-three;hp=10;score=715;buffs=RapidFire:7.482:-1|MultiLaser:7.848:-1|Shield:Infinity:3;capture=emp-score-warning-three;readout=속사 8초|다중 레이저 8초|방어막 3회
+frame=1688;game=25.050280;wall=30.139200;state=1280x720/emp-expansion;hp=10;score=715;buffs=RapidFire:7.427:-1|MultiLaser:7.794:-1|Shield:Infinity:3;capture=emp-expansion;readout=속사 8초|다중 레이저 8초|방어막 3회
+frame=1688;game=25.050280;wall=30.139650;state=1280x720/emp-expansion;hp=10;score=745;buffs=RapidFire:7.427:-1|MultiLaser:7.794:-1|Shield:Infinity:3;score-changed=745
+frame=1688;game=25.050280;wall=30.139820;state=1280x720/emp-expansion;hp=10;score=845;buffs=RapidFire:7.427:-1|MultiLaser:7.794:-1|Shield:Infinity:3;score-changed=845
+frame=1689;game=25.066940;wall=30.182920;state=1280x720/score-replaces-emp-warning;hp=10;score=845;buffs=RapidFire:7.381:-1|MultiLaser:7.747:-1|Shield:Infinity:3;capture=score-replaces-emp-warning;readout=속사 8초|다중 레이저 8초|방어막 3회
+frame=1722;game=25.616950;wall=30.533520;state=1280x720/collect-Heal;hp=30;score=845;buffs=RapidFire:6.988:-1|MultiLaser:7.355:-1|Shield:Infinity:3;health-changed=30
+frame=1722;game=25.616950;wall=30.533760;state=1280x720/collect-Heal;hp=30;score=845;buffs=RapidFire:6.988:-1|MultiLaser:7.355:-1|Shield:Infinity:3;acquired=Heal
+frame=1722;game=25.616950;wall=30.579650;state=1280x720/heal-applied;hp=30;score=845;buffs=RapidFire:6.988:-1|MultiLaser:7.355:-1|Shield:Infinity:3;capture=heal-applied;readout=속사 7초|다중 레이저 8초|방어막 3회
+frame=1724;game=25.650280;wall=30.632880;state=1280x720/heal-settled;hp=30;score=845;buffs=RapidFire:6.936:-1|MultiLaser:7.303:-1|Shield:Infinity:3;capture=heal-settled;readout=속사 7초|다중 레이저 8초|방어막 3회
+frame=2184;game=33.316940;wall=35.776730;state=1280x720/timed-ending;hp=30;score=845;buffs=RapidFire:1.791:-1|MultiLaser:2.157:-1|Shield:Infinity:3;capture=timed-ending;readout=속사 2초|다중 레이저 3초|방어막 3회
+frame=2376;game=36.516940;wall=37.943080;state=1280x720/timed-expired-shield-remains;hp=30;score=845;buffs=Shield:Infinity:3;capture=timed-expired-shield-remains;readout=방어막 3회
+frame=2376;game=36.516940;wall=37.943300;state=1280x720/timed-expired-shield-remains;hp=30;score=845;buffs=Shield:Infinity:2;shield-blocked
+frame=2376;game=36.516940;wall=37.943530;state=1280x720/timed-expired-shield-remains;hp=30;score=845;buffs=Shield:Infinity:1;shield-blocked
+frame=2376;game=36.516940;wall=37.943570;state=1280x720/timed-expired-shield-remains;hp=30;score=845;buffs=;shield-blocked
+frame=2377;game=36.533610;wall=37.997090;state=1280x720/all-consumed-or-expired;hp=30;score=845;buffs=;capture=all-consumed-or-expired;readout=방어막 3회
+frame=2377;game=36.533610;wall=38.001060;state=1280x720/all-consumed-or-expired;hp=30;score=845;buffs=;end
