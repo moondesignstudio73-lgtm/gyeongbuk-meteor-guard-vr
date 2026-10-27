@@ -1,0 +1,2 @@
+Explicit result/menu actions and callback boundary checks; no OS/HMD or natural return-motion claim.
+Violations=9

@@ -1,0 +1,11 @@
+LookSettings open/close passed
+AudioSettings open/close passed
+LookSettings open/close passed
+AudioSettings open/close passed
+base-menu: state=Result lobby=Menu look=True audio=True education=False
+replay-preparing: state=Boot lobby=ReplayPreparing look=True audio=True education=True
+departure: state=Boot lobby=ReplayPreparing look=True audio=True education=True
+combat: state=Playing lobby=Hidden look=False audio=False education=False
+LookSettings open/close passed
+AudioSettings open/close passed
+base-return: state=Result lobby=Menu look=True audio=True education=False

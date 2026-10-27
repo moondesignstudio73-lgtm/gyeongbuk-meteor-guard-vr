@@ -59,6 +59,7 @@ namespace MeteorDefenseVR.Education
         public EducationResultStore Store { get; private set; }
         public IReadOnlyDictionary<MeteorController, ThreatLearningRecord> Tracked => tracked;
         public bool IsTraining => leased;
+        public bool CanOpenEntry => !leased && flow!=null && flow.CurrentState==GameState.Boot && (lobby==null || !lobby.BlocksSupplementalMenus);
         public bool OperatorAllowed => experience != null && experience.ShowOperator;
         public string Message => message;
         public string Explanation => explanation;
@@ -113,12 +114,12 @@ namespace MeteorDefenseVR.Education
         private void OnDestroy() { if (view != null) Destroy(view); }
         public void OpenRegistration()
         {
-            if (leased || flow.CurrentState != GameState.Boot) return;
+            if (!CanOpenEntry) return;
             Phase = EducationPhase.Registration; SetModal(true); Changed?.Invoke();
         }
         public void OpenOperator()
         {
-            if (!OperatorAllowed || leased || flow.CurrentState != GameState.Boot) return;
+            if (!OperatorAllowed || !CanOpenEntry) return;
             Phase = EducationPhase.Operator; SetModal(true); Changed?.Invoke();
         }
         public void CloseMenu()
@@ -129,7 +130,7 @@ namespace MeteorDefenseVR.Education
         public bool StartTraining(ParticipantInfo participant, DifficultyLevel selected, bool skipTutorial)
         {
             participant = participant?.Sanitized();
-            if (leased || flow.CurrentState != GameState.Boot || participant == null || !participant.Valid) return false;
+            if (!CanOpenEntry || participant == null || !participant.Valid) return false;
             difficulty.Select(selected);
             log = new EducationSessionLog(EducationSessionResult.Create(participant, difficulty.Selected, DateTimeOffset.UtcNow));
             log.Result.Weights = settings.weights.Copy(); Elapsed = 0; round = 0; stageRunning = false; Stage = EducationStage.Orientation;

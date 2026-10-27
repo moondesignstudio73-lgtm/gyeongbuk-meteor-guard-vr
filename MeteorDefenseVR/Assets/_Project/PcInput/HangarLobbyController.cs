@@ -43,6 +43,8 @@ namespace MeteorDefenseVR.PcInput
         private MenuAction? pending;
         private DifficultyLevel replayDifficulty;
         public LobbyPhase Phase { get; private set; }
+        public bool BlocksSupplementalMenus => Phase == LobbyPhase.Returning || Phase == LobbyPhase.ReplayPreparing || Phase == LobbyPhase.Departing;
+        public event System.Action PhaseChanged;
         public bool IsMenuReady => Phase == LobbyPhase.Menu;
         public float ReturnDuration => returnDuration;
         public GameSessionSnapshot LastResult { get; private set; }
@@ -181,6 +183,7 @@ namespace MeteorDefenseVR.PcInput
         {
             if(phase!=LobbyPhase.Menu)Repair?.Cancel(true);
             Phase=phase; elapsed=0; pending=null;
+            PhaseChanged?.Invoke();
             view.Show(phase,LastResult,difficulty.Settings.lockDifficultySelection,difficulty.Selected);
         }
         private void StateChanged(GameState state)

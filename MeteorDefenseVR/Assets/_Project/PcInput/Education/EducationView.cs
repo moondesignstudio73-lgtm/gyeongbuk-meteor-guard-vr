@@ -43,6 +43,7 @@ namespace MeteorDefenseVR.Education
         private bool wasXr;
         private ReadyPrewarmController warmup;
         private SfPresentationDirector bootPresentation;
+        private HangarLobbyController lobby;
         public GameObject Root => root;
         public void Build(EducationSessionManager session, GazeInputRouter input, Camera camera, EducationSettings configuration)
         {
@@ -69,6 +70,14 @@ namespace MeteorDefenseVR.Education
                 markers[i].enableAutoSizing = false; markers[i].textWrappingMode = TextWrappingModes.NoWrap; markers[i].rectTransform.sizeDelta = new Vector2(16,5);
             }
             owner.Changed += Refresh; Refresh();
+            lobby=GetComponent<HangarLobbyController>();
+            if(lobby!=null)lobby.PhaseChanged+=HandleLobbyPhaseChanged;
+        }
+        private void HandleLobbyPhaseChanged()
+        {
+            if(lobby==null || !lobby.BlocksSupplementalMenus)return;
+            entry.SetActive(false);
+            hovered?.OnGazeExit();hovered=null;
         }
         private void ConfigureCanvas()
         {
@@ -234,7 +243,7 @@ namespace MeteorDefenseVR.Education
             if(root==null)return;
             if(wasXr!=cameraView.stereoEnabled)ConfigureCanvas();
             if(wasXr&&hud.activeSelf&&!question.activeSelf)canvasRect.SetPositionAndRotation(cameraView.transform.TransformPoint(0,.25f,2.4f),cameraView.transform.rotation);
-            bool idle=owner.Phase==EducationPhase.Idle && GameFlowManager.Instance!=null && GameFlowManager.Instance.CurrentState==Core.GameState.Boot
+            bool idle=owner.Phase==EducationPhase.Idle && owner.CanOpenEntry
                 && (warmup==null||warmup.IsComplete) && (bootPresentation==null||!bootPresentation.IsBootPresenting);
             entry.SetActive(idle);teacherEntry.SetActive(idle&&owner.OperatorAllowed);
             if(Time.unscaledTime>=nextText){nextText=Time.unscaledTime+.1f;UpdateLive();}
@@ -311,6 +320,6 @@ namespace MeteorDefenseVR.Education
             surface.gameObject.SetActive(true);return field;
         }
         public void Hide(){if(root!=null)root.SetActive(false);foreach(var marker in markers)if(marker!=null)marker.gameObject.SetActive(false);}
-        private void OnDestroy(){if(owner!=null)owner.Changed-=Refresh;if(root!=null)Destroy(root);foreach(var marker in markers)if(marker!=null)Destroy(marker.gameObject);}
+        private void OnDestroy(){if(lobby!=null)lobby.PhaseChanged-=HandleLobbyPhaseChanged;if(owner!=null)owner.Changed-=Refresh;if(root!=null)Destroy(root);foreach(var marker in markers)if(marker!=null)Destroy(marker.gameObject);}
     }
 }

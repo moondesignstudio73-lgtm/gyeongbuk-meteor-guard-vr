@@ -1,0 +1,9 @@
+Visible during replay: LookSettings
+Visible during replay: AudioSettings
+Visible during replay: EducationStart
+Look settings accepted during replay
+Audio settings accepted during replay
+Registration accepted during replay
+Visible during departure: LookSettings
+Visible during departure: AudioSettings
+Visible during departure: EducationStart

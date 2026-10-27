@@ -34,7 +34,7 @@ namespace MeteorDefenseVR.PcInput
             audioSettingsPanel.SetActive(false);
         }
         private void OpenAudioSettings()
-        {SetLookSettings(true);audioSettingsOpen=true;lookSettingsPanel.SetActive(false);audioSettingsPanel.SetActive(true);RefreshAudioSettings();}
+        {if(lobby!=null&&lobby.BlocksSupplementalMenus)return;SetLookSettings(true);audioSettingsOpen=true;lookSettingsPanel.SetActive(false);audioSettingsPanel.SetActive(true);RefreshAudioSettings();}
         private static readonly string[] audioChannelNames={"배경음악","효과음","무전","AI 안내"};
         private void RefreshAudioSettings()
         {

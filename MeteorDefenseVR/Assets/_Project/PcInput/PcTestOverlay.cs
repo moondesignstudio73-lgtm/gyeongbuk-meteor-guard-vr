@@ -60,6 +60,7 @@ namespace MeteorDefenseVR.PcInput
         private void Start()
         {
             lobby = Object.FindAnyObjectByType<HangarLobbyController>();
+            if(lobby!=null)lobby.PhaseChanged+=HandleLobbyPhaseChanged;
             presentation=Object.FindAnyObjectByType<SfPresentationDirector>();
             readyScreen=Object.FindAnyObjectByType<ReadyScreenController>();
             if(readyScreen!=null)readyScreen.StartAllowed=CanStartExperience;
@@ -202,6 +203,7 @@ namespace MeteorDefenseVR.PcInput
         }
         private void SetLookSettings(bool open)
         {
+            if(open && lobby!=null && lobby.BlocksSupplementalMenus)return;
             settingsOpen=open;audioSettingsOpen=false;if(audioSettingsPanel!=null)audioSettingsPanel.SetActive(false);menuOpen=false;nextSettingsText=0;
             if(panel!=null)panel.SetActive(false);
             if(lookSettingsPanel!=null)lookSettingsPanel.SetActive(open);
@@ -212,13 +214,20 @@ namespace MeteorDefenseVR.PcInput
             gazeSettingsTarget=null;settingsDwell=0;settingsDwellConsumed=false;
         }
         private void CloseLookSettings()=>SetLookSettings(false);
+        private void HandleLobbyPhaseChanged()
+        {
+            if(lobby==null || !lobby.BlocksSupplementalMenus)return;
+            if(settingsOpen)CloseLookSettings();
+            lookSettingsButton?.SetActive(false);
+            audioSettingsButton?.SetActive(false);
+        }
         public bool TryCloseLookSettings(){if(!settingsOpen)return false;CloseLookSettings();return true;}
         // Screen-space menu dwell uses the raw tracked ray, while combat/world menus stay blocked.
         public void TickSettingsGaze(Vector2 point,bool valid,float deltaTime)
         {
             UnityEngine.UI.Button next=null;
             var canvas=canvasObject.GetComponent<Canvas>();var view=canvas.renderMode==RenderMode.ScreenSpaceOverlay?null:canvas.worldCamera;
-            if(valid)
+            if(valid && (lobby==null || !lobby.BlocksSupplementalMenus))
             {
                 var candidates=settingsOpen?(audioSettingsOpen?audioSettingsPanel:lookSettingsPanel).GetComponentsInChildren<UnityEngine.UI.Button>():new[]{lookSettingsButton.GetComponent<UnityEngine.UI.Button>(),audioSettingsButton.GetComponent<UnityEngine.UI.Button>()};
                 foreach(var button in candidates)if(button.gameObject.activeInHierarchy&&button.interactable&&RectTransformUtility.RectangleContainsScreenPoint((RectTransform)button.transform,point,view)){next=button;break;}
@@ -252,6 +261,7 @@ namespace MeteorDefenseVR.PcInput
             wasPaused = paused;
             bool settingsAvailable = router.Simulation != null && (isBoot || paused || (GameFlowManager.Instance != null && GameFlowManager.Instance.CurrentState == MeteorDefenseVR.Core.GameState.Result));
             settingsAvailable &= presentation==null||!presentation.IsBootPresenting;
+            settingsAvailable &= lobby==null||!lobby.BlocksSupplementalMenus;
             if (!settingsAvailable) settingsOpen = false;
             lookSettingsButton.SetActive(settingsAvailable && !settingsOpen && !calibrating);
             lookSettingsPanel.SetActive(settingsAvailable && settingsOpen && !audioSettingsOpen && !calibrating);
@@ -348,6 +358,7 @@ namespace MeteorDefenseVR.PcInput
         private bool CanStartExperience() => (presentation==null||!presentation.IsBootPresenting)
             && router!=null&&!router.UiModalOpen&&!router.EducationModalOpen&&!router.CalibrationInProgress;
         private void OnDestroy(){if(operationsReset!=null)operationsReset.BeforeReset-=CloseLookSettings;
+            if(lobby!=null)lobby.PhaseChanged-=HandleLobbyPhaseChanged;
             if(readyScreen!=null&&readyScreen.StartAllowed==CanStartExperience)readyScreen.StartAllowed=null;}
 
         private static string LoadBuildIdentity()
