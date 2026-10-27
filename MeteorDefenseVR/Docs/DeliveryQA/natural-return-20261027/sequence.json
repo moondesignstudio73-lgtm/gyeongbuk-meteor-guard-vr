@@ -1,0 +1,709 @@
+[
+  {
+    "index": 0,
+    "file": "0000-ready.jpg",
+    "observedUtc": "2026-10-27T01:01:35.534Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 1,
+    "file": "0001-hard-selected.jpg",
+    "observedUtc": "2026-10-27T01:01:53.959Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 2,
+    "file": "0002-start.jpg",
+    "observedUtc": "2026-10-27T01:02:05.203Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 3,
+    "file": "0003-tutorial.jpg",
+    "observedUtc": "2026-10-27T01:03:01.705Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 4,
+    "file": "0004-tutorial-aim.jpg",
+    "observedUtc": "2026-10-27T01:03:15.688Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 5,
+    "file": "0005-practice.jpg",
+    "observedUtc": "2026-10-27T01:03:42.710Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 6,
+    "file": "0006-practice-second.jpg",
+    "observedUtc": "2026-10-27T01:03:53.708Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 7,
+    "file": "0007-practice-complete.jpg",
+    "observedUtc": "2026-10-27T01:04:03.570Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 8,
+    "file": "0008-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:17.158Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 9,
+    "file": "0009-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:17.777Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 10,
+    "file": "0010-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:18.393Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 11,
+    "file": "0011-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:19.007Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 12,
+    "file": "0012-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:19.639Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 13,
+    "file": "0013-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:20.257Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 14,
+    "file": "0014-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:20.876Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 15,
+    "file": "0015-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:21.492Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 16,
+    "file": "0016-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:22.121Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 17,
+    "file": "0017-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:22.742Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 18,
+    "file": "0018-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:23.356Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 19,
+    "file": "0019-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:23.966Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 20,
+    "file": "0020-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:24.592Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 21,
+    "file": "0021-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:25.208Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 22,
+    "file": "0022-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:25.823Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 23,
+    "file": "0023-flow.jpg",
+    "observedUtc": "2026-10-27T01:04:26.440Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 24,
+    "file": "0024-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:41.012Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 25,
+    "file": "0025-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:41.526Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 26,
+    "file": "0026-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:42.045Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 27,
+    "file": "0027-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:42.565Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 28,
+    "file": "0028-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:43.098Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 29,
+    "file": "0029-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:43.611Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 30,
+    "file": "0030-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:44.126Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 31,
+    "file": "0031-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:44.645Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 32,
+    "file": "0032-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:45.201Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 33,
+    "file": "0033-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:45.707Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 34,
+    "file": "0034-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:46.229Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 35,
+    "file": "0035-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:46.761Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 36,
+    "file": "0036-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:47.301Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 37,
+    "file": "0037-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:47.828Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 38,
+    "file": "0038-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:48.346Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 39,
+    "file": "0039-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:48.862Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 40,
+    "file": "0040-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:49.408Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 41,
+    "file": "0041-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:49.930Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 42,
+    "file": "0042-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:50.462Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 43,
+    "file": "0043-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:50.978Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 44,
+    "file": "0044-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:51.512Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 45,
+    "file": "0045-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:52.029Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 46,
+    "file": "0046-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:52.547Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 47,
+    "file": "0047-natural-combat.jpg",
+    "observedUtc": "2026-10-27T01:04:53.067Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 48,
+    "file": "0048-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:06.186Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 49,
+    "file": "0049-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:06.561Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 50,
+    "file": "0050-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:06.943Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 51,
+    "file": "0051-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:07.311Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 52,
+    "file": "0052-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:07.674Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 53,
+    "file": "0053-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:08.025Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 54,
+    "file": "0054-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:08.391Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 55,
+    "file": "0055-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:08.741Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 56,
+    "file": "0056-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:09.114Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 57,
+    "file": "0057-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:09.463Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 58,
+    "file": "0058-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:09.843Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 59,
+    "file": "0059-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:10.190Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 60,
+    "file": "0060-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:10.591Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 61,
+    "file": "0061-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:10.943Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 62,
+    "file": "0062-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:11.312Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 63,
+    "file": "0063-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:11.662Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 64,
+    "file": "0064-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:12.029Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 65,
+    "file": "0065-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:12.380Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 66,
+    "file": "0066-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:12.779Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 67,
+    "file": "0067-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:13.130Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 68,
+    "file": "0068-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:13.495Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 69,
+    "file": "0069-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:13.843Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 70,
+    "file": "0070-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:14.291Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 71,
+    "file": "0071-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:14.640Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 72,
+    "file": "0072-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:15.024Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 73,
+    "file": "0073-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:15.373Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 74,
+    "file": "0074-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:15.741Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 75,
+    "file": "0075-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:16.089Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 76,
+    "file": "0076-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:16.462Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 77,
+    "file": "0077-loss-return.jpg",
+    "observedUtc": "2026-10-27T01:05:16.809Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 78,
+    "file": "0078-replay-click.jpg",
+    "observedUtc": "2026-10-27T01:05:34.334Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 79,
+    "file": "0079-lobby-replay-selected.jpg",
+    "observedUtc": "2026-10-27T01:05:46.682Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 80,
+    "file": "0080-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:00.528Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 81,
+    "file": "0081-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:00.881Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 82,
+    "file": "0082-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:01.248Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 83,
+    "file": "0083-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:01.596Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 84,
+    "file": "0084-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:01.966Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 85,
+    "file": "0085-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:02.314Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 86,
+    "file": "0086-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:02.691Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 87,
+    "file": "0087-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:03.048Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 88,
+    "file": "0088-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:03.432Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 89,
+    "file": "0089-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:03.833Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 90,
+    "file": "0090-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:04.200Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 91,
+    "file": "0091-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:04.546Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 92,
+    "file": "0092-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:04.952Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 93,
+    "file": "0093-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:05.300Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 94,
+    "file": "0094-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:05.661Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 95,
+    "file": "0095-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:06.001Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 96,
+    "file": "0096-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:06.383Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 97,
+    "file": "0097-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:06.733Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 98,
+    "file": "0098-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:07.134Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 99,
+    "file": "0099-redeparture.jpg",
+    "observedUtc": "2026-10-27T01:06:07.479Z",
+    "width": 1282,
+    "height": 752
+  },
+  {
+    "index": 100,
+    "file": "0100-replay-first-look-input.jpg",
+    "observedUtc": "2026-10-27T01:06:37.149Z",
+    "width": 1282,
+    "height": 752
+  }
+]

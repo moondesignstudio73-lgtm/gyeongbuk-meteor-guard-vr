@@ -1,0 +1,608 @@
+[
+  {
+    "index": 0,
+    "file": "0000-ready.jpg",
+    "bytes": 113023,
+    "sha256": "712aa8604e3c8e75087009e2b4929d308e0448684d469ca165ecfd10627ca021"
+  },
+  {
+    "index": 1,
+    "file": "0001-hard-selected.jpg",
+    "bytes": 113834,
+    "sha256": "64d9cb767aa6be4a3951fc86d9d040c2145479b080fc9eb477415e5fd0635718"
+  },
+  {
+    "index": 2,
+    "file": "0002-start.jpg",
+    "bytes": 57658,
+    "sha256": "07ad890723c476e92b3d2e4e78658b85cb2a98dd83b32e861c5adff1fb96c0c4"
+  },
+  {
+    "index": 3,
+    "file": "0003-tutorial.jpg",
+    "bytes": 96256,
+    "sha256": "824fcf00479c38bb2c27a8d8a7f6bdf9cc1fe17da11f63a97f115f037ba36162"
+  },
+  {
+    "index": 4,
+    "file": "0004-tutorial-aim.jpg",
+    "bytes": 88699,
+    "sha256": "c5a800391fe5a0b5e1d2687634013020f29ddadaa72a53d15bf815c5d60efba2"
+  },
+  {
+    "index": 5,
+    "file": "0005-practice.jpg",
+    "bytes": 76089,
+    "sha256": "e73b2a31db27e8c250d5fc3081661844388954c7a2b56aa8a1864780f6e014e2"
+  },
+  {
+    "index": 6,
+    "file": "0006-practice-second.jpg",
+    "bytes": 69384,
+    "sha256": "30918865ca06a8d47181ca9b68f70c5cea97cd578031eb555477e40ca66d91e2"
+  },
+  {
+    "index": 7,
+    "file": "0007-practice-complete.jpg",
+    "bytes": 70735,
+    "sha256": "c9f26ae1bd41477a219cf7aabcd658caea46a62e9942350c8266041abf64bd59"
+  },
+  {
+    "index": 8,
+    "file": "0008-flow.jpg",
+    "bytes": 75534,
+    "sha256": "3c3e77cce83fe5f0a6e99638f7ee825c3adee7b7ef88a1e17d2cdd7cd067f17e"
+  },
+  {
+    "index": 9,
+    "file": "0009-flow.jpg",
+    "bytes": 76077,
+    "sha256": "3206f5eb642b9103008929566dfbef5433b2b420621b9a8ff58d810a83076bc5"
+  },
+  {
+    "index": 10,
+    "file": "0010-flow.jpg",
+    "bytes": 76646,
+    "sha256": "dd4d8df233f01b116a6fb41f71e5b153bf77843df54efab3948b519af4f3b6c2"
+  },
+  {
+    "index": 11,
+    "file": "0011-flow.jpg",
+    "bytes": 77279,
+    "sha256": "d14270c5e328f6aa6b8a6348a91898d4c596eec34535f97849e6494dc243c8b5"
+  },
+  {
+    "index": 12,
+    "file": "0012-flow.jpg",
+    "bytes": 78423,
+    "sha256": "e7b14e9ffe3c5ca10cf7aa94ef708ffb8427d7e86fb7af1a3ca7c2c1e429e5d3"
+  },
+  {
+    "index": 13,
+    "file": "0013-flow.jpg",
+    "bytes": 79071,
+    "sha256": "cf1b8a47401145a9cad604156c63544ccd41feae8c0b7ebe287b843df0ad4b6a"
+  },
+  {
+    "index": 14,
+    "file": "0014-flow.jpg",
+    "bytes": 82828,
+    "sha256": "1c0820f5db366fb7559fa3387f9b705f86252656e707c19c350690b7f4339ba4"
+  },
+  {
+    "index": 15,
+    "file": "0015-flow.jpg",
+    "bytes": 84398,
+    "sha256": "f4d2e1dc42e781ff7c22f64fe3f688e0bc67beb3cbe4dd61f4b84e74f38d6c91"
+  },
+  {
+    "index": 16,
+    "file": "0016-flow.jpg",
+    "bytes": 76894,
+    "sha256": "dfe7d71e3c435c3a3a187698b736a46217d2628e44c6196b147526420959c448"
+  },
+  {
+    "index": 17,
+    "file": "0017-flow.jpg",
+    "bytes": 74718,
+    "sha256": "7596268bf33d6662e6fe5eb37ca543732ad2b121a983f16d6176c0f41c9c5da2"
+  },
+  {
+    "index": 18,
+    "file": "0018-flow.jpg",
+    "bytes": 78364,
+    "sha256": "7b1aa17b2e06167b6965183cccd1b0ff5f5a0de671daea0a964c6b3114cef0fa"
+  },
+  {
+    "index": 19,
+    "file": "0019-flow.jpg",
+    "bytes": 76727,
+    "sha256": "078a9c122c46a2e46a6ea86359f587fb2c38e0bcf791e3a1ef727d87ecc0cf06"
+  },
+  {
+    "index": 20,
+    "file": "0020-flow.jpg",
+    "bytes": 76132,
+    "sha256": "03a39add5e3eee990716dda83e7f141352448b6c75af419c3e0846b545d0bf1d"
+  },
+  {
+    "index": 21,
+    "file": "0021-flow.jpg",
+    "bytes": 74736,
+    "sha256": "605551722ffc8cbf5dd6031ad3fd33a4f82ad507b3507aa0e7547fd1303a0272"
+  },
+  {
+    "index": 22,
+    "file": "0022-flow.jpg",
+    "bytes": 74622,
+    "sha256": "9e211f2c0a3c37ab7b59b24221434360370bfcd5aaf7a52db612031ea2f8968c"
+  },
+  {
+    "index": 23,
+    "file": "0023-flow.jpg",
+    "bytes": 74682,
+    "sha256": "6ad33472282cf3899202a276dd86acd9f3cd9aae55ffffdcd29c81ffe26e5974"
+  },
+  {
+    "index": 24,
+    "file": "0024-natural-combat.jpg",
+    "bytes": 76143,
+    "sha256": "cbcce8b52bfe725bed2063719f50019e6a591d2d87c007750387258018c99fef"
+  },
+  {
+    "index": 25,
+    "file": "0025-natural-combat.jpg",
+    "bytes": 76124,
+    "sha256": "caca2b0fe873d06c9704d5546d2ffce57712cb8eb95a4b41173c5330d3df988b"
+  },
+  {
+    "index": 26,
+    "file": "0026-natural-combat.jpg",
+    "bytes": 76048,
+    "sha256": "da6301cd50daf650df4f9702ff1d2b885bafc49ea33f6cc6598e0b059fd4bf47"
+  },
+  {
+    "index": 27,
+    "file": "0027-natural-combat.jpg",
+    "bytes": 75908,
+    "sha256": "e0e2000360c36b8e7aa1ebc23ca4ff8f176101cafe81060f1079ff7a8412b7e7"
+  },
+  {
+    "index": 28,
+    "file": "0028-natural-combat.jpg",
+    "bytes": 75766,
+    "sha256": "5a84546b7c7501ab62699f9a73e25e29e7f9b146bf9d7f40f97aba507d212c3a"
+  },
+  {
+    "index": 29,
+    "file": "0029-natural-combat.jpg",
+    "bytes": 76022,
+    "sha256": "6f9a579a8fa71cf29e0897814a6c82ceec863fb133a3d41f72d2a0c57d32c28c"
+  },
+  {
+    "index": 30,
+    "file": "0030-natural-combat.jpg",
+    "bytes": 78207,
+    "sha256": "ce6ab5d1d37c6317b1d63399e16f7ed02010aa74381d87194b63a088b50f5ea8"
+  },
+  {
+    "index": 31,
+    "file": "0031-natural-combat.jpg",
+    "bytes": 76940,
+    "sha256": "01f0a05f23c5d133e1821f283ee7e401c2338243c92860d8b8bc25c80342f8e0"
+  },
+  {
+    "index": 32,
+    "file": "0032-natural-combat.jpg",
+    "bytes": 76516,
+    "sha256": "ae4bcc11b28964b01017c3f3fedd604fa3a1fa795805477ff3477daf738d384d"
+  },
+  {
+    "index": 33,
+    "file": "0033-natural-combat.jpg",
+    "bytes": 76457,
+    "sha256": "9f5a5a1331132015ffaead75bdb75322e24f3df4e00e5b1896276b1c814bb2dd"
+  },
+  {
+    "index": 34,
+    "file": "0034-natural-combat.jpg",
+    "bytes": 76372,
+    "sha256": "5e3b2bcc82b9daade8ed0d147e8bb22de5bde58ffd3784ebb185a824169b7188"
+  },
+  {
+    "index": 35,
+    "file": "0035-natural-combat.jpg",
+    "bytes": 74466,
+    "sha256": "1869bee9bb2dff430636be3a096c6c094137ac477e85683bf925ccf5376741e3"
+  },
+  {
+    "index": 36,
+    "file": "0036-natural-combat.jpg",
+    "bytes": 74315,
+    "sha256": "a74a5f40eed8a841d5ee7ab505cdc3e8286474aab72f0ffe2d3154638ed5ab99"
+  },
+  {
+    "index": 37,
+    "file": "0037-natural-combat.jpg",
+    "bytes": 74413,
+    "sha256": "a3ff8a00fdcec217aa65a9f4f13d6ebdd59396db14180c4f506172fb213061bc"
+  },
+  {
+    "index": 38,
+    "file": "0038-natural-combat.jpg",
+    "bytes": 74395,
+    "sha256": "b1c195c247ca1c0fc73016eac6d3a61912f22713a347e882e0495addea5f2e79"
+  },
+  {
+    "index": 39,
+    "file": "0039-natural-combat.jpg",
+    "bytes": 74319,
+    "sha256": "01de3b1b60a733202d69304291e70e5e13599c97fef25eb9fc00156c30c4f876"
+  },
+  {
+    "index": 40,
+    "file": "0040-natural-combat.jpg",
+    "bytes": 75868,
+    "sha256": "051b4ea1d5ed320205373ee68f566737162880a7352cb32d2033e18a6d7d0ea2"
+  },
+  {
+    "index": 41,
+    "file": "0041-natural-combat.jpg",
+    "bytes": 75956,
+    "sha256": "814f5d90a8e8b1e622e38a56542f45193c617a142de6ce84d0a90082a6c8aec1"
+  },
+  {
+    "index": 42,
+    "file": "0042-natural-combat.jpg",
+    "bytes": 76443,
+    "sha256": "fa163ad7cb1e5754afa6559caec8b56cbde0e3b40c8be07a97d44dd4b18e3f2f"
+  },
+  {
+    "index": 43,
+    "file": "0043-natural-combat.jpg",
+    "bytes": 76305,
+    "sha256": "8485bfafabc5efeca12fd8e438902e0e74474e2f65ce1c07ab42d7483e359736"
+  },
+  {
+    "index": 44,
+    "file": "0044-natural-combat.jpg",
+    "bytes": 76666,
+    "sha256": "c99f3ab5ff580796290866fa67f9c91c254fd12b990dd4c4cf74bc754dc0e250"
+  },
+  {
+    "index": 45,
+    "file": "0045-natural-combat.jpg",
+    "bytes": 76986,
+    "sha256": "0c26232483a30b76755393d445e3217d44335e431d2e098639086fb2464990eb"
+  },
+  {
+    "index": 46,
+    "file": "0046-natural-combat.jpg",
+    "bytes": 77035,
+    "sha256": "8a3f7137ebc48788bd0aa4879ea1433eb8727ca980baa40d7b085cfc8d6597d7"
+  },
+  {
+    "index": 47,
+    "file": "0047-natural-combat.jpg",
+    "bytes": 77261,
+    "sha256": "0a0928b81fcd329686737544fd5e33dfafb3f947ab5fa3e482655091dc0e75a2"
+  },
+  {
+    "index": 48,
+    "file": "0048-loss-return.jpg",
+    "bytes": 83225,
+    "sha256": "82ee255ddeedaa3b30e4d58f9de07e87660e5956472ce905bbf45c1446e8fea5"
+  },
+  {
+    "index": 49,
+    "file": "0049-loss-return.jpg",
+    "bytes": 82027,
+    "sha256": "607231977c50013d5c6020a8a8427104190ed3e9cc050bd97e4abc8eefe1b737"
+  },
+  {
+    "index": 50,
+    "file": "0050-loss-return.jpg",
+    "bytes": 89803,
+    "sha256": "0fb6bb027c5ba7e0627ffcdc338e1363cf6a4535522dde8e10955a1af30cbb5d"
+  },
+  {
+    "index": 51,
+    "file": "0051-loss-return.jpg",
+    "bytes": 88764,
+    "sha256": "6bb7b0b6588b362ca748e6085fbb0f71cc7920163a12fb727e80355eaec86862"
+  },
+  {
+    "index": 52,
+    "file": "0052-loss-return.jpg",
+    "bytes": 88443,
+    "sha256": "148ee705ba188e2bd8e5c895472c964783b8e74b97d783d8d1a01f409fa5fb49"
+  },
+  {
+    "index": 53,
+    "file": "0053-loss-return.jpg",
+    "bytes": 90641,
+    "sha256": "fdc333682d0078ea2b02cb30951f608acfa027e74bea99aca16906ce46e67597"
+  },
+  {
+    "index": 54,
+    "file": "0054-loss-return.jpg",
+    "bytes": 93349,
+    "sha256": "ed834a62ba5c031b7ee82700b69bb788b6cef630f4a1c8ac3c92580707be9382"
+  },
+  {
+    "index": 55,
+    "file": "0055-loss-return.jpg",
+    "bytes": 90727,
+    "sha256": "f99328c10649d27f1d0bb32dc05ef043dd4b26ac8c2d3d528d27f39ae7acb823"
+  },
+  {
+    "index": 56,
+    "file": "0056-loss-return.jpg",
+    "bytes": 106223,
+    "sha256": "82266725d63a7978b77e8a42eaca47fa59ee7d1aa7429717437128952eb88eea"
+  },
+  {
+    "index": 57,
+    "file": "0057-loss-return.jpg",
+    "bytes": 69171,
+    "sha256": "1350821303796c4140d651ba1a0d88da7faef983452dbb8da75f2a04f0a6fefa"
+  },
+  {
+    "index": 58,
+    "file": "0058-loss-return.jpg",
+    "bytes": 69403,
+    "sha256": "e0e448e6309269d2d5ae7f4e3369b846edc34b4ca7eb839ca643f957da251a6c"
+  },
+  {
+    "index": 59,
+    "file": "0059-loss-return.jpg",
+    "bytes": 69445,
+    "sha256": "75f8c08d80fa9a0387c43abd7ba51893fd1ee6794cae7d71c86f6f1fea9e6c2c"
+  },
+  {
+    "index": 60,
+    "file": "0060-loss-return.jpg",
+    "bytes": 72471,
+    "sha256": "57830fcd9f376f91bb247ec0f7796f043c8c8bfe82a515a8c5df59cfc4f782a1"
+  },
+  {
+    "index": 61,
+    "file": "0061-loss-return.jpg",
+    "bytes": 86800,
+    "sha256": "ec5507c2dc1c894bc5a06b6cfe33c91b2b0224639059721fbf67c7995913ad1e"
+  },
+  {
+    "index": 62,
+    "file": "0062-loss-return.jpg",
+    "bytes": 103777,
+    "sha256": "6d7a56b8714f6b5af113317ace83a2fb713679422a1dc5a9811893f8310c16a7"
+  },
+  {
+    "index": 63,
+    "file": "0063-loss-return.jpg",
+    "bytes": 102422,
+    "sha256": "dd5b2fa715b5dfeec800716f7451a1407f76fe88c23f68bed572ba7771107279"
+  },
+  {
+    "index": 64,
+    "file": "0064-loss-return.jpg",
+    "bytes": 101215,
+    "sha256": "bdf26c2d640080f0d15b1e5d0d2a3b87bbcdf543c6c4213ca453bab0e67f1cd7"
+  },
+  {
+    "index": 65,
+    "file": "0065-loss-return.jpg",
+    "bytes": 101769,
+    "sha256": "795460e632786b9ef00caa8a45114f79de538382bb7629ec63d22f850f16d7f4"
+  },
+  {
+    "index": 66,
+    "file": "0066-loss-return.jpg",
+    "bytes": 101136,
+    "sha256": "18e04dadcb4a55bf002068e0f8a033cd98c9f0a3cbf95a1d4e3c996f6b35d9b1"
+  },
+  {
+    "index": 67,
+    "file": "0067-loss-return.jpg",
+    "bytes": 103396,
+    "sha256": "6908c2c58f80a3759ded3a74fa0f78a2eeb2091a407d041d048327934a57d631"
+  },
+  {
+    "index": 68,
+    "file": "0068-loss-return.jpg",
+    "bytes": 64751,
+    "sha256": "ab8dd31031c3fd2ba30d52558ab389d974b3463c003457bad0e096a44814593f"
+  },
+  {
+    "index": 69,
+    "file": "0069-loss-return.jpg",
+    "bytes": 57221,
+    "sha256": "7ce18f97e4aa300713d723a8129ca9a27e4c7b5f9a6b2d2ae835cd12009e1364"
+  },
+  {
+    "index": 70,
+    "file": "0070-loss-return.jpg",
+    "bytes": 56636,
+    "sha256": "3f4e8cdc8be0df6fd83f54166fed1930042788985ee780df37328ef6d1d9f796"
+  },
+  {
+    "index": 71,
+    "file": "0071-loss-return.jpg",
+    "bytes": 56607,
+    "sha256": "16890e1dd9d29cea07b32893d92f87288deeb543c59bcad3160ad3294f4e26aa"
+  },
+  {
+    "index": 72,
+    "file": "0072-loss-return.jpg",
+    "bytes": 56637,
+    "sha256": "d746c166d5f29e2b75e6686b0e2561deb3363b8be70205037d39a6e5cf18007d"
+  },
+  {
+    "index": 73,
+    "file": "0073-loss-return.jpg",
+    "bytes": 56636,
+    "sha256": "509836668e795243186e3b803850bd4773f5d81ed8db49c458bd34ce4b518270"
+  },
+  {
+    "index": 74,
+    "file": "0074-loss-return.jpg",
+    "bytes": 56602,
+    "sha256": "8ab51dd14bf22106326a14c77f6ea1ddd96ea9de1fe4a2a786f883aa2397ae32"
+  },
+  {
+    "index": 75,
+    "file": "0075-loss-return.jpg",
+    "bytes": 56636,
+    "sha256": "f2e6e8c52d9a3eb7541947339b328997db96fee702df248a6cf27cce4ed09938"
+  },
+  {
+    "index": 76,
+    "file": "0076-loss-return.jpg",
+    "bytes": 56636,
+    "sha256": "f2e6e8c52d9a3eb7541947339b328997db96fee702df248a6cf27cce4ed09938"
+  },
+  {
+    "index": 77,
+    "file": "0077-loss-return.jpg",
+    "bytes": 56607,
+    "sha256": "0579b5e65628bd7121c535067bf6ad49f78756a165c39cf7f59f061ad34a76ae"
+  },
+  {
+    "index": 78,
+    "file": "0078-replay-click.jpg",
+    "bytes": 132730,
+    "sha256": "5729667a9e61303806a51983448134ca3cd00e4fc22115501be6aac6646d07cf"
+  },
+  {
+    "index": 79,
+    "file": "0079-lobby-replay-selected.jpg",
+    "bytes": 117490,
+    "sha256": "844d8f4c07fbde6e4162d1a068dc7a27e69b694d8a7c6d273b2d6bb28c31ff6e"
+  },
+  {
+    "index": 80,
+    "file": "0080-redeparture.jpg",
+    "bytes": 92735,
+    "sha256": "eb8e31688249e518edba0172c22bc113aba59f889845ea1d02c26b7f2f073454"
+  },
+  {
+    "index": 81,
+    "file": "0081-redeparture.jpg",
+    "bytes": 92574,
+    "sha256": "27907208ac03db458b646d1127183d7a702bb7c5bb3f3cb9f6083e44e0e96c17"
+  },
+  {
+    "index": 82,
+    "file": "0082-redeparture.jpg",
+    "bytes": 92509,
+    "sha256": "ab33becca8551d5e8b94e13b494a3dc36a922ab771ba58d352ccb2f069b619f0"
+  },
+  {
+    "index": 83,
+    "file": "0083-redeparture.jpg",
+    "bytes": 92461,
+    "sha256": "19a2c64deb2da9f171521a1666c0153fe9ca6d27b09d44f34e372c9091f85942"
+  },
+  {
+    "index": 84,
+    "file": "0084-redeparture.jpg",
+    "bytes": 92451,
+    "sha256": "a63fb44ac32279141106685056a72906b998cf15bc44407decde480790e3fa72"
+  },
+  {
+    "index": 85,
+    "file": "0085-redeparture.jpg",
+    "bytes": 92366,
+    "sha256": "abb60f60c8af33b66621d1de7a95d4a450bac3d7b88eea4979f1d17d45c60fa0"
+  },
+  {
+    "index": 86,
+    "file": "0086-redeparture.jpg",
+    "bytes": 92466,
+    "sha256": "d302996de13cacedd46dfbe63970e7bc4d4a9aa4ef681c5de268b27bcaeba28f"
+  },
+  {
+    "index": 87,
+    "file": "0087-redeparture.jpg",
+    "bytes": 92442,
+    "sha256": "4dd3894fddc114e172426d37e39062154239878becd84ac74e41be4ace1bd4e6"
+  },
+  {
+    "index": 88,
+    "file": "0088-redeparture.jpg",
+    "bytes": 92676,
+    "sha256": "c13bf23c82d80cb007027054a38c876e813a9d67403ccca6ab8473da9751fe3e"
+  },
+  {
+    "index": 89,
+    "file": "0089-redeparture.jpg",
+    "bytes": 92626,
+    "sha256": "37d0188577aaab2afdd3345b85fcc452abbde5656e5d33372cd29dd81da60a3e"
+  },
+  {
+    "index": 90,
+    "file": "0090-redeparture.jpg",
+    "bytes": 97090,
+    "sha256": "d27188330fe0243b78674874168df8b7630441622f63f12ee32646276b677422"
+  },
+  {
+    "index": 91,
+    "file": "0091-redeparture.jpg",
+    "bytes": 95054,
+    "sha256": "aab89f0270891a76a1c58e81cde23a893bb4ce32b2ab10b83f48bb967fc4fed1"
+  },
+  {
+    "index": 92,
+    "file": "0092-redeparture.jpg",
+    "bytes": 92990,
+    "sha256": "4cb711427d90a36c0b5b387aa6b9ea7188add5cade30e038d239e6885ef51004"
+  },
+  {
+    "index": 93,
+    "file": "0093-redeparture.jpg",
+    "bytes": 93004,
+    "sha256": "68163addf3f229e1920e0dce45b3fdd09885045534d71a1971e134d5294ffd0e"
+  },
+  {
+    "index": 94,
+    "file": "0094-redeparture.jpg",
+    "bytes": 92756,
+    "sha256": "3694e648cec6ff517ce6a8d1dc994d1d48802ec13421367fda613fad4e6bafcb"
+  },
+  {
+    "index": 95,
+    "file": "0095-redeparture.jpg",
+    "bytes": 95238,
+    "sha256": "28eab6659fc6ac6bb4ddfac0ce827025d53ec98e22f83432dccde970397672a1"
+  },
+  {
+    "index": 96,
+    "file": "0096-redeparture.jpg",
+    "bytes": 94429,
+    "sha256": "1f4f754e091803640333106c7febab4a98d3c04150fd78a37e368b55a543bb63"
+  },
+  {
+    "index": 97,
+    "file": "0097-redeparture.jpg",
+    "bytes": 96350,
+    "sha256": "9bdf2ca6fd4eac1b166ea8d9ca9105753a6db8762ad01e0b85bed265276a3736"
+  },
+  {
+    "index": 98,
+    "file": "0098-redeparture.jpg",
+    "bytes": 94199,
+    "sha256": "8e13d9588092b210d0f17be028b98ea1b798c4e69e8a86a607f1566c4c839444"
+  },
+  {
+    "index": 99,
+    "file": "0099-redeparture.jpg",
+    "bytes": 92849,
+    "sha256": "f385f24752d8fce635730ba43e2c25d982a11c94bb6759902269b84dd268a4b3"
+  },
+  {
+    "index": 100,
+    "file": "0100-replay-first-look-input.jpg",
+    "bytes": 106769,
+    "sha256": "9b7e06d157091119c7d1edea5de7870255e2e694a493a1a403009cb9440ad7d9"
+  }
+]

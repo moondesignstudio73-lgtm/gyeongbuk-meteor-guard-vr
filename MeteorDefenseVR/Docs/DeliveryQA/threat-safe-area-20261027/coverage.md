@@ -14,3 +14,5 @@ Subsequent [ordinary public-player records review](../public-records-20261027/ve
 | Whole gameplay | Prior951ce7d two automated combat rounds remain historical evidence | Not repeated or claimed as00b1fd6 full-play acceptance |
 
 600 frames are controlled viewport-motion captures, not human gameplay or a fixed-FPS movie. Repeated PNG writes affect wall-clock timing. Full UI sign-off, human OS play, HMD, listening and Suno remain incomplete.
+
+The subsequent [single ordinary natural-loss bundle](../natural-return-20261027/verification.md) adds 1280x720 agent OS evidence: real meteor damage to failure, ordered return/interior/door-close/result samples, hangar Replay preparation, restored combat and first mouse-look response. The dense loss/return samples are 0.347–0.448 seconds apart, not continuous video. No new defect was established. Direct result-button success, replay departure/countdown in the 13.85-second capture gap, precise landing contact, audio listening and HMD remain unverified; this is not full-play acceptance.

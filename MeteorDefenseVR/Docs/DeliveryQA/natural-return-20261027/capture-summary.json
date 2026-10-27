@@ -1,0 +1,11 @@
+{
+  "images": 101,
+  "lossReturnBatchFirst": 48,
+  "lossReturnBatchLast": 77,
+  "batchMinIntervalSeconds": 0.347,
+  "batchMaxIntervalSeconds": 0.448,
+  "batchMeanIntervalSeconds": 0.3663103448275862,
+  "sequenceKind": "Timestamped samples with gaps between batches, not continuous video",
+  "productCommit": "00b1fd6e94efdd8ef3da04b53a2bf6c116217e61",
+  "publicZipSha256": "19776735694688f462d815c562cde3bb83b4e75ad621189c812533efcae5556f"
+}
