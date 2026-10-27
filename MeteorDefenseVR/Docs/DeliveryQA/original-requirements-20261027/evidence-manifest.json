@@ -1,0 +1,444 @@
+{
+  "product": "372a75f438e40f5832ffc05bf14cc6f6943ca7f3",
+  "method": "Read-only file and Git blob comparison; no runtime test",
+  "files": [
+    {
+      "link": "../../../Assets/_Project/Combat/LockOnReticleView.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/Combat/LockOnReticleView.cs",
+      "tracked": true,
+      "sha256": "4ab970c0c4d7bb54b170b464ea8e5fe663d7aa347cc9f30b7b6f411e59599d88",
+      "productBlob": "39810cded538db6d804668d3f310135b51e66806",
+      "currentGitBlob": "39810cded538db6d804668d3f310135b51e66806",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/Combat/ScorePopupView.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/Combat/ScorePopupView.cs",
+      "tracked": true,
+      "sha256": "4e480f47550dacb27d0ed55c0065fb02ba8e4bb7de01f60f465b9d05b114a491",
+      "productBlob": "107c0e735a9df2fd6b243f2991f603ce9adf2b51",
+      "currentGitBlob": "107c0e735a9df2fd6b243f2991f603ce9adf2b51",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/Combat/TurretAimingSystem.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/Combat/TurretAimingSystem.cs",
+      "tracked": true,
+      "sha256": "30b1a167787f7b9e8abc30a84c38c99e7145e9eb488aa6e0f349d2a60975711a",
+      "productBlob": "fd5e104836834f04754a38302de9d9ef0b3cb9f9",
+      "currentGitBlob": "fd5e104836834f04754a38302de9d9ef0b3cb9f9",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/GameFlow/ResultFeedback.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/GameFlow/ResultFeedback.cs",
+      "tracked": true,
+      "sha256": "7e394eea920d810803b46718f91553376f7d924a99d8be843fc9304401c28072",
+      "productBlob": "9934edbdf6ae6f33a67158bfe8027b7ca94b9f46",
+      "currentGitBlob": "9934edbdf6ae6f33a67158bfe8027b7ca94b9f46",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/Launch/LaunchEnvironmentView.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/Launch/LaunchEnvironmentView.cs",
+      "tracked": true,
+      "sha256": "1c5de9e622c7aab0c044fed4bb6437cdcb174d5edaf228062209a71a0006f3ae",
+      "productBlob": "24434c3522b81757ca3673e81be678060a320990",
+      "currentGitBlob": "24434c3522b81757ca3673e81be678060a320990",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/Meteor/BossShellPresentation.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/Meteor/BossShellPresentation.cs",
+      "tracked": true,
+      "sha256": "e9a2a9a812137bd9cdb5f98e72a22f9c013c98f8e34b89d9abf9f10921707794",
+      "productBlob": "33030857f2f7a1aeb04588015ff1766ffdbbeb2f",
+      "currentGitBlob": "33030857f2f7a1aeb04588015ff1766ffdbbeb2f",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/Meteor/MeteorDamageSurface.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/Meteor/MeteorDamageSurface.cs",
+      "tracked": true,
+      "sha256": "760d8a4e34b58747d7adcb3e3f2e2cc567b2a1ba14e481587ff6493900a46328",
+      "productBlob": "adfc38e5e451f4098d754727c8b88d4db377a964",
+      "currentGitBlob": "adfc38e5e451f4098d754727c8b88d4db377a964",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/BaseFlightCinematic.Art.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/BaseFlightCinematic.Art.cs",
+      "tracked": true,
+      "sha256": "81147986f217ff7de87a4d00a0130155749ef0a5051ac6bb90f45ffcc2490c29",
+      "productBlob": "ab104bbb26de9520749e6df02eed9a2e93765f5f",
+      "currentGitBlob": "ab104bbb26de9520749e6df02eed9a2e93765f5f",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/BaseFlightCinematic.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/BaseFlightCinematic.cs",
+      "tracked": true,
+      "sha256": "fdaf913671bc4209c720c86012fbf29e514fe1f903ac65599f6f5b92b488eb00",
+      "productBlob": "ad846a798e630eb64996e8beceee1d1d43165587",
+      "currentGitBlob": "ad846a798e630eb64996e8beceee1d1d43165587",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/ControlDroneController.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/ControlDroneController.cs",
+      "tracked": true,
+      "sha256": "c6fe0c5af1fc79b3acba07af1560fc5fb0e5a11655b562366626580f61682828",
+      "productBlob": "c91ef5951af36de7aa688d704d66ac256f64907e",
+      "currentGitBlob": "c91ef5951af36de7aa688d704d66ac256f64907e",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/DockRepairController.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/DockRepairController.cs",
+      "tracked": true,
+      "sha256": "5441c7c337fa3a8442daf85490ed58609f9ad9f3ade1ff290a552e9e856db834",
+      "productBlob": "a5a671b5b574239542f963d79b2f464d3bdb3392",
+      "currentGitBlob": "a5a671b5b574239542f963d79b2f464d3bdb3392",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/FlightLoadingVisual.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/FlightLoadingVisual.cs",
+      "tracked": true,
+      "sha256": "8166b49d3ce4223fad45bec6c88697d647007b99d56aa080c3cc6ccefd4c8cd6",
+      "productBlob": "edf385339077015b033d08050263a6324d88ab87",
+      "currentGitBlob": "edf385339077015b033d08050263a6324d88ab87",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/HangarLobbyController.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/HangarLobbyController.cs",
+      "tracked": true,
+      "sha256": "8dc1e3608d5274664ab6793cb1cf619df5f2942a1753cb92a7114892207b3e6f",
+      "productBlob": "5a55ce82a2b4af1300ddfcde47251646302cfced",
+      "currentGitBlob": "5a55ce82a2b4af1300ddfcde47251646302cfced",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/HangarSurfaceUpgrade.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/HangarSurfaceUpgrade.cs",
+      "tracked": true,
+      "sha256": "be0619586ffbfe6225f9042a4f88a527ef518ac66af40d8df31492063f662148",
+      "productBlob": "57ed969ef9bf01f53f9f88b9bbbef3ed3192c4fd",
+      "currentGitBlob": "57ed969ef9bf01f53f9f88b9bbbef3ed3192c4fd",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/PcTestOverlay.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/PcTestOverlay.cs",
+      "tracked": true,
+      "sha256": "334e76110919ddaf71180a77847c6c83ba280cd0b943df8b21f2cfa917e30731",
+      "productBlob": "1e1c17ab33dbadab0209cf71f32c9f4f0763b603",
+      "currentGitBlob": "1e1c17ab33dbadab0209cf71f32c9f4f0763b603",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/PowerUpWeaponFeedback.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/PowerUpWeaponFeedback.cs",
+      "tracked": true,
+      "sha256": "b2ae793f4633f743426beca6923bb217e3a0fe622c70d90721596fd1b8069a35",
+      "productBlob": "d97ef2a50e761b3d597ea1854b92befdfaf8f536",
+      "currentGitBlob": "d97ef2a50e761b3d597ea1854b92befdfaf8f536",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/SfPresentationDirector.Transitions.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/SfPresentationDirector.Transitions.cs",
+      "tracked": true,
+      "sha256": "ff4fd9397189a10f9af1d7b22431da5e01fcdf6ebac19670d014b736e7ee7020",
+      "productBlob": "0557ff8a385a02c690e87e50264034269facb112",
+      "currentGitBlob": "0557ff8a385a02c690e87e50264034269facb112",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/ThreatIndicatorView.Impact.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/ThreatIndicatorView.Impact.cs",
+      "tracked": true,
+      "sha256": "49f72203f9ef563a7cf207621f697d97651fd3dcd74d545561f8455ddd2d9b47",
+      "productBlob": "de1b53d96759980ab2268633573a159c1161e478",
+      "currentGitBlob": "de1b53d96759980ab2268633573a159c1161e478",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/ThreatIndicatorView.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/ThreatIndicatorView.cs",
+      "tracked": true,
+      "sha256": "38954a0d6bec161486fafc9efbbce936020023b1562c7215fa59a95067222f04",
+      "productBlob": "fd7c897af53c11ee278f80b0379bd0de18619b1d",
+      "currentGitBlob": "fd7c897af53c11ee278f80b0379bd0de18619b1d",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/VictoryEarthResponse.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/VictoryEarthResponse.cs",
+      "tracked": true,
+      "sha256": "d4178f3b35690647bfa13d0b64ec9414a4f951faf7dc7dba4164eaaebbb83e8d",
+      "productBlob": "4e1fcd4f01ee581bb270f41233fd5acbe4b82068",
+      "currentGitBlob": "4e1fcd4f01ee581bb270f41233fd5acbe4b82068",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PcInput/WorldTextPresentation.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PcInput/WorldTextPresentation.cs",
+      "tracked": true,
+      "sha256": "a42f109219c9559692ec4050a813da8d282c7cc8799fe902c1da4cbdc35d7698",
+      "productBlob": "6a244acf1f6e914c36a34235f242dd60844f763d",
+      "currentGitBlob": "6a244acf1f6e914c36a34235f242dd60844f763d",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/PowerUps/PowerUpManager.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/PowerUps/PowerUpManager.cs",
+      "tracked": true,
+      "sha256": "4e8764a889c710b9031faa38bded8c8b5e22f308c484f3a7c4cbb7e18d861a8d",
+      "productBlob": "924f8789d023cc65f7dba692b2fb62541a08d9b8",
+      "currentGitBlob": "924f8789d023cc65f7dba692b2fb62541a08d9b8",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/Visual/CockpitHandVisualController.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/Visual/CockpitHandVisualController.cs",
+      "tracked": true,
+      "sha256": "7121c85921b502a6be2cdb8c1fcda9cb3ef82f6693f348f39018bd1f5a72b0b7",
+      "productBlob": "42960a8feb779db66834e95a969445af37b5bfa2",
+      "currentGitBlob": "42960a8feb779db66834e95a969445af37b5bfa2",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../../Assets/_Project/Visual/MeteorMotionTrail.cs",
+      "path": "MeteorDefenseVR/Assets/_Project/Visual/MeteorMotionTrail.cs",
+      "tracked": true,
+      "sha256": "802624f9dff580e50be45e628963368ab003c9f3339abd3687764aaa5464eb77",
+      "productBlob": "bf2203beb7d752ac7d6218d47149cdb373273659",
+      "currentGitBlob": "bf2203beb7d752ac7d6218d47149cdb373273659",
+      "matchesProduct": true
+    },
+    {
+      "link": "../../GAMEPLAY_UPDATE_20261019.md",
+      "path": "MeteorDefenseVR/Docs/GAMEPLAY_UPDATE_20261019.md",
+      "tracked": true,
+      "sha256": "117d8b0047eaf1e17496d1402bce4660c8033b4ec984228da2d24d6bd646e959"
+    },
+    {
+      "link": "../../GameDesign/PLAY_REVIEW_20261019.md",
+      "path": "MeteorDefenseVR/Docs/GameDesign/PLAY_REVIEW_20261019.md",
+      "tracked": true,
+      "sha256": "7359abfcf2bad0209013a52899fee720f37f2438ee6dd86738a815405c964f0f"
+    },
+    {
+      "link": "../boss-shell-20261021/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/boss-shell-20261021/verification.md",
+      "tracked": true,
+      "sha256": "0e4663f0689775419814633fa0b0a83304f80118269bc0142bcc8b07a4e65e1d"
+    },
+    {
+      "link": "../buff-readability-20261021/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/buff-readability-20261021/verification.md",
+      "tracked": true,
+      "sha256": "315c345e09dcdc8aa709a1be7efbb68dd53fba8988df48c5d6cbf2068ed52702"
+    },
+    {
+      "link": "../comfort-ui-20261027/REPORT.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/comfort-ui-20261027/REPORT.md",
+      "tracked": true,
+      "sha256": "760ee0d367a814019c54063e5630b40931715240f20502b28c96b9858a2f7406"
+    },
+    {
+      "link": "../control-drone-20261022/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/control-drone-20261022/verification.md",
+      "tracked": true,
+      "sha256": "113b870b9acec3fe2159c2df1a3a71002c76883b6c32d5a832db4c3c40d2de86"
+    },
+    {
+      "link": "../control-return-scan-20261022/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/control-return-scan-20261022/verification.md",
+      "tracked": true,
+      "sha256": "8c49259022eb053ee6b4e7391741f6c09837917fb4961ac2ab9b4f6f047d6e39"
+    },
+    {
+      "link": "../dock-repair-20261021/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/dock-repair-20261021/verification.md",
+      "tracked": true,
+      "sha256": "34f1d0c98302542c048cea4ad586273e66a8d384e773e3a5ebd74b3d55864612"
+    },
+    {
+      "link": "../hangar-graphics-20261022/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/hangar-graphics-20261022/verification.md",
+      "tracked": true,
+      "sha256": "0d3ce148cd10191f156ebf8eeab9157d46e6831882933f613024b89efd6ae9ff"
+    },
+    {
+      "link": "../integrated-ui-20261027/REPORT.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/integrated-ui-20261027/REPORT.md",
+      "tracked": true,
+      "sha256": "33ae1450f955c9c9aec1fa3817724489f9b26ace99d7e7007505689440422206"
+    },
+    {
+      "link": "../integrated-ui-20261027/coverage.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/integrated-ui-20261027/coverage.md",
+      "tracked": true,
+      "sha256": "d2bbd560abe26ac2301ea1ebc7f116a4f6567b4c7b921cab583475fe3e21916b"
+    },
+    {
+      "link": "../intro-transition-review-20261021/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/intro-transition-review-20261021/verification.md",
+      "tracked": true,
+      "sha256": "69557e7bee099dfe98f07cdd857e0b7ca37426aa8c74d73ce75a225851569b43"
+    },
+    {
+      "link": "../loading-boss-20261027/REPORT.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/loading-boss-20261027/REPORT.md",
+      "tracked": true,
+      "sha256": "07c831969f5ef5a8740c81384834981c25fb618442cc9733c2f9b927b4a72000"
+    },
+    {
+      "link": "../menu-transition-gaze-20261023/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/menu-transition-gaze-20261023/verification.md",
+      "tracked": true,
+      "sha256": "452ebc8341152300178523a949362d388ba84c80c19e858ce46c0b701a9ea61d"
+    },
+    {
+      "link": "../meteor-damage-20261021/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/meteor-damage-20261021/verification.md",
+      "tracked": true,
+      "sha256": "ec4940172db156a83d211c0cc8ba64f8ee77e9feffacbcd89d2b13bb63fb6f16"
+    },
+    {
+      "link": "../natural-return-20261027/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/natural-return-20261027/verification.md",
+      "tracked": true,
+      "sha256": "0af1de741b42ab490ee1a093e816f34bb3d51121a5942f6b7aacda930b711620"
+    },
+    {
+      "link": "../pickup-explosion-readability-20261024/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/pickup-explosion-readability-20261024/verification.md",
+      "tracked": true,
+      "sha256": "376e4842c2923e5f53cfadc83c1536345b4f74273e93088f730866300caaaf8a"
+    },
+    {
+      "link": "../powerup-feedback-20261021/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/powerup-feedback-20261021/verification.md",
+      "tracked": true,
+      "sha256": "72fbfedbb3fd657d09fa395e31003bb20098532e631614f5f6566964fa5f0769"
+    },
+    {
+      "link": "../public-records-20261027/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/public-records-20261027/verification.md",
+      "tracked": true,
+      "sha256": "cd2d43d4076599d7fa915a06b4036b351f0150311db6f804efb4013efca255f7"
+    },
+    {
+      "link": "../readability-coverage-20261024/coverage.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/readability-coverage-20261024/coverage.md",
+      "tracked": true,
+      "sha256": "091b63d8d58a2e345f50e6ee973d3863815a6023568bc86bb5627a1b247c2b4b"
+    },
+    {
+      "link": "../ready-readability-20261027/REPORT.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/ready-readability-20261027/REPORT.md",
+      "tracked": true,
+      "sha256": "d22dbee30ef78f83926705ecf76bad835dadea3a9061734d24caac43708cf2c9"
+    },
+    {
+      "link": "../replay-menu-20261027/Native/base-return/stability-game-render.png",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/replay-menu-20261027/Native/base-return/stability-game-render.png",
+      "tracked": true,
+      "sha256": "1cc235e6fce25e0c43336485c0624167e420060428b1248349ce8859531a5cf7"
+    },
+    {
+      "link": "../replay-menu-20261027/Native/notes.txt",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/replay-menu-20261027/Native/notes.txt",
+      "tracked": true,
+      "sha256": "825b856a8b910118f1d106e170d0ecff1c68cd49b4e463f579d2eb753e0536b0"
+    },
+    {
+      "link": "../replay-menu-20261027/Native/replay-preparing/stability-game-render.png",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/replay-menu-20261027/Native/replay-preparing/stability-game-render.png",
+      "tracked": true,
+      "sha256": "1a79c68901c35e24a75ba6b1c4bd7803e0c73a6decb3ae3f1075c9cb92f5bd76"
+    },
+    {
+      "link": "../replay-menu-20261027/Native/runtime.txt",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/replay-menu-20261027/Native/runtime.txt",
+      "tracked": true,
+      "sha256": "c8b5dd592edee01554ff4c1257a54408fb89e218ead14ddc97bf584bafc1ae1d"
+    },
+    {
+      "link": "../replay-menu-20261027/Ordinary/REVIEW.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/replay-menu-20261027/Ordinary/REVIEW.md",
+      "tracked": true,
+      "sha256": "2083e8f367879abba2c4f0eb65b4fe238ea3a167183ba4b3b394e4dbab54eb98"
+    },
+    {
+      "link": "../replay-menu-20261027/REVIEW.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/replay-menu-20261027/REVIEW.md",
+      "tracked": true,
+      "sha256": "4527fd2da4c57fda38799fc43632f9bb4febe1cf2b805a0b6398b4c6ee844a54"
+    },
+    {
+      "link": "../replay-menu-20261027/package.json",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/replay-menu-20261027/package.json",
+      "tracked": true,
+      "sha256": "4f714fa1253d9f663da14a57cb370ea92128f56a799d33e93287660f2a003daa"
+    },
+    {
+      "link": "../replay-menu-20261027/public-download.json",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/replay-menu-20261027/public-download.json",
+      "tracked": true,
+      "sha256": "5ab8c2e74e7a021b556dc1cd1fc1ba53ee4adc5d4f4f11a04a16cd63dbc03bcf"
+    },
+    {
+      "link": "../result-choice-20261027/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/result-choice-20261027/verification.md",
+      "tracked": true,
+      "sha256": "414046b43b013cadaa60eaa89404b787e98a4e4d6c06bf1e092eba86f3314338"
+    },
+    {
+      "link": "../result-contrast-20261027/REVIEW.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/result-contrast-20261027/REVIEW.md",
+      "tracked": true,
+      "sha256": "e21a58a785a3bf9c3ac73a8f1cd54836607933bc8de56f1f4530a9a6af8c5676"
+    },
+    {
+      "link": "../result-countup-20261022/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/result-countup-20261022/verification.md",
+      "tracked": true,
+      "sha256": "71067784e7ad305598ca90160973cea20ff7794ee2fed7d5201fb61002c9adb5"
+    },
+    {
+      "link": "../stage-banner-overlap-20261023/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/stage-banner-overlap-20261023/verification.md",
+      "tracked": true,
+      "sha256": "9a4b71c9d590a4c3b8b4717a919fffdf59dcc9b48e905281cbe621b4f7da6245"
+    },
+    {
+      "link": "../threat-transition-20261027/Ordinary/REVIEW.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/threat-transition-20261027/Ordinary/REVIEW.md",
+      "tracked": true,
+      "sha256": "5233843197359350d2c44e3b02f104cfa3be3ac4cb408107d79bb123e3cb8a33"
+    },
+    {
+      "link": "../threat-transition-20261027/REVIEW.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/threat-transition-20261027/REVIEW.md",
+      "tracked": true,
+      "sha256": "daf8049d6c2e7762de7c2c2a22af28972f72bba66eff3e633b436a84f07c4ea6"
+    },
+    {
+      "link": "../turret-recoil-20261021/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/turret-recoil-20261021/verification.md",
+      "tracked": true,
+      "sha256": "c2b1e79606b065382d183ca50924f84fc1451ec22cd2fae57ca2ce26a9889580"
+    },
+    {
+      "link": "../victory-earth-response-20261021/verification.md",
+      "path": "MeteorDefenseVR/Docs/DeliveryQA/victory-earth-response-20261021/verification.md",
+      "tracked": true,
+      "sha256": "e380a035e55bc629035f8f026ad6fb89256cd4bf0d629386a955235ebd2a4132"
+    }
+  ]
+}
