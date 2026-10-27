@@ -1,0 +1,18 @@
+frame=2219;game=25.917140;wall=35.890920;phase=Active;hp=1/3;shell=2;core=True;buffs=3;message=마지막 운석을 파괴하세요!
+LiveThreatAnalysis:font=30;truncated=False;textBounds=(226.47, 106.06, 0.00);rect=(368.00, 110.00);text=위협 1개|위험 · 앞쪽 · 12m
+HealthLabel:font=24;truncated=False;textBounds=(66.23, 34.75, 0.00);rect=(216.00, 34.00);text=방어막
+AsteroidValue:font=30;truncated=False;textBounds=(226.60, 43.44, 0.00);rect=(276.00, 48.00);text=보스 운석  033%
+HeadDirection:font=0.058;truncated=False;textBounds=(0.01, 0.01, 0.00);rect=(0.09, 0.04);text=▲
+DistanceLabel_0:font=0.042;truncated=False;textBounds=(0.01, 0.01, 0.00);rect=(0.06, 0.03);text=25m
+DifficultyStageValue:font=24;truncated=False;textBounds=(152.43, 34.75, 0.00);rect=(276.00, 34.00);text=보통  ·  구역 01
+LiveRadarText:font=0.135;truncated=False;textBounds=(0.19, 0.04, 0.00);rect=(0.59, 0.37);text=360° THREAT RADAR // NORMAL|CONTACTS 01   PRIORITY 04.1s
+LiveShipStatus:font=30;truncated=False;textBounds=(200.42, 106.06, 0.00);rect=(288.00, 110.00);text=방어막 100%|정상 · 피해 0
+DistanceLabel_2:font=0.042;truncated=False;textBounds=(0.01, 0.01, 0.00);rect=(0.06, 0.03);text=100m
+ThreatLabel:font=0.052;truncated=False;textBounds=(0.02, 0.01, 0.00);rect=(0.11, 0.04);text=BOSS  !
+DistanceLabel_3:font=0.042;truncated=False;textBounds=(0.01, 0.01, 0.00);rect=(0.06, 0.03);text=200m
+DistanceLabel_1:font=0.042;truncated=False;textBounds=(0.01, 0.01, 0.00);rect=(0.06, 0.03);text=50m
+LiveWeaponStatus:font=30;truncated=False;textBounds=(194.42, 132.72, 0.00);rect=(368.00, 172.00);text=방어막 2회|속사 5초|다중 레이저 6초
+HealthValue:font=26;truncated=False;textBounds=(208.00, 37.65, 0.00);rect=(216.00, 48.00);text=■■■■■■■■
+ScoreValue:font=30;truncated=False;textBounds=(17.73, 43.44, 0.00);rect=(240.00, 48.00);text=0
+TutorialHeading:font=30;truncated=False;textBounds=(27.60, 173.76, 0.00);rect=(-60.00, 41.00);text=조준 연습
+ScoreLabel:font=24;truncated=False;textBounds=(44.16, 34.75, 0.00);rect=(240.00, 34.00);text=점수
