@@ -153,7 +153,7 @@ namespace MeteorDefenseVR.PcInput
                 Vector3 local = Quaternion.Inverse(view.Rotation) * (meteor.transform.position - view.Position);
                 Vector2 edge = ThreatProjection.Edge(local, view.Camera.aspect);
                 Vector2 point = new Vector2(edge.x * (root.rect.width * .5f - 96), edge.y * (root.rect.height * .5f - 115));
-                text.rectTransform.anchoredPosition = PlaceProtectedLabel(point, meteor);
+                text.rectTransform.anchoredPosition = PlaceProtectedLabel(point, meteor, local);
                 float distance = distances[i];
                 text.color = distance < redDistance ? new Color(1,.25f,.15f) : distance < orangeDistance ? new Color(1,.55f,.16f) : distance < yellowDistance ? new Color(1,.88f,.3f) : new Color(.2f,.95f,1);
                 text.color = meteor == audioThreat ? new Color(1,.52f,.12f,1) : new Color(text.color.r,text.color.g,text.color.b,.65f);

@@ -36,23 +36,29 @@ namespace MeteorDefenseVR.PcInput {
    for(int i=0;i<occupiedCount;i++)if(occupiedRegions[i].Contains(point))return false;
    return true;
   }
-  private Vector2 PlaceProtectedLabel(Vector2 desired,MeteorController meteor){
+  private Vector2 PlaceProtectedLabel(Vector2 desired,MeteorController meteor,Vector3 local){
+   // Inside the centre band, keep the last safe slot. Outside it, a stale slot
+   // must not outweigh the target's current horizontal direction.
+   float side=Mathf.Abs(local.x)>local.magnitude*.18f?Mathf.Sign(local.x):0;
+   bool MatchingSide(Vector2 p)=>side==0||p.x*side>0;
    Vector2 point;
-   if(parkedLabels.TryGetValue(meteor,out point)&&ClearLabelPoint(point))return Occupy(point,meteor);
+   if(parkedLabels.TryGetValue(meteor,out point)&&ClearLabelPoint(point)&&MatchingSide(point))return Occupy(point,meteor);
    if(!parkedLabels.ContainsKey(meteor)&&ClearLabelPoint(desired)){
     point=trackedLabels.TryGetValue(meteor,out var previous)?Vector2.Lerp(previous,desired,1-Mathf.Exp(-Time.unscaledDeltaTime*18)):desired;
-    if(ClearLabelPoint(point))return Occupy(point,meteor);
+    if(ClearLabelPoint(point)&&MatchingSide(point))return Occupy(point,meteor);
    }
    var safe=LabelSafeArea;float best=float.PositiveInfinity;Vector2 chosen=desired;
    void Candidate(Vector2 p){
     if(!ClearLabelPoint(p))return;
     float cost=(p-desired).sqrMagnitude;
+    if(!MatchingSide(p))cost+=root.rect.size.sqrMagnitude*10;
     if(trackedLabels.TryGetValue(meteor,out var previous))cost+=(p-previous).sqrMagnitude*2;
     if(cost<best){best=cost;chosen=p;}
    }
-   // Bounded perimeter search, outside the aim region. A relocated label keeps its
-   // slot until its target disappears, so rank changes and moving targets cannot oscillate it.
-   for(float y=Mathf.Max(safe.yMin+1,-root.rect.height*.06f);y<Mathf.Min(safe.yMax,root.rect.height*.28f);y+=2*LabelHalfHeight+LabelGap){
+   // Search the full safe side lanes; panel/aim exclusions remain authoritative.
+   // One extra unit avoids counting touching expanded slot bounds as occupied.
+   // Never interpolate across the aiming region when changing sides.
+   for(float y=safe.yMin+1;y<safe.yMax;y+=2*LabelHalfHeight+LabelGap+1){
     Candidate(new Vector2(safe.xMin+1,y));Candidate(new Vector2(safe.xMax-1,y));
    }
    parkedLabels[meteor]=chosen;return Occupy(chosen,meteor);

@@ -1,0 +1,3 @@
+Controlled pooled targets, D3D11 Editor render sequence. Not natural OS/HMD gameplay or human comprehension.
+Observed labels=182
+Opposite horizontal half samples=0

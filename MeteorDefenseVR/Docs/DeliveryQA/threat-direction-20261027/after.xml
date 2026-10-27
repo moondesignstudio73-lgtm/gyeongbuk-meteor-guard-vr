@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-27 07:06:18Z" end-time="2026-10-27 07:06:28Z" duration="9.8605368">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="484" result="Passed" start-time="2026-10-27 07:06:18Z" end-time="2026-10-27 07:06:28Z" duration="9.860537" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1639" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/OneDrive/Desktop/game/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="484" result="Passed" start-time="2026-10-27 07:06:18Z" end-time="2026-10-27 07:06:28Z" duration="9.685879" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29416" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1640" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="484" result="Passed" start-time="2026-10-27 07:06:18Z" end-time="2026-10-27 07:06:28Z" duration="9.675920" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1641" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="484" result="Passed" start-time="2026-10-27 07:06:18Z" end-time="2026-10-27 07:06:28Z" duration="9.665959" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1498" name="ThreatDirectionReviewTests" fullname="MeteorDefenseVR.Tests.ThreatDirectionReviewTests" classname="MeteorDefenseVR.Tests.ThreatDirectionReviewTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-27 07:03:37Z" end-time="2026-10-27 07:04:09Z" duration="31.875193" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1499" name="DirectionTrace" fullname="MeteorDefenseVR.Tests.ThreatDirectionReviewTests.DirectionTrace" methodname="DirectionTrace" classname="MeteorDefenseVR.Tests.ThreatDirectionReviewTests" runstate="Runnable" seed="2143934395" result="Passed" start-time="2026-10-27 07:03:22Z" end-time="2026-10-27 07:04:09Z" duration="46.368005" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Playing
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1523" name="ThreatSafeAreaTests" fullname="MeteorDefenseVR.Tests.ThreatSafeAreaTests" classname="MeteorDefenseVR.Tests.ThreatSafeAreaTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-27 07:04:18Z" end-time="2026-10-27 07:05:29Z" duration="70.993975" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1525" name="ProtectedLayout" fullname="MeteorDefenseVR.Tests.ThreatSafeAreaTests.ProtectedLayout" methodname="ProtectedLayout" classname="MeteorDefenseVR.Tests.ThreatSafeAreaTests" runstate="Runnable" seed="268885606" result="Passed" start-time="2026-10-27 07:04:09Z" end-time="2026-10-27 07:05:29Z" duration="80.601649" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> BossMeteor
+[GameFlow] BossMeteor -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1526" name="ThreatSafeRegressionTests" fullname="MeteorDefenseVR.Tests.ThreatSafeRegressionTests" classname="MeteorDefenseVR.Tests.ThreatSafeRegressionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-27 07:06:18Z" end-time="2026-10-27 07:06:28Z" duration="9.612148" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1527" name="CriticalWarningClearance" fullname="MeteorDefenseVR.Tests.ThreatSafeRegressionTests.CriticalWarningClearance" methodname="CriticalWarningClearance" classname="MeteorDefenseVR.Tests.ThreatSafeRegressionTests" runstate="Runnable" seed="1642438712" result="Passed" start-time="2026-10-27 07:05:29Z" end-time="2026-10-27 07:06:08Z" duration="38.743668" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+            <test-case id="1528" name="PriorityAndPoolReuse" fullname="MeteorDefenseVR.Tests.ThreatSafeRegressionTests.PriorityAndPoolReuse" methodname="PriorityAndPoolReuse" classname="MeteorDefenseVR.Tests.ThreatSafeRegressionTests" runstate="Runnable" seed="167416402" result="Passed" start-time="2026-10-27 07:06:08Z" end-time="2026-10-27 07:06:28Z" duration="20.009612" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
