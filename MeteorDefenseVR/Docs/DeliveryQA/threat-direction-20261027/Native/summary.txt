@@ -1,0 +1,3 @@
+Controlled pooled targets, explicit render sequence. Not natural OS/HMD gameplay or human comprehension.
+Observed labels=206
+Opposite horizontal half samples=0

@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\.codex\\worktrees\\threat-direction\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\ThreatDirection20261027\\MeteorDefenseVR-Windows-ThreatDirection-20261027.zip",
+  "bytes": 89617094,
+  "sha256": "88a70b9cd95cffe8c3d7a990ec3dce0b26880ce40aa2c29d8709afd7fba09a75",
+  "verifiedFiles": 222,
+  "buildDirectory": "C:\\Users\\aaa\\.codex\\worktrees\\threat-direction\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Windows\\RC_0.2.0-rc.1_a4c0686",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/threat-direction",
+    "gitCommit": "a4c06864fb8a52b40b19f126627678052967118c",
+    "gitCommitShort": "a4c0686",
+    "buildTimeKST": "2026-10-27T16:28:14+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}

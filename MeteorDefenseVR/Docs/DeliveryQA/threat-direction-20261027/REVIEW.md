@@ -21,3 +21,20 @@ The raw frames and target coordinates allow inspection of direction and placemen
 ## Delivery isolation
 
 The original checkout retained a Git index lock. Automated approval rejected deletion of that lock without supplying a specific reason. No forced deletion or lock bypass was performed. A managed worktree at the accepted ResultContrast source was created for committing/building this update. The user's original ProjectSettings and player data remain preserved. Build/package/native verification will be recorded here after completion.
+
+The initial worktree import rewrote settings with equivalent normalized contents and triggered the clean-source build guard; index normalization produced no staged setting changes. Historical primary-checkout QA files and the original source were restored from HEAD after the verified source was committed in the managed worktree. The primary checkout's locked index can still show stale modification flags despite empty content diffs. Its user ProjectSettings hash remains A8C1FEDDDF182D07C33D8F5162907A0E99DD81F06D1D1995ABDB82EFE963FE89.
+
+## Excluded native runs and fixture corrections
+
+1. First native attempt started the opt-in fixture in Bootstrap before the game scene existed and threw a null-reference exception. A bounded scene-readiness wait was added to the fixture.
+2. The next attempt reported passed=True but had only 40 label observations. Visual inspection found pause screens caused by focus/cursor state; this run is explicitly rejected as acceptance evidence. The fixture now rejects pause/noncombat states and checks the exact expected visible-label count per sample. Native automated rendering uses batch mode to avoid focus-driven pause and is not classified as OS interaction.
+3. The strict fixture initially failed compilation because its GameState namespace import was missing; this was corrected. No failed package was published. Only the final package and its successful full-coverage native run may qualify for release.
+
+Samples wait 0.16 seconds after explicit target movement; they do not certify every sub-frame transition or human comprehension. The production direction-text update cadence is unchanged.
+
+## Accepted final package
+
+- Product commit a4c06864fb8a52b40b19f126627678052967118c on codex/threat-direction. Clean nondevelopment Unity 6000.5.10f1 Windows build. ZIP 89,617,094 bytes; all 222 archive entries matched the build files individually. SHA256 88a70b9cd95cffe8c3d7a990ec3dce0b26880ce40aa2c29d8709afd7fba09a75.
+- Extracted final ZIP, Direct3D12 / RTX 3070, opt-in batch render fixture: passed=True, 144 images, 206 observed labels, 0 opposite-half samples. Exact expected label counts and active/unpaused combat were asserted at every sample. Native 800px rear-crossing, 800px four-target and 1280px four-target images were visually inspected; all displayed actual gameplay and correct-side labels, unlike the excluded paused run. See Native/trace.csv and Native/runtime.txt.
+- Separate ordinary 1280x720 launch, without proof or batch flags: actual OS mouse selected Hard, destroyed three tutorial targets, entered combat, and observed natural threat warnings and damage. Ordinary/ sequence records this smoke test. No natural victory completion or HMD acceptance is claimed.
+- Player records and non-session preferences restored after both final runs; native-preservation.json and ordinary-preservation.json retained. No audio work or Drive update was performed here.

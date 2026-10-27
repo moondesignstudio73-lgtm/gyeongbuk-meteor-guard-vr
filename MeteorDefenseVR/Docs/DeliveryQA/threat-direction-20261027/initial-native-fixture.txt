@@ -1,0 +1,5 @@
+passed=False
+GPU=NVIDIA GeForce RTX 3070 / Direct3D12
+System.NullReferenceException: Object reference not set to an instance of an object
+  at MeteorDefenseVR.PcInput.ThreatDirectionProof+<Run>d__1.MoveNext () [0x00036] in <097d2f67b4f449eb8aa0c7bc35010f44>:0
+  at MeteorDefenseVR.PcInput.PresentationReviewPlayerQa+<Start>d__2.MoveNext () [0x000d8] in <097d2f67b4f449eb8aa0c7bc35010f44>:0
