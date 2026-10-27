@@ -1,0 +1,30 @@
+QA-only standalone harness. Synthetic InputSystem mouse, not OS/human/HMD input. Explicit result state fixtures; no Button.onClick.Invoke, ExecuteEvents, Choose or ChooseFromResult calls.
+standalone required=True
+InputSystemUIInputModule active=True
+only authored start and result buttons opt in to immediate clicks=True
+result remains visible beyond old eight-second deadline without timer cancellation=True
+hit-test Menu at (505.22, 239.76), top=Menu, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle0 pointer release after reading age=9.0947s=True
+cycle0 actual IPointer down/up/click once=True
+cycle0 one result exit=True
+cycle0 requested destination=True
+cycle0 no duplicate exit after release=True
+result remains visible beyond old eight-second deadline without timer cancellation=True
+hit-test Replay at (294.78, 239.76), top=Replay, blocked=False=True
+InputSystem consumed mouse down=True
+InputSystem consumed mouse up=True
+cycle1 pointer release after reading age=9.0877s=True
+cycle1 actual IPointer down/up/click once=True
+cycle1 one result exit=True
+cycle1 requested destination=True
+cycle1 no duplicate exit after release=True
+replay clears old score and actions=True
+replay transition=Launch
+replay transition=Countdown
+pointer replay progresses to actual combat=False
+pointer replay has one launch/countdown/playing transition=False
+replay combat input is unblocked=False
+pointer replay accepts synthetic relative aim and actual weapon hit=False
+replay remains single action through combat=True
