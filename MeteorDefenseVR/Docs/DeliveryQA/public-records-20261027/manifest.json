@@ -38,5 +38,60 @@
     "file": "wide-replay-combat.jpg",
     "bytes": 40039,
     "sha256": "0e927d281c17c1357bf3ce26ff3646eb545b435004d41b9e5ff54935c7f8650e"
+  },
+  {
+    "file": "empty-recent.jpg",
+    "bytes": 74570,
+    "sha256": "b35055f87829f9119956d4429377f37a01d8e4644eba98eab49cc4c1f1c155c3"
+  },
+  {
+    "file": "empty-top.jpg",
+    "bytes": 72458,
+    "sha256": "c97ab034827084ebc927279ed1f73902d6b5164dba00a03b74ba3f6d25b128db"
+  },
+  {
+    "file": "empty-hidden-page-no-action.jpg",
+    "bytes": 72414,
+    "sha256": "9e1c92245b781e7eb853474bde73648f35208c4c11c7e7a7eb606011162795f8"
+  },
+  {
+    "file": "empty-best.jpg",
+    "bytes": 73735,
+    "sha256": "60943af1a72c995c5c189db3d17e3dcd71cc67af241dd7f0dc668505ccc1098a"
+  },
+  {
+    "file": "empty-reentry.jpg",
+    "bytes": 74668,
+    "sha256": "a59bddd8ed773b0a06496cfc26e4d85a528a8eef954b9b76e5b95dc4ab50c2ea"
+  },
+  {
+    "file": "requested-wide-capture-limited.jpg",
+    "bytes": 179518,
+    "sha256": "ee54021e4089779eaf62bb55afbbc38ada1153543bb3dde9e915e9b6e9165c2b"
+  },
+  {
+    "file": "roundtrip-01-first.jpg",
+    "bytes": 80092,
+    "sha256": "b23da0b4b3c6b773dfe5a7abf94a3d0baf714ee5fdce4a0d64ef15aa159e93cb"
+  },
+  {
+    "file": "roundtrip-02-last.jpg",
+    "bytes": 80555,
+    "sha256": "62faa8ecb88c0ec80096ecf2b33ef1684e0129b257e963b0507b7395d6b1ebc0"
+  },
+  {
+    "file": "roundtrip-03-outside.jpg",
+    "bytes": 80469,
+    "sha256": "b50ae1a2b1593edceada2c2817069159d326ce74f44700d289c27e96a5595766"
+  },
+  {
+    "file": "roundtrip-04-return-first.jpg",
+    "bytes": 80176,
+    "sha256": "2ccd10bf42de3314e9a7943fa14572f36acc3a921b7867a910e82ab72c03041f"
+  },
+  {
+    "file": "roundtrip-05-back-menu.jpg",
+    "bytes": 78306,
+    "sha256": "f73aedf7fd5b62295223b8dd01c029ad37d0f9d8f2d282133912fb519bfbce85"
   }
 ]

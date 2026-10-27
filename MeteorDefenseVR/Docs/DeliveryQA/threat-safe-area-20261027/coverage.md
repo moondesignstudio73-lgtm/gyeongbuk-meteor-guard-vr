@@ -2,7 +2,7 @@
 
 This updates only the threat-direction gap from [the previous whole-UI coverage map](../integrated-ui-20261027/coverage.md). All other rows retain their stated source and limitations; they are not new00b1fd6 acceptance.
 
-Subsequent [ordinary public-player records review](../public-records-20261027/verification.md) adds agent OS observations of populated boundary records at 800x600, a maximized window and a short 2.37:1 client, plus Back/reentry/Replay. No new product defect was reproduced. Exact 2560x1080 records and empty/disabled states remain unverified in the current public executable. Fixed-side threat slots still need direction-intuition review when a target crosses to the opposite side.
+Subsequent [ordinary public-player records review](../public-records-20261027/verification.md) adds agent OS observations of populated boundary records at 800x600, a maximized window and a short 2.37:1 client, plus Back/reentry/Replay. Follow-up at 800x600 covers all three empty tabs, hidden/non-responsive pagination, Back/reentry, and populated 1–5 → 6–10 → pointer outside → 1–5 navigation. No new product defect was reproduced. Exact 2560x1080 records remain unverified: the attempted native-size launch exceeded the visible 1920x1080 capture, and was not accepted via a smaller ratio substitute. Fixed-side threat slots still need direction-intuition review when a target crosses to the opposite side.
 
 | Area | New coverage | Remaining limits |
 |---|---|---|
