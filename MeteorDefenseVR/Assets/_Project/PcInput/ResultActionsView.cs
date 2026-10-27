@@ -20,6 +20,7 @@ namespace MeteorDefenseVR.PcInput
         private WorldTextPresentation legacySummary;
         private Renderer[] legacyFrame;
         private TextMeshPro title,score,metrics,accuracy,rank,feedback,difficulty;
+        private static readonly Color SecondaryText = new Color32(190,207,222,255);
         public HangarMenuButton Replay { get; private set; }
         public HangarMenuButton Menu { get; private set; }
         public bool Visible => root != null && root.activeSelf;
@@ -32,8 +33,8 @@ namespace MeteorDefenseVR.PcInput
             var plate=HangarLobbyView.Image("ResultSummaryPlate",root.transform,Vector2.zero,new Vector2(1050,660),FlightUiTheme.Ink);
             FlightUiTheme.Plate(plate);
             title=SummaryLabel("ResultHeading","이번 임무의 기록",new Vector2(0,270),new Vector2(950,65),560,font);
-            difficulty=SummaryLabel("ResultDifficulty","",new Vector2(0,210),new Vector2(950,45),360,font);difficulty.color=FlightUiTheme.Muted;
-            SummaryLabel("ScoreCaption","점수",new Vector2(0,153),new Vector2(950,45),360,font).color=FlightUiTheme.Muted;
+            difficulty=SummaryLabel("ResultDifficulty","",new Vector2(0,210),new Vector2(950,45),360,font);difficulty.color=SecondaryText;
+            SummaryLabel("ScoreCaption","점수",new Vector2(0,153),new Vector2(950,45),360,font).color=SecondaryText;
             score=SummaryLabel("ResultScore","0",new Vector2(0,90),new Vector2(950,100),660,font);
             metrics=SummaryLabel("ResultMetrics","",new Vector2(-320,-15),new Vector2(300,110),400,font);
             accuracy=SummaryLabel("ResultAccuracy","",new Vector2(0,-15),new Vector2(300,110),400,font);
@@ -46,6 +47,8 @@ namespace MeteorDefenseVR.PcInput
             foreach(var label in Replay.GetComponentsInChildren<TextMeshPro>())label.fontSize=360;
             foreach(var label in Menu.GetComponentsInChildren<TextMeshPro>())label.fontSize=360;
             Replay.AllowImmediateClick=Menu.AllowImmediateClick=true;
+            foreach(var action in new[]{Replay,Menu})
+                action.SetOutlineColors(new Color32(117,163,183,255),FlightUiTheme.Accent);
             // Result actions also accept the UI input module pointer path, not only world gaze.
             Replay.GetComponent<UnityEngine.UI.Image>().raycastTarget=true;
             Menu.GetComponent<UnityEngine.UI.Image>().raycastTarget=true;

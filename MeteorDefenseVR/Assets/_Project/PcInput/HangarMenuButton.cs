@@ -12,10 +12,16 @@ namespace MeteorDefenseVR.PcInput
         private UnityEngine.UI.Button button;
         private Action action;
         private bool consumed;
+        private Color idleOutline = new Color(.1f,.4f,.5f,.8f);
+        private Color focusedOutline = HangarLobbyView.Cyan;
         private readonly GazeMenuSelectionGate selectionGate = new GazeMenuSelectionGate();
         private void OnEnable() => selectionGate.OpenScreen();
         public float Progress { get; private set; }
         public bool AllowImmediateClick { get; set; }
+        public void SetOutlineColors(Color idle, Color focused)
+        {
+            idleOutline = idle; focusedOutline = focused; Focus(false);
+        }
         public void Configure(UIInteractionAnimator animator, CalibrationProgressRing progress,
             UnityEngine.UI.Image outline, Action selected)
         {
@@ -47,7 +53,7 @@ namespace MeteorDefenseVR.PcInput
         private void Focus(bool value)
         {
             feedback?.SetGaze(value, Progress);
-            if (border != null) border.color = value ? HangarLobbyView.Cyan : new Color(.1f,.4f,.5f,.8f);
+            if (border != null) border.color = value ? focusedOutline : idleOutline;
             if (ring != null) ring.PresentTinted(Progress, consumed ? new Color(.4f,1,.75f) : HangarLobbyView.Cyan, HangarLobbyView.Cyan);
         }
         private void OnDisable() => OnGazeExit();

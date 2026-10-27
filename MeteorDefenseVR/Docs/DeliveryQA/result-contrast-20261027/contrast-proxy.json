@@ -1,0 +1,191 @@
+{
+  "method": "sRGB relative luminance ROI p99/p10 proxy; not formal WCAG certification",
+  "rois": {
+    "800x600": {
+      "difficulty": [
+        350,
+        135,
+        451,
+        152
+      ],
+      "label": [
+        251,
+        351,
+        325,
+        371
+      ],
+      "border": [
+        205,
+        342,
+        375,
+        346
+      ]
+    },
+    "1280x720": {
+      "difficulty": [
+        570,
+        120,
+        710,
+        146
+      ],
+      "label": [
+        430,
+        434,
+        530,
+        462
+      ],
+      "border": [
+        356,
+        421,
+        590,
+        425
+      ]
+    }
+  },
+  "results": [
+    {
+      "image": "Before\\800x600\\scene-normal\\stability-game-render.png",
+      "difficulty": 4.513,
+      "label": 8.663,
+      "border": 1.336
+    },
+    {
+      "image": "Before\\800x600\\scene-gaze\\stability-game-render.png",
+      "difficulty": 4.513,
+      "label": 5.35,
+      "border": 9.68
+    },
+    {
+      "image": "Before\\800x600\\scene-disabled\\stability-game-render.png",
+      "difficulty": 4.513,
+      "label": 8.275,
+      "border": 1.336
+    },
+    {
+      "image": "Before\\800x600\\bright-normal\\stability-game-render.png",
+      "difficulty": 4.5,
+      "label": 8.663,
+      "border": 1.328
+    },
+    {
+      "image": "Before\\800x600\\bright-gaze\\stability-game-render.png",
+      "difficulty": 4.5,
+      "label": 5.35,
+      "border": 9.622
+    },
+    {
+      "image": "Before\\800x600\\bright-disabled\\stability-game-render.png",
+      "difficulty": 4.5,
+      "label": 8.275,
+      "border": 1.33
+    },
+    {
+      "image": "Before\\1280x720\\scene-normal\\stability-game-render.png",
+      "difficulty": 4.984,
+      "label": 9.272,
+      "border": 1.336
+    },
+    {
+      "image": "Before\\1280x720\\scene-gaze\\stability-game-render.png",
+      "difficulty": 4.984,
+      "label": 5.423,
+      "border": 9.68
+    },
+    {
+      "image": "Before\\1280x720\\scene-disabled\\stability-game-render.png",
+      "difficulty": 4.984,
+      "label": 8.835,
+      "border": 1.336
+    },
+    {
+      "image": "Before\\1280x720\\bright-normal\\stability-game-render.png",
+      "difficulty": 4.956,
+      "label": 9.272,
+      "border": 1.335
+    },
+    {
+      "image": "Before\\1280x720\\bright-gaze\\stability-game-render.png",
+      "difficulty": 4.956,
+      "label": 5.423,
+      "border": 9.667
+    },
+    {
+      "image": "Before\\1280x720\\bright-disabled\\stability-game-render.png",
+      "difficulty": 4.956,
+      "label": 8.835,
+      "border": 1.335
+    },
+    {
+      "image": "After\\800x600\\scene-normal\\stability-game-render.png",
+      "difficulty": 6.676,
+      "label": 8.663,
+      "border": 5.918
+    },
+    {
+      "image": "After\\800x600\\scene-gaze\\stability-game-render.png",
+      "difficulty": 6.676,
+      "label": 5.35,
+      "border": 9.68
+    },
+    {
+      "image": "After\\800x600\\scene-disabled\\stability-game-render.png",
+      "difficulty": 6.676,
+      "label": 8.275,
+      "border": 5.918
+    },
+    {
+      "image": "After\\800x600\\bright-normal\\stability-game-render.png",
+      "difficulty": 6.65,
+      "label": 8.663,
+      "border": 5.883
+    },
+    {
+      "image": "After\\800x600\\bright-gaze\\stability-game-render.png",
+      "difficulty": 6.65,
+      "label": 5.35,
+      "border": 9.622
+    },
+    {
+      "image": "After\\800x600\\bright-disabled\\stability-game-render.png",
+      "difficulty": 6.65,
+      "label": 8.275,
+      "border": 5.883
+    },
+    {
+      "image": "After\\1280x720\\scene-normal\\stability-game-render.png",
+      "difficulty": 7.308,
+      "label": 9.272,
+      "border": 5.918
+    },
+    {
+      "image": "After\\1280x720\\scene-gaze\\stability-game-render.png",
+      "difficulty": 7.308,
+      "label": 5.423,
+      "border": 9.68
+    },
+    {
+      "image": "After\\1280x720\\scene-disabled\\stability-game-render.png",
+      "difficulty": 7.308,
+      "label": 8.835,
+      "border": 5.918
+    },
+    {
+      "image": "After\\1280x720\\bright-normal\\stability-game-render.png",
+      "difficulty": 7.267,
+      "label": 9.272,
+      "border": 5.91
+    },
+    {
+      "image": "After\\1280x720\\bright-gaze\\stability-game-render.png",
+      "difficulty": 7.267,
+      "label": 5.423,
+      "border": 9.667
+    },
+    {
+      "image": "After\\1280x720\\bright-disabled\\stability-game-render.png",
+      "difficulty": 7.267,
+      "label": 8.835,
+      "border": 5.91
+    }
+  ]
+}
