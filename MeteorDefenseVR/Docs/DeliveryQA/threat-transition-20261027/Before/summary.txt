@@ -1,0 +1,4 @@
+Controlled pooled targets, consecutive render callbacks, controlled per-frame target movement. Not natural OS/HMD gameplay or human comprehension.
+Observed labels=448
+Opposite horizontal half samples=0
+Violations=220

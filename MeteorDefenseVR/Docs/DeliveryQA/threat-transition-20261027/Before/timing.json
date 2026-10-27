@@ -1,0 +1,74 @@
+{
+  "800x600/rear-reversal": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "minSeconds": 0.007750000000001478,
+    "maxSeconds": 0.05484999999999829,
+    "under100ms": 31
+  },
+  "800x600/centre-jitter": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "minSeconds": 0.010839999999998184,
+    "maxSeconds": 0.03827000000000069,
+    "under100ms": 31
+  },
+  "800x600/direction-switch": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "minSeconds": 0.010889999999999844,
+    "maxSeconds": 0.03622000000000014,
+    "under100ms": 31
+  },
+  "800x600/crowded": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "minSeconds": 0.008899999999997021,
+    "maxSeconds": 0.0410599999999981,
+    "under100ms": 31
+  },
+  "1280x720/rear-reversal": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "minSeconds": 0.005790000000001072,
+    "maxSeconds": 0.0740400000000001,
+    "under100ms": 31
+  },
+  "1280x720/centre-jitter": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "minSeconds": 0.010850000000001359,
+    "maxSeconds": 0.057159999999999656,
+    "under100ms": 31
+  },
+  "1280x720/direction-switch": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "minSeconds": 0.010849999999997806,
+    "maxSeconds": 0.05684000000000111,
+    "under100ms": 31
+  },
+  "1280x720/crowded": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "minSeconds": 0.010859999999997427,
+    "maxSeconds": 0.06024000000000029,
+    "under100ms": 31
+  }
+}

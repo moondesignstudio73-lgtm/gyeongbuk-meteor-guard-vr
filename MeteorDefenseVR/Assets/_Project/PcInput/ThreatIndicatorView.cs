@@ -51,6 +51,7 @@ namespace MeteorDefenseVR.PcInput
         private readonly MeteorController[] candidates = new MeteorController[5], textTargets = new MeteorController[5];
         private readonly float[] arrival = new float[5], distances = new float[5];
         private readonly TextMeshProUGUI[] labels = new TextMeshProUGUI[5];
+        private readonly string[] labelDirections = new string[5];
         private RectTransform root;
         private DifficultyManager difficulty;
         private GameFlowManager flow;
@@ -160,7 +161,9 @@ namespace MeteorDefenseVR.PcInput
                 float urgency = Mathf.Clamp01(1f-arrival[i]/Mathf.Max(1f,difficulty.Session.WarningHorizon));
                 float pulse = .5f+.5f*Mathf.Sin(Time.unscaledTime*Mathf.Lerp(4f,9f,urgency)+i*.8f);
                 text.rectTransform.localScale = Vector3.one * (1f + (meteor == audioThreat ? pulse * urgency * .12f : 0f));
-                if (updateText || textTargets[i] != meteor) { textTargets[i] = meteor; text.text = (difficulty.Session.WarningDirectionText ? ThreatProjection.Direction(local) : ThreatProjection.Arrow(local)) +
+                string direction = difficulty.Session.WarningDirectionText ? ThreatProjection.Direction(local) : ThreatProjection.Arrow(local);
+                // Placement and direction must agree on this rendered frame; distance can retain its regular refresh cadence.
+                if (updateText || textTargets[i] != meteor || labelDirections[i] != direction) { textTargets[i] = meteor; labelDirections[i] = direction; text.text = direction +
                     (difficulty.Session.WarningDistance ? "\n" + Mathf.RoundToInt(distance) + "m" : ""); }
             }
             TickImpactPresentation();
