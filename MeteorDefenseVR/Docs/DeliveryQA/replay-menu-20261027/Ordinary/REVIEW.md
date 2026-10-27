@@ -1,0 +1,7 @@
+# Ordinary OS-input follow-up — blocked observation, 2026-10-27
+
+Attempted the unchanged public ReplayMenu package (product 372a75f438e40f5832ffc05bf14cc6f6943ca7f3, release 425289603, SHA256 147a191a65a30af5f9ea627b56fd06a96c94aa88b13cc72ee2576c0a4856d6b9). The launch wrapper verifies this hash and starts the extracted executable at 1280x720 with mouse gaze, webcam disabled, and without batch/presentation-fixture flags.
+
+The intended narrow check was ordinary result-to-replay input and base-menu settings open/close. At the initial menu observation an unrelated application's crash dialog already covered the right side and lower controls. The game was selected and activated, but the external window remained above it. No game input was sent after this observation. No result/replay/settings interaction is claimed for this attempt, and the prior controlled-render pass is not substituted for ordinary input evidence.
+
+Stopped only the launched game process after verifying its executable path. Original records and non-session preferences were restored and verified (preservation.json). The external application was not modified. The occluded screenshot and its local sequence are excluded from public evidence. No product defect was reproduced, source change made, build created, or release replaced. Original checkout/index lock and Suno approval remain untouched. HMD, listening and return-motion continuity remain unverified.
