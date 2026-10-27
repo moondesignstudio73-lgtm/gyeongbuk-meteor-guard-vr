@@ -20,3 +20,9 @@ The first diagnostic attempt timed out at the resolution switch because the fixt
 These are explicit pooled-target movements, not natural play, OS input, or HMD acceptance. Near the exact rear centre, the mathematically shorter turn can change rapidly; arrows now follow those real direction changes immediately while the label position stays stable. Human interpretation and HMD comfort remain unverified. Finite crowd fixtures do not certify all possible space-exhaustion configurations.
 
 Work continued only in the managed threat-direction worktree. The original checkout index lock was not touched. User records/settings preservation and Suno approval wait remain in force.
+
+## Extracted release verification
+
+Product commit: 527a889ae9fc13421fb74254270f01b94d9040b1. Clean non-development Windows build; 222 package entries individually hash-verified. ZIP SHA256: 8a9feb91a51e95958e7a9ea14bfe82789abe200740e0deb2ba65dcfc541e8ce8 (89,619,662 bytes).
+
+The extracted archive ran the opt-in fixture under Direct3D12 on RTX 3070: 256 consecutive frames / 448 labels, zero violations. Native timing records confirm consecutive frame IDs; screenshot capture can slow wall-clock intervals. The Editor baseline supplies sub-100ms reproduction evidence. Inspected native rear reversal, crowded, and above-direction frames. This release was not given a new ordinary OS-input or HMD playthrough; the previous release's ordinary gameplay check is not claimed as a new check. Records and non-session preferences were restored and verified.

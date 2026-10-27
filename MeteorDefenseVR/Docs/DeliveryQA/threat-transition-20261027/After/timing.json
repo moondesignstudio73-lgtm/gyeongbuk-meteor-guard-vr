@@ -1,0 +1,58 @@
+{
+  "800x600/rear-reversal": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "maxSeconds": 0.06302000000000163
+  },
+  "800x600/centre-jitter": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "maxSeconds": 0.03713000000000122
+  },
+  "800x600/direction-switch": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "maxSeconds": 0.037710000000000576
+  },
+  "800x600/crowded": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "maxSeconds": 0.03845000000000098
+  },
+  "1280x720/rear-reversal": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "maxSeconds": 0.06108000000000047
+  },
+  "1280x720/centre-jitter": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "maxSeconds": 0.0561899999999973
+  },
+  "1280x720/direction-switch": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "maxSeconds": 0.049399999999998556
+  },
+  "1280x720/crowded": {
+    "frames": 32,
+    "frameGaps": [
+      1
+    ],
+    "maxSeconds": 0.06379999999999697
+  }
+}

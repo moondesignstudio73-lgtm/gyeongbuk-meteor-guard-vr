@@ -1,0 +1,18 @@
+{
+  "zip": "C:\\Users\\aaa\\.codex\\worktrees\\threat-direction\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Sharing\\ThreatTransition20261027\\MeteorDefenseVR-Windows-ThreatTransition-20261027.zip",
+  "bytes": 89619662,
+  "sha256": "8a9feb91a51e95958e7a9ea14bfe82789abe200740e0deb2ba65dcfc541e8ce8",
+  "verifiedFiles": 222,
+  "buildDirectory": "C:\\Users\\aaa\\.codex\\worktrees\\threat-direction\\VR콘텐츠\\MeteorDefenseVR\\Builds\\Windows\\RC_0.2.0-rc.1_527a889",
+  "identity": {
+    "buildVersion": "0.2.0-rc.1",
+    "gitBranch": "codex/threat-direction",
+    "gitCommit": "527a889ae9fc13421fb74254270f01b94d9040b1",
+    "gitCommitShort": "527a889",
+    "buildTimeKST": "2026-10-27T17:13:30+09:00",
+    "unityVersion": "6000.5.10f1",
+    "scene": "Assets/_Project/Scenes/MeteorDefense.unity",
+    "developmentBuild": false,
+    "worktreeClean": true
+  }
+}

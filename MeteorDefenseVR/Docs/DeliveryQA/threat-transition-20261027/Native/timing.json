@@ -1,0 +1,58 @@
+[
+  {
+    "frames": 32,
+    "sequence": "1280x720, centre-jitter",
+    "frameGaps": [
+      1
+    ]
+  },
+  {
+    "frames": 32,
+    "sequence": "1280x720, crowded",
+    "frameGaps": [
+      1
+    ]
+  },
+  {
+    "frames": 32,
+    "sequence": "1280x720, direction-switch",
+    "frameGaps": [
+      1
+    ]
+  },
+  {
+    "frames": 32,
+    "sequence": "1280x720, rear-reversal",
+    "frameGaps": [
+      1
+    ]
+  },
+  {
+    "frames": 32,
+    "sequence": "800x600, centre-jitter",
+    "frameGaps": [
+      1
+    ]
+  },
+  {
+    "frames": 32,
+    "sequence": "800x600, crowded",
+    "frameGaps": [
+      1
+    ]
+  },
+  {
+    "frames": 32,
+    "sequence": "800x600, direction-switch",
+    "frameGaps": [
+      1
+    ]
+  },
+  {
+    "frames": 32,
+    "sequence": "800x600, rear-reversal",
+    "frameGaps": [
+      1
+    ]
+  }
+]
