@@ -1,0 +1,4 @@
+Editor controlled player-camera sequence on product 372a75f. Fixed 1/60 game-time step, static target transform, injected valid gaze ray; production raycast, lock, turret aiming, auto-fire, damage, VFX. Not OS/HMD/human comprehension or current packaged execution.
+Normal: authoredHP=1; sessionHealthMultiplier=1; testedHP=1; damage=1; size=1.2; distance=12; shots=1; hits=1; deaths=1; hitVfx=1; explosionVfx=1; lockedRenderFrames=1; renderFrames=101; savedImages=34; cameraShift=0; cameraTurn=0; turretHidden=True
+Large: authoredHP=2; sessionHealthMultiplier=1; testedHP=2; damage=1; size=1.6; distance=12; shots=2; hits=2; deaths=1; hitVfx=2; explosionVfx=1; lockedRenderFrames=2; renderFrames=141; savedImages=56; cameraShift=0; cameraTurn=0; turretHidden=True
+Sequence assertions passed. Visual review and novice interpretation are separate.

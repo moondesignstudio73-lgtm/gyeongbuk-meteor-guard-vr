@@ -1,0 +1,489 @@
+{
+  "productCommit": "372a75f438e40f5832ffc05bf14cc6f6943ca7f3",
+  "evidenceKind": "Editor D3D11 controlled player-camera sequence; not published executable or OS/HMD/human comprehension",
+  "savedImages": 90,
+  "renderedFrames": 242,
+  "fixedGameStep": 0.016666667,
+  "files": [
+    {
+      "path": "Editor/summary.txt",
+      "bytes": 850,
+      "sha256": "e682f44093cb53704893f53b9c7b1300e36e208e4a9ee55d922791dc87427741"
+    },
+    {
+      "path": "Editor/Large/events-and-frames.csv",
+      "bytes": 12927,
+      "sha256": "4c595b5e57b26fa7e246145591eab779641443d8cbd8d71c1e4ab35f973cf263"
+    },
+    {
+      "path": "Editor/Large/images.txt",
+      "bytes": 784,
+      "sha256": "06cf6a726649e0f09a029fac6f5207f8fed9469889b8c85c0d1ab970f18e674a"
+    },
+    {
+      "path": "Editor/Large/frame-000714/stability-game-render.png",
+      "bytes": 413075,
+      "sha256": "a0093d8784a9051f459f0aebfeebc7d47b0315289cfa9d3cde9180863ddb28de"
+    },
+    {
+      "path": "Editor/Large/frame-000715/stability-game-render.png",
+      "bytes": 413061,
+      "sha256": "2d5b5e3579faa346f30955907ba50c6f5c890fb73073d7b8d0ce4ce54ceedc90"
+    },
+    {
+      "path": "Editor/Large/frame-000720/stability-game-render.png",
+      "bytes": 414024,
+      "sha256": "b21ac3ee5601da0bab8dd008e2d86dca466fd772228786f4015639762c4dfa7a"
+    },
+    {
+      "path": "Editor/Large/frame-000726/stability-game-render.png",
+      "bytes": 414127,
+      "sha256": "055f9d8ad1e7ce47e53145f664ccaec8bf21a891f107de8322c698e92eb729ba"
+    },
+    {
+      "path": "Editor/Large/frame-000732/stability-game-render.png",
+      "bytes": 413957,
+      "sha256": "42f5f40fa6f727fb765a838ed8d64b29a282d594b8f258e861e062b87e2fbbaf"
+    },
+    {
+      "path": "Editor/Large/frame-000738/stability-game-render.png",
+      "bytes": 413864,
+      "sha256": "e2c91d7ac8942bee4da96b3f7d19e31f25631842641319ee67baf82699240afa"
+    },
+    {
+      "path": "Editor/Large/frame-000744/stability-game-render.png",
+      "bytes": 414068,
+      "sha256": "963b049a8c53f5a1369326ca86c1ab9a100263a5a74f7ee5a67997aa6b97c9e4"
+    },
+    {
+      "path": "Editor/Large/frame-000747/stability-game-render.png",
+      "bytes": 414112,
+      "sha256": "68eee4141c1e5a4c0218673aa925a4f70c3d6744c6524ecc74236679ca746efe"
+    },
+    {
+      "path": "Editor/Large/frame-000748/stability-game-render.png",
+      "bytes": 413858,
+      "sha256": "90f85e056c1bbd71a4f219f8cff34f133a429d8cc366a31b7916fc12ae07c2c7"
+    },
+    {
+      "path": "Editor/Large/frame-000749/stability-game-render.png",
+      "bytes": 413832,
+      "sha256": "fe343136af823c5071c3677e440ef29583d9ceed0d29719a32b0b10c6b443e4c"
+    },
+    {
+      "path": "Editor/Large/frame-000750/stability-game-render.png",
+      "bytes": 413888,
+      "sha256": "e8f4116d9a66cd9d673e98619d448789e446d636ce51fb6a43ed06333ab7d759"
+    },
+    {
+      "path": "Editor/Large/frame-000751/stability-game-render.png",
+      "bytes": 413723,
+      "sha256": "4db874fc6c0d4104676d4fb8a2cfa933d7533887b7757942669cca0056b99a87"
+    },
+    {
+      "path": "Editor/Large/frame-000752/stability-game-render.png",
+      "bytes": 414051,
+      "sha256": "f794ee861fc337894cb0a352137ba8ffdbbe01b74f8a6838c4a36fafd16a4526"
+    },
+    {
+      "path": "Editor/Large/frame-000753/stability-game-render.png",
+      "bytes": 414015,
+      "sha256": "72072c267df7fba0e32369d3f82e35828e765df0af7a4f9d39a0e6f917431216"
+    },
+    {
+      "path": "Editor/Large/frame-000754/stability-game-render.png",
+      "bytes": 413807,
+      "sha256": "3a932ee86288e77711153ac4a20b41c271a5e7072e88fcbc819113abbc7a06b8"
+    },
+    {
+      "path": "Editor/Large/frame-000755/stability-game-render.png",
+      "bytes": 415055,
+      "sha256": "53a40f4efa306bb84ce239e477539bd15f92b7fca42fd1b45e04482f54741885"
+    },
+    {
+      "path": "Editor/Large/frame-000756/stability-game-render.png",
+      "bytes": 414907,
+      "sha256": "74676772961489354317db1f02dee7870ce0f5f418090547f643fd599129c041"
+    },
+    {
+      "path": "Editor/Large/frame-000757/stability-game-render.png",
+      "bytes": 414653,
+      "sha256": "d2858affee368287a7daee9ce7fd911ebd083611b40e96c2ed26c44108d35ae0"
+    },
+    {
+      "path": "Editor/Large/frame-000758/stability-game-render.png",
+      "bytes": 413457,
+      "sha256": "e5c7b747f6f8d1afef59922697fd01de08429d260e1dce4a3df57f26287e6bbd"
+    },
+    {
+      "path": "Editor/Large/frame-000759/stability-game-render.png",
+      "bytes": 413178,
+      "sha256": "b2867dc6ebcd625cb503722d9b6477e62696e5d332402fb2925b6975890424e1"
+    },
+    {
+      "path": "Editor/Large/frame-000760/stability-game-render.png",
+      "bytes": 412524,
+      "sha256": "7b8b0567881e96b19a12d6ac8c3f14fc92dccf88c53276b042e72992f6417633"
+    },
+    {
+      "path": "Editor/Large/frame-000761/stability-game-render.png",
+      "bytes": 410871,
+      "sha256": "e6ad2890a6fd7723182abbf0ebd61110e57202577a3abbe84926b79581f2f93b"
+    },
+    {
+      "path": "Editor/Large/frame-000762/stability-game-render.png",
+      "bytes": 410318,
+      "sha256": "f326731418343d09b5ea7728ac3e1fc501ba40200235baf28d171fb5dd4a8f6f"
+    },
+    {
+      "path": "Editor/Large/frame-000763/stability-game-render.png",
+      "bytes": 406921,
+      "sha256": "db80a24f39301ad2e0fb614ec4c78643e560bac1978639b9794b23e184b5403e"
+    },
+    {
+      "path": "Editor/Large/frame-000764/stability-game-render.png",
+      "bytes": 405373,
+      "sha256": "0a1ee0e66f89010e9f6155fb2476530dceb0dd42bf6a4c71d2c720f480408428"
+    },
+    {
+      "path": "Editor/Large/frame-000765/stability-game-render.png",
+      "bytes": 403161,
+      "sha256": "14dee195e176c324714c6eb920b6597c812caf74cbef8a9c760ddf02e78822db"
+    },
+    {
+      "path": "Editor/Large/frame-000768/stability-game-render.png",
+      "bytes": 416811,
+      "sha256": "1ba2b202ec50ddca526a5b2b8b0f4d2df9f8e736d065b2f61c2764453f2397c6"
+    },
+    {
+      "path": "Editor/Large/frame-000774/stability-game-render.png",
+      "bytes": 415990,
+      "sha256": "827166fc91f4a65e8b4e4d5fd90a35432ca943805e1754522a1505d9d7ca6b25"
+    },
+    {
+      "path": "Editor/Large/frame-000780/stability-game-render.png",
+      "bytes": 416086,
+      "sha256": "5b1dceb787a6387dc8ad542a0408fa9e80bb5e2aff730391ba1d41819909fc1b"
+    },
+    {
+      "path": "Editor/Large/frame-000786/stability-game-render.png",
+      "bytes": 415998,
+      "sha256": "a64ad0d941f57d902cb35b16fbed6dd5d907b7c1243a3903e2d02101c799fef0"
+    },
+    {
+      "path": "Editor/Large/frame-000787/stability-game-render.png",
+      "bytes": 416132,
+      "sha256": "cfb3af1e5f83d0863c53c344393387af01717db52eb796831108e226adfbbd88"
+    },
+    {
+      "path": "Editor/Large/frame-000788/stability-game-render.png",
+      "bytes": 415951,
+      "sha256": "6978fd0d65b0acc169e06e02b46a85e0f9f020cdf0252a71c15bc8a5d726bf22"
+    },
+    {
+      "path": "Editor/Large/frame-000789/stability-game-render.png",
+      "bytes": 415674,
+      "sha256": "287f856f60b938344805b1536b8882b3b5ab94a233354554c1417563ad347e9d"
+    },
+    {
+      "path": "Editor/Large/frame-000790/stability-game-render.png",
+      "bytes": 415851,
+      "sha256": "bd2c5c4360e2a54bad243848c61d54dfc73592b7eb43ec113c57e63df14bdafd"
+    },
+    {
+      "path": "Editor/Large/frame-000791/stability-game-render.png",
+      "bytes": 415771,
+      "sha256": "a26237a0d6389962b0a3f2b603b1c80b7ac3aa9a33a6c54e68c91c5c2095da10"
+    },
+    {
+      "path": "Editor/Large/frame-000792/stability-game-render.png",
+      "bytes": 415597,
+      "sha256": "506561691325d067fcd726233a2999ae45f26656f76821953e2e6f0485143a4b"
+    },
+    {
+      "path": "Editor/Large/frame-000793/stability-game-render.png",
+      "bytes": 415388,
+      "sha256": "c88205befe99aabec2d684fda1cb47c748a0d524cb1eeb459d0236e113cbfb8e"
+    },
+    {
+      "path": "Editor/Large/frame-000794/stability-game-render.png",
+      "bytes": 406241,
+      "sha256": "6dd9d28eed456924bd74fd52183049c629c3448a3b98431a59e9cab20c16c644"
+    },
+    {
+      "path": "Editor/Large/frame-000795/stability-game-render.png",
+      "bytes": 405762,
+      "sha256": "df0ece4c0765849751608f94bd5d25733b729c9dc4f62a43592a2f014fa6484d"
+    },
+    {
+      "path": "Editor/Large/frame-000796/stability-game-render.png",
+      "bytes": 406418,
+      "sha256": "4f00f4134c73301564879585f17cdce4525bcf9210d22aceed6ffced9daf9b95"
+    },
+    {
+      "path": "Editor/Large/frame-000797/stability-game-render.png",
+      "bytes": 406517,
+      "sha256": "1278678f6e7744efcd8d50202a0200fc12e5e40b4ec2bc898fdd3ad8ec2b762f"
+    },
+    {
+      "path": "Editor/Large/frame-000798/stability-game-render.png",
+      "bytes": 406029,
+      "sha256": "6297a6b9e7de46f14c367ced9151e4b71fb30bb0904ba27e2474e02bf829e2ab"
+    },
+    {
+      "path": "Editor/Large/frame-000799/stability-game-render.png",
+      "bytes": 407610,
+      "sha256": "d83e8f9c093f97c9b12bee40d71ff05aadfedd1b5c571e72e01038fe4ba1161e"
+    },
+    {
+      "path": "Editor/Large/frame-000800/stability-game-render.png",
+      "bytes": 408453,
+      "sha256": "73268c6f0c64a4c44e96bad995cc31160b0300f6d963cfc77b7e2db29d744e73"
+    },
+    {
+      "path": "Editor/Large/frame-000801/stability-game-render.png",
+      "bytes": 411764,
+      "sha256": "96bd120c25c0623ba3d71f11987464288c0ea9399707e13887c80b8aaa353372"
+    },
+    {
+      "path": "Editor/Large/frame-000802/stability-game-render.png",
+      "bytes": 416622,
+      "sha256": "ea68c6abb61c35b5abcfac9286d955c74ea471052ed54672d42f2205cdc07c1b"
+    },
+    {
+      "path": "Editor/Large/frame-000803/stability-game-render.png",
+      "bytes": 413653,
+      "sha256": "3f7e912f0054d834e7ef0b3250d92016de3a7d31ba477b82eb005dd2658a95a8"
+    },
+    {
+      "path": "Editor/Large/frame-000804/stability-game-render.png",
+      "bytes": 418586,
+      "sha256": "581012bb765cef6e60a5e0ecc29c4c314d2fd5a973daae37f0e2ceb13f42c5eb"
+    },
+    {
+      "path": "Editor/Large/frame-000810/stability-game-render.png",
+      "bytes": 426372,
+      "sha256": "6acd94070dc1f80b0ed755d49f60a104c2050dd605db3e3cb0976963029068e2"
+    },
+    {
+      "path": "Editor/Large/frame-000816/stability-game-render.png",
+      "bytes": 413860,
+      "sha256": "fba48cce26173dd2bea2171d514f15b04500d64ae5d457d92493a7e5b6aebfd4"
+    },
+    {
+      "path": "Editor/Large/frame-000822/stability-game-render.png",
+      "bytes": 396418,
+      "sha256": "5520f7cd199537add4e04d369c5fb8ff3f8bb0c961412d148a0943482c4a81d4"
+    },
+    {
+      "path": "Editor/Large/frame-000828/stability-game-render.png",
+      "bytes": 393073,
+      "sha256": "d8773db944f3d1ebd9401c2252dc436dad4bc81ed3ebe88770ec657aaff86d3e"
+    },
+    {
+      "path": "Editor/Large/frame-000834/stability-game-render.png",
+      "bytes": 392063,
+      "sha256": "435f9344f7ac2ea3679352e720b9117afadd18f4d0accd773feaae8b1812f8ae"
+    },
+    {
+      "path": "Editor/Large/frame-000840/stability-game-render.png",
+      "bytes": 402035,
+      "sha256": "4effe1634c5cb1a1c60d40f027c8fe10e22af20466007df6700e85883bfc5b67"
+    },
+    {
+      "path": "Editor/Large/frame-000846/stability-game-render.png",
+      "bytes": 401009,
+      "sha256": "84025262b99785672f7a9e7cd2ee873bd9b4486fad61708808df6226a6882237"
+    },
+    {
+      "path": "Editor/Large/frame-000852/stability-game-render.png",
+      "bytes": 400897,
+      "sha256": "1a965a0253a914a32755618a0294a1cbde98bec809d56791c1cbe812b70d09e4"
+    },
+    {
+      "path": "Editor/Normal/events-and-frames.csv",
+      "bytes": 9190,
+      "sha256": "b1a13752dc8a1a3018c4cdeed0e0d9dc0da31b11552f62ee9f21d8db271d291d"
+    },
+    {
+      "path": "Editor/Normal/images.txt",
+      "bytes": 476,
+      "sha256": "055883faf1f34059b0420fb1a4ab6363275c004e6e10cecb343f58d031f8b8f2"
+    },
+    {
+      "path": "Editor/Normal/frame-000613/stability-game-render.png",
+      "bytes": 406487,
+      "sha256": "67fa34bb739f569325a6388a1319a048c6f7761822a2da1991a7a41ae706b6b5"
+    },
+    {
+      "path": "Editor/Normal/frame-000614/stability-game-render.png",
+      "bytes": 406471,
+      "sha256": "da2bf3e680d0175f666d1540c1ae271325bc2b283207fe851c82b994a9e6a407"
+    },
+    {
+      "path": "Editor/Normal/frame-000619/stability-game-render.png",
+      "bytes": 406767,
+      "sha256": "d21f8a8cbfa8ebce7b2a4744f42e135275249c506f287579a89295e5bd7ddf92"
+    },
+    {
+      "path": "Editor/Normal/frame-000625/stability-game-render.png",
+      "bytes": 407089,
+      "sha256": "991af76a226e103e7c0eaa84f96f90a907e24d7f692b9bce0167224fb74de982"
+    },
+    {
+      "path": "Editor/Normal/frame-000631/stability-game-render.png",
+      "bytes": 406973,
+      "sha256": "7492c462e85c76405f709a9e5a2b22a3c939d2d59b155d615ffbdb3def324010"
+    },
+    {
+      "path": "Editor/Normal/frame-000637/stability-game-render.png",
+      "bytes": 407233,
+      "sha256": "77707989ceb84ee2d95ee2ff81ae574ad009efc0c852e249197df8fc6decb021"
+    },
+    {
+      "path": "Editor/Normal/frame-000643/stability-game-render.png",
+      "bytes": 407172,
+      "sha256": "0a8b44dcff8c39ef6727385498a1561a88808a03fa497c24283b61d7d9ee3894"
+    },
+    {
+      "path": "Editor/Normal/frame-000645/stability-game-render.png",
+      "bytes": 407429,
+      "sha256": "3454b3a012d9be1a42533a1d380866997de3e6685da3716792959356353396b1"
+    },
+    {
+      "path": "Editor/Normal/frame-000646/stability-game-render.png",
+      "bytes": 407554,
+      "sha256": "244b63c7750db93d80aaa151f3af6b50693a562a75649abc786150e504af07be"
+    },
+    {
+      "path": "Editor/Normal/frame-000647/stability-game-render.png",
+      "bytes": 407667,
+      "sha256": "7572a433bd93d7fef6f1c7f0b549887641c6c7194cd24e5d307fc45b2cc92df4"
+    },
+    {
+      "path": "Editor/Normal/frame-000648/stability-game-render.png",
+      "bytes": 407601,
+      "sha256": "06d3cc86c39bee3899f14d4bcddefc7b7efa0e1947e73a90d591686dd9b03d83"
+    },
+    {
+      "path": "Editor/Normal/frame-000649/stability-game-render.png",
+      "bytes": 407414,
+      "sha256": "6779feb26c992afa1d1da8252795be3e321b3c35351db3c6d4e7cd4ceb55e481"
+    },
+    {
+      "path": "Editor/Normal/frame-000650/stability-game-render.png",
+      "bytes": 407331,
+      "sha256": "20d77afadb986b56709376feac49e01138fcdfab41a21fcec3e559df5c3034a8"
+    },
+    {
+      "path": "Editor/Normal/frame-000651/stability-game-render.png",
+      "bytes": 407505,
+      "sha256": "6e0932f28cad424503917ceb352ad5f0628a4b94d25e86f150ab4d02db03769e"
+    },
+    {
+      "path": "Editor/Normal/frame-000652/stability-game-render.png",
+      "bytes": 407547,
+      "sha256": "a6f37fd4ff2fd5ed24e9e4161b41b24ed03df46744df130a1d029ca44bcc1905"
+    },
+    {
+      "path": "Editor/Normal/frame-000653/stability-game-render.png",
+      "bytes": 406522,
+      "sha256": "addf8915e8118bafd3450817c1e8f0cded1e02aa8e1297c33338e6f0c645468d"
+    },
+    {
+      "path": "Editor/Normal/frame-000654/stability-game-render.png",
+      "bytes": 406686,
+      "sha256": "d212593f716b24b5b604ec0b2f9e1d7bd4e66c998cee0b753ef550d6d80149f2"
+    },
+    {
+      "path": "Editor/Normal/frame-000655/stability-game-render.png",
+      "bytes": 407063,
+      "sha256": "c3ec70b1416aeded5d78d209b315733ed892a091dff61cd1b62d68d294fd955c"
+    },
+    {
+      "path": "Editor/Normal/frame-000656/stability-game-render.png",
+      "bytes": 407010,
+      "sha256": "8ce11c71bc9b8dc4cb47af117f6144dee8b2e06629720866c8b55f184519e716"
+    },
+    {
+      "path": "Editor/Normal/frame-000657/stability-game-render.png",
+      "bytes": 407761,
+      "sha256": "e5e491d272d9515396dc41049c3c7f35110263f12a7a34b89643c8f69c526678"
+    },
+    {
+      "path": "Editor/Normal/frame-000658/stability-game-render.png",
+      "bytes": 407575,
+      "sha256": "eb1f195ee18f62ce1911f2f220ad6473af6c32d48c3c164a603f9cd8878ac617"
+    },
+    {
+      "path": "Editor/Normal/frame-000659/stability-game-render.png",
+      "bytes": 406806,
+      "sha256": "9c2762ff8ccde4d7925aaf71674e803e8b0be02b3cbd04a922dc683f0be1d130"
+    },
+    {
+      "path": "Editor/Normal/frame-000660/stability-game-render.png",
+      "bytes": 410848,
+      "sha256": "8000abb1f0c3b4af22bc55c60dad4e9041981f6f276cce10a914eb31d31f1ce3"
+    },
+    {
+      "path": "Editor/Normal/frame-000661/stability-game-render.png",
+      "bytes": 408517,
+      "sha256": "5227e44cf86dc3159193256fed4dbe29f4794326c71d39822cae92c5953e3913"
+    },
+    {
+      "path": "Editor/Normal/frame-000662/stability-game-render.png",
+      "bytes": 411018,
+      "sha256": "5d2238cfe84c85d4daf859b903a46fba7a4131f2a5b27ad834f6d0d52ffbb9f6"
+    },
+    {
+      "path": "Editor/Normal/frame-000663/stability-game-render.png",
+      "bytes": 408852,
+      "sha256": "51808cbc63f14f7e802d000339012bc94f59272eec01861c7c788e944c735c00"
+    },
+    {
+      "path": "Editor/Normal/frame-000667/stability-game-render.png",
+      "bytes": 418348,
+      "sha256": "c745d199aac0f4077c89150ae74a08a8cd75ec51df6939fef5d24a8dc4cce46b"
+    },
+    {
+      "path": "Editor/Normal/frame-000673/stability-game-render.png",
+      "bytes": 422866,
+      "sha256": "e92ee8d2dfce40ffa882e393660486c5143ee0ec0bf2b7ce23e1523836980642"
+    },
+    {
+      "path": "Editor/Normal/frame-000679/stability-game-render.png",
+      "bytes": 414052,
+      "sha256": "ed69022a8b93de31e218480c6699d2b0598ef5d24a0b572a66f3133b1a9ffb32"
+    },
+    {
+      "path": "Editor/Normal/frame-000685/stability-game-render.png",
+      "bytes": 398605,
+      "sha256": "c30fa0221c9bc3fda293e011096912869b65e5f021f9020c498b3df33e87c052"
+    },
+    {
+      "path": "Editor/Normal/frame-000691/stability-game-render.png",
+      "bytes": 391656,
+      "sha256": "b5cf95446eacf6598580d2ce8bdf101c08e56fae58b222bcb0a4095fef1321be"
+    },
+    {
+      "path": "Editor/Normal/frame-000697/stability-game-render.png",
+      "bytes": 401298,
+      "sha256": "dcba7a27b420820cdf1489bb2f2664069b89736440ea43e734f63ce3bb33c683"
+    },
+    {
+      "path": "Editor/Normal/frame-000703/stability-game-render.png",
+      "bytes": 400875,
+      "sha256": "deb998004434365a41a570db763c26860fcf4b4095a6b410b7426ca7c47fe57d"
+    },
+    {
+      "path": "Editor/Normal/frame-000709/stability-game-render.png",
+      "bytes": 400629,
+      "sha256": "f5c955fca990d6544f7bcdc18636cb8a13ddd40b8772f6dccc282feee1397a19"
+    },
+    {
+      "path": "sequence.xml",
+      "bytes": 3591,
+      "sha256": "8abae07e51460ecb0e3fe46ba8551180bdde0dcb92c796401045667746577788"
+    }
+  ]
+}
