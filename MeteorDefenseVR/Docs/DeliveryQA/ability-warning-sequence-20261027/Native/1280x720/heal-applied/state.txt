@@ -1,0 +1,23 @@
+frame=2219;game=33.934810;hp=30;score=845;activeBuffs=3;critical=;feedback=선체 회복!
+SystemMessageValue: font=40;truncated=False;bounds=(x:0.28, y:0.70, width:0.45, height:0.11);preferred=197x61.92;available=(574.00, 82.00);text=선체 회복!
+ScoreValue: font=30;truncated=False;bounds=(x:0.67, y:0.83, width:0.19, height:0.07);preferred=67.11x47.44;available=(240.00, 48.00);text=845
+AsteroidValue: font=30;truncated=False;bounds=(x:0.39, y:0.83, width:0.22, height:0.07);preferred=225.66x47.44;available=(276.00, 48.00);text=남은 운석  1 / 5
+LiveWeaponStatus: font=30;truncated=False;bounds=(x:0.68, y:0.04, width:0.29, height:0.24);preferred=194.43x132.73;available=(368.00, 172.00);text=속사 2초
+다중 레이저 2초
+방어막 3회
+DifficultyStageValue: font=24;truncated=False;bounds=(x:0.39, y:0.91, width:0.22, height:0.05);preferred=168.43x38.76;available=(276.00, 34.00);text=보통  ·  구역 01
+LiveThreatAnalysis: font=30;truncated=False;bounds=(x:0.68, y:0.28, width:0.29, height:0.15);preferred=117x119.98;available=(368.00, 110.00);text=위협 0개
+주변 안전
+DistanceLabel_3: font=0.042;truncated=False;bounds=(x:0.57, y:0.20, width:0.02, height:0.01);preferred=0.02x0.01;available=(0.06, 0.03);text=200m
+TutorialHeading: font=30;truncated=False;bounds=(x:0.00, y:0.00, width:0.00, height:0.00);preferred=117x173.76;available=(-60.00, 41.00);text=조준 연습
+DistanceLabel_2: font=0.042;truncated=False;bounds=(x:0.55, y:0.20, width:0.02, height:0.01);preferred=0.02x0.01;available=(0.06, 0.03);text=100m
+DistanceLabel_0: font=0.042;truncated=False;bounds=(x:0.52, y:0.20, width:0.02, height:0.01);preferred=0.01x0.01;available=(0.06, 0.03);text=25m
+LiveShipStatus: font=30;truncated=False;bounds=(x:0.03, y:0.04, width:0.23, height:0.15);preferred=177.34x119.98;available=(288.00, 110.00);text=방어막 10%
+위험 · 피해 90
+ScoreLabel: font=24;truncated=False;bounds=(x:0.67, y:0.91, width:0.19, height:0.05);preferred=60.16x38.76;available=(240.00, 34.00);text=점수
+DistanceLabel_1: font=0.042;truncated=False;bounds=(x:0.53, y:0.20, width:0.02, height:0.01);preferred=0.01x0.01;available=(0.06, 0.03);text=50m
+HealthValue: font=26;truncated=False;bounds=(x:0.16, y:0.83, width:0.17, height:0.07);preferred=224.01x41.65;available=(216.00, 48.00);text=■■□□□□□□
+LiveRadarText: font=0.135;truncated=False;bounds=(x:0.41, y:0.10, width:0.18, height:0.20);preferred=0.19x0.04;available=(0.59, 0.37);text=360° THREAT RADAR // NORMAL
+CONTACTS 00   PRIORITY CLEAR
+HealthLabel: font=24;truncated=False;bounds=(x:0.16, y:0.91, width:0.17, height:0.05);preferred=82.24x38.76;available=(216.00, 34.00);text=방어막
+HeadDirection: font=0.058;truncated=False;bounds=(x:0.49, y:0.19, width:0.03, height:0.02);preferred=0.01x0.01;available=(0.09, 0.04);text=▲

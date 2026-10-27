@@ -1,0 +1,1098 @@
+{
+  "productCommit": "2eea277b981f19b19310846f875b86c8214e6b25",
+  "releaseId": 425562887,
+  "zipSha256": "7609d6967c5959d668a6207f4ee6ce09d4853abf45cbabb3f601ca61a20133a7",
+  "scope": "Controlled scene render and actual gameplay events; no ordinary OS/HMD/novice approval",
+  "files": [
+    {
+      "path": "Before/Editor/events.txt",
+      "bytes": 12088,
+      "sha256": "ba7dfc17b1fb29683b9264442a735d15b51f3c4397498a5ffcd5f4fd0942f37a"
+    },
+    {
+      "path": "Before/Editor/geometry-issues.txt",
+      "bytes": 952,
+      "sha256": "ef28a1a4bf81895f63a7af3221b5d04ce05b540a4e503c49204d158173e07c2e"
+    },
+    {
+      "path": "Before/Editor/1280x720/all-consumed-or-expired/stability-game-render.png",
+      "bytes": 445570,
+      "sha256": "f79f439d396addeb177e360e36c983ee00eaca4539549cfe6ba42961ab5cb09c"
+    },
+    {
+      "path": "Before/Editor/1280x720/all-consumed-or-expired/state.txt",
+      "bytes": 2663,
+      "sha256": "426719d2fb33a0389c12034c4318edb7f6f87b1d392b0e865d2b823b17329ba1"
+    },
+    {
+      "path": "Before/Editor/1280x720/emp-expansion/stability-game-render.png",
+      "bytes": 321144,
+      "sha256": "a7b74a4b1442f9798b1124679d6167518cfa8dd88b1c39923bc68d399f758e10"
+    },
+    {
+      "path": "Before/Editor/1280x720/emp-expansion/state.txt",
+      "bytes": 3100,
+      "sha256": "68566ae69329ddf408880e7ad8273f7120716ae2bbe96c6086cae9a2a4b9ab56"
+    },
+    {
+      "path": "Before/Editor/1280x720/emp-score-warning-three/stability-game-render.png",
+      "bytes": 380726,
+      "sha256": "d409fdc931b06de429b1f9c69d692e954a893330cef826b97648c726b0c98d74"
+    },
+    {
+      "path": "Before/Editor/1280x720/emp-score-warning-three/state.txt",
+      "bytes": 3100,
+      "sha256": "08fec49bddb340faa1fc2d983d93ad8fce57a23fe0965fc5c6e764130acd129f"
+    },
+    {
+      "path": "Before/Editor/1280x720/heal-applied/stability-game-render.png",
+      "bytes": 392375,
+      "sha256": "489fbcd12580201854dea9fe0fcb252ebacfeac6fa63228e1945b98e20fb9e3b"
+    },
+    {
+      "path": "Before/Editor/1280x720/heal-applied/state.txt",
+      "bytes": 3071,
+      "sha256": "999be68c96e5d973c98a0e4fdc8d7921c7e4b5f0fc9c7f74cea2cc601dc8afd7"
+    },
+    {
+      "path": "Before/Editor/1280x720/heal-settled/stability-game-render.png",
+      "bytes": 400468,
+      "sha256": "ab15971703911a9989d5646bbede0ba875fb348e064657ec97f9c6fd20a9ae13"
+    },
+    {
+      "path": "Before/Editor/1280x720/heal-settled/state.txt",
+      "bytes": 3071,
+      "sha256": "a579ee893188ed2f90b27d350a4980fd20c6faaad6662a9a1c920955de91f7fe"
+    },
+    {
+      "path": "Before/Editor/1280x720/maximum-three/stability-game-render.png",
+      "bytes": 397643,
+      "sha256": "74e8f5383e329f1f5764d3c3a2966b3aff17b444a92a11665232a944cd2465e4"
+    },
+    {
+      "path": "Before/Editor/1280x720/maximum-three/state.txt",
+      "bytes": 3004,
+      "sha256": "82efc9f61c9d8a039ccb443a6dbe38b6c22da24b0cdf6521d968ce043653e338"
+    },
+    {
+      "path": "Before/Editor/1280x720/score-replaces-emp-warning/stability-game-render.png",
+      "bytes": 233263,
+      "sha256": "a8dd7997e939ff30ec087fed876f56236996ff9ad9a028a4770061e5037ae05e"
+    },
+    {
+      "path": "Before/Editor/1280x720/score-replaces-emp-warning/state.txt",
+      "bytes": 3084,
+      "sha256": "85668940f99626325bd67b2b57eb9ed05b583b231b2952a48060b498ceb750ac"
+    },
+    {
+      "path": "Before/Editor/1280x720/shield-consumed-1/stability-game-render.png",
+      "bytes": 417181,
+      "sha256": "882ca11b8644e87d76392967a5ec8adb2b96937046544838a07fb10c73ff16f3"
+    },
+    {
+      "path": "Before/Editor/1280x720/shield-consumed-1/state.txt",
+      "bytes": 3014,
+      "sha256": "2a41eb03d62ac881ad6d62e51b7f86a34b9aa19dc79bb299e363eecf7184a6f7"
+    },
+    {
+      "path": "Before/Editor/1280x720/shield-consumed-2/stability-game-render.png",
+      "bytes": 415093,
+      "sha256": "634723b3f3d2bf0bb7f78920a5794525b935bd0092436d5c894d3c00b5c6e4fb"
+    },
+    {
+      "path": "Before/Editor/1280x720/shield-consumed-2/state.txt",
+      "bytes": 3014,
+      "sha256": "b6157357c47bf1bf40f05c8b8bbe0b07eb5e455a5b2bb0a179a82438b089a181"
+    },
+    {
+      "path": "Before/Editor/1280x720/shield-consumed-3/stability-game-render.png",
+      "bytes": 423162,
+      "sha256": "bded21e6b823223762c9d8d4c8b8e7ce2bc52ebd3363a382a14c36e11c165098"
+    },
+    {
+      "path": "Before/Editor/1280x720/shield-consumed-3/state.txt",
+      "bytes": 2998,
+      "sha256": "a485545d7888a8fca3e262226aedba12cd828b0998b03ccb323e015eeb53269f"
+    },
+    {
+      "path": "Before/Editor/1280x720/timed-ending/stability-game-render.png",
+      "bytes": 405121,
+      "sha256": "4507d3f3765f5fc99cd634498c00c5a0ec071852734acb3e87d3a15ef462c868"
+    },
+    {
+      "path": "Before/Editor/1280x720/timed-ending/state.txt",
+      "bytes": 2897,
+      "sha256": "4ded28aa2c610c78211d4b851a4c95f43465bf11aafcc9e8096cf2afacc760db"
+    },
+    {
+      "path": "Before/Editor/1280x720/timed-expired-shield-remains/stability-game-render.png",
+      "bytes": 415080,
+      "sha256": "843a970eda8ca898e5e2b02d4afc38e3be6554389662ee3c5a6aa38df0cbce0e"
+    },
+    {
+      "path": "Before/Editor/1280x720/timed-expired-shield-remains/state.txt",
+      "bytes": 2617,
+      "sha256": "aed096a6a4cfabccac9785ad3c32875b31a0df0c78e82bc2a3ccb73259abd07a"
+    },
+    {
+      "path": "Before/Editor/1280x720/warning-three-before-emp/stability-game-render.png",
+      "bytes": 410464,
+      "sha256": "56da7bade6cb1e40b4963d5afccea08efa63eebd11fedda92734b2a2d2013d3d"
+    },
+    {
+      "path": "Before/Editor/1280x720/warning-three-before-emp/state.txt",
+      "bytes": 3234,
+      "sha256": "86c5ced4ab43fe9e1d4a2bda9798e07437a9e0ba1ad012e197598d8c6c626fc1"
+    },
+    {
+      "path": "Before/Editor/800x600/all-consumed-or-expired/stability-game-render.png",
+      "bytes": 271880,
+      "sha256": "7ea6fe7a679c535801c35e252afbd00008c8ec7158220b9860ae33bebd8fdac1"
+    },
+    {
+      "path": "Before/Editor/800x600/all-consumed-or-expired/state.txt",
+      "bytes": 2663,
+      "sha256": "16adf1348eb86fc50f944fb89361b6fa402d64594e26574d0d336cb82da9c0a5"
+    },
+    {
+      "path": "Before/Editor/800x600/emp-expansion/stability-game-render.png",
+      "bytes": 199592,
+      "sha256": "db9eceebbb4567b726d98d86bc1aa4f91d4e5642c10ae92d0278511354549758"
+    },
+    {
+      "path": "Before/Editor/800x600/emp-expansion/state.txt",
+      "bytes": 3101,
+      "sha256": "e88b3d8957b34f1ea14aa5df78df0b938aa7c475be672fca437fdacf35dbd7e1"
+    },
+    {
+      "path": "Before/Editor/800x600/emp-score-warning-three/stability-game-render.png",
+      "bytes": 224327,
+      "sha256": "3f7d3d462298f9bfd499936d39c8eb445b2683f9c82067b010df2394c3a199bf"
+    },
+    {
+      "path": "Before/Editor/800x600/emp-score-warning-three/state.txt",
+      "bytes": 3101,
+      "sha256": "8285a5a38b931bdb2b98a6a1311bf5b5568dadf82d2d89686ed5a4b69f32249f"
+    },
+    {
+      "path": "Before/Editor/800x600/heal-applied/stability-game-render.png",
+      "bytes": 231733,
+      "sha256": "91a61364a2425a6e5b53884d7a73da3ba53f32d684c6121fcc8dfa1a1fd7686c"
+    },
+    {
+      "path": "Before/Editor/800x600/heal-applied/state.txt",
+      "bytes": 3072,
+      "sha256": "b87a5fef87fbc98e71164d6da61093c22650c393720ea8a1411e9c44c686cbee"
+    },
+    {
+      "path": "Before/Editor/800x600/heal-settled/stability-game-render.png",
+      "bytes": 237782,
+      "sha256": "e8a0e6fece09b8b6e0ae8aab536da2a4668f8d6b00523a6374ef43966b5e3744"
+    },
+    {
+      "path": "Before/Editor/800x600/heal-settled/state.txt",
+      "bytes": 3072,
+      "sha256": "225f04878f211e5c3b6c6832e2153c25bcb117a2ebd10927f8efba8c0fcf904b"
+    },
+    {
+      "path": "Before/Editor/800x600/maximum-three/stability-game-render.png",
+      "bytes": 246689,
+      "sha256": "08b5262a4522f99f61c80302b3cd3876e9a64450df2f41e5f1faa3168a33b630"
+    },
+    {
+      "path": "Before/Editor/800x600/maximum-three/state.txt",
+      "bytes": 3243,
+      "sha256": "99039e3c2f0ff639c126ccac972cc9be7df89cf3965041fa2e009a96976bba07"
+    },
+    {
+      "path": "Before/Editor/800x600/score-replaces-emp-warning/stability-game-render.png",
+      "bytes": 151516,
+      "sha256": "88ac935050bb98aee90a9e1521254233df6e5c1902dbcee8995b199e029007c6"
+    },
+    {
+      "path": "Before/Editor/800x600/score-replaces-emp-warning/state.txt",
+      "bytes": 3085,
+      "sha256": "542eb579b7992d4f40ed26392a66ccda3a597a290d89f77f8d5789ca640decfe"
+    },
+    {
+      "path": "Before/Editor/800x600/shield-consumed-1/stability-game-render.png",
+      "bytes": 260001,
+      "sha256": "cd051ae04a0059b0c14fddc957502fa3bcb2f23600262b0c392a45d49103c218"
+    },
+    {
+      "path": "Before/Editor/800x600/shield-consumed-1/state.txt",
+      "bytes": 3008,
+      "sha256": "8b60ac5abbcd0bfeb6471cb461d199cf028445d92e1b2c853221475fe8ef0a5d"
+    },
+    {
+      "path": "Before/Editor/800x600/shield-consumed-2/stability-game-render.png",
+      "bytes": 256502,
+      "sha256": "74eb8310e1cd44cee95c9911dff861da960de5086ad42f660b69ab9c0fe40200"
+    },
+    {
+      "path": "Before/Editor/800x600/shield-consumed-2/state.txt",
+      "bytes": 3008,
+      "sha256": "00a4aaf172afc2e32335bbb23a11925fe1c7fd6d7afb169bf77fbaf5cdc4ba3e"
+    },
+    {
+      "path": "Before/Editor/800x600/shield-consumed-3/stability-game-render.png",
+      "bytes": 255017,
+      "sha256": "c72a503cc0898ebd3ff5290ab8922bdb7b08ebb0fea939d00675fa3d20c34735"
+    },
+    {
+      "path": "Before/Editor/800x600/shield-consumed-3/state.txt",
+      "bytes": 2992,
+      "sha256": "b85225400f8b422a33014dd1358990129626a3d7d0389c7300d50cb65d806d47"
+    },
+    {
+      "path": "Before/Editor/800x600/timed-ending/stability-game-render.png",
+      "bytes": 227879,
+      "sha256": "1dea14af38189c28b187bbe9b0046e5a48bfa6101d61daddf649038477f500b5"
+    },
+    {
+      "path": "Before/Editor/800x600/timed-ending/state.txt",
+      "bytes": 2827,
+      "sha256": "bf5b3a63d1f3a99d43cafeb317d8a80fad8e0178d7f005e9f90d1f8476946cf5"
+    },
+    {
+      "path": "Before/Editor/800x600/timed-expired-shield-remains/stability-game-render.png",
+      "bytes": 249119,
+      "sha256": "cb2a96f5d0a89d986f8d0aa3c0093efee362dff601c36f0d0baafed3152516c8"
+    },
+    {
+      "path": "Before/Editor/800x600/timed-expired-shield-remains/state.txt",
+      "bytes": 2617,
+      "sha256": "76b86658daca89ab4ad6f7e8f33f65bba26c435d74187166a71b0cc70bcea224"
+    },
+    {
+      "path": "Before/Editor/800x600/warning-three-before-emp/stability-game-render.png",
+      "bytes": 241472,
+      "sha256": "f8137f219a3fad809bfb5d95da1e738696b94c06f0ed01528c5eb59e2c8d2503"
+    },
+    {
+      "path": "Before/Editor/800x600/warning-three-before-emp/state.txt",
+      "bytes": 3048,
+      "sha256": "b4d28ca47f6688f7bd746a17dc73f96cea1573543752b4fd7e1555a302232261"
+    },
+    {
+      "path": "Editor/events.txt",
+      "bytes": 12088,
+      "sha256": "756f8c3c6a49a9191140709c94019db0f9c4263585b7bc27f6d9502e8d0bdac1"
+    },
+    {
+      "path": "Editor/geometry-issues.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Editor/1280x720/all-consumed-or-expired/stability-game-render.png",
+      "bytes": 446456,
+      "sha256": "830f3fe6d57ab56ea7281b8d3afa960976b333e5a61af1b2e5bf0049b55f4149"
+    },
+    {
+      "path": "Editor/1280x720/all-consumed-or-expired/state.txt",
+      "bytes": 2663,
+      "sha256": "faf52c573f128859c68dceadaa047df6c6906317eb53cbde1a1f30084f572ed6"
+    },
+    {
+      "path": "Editor/1280x720/emp-expansion/stability-game-render.png",
+      "bytes": 376763,
+      "sha256": "8f57bd6e11635a458c9f4fafbf8083f3b274bb194286ac54662707996efd5866"
+    },
+    {
+      "path": "Editor/1280x720/emp-expansion/state.txt",
+      "bytes": 3100,
+      "sha256": "87013884a9227f06ef5d208486596fb4f6ebe41baf5c01adc7dcf8608dc01b55"
+    },
+    {
+      "path": "Editor/1280x720/emp-score-warning-three/stability-game-render.png",
+      "bytes": 380528,
+      "sha256": "2cf47e34ee8dabc0d39157df10a7a0be35b74199f108addd29eb71f0c7173fb2"
+    },
+    {
+      "path": "Editor/1280x720/emp-score-warning-three/state.txt",
+      "bytes": 3100,
+      "sha256": "8b0606534064daffa28be06adb016ef66c1c57bb5ddc152e1cc3f221c532752d"
+    },
+    {
+      "path": "Editor/1280x720/heal-applied/stability-game-render.png",
+      "bytes": 395568,
+      "sha256": "820414448083b7db09d18915dc22425774eac7a9238ac717daff0639fd5eb15a"
+    },
+    {
+      "path": "Editor/1280x720/heal-applied/state.txt",
+      "bytes": 3071,
+      "sha256": "a1bfc2ee5e1cfdc0e344edd50d50ae6fb9927ade71ed5859c7ddc8d73e77a4fb"
+    },
+    {
+      "path": "Editor/1280x720/heal-settled/stability-game-render.png",
+      "bytes": 402592,
+      "sha256": "684a7a322545707b5353d6110fd8d07c31735dcd4d3afe04261065364da043ed"
+    },
+    {
+      "path": "Editor/1280x720/heal-settled/state.txt",
+      "bytes": 3071,
+      "sha256": "7b008356b25de881fc77081341d5401bd0fb52d40cb624445edebea27904ecd0"
+    },
+    {
+      "path": "Editor/1280x720/maximum-three/stability-game-render.png",
+      "bytes": 398832,
+      "sha256": "3f08cebcd2c987a0c47ba179d5b5c3aa0d9cbd7ea0d5e61600882ade0d514b28"
+    },
+    {
+      "path": "Editor/1280x720/maximum-three/state.txt",
+      "bytes": 3004,
+      "sha256": "df688eb59f286db5e952822ad4413f14026308fa18d099e168f3e41ab0b56c89"
+    },
+    {
+      "path": "Editor/1280x720/score-replaces-emp-warning/stability-game-render.png",
+      "bytes": 379423,
+      "sha256": "c52f619460815c89c7af77ecc9fb35e4c8c6f3814ad4686d1c6f25c21f3a05e6"
+    },
+    {
+      "path": "Editor/1280x720/score-replaces-emp-warning/state.txt",
+      "bytes": 3084,
+      "sha256": "2081f696c245a6704b90861cca89e77113384102f5369a7e29c2cdf1fcca1f26"
+    },
+    {
+      "path": "Editor/1280x720/shield-consumed-1/stability-game-render.png",
+      "bytes": 418889,
+      "sha256": "2239d34355ae779dc63b8657690a20d84d35dc51255778d3a17b301d51bd94ad"
+    },
+    {
+      "path": "Editor/1280x720/shield-consumed-1/state.txt",
+      "bytes": 3014,
+      "sha256": "7dcb9d6bfbef616181a979fdfd44c32f00db069fe5365e69329147c7f8232a57"
+    },
+    {
+      "path": "Editor/1280x720/shield-consumed-2/stability-game-render.png",
+      "bytes": 415565,
+      "sha256": "004f52529d473b3dc7bbfff26ed0f085c0b12498325c9b4b5b6fa46dd29befbf"
+    },
+    {
+      "path": "Editor/1280x720/shield-consumed-2/state.txt",
+      "bytes": 3014,
+      "sha256": "c0f184e30a03c7ff6f3e9afce4d4012d32d1a2e02bda8d4218d3a538ab5ee694"
+    },
+    {
+      "path": "Editor/1280x720/shield-consumed-3/stability-game-render.png",
+      "bytes": 421836,
+      "sha256": "a3e18a2d722862b14785c0e2027178965e06e06574e6492540139a4d64bfb288"
+    },
+    {
+      "path": "Editor/1280x720/shield-consumed-3/state.txt",
+      "bytes": 2998,
+      "sha256": "cecd4e8554f0fb06eb77cc5c9a2b1f9d76736a8ec21d8d0b2a2e79a79608b976"
+    },
+    {
+      "path": "Editor/1280x720/timed-ending/stability-game-render.png",
+      "bytes": 403531,
+      "sha256": "39995ab707852f04b4eef5ce9b5eebdc88fc9d275d9d4c10a36e86aeec0eb9bf"
+    },
+    {
+      "path": "Editor/1280x720/timed-ending/state.txt",
+      "bytes": 2897,
+      "sha256": "faccef23e9c70b81d71ba05ab0df8671d38f189a97d707699059a58ff69f5227"
+    },
+    {
+      "path": "Editor/1280x720/timed-expired-shield-remains/stability-game-render.png",
+      "bytes": 414257,
+      "sha256": "6c542a6f7d02aac8131fb4ebb8eed2386f3878a79edc5062277f8e18c621c82e"
+    },
+    {
+      "path": "Editor/1280x720/timed-expired-shield-remains/state.txt",
+      "bytes": 2617,
+      "sha256": "d6951968ed763fdd3027b78d7b83111969b446099f5574558500cac81fec9767"
+    },
+    {
+      "path": "Editor/1280x720/warning-three-before-emp/stability-game-render.png",
+      "bytes": 408834,
+      "sha256": "6759d0c3a4e5410533fa49838d554b49362e87205a7e1da19a0cfa99976f3ae3"
+    },
+    {
+      "path": "Editor/1280x720/warning-three-before-emp/state.txt",
+      "bytes": 3234,
+      "sha256": "1b5aaef2261628438589d59c43fb1617f74ee7a5d6a9f181b81ae09f2a3d2273"
+    },
+    {
+      "path": "Editor/800x600/all-consumed-or-expired/stability-game-render.png",
+      "bytes": 271053,
+      "sha256": "fc9a7cdcd42e0751c9ecbd282c6411e1f0c1c79b3e158a42f4e65b08b539b6ea"
+    },
+    {
+      "path": "Editor/800x600/all-consumed-or-expired/state.txt",
+      "bytes": 2663,
+      "sha256": "3680848b4a29c0a8d50d19999557bb9a62c5988985a6efcef5d8e862bbdb8ab5"
+    },
+    {
+      "path": "Editor/800x600/emp-expansion/stability-game-render.png",
+      "bytes": 211367,
+      "sha256": "9b7892280b25941a735d844a126e3404184ca14a31867eb3d22ed95867df2dd1"
+    },
+    {
+      "path": "Editor/800x600/emp-expansion/state.txt",
+      "bytes": 3101,
+      "sha256": "30a99f69ef2b80d039c7164d67aa2f48428613f21cd3b473bc8272604e4eb1bd"
+    },
+    {
+      "path": "Editor/800x600/emp-score-warning-three/stability-game-render.png",
+      "bytes": 224489,
+      "sha256": "dbe0fac856a10b79c322cd368bd5f9378b1dfa3fdcb486132ec950527f7148dc"
+    },
+    {
+      "path": "Editor/800x600/emp-score-warning-three/state.txt",
+      "bytes": 3101,
+      "sha256": "9fefe11459b56cffea9875290a1036573929581528fbf5b55589a25b42c5eebb"
+    },
+    {
+      "path": "Editor/800x600/heal-applied/stability-game-render.png",
+      "bytes": 237439,
+      "sha256": "7231355c3af6e9973f4d9d6420e99c3fa00891256f0ab6e04219333f50e2c3c0"
+    },
+    {
+      "path": "Editor/800x600/heal-applied/state.txt",
+      "bytes": 3072,
+      "sha256": "102eec60c75c3c8f9421dc5d44c27fec2349eb9ce07b683cb0835ee3944048dc"
+    },
+    {
+      "path": "Editor/800x600/heal-settled/stability-game-render.png",
+      "bytes": 241312,
+      "sha256": "82914c35c06f531629bc01c4184932ccb2526746cfaa9801e19e792be51919ba"
+    },
+    {
+      "path": "Editor/800x600/heal-settled/state.txt",
+      "bytes": 3072,
+      "sha256": "51426dfae4bc3da0781a6c5fac2e418addab3e763edd69485ef0fa49b4654225"
+    },
+    {
+      "path": "Editor/800x600/maximum-three/stability-game-render.png",
+      "bytes": 245493,
+      "sha256": "264ca648c498e92c77f671766f7c8342bfcc9b66d703f133e40af67ac59ccec1"
+    },
+    {
+      "path": "Editor/800x600/maximum-three/state.txt",
+      "bytes": 3243,
+      "sha256": "9265594438526bb4a385d7d23af5e452fb9fdd539e8a782aef631a20e0b021c6"
+    },
+    {
+      "path": "Editor/800x600/score-replaces-emp-warning/stability-game-render.png",
+      "bytes": 222294,
+      "sha256": "ed4d2682adbd5fb1f07dd2edd9fb596a2b0239d59f6974b8b9ebd4726417765c"
+    },
+    {
+      "path": "Editor/800x600/score-replaces-emp-warning/state.txt",
+      "bytes": 3085,
+      "sha256": "b7d06534df239926ac3287d3c3bd8eb79ca78add6efd9c3019ff8e01c5143e66"
+    },
+    {
+      "path": "Editor/800x600/shield-consumed-1/stability-game-render.png",
+      "bytes": 258020,
+      "sha256": "10b4767bb62f4fa38fa7d3ee5157bd310d776fbf4721357dc0b13d886f4ea2f0"
+    },
+    {
+      "path": "Editor/800x600/shield-consumed-1/state.txt",
+      "bytes": 3008,
+      "sha256": "0e13a396077fdce8fc6cc5b91551c023e719704ef5c8402131d585afd4280bf7"
+    },
+    {
+      "path": "Editor/800x600/shield-consumed-2/stability-game-render.png",
+      "bytes": 258279,
+      "sha256": "2bb6601d1ec03302c9ca9c2c814025d1b7cc204897477aae1d6b7506afeb4e9d"
+    },
+    {
+      "path": "Editor/800x600/shield-consumed-2/state.txt",
+      "bytes": 3008,
+      "sha256": "bc2cede5a6649557b367d0fea58febac171dd66ecd60d6006a750dac9124bfdb"
+    },
+    {
+      "path": "Editor/800x600/shield-consumed-3/stability-game-render.png",
+      "bytes": 257566,
+      "sha256": "d58cc319bba805b4ff9462361f72478634ed800c07f153a74c4773d755cc7647"
+    },
+    {
+      "path": "Editor/800x600/shield-consumed-3/state.txt",
+      "bytes": 2992,
+      "sha256": "2373294e7da1353b895f52ff76cec3882b62b7d3972494917801270a78e2b4df"
+    },
+    {
+      "path": "Editor/800x600/timed-ending/stability-game-render.png",
+      "bytes": 227699,
+      "sha256": "ea4711ae2a413551eef1e246c7739eb5dca4ed92f7c812e6129edca3d37bd39f"
+    },
+    {
+      "path": "Editor/800x600/timed-ending/state.txt",
+      "bytes": 2827,
+      "sha256": "ca0d0e0a1163003147844d2980f5cd16efcebabac211d0c47a62eb1a95567435"
+    },
+    {
+      "path": "Editor/800x600/timed-expired-shield-remains/stability-game-render.png",
+      "bytes": 249225,
+      "sha256": "fe767251868bcac7106bf98154f0e8733439da8838afc6363a3d6848bcb0c580"
+    },
+    {
+      "path": "Editor/800x600/timed-expired-shield-remains/state.txt",
+      "bytes": 2617,
+      "sha256": "8df4168a3bdaa924a39212c3d362cfa327c03cc75ce66b8ac5167aec30abccd7"
+    },
+    {
+      "path": "Editor/800x600/warning-three-before-emp/stability-game-render.png",
+      "bytes": 242159,
+      "sha256": "f60c74250b1b3e5efd54e51d4282aaf68b36cc1c886b72bcc15765e29151eaba"
+    },
+    {
+      "path": "Editor/800x600/warning-three-before-emp/state.txt",
+      "bytes": 3048,
+      "sha256": "1de359252ce0c061920a5c7ff897d5cb2fa7e348500f4d3cb9ce17ed2c5381d7"
+    },
+    {
+      "path": "Native/events.txt",
+      "bytes": 12072,
+      "sha256": "c4f547de1fa73aa037a2ed7efce83c463f56afce67626a308bb1ac2025522a39"
+    },
+    {
+      "path": "Native/geometry-issues.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Native/runtime.txt",
+      "bytes": 53,
+      "sha256": "c8b5dd592edee01554ff4c1257a54408fb89e218ead14ddc97bf584bafc1ae1d"
+    },
+    {
+      "path": "Native/1280x720/all-consumed-or-expired/stability-game-render.png",
+      "bytes": 520927,
+      "sha256": "ea8c1014f407bf4ed357c483d295f3272f170ccf011b4487a31f0c0a9af26c9f"
+    },
+    {
+      "path": "Native/1280x720/all-consumed-or-expired/state.txt",
+      "bytes": 2663,
+      "sha256": "a3d81572e14a156d2f69fbdd7496230586f026ede190f5caade529a9b4554599"
+    },
+    {
+      "path": "Native/1280x720/emp-expansion/stability-game-render.png",
+      "bytes": 391221,
+      "sha256": "351fe8e328de663fa80ad43a7d400a73620faec4f51da08fe9b8e9aa95dec7e8"
+    },
+    {
+      "path": "Native/1280x720/emp-expansion/state.txt",
+      "bytes": 3100,
+      "sha256": "29d478d16e0fefd01704482a49d91bbb330790a559f2444114f17084e919ca6f"
+    },
+    {
+      "path": "Native/1280x720/emp-score-warning-three/stability-game-render.png",
+      "bytes": 380265,
+      "sha256": "95b6cddbb0aa382256184342cdde1687133a67920f536fbc48a73df40adf1ce7"
+    },
+    {
+      "path": "Native/1280x720/emp-score-warning-three/state.txt",
+      "bytes": 3100,
+      "sha256": "228a71e7b6136acaa728d4e3d7e50d844b70a5be9d7d9fbbe08f290986f4cf26"
+    },
+    {
+      "path": "Native/1280x720/heal-applied/stability-game-render.png",
+      "bytes": 396146,
+      "sha256": "e52dd5556b3f660fc696f60dd1e42266955f4b8b09ff6301ccff84bf2c059734"
+    },
+    {
+      "path": "Native/1280x720/heal-applied/state.txt",
+      "bytes": 2827,
+      "sha256": "e542d3c3bf1c1880a622b531d95bdb7a0fbf52d925ad998cfe64a6a4201dc375"
+    },
+    {
+      "path": "Native/1280x720/heal-settled/stability-game-render.png",
+      "bytes": 395507,
+      "sha256": "0322acb4a2e69b7a14332b18fe371c5d9f268f1d8c2d61783a7823f67d3bdd01"
+    },
+    {
+      "path": "Native/1280x720/heal-settled/state.txt",
+      "bytes": 2827,
+      "sha256": "46f0744b6ef14268e2a5a9b7fccc93c3486f162a7f025b13d344f2d065d574ff"
+    },
+    {
+      "path": "Native/1280x720/maximum-three/stability-game-render.png",
+      "bytes": 395041,
+      "sha256": "dd0dfb7e7ee2925787252851c175b10f4ca44e734b96f9c84348f5018654f383"
+    },
+    {
+      "path": "Native/1280x720/maximum-three/state.txt",
+      "bytes": 3004,
+      "sha256": "d856e89a3350e5c4d7924aa16626adb278a3e2ffa11929514d09caffb6fd062c"
+    },
+    {
+      "path": "Native/1280x720/score-replaces-emp-warning/stability-game-render.png",
+      "bytes": 405689,
+      "sha256": "275d0fe3018be591fa6de6f85114201a1682f63e2782daa3f2b4c721eb641d93"
+    },
+    {
+      "path": "Native/1280x720/score-replaces-emp-warning/state.txt",
+      "bytes": 3084,
+      "sha256": "106f6ccbffc838fd2b6a95eb33ca41ca3e47040fc209cf03befd5edcb17da1f5"
+    },
+    {
+      "path": "Native/1280x720/shield-consumed-1/stability-game-render.png",
+      "bytes": 409523,
+      "sha256": "343a50147f50144f1bad22f41cc7f87a78c2cf4e4ea8381d9e363868302ef702"
+    },
+    {
+      "path": "Native/1280x720/shield-consumed-1/state.txt",
+      "bytes": 3014,
+      "sha256": "db61b3de6e7e32a94bd0bc239d6351fdc456ea94ee89e22d5d5b39528b26ef34"
+    },
+    {
+      "path": "Native/1280x720/shield-consumed-2/stability-game-render.png",
+      "bytes": 413644,
+      "sha256": "f43a5a224c1040e9cf0cc63c4cbeca32d80188365db2aefef1ef6d5082831655"
+    },
+    {
+      "path": "Native/1280x720/shield-consumed-2/state.txt",
+      "bytes": 3014,
+      "sha256": "cd71ef9caeabcff75f41607aa47b425e20f6f889983e2f45d0ff17baf6d9b476"
+    },
+    {
+      "path": "Native/1280x720/shield-consumed-3/stability-game-render.png",
+      "bytes": 425639,
+      "sha256": "ef45e928eabb2b3a59c1a933668a2edc24eb05001118f6dbaedd8df66de05949"
+    },
+    {
+      "path": "Native/1280x720/shield-consumed-3/state.txt",
+      "bytes": 2998,
+      "sha256": "2c420a765902d2564c91299e1ef925a07f7ffeef8fdef875696bf23090e4fe99"
+    },
+    {
+      "path": "Native/1280x720/timed-ending/stability-game-render.png",
+      "bytes": 395831,
+      "sha256": "2dc90ae6ce5d9f96325522dafe925273b5b0b50a405ea87daa706c0e55e3a074"
+    },
+    {
+      "path": "Native/1280x720/timed-ending/state.txt",
+      "bytes": 2827,
+      "sha256": "bf13658d64f8db08e2a6d9bb3f0b03a1159a6aa27ed8003710022e6f6009cafe"
+    },
+    {
+      "path": "Native/1280x720/timed-expired-shield-remains/stability-game-render.png",
+      "bytes": 415362,
+      "sha256": "2299badcabef7ed52d39db25b918c003dbb7c5fbe5e9d24ad140550e8250b31a"
+    },
+    {
+      "path": "Native/1280x720/timed-expired-shield-remains/state.txt",
+      "bytes": 2617,
+      "sha256": "ae3098560e8e290c22d90e0c6459fdaece894f8bfc4a35254c2ff614237aa49f"
+    },
+    {
+      "path": "Native/1280x720/warning-three-before-emp/stability-game-render.png",
+      "bytes": 407836,
+      "sha256": "14b2345ff992026d7e4de70ca3526a123cc44a713b4dfbc6df40e8b2e73fab4e"
+    },
+    {
+      "path": "Native/1280x720/warning-three-before-emp/state.txt",
+      "bytes": 3051,
+      "sha256": "dc6b64fdc773469e4b1f31ccecb7adb3d8e75251247885f3ee43015b25655383"
+    },
+    {
+      "path": "Native/800x600/all-consumed-or-expired/stability-game-render.png",
+      "bytes": 319060,
+      "sha256": "02417f43121a8b57b3198663b8101f92c9bb1bb23d805318b3cc288b0e0f3d8e"
+    },
+    {
+      "path": "Native/800x600/all-consumed-or-expired/state.txt",
+      "bytes": 2663,
+      "sha256": "761f34aa0f899f42a038df06dda775da8c51780d7bf711e16db72f9db44d2fdf"
+    },
+    {
+      "path": "Native/800x600/emp-expansion/stability-game-render.png",
+      "bytes": 234949,
+      "sha256": "f2228be5faf66045e3f3e2719503d06c8eb318509d7064141f0913cfce3be579"
+    },
+    {
+      "path": "Native/800x600/emp-expansion/state.txt",
+      "bytes": 3101,
+      "sha256": "868669d8ffa8a4f5752f2f12d136ed4c893afbcabf37fb8ec84f2123acb5cff5"
+    },
+    {
+      "path": "Native/800x600/emp-score-warning-three/stability-game-render.png",
+      "bytes": 228419,
+      "sha256": "7dea25d68f7a0b5481c900a5a165cf238a8fb5fcdb516ae9e66e3da71c2ca525"
+    },
+    {
+      "path": "Native/800x600/emp-score-warning-three/state.txt",
+      "bytes": 3101,
+      "sha256": "517732d2405522fa09c62eb0611a9428d4d20497e8b2b378a67139fcc155468e"
+    },
+    {
+      "path": "Native/800x600/heal-applied/stability-game-render.png",
+      "bytes": 238533,
+      "sha256": "95dda17f3fdc10ff9f28d7e1ae9e718337bc444d8d13b75cc345b4dc37fb6f5d"
+    },
+    {
+      "path": "Native/800x600/heal-applied/state.txt",
+      "bytes": 3072,
+      "sha256": "90b630c4f8c3412cfeba95222d4c0e346bc3758bf079dad5e17f0ffb11735dc1"
+    },
+    {
+      "path": "Native/800x600/heal-settled/stability-game-render.png",
+      "bytes": 230849,
+      "sha256": "c7f5ca2e2ee2c67147f8cbe93c1c8f4c853c76c691be13da87f64445be6358f8"
+    },
+    {
+      "path": "Native/800x600/heal-settled/state.txt",
+      "bytes": 2827,
+      "sha256": "1af7bb7c59162de6449e52d1cfad0c23507d47d7ec3f8499f0a2d57318b6d610"
+    },
+    {
+      "path": "Native/800x600/maximum-three/stability-game-render.png",
+      "bytes": 243387,
+      "sha256": "b5d4ac088b618a7ca05247c8cb47043c842b06eebf746697a4be89c4b9eff62a"
+    },
+    {
+      "path": "Native/800x600/maximum-three/state.txt",
+      "bytes": 2998,
+      "sha256": "813e7c95ca18ef58b3e9ba55c4fe872933a4c8a2a7c7643b83f984c75eb9bf3e"
+    },
+    {
+      "path": "Native/800x600/score-replaces-emp-warning/stability-game-render.png",
+      "bytes": 255353,
+      "sha256": "78b5f1d9b3ad2cf7b5fd325f0777ff6adb0e4989890f30caff50c26247a86e27"
+    },
+    {
+      "path": "Native/800x600/score-replaces-emp-warning/state.txt",
+      "bytes": 3085,
+      "sha256": "55dfdafd969add7d74bf3d69a75319d1809acdaed3cc4b7e58874eb55a0b16d8"
+    },
+    {
+      "path": "Native/800x600/shield-consumed-1/stability-game-render.png",
+      "bytes": 259630,
+      "sha256": "c1dfb6c87d95af7f828e541776834231d3e59e4269294850b505e1d35cb01d99"
+    },
+    {
+      "path": "Native/800x600/shield-consumed-1/state.txt",
+      "bytes": 3008,
+      "sha256": "ec7e66d224c57fea2495edc36f34b7b51412ade34aa8ffab6068198afa1b0964"
+    },
+    {
+      "path": "Native/800x600/shield-consumed-2/stability-game-render.png",
+      "bytes": 252593,
+      "sha256": "a867373b648f65baadd05e793c75695bd1cc801bdafd27a38f22cc3981c1c490"
+    },
+    {
+      "path": "Native/800x600/shield-consumed-2/state.txt",
+      "bytes": 3008,
+      "sha256": "0fe204116ca0b8dbc2344304410a5f2f22576fba316c5fd25cbc999c10caa0a7"
+    },
+    {
+      "path": "Native/800x600/shield-consumed-3/stability-game-render.png",
+      "bytes": 263627,
+      "sha256": "cd75629a02ce8b255af26e5b26c7a81bf3138363d9c3fe799cb732015d3f7912"
+    },
+    {
+      "path": "Native/800x600/shield-consumed-3/state.txt",
+      "bytes": 2992,
+      "sha256": "b6e9383fdd2f2c2970ac00ce7788c7a68f651cf1f7efbbef8150f7c6c31547d3"
+    },
+    {
+      "path": "Native/800x600/timed-ending/stability-game-render.png",
+      "bytes": 236074,
+      "sha256": "3d2d3e977c7ac3ce6553325cd2b05c2695b6c7a7e02c5a52d4980269c9e605d7"
+    },
+    {
+      "path": "Native/800x600/timed-ending/state.txt",
+      "bytes": 2653,
+      "sha256": "68ebadf2b380959b958e4d9a2cf3b3df30165c20e906c7154ea4834696763fd5"
+    },
+    {
+      "path": "Native/800x600/timed-expired-shield-remains/stability-game-render.png",
+      "bytes": 251001,
+      "sha256": "d410818462b0768f7ab403300c9c99b35d653a89f79ed7aa15526fb1145d14b2"
+    },
+    {
+      "path": "Native/800x600/timed-expired-shield-remains/state.txt",
+      "bytes": 2617,
+      "sha256": "5b3442476e4ab7dc614319e37573b830fde8b2d9d67a2959b553ca71687ced81"
+    },
+    {
+      "path": "Native/800x600/warning-three-before-emp/stability-game-render.png",
+      "bytes": 234462,
+      "sha256": "6872a91f3862a1c3ea2787e953647f613ee93db81b9a1e944dcd4eac427b708b"
+    },
+    {
+      "path": "Native/800x600/warning-three-before-emp/state.txt",
+      "bytes": 3048,
+      "sha256": "8db51a2c9c1815ff36d729041485ecc29a93affce989eab3ecfb4db179ee0584"
+    },
+    {
+      "path": "PublicNative/events.txt",
+      "bytes": 12072,
+      "sha256": "976ff3ee74ec7279203a8c7c7a29681be2cdeaac516a90a8df21d27ae818ad21"
+    },
+    {
+      "path": "PublicNative/geometry-issues.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "PublicNative/runtime.txt",
+      "bytes": 53,
+      "sha256": "c8b5dd592edee01554ff4c1257a54408fb89e218ead14ddc97bf584bafc1ae1d"
+    },
+    {
+      "path": "PublicNative/1280x720/all-consumed-or-expired/stability-game-render.png",
+      "bytes": 503489,
+      "sha256": "1e9f0212600a7746c7c16c6470aa5e676f1c486beaf12ab844e85b16149f07b9"
+    },
+    {
+      "path": "PublicNative/1280x720/all-consumed-or-expired/state.txt",
+      "bytes": 2851,
+      "sha256": "22a29373c12e60dfc40f2aad86c6194f4ca07eda3e335c30ee3d4e471b402742"
+    },
+    {
+      "path": "PublicNative/1280x720/emp-expansion/stability-game-render.png",
+      "bytes": 379936,
+      "sha256": "fc15781d7371100c9167647b081aa13dea371968537fffef0fb3a1aa8c2cba3d"
+    },
+    {
+      "path": "PublicNative/1280x720/emp-expansion/state.txt",
+      "bytes": 3288,
+      "sha256": "026e643c42a32944b6bc6466e4d92185c6ff4c9c9c356b4146460ecfefc5717a"
+    },
+    {
+      "path": "PublicNative/1280x720/emp-score-warning-three/stability-game-render.png",
+      "bytes": 380299,
+      "sha256": "8f634c26e71f36cf59d7ed1892e32ebf5f15dae1277477bde882513a260cf475"
+    },
+    {
+      "path": "PublicNative/1280x720/emp-score-warning-three/state.txt",
+      "bytes": 3288,
+      "sha256": "2ab1b8ab29ce7135542f7c79e307d5504b5c1b650395969047152b598a20ba92"
+    },
+    {
+      "path": "PublicNative/1280x720/heal-applied/stability-game-render.png",
+      "bytes": 385651,
+      "sha256": "9cc2f91c1a9770a5a73af2810523a61fa11e9aa6c3a2e09d353a9ad849c0c336"
+    },
+    {
+      "path": "PublicNative/1280x720/heal-applied/state.txt",
+      "bytes": 3015,
+      "sha256": "33cd7cd70f2c238d9fe75d8ddcea484f792d788553ff295d4210f4292231596d"
+    },
+    {
+      "path": "PublicNative/1280x720/heal-settled/stability-game-render.png",
+      "bytes": 395601,
+      "sha256": "4a499a721ef4531ce90ff7e73c92aa37a07ad0817bd5d998442329dd4c83437e"
+    },
+    {
+      "path": "PublicNative/1280x720/heal-settled/state.txt",
+      "bytes": 3015,
+      "sha256": "185001db2f4e2aa0e4eec1011bff68237c07fd48ba08f6ae54be6f5415d3666e"
+    },
+    {
+      "path": "PublicNative/1280x720/maximum-three/stability-game-render.png",
+      "bytes": 395624,
+      "sha256": "b1403a92d1ef6492f3d603ac85eaba60a9bb5c2653bb4a29dbe4f6aead63df25"
+    },
+    {
+      "path": "PublicNative/1280x720/maximum-three/state.txt",
+      "bytes": 3004,
+      "sha256": "880750dfcd22aaf5070821f0c4bd98ffc3137ee212ee00c9b415562ab40e7630"
+    },
+    {
+      "path": "PublicNative/1280x720/score-replaces-emp-warning/stability-game-render.png",
+      "bytes": 390775,
+      "sha256": "55d4d03a1bd47334bd6817c14d28e77800c8e889c110f91e6614e0303c307181"
+    },
+    {
+      "path": "PublicNative/1280x720/score-replaces-emp-warning/state.txt",
+      "bytes": 3272,
+      "sha256": "1eba5b344bd893116ce54c172dd9ed9164537abdd50bb4afa835ababbdd5d37e"
+    },
+    {
+      "path": "PublicNative/1280x720/shield-consumed-1/stability-game-render.png",
+      "bytes": 410983,
+      "sha256": "95a182947ebf93f9332d0a5329c4f6e64747cef480d09e5b5f55f8b51c06440f"
+    },
+    {
+      "path": "PublicNative/1280x720/shield-consumed-1/state.txt",
+      "bytes": 3014,
+      "sha256": "9c7fb1293482d14b970a34048aba7a71caf1732798ced331c8b62813152d5ae2"
+    },
+    {
+      "path": "PublicNative/1280x720/shield-consumed-2/stability-game-render.png",
+      "bytes": 409069,
+      "sha256": "581955e02e499280f24daa7ea9e831779145a1835c60a5908a2d81736a0663aa"
+    },
+    {
+      "path": "PublicNative/1280x720/shield-consumed-2/state.txt",
+      "bytes": 3014,
+      "sha256": "7b37babacc72d28af6e40ecd4bf5b42a77d1a02fc064f2f4d0bf4c0a97db862b"
+    },
+    {
+      "path": "PublicNative/1280x720/shield-consumed-3/stability-game-render.png",
+      "bytes": 424860,
+      "sha256": "aad35ef008f7e9456b128def8b3c4abe228d8df7b336baefb9948febfa814301"
+    },
+    {
+      "path": "PublicNative/1280x720/shield-consumed-3/state.txt",
+      "bytes": 2998,
+      "sha256": "405ee26926843199713c5d6988817a9aaacbd92ff88d465b8b139d2846bf8fdd"
+    },
+    {
+      "path": "PublicNative/1280x720/timed-ending/stability-game-render.png",
+      "bytes": 395732,
+      "sha256": "b4865ba2fed4101f72ff3d13100ca594b1d126997674d735a576596a1ffb6700"
+    },
+    {
+      "path": "PublicNative/1280x720/timed-ending/state.txt",
+      "bytes": 3015,
+      "sha256": "80202fc72ff3ebfc0570e2eb99344f11611fa6f11229818b1efde24ca6c32e72"
+    },
+    {
+      "path": "PublicNative/1280x720/timed-expired-shield-remains/stability-game-render.png",
+      "bytes": 414247,
+      "sha256": "54a1a05ca5eb3653e61e83a9b425fd58d7667e85c4f2ae81fe25e22d00f747b5"
+    },
+    {
+      "path": "PublicNative/1280x720/timed-expired-shield-remains/state.txt",
+      "bytes": 2805,
+      "sha256": "2d4272086a56212ed53125884b786322cef24ce287e44e1db29dc517eb9eb678"
+    },
+    {
+      "path": "PublicNative/1280x720/warning-three-before-emp/stability-game-render.png",
+      "bytes": 407522,
+      "sha256": "8ac4f9112575553208547d851bfb6d3eb72eaa201932aca86e6b5f3463a88c57"
+    },
+    {
+      "path": "PublicNative/1280x720/warning-three-before-emp/state.txt",
+      "bytes": 3051,
+      "sha256": "08720abb26ec1aaf85aef96380180cb18e8ffb2792b49dcb1370e34f740d6422"
+    },
+    {
+      "path": "PublicNative/800x600/all-consumed-or-expired/stability-game-render.png",
+      "bytes": 304705,
+      "sha256": "f2373719af0cedf5ee6741ed6dffca482f8312a96f81f23ba1cc8343fa0c6df3"
+    },
+    {
+      "path": "PublicNative/800x600/all-consumed-or-expired/state.txt",
+      "bytes": 2663,
+      "sha256": "ff2ae7838f69a185747a6801665d43103fa57cef3205a70c3c6c1e9d9060744b"
+    },
+    {
+      "path": "PublicNative/800x600/emp-expansion/stability-game-render.png",
+      "bytes": 234483,
+      "sha256": "8a3ff6e1717ac97e78bb9cccbe90e415809e97816d1d3deae55f1cf6822786eb"
+    },
+    {
+      "path": "PublicNative/800x600/emp-expansion/state.txt",
+      "bytes": 3101,
+      "sha256": "2d429b839c4e65c4929d02ecaeedf158fb461bd016805eb9e0895fadc88a0e45"
+    },
+    {
+      "path": "PublicNative/800x600/emp-score-warning-three/stability-game-render.png",
+      "bytes": 228485,
+      "sha256": "9dd0dc2783d03ea95c334b50ed915764cd23206cc67457858862e5c0dca3a1d0"
+    },
+    {
+      "path": "PublicNative/800x600/emp-score-warning-three/state.txt",
+      "bytes": 3101,
+      "sha256": "52b24283a9d930c308223ff9b19956a776c3a43ac8505f0bb27b97ac535ea154"
+    },
+    {
+      "path": "PublicNative/800x600/heal-applied/stability-game-render.png",
+      "bytes": 240529,
+      "sha256": "3e89d4e8175dd0e0192b73392f3b92f1cd51e58350fecaea4b34688638795b2d"
+    },
+    {
+      "path": "PublicNative/800x600/heal-applied/state.txt",
+      "bytes": 3072,
+      "sha256": "20ab3bcb5a71252343bab97850ca1d8b7b8e7c7275dd7735c172d6954f2da582"
+    },
+    {
+      "path": "PublicNative/800x600/heal-settled/stability-game-render.png",
+      "bytes": 231343,
+      "sha256": "615fb730f39c8c97a7adb1cd7ee6c96d0d9fe48997b829a510a06689c3c44e77"
+    },
+    {
+      "path": "PublicNative/800x600/heal-settled/state.txt",
+      "bytes": 2827,
+      "sha256": "c2eb57f9fd2d15c88d40c89b401b278389147a7a5a7b40a060a4f72e840c10e3"
+    },
+    {
+      "path": "PublicNative/800x600/maximum-three/stability-game-render.png",
+      "bytes": 242819,
+      "sha256": "7a69eb46eb242f964044bfe5ba66ee42c2732b905868fce8050fb8254e0ca7d3"
+    },
+    {
+      "path": "PublicNative/800x600/maximum-three/state.txt",
+      "bytes": 2998,
+      "sha256": "69d63456120ace90b98551a2030acd732dba5dde597fbae03535a57b62d1e660"
+    },
+    {
+      "path": "PublicNative/800x600/score-replaces-emp-warning/stability-game-render.png",
+      "bytes": 255634,
+      "sha256": "96ae6a951cce8149c1b28e9ac9f00111e3144774154811a329ad263760024f05"
+    },
+    {
+      "path": "PublicNative/800x600/score-replaces-emp-warning/state.txt",
+      "bytes": 3085,
+      "sha256": "ac3d975958e40a71e8977d20da42de733a8fe8fa06185a1479e57abdcf98b7fa"
+    },
+    {
+      "path": "PublicNative/800x600/shield-consumed-1/stability-game-render.png",
+      "bytes": 259125,
+      "sha256": "d85db7530817210baf46a89915e8010c85c43af5679a76c5e30ac5201491d41e"
+    },
+    {
+      "path": "PublicNative/800x600/shield-consumed-1/state.txt",
+      "bytes": 3008,
+      "sha256": "ad318444f8d475482bc225dddaa8624458f4f479390319b7a872e9a53a2e0a95"
+    },
+    {
+      "path": "PublicNative/800x600/shield-consumed-2/stability-game-render.png",
+      "bytes": 252963,
+      "sha256": "18986a20e1785c8d361d0d5520f6a15809a14024563695d2905e2e68291f3dfe"
+    },
+    {
+      "path": "PublicNative/800x600/shield-consumed-2/state.txt",
+      "bytes": 3008,
+      "sha256": "7086c4da432ea0b90ed66b1cf5aa667cb1b481f9053f3f257cce0fcda879f5bf"
+    },
+    {
+      "path": "PublicNative/800x600/shield-consumed-3/stability-game-render.png",
+      "bytes": 264532,
+      "sha256": "af6b0477e77de85be14630daa8f0bac62de2f7d2a2b7cd0b451c1602de411748"
+    },
+    {
+      "path": "PublicNative/800x600/shield-consumed-3/state.txt",
+      "bytes": 2992,
+      "sha256": "d55085df5dc563979214bba9c61e0eb5840cb3a722299c1c68044f4a1baaff54"
+    },
+    {
+      "path": "PublicNative/800x600/timed-ending/stability-game-render.png",
+      "bytes": 235294,
+      "sha256": "a1616748db1d87183f069c1fbf52bfa8a2a6fcacce15a4f57e6eee833c671a93"
+    },
+    {
+      "path": "PublicNative/800x600/timed-ending/state.txt",
+      "bytes": 2653,
+      "sha256": "4f5a5eda43f24ef8e760a3ab7e7e745be0282b272a864a6d8f046ce40a6f7c7c"
+    },
+    {
+      "path": "PublicNative/800x600/timed-expired-shield-remains/stability-game-render.png",
+      "bytes": 250823,
+      "sha256": "9e454a5c8b130a5c60ac1e48ad7f1b6e5592ed0b614ae9e7e6b763810d4204b1"
+    },
+    {
+      "path": "PublicNative/800x600/timed-expired-shield-remains/state.txt",
+      "bytes": 2617,
+      "sha256": "173b33b0cb27a463a207dcd34fe191ca14280f66c47f798adba20eee356214ca"
+    },
+    {
+      "path": "PublicNative/800x600/warning-three-before-emp/stability-game-render.png",
+      "bytes": 235926,
+      "sha256": "b12859e6423f7e05a16c4a990b27bf77392e8cc9c2cc8c151dee422e9def07d0"
+    },
+    {
+      "path": "PublicNative/800x600/warning-three-before-emp/state.txt",
+      "bytes": 3048,
+      "sha256": "a43c055449574f40cf507bcefc21bf651a11e7be4958370fe165ad6fa5f52d94"
+    }
+  ]
+}

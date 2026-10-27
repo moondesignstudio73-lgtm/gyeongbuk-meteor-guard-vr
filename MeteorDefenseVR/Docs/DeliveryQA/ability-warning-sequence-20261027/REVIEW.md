@@ -45,3 +45,15 @@
 
 
 첫 Windows 후보 b1332af는 검사 시작 시 준비 화면 생성 전 조회로 실패했으며 공개하지 않았다. 준비 화면 CanStart 대기와 실제 시간 기준 검사 제한을 보완한 뒤 [after.xml](after.xml) 1/1을 다시 통과했다. 이 보완은 명시적 QA 경로에만 적용된다. 게임의 경고/능력 동작은 앞선 회귀 검사 이후 바뀌지 않았다.
+
+## Windows 실행 및 공개 패키지
+
+제품 커밋은 **2eea277b981f19b19310846f875b86c8214e6b25**, Unity 6000.5.10f1 비개발 빌드이며 BUILD_IDENTITY의 worktreeClean=true다. [패키지 정보](package.json): 222개 파일을 원본과 대조했고 ZIP은 89,628,342bytes, SHA256 `7609d6967c5959d668a6207f4ee6ce09d4853abf45cbabb3f601ca61a20133a7`다.
+
+최종 ZIP을 새 폴더에 압축 해제한 Windows Direct3D12/RTX 3070 실행에서 [runtime](Native/runtime.txt) passed=True, [겹침](Native/geometry-issues.txt) 0건, 26개 상태 표본이 나왔다. [800×600 EMP](Native/800x600/emp-score-warning-three/stability-game-render.png)와 [1280×720 EMP](Native/1280x720/emp-score-warning-three/stability-game-render.png)에서 배경이 비치는 기존 투명도와 분리된 경고/능력 목록을 확인했다. [점수 안내 교체](Native/1280x720/score-replaces-emp-warning/stability-game-render.png), [회복 30%](Native/800x600/heal-settled/stability-game-render.png), [시간제 종료·횟수제 유지](Native/1280x720/timed-expired-shield-remains/stability-game-render.png)도 확인했다. 이 렌더는 OS 창 가림과 독립적인 명시적 게임 카메라 렌더다.
+
+프레임 간격과 실제 경과 시간이 다르므로 Editor와 Native의 같은 이름 이미지가 동일한 EMP 확대 비율을 뜻하지 않는다. Native의 EMP 초기 표본에서 투명도가 확인되며 후속 표본은 구체가 카메라를 지나 사라진 시점도 포함한다. 전체 0.65초의 모든 프레임을 승인한 것은 아니다. [이벤트 기록](Native/events.txt)으로 해당 시각을 구분한다.
+
+[GitHub 릴리스 425562887](https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/tag/windows-ability-warning-20261027)는 위 제품 커밋을 가리킨다. [공개 URL 재다운로드](public-download.json)는 게시된 ZIP의 크기와 SHA256이 로컬 검증 패키지와 같음을 확인했다. 첫 압축 해제 실행의 [기록·설정 보존](native-preservation.json)도 통과했다. 원본 작업 폴더 ProjectSettings 해시는 `A8C1FEDDDF182D07C33D8F5162907A0E99DD81F06D1D1995ABDB82EFE963FE89`로 유지됐다.
+
+공개 재다운로드 ZIP도 별도 폴더에 압축 해제해 다시 실행했다. [PublicNative/runtime](PublicNative/runtime.txt) passed=True 및 [겹침 0건](PublicNative/geometry-issues.txt), 26개 표본을 확인했다. 두 해상도의 EMP/경고/최대 능력 원본도 다시 확인했다. [공개 파일 실행 후 보존](public-native-preservation.json)에서 기록과 비세션 설정이 복원됐다. 공개 파일 자체의 압축 해제 실행까지 완료했으며 일반 OS/HMD 검증으로 확대하지 않는다.
