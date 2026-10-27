@@ -20,6 +20,11 @@ namespace MeteorDefenseVR.PcInput
         private static void Check(bool ok,string message) { if(!ok)throw new InvalidOperationException(message); }
         public static IEnumerator Run(string output)
         {
+            // Standalone starts in Bootstrap; Editor fixtures open the game scene directly.
+            float readyDeadline=Time.realtimeSinceStartup+40;
+            while(Object.FindAnyObjectByType<GazeInputRouter>()==null&&Time.realtimeSinceStartup<readyDeadline)yield return null;
+            Check(Object.FindAnyObjectByType<GazeInputRouter>()!=null,"Game scene did not load");
+            yield return null;
             var router=Object.FindAnyObjectByType<GazeInputRouter>();router.InputSuspended=true;
             Object.FindAnyObjectByType<MeteorDefenseVR.EyeTracking.GazeRaycaster>().enabled=false;
             var warm=Object.FindAnyObjectByType<ReadyPrewarmController>();
