@@ -40,6 +40,8 @@ namespace MeteorDefenseVR.GameFlow
 
         public bool ResultTimerRunning => resultTimerRunning;
         public bool ResultTimerSuspended { get; set; }
+        // Interactive results belong to the player until Replay or Menu is selected.
+        public bool ResultRequiresExplicitChoice { get; set; }
         public bool OperatorKeysEnabled => enableOperatorKeys;
 
         private void Awake() => gameFlow = GameFlowManager.Instance;
@@ -88,6 +90,7 @@ namespace MeteorDefenseVR.GameFlow
 
         public void Tick(float unscaledDeltaTime)
         {
+            if (ResultRequiresExplicitChoice) { CancelResultTimer(); return; }
             if (!resultTimerRunning || ResultTimerSuspended) return;
             if (result != null && result.IsPresentationPending) return;
             resultElapsed += Mathf.Max(0f, unscaledDeltaTime);
@@ -147,7 +150,7 @@ namespace MeteorDefenseVR.GameFlow
 
         private void HandleStateChanged(GameState state)
         {
-            resultTimerRunning = state == GameState.Result;
+            resultTimerRunning = state == GameState.Result && !ResultRequiresExplicitChoice;
             resultElapsed = 0f;
         }
 

@@ -77,13 +77,19 @@ namespace MeteorDefenseVR.PcInput
         {
             flow.OnStateChanged-=StateChanged; flow.OnStateChanged+=StateChanged;
             reset.ResultTimeoutHandler=BeginReturn;
+            reset.ResultRequiresExplicitChoice=true;
+            reset.CancelResultTimer();
         }
         private void OnEnable() { if(initialized) Bind(); }
         private void OnDisable()
         {
             if(!initialized) return;
             flow.OnStateChanged-=StateChanged;
-            if(reset!=null && reset.ResultTimeoutHandler==BeginReturn) reset.ResultTimeoutHandler=null;
+            if(reset!=null && reset.ResultTimeoutHandler==BeginReturn)
+            {
+                reset.ResultTimeoutHandler=null;
+                reset.ResultRequiresExplicitChoice=false;
+            }
             Hide();
             if(flow!=null && flow.CurrentState==GameState.Result) { result?.ShowResult(); reset?.ResumeResultTimer(); }
         }

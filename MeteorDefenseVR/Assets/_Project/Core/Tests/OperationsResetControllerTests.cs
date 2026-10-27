@@ -47,6 +47,41 @@ namespace MeteorDefenseVR.Tests
             Assert.That(ready.IsReadyVisible, Is.True);
         }
 
+        [Test]
+        public void InteractiveResultsSurviveReadingSettingsAndRepeatedSessions()
+        {
+            operations.ResultRequiresExplicitChoice = true;
+            int timeouts = 0;
+            operations.ResultTimeoutHandler = () => { timeouts++; return true; };
+            for (int session = 0; session < 3; session++)
+            {
+                gameFlow.ChangeState(GameState.Result);
+                operations.Tick(60);
+                operations.ResultTimerSuspended = true;
+                operations.Tick(60);
+                operations.ResultTimerSuspended = false;
+                operations.ResumeResultTimer();
+                operations.Tick(60);
+                Assert.That(gameFlow.CurrentState, Is.EqualTo(GameState.Result));
+                Assert.That(operations.ResultTimerRunning, Is.False);
+                Assert.That(timeouts, Is.Zero);
+                operations.ResetExperience();
+                Assert.That(gameFlow.CurrentState, Is.EqualTo(GameState.Boot));
+                Assert.That(operations.ResultTimerSuspended, Is.False);
+            }
+        }
+
+        [Test]
+        public void InteractiveOwnerCancelsAnAlreadyRunningLegacyTimer()
+        {
+            gameFlow.ChangeState(GameState.Result);
+            operations.Tick(6.9f);
+            operations.ResultRequiresExplicitChoice = true;
+            operations.Tick(60);
+            Assert.That(gameFlow.CurrentState, Is.EqualTo(GameState.Result));
+            Assert.That(operations.ResultTimerRunning, Is.False);
+        }
+
         [TestCase(OperatorCommand.Intro, GameState.Intro)]
         [TestCase(OperatorCommand.Calibration, GameState.EyeCalibration)]
         [TestCase(OperatorCommand.Tutorial, GameState.Tutorial)]

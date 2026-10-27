@@ -68,8 +68,10 @@ namespace MeteorDefenseVR.PcInput
             {
                 reset.ResetExperience();yield return Delay(.05f);stats.SetScore(138940);
                 router.InputSuspended=true; // Disable world gaze/click shortcut so only the UI input module can select.
-                flow.ShowResult();reset.CancelResultTimer();shownAt=Time.realtimeSinceStartup;
-                yield return Delay(.1f);
+                flow.ShowResult();shownAt=Time.realtimeSinceStartup;
+                yield return Delay(9f);
+                Check(result.IsVisible && actions.Visible && !reset.ResultTimerRunning,
+                    "result remains visible beyond old eight-second deadline without timer cancellation");
             }
             try
             {
@@ -83,7 +85,7 @@ namespace MeteorDefenseVR.PcInput
                     int clicks=observer.Clicks,downs=observer.Downs,ups=observer.Ups,beforeHidden=hidden;
                     yield return Pointer(target.GetComponent<UnityEngine.UI.Button>());
                     float age=observer.LastClickAt-shownAt;
-                    Check(age>=.1f&&age<=.3f,$"cycle{i} pointer release age={age:F4}s");
+                    Check(age>=9f&&age<=10f,$"cycle{i} pointer release after reading age={age:F4}s");
                     Check(observer.Clicks-clicks==1&&observer.Downs-downs==1&&observer.Ups-ups==1,$"cycle{i} actual IPointer down/up/click once");
                     Check(hidden-beforeHidden==1&&!result.IsVisible,$"cycle{i} one result exit");
                     Check(i%2==0?lobby.IsMenuReady:lobby.Phase==HangarLobbyController.LobbyPhase.ReplayPreparing,$"cycle{i} requested destination");
@@ -135,6 +137,8 @@ namespace MeteorDefenseVR.PcInput
                 var panel=overlay.GetComponentsInChildren<Transform>(true).Single(t=>t.name=="LookSettingsPanel");
                 var close=panel.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b=>b.name=="Close");
                 yield return Pointer(close);Check(!overlay.LookSettingsOpen&&!router.UiModalOpen,"pointer closes settings");
+                yield return Delay(9f);
+                Check(result.IsVisible && !reset.ResultTimerRunning,"closing settings does not restart result timeout");
                 yield return Pointer(actions.Menu.GetComponent<UnityEngine.UI.Button>());Check(lobby.IsMenuReady&&hidden==blockedHidden+1,"underlying menu still works once after modal closes");
                 // Existing lobby menus remain gaze/collider driven: do not enable their UI graphics.
                 var others=FindObjectsByType<HangarMenuButton>(FindObjectsInactive.Include).Where(b=>b!=actions.Replay&&b!=actions.Menu).ToArray();
@@ -150,7 +154,7 @@ namespace MeteorDefenseVR.PcInput
                 InputSystem.QueueStateEvent(mouse,new MouseState{position=new Vector2(20,20)});yield return Delay(.05f);
                 InputSystem.QueueStateEvent(mouse,new MouseState{position=Point(actions.Menu.GetComponent<UnityEngine.UI.Button>())});yield return Delay(.15f);
                 int gazeHidden=hidden,gazeClicks=menu.Clicks;
-                Check(result.IsVisible&&actions.Menu.Progress==0&&router.IsTrackingValid,"actual mouse-gaze hover keeps early dwell guard");
+                Check(result.IsVisible&&router.IsTrackingValid,"actual mouse-gaze hover after reading has no timeout race");
                 yield return Delay(1.3f);
                 Check(lobby.IsMenuReady&&hidden==gazeHidden+1&&menu.Clicks==gazeClicks,"world gaze dwell selects once without pointer click");
                 // Separate gate contract: immediate pointer opt-in must not open the gaze gate early.

@@ -48,6 +48,9 @@ namespace MeteorDefenseVR.Tests
             int canvases=Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include).Length;
             stats.SetScore(2300); flow.ShowResult(); Assert.That(result.IsVisible,Is.True); reset.Tick(8.1f);
             Assert.That(flow.CurrentState,Is.EqualTo(GameState.Result));
+            Assert.That(result.IsVisible,Is.True,"Reading must not time out");
+            Assert.That(lobby.Phase,Is.EqualTo(HangarLobbyController.LobbyPhase.Hidden));
+            Assert.That(lobby.BeginReturn(),Is.True,"Return requires an explicit choice");
             Assert.That(lobby.Phase,Is.EqualTo(HangarLobbyController.LobbyPhase.Returning));
             Assert.That(result.IsVisible,Is.False); Assert.That(reset.ResultTimerRunning,Is.False);
             yield return new WaitForSecondsRealtime(1f); Save(render,router,"returning");

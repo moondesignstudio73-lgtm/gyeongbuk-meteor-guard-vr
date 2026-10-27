@@ -24,7 +24,7 @@
 - [x] 3회 Lock 공격이 필요한 Boss Meteor Climax
 - [x] Mission Complete, 잔여 운석 정리, 지구 Focus
 - [x] Session 통계, Accuracy, S/A/B/C Rank, Result
-- [x] Result 8초 후 완전 Reset과 Ready Screen
+- [x] 초기 구현: Result 8초 후 완전 Reset과 Ready Screen. 2026-10-27 일반 플레이 정책 변경: 읽기 시간을 보장하고 시선 선택과 시간 만료의 경합을 없애기 위해, 결과의 `다시 출격`/`기지 메뉴` 선택까지 유지한다. 상세 변경·검증은 `DeliveryQA/result-choice-20261027/verification.md` 참조.
 - [x] 운영자 `R`, `1`~`6` 키와 Release 비활성 토글
 - [x] BGM/UI/SFX/Voice/Ambient 5개 Audio 카테고리와 17개 Cue
 - [x] Cue Cooldown과 VR 음량 상한

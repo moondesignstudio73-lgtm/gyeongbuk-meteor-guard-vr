@@ -85,6 +85,8 @@ namespace MeteorDefenseVR.Tests
             Save(proof, router, "failed-result");
             reset.Tick(8.1f);
             var lobby = Object.FindAnyObjectByType<HangarLobbyController>();
+            Assert.That(result.IsVisible, Is.True, "Failure result must remain available for reading");
+            Assert.That(lobby.ChooseFromResult(false), Is.True);
             Assert.That(lobby.IsMenuReady, Is.True, "Already docked failure must not replay the return");
             reset.ResetExperience(); flow.StartMainGame();
             health.ApplyImpactDamage(100, health.transform.position);
