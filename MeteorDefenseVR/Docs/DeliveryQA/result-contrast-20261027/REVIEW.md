@@ -24,3 +24,5 @@ An initial 800px public-build fixture was interrupted by foreground focus change
 - Original player records and non-session preferences restored after both runs. ProjectSettings hash preserved: A8C1FEDDDF182D07C33D8F5162907A0E99DD81F06D1D1995ABDB82EFE963FE89.
 
 Suno/listening and HMD verification remain pending. Existing threat-label side parking tradeoff is not newly validated by this contrast change.
+
+Published release 425100924, tag windows-result-contrast-20261027, targets product commit ae2cd406ecb809db2a6952dd088dd24c4011bb18. Public ZIP redownload matched all 89,614,129 bytes by SHA256 at 2026-10-27T06:30:49.2663486Z. Stable download: https://github.com/moondesignstudio73-lgtm/gyeongbuk-meteor-guard-vr/releases/download/windows-result-contrast-20261027/MeteorDefenseVR-Windows-ResultContrast-20261027.zip
