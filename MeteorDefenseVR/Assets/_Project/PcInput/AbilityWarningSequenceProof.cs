@@ -41,7 +41,12 @@ namespace MeteorDefenseVR.PcInput { public static class AbilityWarningSequencePr
         {
 
             Directory.CreateDirectory(root);
-            yield return null; yield return null;
+            float startupDeadline = Time.realtimeSinceStartup + 45;
+            while (Object.FindAnyObjectByType<ReadyScreenController>() == null && Time.realtimeSinceStartup < startupDeadline) yield return null;
+            var readyScreen = Object.FindAnyObjectByType<ReadyScreenController>();
+            Assert.IsNotNull(readyScreen);
+            while (!readyScreen.CanStart && Time.realtimeSinceStartup < startupDeadline) yield return null;
+            Assert.IsTrue(readyScreen.CanStart, "Ready screen timeout");
             var warm = Object.FindAnyObjectByType<ReadyPrewarmController>();
             float warmDeadline = Time.realtimeSinceStartup + 45;
             while (!warm.IsComplete && Time.realtimeSinceStartup < warmDeadline) yield return null;
@@ -145,8 +150,8 @@ namespace MeteorDefenseVR.PcInput { public static class AbilityWarningSequencePr
                     yield return Acquire(PowerUpType.Shield);
                     // Wait for the real periodic critical warning; do not force its age or message.
                     while (director.CriticalNoticeBounds != null) yield return null;
-                    float deadlineWarning = Time.time + 7;
-                    while (director.CriticalNoticeBounds == null && Time.time < deadlineWarning) yield return null;
+                    float deadlineWarning = Time.realtimeSinceStartup + 8;
+                    while (director.CriticalNoticeBounds == null && Time.realtimeSinceStartup < deadlineWarning) yield return null;
                     Assert.IsNotNull(director.CriticalNoticeBounds);
                     Assert.AreEqual(3, manager.ActiveBuffCount);
                     yield return Capture("warning-three-before-emp");
@@ -169,10 +174,10 @@ namespace MeteorDefenseVR.PcInput { public static class AbilityWarningSequencePr
                     yield return Capture("heal-applied");
                     for(int i=0;i<12;i++)yield return null;
                     yield return Capture("heal-settled");
-                    float expiryDeadline=Time.time+12;
-                    while(manager.IsBuffActive(PowerUpType.RapidFire)&&manager.ActiveBuffs.First(b=>b.Type==PowerUpType.RapidFire).Remaining>1.8f&&Time.time<expiryDeadline)yield return null;
+                    float expiryDeadline=Time.realtimeSinceStartup+12;
+                    while(manager.IsBuffActive(PowerUpType.RapidFire)&&manager.ActiveBuffs.First(b=>b.Type==PowerUpType.RapidFire).Remaining>1.8f&&Time.realtimeSinceStartup<expiryDeadline)yield return null;
                     yield return Capture("timed-ending");
-                    while((manager.IsBuffActive(PowerUpType.RapidFire)||manager.IsBuffActive(PowerUpType.MultiLaser))&&Time.time<expiryDeadline)yield return null;
+                    while((manager.IsBuffActive(PowerUpType.RapidFire)||manager.IsBuffActive(PowerUpType.MultiLaser))&&Time.realtimeSinceStartup<expiryDeadline)yield return null;
                     Assert.IsFalse(manager.IsBuffActive(PowerUpType.RapidFire));Assert.IsFalse(manager.IsBuffActive(PowerUpType.MultiLaser));
                     Assert.AreEqual(1,manager.ActiveBuffCount);
                     yield return Capture("timed-expired-shield-remains");

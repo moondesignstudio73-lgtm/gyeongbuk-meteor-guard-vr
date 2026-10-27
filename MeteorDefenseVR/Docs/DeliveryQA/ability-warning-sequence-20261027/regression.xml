@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="22" result="Passed" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-27 14:14:32Z" end-time="2026-10-27 14:14:49Z" duration="17.2777563">
+  <test-suite type="TestSuite" id="1000" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="490" result="Passed" start-time="2026-10-27 14:14:32Z" end-time="2026-10-27 14:14:49Z" duration="17.277756" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1649" name="MeteorDefenseVR.Tests.dll" fullname="C:/Users/aaa/.codex/worktrees/threat-direction/VR콘텐츠/MeteorDefenseVR/Library/ScriptAssemblies/MeteorDefenseVR.Tests.dll" runstate="Runnable" testcasecount="490" result="Passed" start-time="2026-10-27 14:14:32Z" end-time="2026-10-27 14:14:49Z" duration="17.140068" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="44692" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1650" name="MeteorDefenseVR" fullname="MeteorDefenseVR" runstate="Runnable" testcasecount="490" result="Passed" start-time="2026-10-27 14:14:32Z" end-time="2026-10-27 14:14:49Z" duration="17.137239" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1651" name="Tests" fullname="MeteorDefenseVR.Tests" runstate="Runnable" testcasecount="490" result="Passed" start-time="2026-10-27 14:14:32Z" end-time="2026-10-27 14:14:49Z" duration="17.134420" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1002" name="AbilityWarningSequenceTests" fullname="MeteorDefenseVR.Tests.AbilityWarningSequenceTests" classname="MeteorDefenseVR.Tests.AbilityWarningSequenceTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-27 14:13:50Z" end-time="2026-10-27 14:14:18Z" duration="28.438710" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1003" name="ActualAbilitiesAndLowHealthWarning" fullname="MeteorDefenseVR.Tests.AbilityWarningSequenceTests.ActualAbilitiesAndLowHealthWarning" methodname="ActualAbilitiesAndLowHealthWarning" classname="MeteorDefenseVR.Tests.AbilityWarningSequenceTests" runstate="Runnable" seed="1923130703" result="Passed" start-time="2026-10-27 14:13:38Z" end-time="2026-10-27 14:14:18Z" duration="39.813301" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Playing
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1239" name="GameplayHudOverlayTests" fullname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" classname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-27 14:14:18Z" end-time="2026-10-27 14:14:22Z" duration="4.184153" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1240" name="AuthoredMainHudUsesDedicatedPlayerOverlayAndSafeArea" fullname="MeteorDefenseVR.Tests.GameplayHudOverlayTests.AuthoredMainHudUsesDedicatedPlayerOverlayAndSafeArea" methodname="AuthoredMainHudUsesDedicatedPlayerOverlayAndSafeArea" classname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" runstate="Runnable" seed="485110702" result="Passed" start-time="2026-10-27 14:14:18Z" end-time="2026-10-27 14:14:19Z" duration="0.603770" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1246" name="LaunchAndMissionCompleteMessagesUseTheSameAlwaysOnTopCanvas" fullname="MeteorDefenseVR.Tests.GameplayHudOverlayTests.LaunchAndMissionCompleteMessagesUseTheSameAlwaysOnTopCanvas" methodname="LaunchAndMissionCompleteMessagesUseTheSameAlwaysOnTopCanvas" classname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" runstate="Runnable" seed="990569971" result="Passed" start-time="2026-10-27 14:14:19Z" end-time="2026-10-27 14:14:19Z" duration="0.598593" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1242" name="MainHudAndSystemMessagesNoLongerUseDepthTestedLegacyRenderers" fullname="MeteorDefenseVR.Tests.GameplayHudOverlayTests.MainHudAndSystemMessagesNoLongerUseDepthTestedLegacyRenderers" methodname="MainHudAndSystemMessagesNoLongerUseDepthTestedLegacyRenderers" classname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" runstate="Runnable" seed="2146722491" result="Passed" start-time="2026-10-27 14:14:19Z" end-time="2026-10-27 14:14:20Z" duration="0.583230" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1243" name="PcAndVrShareLayoutWhileOnlyCanvasRenderModeChanges" fullname="MeteorDefenseVR.Tests.GameplayHudOverlayTests.PcAndVrShareLayoutWhileOnlyCanvasRenderModeChanges" methodname="PcAndVrShareLayoutWhileOnlyCanvasRenderModeChanges" classname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" runstate="Runnable" seed="1321994036" result="Passed" start-time="2026-10-27 14:14:20Z" end-time="2026-10-27 14:14:21Z" duration="0.594947" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1244" name="ReferenceSixteenNineResolutionsPreserveMarginsAndPanelSpacing" fullname="MeteorDefenseVR.Tests.GameplayHudOverlayTests.ReferenceSixteenNineResolutionsPreserveMarginsAndPanelSpacing" methodname="ReferenceSixteenNineResolutionsPreserveMarginsAndPanelSpacing" classname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" runstate="Runnable" seed="1512797440" result="Passed" start-time="2026-10-27 14:14:21Z" end-time="2026-10-27 14:14:21Z" duration="0.591486" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1245" name="RestoredTopCardsStayCompactAndVisuallyConsistent" fullname="MeteorDefenseVR.Tests.GameplayHudOverlayTests.RestoredTopCardsStayCompactAndVisuallyConsistent" methodname="RestoredTopCardsStayCompactAndVisuallyConsistent" classname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" runstate="Runnable" seed="839808312" result="Passed" start-time="2026-10-27 14:14:21Z" end-time="2026-10-27 14:14:22Z" duration="0.580501" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1241" name="ScoreStageAsteroidAndDifficultyRegressionValuesStayInsideTheirRects" fullname="MeteorDefenseVR.Tests.GameplayHudOverlayTests.ScoreStageAsteroidAndDifficultyRegressionValuesStayInsideTheirRects" methodname="ScoreStageAsteroidAndDifficultyRegressionValuesStayInsideTheirRects" classname="MeteorDefenseVR.Tests.GameplayHudOverlayTests" runstate="Runnable" seed="1735523289" result="Passed" start-time="2026-10-27 14:14:22Z" end-time="2026-10-27 14:14:22Z" duration="0.628033" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1338" name="MissionHudTests" fullname="MeteorDefenseVR.Tests.MissionHudTests" classname="MeteorDefenseVR.Tests.MissionHudTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-27 14:14:22Z" end-time="2026-10-27 14:14:22Z" duration="0.012177" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1341" name="HealthIsClampedAndFormattedAsEightSegments" fullname="MeteorDefenseVR.Tests.MissionHudTests.HealthIsClampedAndFormattedAsEightSegments" methodname="HealthIsClampedAndFormattedAsEightSegments" classname="MeteorDefenseVR.Tests.MissionHudTests" runstate="Runnable" seed="1686727519" result="Passed" start-time="2026-10-27 14:14:22Z" end-time="2026-10-27 14:14:22Z" duration="0.002193" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1340" name="HighValueScoreUsesNiceFeedbackAndExpires" fullname="MeteorDefenseVR.Tests.MissionHudTests.HighValueScoreUsesNiceFeedbackAndExpires" methodname="HighValueScoreUsesNiceFeedbackAndExpires" classname="MeteorDefenseVR.Tests.MissionHudTests" runstate="Runnable" seed="1083444307" result="Passed" start-time="2026-10-27 14:14:22Z" end-time="2026-10-27 14:14:22Z" duration="0.000958" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1342" name="HudTextFormattingMatchesStoryboardLayout" fullname="MeteorDefenseVR.Tests.MissionHudTests.HudTextFormattingMatchesStoryboardLayout" methodname="HudTextFormattingMatchesStoryboardLayout" classname="MeteorDefenseVR.Tests.MissionHudTests" runstate="Runnable" seed="1763159350" result="Passed" start-time="2026-10-27 14:14:22Z" end-time="2026-10-27 14:14:22Z" duration="0.000428" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1339" name="SessionDisplaysTotalRemainingAndAwardedScore" fullname="MeteorDefenseVR.Tests.MissionHudTests.SessionDisplaysTotalRemainingAndAwardedScore" methodname="SessionDisplaysTotalRemainingAndAwardedScore" classname="MeteorDefenseVR.Tests.MissionHudTests" runstate="Runnable" seed="1356505786" result="Passed" start-time="2026-10-27 14:14:22Z" end-time="2026-10-27 14:14:22Z" duration="0.005165" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1378" name="PickupHudPriorityTests" fullname="MeteorDefenseVR.Tests.PickupHudPriorityTests" classname="MeteorDefenseVR.Tests.PickupHudPriorityTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-27 14:14:32Z" end-time="2026-10-27 14:14:49Z" duration="17.003376" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1379" name="TopHudCrossingAndModalPriority" fullname="MeteorDefenseVR.Tests.PickupHudPriorityTests.TopHudCrossingAndModalPriority" methodname="TopHudCrossingAndModalPriority" classname="MeteorDefenseVR.Tests.PickupHudPriorityTests" runstate="Runnable" seed="320365361" result="Passed" start-time="2026-10-27 14:14:22Z" end-time="2026-10-27 14:14:49Z" duration="26.748832" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Playing
+[GameFlow] Playing -> Reset
+[GameFlow] Reset -> Boot
+[GameFlow] Boot -> Reset
+[GameFlow] Reset -> Boot
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1395" name="PowerUpSystemTests" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.051828" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1403" name="BlinkRequiresOpenRearmWhileMouseCanTriggerAgainAfterCooldown" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.BlinkRequiresOpenRearmWhileMouseCanTriggerAgainAfterCooldown" methodname="BlinkRequiresOpenRearmWhileMouseCanTriggerAgainAfterCooldown" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="111809980" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.009729" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1396" name="ConfigUnlocksItemsGraduallyAndContainsAllEightTypes" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.ConfigUnlocksItemsGraduallyAndContainsAllEightTypes" methodname="ConfigUnlocksItemsGraduallyAndContainsAllEightTypes" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="807184837" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.009477" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1398" name="PickupVfxUsesTwoBoundedSharedParticleSystems" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.PickupVfxUsesTwoBoundedSharedParticleSystems" methodname="PickupVfxUsesTwoBoundedSharedParticleSystems" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="1402280932" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.006635" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1402" name="PityGuaranteesAWorldItemByConfiguredMaximumMissesAndPoolBoundsWorldItems" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.PityGuaranteesAWorldItemByConfiguredMaximumMissesAndPoolBoundsWorldItems" methodname="PityGuaranteesAWorldItemByConfiguredMaximumMissesAndPoolBoundsWorldItems" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="1515197692" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.003869" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1397" name="RuntimePowerUpLabelsUseDynamicFontsWithoutStaticFontWarnings" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.RuntimePowerUpLabelsUseDynamicFontsWithoutStaticFontWarnings" methodname="RuntimePowerUpLabelsUseDynamicFontsWithoutStaticFontWarnings" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="1416145427" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.003060" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1399" name="ShieldBlocksExactlyOneDamageEventAndHealNeverExceedsMaximum" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.ShieldBlocksExactlyOneDamageEventAndHealNeverExceedsMaximum" methodname="ShieldBlocksExactlyOneDamageEventAndHealNeverExceedsMaximum" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="871007645" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.005687" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1400" name="ShieldVisualUsesTransparentEnergyShaderWithoutGameplayCollider" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.ShieldVisualUsesTransparentEnergyShaderWithoutGameplayCollider" methodname="ShieldVisualUsesTransparentEnergyShaderWithoutGameplayCollider" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="824074493" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.004096" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1404" name="SlowTimeOnlyChangesMeteorMovementNotGlobalTimeScale" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.SlowTimeOnlyChangesMeteorMovementNotGlobalTimeScale" methodname="SlowTimeOnlyChangesMeteorMovementNotGlobalTimeScale" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="726406616" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.002891" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1401" name="TimedBuffsStackButNeverExceedConfiguredThreeSlotsAndResetCleansThem" fullname="MeteorDefenseVR.Tests.PowerUpSystemTests.TimedBuffsStackButNeverExceedConfiguredThreeSlotsAndResetCleansThem" methodname="TimedBuffsStackButNeverExceedConfiguredThreeSlotsAndResetCleansThem" classname="MeteorDefenseVR.Tests.PowerUpSystemTests" runstate="Runnable" seed="1143058360" result="Passed" start-time="2026-10-27 14:14:49Z" end-time="2026-10-27 14:14:49Z" duration="0.003626" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/aaa/AppData/LocalLow/DefaultCompany/MeteorDefenseVR\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

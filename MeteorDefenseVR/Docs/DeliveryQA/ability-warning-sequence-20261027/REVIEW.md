@@ -35,10 +35,13 @@
 
 ## 최종 편집기 결과
 
-[after.xml](after.xml) 22/22 통과: 능력-경고 장면 1, PowerUpSystem/MissionHud/GameplayHudOverlay/PickupHudPriority 관련 회귀 21개. [겹침 결과](Editor/geometry-issues.txt)는 0건이다. 각 해상도 13개, 총 26개 원본을 저장했다. [이벤트 시각](Editor/events.txt)에는 획득·차단·회복·점수·표시 시점이 연결돼 있다.
+[regression.xml](regression.xml) 22/22 실행 완료: 능력-경고 장면 1과 PowerUpSystem/MissionHud/GameplayHudOverlay 기능 회귀 20개는 검증 통과다. 나머지 PickupHudPriority 1개는 validate=false 수집 실행이므로 시각 검증 통과 수에서 제외한다. 이 실행의 새 출력은 별도 보관하고 과거 증거 폴더를 Git 원본으로 복구했다. [겹침 결과](Editor/geometry-issues.txt)는 0건이다. 각 해상도 13개, 총 26개 원본을 저장했다. [이벤트 시각](Editor/events.txt)에는 획득·차단·회복·점수·표시 시점이 연결돼 있다.
 
 - 800×600 [수정 전](Before/Editor/800x600/emp-expansion/stability-game-render.png) / [수정 후](Editor/800x600/emp-expansion/stability-game-render.png)
 - 1280×720 [수정 전](Before/Editor/1280x720/score-replaces-emp-warning/stability-game-render.png) / [수정 후](Editor/1280x720/score-replaces-emp-warning/stability-game-render.png)
 - [회복 후 30%](Editor/800x600/heal-settled/stability-game-render.png), [시간제 종료·방어막 유지](Editor/800x600/timed-expired-shield-remains/stability-game-render.png)
 
 저체력의 30% 기준과 일시 회복 안내는 모순되지 않는다. EMP 점수는 상단 점수판에 즉시 반영되고 중앙은 EMP 안내가 우선한다. 다음 격파가 발생하면 중앙이 실제 점수 안내로 바뀐다. 시간 경과 중 자연 스포너/점수 배율 및 임의 드롭이 섞일 수 있으므로 다른 실행 간 최종 점수나 잔여 운석 수를 일치 기준으로 삼지 않는다. 검사 표적 파괴와 점수 증가 이벤트를 기준으로 판단한다.
+
+
+첫 Windows 후보 b1332af는 검사 시작 시 준비 화면 생성 전 조회로 실패했으며 공개하지 않았다. 준비 화면 CanStart 대기와 실제 시간 기준 검사 제한을 보완한 뒤 [after.xml](after.xml) 1/1을 다시 통과했다. 이 보완은 명시적 QA 경로에만 적용된다. 게임의 경고/능력 동작은 앞선 회귀 검사 이후 바뀌지 않았다.
