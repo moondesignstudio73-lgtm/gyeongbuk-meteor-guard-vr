@@ -67,6 +67,7 @@ namespace MeteorDefenseVR.PcInput
                         targets[i].SetMovementDirection(spawner.ShipCenter-targets[i].transform.position);
                     }
                     yield return new WaitForSecondsRealtime(.16f);
+                    Check(GameFlowManager.Instance.CurrentState==GameState.Playing&&Time.timeScale>0&&!router.Simulation.IsPaused,"Fixture paused or left combat");
                     telemetry.Refresh();Canvas.ForceUpdateCanvases();camera.Render();
                     var labels=(TextMeshProUGUI[])labelField.GetValue(indicator);
                     var mapped=(MeteorController[])targetField.GetValue(indicator);
@@ -87,6 +88,11 @@ namespace MeteorDefenseVR.PcInput
                         observed++;
                         trace.Add($"{size.x}x{size.y},{phase},{step},{targets.IndexOf(mapped[i])},{local.x:F2},{local.y:F2},{local.z:F2},{r.center.x:F4},{r.center.y:F4},{text.Replace('\n','|')},{telemetry.ThreatReadout.text.Replace('\n','|')}");
                     }
+                    int expectedCount=targets.Count(target=>{
+                        var p=camera.WorldToViewportPoint(target.transform.position);
+                        return p.z<=0||p.x<=.06f||p.x>=.94f||p.y<=.12f||p.y>=.88f;
+                    });
+                    Check(rects.Count==Mathf.Min(expectedCount,indicator.IndicatorLimit),"Expected threat labels missing");
                     string folder=$"{output}/{size.x}x{size.y}/{phase}/{step:D2}";
                     Directory.CreateDirectory(folder);proof.SaveGameOnlyProof(folder,router);
                 }
