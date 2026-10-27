@@ -1,0 +1,67 @@
+[
+  {
+    "file": "00-menu.jpg",
+    "utc": "2026-10-27T09:05:29.364Z",
+    "label": "menu"
+  },
+  {
+    "file": "01-start.jpg",
+    "utc": "2026-10-27T09:05:36.402Z",
+    "label": "start"
+  },
+  {
+    "file": "02-practice.jpg",
+    "utc": "2026-10-27T09:05:58.288Z",
+    "label": "practice"
+  },
+  {
+    "file": "03-practice-hit-one.jpg",
+    "utc": "2026-10-27T09:06:12.872Z",
+    "label": "practice-hit-one"
+  },
+  {
+    "file": "04-practice-hit-two.jpg",
+    "utc": "2026-10-27T09:06:20.868Z",
+    "label": "practice-hit-two"
+  },
+  {
+    "file": "05-practice-hit-three.jpg",
+    "utc": "2026-10-27T09:06:28.468Z",
+    "label": "practice-hit-three"
+  },
+  {
+    "file": "06-combat-entry.jpg",
+    "utc": "2026-10-27T09:06:44.725Z",
+    "label": "combat-entry"
+  },
+  {
+    "file": "07-natural-damage.jpg",
+    "utc": "2026-10-27T09:07:09.339Z",
+    "label": "natural-damage"
+  },
+  {
+    "file": "08-natural-critical.jpg",
+    "utc": "2026-10-27T09:07:29.829Z",
+    "label": "natural-critical"
+  },
+  {
+    "file": "09-return-transition.jpg",
+    "utc": "2026-10-27T09:07:43.998Z",
+    "label": "return-transition"
+  },
+  {
+    "file": "10-result-held-no-input.jpg",
+    "utc": "2026-10-27T09:08:18.102Z",
+    "label": "result-held-no-input"
+  },
+  {
+    "file": "11-explicit-relaunch.jpg",
+    "utc": "2026-10-27T09:08:37.907Z",
+    "label": "explicit-relaunch"
+  },
+  {
+    "file": "12-relaunch-combat.jpg",
+    "utc": "2026-10-27T09:08:56.522Z",
+    "label": "relaunch-combat"
+  }
+]
