@@ -16,4 +16,11 @@ Three initial Editor fixture attempts failed during setup. Moving verification i
 
 An initial 800px public-build fixture was interrupted by foreground focus changes and stalled before combat assertions. A clean second attempt passed; preservation reports confirm original records and non-session preferences restored. Neither scripted fixture constitutes OS gameplay or HMD validation. Raw logs and private data backups remain local and untracked.
 
-New executable regression and publication evidence will be added after packaging. Suno/listening and HMD verification remain pending.
+## Packaged executable regression
+
+- Product commit ae2cd406ecb809db2a6952dd088dd24c4011bb18, clean nondevelopment Windows build. ZIP 89,614,129 bytes, 222 archived files individually matched to build output. SHA256: 1fb0ba4c4dd1290094d5e1a54bd2a4d54844704a7c9014db4424b0f6910bb009.
+- Extracted ZIP, native 800x600 automated result fixture: completed=True, passed=True. Four pointer cycles, reading beyond the former timeout, settings interception/close, replay combat/hit, menu, and gaze selection passed. See new-800-fixture.txt. Screenshot standalone-800-result.jpg visually inspected: intact text and visible outlines. JPEG proxy difficulty 6.736, label 8.931, border 5.205; not a formal accessibility measurement.
+- Same extracted ZIP, ordinary 1280x720 PC mouse run without proof flag: Hard selected, three practice targets destroyed, natural combat/loss and return; result held visibly for an additional 12.156 seconds, direct Replay click returned through transition to combat; a second natural loss followed by direct Menu click reached the hangar menu. 62 timestamped frames retained under ordinary/. This is actual OS input, not synthetic result injection. It is not a victory completion test or an HMD test.
+- Original player records and non-session preferences restored after both runs. ProjectSettings hash preserved: A8C1FEDDDF182D07C33D8F5162907A0E99DD81F06D1D1995ABDB82EFE963FE89.
+
+Suno/listening and HMD verification remain pending. Existing threat-label side parking tradeoff is not newly validated by this contrast change.
